@@ -130,15 +130,15 @@ Three authored files, 27 records in total, all written for this project and take
 
 - `data/scenarios/lex01_starter.json` - 15 records (PREP-01).
 - `data/scenarios/lex01_extension.json` - 2 records (LEX-01 delayed retrieval).
-- `data/scenarios/tav01_sample_shift.json` - 10 records `t01`...`t10` (TAV-01, Issue #8): six day-1 records that introduce the new corpus words *holen, nehmen, zusammen, kosten, billig, teuer, fertig*, and four day-2 records that revisit four of them in the other camera framing with the staged facts changed. They are a representative subset, not the whole shift: the plan in `docs/tav01_learning_plan.md` records which events and which lemmas wait for TAV-03 props or TAV-04 actions, and why.
+- `data/scenarios/tav01_sample_shift.json` - 10 records `t01`...`t10` (TAV-01, Issue #8): six day-1 records that introduce the new corpus words *holen, nehmen, zusammen, kosten, billig, teuer, fertig*, and four day-2 records that revisit four of them in the other camera framing with the staged facts changed. They are a representative subset, not the whole shift: the plan in `docs/tav01_learning_plan.md` records which events and which lemmas wait for TAV-03 props or TAV-04 event situations, and why.
 
 Rules in those files are asserted by CI rather than left to the reader:
 
 - `distractor_note` - `distractor_lemma_ids` is the lemmas of the incorrect options minus the lemmas of the correct option; an empty list is valid (s13's and t03's two answers differ only by *ja*/*nein*).
-- `presentation_note` - option ids are the authored display slots, the correct answers are spread over `a`/`b`/`c` (starter 5/6/4, sample shift 4/4/2, so 10/11/6 across all 27 records), and LEX-01 must shuffle the visible order at play time so a fixed position can never become the strategy.
+- `presentation_note` - option ids are the authored display slots, the correct answers are spread over `a`/`b`/`c` (starter 5/6/4, extension 1/1, sample shift 5/4/1, so 11/11/5 across all 27 records), and LEX-01 must shuffle the visible order at play time so a fixed position can never become the strategy.
 - `gloss_note` - every record carries `utterance_gloss_ru` and every `respond` option carries `gloss_ru`, because the translation button has nothing to show otherwise.
 - `guided_note` - exactly one first-day `find_select` record carries `guided: true`; that record is the teach-before-test example and is presented first on day 1.
-- `decidability_note` (tav01 file) - a corpus lemma becomes a target only when the answer can be worked out from facts the scene presents: which object is staged where (t01, t03, t05, t07, t09, t10), a price stated in the utterance itself (t04, t06), or object identity, which is the basis the committed `bring_deliver` records already use (t02, t08). `deferred_lemma_note` records the lemmas that are *not* targets here and the single thing each one waits for, so a new word is never taught as a guess.
+- `decidability_note` (tav01 file) - a corpus lemma becomes a target only when the player has to understand it to answer (a word that the answer does not depend on would be credited by `Lex01Progress.attempt()` as practice that never happened), and only when the answer follows from facts the record presents: staged positions (t01, t03, t05, t07, t09, t10), a price stated in the utterance itself (t04, t06, t08), or object identity, which is the basis the committed `bring_deliver` records already use (t02). `deferred_lemma_note` records the lemmas that are *not* targets here and the single thing each one waits for, so a new word is never taught as a guess.
 
 ## Interface language and the Cyrillic font
 
