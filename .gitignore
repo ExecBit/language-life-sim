@@ -1,0 +1,20 @@
+# Godot imports/cache
+.godot/
+.import/
+*.tmp
+
+# Local builds, generated evidence and developer environment
+.local/
+build/
+exports/
+.env
+.env.*
+!.env.example
+
+# Python artifacts
+__pycache__/
+*.pyc
+
+# OS/editor
+.DS_Store
+Thumbs.db

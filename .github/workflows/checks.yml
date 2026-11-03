@@ -1,0 +1,26 @@
+name: Lightweight checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  repository:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Godot skeleton and workflow files
+        run: |
+          test -f project.godot
+          test -f scenes/main.tscn
+          test -f AGENTS.md
+          test -f .github/ISSUE_TEMPLATE/feature.yml
+          python3 - <<'PY'
+          from pathlib import Path
+          project = Path('project.godot').read_text(encoding='utf-8')
+          scene = Path('scenes/main.tscn').read_text(encoding='utf-8')
+          assert 'run/main_scene="res://scenes/main.tscn"' in project
+          assert '[node name="LanguageLifeSim" type="Node3D"]' in scene
+          print('Bootstrap structure OK; Godot runtime NOT_TESTED by CI.')
+          PY
