@@ -1,0 +1,160 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/lex01_hud.gd" id="1_hud"]
+[ext_resource type="PackedScene" path="res://addons/dialogue_manager/nodes/dialogue_label/dialogue_label.tscn" id="2_label"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/nodes/responses_menu/dialogue_responses_menu.gd" id="3_menu"]
+
+[sub_resource type="StyleBoxFlat" id="PanelDark"]
+content_margin_left = 18.0
+content_margin_top = 14.0
+content_margin_right = 18.0
+content_margin_bottom = 14.0
+bg_color = Color(0.07, 0.08, 0.10, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.32, 0.36, 0.42, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Lex01HUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="Layer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BottomPanel" type="PanelContainer" parent="Layer"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -330.0
+offset_right = -20.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PanelDark")
+
+[node name="Main" type="VBoxContainer" parent="Layer/BottomPanel"]
+layout_mode = 2
+
+[node name="SpeakerLabel" type="RichTextLabel" parent="Layer/BottomPanel/Main"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+fit_content = true
+scroll_active = false
+theme_override_font_sizes/normal_size = 18
+text = "der Mage"
+
+[node name="UtteranceLabel" parent="Layer/BottomPanel/Main" instance=ExtResource("2_label")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+mouse_filter = 2
+fit_content = false
+scroll_active = false
+theme_override_font_sizes/normal_size = 30
+text = ""
+
+[node name="ResponsesMenu" type="VBoxContainer" parent="Layer/BottomPanel/Main"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+script = ExtResource("3_menu")
+auto_focus_first_item = true
+
+[node name="PromptLabel" type="RichTextLabel" parent="Layer/BottomPanel/Main"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+fit_content = true
+scroll_active = false
+theme_override_font_sizes/normal_size = 18
+text = ""
+
+[node name="HeldLabel" type="RichTextLabel" parent="Layer/BottomPanel/Main"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+fit_content = true
+scroll_active = false
+theme_override_font_sizes/normal_size = 18
+text = ""
+
+[node name="StatusLabel" type="RichTextLabel" parent="Layer/BottomPanel/Main"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+fit_content = true
+scroll_active = false
+theme_override_font_sizes/normal_size = 15
+text = ""
+
+[node name="Controls" type="HBoxContainer" parent="Layer/BottomPanel/Main"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ContinueButton" type="Button" parent="Layer/BottomPanel/Main/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Weiter"
+
+[node name="SkipButton" type="Button" parent="Layer/BottomPanel/Main/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Weiter ohne Antwort"
+
+[node name="EndDayButton" type="Button" parent="Layer/BottomPanel/Main/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Tag beenden"
+
+[node name="NextDayButton" type="Button" parent="Layer/BottomPanel/Main/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Neuer Tag"
+
+[node name="ResetButton" type="Button" parent="Layer/BottomPanel/Main/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Neuer Durchgang"
+
+[node name="SummaryPanel" type="PanelContainer" parent="Layer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -250.0
+offset_right = 420.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PanelDark")
+
+[node name="SummaryLabel" type="RichTextLabel" parent="Layer/SummaryPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+scroll_active = false
+theme_override_font_sizes/normal_size = 20
+text = ""

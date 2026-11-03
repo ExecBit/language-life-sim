@@ -1,28 +1,78 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/lex01_game.gd" id="1_game"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/characters/Knight.glb" id="2_knight"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/characters/Mage.glb" id="3_mage"]
+[ext_resource type="PackedScene" path="res://scenes/lex01_hud.tscn" id="4_hud"]
 
 [sub_resource type="BoxMesh" id="FloorMesh"]
-size = Vector3(12, 0.2, 12)
+size = Vector3(14, 0.2, 14)
 
 [sub_resource type="StandardMaterial3D" id="FloorMaterial"]
-albedo_color = Color(0.46, 0.56, 0.49, 1)
+albedo_color = Color(0.42, 0.45, 0.48, 1)
+roughness = 0.9
 
-[sub_resource type="BoxMesh" id="PlaceholderMesh"]
+[sub_resource type="BoxMesh" id="WallMesh"]
 size = Vector3(1, 1, 1)
 
+[sub_resource type="StandardMaterial3D" id="WallMaterial"]
+albedo_color = Color(0.30, 0.33, 0.38, 1)
+roughness = 0.95
+
+[sub_resource type="Environment" id="RoomEnvironment"]
+background_mode = 1
+background_color = Color(0.11, 0.13, 0.16, 1)
+tonemap_mode = 2
+ambient_light_source = 3
+ambient_light_color = Color(0.55, 0.57, 0.62, 1)
+ambient_light_energy = 0.7
+
 [node name="LanguageLifeSim" type="Node3D"]
+script = ExtResource("1_game")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("RoomEnvironment")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 mesh = SubResource("FloorMesh")
 surface_material_override/0 = SubResource("FloorMaterial")
 
-[node name="Placeholder" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-mesh = SubResource("PlaceholderMesh")
+[node name="BackWall" type="MeshInstance3D" parent="."]
+transform = Transform3D(14, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 1.5, -5.6)
+mesh = SubResource("WallMesh")
+surface_material_override/0 = SubResource("WallMaterial")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 7, 11)
-current = true
+[node name="LeftWall" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 3, 0, 0, 0, 12, -6.6, 1.5, 0)
+mesh = SubResource("WallMesh")
+surface_material_override/0 = SubResource("WallMaterial")
+
+[node name="RightWall" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 3, 0, 0, 0, 12, 6.6, 1.5, 0)
+mesh = SubResource("WallMesh")
+surface_material_override/0 = SubResource("WallMaterial")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.707107, 0, 0.707107, -0.353553, 0.866025, 0.353553, -0.612372, -0.5, 0.612372, 0, 7, 0)
-light_energy = 1.2
+light_energy = 1.1
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 8.6)
+current = true
+far = 120.0
+
+[node name="NPCs" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Knight" parent="NPCs" instance=ExtResource("2_knight")]
+
+[node name="Mage" parent="NPCs" instance=ExtResource("3_mage")]
+
+[node name="Candidates" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="HUD" parent="." instance=ExtResource("4_hud")]
+unique_name_in_owner = true

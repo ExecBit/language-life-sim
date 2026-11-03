@@ -16,6 +16,7 @@ jobs:
            test -f scenes/main.tscn
            test -f AGENTS.md
            test -f .github/ISSUE_TEMPLATE/feature.yml
+           test -f data/room/lex01_room.json
            python3 - <<'PY'
            from pathlib import Path
            import json
@@ -26,40 +27,32 @@ jobs:
            assert '[node name="LanguageLifeSim" type="Node3D"]' in scene
            print('Bootstrap structure OK; Godot runtime NOT_TESTED by CI.')
 
-           # Starter content handoff for LEX-01 (Issue #4).
+           # Vocabulary handoff from PREP-01 (Issue #4).
            vocab = json.loads(Path('data/vocabulary/de_a1_starter.json').read_text(encoding='utf-8'))
-           scenarios_file = json.loads(Path('data/scenarios/lex01_starter.json').read_text(encoding='utf-8'))
 
            lemmas = vocab['lemmas']
            assert vocab['lemma_count'] == len(lemmas), 'lemma_count mismatch'
            assert 10 <= len(lemmas) <= 15, 'lemma count %d' % len(lemmas)
            lemma_ids = {lemma['id'] for lemma in lemmas}
            assert len(lemma_ids) == len(lemmas), 'duplicate lemma id'
+           lemma_objects = {}
            for lemma in lemmas:
                assert lemma['verified_in_source'] is True, 'unverified lemma %s' % lemma['id']
                for key in ('lemma', 'pos', 'sample_form', 'en', 'source_entry', 'source_page'):
                    assert lemma.get(key) not in (None, ''), '%s missing %s' % (lemma['id'], key)
                if lemma.get('scene_object'):
                    assert Path(lemma['scene_object'].replace('res://', '')).is_file(), lemma['scene_object']
+               lemma_objects[lemma['id']] = lemma.get('scene_object')
 
            allowed = {'find_select', 'bring_deliver', 'respond'}
-           scenarios = scenarios_file['scenarios']
-           assert scenarios_file['scenario_count'] == len(scenarios), 'scenario_count mismatch'
-           assert len(scenarios) == 15, 'scenario count %d' % len(scenarios)
-           assert scenarios_file.get('presentation_note'), 'presentation_note missing (LEX-01 must shuffle option order)'
-           assert scenarios_file.get('distractor_note'), 'distractor_note missing (distractor_lemma_ids needs a documented rule)'
-           contexts = {}
-           used_actions = set()
-           correct_positions = {}
-           for scenario in scenarios:
+
+           def validate_scenario(scenario):
                action = scenario['action_type']
                assert action in allowed, 'bad action_type in %s' % scenario['id']
-               used_actions.add(action)
                assert scenario['utterance_de'], 'empty utterance in %s' % scenario['id']
                assert scenario['feedback_correct_de'] and scenario['feedback_wrong_de'], 'missing feedback in %s' % scenario['id']
                for lemma_id in scenario['target_lemma_ids']:
                    assert lemma_id in lemma_ids, 'unknown target lemma in %s' % scenario['id']
-                   contexts.setdefault(lemma_id, set()).add((scenario['context'], action))
                if scenario.get('verb_lemma_id'):
                    assert scenario['verb_lemma_id'] in lemma_ids, 'unknown verb lemma in %s' % scenario['id']
                option_ids = [option['id'] for option in scenario['options']]
@@ -76,21 +69,93 @@ jobs:
                        wrong_lemmas.update(option['lemma_ids'])
                derived = sorted(wrong_lemmas - set(correct_option['lemma_ids']))
                assert derived == sorted(scenario['distractor_lemma_ids']), 'distractor_lemma_ids mismatch in %s: stored %s, derived %s' % (scenario['id'], sorted(scenario['distractor_lemma_ids']), derived)
-               correct_positions[scenario['correct_option_id']] = correct_positions.get(scenario['correct_option_id'], 0) + 1
                for option in scenario['options']:
                    assert option['label_de'], 'option without label in %s' % scenario['id']
                    for lemma_id in option['lemma_ids']:
                        assert lemma_id in lemma_ids, 'unknown option lemma in %s' % scenario['id']
                    if action != 'respond':
                        assert Path(option['scene_object'].replace('res://', '')).is_file(), option['scene_object']
-           assert used_actions == allowed, 'action types covered: %s' % sorted(used_actions)
+               target = scenario.get('delivery_target')
+               if isinstance(target, dict):
+                   if target['kind'] == 'npc':
+                       assert target['npc'] in room['npcs'], 'delivery_target names an unknown npc in %s' % scenario['id']
+                   else:
+                       assert Path(target['scene_object'].replace('res://', '')).is_file(), 'delivery_target model missing in %s' % scenario['id']
+               state = scenario.get('scene_state') or {}
+               for key, value in state.items():
+                   if key in ('focus_object', 'compared_object'):
+                       assert Path(str(value).replace('res://', '')).is_file(), 'scene_state %s model missing in %s' % (key, scenario['id'])
+                       continue
+                   if key == 'size_evidence':
+                       continue
+                   assert key in lemma_objects, 'scene_state key %s is not a known lemma in %s' % (key, scenario['id'])
+                   assert lemma_objects[key], 'scene_state lemma %s has no prop model in %s' % (key, scenario['id'])
+                   assert Path(lemma_objects[key].replace('res://', '')).is_file(), 'scene_state model missing in %s' % scenario['id']
+                   assert value in room['placement_slots'], 'scene_state slot %s is not declared in data/room/lex01_room.json (%s)' % (value, scenario['id'])
+
+           # The room layout is data too: LEX-01 places objects from it, so its own references
+           # have to be checked or a scenario could name a surface that does not exist.
+           room = json.loads(Path('data/room/lex01_room.json').read_text(encoding='utf-8'))
+           for section in ('npcs', 'cameras', 'candidate_slots', 'anchors', 'placement_slots', 'hold', 'delivery'):
+               assert isinstance(room.get(section), dict), 'room layout missing the %s section' % section
+           for name, npc in room['npcs'].items():
+               assert Path(npc['scene'].replace('res://', '')).is_file(), 'npc %s model missing' % name
+               assert npc.get('label_de'), 'npc %s has no label_de' % name
+           for name, slot in room['placement_slots'].items():
+               anchor = slot.get('anchor')
+               assert Path(str(anchor).replace('res://', '')).is_file(), 'placement slot %s anchor missing: %s' % (name, anchor)
+               assert anchor in room['anchors'], 'placement slot %s anchor has no position data: %s' % (name, anchor)
+               assert slot.get('mode') in ('on_top', 'at_front'), 'placement slot %s uses an unknown mode %s' % (name, slot.get('mode'))
+
+           # LEX-01 (Issue #2) reads every scenario file in the directory, which is what makes a
+           # new learning situation a data change instead of a code change. So the directory is
+           # validated as a whole, not just the file PREP-01 delivered.
+           starter = json.loads(Path('data/scenarios/lex01_starter.json').read_text(encoding='utf-8'))
+           starter_scenarios = starter['scenarios']
+           assert starter['scenario_count'] == len(starter_scenarios), 'scenario_count mismatch in the starter file'
+           assert len(starter_scenarios) == 15, 'starter scenario count %d' % len(starter_scenarios)
+           scenario_files = sorted(Path('data/scenarios').glob('*.json'))
+           assert len(scenario_files) >= 2, 'the loader needs more than one scenario file to prove data-only loading: %s' % [p.name for p in scenario_files]
+           all_scenarios = []
+           for path in scenario_files:
+               document = json.loads(path.read_text(encoding='utf-8'))
+               scenarios = document['scenarios']
+               assert document['scenario_count'] == len(scenarios), 'scenario_count mismatch in %s' % path.name
+               # A file that only repeats existing records proves nothing about learning value.
+               assert scenarios, 'no scenarios in %s' % path.name
+               assert document.get('presentation_note'), 'presentation_note missing in %s (LEX-01 must shuffle option order)' % path.name
+               assert document.get('distractor_note'), 'distractor_note missing in %s (distractor_lemma_ids needs a documented rule)' % path.name
+               for scenario in scenarios:
+                   validate_scenario(scenario)
+               all_scenarios.extend(scenarios)
+           assert len(all_scenarios) >= 16, 'only %d scenarios loaded from %s' % (len(all_scenarios), [p.name for p in scenario_files])
+
+           used_actions = set()
+           contexts = {}
+           correct_positions = {}
+           for scenario in all_scenarios:
+               used_actions.add(scenario['action_type'])
+               correct_positions[scenario['correct_option_id']] = correct_positions.get(scenario['correct_option_id'], 0) + 1
+               for lemma_id in scenario['target_lemma_ids']:
+                   contexts.setdefault(lemma_id, set()).add((scenario['context'], scenario['action_type']))
+           assert used_actions == {'find_select', 'bring_deliver', 'respond'}, 'action types covered: %s' % sorted(used_actions)
            # No answer position may be correct in half or more records, and a fixed
            # position would make the test solvable without understanding German.
            most_common = max(correct_positions.values())
-           assert most_common * 2 <= len(scenarios), 'correct answer sits in one position in %d of %d records' % (most_common, len(scenarios))
+           assert most_common * 2 <= len(all_scenarios), 'correct answer sits in one position in %d of %d records' % (most_common, len(all_scenarios))
            assert len(correct_positions) >= 3, 'only %d distinct correct-answer positions' % len(correct_positions)
            repeated = sorted(lemma_id for lemma_id, pairs in contexts.items() if len(pairs) >= 2)
            assert len(repeated) >= 5, 'only %d lemmas recur in two contexts' % len(repeated)
-           assert any(s.get('revisit_of') for s in scenarios), 'no day-2 revisit recorded'
-           print('Starter content OK: %d lemmas, %d scenarios, %d lemmas recurring in two contexts, correct-answer positions %s.' % (len(lemmas), len(scenarios), len(repeated), correct_positions))
+           assert any(s.get('revisit_of') for s in all_scenarios), 'no day-2 revisit recorded'
+           revisits = sorted(s['id'] for s in all_scenarios if s.get('revisit_of'))
+           revisit_sources = {s['revisit_of'] for s in all_scenarios if s.get('revisit_of')}
+           known_ids = {s['id'] for s in all_scenarios}
+           assert revisit_sources <= known_ids, 'revisit_of points at a scenario that does not exist: %s' % sorted(revisit_sources - known_ids)
+           assert len(revisits) >= 5, 'only %d scenarios are day-2 revisits' % len(revisits)
+           for context in sorted({s['context'] for s in all_scenarios}):
+               slots = room['candidate_slots'].get(context, room['candidate_slots'].get('default', []))
+               assert len(slots) >= 2, 'context %s has fewer than two candidate positions' % context
+               assert context in room['cameras'] or 'default' in room['cameras'], 'context %s has no camera' % context
+           print('Content OK: %d lemmas, %d scenario files, %d scenarios, %d lemmas recurring in two contexts, %d day-2 revisits, correct-answer positions %s.' % (
+               len(lemmas), len(scenario_files), len(all_scenarios), len(repeated), len(revisits), correct_positions))
            PY
