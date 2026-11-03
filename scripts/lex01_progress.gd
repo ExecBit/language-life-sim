@@ -21,14 +21,25 @@ extends RefCounted
 ## scheduling here: nothing in this slice measures retention, so nothing may report it.
 
 const SAVE_PATH: String = "user://lex01_progress.json"
+# An automated run (tools/lex01_probe.gd) drives the real scene and really saves, so it has to
+# save somewhere else: otherwise a probe run would read, rewrite or delete the progress a human
+# built by playing the scene.
+const PROBE_SAVE_PATH: String = "user://lex01_progress.probe.json"
 const SAVE_VERSION: int = 1
 const STAT_KEYS: PackedStringArray = ["encountered", "correct", "incorrect", "revisited", "skipped", "option_shown", "assisted", "unaided"]
 
+var save_path: String = SAVE_PATH
 var lemma_stats: Dictionary = {}
 var scenario_log: Dictionary = {}
 var current_day: int = 1
 var days_finished: Array[int] = []
 var onboarding_seen: bool = false
+
+
+## Point this recorder at the probe-only file. It has to be called before anything is loaded,
+## saved or deleted, because load/save/delete all follow save_path.
+func use_probe_save() -> void:
+	save_path = PROBE_SAVE_PATH
 
 
 func reset() -> void:
@@ -191,7 +202,7 @@ func save_run() -> bool:
 		"lemma_stats": lemma_stats,
 		"scenario_log": scenario_log,
 	}
-	var file: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	var file: FileAccess = FileAccess.open(save_path, FileAccess.WRITE)
 	if file == null:
 		return false
 	file.store_string(JSON.stringify(document, "  "))
@@ -200,9 +211,9 @@ func save_run() -> bool:
 
 
 func load_run() -> bool:
-	if not FileAccess.file_exists(SAVE_PATH):
+	if not FileAccess.file_exists(save_path):
 		return false
-	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(SAVE_PATH))
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(save_path))
 	if not (parsed is Dictionary) or int(parsed.get("version", 0)) != SAVE_VERSION:
 		return false
 	lemma_stats = {}
@@ -234,8 +245,8 @@ func load_run() -> bool:
 
 
 func delete_run() -> void:
-	if FileAccess.file_exists(SAVE_PATH):
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
+	if FileAccess.file_exists(save_path):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(save_path))
 	reset()
 
 

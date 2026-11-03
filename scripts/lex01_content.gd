@@ -70,6 +70,7 @@ func load_all() -> bool:
 		errors.append("cannot open scenario directory " + SCENARIO_DIR)
 		return false
 	var file_names: Array[String] = []
+	var scenario_origin: Dictionary = {}
 	for file_name: String in directory.get_files():
 		# DirAccess also reports the *.import sidecars Godot generates.
 		if file_name.ends_with(".json"):
@@ -93,6 +94,14 @@ func load_all() -> bool:
 			scenario["_source_file"] = path
 			_validate_scenario(scenario, path)
 			scenarios.append(scenario)
+			# Scenario ids are the keys of Lex01Progress.scenario_log, so a second record with the
+			# same id - in this file or in a file added later - would silently merge two different
+			# learning situations into one progress entry. That is refused instead of guessed at.
+			var id: String = String(scenario.get("id", "<no id>"))
+			if scenario_origin.has(id):
+				errors.append("duplicate scenario id '%s' in %s, already defined in %s (ids are progress keys, so each record needs its own)" % [id, path, scenario_origin[id]])
+			else:
+				scenario_origin[id] = path
 
 	if scenarios.is_empty():
 		errors.append("no scenario records loaded")

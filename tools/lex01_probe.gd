@@ -196,9 +196,17 @@ func _run_logic(game: Node) -> void:
 	var saved_totals: Dictionary = progress.totals()
 	progress.save_run()
 	var fresh: Lex01Progress = Lex01Progress.new()
+	# The reloaded instance has to read the same probe file, otherwise this check would read the
+	# human player's save instead of the one the probe just wrote.
+	fresh.use_probe_save()
 	var reloaded: bool = fresh.load_run()
 	var identical: bool = JSON.stringify(fresh.totals()) == JSON.stringify(saved_totals)
-	print("SAVE path=%s reloaded=%s identical=%s totals=%s" % [Lex01Progress.SAVE_PATH, reloaded, identical, saved_totals])
+	print("SAVE path='%s' player_path='%s' probe_isolated=%s reloaded=%s identical=%s totals=%s" % [
+		progress.save_path, Lex01Progress.SAVE_PATH, progress.save_path != Lex01Progress.SAVE_PATH,
+		reloaded, identical, saved_totals,
+	])
+	_expect(progress.save_path != Lex01Progress.SAVE_PATH,
+		"an automated run saves somewhere other than the human player's save file")
 	_expect(reloaded and identical, "progress saves and reloads identically")
 	_expect(bool(fresh.has_seen_onboarding()), "the finished briefing survives a reload")
 	var scenarios: Dictionary = progress.scenario_totals()

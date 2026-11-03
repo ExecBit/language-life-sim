@@ -168,6 +168,11 @@ jobs:
                    validate_scenario(scenario)
                all_scenarios.extend(scenarios)
            assert len(all_scenarios) >= 16, 'only %d scenarios loaded from %s' % (len(all_scenarios), [p.name for p in scenario_files])
+           # Scenario ids are the keys of Lex01Progress.scenario_log: a duplicate across two files
+           # would silently merge two learning situations into one progress entry, so it is refused
+           # here as well as by the in-game loader.
+           all_ids = [s['id'] for s in all_scenarios]
+           assert len(set(all_ids)) == len(all_ids), 'duplicate scenario id across scenario files: %s' % sorted({i for i in all_ids if all_ids.count(i) > 1})
 
            # The first card a player ever sees is decided in data, so CI guards it too: exactly one
            # record may claim it, and it has to be a task a beginner can actually do first.

@@ -75,6 +75,11 @@ func _ready() -> void:
 	])
 
 	progress = Lex01Progress.new()
+	# An automated run drives the real scene and really saves, so it is pointed at the probe file
+	# before anything is loaded, saved or deleted. A probe run can therefore never read, rewrite
+	# or delete the progress a human built by pressing F5.
+	if not _probe_mode.is_empty():
+		progress.use_probe_save()
 	builder = Lex01RoomBuilder.new()
 	builder.setup(content, candidates, npcs, rng)
 	builder.prepare_npcs()
@@ -205,10 +210,11 @@ func present_current() -> void:
 
 
 ## The ? button: the onboarding overlay is available at any time, not only on a first run.
+## Reopening while it is already open must not be a no-op that leaves `phase` behind the overlay,
+## because presenting a card sets phase to "asking" before the briefing is opened again.
 func open_onboarding() -> void:
-	if _onboarding_open:
-		return
-	_phase_before_onboarding = phase
+	if not _onboarding_open:
+		_phase_before_onboarding = phase
 	_onboarding_open = true
 	phase = "briefing"
 	hud.show_onboarding("%s\n\n%s" % [content.onboarding_text(), content.ui_line("briefing_hint")])
