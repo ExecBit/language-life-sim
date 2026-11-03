@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://cjupssk7fdof2"
+path="res://.godot/imported/prep_smoke.dialogue-67596af7ee3cb7a56c46e6f98b191010.tres"
+
+[deps]
+
+source_file="res://content/dialogue/prep_smoke.dialogue"
+dest_files=["res://.godot/imported/prep_smoke.dialogue-67596af7ee3cb7a56c46e6f98b191010.tres"]
+
+[params]
+
+defaults=true

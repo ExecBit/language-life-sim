@@ -1,0 +1,60 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://tools/prep_probe.gd" id="1_probe"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/characters/Knight.glb" id="2_knight"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/characters/Mage.glb" id="3_mage"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/furniture/table_medium.gltf" id="4_table"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/furniture/cabinet_medium.gltf" id="5_cabinet"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/furniture/couch.gltf" id="6_couch"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/furniture/bed_single_A.gltf" id="7_bed"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/furniture/pictureframe_medium.gltf" id="8_picture"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/fridge_A.gltf" id="9_fridge"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/food_ingredient_bun.gltf" id="10_bun"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/food_ingredient_potato.gltf" id="11_potato"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/food_ingredient_tomato.gltf" id="12_tomato"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/food_ingredient_steak.gltf" id="13_steak"]
+
+[node name="PrepPreview" type="Node3D"]
+script = ExtResource("1_probe")
+
+[node name="Knight" parent="." instance=ExtResource("2_knight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 1.5)
+
+[node name="Mage" parent="." instance=ExtResource("3_mage")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0, 1.5)
+
+[node name="TableMedium" parent="." instance=ExtResource("4_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+
+[node name="CabinetMedium" parent="." instance=ExtResource("5_cabinet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 0, -1.8)
+
+[node name="Couch" parent="." instance=ExtResource("6_couch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0, 0, 0.5)
+
+[node name="BedSingleA" parent="." instance=ExtResource("7_bed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 0, 1.2)
+
+[node name="PictureframeMedium" parent="." instance=ExtResource("8_picture")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.5, -3.0)
+
+[node name="FridgeA" parent="." instance=ExtResource("9_fridge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, 0, -2.2)
+
+[node name="Bun" parent="." instance=ExtResource("10_bun")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.78, -1.5)
+
+[node name="Potato" parent="." instance=ExtResource("11_potato")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0.78, -1.5)
+
+[node name="Tomato" parent="." instance=ExtResource("12_tomato")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78, -1.8)
+
+[node name="Steak" parent="." instance=ExtResource("13_steak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78, -1.2)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 2.6, 7)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 4, 0)
