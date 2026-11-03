@@ -3,7 +3,15 @@ extends Node3D
 ## PREP-01 compatibility smoke (Issue #4).
 ## Checks that the two KayKit characters imported with the required clips on their
 ## own rig, that the selected furniture and item props import as meshes, and that
-## idle / walk / interact actually move a bone. No rig tuning, no IK, no navigation.
+## every required clip actually plays and moves a bone. No rig tuning, no IK, no navigation.
+##
+## Each (character, clip) pair gets its own exclusive time slot: both characters share a
+## single AnimationPlayer, so playing three clips in one slot would leave only the last
+## one active and make the earlier results meaningless. Inside its slot the probe also
+## asserts that the player is really playing the clip it is measuring.
+##
+## Headless run  -> automated probe: report and quit.
+## Windowed run  -> manual preview: loop the clips for human inspection until Esc or close.
 
 const REQUIRED_CLIPS: Array[String] = ["Idle", "Walking_A", "Interact"]
 const CHARACTER_NAMES: Array[String] = ["Knight", "Mage"]
@@ -19,16 +27,26 @@ const PROP_NAMES: Array[String] = [
 	"Tomato",
 	"Steak",
 ]
+# The two committed props whose measured sizes back scenario s14 in
+# data/scenarios/lex01_starter.json ("Ist das Sofa größer als das Bild?").
+const SIZE_COMPARISON: Array[String] = ["Couch", "PictureframeMedium"]
 
-var _targets: Array[Dictionary] = []
-var _samples: Dictionary = {}
+const SLOT_FRAMES: int = 18
+const SAMPLE_FRAMES: Array[int] = [2, 8, 14]
+
+var _slots: Array[Dictionary] = []
+var _poses: Dictionary = {}
 var _playing: Dictionary = {}
+var _current_animation: Dictionary = {}
 var _failures: PackedStringArray = []
 var _frames: int = 0
 var _finished: bool = false
+var _manual: bool = false
 
 
 func _ready() -> void:
+	_manual = DisplayServer.get_name() != "headless"
+
 	for character_name: String in CHARACTER_NAMES:
 		var character: Node = get_node_or_null(NodePath(character_name))
 		if character == null:
@@ -48,7 +66,8 @@ func _ready() -> void:
 			if not clip_names.has(clip):
 				_failures.append("%s is missing clip %s" % [character_name, clip])
 				continue
-			_targets.append({ "name": character_name, "clip": clip, "player": player, "skeleton": skeleton })
+			# One slot per character and clip - never two clips on one player at a time.
+			_slots.append({ "name": character_name, "clip": clip, "player": player, "skeleton": skeleton })
 
 	var prop_meshes: int = 0
 	for prop_name: String in PROP_NAMES:
@@ -62,53 +81,86 @@ func _ready() -> void:
 			_failures.append("prop has no mesh: " + prop_name)
 	print("PROPS with mesh=%d/%d" % [prop_meshes, PROP_NAMES.size()])
 
-	if _targets.is_empty():
+	_measure_size_comparison()
+
+	if _slots.is_empty():
 		_report()
+	elif _manual:
+		print("PREVIEW MANUAL - clips loop on both characters, press Esc or close the window to finish")
 
 
 func _process(_delta: float) -> void:
 	if _finished:
 		return
 	_frames += 1
-	var slot: int = int(float(_frames) / 10.0)
-	if slot >= REQUIRED_CLIPS.size():
+	var slot_index: int = int((_frames - 1) / SLOT_FRAMES)
+	if slot_index >= _slots.size():
+		if _manual:
+			# Manual preview keeps cycling so a person can watch each clip.
+			_frames = 0
+			return
 		_report()
 		return
-	if _frames % 10 == 1:
-		for target: Dictionary in _targets:
-			var player: AnimationPlayer = target["player"]
-			player.play(target["clip"])
-	if _frames % 10 == 3:
-		_take_sample("early")
-	elif _frames % 10 == 8:
-		_take_sample("late")
+	var frame_in_slot: int = (_frames - 1) % SLOT_FRAMES
+	var target: Dictionary = _slots[slot_index]
+	var player: AnimationPlayer = target["player"]
+	if frame_in_slot == 0:
+		player.play(target["clip"])
+		if _manual:
+			print("PREVIEW %s -> %s" % [target["name"], target["clip"]])
+	elif SAMPLE_FRAMES.has(frame_in_slot):
+		_take_sample(target)
 
 
-func _take_sample(stage: String) -> void:
-	for target: Dictionary in _targets:
-		var key: String = "%s/%s" % [target["name"], target["clip"]]
-		var player: AnimationPlayer = target["player"]
-		_playing[key] = player.is_playing()
-		# Sample the bound skeleton instead of resolving animation track paths by hand:
-		# a pose that changes while the clip plays proves the imported rig works as is.
-		var skeleton: Skeleton3D = target["skeleton"]
-		var pose_sum: Vector3 = Vector3.ZERO
-		for i: int in mini(skeleton.get_bone_count(), 8):
-			pose_sum += skeleton.get_bone_global_pose(i).origin
-		_samples[key + "_" + stage] = pose_sum
+func _unhandled_input(event: InputEvent) -> void:
+	if _manual and event.is_action_pressed("ui_cancel"):
+		get_tree().quit(0)
+
+
+# Sample every bone of the bound skeleton three times inside the slot of the clip that
+# owns it, so a pose delta always belongs to the animation that was actually assigned to
+# the player, and no clip can hide behind a bone that never moves.
+func _take_sample(target: Dictionary) -> void:
+	var key: String = "%s/%s" % [target["name"], target["clip"]]
+	var player: AnimationPlayer = target["player"]
+	_playing[key] = player.is_playing()
+	_current_animation[key] = player.current_animation
+	var skeleton: Skeleton3D = target["skeleton"]
+	var pose: PackedVector3Array = PackedVector3Array()
+	for i: int in skeleton.get_bone_count():
+		pose.append(skeleton.get_bone_global_pose(i).origin)
+	var poses: Array = _poses.get(key, [])
+	poses.append(pose)
+	_poses[key] = poses
+
+
+# Largest distance any single bone travelled between two consecutive samples.
+func _max_bone_delta(key: String) -> float:
+	var poses: Array = _poses.get(key, [])
+	var largest: float = 0.0
+	for s: int in range(1, poses.size()):
+		var previous: PackedVector3Array = poses[s - 1]
+		var current: PackedVector3Array = poses[s]
+		if previous.size() != current.size():
+			continue
+		for i: int in previous.size():
+			largest = maxf(largest, previous[i].distance_to(current[i]))
+	return largest
 
 
 func _report() -> void:
 	if _finished:
 		return
 	_finished = true
-	for target: Dictionary in _targets:
+	for target: Dictionary in _slots:
 		var key: String = "%s/%s" % [target["name"], target["clip"]]
-		var early: Variant = _samples.get(key + "_early")
-		var late: Variant = _samples.get(key + "_late")
-		var moved: bool = early is Vector3 and late is Vector3 and early.distance_to(late) > 0.001
+		var moved: bool = _max_bone_delta(key) > 0.001
 		var played: bool = bool(_playing.get(key, false))
-		print("CLIP %s -> playing=%s bone_moved=%s" % [key, played, moved])
+		var current: String = String(_current_animation.get(key, ""))
+		var correct_clip: bool = current == String(target["clip"])
+		print("CLIP %s -> current=%s playing=%s max_bone_delta=%.4f bone_moved=%s" % [key, current, played, _max_bone_delta(key), moved])
+		if not correct_clip:
+			_failures.append("player was not playing the clip under test: %s (current=%s)" % [key, current])
 		if not played or not moved:
 			_failures.append("clip did not play or did not move a bone: " + key)
 	if _failures.is_empty():
@@ -119,6 +171,68 @@ func _report() -> void:
 		for failure: String in _failures:
 			print("  - " + failure)
 		get_tree().quit(1)
+
+
+# Measure the two props s14 compares, once, from the meshes Godot already imported.
+func _measure_size_comparison() -> void:
+	var sizes: Array[Vector3] = []
+	for prop_name: String in SIZE_COMPARISON:
+		var size: Vector3 = _prop_world_size(prop_name)
+		if size == Vector3.ZERO:
+			_failures.append("cannot measure prop size: " + prop_name)
+		print("PROP_SIZE %s size=(%.3f, %.3f, %.3f)" % [prop_name, size.x, size.y, size.z])
+		sizes.append(size)
+	if sizes.size() != SIZE_COMPARISON.size():
+		return
+	var larger: float = sizes[0].x * sizes[0].y * sizes[0].z
+	var smaller: float = sizes[1].x * sizes[1].y * sizes[1].z
+	var is_larger: bool = larger > smaller
+	print("SIZE_CHECK %s > %s = %s" % [SIZE_COMPARISON[0], SIZE_COMPARISON[1], is_larger])
+	if not is_larger:
+		_failures.append("scenario s14 expects %s to be larger than %s" % [SIZE_COMPARISON[0], SIZE_COMPARISON[1]])
+
+
+func _prop_world_size(prop_name: String) -> Vector3:
+	var prop: Node = get_node_or_null(NodePath(prop_name))
+	if prop == null:
+		return Vector3.ZERO
+	var meshes: Array[Node] = []
+	_collect_meshes(prop, meshes)
+	# Bounding box by hand from the eight world-space corners of each mesh: exact for the
+	# unrotated props in the preview scene and free of any geometry helper.
+	var low: Vector3 = Vector3(INF, INF, INF)
+	var high: Vector3 = Vector3(-INF, -INF, -INF)
+	var found: bool = false
+	for mesh: Node in meshes:
+		var instance: MeshInstance3D = mesh as MeshInstance3D
+		for corner: Vector3 in _corners(instance.get_aabb()):
+			var point: Vector3 = instance.global_transform * corner
+			low = Vector3(minf(low.x, point.x), minf(low.y, point.y), minf(low.z, point.z))
+			high = Vector3(maxf(high.x, point.x), maxf(high.y, point.y), maxf(high.z, point.z))
+			found = true
+	return high - low if found else Vector3.ZERO
+
+
+func _corners(box: AABB) -> Array[Vector3]:
+	var lo: Vector3 = box.position
+	var hi: Vector3 = box.position + box.size
+	return [
+		lo,
+		Vector3(hi.x, lo.y, lo.z),
+		Vector3(lo.x, hi.y, lo.z),
+		Vector3(lo.x, lo.y, hi.z),
+		Vector3(hi.x, hi.y, lo.z),
+		Vector3(hi.x, lo.y, hi.z),
+		Vector3(lo.x, hi.y, hi.z),
+		hi,
+	]
+
+
+func _collect_meshes(node: Node, out: Array[Node]) -> void:
+	if node is MeshInstance3D:
+		out.append(node)
+	for child: Node in node.get_children():
+		_collect_meshes(child, out)
 
 
 func _find_skeleton(node: Node) -> Skeleton3D:

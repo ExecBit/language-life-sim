@@ -46,8 +46,11 @@ jobs:
            scenarios = scenarios_file['scenarios']
            assert scenarios_file['scenario_count'] == len(scenarios), 'scenario_count mismatch'
            assert len(scenarios) == 15, 'scenario count %d' % len(scenarios)
+           assert scenarios_file.get('presentation_note'), 'presentation_note missing (LEX-01 must shuffle option order)'
+           assert scenarios_file.get('distractor_note'), 'distractor_note missing (distractor_lemma_ids needs a documented rule)'
            contexts = {}
            used_actions = set()
+           correct_positions = {}
            for scenario in scenarios:
                action = scenario['action_type']
                assert action in allowed, 'bad action_type in %s' % scenario['id']
@@ -61,7 +64,19 @@ jobs:
                    assert scenario['verb_lemma_id'] in lemma_ids, 'unknown verb lemma in %s' % scenario['id']
                option_ids = [option['id'] for option in scenario['options']]
                assert len(option_ids) >= 2, 'fewer than two options in %s' % scenario['id']
+               assert len(set(option_ids)) == len(option_ids), 'duplicate option id in %s' % scenario['id']
+               assert option_ids == [chr(ord('a') + i) for i in range(len(option_ids))], 'option ids must stay the positional labels a/b/c in %s' % scenario['id']
                assert scenario['correct_option_id'] in option_ids, 'bad correct_option_id in %s' % scenario['id']
+               # distractor_note: distractor_lemma_ids = lemmas of the incorrect options
+               # minus the lemmas of the correct option. An empty list is valid (s13).
+               correct_option = scenario['options'][option_ids.index(scenario['correct_option_id'])]
+               wrong_lemmas = set()
+               for option in scenario['options']:
+                   if option['id'] != scenario['correct_option_id']:
+                       wrong_lemmas.update(option['lemma_ids'])
+               derived = sorted(wrong_lemmas - set(correct_option['lemma_ids']))
+               assert derived == sorted(scenario['distractor_lemma_ids']), 'distractor_lemma_ids mismatch in %s: stored %s, derived %s' % (scenario['id'], sorted(scenario['distractor_lemma_ids']), derived)
+               correct_positions[scenario['correct_option_id']] = correct_positions.get(scenario['correct_option_id'], 0) + 1
                for option in scenario['options']:
                    assert option['label_de'], 'option without label in %s' % scenario['id']
                    for lemma_id in option['lemma_ids']:
@@ -69,8 +84,13 @@ jobs:
                    if action != 'respond':
                        assert Path(option['scene_object'].replace('res://', '')).is_file(), option['scene_object']
            assert used_actions == allowed, 'action types covered: %s' % sorted(used_actions)
+           # No answer position may be correct in half or more records, and a fixed
+           # position would make the test solvable without understanding German.
+           most_common = max(correct_positions.values())
+           assert most_common * 2 <= len(scenarios), 'correct answer sits in one position in %d of %d records' % (most_common, len(scenarios))
+           assert len(correct_positions) >= 3, 'only %d distinct correct-answer positions' % len(correct_positions)
            repeated = sorted(lemma_id for lemma_id, pairs in contexts.items() if len(pairs) >= 2)
            assert len(repeated) >= 5, 'only %d lemmas recur in two contexts' % len(repeated)
            assert any(s.get('revisit_of') for s in scenarios), 'no day-2 revisit recorded'
-           print('Starter content OK: %d lemmas, %d scenarios, %d lemmas recurring in two contexts.' % (len(lemmas), len(scenarios), len(repeated)))
+           print('Starter content OK: %d lemmas, %d scenarios, %d lemmas recurring in two contexts, correct-answer positions %s.' % (len(lemmas), len(scenarios), len(repeated), correct_positions))
            PY

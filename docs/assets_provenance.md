@@ -4,8 +4,13 @@ Every third-party file this repository commits for Issue #4 is listed here with 
 commit it came from, its byte size and its SHA-256 as measured on the working tree. Re-check with:
 
 ```powershell
-Get-FileHash -Algorithm SHA256 -Recurse assets/kaykit
+Get-ChildItem -Recurse -File assets/kaykit | Get-FileHash -Algorithm SHA256
 ```
+
+(`Get-FileHash` has no `-Recurse` parameter; the file list has to be piped into it.) The command lists
+45 files: the 27 third-party files in the tables below, the 2 textures Godot extracted from the
+character GLBs (listed under the character table), and the 16 `*.import` sidecars Godot wrote during
+import. Only the 27 downloaded files have hash rows here.
 
 ## Engine
 
@@ -66,6 +71,17 @@ Godot's import also extracted the embedded textures into `Knight_knight_texture.
 
 The five props were chosen so each one matches a lemma in `data/vocabulary/de_a1_starter.json`: table_medium = *der Tisch*, cabinet_medium = *der Schrank*, couch = *das Sofa*, bed_single_A = *das Bett*, pictureframe_medium = *das Bild*. `furniturebits_texture.png` is the single shared atlas these `.gltf` files reference.
 
+#### Measured prop sizes behind scenario `s14`
+
+Scenario `s14` asks a comparison between two of these props, so the answer rests on the imported geometry instead of on a size judgement. `tools/prep_probe.gd` merges the world-space AABB of each prop's meshes once per run, prints them and asserts the comparison:
+
+| Prop | Printed size (x, y, z in metres) |
+| --- | --- |
+| `couch.gltf` (*das Sofa*) | `PROP_SIZE Couch size=(3.000, 1.224, 1.600)` |
+| `pictureframe_medium.gltf` (*das Bild*) | `PROP_SIZE PictureframeMedium size=(0.700, 0.900, 0.200)` |
+
+`SIZE_CHECK Couch > PictureframeMedium = true` is part of the same headless preview run, and the numbers are quoted in `s14`'s `scene_state.size_evidence`.
+
 ### Items — KayKit-Restaurant-Bits-1.0
 
 | Committed file | Source path in the repo | Bytes | SHA-256 |
@@ -95,9 +111,24 @@ Item choice follows the same rule: fridge_A = *der Kühlschrank*, food_ingredien
 - English glosses are agent-authored helper translations; the Goethe list itself is monolingual.
 - Extraction used a throwaway `.local/venv` with `pypdf`; no PDF tooling is committed.
 
+## Dialogue plugin smoke
+
+The two-choice reply is proven with the plugin's own balloon, not a custom UI: `tools/prep_dialogue_probe.gd` calls `DialogueManager.show_dialogue_balloon(...)`, asserts the balloon is visible with the German line in its `DialogueLabel` and exactly two visible answer buttons from `ResponsesMenu.get_menu_items()`, then clicks the second button with a real `InputEventMouseButton` pushed through `get_viewport().push_input(...)` and asserts the balloon advanced to the matching branch before `dialogue_ended` fired. That run needs a window (GUI picking is not reliable headless), so it is a short windowed smoke test:
+
+```powershell
+& $godot --path . res://scenes/prep_dialogue_smoke.tscn --quit-after 1500 -- --auto
+```
+
+Running the same scene without `-- --auto` leaves the balloon open for a human to click.
+
 ## Scenario content
 
 `data/scenarios/lex01_starter.json` (15 records) is authored for this project and not taken from any source, so no third-party licence applies to it.
+
+Two rules in that file are asserted by CI rather than left to the reader:
+
+- `distractor_note` — `distractor_lemma_ids` is the lemmas of the incorrect options minus the lemmas of the correct option; an empty list is valid (s13's two answers differ only by *ja*/*nein*).
+- `presentation_note` — option ids are the authored display slots, the correct answers are spread over `a`/`b`/`c` (5/6/4), and LEX-01 must shuffle the visible order at play time so a fixed position can never become the strategy.
 
 ## Not committed
 
