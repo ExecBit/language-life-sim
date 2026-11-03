@@ -5,17 +5,19 @@ extends RefCounted
 ## player would observe. Both modes run on scenes/main.tscn, so the room, the picking and the
 ## HUD are the shipped ones, not a copy.
 ##
-##   --probe         headless: the whole learning loop over both days, progress, saves,
-##                   retry re-shuffling, skip, end-of-day summary, day-2 revisits
-##   --probe-input   windowed: a real mouse click on a prop, on a delivery target, and on a
-##                   response button of the DialogueResponsesMenu
+##   --probe         headless: the whole learning loop over both days, progress, saves, retry
+##                   re-shuffling, skip, end-of-day summary, day-2 revisits, the beginner
+##                   briefing gate, the guided first task and assisted vs unaided answers
+##   --probe-input   windowed: a real mouse click on a prop, on a delivery target, on a response
+##                   button of the DialogueResponsesMenu, on the ? button and on the translation
+##                   button
 
 var _failures: PackedStringArray = []
 var _checks: int = 0
 var _completed: bool = false
 # A probe that stopped early is a failure, never an empty pass.
-const MIN_LOGIC_CHECKS: int = 60
-const MIN_INPUT_CHECKS: int = 10
+const MIN_LOGIC_CHECKS: int = 120
+const MIN_INPUT_CHECKS: int = 26
 
 
 func run(game: Node, mode: String) -> int:
@@ -60,6 +62,12 @@ func _run_logic(game: Node) -> void:
 	_expect(content.scenario_files.size() >= 2, "the loader reads more than one scenario file")
 	_expect(content.scenarios.size() >= 16, "the loader also loads the extension scenarios")
 	_expect(content.days().size() >= 2, "the data describes more than one day")
+	_expect(content.ui_section("buttons").size() >= 8, "the loader also reads the interface text file")
+	_expect(content.scenarios.size() >= 17 and _glossed_scenario_count(content) == content.scenarios.size(),
+		"every scenario record carries a Russian meaning of its German prompt")
+	_expect(_glossed_option_count(content) >= 12, "every answer sentence carries a Russian meaning")
+	_expect(_glossed_lemma_count(content) >= 10, "every object lemma carries a Russian meaning")
+	_expect(content.guided_scenario_for_day(int(content.days()[0])) != {}, "the first day has a guided first example")
 
 	var actions: Dictionary = {}
 	for scenario: Dictionary in content.scenarios:
@@ -68,7 +76,9 @@ func _run_logic(game: Node) -> void:
 	for required: String in ["find_select", "bring_deliver", "respond"]:
 		_expect(int(actions.get(required, 0)) > 0, "action type %s is playable" % required)
 
-	_expect(String(game.probe_state()["phase"]) == "asking", "the day starts in a playable situation")
+	_check_beginning(game, content, progress)
+	_check_font_and_chrome(game)
+	_expect(String(game.probe_state()["phase"]) == "asking", "the day starts in a playable situation once the briefing is closed")
 	_check_skip_does_not_lock(game, progress)
 
 	var seen: PackedStringArray = PackedStringArray()
@@ -78,10 +88,12 @@ func _run_logic(game: Node) -> void:
 	var gloss_tokens: PackedStringArray = _forbidden_gloss_tokens(content)
 
 	for day: int in content.days():
+		# Snapshot before the day starts: starting a day already presents its first card, and a
+		# revisit that lands first would otherwise be measured as no change at all.
+		var revisited_before: Dictionary = _stat_snapshot(progress, "revisited")
 		if day != int(content.days()[0]):
 			game.probe_next_day()
 			print("NEXT_DAY day=%d queue=%d" % [int(game.probe_state()["day"]), int(game.probe_state()["queue_size"])])
-		var revisited_before: Dictionary = _stat_snapshot(progress, "revisited")
 		var day_total: int = int(game.probe_state()["queue_size"])
 		var guard: int = 0
 		while String(game.probe_state()["phase"]) == "asking" and guard < day_total + 4:
@@ -93,6 +105,16 @@ func _run_logic(game: Node) -> void:
 			var state: Dictionary = game.probe_state()
 			var visible: Array[String] = state["view_order"]
 			presentations += 1
+			# Only the guided example may show a translation on its own; every other task has to be
+			# read as German until the player asks.
+			var guided: bool = bool(state["guided"])
+			_expect(guided or String(state["gloss"]).is_empty(),
+				"%s starts with its translation hidden" % id)
+			_expect(not guided or not String(state["gloss"]).is_empty(),
+				"%s is the guided example and shows its translation without being asked" % id)
+			_expect(_has_cyrillic(String(state["prompt"])), "%s explains the task in the interface language" % id)
+			_expect(String(state["utterance_visible"]) == String(scenario.get("utterance_de", "")),
+				"%s still shows the German sentence exactly as the record writes it" % id)
 			if visible != authored:
 				mismatches += 1
 			print("SHUFFLE %s action=%s authored=%s visible=%s positions=%s staged=%d responses=%d" % [
@@ -101,6 +123,16 @@ func _run_logic(game: Node) -> void:
 			_collect_text(seen, game.probe_hud_texts(), scenario)
 			if action == "respond":
 				_check_response_menu(game, scenario)
+			# Two kinds of answer are recorded on scenarios the loop plays anyway, so no task is used
+			# up just to test the accounting.
+			var assisted_this_one: bool = false
+			if not guided:
+				if int(done.get("assisted", 0)) < 2:
+					done["assisted"] = int(done.get("assisted", 0)) + 1
+					_check_hint_revealed(game, scenario, progress)
+					assisted_this_one = true
+				elif int(done.get("unaided", 0)) < 2:
+					done["unaided"] = int(done.get("unaided", 0)) + 1
 			if action == "find_select" and not done.has("find_wrong"):
 				done["find_wrong"] = true
 				_check_wrong_then_retry(game, scenario, progress)
@@ -115,6 +147,11 @@ func _run_logic(game: Node) -> void:
 			_answer_by_correct_id(game, scenario)
 			_expect(String(game.probe_state()["phase"]) == "solved",
 				"%s solved by answering its recorded correct option id" % id)
+			if assisted_this_one:
+				_check_recorded_assisted(game, scenario, progress)
+			elif int(done.get("unaided", 0)) > 0 and int(done.get("unaided_reported", 0)) < 2:
+				done["unaided_reported"] = int(done.get("unaided_reported", 0)) + 1
+				_check_recorded_unaided(game, scenario, progress)
 			game.probe_continue()
 
 		var totals: Dictionary = progress.totals()
@@ -163,10 +200,221 @@ func _run_logic(game: Node) -> void:
 	var identical: bool = JSON.stringify(fresh.totals()) == JSON.stringify(saved_totals)
 	print("SAVE path=%s reloaded=%s identical=%s totals=%s" % [Lex01Progress.SAVE_PATH, reloaded, identical, saved_totals])
 	_expect(reloaded and identical, "progress saves and reloads identically")
+	_expect(bool(fresh.has_seen_onboarding()), "the finished briefing survives a reload")
+	var scenarios: Dictionary = progress.scenario_totals()
+	print("ANSWER_KINDS %s" % [scenarios])
+	_expect(int(scenarios["solved_assisted"]) >= 1 and int(scenarios["solved_unaided"]) >= 1,
+		"the run records translation-aided and unaided answers separately")
+	_expect(int(saved_totals["assisted"]) >= 1 and int(saved_totals["unaided"]) >= 1,
+		"the lemma counters keep assisted and unaided answers apart")
+	_expect(int(scenarios["solved_assisted"]) + int(scenarios["solved_unaided"]) == int(scenarios["solved"]),
+		"every solved scenario is counted exactly once as assisted or as unaided")
 	_expect(int(saved_totals["correct"]) >= 10 and int(saved_totals["incorrect"]) >= 3 and int(saved_totals["revisited"]) >= 1,
 		"the probe recorded correct, incorrect and revisit counts separately")
 
 	_check_scene_state_placement(game, content)
+
+
+# region beginner flow
+
+## A first run must not be clickable. Everything in this block is about the reviewer's problem:
+## a player who cannot read German had no way to find out what to do.
+func _check_beginning(game: Node, content: Variant, progress: Variant) -> void:
+	var start: Dictionary = game.probe_state()
+	var guided_scenario: Dictionary = content.guided_scenario_for_day(int(start["day"]))
+	var guided_id: String = String(guided_scenario.get("id", ""))
+	print("BRIEFING phase=%s overlay_open=%s first=%s guided=%s gloss_shown=%s" % [
+		String(start["phase"]), bool(start["onboarding_open"]), String(start["scenario_id"]),
+		bool(start["guided"]), not String(start["gloss"]).is_empty(),
+	])
+	_expect(String(start["phase"]) == "briefing", "a fresh run opens in the briefing instead of an unexplained task")
+	_expect(bool(start["onboarding_open"]), "the onboarding overlay is open on a fresh run")
+	_expect(_has_cyrillic(String(start["onboarding_text"])), "the onboarding overlay is written in the interface language")
+	_expect(String(start["onboarding_text"]).count(")") >= 3, "the onboarding overlay explains more than one step")
+	_expect(String(start["scenario_id"]) == guided_id, "the first task presented is the record marked guided")
+	_expect(bool(start["guided"]), "the first task is the guided example")
+	_expect(not String(start["gloss"]).is_empty() and _has_cyrillic(String(start["gloss"])),
+		"the guided example shows its translation without being asked for one")
+	_expect(String(start["utterance_visible"]) == String(guided_scenario.get("utterance_de", "")),
+		"the guided example still shows the German sentence, not a translation instead of it")
+
+	# Objects stand where the record authored them on the guided card only.
+	var authored_slots: Dictionary = {}
+	var authored_options: Array = guided_scenario.get("options", [])
+	for index: int in authored_options.size():
+		authored_slots[String(authored_options[index]["id"])] = index
+	var staged_slots: Dictionary = start["slots"]
+	var authored_positions: bool = true
+	for key: String in authored_slots:
+		if int(staged_slots.get(key, -1)) != int(authored_slots[key]):
+			authored_positions = false
+	print("GUIDED_ORDER first=%s authored_slots=%s staged_slots=%s kept=%s" % [guided_id, authored_slots, staged_slots, authored_positions])
+	_expect(authored_positions, "the guided example keeps the object positions its record authored")
+
+	# The learner cannot answer before closing the briefing.
+	var guided_entry_before: Dictionary = progress.scenario_entry(guided_id)
+	var blocked: Dictionary = game.probe_select_option(String(_wrong_option_id(guided_scenario)))
+	print("BRIEFING_CLICK phase=%s attempts=%d solved=%s was_presented=%s" % [
+		String(blocked["phase"]), int(blocked["attempts"]),
+		bool(progress.scenario_entry(guided_id).get("solved", false)),
+		bool(guided_entry_before.get("presented", false)),
+	])
+	_expect(String(blocked["phase"]) == "briefing", "an answer attempt while the briefing is open changes nothing")
+	_expect(int(blocked["attempts"]) == 0, "an answer attempt while the briefing is open is not even counted")
+	_expect(not bool(progress.scenario_entry(guided_id).get("solved", false)), "nothing is solved before the briefing is closed")
+	_expect(bool(progress.scenario_entry(guided_id).get("presented", false)), "the guided example is the task the briefing is about")
+
+	# The first card is decided by the data, not by one lucky seed.
+	var first_ids: PackedStringArray = PackedStringArray()
+	var rest_orders: Array[String] = []
+	for seed_value: int in [1, 7, 1234, 991, 424242]:
+		var order: PackedStringArray = game.probe_day_order(int(content.days()[0]), seed_value)
+		first_ids.append(String(order[0]))
+		var rest: PackedStringArray = PackedStringArray()
+		for index: int in range(1, order.size()):
+			rest.append(order[index])
+		rest_orders.append(JSON.stringify(rest))
+		print("GUIDED_SEED seed=%d first=%s rest=%s" % [seed_value, order[0], rest])
+	var same_first: bool = true
+	for id: String in first_ids:
+		if id != guided_id:
+			same_first = false
+	_expect(same_first, "the guided record is the first task for every seed tested")
+	_expect(_distinct_count(rest_orders) >= 4, "everything after the guided example is still shuffled per seed")
+
+	var closed: Dictionary = game.probe_close_onboarding()
+	print("BRIEFING_CLOSED phase=%s overlay_open=%s first=%s gloss_still=%s" % [
+		String(closed["phase"]), bool(closed["onboarding_open"]), String(closed["scenario_id"]),
+		not String(closed["gloss"]).is_empty(),
+	])
+	_expect(String(closed["phase"]) == "asking", "closing the briefing leaves a playable task")
+	_expect(not bool(closed["onboarding_open"]), "closing the briefing hides the overlay")
+	_expect(bool(progress.has_seen_onboarding()), "the briefing is remembered so a later run does not repeat it")
+
+	# The ? button is not a first-run-only affordance: reopening it mid-task pauses the task and
+	# closing it hands the same task back.
+	var reopened: Dictionary = game.probe_open_onboarding()
+	_expect(String(reopened["phase"]) == "briefing", "the briefing can be reopened during a run")
+	_expect(bool(reopened["onboarding_open"]), "reopening shows the overlay again")
+	_expect(String(reopened["scenario_id"]) == guided_id, "reopening the briefing does not move on to the next task")
+	var reclosed: Dictionary = game.probe_close_onboarding()
+	_expect(String(reclosed["phase"]) == "asking", "closing the reopened briefing returns to the same phase")
+	_expect(String(reclosed["scenario_id"]) == guided_id, "the same task is still the one being played")
+
+
+## Unaided means no translation was open when the answer was given.
+func _check_recorded_unaided(game: Node, scenario: Dictionary, progress: Variant) -> void:
+	var id: String = String(scenario["id"])
+	var entry: Dictionary = progress.scenario_entry(id)
+	var values: Dictionary = {}
+	for lemma_id: String in scenario["target_lemma_ids"]:
+		values[lemma_id] = progress.stats(lemma_id)
+	print("UNAIDED %s hint_used=%s solved=%s solved_unaided=%s lemma_stats=%s" % [
+		id, bool(entry.get("hint_used", false)), bool(entry.get("solved", false)),
+		bool(entry.get("solved_unaided", false)), values,
+	])
+	_expect(not bool(entry.get("hint_used", false)), "%s was never given a translation" % id)
+	_expect(bool(entry.get("solved", false)), "%s was solved" % id)
+	_expect(bool(entry.get("solved_unaided", false)), "%s is recorded as an answer without translation" % id)
+
+
+## The learner asked for the translation, so the answer is recorded as assisted and never as
+## evidence that the German sentence was understood on its own.
+func _check_hint_revealed(game: Node, scenario: Dictionary, progress: Variant) -> void:
+	var id: String = String(scenario["id"])
+	var before: Dictionary = game.probe_state()
+	var after: Dictionary = game.probe_request_hint()
+	print("HINT %s gloss_before_empty=%s gloss_after=\"%s\" hint_open=%s" % [
+		id, String(before["gloss"]).is_empty(), String(after["gloss"]).replace("\n", " | "), bool(after["hint_open"]),
+	])
+	_expect(String(before["gloss"]).is_empty(), "%s had no translation before the button was pressed" % id)
+	_expect(bool(after["hint_open"]), "%s shows the translation after the button was pressed" % id)
+	_expect(_has_cyrillic(String(after["gloss"])), "%s reveals a Russian translation" % id)
+	_expect(String(after["utterance_visible"]) == String(scenario.get("utterance_de", "")),
+		"%s keeps the German sentence on screen while the translation is open" % id)
+	_expect(bool(progress.hint_used(id)), "%s is marked as answered with a translation" % id)
+
+
+func _check_recorded_assisted(game: Node, scenario: Dictionary, progress: Variant) -> void:
+	var id: String = String(scenario["id"])
+	var entry: Dictionary = progress.scenario_entry(id)
+	var values: Dictionary = {}
+	for lemma_id: String in scenario["target_lemma_ids"]:
+		values[lemma_id] = progress.stats(lemma_id)
+	print("ASSISTED %s hint_used=%s solved=%s solved_unaided=%s lemma_stats=%s" % [
+		id, bool(entry.get("hint_used", false)), bool(entry.get("solved", false)),
+		bool(entry.get("solved_unaided", false)), values,
+	])
+	_expect(bool(entry.get("solved", false)), "%s is still solvable with the translation open" % id)
+	_expect(not bool(entry.get("solved_unaided", false)),
+		"%s is never reported as an unaided success after a translation was shown" % id)
+
+
+## Cyrillic has to survive the font, or every sentence added for a beginner renders as boxes.
+func _check_font_and_chrome(game: Node) -> void:
+	var font: Font = ThemeDB.fallback_font
+	var cyrillic: String = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё"
+	var missing: PackedStringArray = PackedStringArray()
+	if font != null and font.has_method("has_char"):
+		for index: int in cyrillic.length():
+			if not font.has_char(cyrillic.unicode_at(index)):
+				missing.append(cyrillic[index])
+	var chrome: PackedStringArray = game.hud.chrome_labels()
+	var cyrillic_labels: int = 0
+	for label: String in chrome:
+		if _has_cyrillic(label):
+			cyrillic_labels += 1
+	# A label that is Russian but cannot be drawn would be worse than no label at all, so the width
+	# the active font gives a real Cyrillic sentence is part of the check.
+	var cyrillic_width: Vector2 = font.get_string_size("Перевод: Найди стол.", HORIZONTAL_ALIGNMENT_LEFT, -1, 18)
+	var latin_width: Vector2 = font.get_string_size("Uebersetzung: Tisch.", HORIZONTAL_ALIGNMENT_LEFT, -1, 18)
+	print("FONT path='%s' cyrillic_missing=%d cyrillic_width=%s latin_width=%s chrome_labels=%d cyrillic_labels=%d" % [
+		font.resource_path if font != null else "", missing.size(), cyrillic_width, latin_width, chrome.size(), cyrillic_labels,
+	])
+	_expect(font != null, "the HUD has a font to draw with")
+	_expect(missing.is_empty(), "the active font can draw every Cyrillic letter the interface uses")
+	_expect(cyrillic_labels >= 7, "the buttons the player clicks are labelled in the interface language")
+	_expect(cyrillic_width.x > 100 and latin_width.x > 100,
+		"the active font gives the Russian sentence a real width instead of an empty one")
+
+
+# endregion
+
+
+func _glossed_scenario_count(content: Variant) -> int:
+	var result: int = 0
+	for scenario: Dictionary in content.scenarios:
+		if not String(scenario.get("utterance_gloss_ru", "")).is_empty():
+			result += 1
+	return result
+
+
+func _glossed_option_count(content: Variant) -> int:
+	var result: int = 0
+	for scenario: Dictionary in content.scenarios:
+		if String(scenario["action_type"]) != "respond":
+			continue
+		for option: Variant in scenario.get("options", []):
+			if not String((option as Dictionary).get("gloss_ru", "")).is_empty():
+				result += 1
+	return result
+
+
+func _glossed_lemma_count(content: Variant) -> int:
+	var result: int = 0
+	for key: Variant in content.lemmas:
+		var record: Dictionary = content.lemmas[key] as Dictionary
+		if record.get("scene_object", null) != null and not String(record["ru"]).is_empty():
+			result += 1
+	return result
+
+
+func _has_cyrillic(text: String) -> bool:
+	for index: int in range(text.length()):
+		var code: int = text.unicode_at(index)
+		if code >= 0x0400 and code <= 0x04FF:
+			return true
+	return false
 
 
 func _check_skip_does_not_lock(game: Node, progress: Variant) -> void:
@@ -240,7 +488,9 @@ func _check_wrong_response(game: Node, scenario: Dictionary, progress: Variant) 
 	game.probe_respond(_wrong_option_id(scenario))
 	var entry: Dictionary = progress.scenario_entry(id)
 	var orders: Array[String] = [JSON.stringify(game.hud.response_texts())]
-	for extra: int in 3:
+	# A two-option question re-orders with a coin flip per restage, so one restage proves nothing.
+	# Sampling nine orderings makes "the order is frozen" essentially impossible to pass by luck.
+	for extra: int in 8:
 		game.restage_same_scenario()
 		orders.append(JSON.stringify(game.hud.response_texts()))
 	print("RESPOND_RETRY %s attempts=%d solved=%s phase=%s answers=%d distinct_orders=%d first=%s" % [
@@ -317,7 +567,48 @@ func _answer_by_correct_id(game: Node, scenario: Dictionary) -> void:
 
 func _run_input(game: Node) -> void:
 	game.probe_reset()
-	_expect(String(game.probe_state()["phase"]) == "asking", "the room opens in a playable situation")
+	var start: Dictionary = game.probe_state()
+	var guided_id: String = String(start["scenario_id"])
+	var guided_correct: String = String(game.current_scenario["correct_option_id"])
+	print("INPUT_BEGIN phase=%s overlay_open=%s first=%s guided=%s gloss_shown=%s" % [
+		String(start["phase"]), bool(start["onboarding_open"]), guided_id, bool(start["guided"]),
+		not String(start["gloss"]).is_empty(),
+	])
+	_expect(String(start["phase"]) == "briefing", "the windowed run opens in the briefing as well")
+	_expect(bool(start["onboarding_open"]), "the briefing overlay is on screen in the window")
+
+	# Clicking a prop through the open briefing must not answer anything.
+	await _settle(game)
+	var blocked: Dictionary = game.probe_click_option_on_screen(guided_correct)
+	print("INPUT_BRIEFING_CLICK scenario=%s screen=%s pick=%s phase_after=%s solved=%s" % [
+		guided_id, blocked.get("screen", Vector2.ZERO), blocked.get("pick", {}),
+		String(blocked.get("after", {}).get("phase", "")),
+		bool(game.progress.scenario_entry(guided_id).get("solved", false)),
+	])
+	_expect(String(blocked.get("after", {}).get("phase", "")) == "briefing",
+		"a real prop click while the briefing is open leaves the briefing open")
+	_expect(String(blocked.get("pick", {}).get("option_id", "")).is_empty(),
+		"a real prop click while the briefing is open picks nothing and answers nothing")
+
+	# Close the briefing with the ? button, by mouse, the way a player closes it.
+	var help_click: Dictionary = game.probe_click_help_on_screen()
+	print("INPUT_CLICK control=help screen=%s phase_after=%s overlay_open_after=%s scenario=%s" % [
+		help_click.get("screen", Vector2.ZERO), String(help_click.get("after", {}).get("phase", "")),
+		bool(help_click.get("after", {}).get("onboarding_open", true)), String(help_click.get("after", {}).get("scenario_id", "")),
+	])
+	_expect(String(help_click.get("after", {}).get("phase", "")) == "asking",
+		"clicking ? closes the briefing and leaves the first task playable")
+	_expect(not bool(help_click.get("after", {}).get("onboarding_open", true)), "the briefing overlay is gone after ? was clicked")
+	_expect(String(help_click.get("after", {}).get("scenario_id", "")) == guided_id,
+		"the task that starts after the briefing is still the guided example")
+
+	var guided_state: Dictionary = game.probe_state()
+	print("INPUT_GUIDED gloss=\"%s\" utterance=\"%s\"" % [
+		String(guided_state["gloss"]).replace("\n", " | "), String(guided_state["utterance_visible"]),
+	])
+	_expect(_has_cyrillic(String(guided_state["gloss"])), "the guided example shows a Russian translation in the window")
+	_expect(String(guided_state["utterance_visible"]) == String(game.current_scenario["utterance_de"]),
+		"the German sentence stays on screen above its translation")
 
 	if not _goto_action(game, "find_select"):
 		_completed = true
@@ -353,6 +644,21 @@ func _run_input(game: Node) -> void:
 		return
 	scenario = game.current_scenario
 	correct = String(scenario["correct_option_id"])
+
+	# The translation button, pressed with a real mouse on a task that does not offer one.
+	var hint_before: Dictionary = game.probe_state()
+	var hint_click: Dictionary = game.probe_click_hint_on_screen()
+	print("INPUT_CLICK control=hint scenario=%s screen=%s gloss_before_empty=%s gloss_after=\"%s\" hint_open_after=%s" % [
+		String(scenario["id"]), hint_click.get("screen", Vector2.ZERO),
+		String(hint_before["gloss"]).is_empty(), String(hint_click.get("after", {}).get("gloss", "")).replace("\n", " | "),
+		bool(hint_click.get("after", {}).get("hint_open", false)),
+	])
+	_expect(not String(hint_click.get("after", {}).get("gloss", "")).is_empty(),
+		"clicking the translation button reveals the translation on screen")
+	_expect(_has_cyrillic(String(hint_click.get("after", {}).get("gloss", ""))),
+		"the translation revealed by the button is Russian")
+	_expect(bool(hint_click.get("after", {}).get("hint_open", false)), "the game knows the translation was asked for")
+	await _settle(game)
 	await _settle(game)
 	var picked: Dictionary = game.probe_click_option_on_screen(correct)
 	print("INPUT_CLICK scenario=%s action=bring_deliver object=%s pick=%s held_after=%s attempts=%d" % [
@@ -410,6 +716,34 @@ func _run_input(game: Node) -> void:
 	var responses: PackedStringArray = game.hud.response_texts()
 	print("INPUT MENU responses=%d order=%s" % [responses.size(), game.probe_state()["view_order"]])
 	_expect(responses.size() == (scenario["options"] as Array).size(), "the answer menu shows every option of the scenario")
+
+	# The ? button works during a task too, and closing it returns to the same task.
+	var reopen: Dictionary = game.probe_click_help_on_screen()
+	print("INPUT_HELP_REOPEN phase_before=%s phase_after=%s overlay_open_after=%s scenario_after=%s" % [
+		String(reopen.get("before", {}).get("phase", "")), String(reopen.get("after", {}).get("phase", "")),
+		bool(reopen.get("after", {}).get("onboarding_open", false)),
+		String(reopen.get("after", {}).get("scenario_id", "")),
+	])
+	_expect(String(reopen.get("after", {}).get("phase", "")) == "briefing", "? opens the briefing again in the middle of a run")
+	var reclosed: Dictionary = game.probe_click_onboarding_close_on_screen()
+	print("INPUT_ONBOARDING_BUTTON phase_after=%s overlay_open_after=%s scenario_after=%s" % [
+		String(reclosed.get("after", {}).get("phase", "")), bool(reclosed.get("after", {}).get("onboarding_open", true)),
+		String(reclosed.get("after", {}).get("scenario_id", "")),
+	])
+	# Whatever state the ? button was pressed in - mid-task or already answered - the overlay hands
+	# that state back unchanged.
+	_expect(String(reclosed.get("after", {}).get("phase", "")) == String(reopen.get("before", {}).get("phase", "")),
+		"the button on the overlay returns to the phase the ? button was pressed in")
+	_expect(String(reclosed.get("after", {}).get("scenario_id", "")) == String(scenario["id"]),
+		"reopening and closing the briefing does not skip a task")
+
+	var chrome: PackedStringArray = game.hud.chrome_labels()
+	var cyrillic_chrome: int = 0
+	for label: String in chrome:
+		if _has_cyrillic(label):
+			cyrillic_chrome += 1
+	print("INPUT_CHROME labels=%d cyrillic_labels=%d values=%s" % [chrome.size(), cyrillic_chrome, chrome])
+	_expect(cyrillic_chrome >= 7, "the controls in the window are labelled in the interface language")
 	_completed = true
 
 # endregion
@@ -474,7 +808,7 @@ func _wrong_option_id(scenario: Dictionary) -> String:
 
 
 func _collect_text(seen: PackedStringArray, hud_texts: Dictionary, scenario: Dictionary) -> void:
-	for key: String in ["speaker", "utterance", "prompt", "held", "status"]:
+	for key: String in ["speaker", "utterance", "prompt", "held", "status", "gloss"]:
 		var text: String = String(hud_texts.get(key, ""))
 		if not text.is_empty() and not seen.has(text):
 			seen.append(text)

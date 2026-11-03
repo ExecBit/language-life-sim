@@ -8,6 +8,8 @@
   "presentation_note": "Option ids stay the positional labels of the authored display order (a = first authored option, b = second, c = third). LEX-01 shuffles the visible order at play time and resolves correctness by option id, never by index, so no position can become the strategy.",
   "distractor_note": "distractor_lemma_ids = union of the lemma_ids in the incorrect options MINUS the union of the lemma_ids in the correct option. An empty list is valid when both answers use the same lemmas.",
   "context_note": "context names a reusable room layout declared in data/room/lex01_room.json. x01 uses the kitchen candidate positions and kitchen camera; x02 uses the room layout, so the day-2 revisit is a changed situation.",
+  "language_note": "German is the content the player is learning, so utterance_de, the option labels and the feedback stay German. The interface around them is Russian and comes from data/ui/lex01_ui_ru.json.",
+  "gloss_note": "utterance_gloss_ru (and gloss_ru on a respond option) is the short Russian meaning the 'Подсказка · Перевод' button shows. Authored by the agent, needs human review, hidden by default, and an answer given while it is open is recorded as assisted. No record in this file carries guided, which CI asserts: the teach-before-test example belongs to one file only.",
   "scenarios": [
     {
       "id": "x01",
@@ -19,6 +21,7 @@
       "target_lemma_ids": ["broetchen"],
       "distractor_lemma_ids": ["tomate", "kartoffel"],
       "utterance_de": "Such das Brötchen!",
+      "utterance_gloss_ru": "Найди булочку.",
       "options": [
         { "id": "a", "label_de": "die Tomate", "scene_object": "res://assets/kaykit/items/food_ingredient_tomato.gltf", "lemma_ids": ["tomate"] },
         { "id": "b", "label_de": "das Brötchen", "scene_object": "res://assets/kaykit/items/food_ingredient_bun.gltf", "lemma_ids": ["broetchen"] },
@@ -41,9 +44,10 @@
       "distractor_lemma_ids": ["kuehlschrank"],
       "scene_state": { "broetchen": "on_table" },
       "utterance_de": "Ist das Brötchen auf dem Tisch?",
+      "utterance_gloss_ru": "Булочка лежит на столе?",
       "options": [
-        { "id": "a", "label_de": "Ja, das Brötchen ist auf dem Tisch.", "lemma_ids": ["broetchen", "tisch"] },
-        { "id": "b", "label_de": "Nein, das Brötchen ist im Kühlschrank.", "lemma_ids": ["broetchen", "kuehlschrank"] }
+        { "id": "a", "label_de": "Ja, das Brötchen ist auf dem Tisch.", "gloss_ru": "Да, булочка на столе.", "lemma_ids": ["broetchen", "tisch"] },
+        { "id": "b", "label_de": "Nein, das Brötchen ist im Kühlschrank.", "gloss_ru": "Нет, булочка в холодильнике.", "lemma_ids": ["broetchen", "kuehlschrank"] }
       ],
       "correct_option_id": "a",
       "feedback_correct_de": "Ja, das Brötchen liegt auf dem Tisch.",

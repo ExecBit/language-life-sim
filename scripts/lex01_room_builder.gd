@@ -67,11 +67,14 @@ func prepare_npcs() -> void:
 
 
 ## Build the room for one scenario and report what the player can act on.
-func stage_scenario(scenario: Dictionary) -> Dictionary:
+## `keep_candidate_order` is for the guided first example only: its answers stand in the order
+## the record authored them, so the first task is one calm example instead of a shuffled one.
+func stage_scenario(scenario: Dictionary, keep_candidate_order: bool = false) -> Dictionary:
 	clear()
 	var context: String = String(scenario.get("context", ""))
 	var action: String = String(scenario.get("action_type", ""))
-	_slot_pool = _shuffled(_content.candidate_slots(context))
+	var slots: Array = _content.candidate_slots(context)
+	_slot_pool = slots.duplicate(true) if keep_candidate_order else _shuffled(slots)
 
 	var state: Dictionary = (scenario.get("scene_state", {}) as Dictionary) if scenario.get("scene_state", null) is Dictionary else {}
 	var target: Dictionary = (scenario.get("delivery_target", {}) as Dictionary) if scenario.get("delivery_target", null) is Dictionary else {}

@@ -21,6 +21,9 @@ jobs:
            from pathlib import Path
            import json
 
+           def has_cyrillic(text):
+               return any(0x400 <= ord(ch) <= 0x4FF for ch in str(text))
+
            project = Path('project.godot').read_text(encoding='utf-8')
            scene = Path('scenes/main.tscn').read_text(encoding='utf-8')
            assert 'run/main_scene="res://scenes/main.tscn"' in project
@@ -42,14 +45,46 @@ jobs:
                    assert lemma.get(key) not in (None, ''), '%s missing %s' % (lemma['id'], key)
                if lemma.get('scene_object'):
                    assert Path(lemma['scene_object'].replace('res://', '')).is_file(), lemma['scene_object']
+                   # A noun the player can click is also a noun the hint button has to explain.
+                   assert lemma.get('ru') and has_cyrillic(lemma['ru']), 'lemma %s has a prop model but no Russian meaning' % lemma['id']
                lemma_objects[lemma['id']] = lemma.get('scene_object')
 
            allowed = {'find_select', 'bring_deliver', 'respond'}
 
+           # The interface text is a shipped data file, so its shape is guarded the same way the
+           # scenario and vocabulary files are: a missing button label or a missing action
+           # instruction would otherwise only show up as an empty control in the game.
+           ui = json.loads(Path('data/ui/lex01_ui_ru.json').read_text(encoding='utf-8'))
+           for section in ('onboarding', 'action_prompts', 'buttons', 'lines', 'stat_labels'):
+               assert isinstance(ui.get(section), dict), 'interface text missing the %s section' % section
+           assert set(ui['action_prompts']) == allowed, 'interface text must carry exactly one instruction per action type, found %s' % sorted(ui['action_prompts'])
+           for key, instruction in ui['action_prompts'].items():
+               assert instruction.strip() and has_cyrillic(instruction), 'action instruction for %s is empty or not in the interface language' % key
+           for key in ('continue', 'skip', 'end_day', 'next_day', 'reset', 'help', 'hint', 'close_onboarding'):
+               value = ui['buttons'].get(key, '')
+               assert value.strip(), 'interface text missing the button label %s' % key
+               # The ? button is a symbol by design; every other control has to read as Russian.
+               if key != 'help':
+                   assert has_cyrillic(value), 'button label %s contains no Cyrillic: %s' % (key, value)
+           for key in ('briefing_hint', 'guided', 'gloss_prefix', 'held', 'delivery_hint', 'nothing_held', 'skipped', 'retry', 'assisted', 'unaided'):
+               assert str(ui['lines'].get(key, '')).strip(), 'interface text missing the line %s' % key
+           assert ui['onboarding'].get('title', '').strip() and has_cyrillic(ui['onboarding']['title']), 'onboarding needs a title in the interface language'
+           assert len(ui['onboarding'].get('lines', [])) >= 3, 'onboarding explains fewer than three steps'
+           for index, line in enumerate(ui['onboarding']['lines']):
+               assert str(line).strip() and has_cyrillic(line), 'onboarding line %d is empty or not in the interface language' % index
+           for script in ('scripts/lex01_game.gd', 'scripts/lex01_hud.gd', 'scripts/lex01_progress.gd'):
+               body = Path(script).read_text(encoding='utf-8')
+               assert not has_cyrillic(body), '%s contains interface text, which belongs in data/ui/lex01_ui_ru.json' % script
+               assert 'Klicke' not in body and 'bersprungen' not in body, '%s still hard-codes a German instruction' % script
+           print('Interface text OK: %d action instructions, %d buttons, %d onboarding steps.' % (
+               len(ui['action_prompts']), len(ui['buttons']), len(ui['onboarding']['lines'])))
            def validate_scenario(scenario):
                action = scenario['action_type']
                assert action in allowed, 'bad action_type in %s' % scenario['id']
                assert scenario['utterance_de'], 'empty utterance in %s' % scenario['id']
+               # The German prompt is what is learned, but a beginner has to be able to find out
+               # what it asks, and the hint button is only honest if that meaning exists in data.
+               assert scenario.get('utterance_gloss_ru') and has_cyrillic(scenario['utterance_gloss_ru']), 'no Russian meaning of the German prompt in %s' % scenario['id']
                assert scenario['feedback_correct_de'] and scenario['feedback_wrong_de'], 'missing feedback in %s' % scenario['id']
                for lemma_id in scenario['target_lemma_ids']:
                    assert lemma_id in lemma_ids, 'unknown target lemma in %s' % scenario['id']
@@ -73,6 +108,10 @@ jobs:
                    assert option['label_de'], 'option without label in %s' % scenario['id']
                    for lemma_id in option['lemma_ids']:
                        assert lemma_id in lemma_ids, 'unknown option lemma in %s' % scenario['id']
+                   if action == 'respond':
+                       # A spoken answer is a whole German sentence, so it needs a meaning of its
+                       # own; an object answer gets its meaning from the lemma instead.
+                       assert option.get('gloss_ru') and has_cyrillic(option['gloss_ru']), 'respond option %s has no Russian meaning in %s' % (option['id'], scenario['id'])
                    if action != 'respond':
                        assert Path(option['scene_object'].replace('res://', '')).is_file(), option['scene_object']
                target = scenario.get('delivery_target')
@@ -130,6 +169,18 @@ jobs:
                all_scenarios.extend(scenarios)
            assert len(all_scenarios) >= 16, 'only %d scenarios loaded from %s' % (len(all_scenarios), [p.name for p in scenario_files])
 
+           # The first card a player ever sees is decided in data, so CI guards it too: exactly one
+           # record may claim it, and it has to be a task a beginner can actually do first.
+           guided = [s for s in all_scenarios if s.get('guided')]
+           assert len(guided) == 1, 'expected exactly one guided record, found %s' % [s['id'] for s in guided]
+           first_day = min(s['day'] for s in all_scenarios)
+           assert guided[0]['day'] == first_day, 'the guided record %s must belong to the first day (%d), it is on day %d' % (guided[0]['id'], first_day, guided[0]['day'])
+           assert guided[0]['action_type'] == 'find_select', 'the guided record %s must be a find_select task, it is %s' % (guided[0]['id'], guided[0]['action_type'])
+           glossed = sum(1 for s in all_scenarios if s.get('utterance_gloss_ru'))
+           glossed_options = sum(1 for s in all_scenarios if s['action_type'] == 'respond' for option in s['options'] if option.get('gloss_ru'))
+           assert glossed == len(all_scenarios), 'only %d of %d scenarios carry a Russian meaning of their prompt' % (glossed, len(all_scenarios))
+           assert glossed_options >= 12, 'only %d answer sentences carry a Russian meaning' % glossed_options
+
            used_actions = set()
            contexts = {}
            correct_positions = {}
@@ -156,6 +207,6 @@ jobs:
                slots = room['candidate_slots'].get(context, room['candidate_slots'].get('default', []))
                assert len(slots) >= 2, 'context %s has fewer than two candidate positions' % context
                assert context in room['cameras'] or 'default' in room['cameras'], 'context %s has no camera' % context
-           print('Content OK: %d lemmas, %d scenario files, %d scenarios, %d lemmas recurring in two contexts, %d day-2 revisits, correct-answer positions %s.' % (
-               len(lemmas), len(scenario_files), len(all_scenarios), len(repeated), len(revisits), correct_positions))
+           print('Content OK: %d lemmas, %d scenario files, %d scenarios, %d lemmas recurring in two contexts, %d day-2 revisits, %d glossed prompts, %d glossed answer sentences, guided=%s, correct-answer positions %s.' % (
+               len(lemmas), len(scenario_files), len(all_scenarios), len(repeated), len(revisits), glossed, glossed_options, guided[0]['id'], correct_positions))
            PY

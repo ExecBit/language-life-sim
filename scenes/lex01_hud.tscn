@@ -69,6 +69,16 @@ scroll_active = false
 theme_override_font_sizes/normal_size = 30
 text = ""
 
+[node name="GlossLabel" type="RichTextLabel" parent="Layer/BottomPanel/Main"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+fit_content = true
+scroll_active = false
+theme_override_font_sizes/normal_size = 20
+text = ""
+
 [node name="ResponsesMenu" type="VBoxContainer" parent="Layer/BottomPanel/Main"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -110,27 +120,81 @@ theme_override_constants/separation = 8
 [node name="ContinueButton" type="Button" parent="Layer/BottomPanel/Main/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Weiter"
+text = "Дальше"
 
 [node name="SkipButton" type="Button" parent="Layer/BottomPanel/Main/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Weiter ohne Antwort"
+text = "Пропустить"
+
+[node name="HintButton" type="Button" parent="Layer/BottomPanel/Main/Controls"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Подсказка · Перевод"
 
 [node name="EndDayButton" type="Button" parent="Layer/BottomPanel/Main/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Tag beenden"
+text = "Завершить день"
 
 [node name="NextDayButton" type="Button" parent="Layer/BottomPanel/Main/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Neuer Tag"
+text = "Новый день"
 
 [node name="ResetButton" type="Button" parent="Layer/BottomPanel/Main/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Neuer Durchgang"
+text = "Новый проход"
+
+[node name="HelpButton" type="Button" parent="Layer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -84.0
+offset_top = 14.0
+offset_right = -20.0
+offset_bottom = 50.0
+grow_horizontal = 0
+custom_minimum_size = Vector2(64, 36)
+text = "?"
+
+[node name="OnboardingPanel" type="PanelContainer" parent="Layer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.0
+offset_top = -280.0
+offset_right = 440.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("PanelDark")
+
+[node name="OnboardingMain" type="VBoxContainer" parent="Layer/OnboardingPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="OnboardingLabel" type="RichTextLabel" parent="Layer/OnboardingPanel/OnboardingMain"]
+unique_name_in_owner = true
+layout_mode = 2
+scroll_active = false
+theme_override_font_sizes/normal_size = 19
+text = ""
+
+[node name="OnboardingCloseButton" type="Button" parent="Layer/OnboardingPanel/OnboardingMain"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(220, 44)
+text = "Понятно, играть"
 
 [node name="SummaryPanel" type="PanelContainer" parent="Layer"]
 unique_name_in_owner = true

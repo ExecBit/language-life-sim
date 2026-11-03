@@ -14,15 +14,28 @@ extends RefCounted
 const VOCABULARY_PATH: String = "res://data/vocabulary/de_a1_starter.json"
 const SCENARIO_DIR: String = "res://data/scenarios"
 const ROOM_PATH: String = "res://data/room/lex01_room.json"
+const UI_PATH: String = "res://data/ui/lex01_ui_ru.json"
 
 const ALLOWED_ACTION_TYPES: PackedStringArray = ["find_select", "bring_deliver", "respond"]
 # scene_state keys that are not lemma ids.
 const SCENE_STATE_SPECIAL_KEYS: PackedStringArray = ["focus_object", "compared_object", "size_evidence"]
 
+# The interface text is content too, so its shape is checked here: a missing button label or a
+# missing action instruction is a CONTENT_ERROR with a name, not an empty label at play time.
+const UI_SECTIONS: PackedStringArray = ["onboarding", "action_prompts", "buttons", "lines", "stat_labels"]
+const UI_BUTTON_KEYS: PackedStringArray = ["continue", "skip", "end_day", "next_day", "reset", "help", "hint", "close_onboarding"]
+const UI_LINE_KEYS: PackedStringArray = ["briefing_hint", "guided", "gloss_prefix", "words_prefix", "held", "delivery_hint", "nothing_held", "skipped", "retry", "new_words", "assisted", "unaided", "guided_note", "no_next_day"]
+const UI_STAT_KEYS: PackedStringArray = ["day", "met", "correct", "incorrect", "repeat", "skip", "attempts", "assisted", "unaided", "totals", "summary_title", "meets", "pos", "inflection", "case", "example", "translation", "empty"]
+
+# interface language, so a label that accidentally stayed German is an error. The one exception is
+# the help button, whose whole label is a punctuation mark.
+const UI_SYMBOL_TEXT_KEYS: PackedStringArray = ["help"]
+
 var lemmas: Dictionary = {}
 var scenarios: Array[Dictionary] = []
 var scenario_files: PackedStringArray = []
 var room: Dictionary = {}
+var ui: Dictionary = {}
 var errors: PackedStringArray = []
 
 
@@ -44,6 +57,13 @@ func load_all() -> bool:
 		return false
 	room = layout
 	_validate_room_shell()
+
+	var interface_text: Variant = _read_json(UI_PATH)
+	if not (interface_text is Dictionary):
+		errors.append("cannot read interface text file " + UI_PATH)
+		return false
+	ui = interface_text
+	_validate_ui_text()
 
 	var directory: DirAccess = DirAccess.open(SCENARIO_DIR)
 	if directory == null:
@@ -78,6 +98,7 @@ func load_all() -> bool:
 		errors.append("no scenario records loaded")
 		return false
 	_validate_scenario_rooms()
+	_validate_guided_record()
 	return errors.is_empty()
 
 
@@ -99,6 +120,8 @@ func _validate_scenario(scenario: Dictionary, path: String) -> void:
 		errors.append("%s: missing feedback_correct_de" % id)
 	if String(scenario.get("feedback_wrong_de", "")).strip_edges().is_empty():
 		errors.append("%s: missing feedback_wrong_de" % id)
+	if String(scenario.get("utterance_gloss_ru", "")).strip_edges().is_empty():
+		errors.append("%s: missing utterance_gloss_ru (the hint button needs a Russian meaning of the German prompt)" % id)
 
 	for lemma_id: String in _string_array(scenario.get("target_lemma_ids", [])):
 		if not lemmas.has(lemma_id):
@@ -122,6 +145,10 @@ func _validate_scenario(scenario: Dictionary, path: String) -> void:
 		option_ids.append(option_id)
 		if String(option.get("label_de", "")).strip_edges().is_empty():
 			errors.append("%s: option %s has no label_de" % [id, option_id])
+		# A respond option is a German sentence the player must read, so it needs a gloss;
+		# a find or bring option is an object, and its gloss comes from the lemma in the vocabulary.
+		if action == "respond" and String(option.get("gloss_ru", "")).strip_edges().is_empty():
+			errors.append("%s: respond option %s has no gloss_ru" % [id, option_id])
 		for lemma_id: String in _string_array(option.get("lemma_ids", [])):
 			if not lemmas.has(lemma_id):
 				errors.append("%s: option %s references unknown lemma '%s'" % [id, option_id, lemma_id])
@@ -177,6 +204,8 @@ func _validate_room_shell() -> void:
 			errors.append("placement slot '%s' anchor has no position data: %s" % [slot_name, anchor])
 		if not ["on_top", "at_front"].has(String(slot.get("mode", ""))):
 			errors.append("placement slot '%s' uses an unknown mode '%s'" % [slot_name, String(slot.get("mode", ""))])
+
+
 func _validate_scenario_rooms() -> void:
 	for scenario: Dictionary in scenarios:
 		var slots: Array = candidate_slots(String(scenario.get("context", "")))
@@ -184,10 +213,128 @@ func _validate_scenario_rooms() -> void:
 			errors.append("%s: context '%s' has fewer than two candidate positions" % [String(scenario.get("id", "?")), String(scenario.get("context", ""))])
 
 
+## The first card a player ever sees is chosen in data, so the guarantee survives a new file,
+## a new scenario or a different seed. Exactly one record may claim it, and it has to be a task
+## a beginner can actually do first.
+func _validate_guided_record() -> void:
+	var guided: Array[Dictionary] = []
+	for scenario: Dictionary in scenarios:
+		if bool(scenario.get("guided", false)):
+			guided.append(scenario)
+	if guided.size() != 1:
+		var ids: PackedStringArray = []
+		for scenario: Dictionary in guided:
+			ids.append(String(scenario.get("id", "?")))
+		errors.append("%s: expected exactly one guided record in %s, found %d (%s)" % ["guided example", SCENARIO_DIR, guided.size(), ", ".join(ids)])
+		return
+	var scenario: Dictionary = guided[0]
+	var id: String = String(scenario.get("id", "?"))
+	if int(scenario.get("day", 1)) != days()[0]:
+		errors.append("%s: the guided record must belong to the first day (%d)" % [id, days()[0]])
+	if String(scenario.get("action_type", "")) != "find_select":
+		errors.append("%s: the guided record must be a find_select task, not %s" % [id, String(scenario.get("action_type", ""))])
+
+
+func _validate_ui_text() -> void:
+	for section: String in UI_SECTIONS:
+		if not (ui.get(section, null) is Dictionary):
+			errors.append("interface text %s is missing the '%s' section" % [UI_PATH, section])
+	if not errors.is_empty():
+		return
+	for action: String in ALLOWED_ACTION_TYPES:
+		_required_ui_text("action_prompts", action, "action instruction for %s" % action)
+	for key: String in UI_BUTTON_KEYS:
+		# The ? button is a symbol by design; every other control has to read as the interface language.
+		_required_ui_text("buttons", key, "button label", "", not UI_SYMBOL_TEXT_KEYS.has(key))
+	for key: String in UI_LINE_KEYS:
+		_required_ui_text("lines", key, "interface line")
+	for key: String in UI_STAT_KEYS:
+		_required_ui_text("stat_labels", key, "progress label")
+	var onboarding: Dictionary = ui["onboarding"] as Dictionary
+	_required_ui_text("onboarding", "title", "onboarding title")
+	var lines: Variant = onboarding.get("lines", null)
+	if not (lines is Array) or (lines as Array).size() < 3:
+		errors.append("onboarding needs at least three step lines in %s" % UI_PATH)
+	else:
+		for index: int in range((lines as Array).size()):
+			_required_ui_text("onboarding", "lines", "onboarding step", String((lines as Array)[index]))
+
+
+func _required_ui_text(section: String, key: String, what: String, value: String = "", require_cyrillic: bool = true) -> void:
+	var text: String = value
+	if value.is_empty():
+		var entry: Variant = (ui[section] as Dictionary).get(key, null)
+		text = "" if entry == null else String(entry)
+	if text.strip_edges().is_empty():
+		errors.append("interface text %s is missing the %s '%s.%s'" % [UI_PATH, what, section, key])
+	elif require_cyrillic and not _has_cyrillic(text):
+		errors.append("interface text '%s.%s' in %s contains no Cyrillic, so the interface language is wrong" % [section, key, UI_PATH])
+
+
+func _has_cyrillic(text: String) -> bool:
+	for index: int in range(text.length()):
+		var code: int = text.unicode_at(index)
+		if code >= 0x0400 and code <= 0x04FF:
+			return true
+	return false
+
+
 # region lookups
 
 func lemma(lemma_id: String) -> Dictionary:
 	return lemmas.get(lemma_id, {}) as Dictionary
+
+
+## The Russian meaning of a lemma, used by the hint button. The English gloss stays where it
+## already was: the end-of-day summary.
+func lemma_gloss_ru(lemma_id: String) -> String:
+	var record: Dictionary = lemma(lemma_id)
+	var value: Variant = record.get("ru", null)
+	return "" if value == null else String(value)
+
+
+func ui_section(section: String) -> Dictionary:
+	var entry: Variant = ui.get(section, null)
+	return entry as Dictionary if entry is Dictionary else {}
+
+
+func ui_text(section: String, key: String) -> String:
+	var value: Variant = ui_section(section).get(key, null)
+	return "" if value == null else String(value)
+
+
+func action_prompt(action: String) -> String:
+	return ui_text("action_prompts", action)
+
+
+func button_label(key: String) -> String:
+	return ui_text("buttons", key)
+
+
+func ui_line(key: String) -> String:
+	return ui_text("lines", key)
+
+
+func stat_label(key: String) -> String:
+	return ui_text("stat_labels", key)
+
+
+func onboarding_text() -> String:
+	var onboarding: Dictionary = ui_section("onboarding")
+	var parts: PackedStringArray = [String(onboarding.get("title", ""))]
+	var index: int = 1
+	for line: Variant in onboarding.get("lines", []):
+		parts.append("%d) %s" % [index, String(line)])
+		index += 1
+	return "\n".join(parts)
+
+
+## Guided first example for one day, data-decided (see _validate_guided_record).
+func guided_scenario_for_day(day: int) -> Dictionary:
+	for scenario: Dictionary in scenarios_for_day(day):
+		if bool(scenario.get("guided", false)):
+			return scenario
+	return {}
 
 
 func object_path(lemma_id: String) -> String:

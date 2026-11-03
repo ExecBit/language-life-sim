@@ -10,29 +10,43 @@ extends CanvasLayer
 ## The plugin's example balloon is deliberately not used, because it marks every input as
 ## handled while it is open and would swallow the 3D clicks the find and bring tasks need.
 
+## Language: the German this HUD shows is always the scenario record's own text. Every label it
+## writes for itself comes from data/ui/lex01_ui_ru.json through `set_labels`, so the interface
+## language is content and not a constant in this file.
+
 signal continue_pressed()
 signal skip_pressed()
 signal end_day_pressed()
 signal next_day_pressed()
 signal reset_pressed()
+signal help_pressed()
+signal hint_pressed()
+signal onboarding_close_pressed()
 signal response_chosen(option_id: String)
 
 @onready var speaker_label: RichTextLabel = %SpeakerLabel
 @onready var utterance_label: RichTextLabel = %UtteranceLabel
+@onready var gloss_label: RichTextLabel = %GlossLabel
 @onready var prompt_label: RichTextLabel = %PromptLabel
 @onready var held_label: RichTextLabel = %HeldLabel
 @onready var status_label: RichTextLabel = %StatusLabel
 @onready var responses_menu: DialogueResponsesMenu = %ResponsesMenu
 @onready var continue_button: Button = %ContinueButton
 @onready var skip_button: Button = %SkipButton
+@onready var hint_button: Button = %HintButton
 @onready var end_day_button: Button = %EndDayButton
 @onready var next_day_button: Button = %NextDayButton
 @onready var reset_button: Button = %ResetButton
+@onready var help_button: Button = %HelpButton
 @onready var summary_panel: PanelContainer = %SummaryPanel
 @onready var summary_label: RichTextLabel = %SummaryLabel
+@onready var onboarding_panel: PanelContainer = %OnboardingPanel
+@onready var onboarding_label: RichTextLabel = %OnboardingLabel
+@onready var onboarding_close_button: Button = %OnboardingCloseButton
 
 var _responses: Array[DialogueResponse] = []
 var _last_feedback: String = ""
+var _gloss: String = ""
 
 
 func _ready() -> void:
@@ -42,9 +56,26 @@ func _ready() -> void:
 	end_day_button.pressed.connect(func() -> void: end_day_pressed.emit())
 	next_day_button.pressed.connect(func() -> void: next_day_pressed.emit())
 	reset_button.pressed.connect(func() -> void: reset_pressed.emit())
+	help_button.pressed.connect(func() -> void: help_pressed.emit())
+	hint_button.pressed.connect(func() -> void: hint_pressed.emit())
+	onboarding_close_button.pressed.connect(func() -> void: onboarding_close_pressed.emit())
 	responses_menu.response_selected.connect(_on_response_selected)
 	hide_summary()
+	hide_onboarding()
+	clear_gloss()
 	set_buttons(false, false, false, false, false)
+
+
+## Every control label the HUD owns, taken from the loaded interface content once.
+func set_labels(content: Lex01Content) -> void:
+	continue_button.text = content.button_label("continue")
+	skip_button.text = content.button_label("skip")
+	hint_button.text = content.button_label("hint")
+	end_day_button.text = content.button_label("end_day")
+	next_day_button.text = content.button_label("next_day")
+	reset_button.text = content.button_label("reset")
+	help_button.text = content.button_label("help")
+	onboarding_close_button.text = content.button_label("close_onboarding")
 
 
 func show_scenario(speaker: String, utterance: String, prompt: String, status: String) -> void:
@@ -54,8 +85,68 @@ func show_scenario(speaker: String, utterance: String, prompt: String, status: S
 	status_label.text = status
 	_last_feedback = ""
 	set_held("")
+	clear_gloss()
 	clear_responses()
 	summary_label.text = ""
+
+
+## The Russian meaning of the German sentence and its answers. Empty means hidden, which is the
+## default: only the guided example shows it unasked, and any other reveal is the player's choice.
+func set_gloss(text: String) -> void:
+	_gloss = text
+	gloss_label.visible = not text.is_empty()
+	gloss_label.text = "" if text.is_empty() else "[color=#9fc6e8]%s[/color]" % text
+
+
+func clear_gloss() -> void:
+	set_gloss("")
+
+
+func gloss_text() -> String:
+	return _gloss
+
+
+func show_onboarding(text: String) -> void:
+	onboarding_label.text = text
+	onboarding_panel.visible = true
+	onboarding_close_button.grab_focus()
+
+
+func hide_onboarding() -> void:
+	onboarding_panel.visible = false
+
+
+func onboarding_open() -> bool:
+	return onboarding_panel.visible
+
+
+func onboarding_text() -> String:
+	return onboarding_label.text
+
+
+func hint_button_center() -> Vector2:
+	return hint_button.get_global_rect().get_center()
+
+
+func onboarding_close_button_center() -> Vector2:
+	return onboarding_close_button.get_global_rect().get_center()
+
+
+func set_hint_visible(visible: bool) -> void:
+	hint_button.visible = visible
+
+
+func help_button_center() -> Vector2:
+	return help_button.get_global_rect().get_center()
+
+
+## The labels of the controls themselves, so a check reads the buttons the player clicks instead
+## of a copy of them.
+func chrome_labels() -> PackedStringArray:
+	var result: PackedStringArray = PackedStringArray()
+	for button: Button in [continue_button, skip_button, hint_button, end_day_button, next_day_button, reset_button, help_button, onboarding_close_button]:
+		result.append(button.text)
+	return result
 
 
 func show_feedback(text: String, was_correct: bool) -> void:
@@ -94,7 +185,7 @@ func prompt_text() -> String:
 
 
 func set_held(text: String) -> void:
-	held_label.text = text if text.is_empty() else "Du hältst: %s" % text
+	held_label.text = text
 
 
 ## Build the answer buttons in the order the game shuffled them. `order` entries are the
@@ -125,6 +216,8 @@ func set_buttons(continue_visible: bool, skip_visible: bool, end_day_visible: bo
 	end_day_button.visible = end_day_visible
 	next_day_button.visible = next_day_visible
 	reset_button.visible = reset_visible
+	# The hint belongs to a task, so it appears and disappears with the task controls.
+	hint_button.visible = skip_visible
 
 
 func focus_primary_button() -> void:
