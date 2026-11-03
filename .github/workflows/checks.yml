@@ -35,19 +35,49 @@ jobs:
 
            lemmas = vocab['lemmas']
            assert vocab['lemma_count'] == len(lemmas), 'lemma_count mismatch'
-           assert 10 <= len(lemmas) <= 15, 'lemma count %d' % len(lemmas)
+           assert 35 <= len(lemmas) <= 50, 'lemma count %d' % len(lemmas)
            lemma_ids = {lemma['id'] for lemma in lemmas}
            assert len(lemma_ids) == len(lemmas), 'duplicate lemma id'
+           # TAV-01 (Issue #8): a curriculum of clickable nouns alone would teach objects and not
+           # the words that carry a situation, so the part of speech has to be mixed.
+           pos_counts = {}
+           for lemma in lemmas:
+               pos_counts[lemma['pos']] = pos_counts.get(lemma['pos'], 0) + 1
+           assert pos_counts.get('verb', 0) >= 8, 'only %d verbs in the corpus: a noun-only curriculum cannot express a tavern shift' % pos_counts.get('verb', 0)
+           assert pos_counts.get('adjective', 0) >= 4, 'only %d adjectives in the corpus' % pos_counts.get('adjective', 0)
+           assert pos_counts.get('preposition', 0) + pos_counts.get('adverb', 0) >= 3, 'only %d prepositions and adverbs in the corpus' % (pos_counts.get('preposition', 0) + pos_counts.get('adverb', 0))
+           assert pos_counts.get('noun', 0) < len(lemmas), 'the corpus is noun-only'
+           declared_shape = vocab.get('corpus_shape', {}).get('by_pos')
+           if declared_shape is not None:
+               assert declared_shape == pos_counts, 'corpus_shape claims %s but the lemma records give %s' % (declared_shape, pos_counts)
+               assert sum(declared_shape.values()) == len(lemmas), 'corpus_shape does not add up to %d lemmas' % len(lemmas)
            lemma_objects = {}
            for lemma in lemmas:
                assert lemma['verified_in_source'] is True, 'unverified lemma %s' % lemma['id']
                for key in ('lemma', 'pos', 'sample_form', 'en', 'source_entry', 'source_page'):
                    assert lemma.get(key) not in (None, ''), '%s missing %s' % (lemma['id'], key)
+               # Every lemma now needs a Russian meaning, not only the ones with a prop model:
+               # verbs, adjectives and expressions have no object to point at, so the hint text is
+               # the only place a beginner can find out what the word means.
+               assert lemma.get('ru') and has_cyrillic(lemma['ru']), 'lemma %s has no Russian meaning' % lemma['id']
+               # TAV-01 records how the source printed a word: as its own entry, or as an indented
+               # Nebeneintrag / Redewendung under a headword. A sub-entry has to name its parent.
+               source_kind = lemma.get('source_kind', 'headword')
+               assert source_kind in ('headword', 'nebeneintrag', 'redewendung'), 'lemma %s claims unknown source_kind %s' % (lemma['id'], source_kind)
+               if source_kind != 'headword':
+                   assert lemma.get('source_parent'), 'lemma %s is a %s but names no source_parent' % (lemma['id'], source_kind)
                if lemma.get('scene_object'):
                    assert Path(lemma['scene_object'].replace('res://', '')).is_file(), lemma['scene_object']
-                   # A noun the player can click is also a noun the hint button has to explain.
-                   assert lemma.get('ru') and has_cyrillic(lemma['ru']), 'lemma %s has a prop model but no Russian meaning' % lemma['id']
                lemma_objects[lemma['id']] = lemma.get('scene_object')
+
+           # The reserve pool is a claim about the source, not about the curriculum: every entry has
+           # to name the page it was verified on, and a sub-entry has to name its parent.
+           for entry in vocab.get('reserve_pool', {}).get('entries', []):
+               assert entry.get('lemma') and entry.get('source_page') and entry.get('hold_reason'), 'reserve entry without lemma, source_page or hold_reason: %s' % entry
+               assert entry.get('source_kind') in ('headword', 'nebeneintrag', 'redewendung'), 'reserve entry %s has an unknown source_kind' % entry['lemma']
+               if entry['source_kind'] != 'headword':
+                   assert entry.get('source_parent'), 'reserve entry %s is a %s but names no source_parent' % (entry['lemma'], entry['source_kind'])
+               assert entry['lemma'] not in lemma_ids, 'reserve entry %s is also a committed lemma' % entry['lemma']
 
            allowed = {'find_select', 'bring_deliver', 'respond'}
 
@@ -212,6 +242,6 @@ jobs:
                slots = room['candidate_slots'].get(context, room['candidate_slots'].get('default', []))
                assert len(slots) >= 2, 'context %s has fewer than two candidate positions' % context
                assert context in room['cameras'] or 'default' in room['cameras'], 'context %s has no camera' % context
-           print('Content OK: %d lemmas, %d scenario files, %d scenarios, %d lemmas recurring in two contexts, %d day-2 revisits, %d glossed prompts, %d glossed answer sentences, guided=%s, correct-answer positions %s.' % (
-               len(lemmas), len(scenario_files), len(all_scenarios), len(repeated), len(revisits), glossed, glossed_options, guided[0]['id'], correct_positions))
+           print('Content OK: %d lemmas %s, %d scenario files, %d scenarios, %d lemmas recurring in two contexts, %d day-2 revisits, %d glossed prompts, %d glossed answer sentences, guided=%s, correct-answer positions %s.' % (
+                len(lemmas), sorted('%s=%d' % pair for pair in pos_counts.items()), len(scenario_files), len(all_scenarios), len(repeated), len(revisits), glossed, glossed_options, guided[0]['id'], correct_positions))
            PY
