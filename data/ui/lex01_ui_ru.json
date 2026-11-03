@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "language": "ru",
+  "authoring_note": {
+    "language_policy": "Russian is the language needed to OPERATE the game: instructions, buttons, status lines and end-of-day labels. German is the language being LEARNED: the NPC utterance and the selectable answer sentences stay German and come from data/scenarios. No gameplay script contains an instruction string in either language, so changing the interface language is a data change and never a script change.",
+    "translation_status": "The Russian strings in this file and the *_ru gloss fields in data/scenarios and data/vocabulary were authored by the agent and still need human review. They exist to make the interface and the task readable; the Goethe A1 wordlist entries in data/vocabulary remain the authority for what the German words mean.",
+    "why_one_json_document": "The game reads this one file. There is no translation catalog, no locale switch and no per-language scene: a beginner needs the interface in one language, and an author must be able to reword a sentence without touching a script."
+  },
+  "onboarding": {
+    "title": "Как играть",
+    "lines": [
+      "В комнате стоит персонаж и говорит по-немецки. Немецкий - это то, что ты учишь. Всё остальное по-русски.",
+      "НАЙДИ: кликни мышью по предмету, который назван в немецкой фразе.",
+      "ПРИНЕСИ: сначала кликни по предмету, который нужно принести, потом кликни по персонажу или по месту, куда его положить.",
+      "ОТВЕТЬ: посмотри на комнату и кликни по немецкой фразе, которая подходит к тому, что ты видишь.",
+      "Не понял фразу? Нажми «Подсказка · Перевод» - под фразой появится перевод. Такой ответ записывается как ответ с переводом, а не как самостоятельный.",
+      "Не уверен? Нажми «Пропустить». Ничего не теряется, просто начинается следующая ситуация.",
+      "После ответа появляется «Дальше». «Завершить день» показывает итог дня, «Новый день» начинает следующий день, «Новый проход» начинает заново.",
+      "Кнопка «?» в правом верхнем углу открывает это окно в любой момент."
+    ]
+  },
+  "action_prompts": {
+    "find_select": "Кликни по предмету, который назван в немецкой фразе.",
+    "bring_deliver": "Кликни предмет, который нужно принести, потом кликни по персонажу или месту, куда его положить.",
+    "respond": "Посмотри на комнату и кликни по фразе, которая ей подходит."
+  },
+  "buttons": {
+    "continue": "Дальше",
+    "skip": "Пропустить",
+    "end_day": "Завершить день",
+    "next_day": "Новый день",
+    "reset": "Новый проход",
+    "help": "?",
+    "hint": "Подсказка · Перевод",
+    "close_onboarding": "Понятно, играть"
+  },
+  "lines": {
+    "briefing_hint": "Прочитай и нажми «Понятно, играть».",
+    "guided": "Первое задание дано с переводом: прочитай перевод и найди предмет.",
+    "gloss_prefix": "Перевод:",
+    "words_prefix": "Слова:",
+    "held": "Ты держишь: %s. Теперь кликни, куда это отнести.",
+    "delivery_hint": "Нужно отнести это: %s.",
+    "nothing_held": "Ты ничего не держишь.",
+    "skipped": "Пропущено без ответа.",
+    "retry": "Неверно. Предметы снова переставлены: попробуй ещё раз или нажми «Пропустить».",
+    "new_words": "Сегодня новые слова. Немецкие фразы и ответы остаются немецкими.",
+    "assisted": "с переводом",
+    "unaided": "без перевода",
+    "guided_note": "первое задание",
+    "no_next_day": "в этих сценариях больше дней нет"
+  },
+  "stat_labels": {
+    "day": "День",
+    "met": "Встречалось",
+    "correct": "Верно",
+    "incorrect": "Неверно",
+    "repeat": "Повтор",
+    "skip": "Пропущено",
+    "attempts": "Попыток",
+    "assisted": "с переводом",
+    "unaided": "без перевода",
+    "totals": "Всего:",
+    "summary_title": "итог дня",
+    "meets": "встречается также:",
+    "pos": "часть речи:",
+    "inflection": "форма:",
+    "case": "падеж:",
+    "example": "пример:",
+    "translation": "перевод:",
+    "empty": "Записей пока нет."
+  }
+}

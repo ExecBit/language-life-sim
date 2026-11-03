@@ -108,7 +108,7 @@ Item choice follows the same rule: fridge_A = *der Kühlschrank*, food_ingredien
 - Downloaded copy (kept in ignored `.local/downloads/`, not committed): 712341 bytes, SHA-256 `45fb648bc0ac02338f7898cae065953e320ab72ed0c14e13e0deffe6f1c5d64e`, 29 pages.
 - Every lemma in `data/vocabulary/de_a1_starter.json` records the printed headword entry, the PDF page and the source's own example sentence. `checked_but_absent` lists everyday words that were looked for and are **not** entries in the A1 list, which is why props such as a chair (*der Stuhl*) or a plate (*der Teller*) are not committed.
 - The list is a candidate A1 starter set for this slice, **not** a frequency ranking, and not "the 15 most frequent German words".
-- English glosses are agent-authored helper translations; the Goethe list itself is monolingual.
+- English and Russian glosses are agent-authored helper translations; the Goethe list itself is monolingual. The Russian gloss of a noun with a prop model is what the in-game translation button shows, so it still needs human review before it can be trusted as teaching.
 - Extraction used a throwaway `.local/venv` with `pypdf`; no PDF tooling is committed.
 
 ## Dialogue plugin smoke
@@ -125,10 +125,24 @@ Running the same scene without `-- --auto` leaves the balloon open for a human t
 
 `data/scenarios/lex01_starter.json` (15 records) is authored for this project and not taken from any source, so no third-party licence applies to it.
 
-Two rules in that file are asserted by CI rather than left to the reader:
+Four rules in that file are asserted by CI rather than left to the reader:
 
 - `distractor_note` — `distractor_lemma_ids` is the lemmas of the incorrect options minus the lemmas of the correct option; an empty list is valid (s13's two answers differ only by *ja*/*nein*).
 - `presentation_note` — option ids are the authored display slots, the correct answers are spread over `a`/`b`/`c` (5/6/4), and LEX-01 must shuffle the visible order at play time so a fixed position can never become the strategy.
+- `gloss_note` — every record carries `utterance_gloss_ru` and every `respond` option carries `gloss_ru`, because the translation button has nothing to show otherwise.
+- `guided_note` — exactly one first-day `find_select` record carries `guided: true`; that record is the teach-before-test example and is presented first on day 1.
+
+## Interface language and the Cyrillic font
+
+The first human test of LEX-01 (PR #6 review) could not start, because every instruction and control was German while German was the unknown language. The slice now separates the two jobs: **German is the content being learned** (the NPC sentence, the answer sentences and the correct-answer feedback, all from `data/scenarios`), and **Russian is the language that operates the game** (instructions, buttons, status lines, onboarding and summary labels, all from `data/ui/lex01_ui_ru.json`). No gameplay script contains an interface string in either language, and CI asserts that the three gameplay scripts contain neither Cyrillic nor a hard-coded German instruction, so rewording or rebranding the interface is a data change.
+
+That only works if Godot can draw Cyrillic, which was measured instead of assumed:
+
+- `ThemeDB.fallback_font` in Godot 4.7.1 is a built-in `FontFile` (no `res://` path) and reports `has_char` `true` for all 64 probed Cyrillic code points, so **no font asset is committed** and `project.godot` has no `gui/theme/custom_font`.
+- The measurement was checked against a control: the same font reports `has_char` `false` for 8 Devanagari and 4 CJK code points, which is what makes the Cyrillic result a real coverage signal rather than a method that always answers yes.
+- `tools/lex01_probe.gd` keeps that guard alive: it re-probes the active font for the whole Cyrillic alphabet every run and asserts the labels the player clicks really carry Cyrillic, so a future font or theme change that loses Cyrillic fails the probe instead of silently rendering empty boxes.
+
+This section adds no third-party file; the 27 rows above are still the only third-party files this repository commits.
 
 ## Not committed
 

@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "note": "Where things stand in the LEX-01 room, separated from what a scenario means. Scenario JSON decides WHICH objects appear and which role they have; this file decides only WHERE the named role is placed, so a new scenario never needs a code change. Candidate positions differ between contexts on purpose: the same prop in 'room' and in 'kitchen' stands somewhere else and is framed by a different camera, so a day-2 revisit is a changed situation and not a repeated screenshot. Ground level is y = 0 and props are placed so the bottom of their imported bounding box sits on that level.",
+  "npcs": {
+    "mage": {
+      "scene": "res://assets/kaykit/characters/Mage.glb",
+      "label_de": "der Mage",
+      "position": [4.4, 0.0, -4.2],
+      "rotation_deg": [0.0, 0.0, 0.0],
+      "clips": { "idle": "Idle", "speak": "Interact" }
+    },
+    "knight": {
+      "scene": "res://assets/kaykit/characters/Knight.glb",
+      "label_de": "der Ritter",
+      "position": [-4.4, 0.0, -4.2],
+      "rotation_deg": [0.0, 0.0, 0.0],
+      "clips": { "idle": "Idle", "speak": "Interact" }
+    }
+  },
+  "cameras": {
+    "default": { "position": [0.0, 4.0, 8.6], "rotation_deg": [-22.0, 0.0, 0.0] },
+    "room": { "position": [0.0, 4.0, 8.6], "rotation_deg": [-22.0, 0.0, 0.0] },
+    "kitchen": { "position": [-0.8, 3.6, 8.4], "rotation_deg": [-20.0, 6.0, 0.0] }
+  },
+  "candidate_slots": {
+    "default": [[-3.6, 0.0, 1.2], [-1.4, 0.0, 2.0], [1.8, 0.0, 2.0], [3.8, 0.0, 0.8], [3.6, 0.0, -2.4], [-1.0, 0.0, -3.6]],
+    "room": [[-3.6, 0.0, 1.2], [-1.4, 0.0, 2.0], [1.8, 0.0, 2.0], [3.8, 0.0, 0.8], [3.6, 0.0, -2.4], [-1.0, 0.0, -3.6]],
+    "kitchen": [[-4.4, 0.0, -0.8], [-4.2, 0.0, 1.6], [-1.2, 0.0, 2.2], [2.2, 0.0, 1.8], [4.4, 0.0, 0.4], [1.0, 0.0, -3.8]]
+  },
+  "anchors": {
+    "res://assets/kaykit/furniture/table_medium.gltf": {
+      "default": [0.0, 0.0, -1.8],
+      "room": [0.0, 0.0, -1.8],
+      "kitchen": [-1.6, 0.0, -2.4]
+    },
+    "res://assets/kaykit/items/fridge_A.gltf": {
+      "default": [-4.2, 0.0, -2.8],
+      "room": [-4.2, 0.0, -2.8],
+      "kitchen": [3.2, 0.0, -2.6]
+    }
+  },
+  "placement_slots": {
+    "on_table": { "anchor": "res://assets/kaykit/furniture/table_medium.gltf", "mode": "on_top", "note": "Item sits on the top surface of the table anchor; several items are spread along the surface so nothing is hidden." },
+    "in_fridge": { "anchor": "res://assets/kaykit/items/fridge_A.gltf", "mode": "at_front", "note": "Item stands directly in front of the fridge and is highlighted. The committed fridge prop has no door, so 'in dem Kuhlschrank' is shown as 'at the fridge' and is stated as a limitation." }
+  },
+  "hold": {
+    "tray_position": [0.0, 0.85, 4.8],
+    "tray_size": [1.1, 0.12, 0.9],
+    "note": "bring_deliver keeps the picked object on this tray. It is an abstract carrying state, not a hand attachment, physics or IK: the object simply moves to the tray and the HUD names it."
+  },
+  "delivery": {
+    "npc_offset": [0.0, 0.95, 0.8],
+    "note": "Offset from an NPC origin where a delivered object is placed."
+  },
+  "highlight_colors": {
+    "focus": [1.0, 0.85, 0.2, 0.55],
+    "compared": [0.2, 0.8, 1.0, 0.45],
+    "delivery": [0.35, 1.0, 0.45, 0.45],
+    "hover": [1.0, 1.0, 1.0, 0.3],
+    "held": [1.0, 0.95, 0.6, 0.5]
+  }
+}
