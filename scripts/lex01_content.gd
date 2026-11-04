@@ -224,6 +224,30 @@ func _validate_room_shell() -> void:
 			errors.append("context '%s' has no player spawn in %s" % [context, ROOM_PATH])
 		elif not (spawn.get("position", null) is Array):
 			errors.append("context '%s' spawn has no position array in %s" % [context, ROOM_PATH])
+	# TAV-03 (Issue #10): the walls, the bar and the storage crates are data too, so a typo in an
+	# interior entry is a named content error instead of a room with a hole in it or a crate that the
+	# player cannot walk past.
+	var entries: Array = interior_entries()
+	if entries.is_empty():
+		errors.append("room layout declares no 'interior' entries in %s" % ROOM_PATH)
+	for entry: Variant in entries:
+		if not (entry is Dictionary):
+			errors.append("room layout 'interior' entry is not an object: %s" % entry)
+			continue
+		var record: Dictionary = entry as Dictionary
+		var model: String = String(record.get("model", ""))
+		if model.is_empty() or not ResourceLoader.exists(model):
+			errors.append("interior entry has no usable model: %s" % [model])
+		var position: Variant = record.get("position", null)
+		if not (position is Array) or (position as Array).size() < 3:
+			errors.append("interior entry %s has no position array: %s" % [model, position])
+		for key: String in ["solid", "ground"]:
+			if record.has(key) and not (record[key] is bool):
+				errors.append("interior entry %s declares %s as something other than true or false" % [model, key])
+		var rotation: Variant = record.get("rotation_deg", null)
+		if rotation != null and not (rotation is Array):
+			errors.append("interior entry %s declares rotation_deg as something other than an array" % model)
+
 	for slot_name: String in placement_slots():
 		var slot: Dictionary = placement_slot(slot_name)
 		var anchor: String = String(slot.get("anchor", ""))
@@ -442,6 +466,14 @@ func candidate_slots(context: String) -> Array:
 	if section is Dictionary and section.has("default"):
 		return section["default"] as Array
 	return []
+
+
+## The tavern's fixed furniture, in the order the room data declares it (TAV-03, Issue #10).
+## Entries are read as written: `model`, `position`, optional `rotation_deg`, optional `solid`,
+## optional `ground`, and anything unknown is ignored, exactly like everywhere else in this data.
+func interior_entries() -> Array:
+	var section: Variant = room.get("interior", null)
+	return section as Array if section is Array else []
 
 
 func placement_slots() -> Array[String]:

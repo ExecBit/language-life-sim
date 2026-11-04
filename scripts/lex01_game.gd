@@ -33,11 +33,16 @@ extends Node3D
 @onready var room_shell: StaticBody3D = %RoomShell
 @onready var candidates: Node3D = %Candidates
 @onready var npcs: Node3D = %NPCs
+@onready var interior_root: Node3D = %Interior
 @onready var hud: Lex01HUD = %HUD
 
 var content: Lex01Content
 var progress: Lex01Progress
 var builder: Lex01RoomBuilder
+# The tavern's fixed furniture, assembled from data once per run (TAV-03, Issue #10). It is a
+# separate thing from the room builder on purpose: what stands in the room does not change from
+# card to card, and only its `solid` entries stop the player.
+var interior: Lex01Interior
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var seed_value: int = 0
@@ -112,6 +117,14 @@ func _ready() -> void:
 	builder.prepare_npcs()
 	for warning: String in builder.warnings:
 		print("BUILDER_WARNING %s" % warning)
+	# TAV-03 (Issue #10): the room is a tavern now, and it is built from data/room/lex01_room.json
+	# rather than from nodes in the scene, so adding a table or a crate is a data change.
+	interior = Lex01Interior.new()
+	interior.setup(content, interior_root)
+	var tavern: Dictionary = interior.build()
+	for warning: String in interior.warnings:
+		print("INTERIOR_WARNING %s" % warning)
+	print("TAVERN built=%d solid=%d" % [int(tavern["built"]), int(tavern["solid"])])
 
 	hud.continue_pressed.connect(_on_continue)
 	hud.skip_pressed.connect(_on_skip)

@@ -1,27 +1,38 @@
 {
   "schema_version": 1,
-  "note": "Where things stand in the LEX-01 room, separated from what a scenario means. Scenario JSON decides WHICH objects appear and which role they have; this file decides only WHERE the named role is placed, so a new scenario never needs a code change. Candidate positions differ between contexts on purpose: the same prop in 'room' and in 'kitchen' stands somewhere else and the player is put down at a different place, so a day-2 revisit is a changed situation and not a repeated screenshot. Ground level is y = 0 and props are placed so the bottom of their imported bounding box sits on that level.",
+  "note": "Where things stand, separated from what a scenario means. Scenario JSON decides WHICH objects appear and which role they have; this file decides only WHERE the named role is placed, so a new scenario never needs a code change. Candidate positions differ between contexts on purpose: the same prop in 'room' and in 'kitchen' stands somewhere else and the player is put down at a different place, so a day-2 revisit is a changed situation and not a repeated screenshot. Ground level is y = 0 and props are placed so the bottom of their imported bounding box sits on that level. TAV-03 (Issue #10) made this one tavern: the walkable room is 12 x 12 m with 4 m walls, measured on the 4 m grid the KayKit wall models are built on, so no model is scaled or trimmed.",
+  "interior_note": "TAV-03's fixed furniture (Issue #10), assembled once per run by scripts/lex01_interior.gd instead of being staged card by card. An entry names a model, where it stands, an optional rotation_deg (yaw 0 faces -z, +90 faces -x), an optional 'solid' and an optional 'ground'; unknown keys are ignored, so this section is as open as the rest of the file. 'solid' is set only on the bar counter and the two storage crates, because those are the pieces it should feel like walking into. Everything in the guest area - tables, chairs, stools, lamps, rugs, wall units, dressings, NPCs and every object a scenario can stage as an answer - stays non-solid, which keeps the TAV-02 rule that no task object can block or trap the player. 'ground' defaults to true and stands the model's own bounding-box bottom on the floor; it is turned off for the two wall cabinets, which KayKit models at their hanging height, and for the picture frames, which are modelled around their own centre. Three rules keep a walked-through room free of soft-locks instead of adding a clearance harness: solid footprints sit flush against a wall and in the middle of a wall run, never at an inset room corner; every spawn, candidate slot, anchor and tray point stays at least 1 m clear of a solid footprint; and each spawn keeps several metres of clear straight-ahead walking, since the walking checks the probe already runs walk in straight lines from the spawn and to the inset room corners.",
   "npcs": {
     "mage": {
       "scene": "res://assets/kaykit/characters/Mage.glb",
       "label_de": "der Mage",
-      "position": [4.4, 0.0, -4.2],
+      "position": [3.0, 0.0, 0.6],
       "rotation_deg": [0.0, 0.0, 0.0],
-      "clips": { "idle": "Idle", "speak": "Interact" }
+      "clips": { "idle": "Idle", "speak": "Interact" },
+      "note": "TAV-03 role: stands at the storage end beside the crates, between the crates and the guest tables. Same model, label, clips and rotation as the shipped TAV-02 room."
     },
     "knight": {
       "scene": "res://assets/kaykit/characters/Knight.glb",
       "label_de": "der Ritter",
-      "position": [-4.4, 0.0, -4.2],
+      "position": [-3.4, 0.0, -5.0],
       "rotation_deg": [0.0, 0.0, 0.0],
-      "clips": { "idle": "Idle", "speak": "Interact" }
+      "clips": { "idle": "Idle", "speak": "Interact" },
+      "note": "TAV-03 role: stands at the west end of the bar counter, so the counter is what makes it read as the person serving. Same model, label, clips and rotation as the shipped TAV-02 room."
+    },
+    "gast": {
+      "scene": "res://assets/kaykit/characters/Rogue_Hooded.glb",
+      "label_de": "der Gast",
+      "position": [5.6, 0.0, 3.8],
+      "rotation_deg": [0.0, 180.0, 0.0],
+      "clips": { "idle": "Idle", "speak": "Interact" },
+      "note": "TAV-03 (Issue #10): the third character, from the same pinned Adventurers commit and the same shared rig, standing at the guest table. It gives the corpus lemma 'der Gast' a model for the first time. No scenario record calls a character a guest yet, so no existing record's text or delivery_target changes."
     }
   },
   "cameras": {
-    "note": "TAV-02 (Issue #9) reads this section as where the PLAYER is put down per context, not as a fixed camera framing: 'position' is the feet position on the floor, 'rotation_deg' is the initial [pitch, yaw, roll] of the eye and yaw 0 looks toward -z. The section keeps its old name because it is the already-shipped per-context framing contract. Every spawn sits inside the room shell and clear of the anchors, the NPCs and the hold tray.",
-    "default": { "position": [0.0, 0.0, 5.8], "rotation_deg": [-6.0, 0.0, 0.0] },
-    "room": { "position": [0.0, 0.0, 5.8], "rotation_deg": [-6.0, 0.0, 0.0] },
-    "kitchen": { "position": [-1.0, 0.0, 4.8], "rotation_deg": [-6.0, 0.0, 0.0] }
+    "note": "TAV-02 (Issue #9) reads this section as where the PLAYER is put down per context, not as a fixed camera framing: 'position' is the feet position on the floor, 'rotation_deg' is the initial [pitch, yaw, roll] of the eye and yaw 0 looks toward -z. The section keeps its old name because it is the already-shipped per-context framing contract. Every spawn sits inside the room shell, above the floor, and clear of the anchors, the NPCs, the carry tray and the solid furniture. TAV-03 moved them into the tavern: 'room'/'default' stands just inside the entrance at the south door and looks north straight down the room to the bar, and 'kitchen' stands at the near end of the counter run and looks along it toward the stove, so the two framings of a day-2 revisit are two ends of the same room with several clear metres of walking ahead of each.",
+    "default": { "position": [0.0, 0.0, 4.6], "rotation_deg": [-6.0, 0.0, 0.0] },
+    "room": { "position": [0.0, 0.0, 4.6], "rotation_deg": [-6.0, 0.0, 0.0] },
+    "kitchen": { "position": [1.6, 0.0, 2.6], "rotation_deg": [-6.0, 0.0, 0.0] }
   },
   "player": {
     "eye_height": 1.6,
@@ -33,23 +44,25 @@
     "interact_range": 5.0,
     "fov": 80.0,
     "probe_walk_frames": 300,
-    "note": "The first-person body and its reach (TAV-02). The player is a capsule on collision layer 1 and the room shell is the only thing on that layer, so no prop or NPC can block or trap them. interact_range is the only limit on what the crosshair can act on: aiming further away is allowed and is answered with the too-far cue, never with an answer or an attempt."
+    "note": "The first-person body and its reach (TAV-02). The player is a capsule on collision layer 1 and the room shell plus the interior entries marked solid are the only things on that layer, so no guest furniture, prop or NPC can block or trap them. interact_range is the only limit on what the crosshair can act on: aiming further away is allowed and is answered with the too-far cue, never with an answer or an attempt."
   },
   "candidate_slots": {
-    "default": [[-3.6, 0.0, 1.2], [-1.4, 0.0, 2.0], [1.8, 0.0, 2.0], [3.8, 0.0, 0.8], [3.6, 0.0, -2.4], [-1.0, 0.0, -3.6]],
-    "room": [[-3.6, 0.0, 1.2], [-1.4, 0.0, 2.0], [1.8, 0.0, 2.0], [3.8, 0.0, 0.8], [3.6, 0.0, -2.4], [-1.0, 0.0, -3.6]],
-    "kitchen": [[-4.4, 0.0, -0.8], [-4.2, 0.0, 1.6], [-1.2, 0.0, 2.2], [2.2, 0.0, 1.8], [4.4, 0.0, 0.4], [1.0, 0.0, -3.8]]
+    "note": "Where a scenario's answers may stand, in the open floor the player walks through. TAV-03 moved them into the tavern: every one of them sits at least 1 m clear of the solid bar counter and crates and clear of the anchors and the NPCs, and each is reachable by a straight walk from the spawn and from the inset room corners the input probe walks to.",
+    "default": [[1.2, 0.0, -1.6], [-2.2, 0.0, 2.6], [-4.6, 0.0, 4.6], [-3.4, 0.0, -1.4]],
+    "room": [[1.2, 0.0, -1.6], [-2.2, 0.0, 2.6], [-4.6, 0.0, 4.6], [-3.4, 0.0, -1.4]],
+    "kitchen": [[0.2, 0.0, -0.2], [-4.6, 0.0, 4.6], [1.0, 0.0, 4.6], [-2.6, 0.0, -1.4], [-2.2, 0.0, 2.6]]
   },
   "anchors": {
+    "note": "Where the two surfaces the scenarios place things on stand in this tavern. 'kitchen' is the storage end of the room and 'room' is the guest area, so the same surface reads as a different situation on a day-2 revisit. The fridge keeps its unrotated facing in both contexts because the placement mode 'at_front' puts an item at the fridge's +z side, which is what 'in dem Kuhlschrank' is shown as, and both fridges stand against the west wall with their +z side facing into the open room.",
     "res://assets/kaykit/furniture/table_medium.gltf": {
-      "default": [0.0, 0.0, -1.8],
-      "room": [0.0, 0.0, -1.8],
-      "kitchen": [-1.6, 0.0, -2.4]
+      "default": [-1.4, 0.0, 0.0],
+      "room": [-1.4, 0.0, 0.0],
+      "kitchen": [1.6, 0.0, -2.4]
     },
     "res://assets/kaykit/items/fridge_A.gltf": {
-      "default": [-4.2, 0.0, -2.8],
-      "room": [-4.2, 0.0, -2.8],
-      "kitchen": [3.2, 0.0, -2.6]
+      "default": [-4.15, 0.0, 1.2],
+      "room": [-4.15, 0.0, 1.2],
+      "kitchen": [-4.15, 0.0, -3.4]
     }
   },
   "placement_slots": {
@@ -57,9 +70,9 @@
     "in_fridge": { "anchor": "res://assets/kaykit/items/fridge_A.gltf", "mode": "at_front", "note": "Item stands directly in front of the fridge and is highlighted. The committed fridge prop has no door, so 'in dem Kuhlschrank' is shown as 'at the fridge' and is stated as a limitation." }
   },
   "hold": {
-    "tray_position": [0.0, 0.85, 3.0],
+    "tray_position": [0.4, 0.85, 2.0],
     "tray_size": [1.1, 0.12, 0.9],
-    "note": "bring_deliver keeps the picked object on this tray. It is an abstract carrying state, not a hand attachment, physics or IK: the object simply moves to the tray and the HUD names it. In first person the tray sits between the spawn and the candidate slots, at waist height, so what you are carrying stays in view."
+    "note": "bring_deliver keeps the picked object on this tray. It is an abstract carrying state, not a hand attachment, physics or IK: the object simply moves to the tray and the HUD names it. In first person the tray sits between the two spawns and the candidate slots, at waist height, within reach from either spawn, so what you are carrying stays in view."
   },
   "delivery": {
     "npc_offset": [0.0, 0.95, 0.8],
@@ -72,5 +85,46 @@
     "hover": [1.0, 1.0, 1.0, 0.3],
     "targeted": [1.0, 1.0, 1.0, 0.55],
     "held": [1.0, 0.95, 0.6, 0.5]
-  }
+  },
+  "interior": [
+    { "model": "res://assets/kaykit/items/wall.gltf", "position": [-4.0, 0.0, -6.25], "note": "North wall, west third. Wall pieces are visual only: the RoomShell body in scenes/main.tscn is what stops the player, so no wall gets a second collider." },
+    { "model": "res://assets/kaykit/items/wall.gltf", "position": [0.0, 0.0, -6.25] },
+    { "model": "res://assets/kaykit/items/wall.gltf", "position": [4.0, 0.0, -6.25] },
+    { "model": "res://assets/kaykit/items/wall.gltf", "position": [-4.0, 0.0, 6.25], "note": "South wall, west third." },
+    { "model": "res://assets/kaykit/items/wall_doorway.gltf", "position": [0.0, 0.0, 6.25], "note": "The entrance, and the doorway the 'room' spawn stands just inside of." },
+    { "model": "res://assets/kaykit/items/wall.gltf", "position": [4.0, 0.0, 6.25] },
+    { "model": "res://assets/kaykit/items/door_A.gltf", "position": [0.85, 0.0, 5.95], "rotation_deg": [0.0, 90.0, 0.0], "note": "Door leaf standing open across one side of that doorway, so the entrance reads as an entrance. Non-solid, so it never blocks the doorway." },
+    { "model": "res://assets/kaykit/items/wall.gltf", "position": [-6.25, 0.0, -4.0], "rotation_deg": [0.0, 90.0, 0.0], "note": "West wall, north third." },
+    { "model": "res://assets/kaykit/items/wall_window_open.gltf", "position": [-6.25, 0.0, 0.0], "rotation_deg": [0.0, 90.0, 0.0], "note": "Open window in the middle of the west wall." },
+    { "model": "res://assets/kaykit/items/wall.gltf", "position": [-6.25, 0.0, 4.0], "rotation_deg": [0.0, 90.0, 0.0] },
+    { "model": "res://assets/kaykit/items/wall.gltf", "position": [6.25, 0.0, -4.0], "rotation_deg": [0.0, 90.0, 0.0], "note": "East wall, north third." },
+    { "model": "res://assets/kaykit/items/wall_orderwindow.gltf", "position": [6.25, 0.0, 0.0], "rotation_deg": [0.0, 90.0, 0.0], "note": "Serving hatch in the middle of the east wall, above the storage crates." },
+    { "model": "res://assets/kaykit/items/wall.gltf", "position": [6.25, 0.0, 4.0], "rotation_deg": [0.0, 90.0, 0.0] },
+    { "model": "res://assets/kaykit/items/kitchencounter_straight_A.gltf", "position": [-1.02, 0.0, -5.0], "rotation_deg": [0.0, 90.0, 0.0], "solid": true, "note": "Bar counter, west half of the run along the north wall, turned so its long side faces the room and its back sits flush on the wall. Solid: walking into the bar is the furniture collision this room is meant to have." },
+    { "model": "res://assets/kaykit/items/kitchencounter_straight_A.gltf", "position": [1.02, 0.0, -5.0], "rotation_deg": [0.0, 90.0, 0.0], "solid": true, "note": "Bar counter, east half of the same run, joined to the first one so the bar reads as one piece." },
+    { "model": "res://assets/kaykit/items/stove_single.gltf", "position": [3.3, 0.0, -5.0], "rotation_deg": [0.0, 90.0, 0.0], "note": "Stove at the east end of the counter run. Non-solid, so it can never stand between the player and an answer." },
+    { "model": "res://assets/kaykit/items/kitchencabinet.gltf", "position": [-3.6, 0.0, -6.3], "rotation_deg": [0.0, 90.0, 0.0], "ground": false, "note": "Wall unit above the west end of the bar. KayKit models it at its hanging height (its mesh starts at y = 2), so 'ground': false keeps it on the wall instead of dropping it to the floor." },
+    { "model": "res://assets/kaykit/items/kitchencabinet.gltf", "position": [4.6, 0.0, -6.3], "ground": false, "note": "Wall unit above the stove." },
+    { "model": "res://assets/kaykit/items/pillar_A.gltf", "position": [-2.7, 0.0, -5.8], "note": "Post at the west end of the bar run." },
+    { "model": "res://assets/kaykit/items/pillar_A.gltf", "position": [5.7, 0.0, -5.8], "note": "Post in the north-east corner." },
+    { "model": "res://assets/kaykit/items/pot_A.gltf", "position": [-5.3, 0.0, -4.4], "note": "Pot on the floor in the kitchen corner." },
+    { "model": "res://assets/kaykit/items/chair_stool.gltf", "position": [-1.0, 0.0, -2.9], "rotation_deg": [0.0, 180.0, 0.0], "note": "Bar stool at the counter." },
+    { "model": "res://assets/kaykit/items/chair_stool.gltf", "position": [1.0, 0.0, -2.9], "rotation_deg": [0.0, 180.0, 0.0], "note": "Second bar stool." },
+    { "model": "res://assets/kaykit/items/crate.gltf", "position": [5.0, 0.0, -1.0], "solid": true, "note": "Storage crate against the east wall, flush on it and clear of the inset corner the input probe walks to." },
+    { "model": "res://assets/kaykit/items/crate_potatoes.gltf", "position": [5.0, 0.0, 1.0], "solid": true, "note": "Crate of potatoes beside it, which is what makes the storage end read as a cellar corner. 'die Kartoffel' already has its own staged prop, so this is decoration, not an answer." },
+    { "model": "res://assets/kaykit/items/menu.gltf", "position": [2.8, 0.0, 5.6], "note": "Menu stand beside the entrance. 'die Speisekarte' is not taught as a lemma yet, so this is decoration and not a clickable object." },
+    { "model": "res://assets/kaykit/items/table_round_A.gltf", "position": [3.6, 0.0, 3.8], "note": "Guest table, east side of the room. Non-solid: the guest area is the floor the player walks through." },
+    { "model": "res://assets/kaykit/items/chair_A.gltf", "position": [1.9, 0.0, 3.8], "rotation_deg": [0.0, 90.0, 0.0], "note": "Chair at that table, facing it." },
+    { "model": "res://assets/kaykit/items/chair_A.gltf", "position": [3.6, 0.0, 5.5], "rotation_deg": [0.0, 180.0, 0.0], "note": "Second chair at that table." },
+    { "model": "res://assets/kaykit/items/table_round_A_small.gltf", "position": [-5.2, 0.0, -0.4], "note": "Small table against the west wall, by the open window." },
+    { "model": "res://assets/kaykit/items/chair_A.gltf", "position": [-4.0, 0.0, -0.4], "rotation_deg": [0.0, -90.0, 0.0], "note": "Chair at that table." },
+    { "model": "res://assets/kaykit/items/table_round_A_small.gltf", "position": [-2.6, 0.0, 4.4], "note": "Small table in the south-west, near the entrance." },
+    { "model": "res://assets/kaykit/items/chair_A.gltf", "position": [-1.4, 0.0, 4.4], "rotation_deg": [0.0, -90.0, 0.0], "note": "Chair at that table." },
+    { "model": "res://assets/kaykit/furniture/lamp_standing.gltf", "position": [-5.6, 0.0, 3.0], "note": "Standing lamp in the west part of the guest area." },
+    { "model": "res://assets/kaykit/furniture/lamp_standing.gltf", "position": [-5.6, 0.0, -5.6], "note": "Standing lamp in the kitchen corner." },
+    { "model": "res://assets/kaykit/furniture/rug_rectangle_A.gltf", "position": [3.6, 0.0, 3.8], "rotation_deg": [0.0, 90.0, 0.0], "note": "Rug under the east guest table. Rugs are flat, so they are never solid and never stand in the way." },
+    { "model": "res://assets/kaykit/furniture/rug_rectangle_A.gltf", "position": [-5.2, 0.0, -0.4], "note": "Rug under the west table." },
+    { "model": "res://assets/kaykit/furniture/pictureframe_large_A.gltf", "position": [-1.0, 2.6, -5.95], "ground": false, "note": "Picture on the north wall. It is modelled around its own centre (-0.6 to +0.6), so the entry supplies the hanging height instead of dropping it to the floor." },
+    { "model": "res://assets/kaykit/furniture/pictureframe_large_A.gltf", "position": [-2.6, 2.6, 5.95], "rotation_deg": [0.0, 180.0, 0.0], "ground": false, "note": "Picture on the south wall." }
+  ]
 }

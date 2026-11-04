@@ -86,6 +86,7 @@ func _run_logic(game: Node) -> void:
 	_check_beginning(game, content, progress)
 	_check_font_and_chrome(game)
 	_check_first_person_room(game)
+	_check_tavern(game, content)
 	for context: String in content.candidate_contexts():
 		_check_spawn(game, context)
 	_expect(String(game.probe_state()["phase"]) == "asking", "the day starts in a playable situation once the briefing is closed")
@@ -567,6 +568,58 @@ func _check_first_person_room(game: Node) -> void:
 	_expect(shell is StaticBody3D and int(shell.collision_layer) == 1, "the room shell is a solid static body")
 	_expect(game.builder.pick_bodies().size() > 0, "the staged room has clickable objects to aim at")
 	_expect(clickable_only, "nothing clickable is solid to the player, so no prop or NPC can trap them")
+
+
+## TAV-03 (Issue #10): the room is a tavern assembled from data, so this is a check about the room
+## itself - that it actually stands, that only the pieces it should feel like walking into are solid,
+## that none of them stands outside the shell, and that none of them stands where the player, an
+## answer, an anchor or the carry tray has to be. That last one is the real risk solid furniture adds
+## to a walked-through room, and it is measured against the same data the room declares.
+func _check_tavern(game: Node, content: Variant) -> void:
+	var tavern: Dictionary = game.interior.summary()
+	var boxes: Array = tavern["solid_boxes"] if tavern.get("solid_boxes", null) is Array else []
+	var shell: AABB = game.room_shell_bounds()
+	var outside: PackedStringArray = PackedStringArray()
+	for box: AABB in boxes:
+		if not shell.grow(0.6).has_point(box.get_center()):
+			outside.append("%.2f|%.2f|%.2f" % [box.get_center().x, box.get_center().y, box.get_center().z])
+	var spots: Array[Dictionary] = []
+	for context: String in content.candidate_contexts():
+		var camera: Dictionary = content.camera_for(context)
+		spots.append({"what": "spawn " + context, "at": _data_vector(camera.get("position", []))})
+		var index: int = 0
+		for slot: Variant in content.candidate_slots(context):
+			index += 1
+			spots.append({"what": "slot %s#%d" % [context, index], "at": _data_vector(slot)})
+		for slot_name: String in content.placement_slots():
+			var anchor: String = String(content.placement_slot(slot_name).get("anchor", ""))
+			if anchor.is_empty():
+				continue
+			spots.append({"what": "anchor %s in %s" % [slot_name, context], "at": content.anchor_position(anchor, context)})
+	var hold: Dictionary = (content.room.get("hold", {}) as Dictionary) if content.room.get("hold", null) is Dictionary else {}
+	spots.append({"what": "hold tray", "at": _data_vector(hold.get("tray_position", []))})
+	var blocked: PackedStringArray = PackedStringArray()
+	for spot: Dictionary in spots:
+		for box: AABB in boxes:
+			if _horizontal_gap(spot["at"] as Vector3, box) < 1.0:
+				blocked.append("%s is %.2f m from a solid piece" % [String(spot["what"]), _horizontal_gap(spot["at"] as Vector3, box)])
+	var npc_names: PackedStringArray = PackedStringArray()
+	var npc_key: Variant = (content.room.get("npcs", {}) as Dictionary) if content.room.get("npcs", null) is Dictionary else null
+	for key: Variant in (npc_key as Dictionary if npc_key is Dictionary else {}):
+		var name: String = String(key)
+		if game.builder.npc_node(name) != null and not String(content.npc_config(name).get("label_de", "")).is_empty():
+			npc_names.append(name)
+	print("TAVERN built=%d solid=%d solid_inside=%d solid_outside=%d npc_labels=%s blocked=%s" % [
+		int(tavern["built"]), int(tavern["solid"]), boxes.size() - outside.size(), outside.size(), npc_names, blocked,
+	])
+	_expect(int(tavern["built"]) >= 20, "the tavern stands as built furniture instead of an empty test room")
+	_expect(int(tavern["solid"]) >= 3 and int(tavern["solid"]) <= 8,
+		"only the bar and the storage crates are solid, so guest furniture stays walk-through")
+	_expect(outside.is_empty(), "every solid piece stands inside the room shell")
+	_expect(blocked.is_empty(), "no solid piece stands where the player, an answer, an anchor or the tray has to be")
+	_expect(npc_names.size() >= 3, "the room has three people the player can reach and read a name for")
+	for required: String in ["knight", "mage", "gast"]:
+		_expect(npc_names.has(required), "npc '%s' is instanced and labelled" % required)
 
 
 ## A spawn has to stand inside the room, above the floor, and clear of the objects the player has to
@@ -1235,3 +1288,18 @@ func _stats_text(progress: Variant, scenario: Dictionary) -> String:
 	return ", ".join(parts)
 
 # endregion
+
+
+## A position written in the room JSON, read the way the room builder reads it.
+func _data_vector(value: Variant) -> Vector3:
+	if value is Array and (value as Array).size() >= 3:
+		return Vector3(float(value[0]), float(value[1]), float(value[2]))
+	return Vector3.INF
+
+
+## Gap in the floor plane between a point and a solid piece's footprint, 0 when the point is inside
+## it. Height is irrelevant here: the question is whether the player could walk into that spot.
+func _horizontal_gap(point: Vector3, box: AABB) -> float:
+	var nearest_x: float = clampf(point.x, box.position.x, box.position.x + box.size.x)
+	var nearest_z: float = clampf(point.z, box.position.z, box.position.z + box.size.z)
+	return Vector2(point.x - nearest_x, point.z - nearest_z).length()
