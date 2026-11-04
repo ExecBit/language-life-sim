@@ -203,7 +203,7 @@ jobs:
                position = camera.get('position')
                assert isinstance(position, list) and len(position) == 3, 'spawn for context %s has no position: %s' % (context, camera)
                assert position[1] >= 0.0, 'spawn for context %s is below the floor: %s' % (context, position)
-               assert abs(position[0]) < 8.0 and abs(position[2]) < 8.0, 'spawn for context %s stands outside the room: %s' % (context, position)
+               assert abs(position[0]) < 9.0 and abs(position[2]) < 9.0, 'spawn for context %s stands outside the room: %s' % (context, position)
            for name, npc in room['npcs'].items():
                assert Path(npc['scene'].replace('res://', '')).is_file(), 'npc %s model missing' % name
                assert npc.get('label_de'), 'npc %s has no label_de' % name
@@ -224,7 +224,7 @@ jobs:
                assert Path(model.replace('res://', '')).is_file(), 'interior entry has no model file: %s' % model
                position = entry.get('position')
                assert isinstance(position, list) and len(position) == 3, 'interior entry %s has no position: %s' % (model, position)
-               assert abs(position[0]) < 8.0 and abs(position[2]) < 8.0, 'interior entry %s stands outside the room: %s' % (model, position)
+               assert abs(position[0]) < 9.0 and abs(position[2]) < 9.0, 'interior entry %s stands outside the room: %s' % (model, position)
                for key in ('solid', 'ground'):
                    if key in entry:
                        assert isinstance(entry[key], bool), 'interior entry %s declares %s as something other than true or false' % (model, key)
@@ -236,6 +236,14 @@ jobs:
            # Solid means "the player walks into it", so it is limited on purpose: the bar counter and
            # the storage crates, and nothing in the guest area a task can ask about.
            assert 3 <= solid_count <= 8, 'interior declares %d solid pieces, expected only the bar counter and the storage crates' % solid_count
+           # Stable instance ids: a placement slot or a delivery target that addresses one
+           # specific piece of authored furniture by id must name an id the interior declares,
+           # or the station would silently resolve to whichever piece shares the model.
+           interior_ids = {e.get('id') for e in interior if isinstance(e, dict) and e.get('id')}
+           for name, slot in room['placement_slots'].items():
+               anchor_id = slot.get('anchor_id')
+               if anchor_id:
+                   assert anchor_id in interior_ids, 'placement slot %s names unknown interior instance %s' % (name, anchor_id)
            assert len(room['npcs']) >= 3, 'the tavern room has %d npcs, expected at least three so the room reads as a place with people in it' % len(room['npcs'])
            for context in ('default', 'room', 'kitchen'):
                slots = room['candidate_slots'].get(context)

@@ -64,10 +64,23 @@ func summary() -> Dictionary:
 ## The already-standing node of an interior entry for this model path, or null. Staging reads
 ## this instead of spawning a second table or a second fridge: the anchor of a placement slot is
 ## the authored furniture itself, so a card puts its things ON what the room already has. The
-## first entry wins, which is the west half of the bar counter run when a model is used twice.
+## first entry wins, which is ambiguous when several pieces share one model - prefer
+## `node_for_id` whenever the slot names a stable instance id.
 func node_for_model(scene_object: String) -> Node3D:
 	for node: Node3D in _nodes:
 		if node != null and is_instance_valid(node) and node.scene_file_path == scene_object:
+			return node
+	return null
+
+
+## The node of the interior entry that declares this stable id (`"id": "guest_table_1"` in the
+## interior array), or null. Stations and delivery targets that must address ONE specific piece
+## of furniture use this; model-path lookup stays available for everything else.
+func node_for_id(id: String) -> Node3D:
+	if id.is_empty():
+		return null
+	for node: Node3D in _nodes:
+		if node != null and is_instance_valid(node) and String(node.get_meta("station_id", "")) == id:
 			return node
 	return null
 
@@ -108,6 +121,8 @@ func _place(entry: Dictionary) -> void:
 		warnings.append("interior model does not instantiate as Node3D: %s" % scene_object)
 		return
 	node.name = _scene_name(scene_object)
+	if entry.has("id"):
+		node.set_meta("station_id", String(entry["id"]))
 	_root.add_child(node)
 	node.position = _vector3(entry.get("position", [0.0, 0.0, 0.0]))
 	node.rotation_degrees = _vector3(entry.get("rotation_deg", [0.0, 0.0, 0.0]))

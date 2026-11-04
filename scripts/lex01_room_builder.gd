@@ -157,20 +157,19 @@ func stage_scenario(scenario: Dictionary, keep_candidate_order: bool = false) ->
 	#    on, the fridge something is put at) and the delivery target. These exist even when
 	#    they are not one of the answers. Authored staging also needs the anchor of the
 	#    default station, because answers that no scene_state slot names stand there. In the
-	#    tavern every one of these models already stands in the interior and is reused.
-	var anchor_paths: Array[String] = []
+	#    tavern every one of these is an authored interior instance, addressed by stable id
+	#    when the slot names one; the legacy world spawns its own anchors from the position
+	#    data instead.
+	var anchors: Array[Dictionary] = []
 	for slot_name: String in stations.values():
-		var station_anchor: String = String(_content.placement_slot(slot_name).get("anchor", ""))
-		if not station_anchor.is_empty() and not anchor_paths.has(station_anchor):
-			anchor_paths.append(station_anchor)
+		var station_slot: Dictionary = _content.placement_slot(slot_name)
+		_add_anchor(anchors, String(station_slot.get("anchor", "")), String(station_slot.get("anchor_id", "")))
 	for key: String in _placement_keys(state):
-		var anchor: String = String(_content.placement_slot(String(state[key])).get("anchor", ""))
-		if not anchor.is_empty() and not anchor_paths.has(anchor):
-			anchor_paths.append(anchor)
-	if not target_path.is_empty() and not anchor_paths.has(target_path):
-		anchor_paths.append(target_path)
-	for anchor_path: String in anchor_paths:
-		_spawn_prop(anchor_path, _content.anchor_position(anchor_path, context))
+		var slot: Dictionary = _content.placement_slot(String(state[key]))
+		_add_anchor(anchors, String(slot.get("anchor", "")), String(slot.get("anchor_id", "")))
+	_add_anchor(anchors, target_path, String(target.get("instance_id", "")))
+	for anchor: Dictionary in anchors:
+		_spawn_prop(String(anchor["path"]), _content.anchor_position(String(anchor["path"]), context), String(anchor["id"]))
 
 	# 2. The clickable answers of a find or bring task. Legacy staging puts each on a random
 	#    candidate position; authored staging puts each provisionally at its station's anchor
@@ -198,15 +197,19 @@ func stage_scenario(scenario: Dictionary, keep_candidate_order: bool = false) ->
 	if authored:
 		# Authored staging: the groups come from the station map, which already covers the
 		# scene_state facts, the answers, the named objects of a respond sentence and the
-		# focus/compared objects. Everything stands on furniture that never moves.
+		# focus/compared objects. Everything stands on furniture that never moves; a slot
+		# that names a stable instance id addresses exactly that piece of furniture.
 		for object_path: String in stations:
 			var station_slot: Dictionary = _content.placement_slot(String(stations[object_path]))
 			if station_slot.is_empty():
 				warnings.append("staging names an undeclared placement slot '%s' for %s" % [String(stations[object_path]), object_path])
 				continue
-			var station_key: String = "%s|%s" % [String(station_slot.get("anchor", "")), String(station_slot.get("mode", "on_top"))]
+			var anchor_id: String = String(station_slot.get("anchor_id", ""))
+			var anchor_path: String = String(station_slot.get("anchor", ""))
+			var mode: String = String(station_slot.get("mode", "on_top"))
+			var station_key: String = "%s|%s|%s" % [anchor_id, anchor_path, mode]
 			if not groups.has(station_key):
-				groups[station_key] = {"anchor": String(station_slot.get("anchor", "")), "mode": String(station_slot.get("mode", "on_top")), "items": []}
+				groups[station_key] = {"anchor": anchor_path, "anchor_id": anchor_id, "mode": mode, "items": []}
 			(groups[station_key] as Dictionary)["items"].append(object_path)
 	else:
 		for path: String in [focus, compared]:
@@ -219,11 +222,11 @@ func stage_scenario(scenario: Dictionary, keep_candidate_order: bool = false) ->
 				continue
 			var group_key: String = "%s|%s" % [String(slot.get("anchor", "")), String(slot.get("mode", "on_top"))]
 			if not groups.has(group_key):
-				groups[group_key] = {"anchor": String(slot.get("anchor", "")), "mode": String(slot.get("mode", "on_top")), "items": []}
+				groups[group_key] = {"anchor": String(slot.get("anchor", "")), "anchor_id": "", "mode": String(slot.get("mode", "on_top")), "items": []}
 			(groups[group_key] as Dictionary)["items"].append(object_path)
 	for group_key: String in groups:
 		var group: Dictionary = groups[group_key] as Dictionary
-		var anchor_node: Node3D = _by_path.get(String(group["anchor"]), null) as Node3D
+		var anchor_node: Node3D = _resolve_anchor_node(group, context)
 		if anchor_node == null:
 			continue
 		var items: Array[Node3D] = []
@@ -488,16 +491,17 @@ func target_at_crosshair(camera: Camera3D, max_distance: float) -> Dictionary:
 
 # region staging internals
 
-func _spawn_prop(scene_object: String, world_position: Vector3) -> Node3D:
+func _spawn_prop(scene_object: String, world_position: Vector3, instance_id: String = "") -> Node3D:
 	if scene_object.is_empty():
 		return null
-	if _by_path.has(scene_object):
+	if instance_id.is_empty() and _by_path.has(scene_object):
 		return _by_path[scene_object] as Node3D
 	# The world's authored furniture already stands in the room, so an anchor - and anything
 	# else this card names that happens to be that model - uses the standing node instead of
-	# instancing a second table or a second fridge next to the first one.
+	# instancing a second table or a second fridge. A named instance id resolves ONE specific
+	# piece (several counters share a model); the model-path match is the fallback.
 	if _interior != null:
-		var standing: Node3D = _interior.node_for_model(scene_object)
+		var standing: Node3D = _interior.node_for_id(instance_id) if not instance_id.is_empty() else _interior.node_for_model(scene_object)
 		if standing != null:
 			_by_path[scene_object] = standing
 			return standing
@@ -573,12 +577,46 @@ func _next_candidate_position() -> Vector3:
 
 ## Where a not-yet-staged object is first put down: on the candidate pool in legacy staging,
 ## or provisionally at its station's anchor in authored staging (the station pass then spreads
-## the station's items across that anchor's surface).
+## the station's items across that anchor's surface). An authored slot that names a stable
+## interior instance is put at that instance's authored position.
 func _staging_position(scene_object: String, stations: Dictionary, context: String) -> Vector3:
 	if not stations.has(scene_object):
 		return _next_candidate_position()
 	var slot: Dictionary = _content.placement_slot(String(stations[scene_object]))
+	var anchor_id: String = String(slot.get("anchor_id", ""))
+	if not anchor_id.is_empty():
+		var authored: Vector3 = _content.interior_position(anchor_id)
+		if authored != Vector3.ZERO:
+			return authored
 	return _content.anchor_position(String(slot.get("anchor", "")), context)
+
+
+## The node a station group spreads its items on: the interior instance the slot's anchor_id
+## names when there is one (recorded under the model path so every AABB lookup keeps working),
+## else whatever the staging already put at that model path, else a freshly spawned anchor.
+func _resolve_anchor_node(group: Dictionary, context: String) -> Node3D:
+	var anchor_id: String = String(group.get("anchor_id", ""))
+	var anchor_path: String = String(group["anchor"])
+	if not anchor_id.is_empty() and _interior != null:
+		var by_id: Node3D = _interior.node_for_id(anchor_id)
+		if by_id != null:
+			_by_path[anchor_path] = by_id
+			return by_id
+	var staged: Node3D = _by_path.get(anchor_path, null) as Node3D
+	if staged != null:
+		return staged
+	return _spawn_prop(anchor_path, _content.anchor_position(anchor_path, context))
+
+
+## One anchor entry per distinct (model path, instance id) pair, so the same model used by two
+## stations is resolved once per station, not merged into one.
+func _add_anchor(anchors: Array[Dictionary], path: String, id: String) -> void:
+	if path.is_empty():
+		return
+	for anchor: Dictionary in anchors:
+		if String(anchor["path"]) == path and String(anchor["id"]) == id:
+			return
+	anchors.append({"path": path, "id": id})
 
 
 ## Which placement slot every staged object of one scenario uses in authored staging: the slot

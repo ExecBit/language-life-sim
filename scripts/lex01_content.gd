@@ -241,13 +241,16 @@ func _validate_scenario(scenario: Dictionary, path: String) -> void:
 
 	var target: Variant = scenario.get("delivery_target", null)
 	if target is Dictionary:
-		var kind: String = String(target.get("kind", ""))
+		var kind: String = String((target as Dictionary).get("kind", ""))
 		if kind == "npc" and npc_config(String(target.get("npc", ""))).is_empty():
 			errors.append("%s: delivery_target names an unknown npc '%s'" % [id, String(target.get("npc", ""))])
 		if kind == "object":
 			var target_path: String = String(target.get("scene_object", ""))
 			if target_path.is_empty() or not ResourceLoader.exists(target_path):
 				errors.append("%s: delivery_target model is missing: %s" % [id, target_path])
+		var instance_id: String = String((target as Dictionary).get("instance_id", ""))
+		if not instance_id.is_empty() and not interior_ids().has(instance_id):
+			errors.append("%s: delivery_target names unknown interior instance '%s'" % [id, instance_id])
 
 	var state: Variant = scenario.get("scene_state", null)
 	if state is Dictionary:
@@ -324,6 +327,12 @@ func _validate_room_shell() -> void:
 			errors.append("placement slot '%s' anchor has no position data: %s" % [slot_name, anchor])
 		if not ["on_top", "at_front"].has(String(slot.get("mode", ""))):
 			errors.append("placement slot '%s' uses an unknown mode '%s'" % [slot_name, String(slot.get("mode", ""))])
+		# A slot that names a stable interior instance (an authored station) must name one that
+		# the interior array actually declares, or the station would silently resolve to
+		# whichever piece happens to share the model.
+		var anchor_id: String = String(slot.get("anchor_id", ""))
+		if not anchor_id.is_empty() and not interior_ids().has(anchor_id):
+			errors.append("placement slot '%s' names unknown interior instance '%s'" % [slot_name, anchor_id])
 
 
 func _validate_scenario_rooms() -> void:
@@ -545,6 +554,27 @@ func candidate_slots(context: String) -> Array:
 func interior_entries() -> Array:
 	var section: Variant = room.get("interior", null)
 	return section as Array if section is Array else []
+
+
+## The stable ids the interior entries declare (`"id": "guest_table_1"`), used by placement
+## slots and delivery targets that must address one specific piece of furniture.
+func interior_ids() -> Array[String]:
+	var result: Array[String] = []
+	for entry: Variant in interior_entries():
+		if entry is Dictionary:
+			var id: String = String((entry as Dictionary).get("id", ""))
+			if not id.is_empty():
+				result.append(id)
+	return result
+
+
+## The authored position of the interior entry with this id, or Vector3.ZERO when no entry
+## declares it (staging treats that as "no authored spot" and falls back to the anchor data).
+func interior_position(id: String) -> Vector3:
+	for entry: Variant in interior_entries():
+		if entry is Dictionary and String((entry as Dictionary).get("id", "")) == id:
+			return _vector3((entry as Dictionary).get("position", [0, 0, 0]))
+	return Vector3.ZERO
 
 
 func placement_slots() -> Array[String]:

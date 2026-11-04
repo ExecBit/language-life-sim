@@ -8,14 +8,14 @@
 [ext_resource type="PackedScene" path="res://scenes/fps_player.tscn" id="5_player"]
 
 [sub_resource type="BoxMesh" id="FloorMesh"]
-size = Vector3(13, 0.2, 13)
+size = Vector3(17, 0.2, 13)
 
 [sub_resource type="StandardMaterial3D" id="FloorMaterial"]
 albedo_color = Color(0.35, 0.24, 0.16, 1)
 roughness = 0.9
 
 [sub_resource type="BoxMesh" id="CeilingMesh"]
-size = Vector3(13, 0.2, 13)
+size = Vector3(17, 0.2, 13)
 
 [sub_resource type="StandardMaterial3D" id="CeilingMaterial"]
 albedo_color = Color(0.16, 0.13, 0.11, 1)
@@ -30,10 +30,10 @@ ambient_light_color = Color(0.6, 0.56, 0.5, 1)
 ambient_light_energy = 0.7
 
 [sub_resource type="BoxShape3D" id="ShellFloorShape"]
-size = Vector3(13, 0.2, 13)
+size = Vector3(17, 0.2, 13)
 
 [sub_resource type="BoxShape3D" id="ShellEndShape"]
-size = Vector3(13, 4, 0.5)
+size = Vector3(17, 4, 0.5)
 
 [sub_resource type="BoxShape3D" id="ShellSideShape"]
 size = Vector3(0.5, 4, 13)
@@ -72,11 +72,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 6.25)
 shape = SubResource("ShellEndShape")
 
 [node name="LeftShape" type="CollisionShape3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.25, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.25, 2, 0)
 shape = SubResource("ShellSideShape")
 
 [node name="RightShape" type="CollisionShape3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.25, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.25, 2, 0)
 shape = SubResource("ShellSideShape")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -85,15 +85,22 @@ light_energy = 0.8
 shadow_enabled = true
 
 [node name="BarLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 2.6, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2, 2.6, 0.8)
 light_color = Color(1, 0.82, 0.6, 1)
 light_energy = 1.4
 omni_light_range_fade_mode = 1
 distance_fade_max_distance = 9
 
 [node name="GuestLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 2.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 2.6, 0.2)
 light_color = Color(1, 0.85, 0.65, 1)
+light_energy = 1.2
+omni_light_range_fade_mode = 1
+distance_fade_max_distance = 9
+
+[node name="KitchenLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 2.8, -4.2)
+light_color = Color(1, 0.82, 0.6, 1)
 light_energy = 1.2
 omni_light_range_fade_mode = 1
 distance_fade_max_distance = 9

@@ -644,10 +644,13 @@ func _check_tavern(game: Node, content: Variant) -> void:
 			var anchor: String = String(content.placement_slot(slot_name).get("anchor", ""))
 			if anchor.is_empty():
 				continue
-			# An anchor that IS authored interior furniture - the bar counter of the on_counter
-			# station - is the solid piece itself, not a spot that has to keep clear of one: the
-			# card's items stand on top of it, within the reach the room declares.
-			var authored: bool = game.interior.node_for_model(anchor) != null
+			# An anchor that IS authored interior furniture - the counters of the on_counter and
+			# on_table stations - is the solid piece itself, not a spot that has to keep clear
+			# of one: the card's items stand on top of it, within the reach the room declares.
+			var anchor_id: String = String(content.placement_slot(slot_name).get("anchor_id", ""))
+			var authored: bool = game.interior.node_for_id(anchor_id) != null \
+				if not anchor_id.is_empty() \
+				else game.interior.node_for_model(anchor) != null
 			spots.append({"what": "anchor %s in %s" % [slot_name, context], "at": content.anchor_position(anchor, context), "authored": authored})
 	var hold: Dictionary = (content.room.get("hold", {}) as Dictionary) if content.room.get("hold", null) is Dictionary else {}
 	spots.append({"what": "hold tray", "at": _data_vector(hold.get("tray_position", []))})
