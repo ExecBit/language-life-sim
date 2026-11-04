@@ -112,7 +112,7 @@ $godot = "C:/Users/agdei/AppData/Local/Microsoft/WinGet/Packages/GodotEngine.God
 & $godot --path . --quit-after 20000 res://scenes/main.tscn -- --probe-input --seed 7
 ```
 
-Both print `LEX01 PROBE OK` / `LEX01 INPUT PROBE OK` or `... FAIL` with reasons and a non-zero exit code. `--probe-input` needs a real window: run headless and the HUD's briefing button resolves off-screen, so the probe never gets past the overlay (it stops at `checks=24`). Two of its 102 checks currently fail on `main` for a reason TAV-03 did not introduce and did not fix: an item staged flush against the tall fridge anchor cannot be ray-hit by the eye at 1.6 m, so `E` on it picks nothing (see the input probe's `INPUT_KEY ... aim.kind: ""` on scenario `t01`). The logic probe solves the same records through the real answer path, which is why the failure is invisible there.
+Both print `LEX01 PROBE OK` / `LEX01 INPUT PROBE OK` or `... FAIL` with reasons and a non-zero exit code. `--probe-input` needs a real window: run headless and the HUD's briefing button resolves off-screen, so the probe never gets past the overlay (it stops at `checks=24`). Windowed it prints `LEX01 INPUT PROBE OK checks=102`. It used to fail two of those 102 checks, and the cause was not the room: a staged option's pick collider was measured where the object first stood and never followed the placement moves that then relocated the object, so the crosshair aimed at the visible prop while its collider sat elsewhere and `E` picked nothing. `scripts/lex01_room_builder.gd` now re-measures each pick box after every staging, carrying and delivery move (`_sync_pick`), and the same two checks pass.
 
 ## Not verified yet
 
