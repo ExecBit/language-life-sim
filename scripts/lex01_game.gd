@@ -1101,11 +1101,17 @@ func probe_respond(option_id: String) -> Dictionary:
 
 
 ## Where the delivery target of the staged scenario is in the room, whether it is a prop or a
-## person: the point the crosshair has to land on to answer a bring task.
+## person: the point the crosshair has to land on to answer a bring task. An object target is
+## aimed at the middle of its top surface - what a player aims at - rather than at the centre of
+## its bounding box, which sits below a table's top and is a marginal aim.
 func _delivery_target_point() -> Vector3:
 	var kind: String = String(staging.get("delivery_kind", ""))
 	if kind == "object":
-		return builder.prop_center(String(staging.get("delivery_path", "")))
+		var path: String = String(staging.get("delivery_path", ""))
+		var box: AABB = builder.prop_aabb(path)
+		if box.size.length() > 0.0:
+			return Vector3(box.get_center().x, box.position.y + box.size.y, box.get_center().z)
+		return builder.prop_center(path)
 	if kind == "npc":
 		var npc_node: Node3D = builder.npc_node(String(staging.get("delivery_npc", "")))
 		if npc_node != null:

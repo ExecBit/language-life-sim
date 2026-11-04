@@ -716,7 +716,7 @@ func _check_response_menu(game: Node, scenario: Dictionary) -> void:
 func _check_scene_state_placement(game: Node, content: Variant) -> void:
 	# Data-driven, so both worlds are checked on the facts their own records state: the probe
 	# looks up a loaded scenario that stages each fact instead of naming legacy scenario ids.
-	var table: String = "res://assets/kaykit/furniture/table_medium.gltf"
+	var table: String = "res://assets/kaykit/items/table_round_A.gltf"
 	var fridge: String = "res://assets/kaykit/items/fridge_A.gltf"
 	var facts: Array = [
 		{"lemma": "broetchen", "slot": "on_table", "anchor": table},

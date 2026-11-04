@@ -52,7 +52,7 @@
       "distractor_lemma_ids": ["fleisch", "tomate"],
       "utterance_de": "Nimm das Brötchen und bring es auf den Tisch!",
       "utterance_gloss_ru": "Возьми булочку и отнеси её на стол.",
-      "delivery_target": { "kind": "object", "lemma_id": "tisch", "scene_object": "res://assets/kaykit/furniture/table_medium.gltf", "label_de": "der Tisch" },
+      "delivery_target": { "kind": "object", "lemma_id": "tisch", "scene_object": "res://assets/kaykit/items/table_round_A.gltf", "label_de": "der Tisch" },
       "options": [
         { "id": "a", "label_de": "das Fleisch", "scene_object": "res://assets/kaykit/items/food_ingredient_steak.gltf", "lemma_ids": ["fleisch"] },
         { "id": "b", "label_de": "das Brötchen", "scene_object": "res://assets/kaykit/items/food_ingredient_bun.gltf", "lemma_ids": ["broetchen"] },
