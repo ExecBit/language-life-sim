@@ -106,10 +106,13 @@ Item choice follows the same rule: fridge_A = *der Kühlschrank*, food_ingredien
 - Goethe-Zertifikat A1 "Start Deutsch 1" Wortliste, section *Alphabetische Wortliste*.
 - The page named in Issue #4 (https://www.goethe.de/ins/se/de/m/spr/prf/ueb/pa1.html) answers `HTTP 403` to scripted clients; the official PDF behind it was downloaded instead: https://www.goethe.de/pro/relaunch/prf/de/A1_SD1_Wortliste_02.pdf
 - Downloaded copy (kept in ignored `.local/downloads/`, not committed): 712341 bytes, SHA-256 `45fb648bc0ac02338f7898cae065953e320ab72ed0c14e13e0deffe6f1c5d64e`, 29 pages.
-- Every lemma in `data/vocabulary/de_a1_starter.json` records the printed headword entry, the PDF page and the source's own example sentence. `checked_but_absent` lists everyday words that were looked for and are **not** entries in the A1 list, which is why props such as a chair (*der Stuhl*) or a plate (*der Teller*) are not committed.
-- The list is a candidate A1 starter set for this slice, **not** a frequency ranking, and not "the 15 most frequent German words".
-- English and Russian glosses are agent-authored helper translations; the Goethe list itself is monolingual. The Russian gloss of a noun with a prop model is what the in-game translation button shows, so it still needs human review before it can be trusted as teaching.
-- Extraction used a throwaway `.local/venv` with `pypdf`; no PDF tooling is committed.
+- Every lemma in `data/vocabulary/de_a1_starter.json` records the printed entry, the PDF page and the source's own example sentence. The file now holds **47 lemmas**: the 15 PREP-01 delivered (unchanged ids, values and order) plus 32 added by TAV-01 (Issue #8) for the tavern curriculum - 12 verbs, 7 adjectives, 2 prepositions, 1 adverb, 2 expressions and 13 nouns.
+- `source_kind` records *how* the source printed the word: `headword`, or `nebeneintrag` / `redewendung` for a word the list prints indented under a headword, in which case `source_parent` names that headword. Only two lemmas are of the second kind: *danke* (page 13, under *danken*) and *„Wie bitte?“* (page 26, under *wie*). No lemma claims to be a headword that the source did not print as one.
+- `checked_but_absent` lists everyday words that were looked for and are **not** entries in the A1 list, which is why props such as a chair (*der Stuhl*), a plate (*der Teller*), a bar (*die Theke*), a waiter (*der Kellner*) or a warm/hot/fresh/empty/full adjective are not committed. Near matches are named instead of counted as the same word: *hinten* (17) is an entry, *hinter* is not; *der Herd* (15) appears only inside *die Küche*'s example sentence.
+- `reserve_pool` holds 13 further A1 entries verified on a page but deliberately **not** committed as lemmas, each with the reason it is held back (*kaputt, der Preis, die Flasche, das Essen, das Frühstück, mögen, die Karte, bitte, die Entschuldigung, der Moment, „Einen Moment bitte“, Guten Tag, das Restaurant, hinten*). They are a claim about the source, not about the curriculum: none of them is taught until a later task commits it as a lemma.
+- The list is a candidate A1 set chosen for a tavern shift, **not** a frequency ranking, and not „the most frequent German words“.
+- English and Russian glosses are agent-authored helper translations; the Goethe list itself is monolingual. CI now requires a Cyrillic Russian meaning for **every** lemma, not only for the nouns that have a prop model, because a verb, an adverb or an expression has no object to point at and the hint text is the only place its meaning exists. The glosses still need human review before they can be trusted as teaching.
+- Extraction used a throwaway `.local/venv` with `pypdf`; no PDF tooling is committed. TAV-01 re-extracted the same PDF with `extraction_mode="layout"` because the plain pass collapses several pages into one line and therefore cannot show the difference between a headword and an indented *Nebeneintrag*. That re-extraction corrected two pre-existing records rather than loosening the check: *das Brötchen* is printed with an en dash („das Brötchen, –“, and a lone dash in this list marks a plural equal to the lemma) and the Kühlschrank example uses an en dash after the question mark. The 16 absence claims and the 13 reserve entries were re-checked the same way; see `docs/tav01_learning_plan.md`.
 
 ## Dialogue plugin smoke
 
@@ -123,14 +126,19 @@ Running the same scene without `-- --auto` leaves the balloon open for a human t
 
 ## Scenario content
 
-`data/scenarios/lex01_starter.json` (15 records) is authored for this project and not taken from any source, so no third-party licence applies to it.
+Three authored files, 27 records in total, all written for this project and taken from no source, so no third-party licence applies to them:
 
-Four rules in that file are asserted by CI rather than left to the reader:
+- `data/scenarios/lex01_starter.json` - 15 records (PREP-01).
+- `data/scenarios/lex01_extension.json` - 2 records (LEX-01 delayed retrieval).
+- `data/scenarios/tav01_sample_shift.json` - 10 records `t01`...`t10` (TAV-01, Issue #8): six day-1 records that introduce the new corpus words *holen, nehmen, zusammen, kosten, billig, teuer, fertig*, and four day-2 records that revisit four of them in the other camera framing with the staged facts changed. They are a representative subset, not the whole shift: the plan in `docs/tav01_learning_plan.md` records which events and which lemmas wait for TAV-03 props or TAV-04 event situations, and why.
 
-- `distractor_note` — `distractor_lemma_ids` is the lemmas of the incorrect options minus the lemmas of the correct option; an empty list is valid (s13's two answers differ only by *ja*/*nein*).
-- `presentation_note` — option ids are the authored display slots, the correct answers are spread over `a`/`b`/`c` (5/6/4), and LEX-01 must shuffle the visible order at play time so a fixed position can never become the strategy.
-- `gloss_note` — every record carries `utterance_gloss_ru` and every `respond` option carries `gloss_ru`, because the translation button has nothing to show otherwise.
-- `guided_note` — exactly one first-day `find_select` record carries `guided: true`; that record is the teach-before-test example and is presented first on day 1.
+Rules in those files are asserted by CI rather than left to the reader:
+
+- `distractor_note` - `distractor_lemma_ids` is the lemmas of the incorrect options minus the lemmas of the correct option; an empty list is valid (s13's and t03's two answers differ only by *ja*/*nein*).
+- `presentation_note` - option ids are the authored display slots, the correct answers are spread over `a`/`b`/`c` (starter 5/6/4, extension 1/1, sample shift 5/4/1, so 11/11/5 across all 27 records), and LEX-01 must shuffle the visible order at play time so a fixed position can never become the strategy.
+- `gloss_note` - every record carries `utterance_gloss_ru` and every `respond` option carries `gloss_ru`, because the translation button has nothing to show otherwise.
+- `guided_note` - exactly one first-day `find_select` record carries `guided: true`; that record is the teach-before-test example and is presented first on day 1.
+- `decidability_note` (tav01 file) - a corpus lemma becomes a target only when the player has to understand it to answer (a word that the answer does not depend on would be credited by `Lex01Progress.attempt()` as practice that never happened), and only when the answer follows from facts the record presents: staged positions (t01, t03, t05, t07, t09, t10), a price stated in the utterance itself (t04, t06, t08), or object identity, which is the basis the committed `bring_deliver` records already use (t02). `deferred_lemma_note` records the lemmas that are *not* targets here and the single thing each one waits for, so a new word is never taught as a guess.
 
 ## Interface language and the Cyrillic font
 

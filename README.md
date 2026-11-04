@@ -13,7 +13,7 @@ What is in place now:
 - **Engine verified locally**: Godot `4.7.1.stable.official.a13da4feb`, headless import and both preview scenes run clean.
 - **Assets** under `assets/kaykit/`: two KayKit Adventurers characters (`Knight.glb`, `Mage.glb`) that share one rig and already carry `Idle`, `Walking_A`, `Interact` clips, five Furniture Bits props and five Restaurant Bits objects. `docs/assets_provenance.md` records source commit, size and SHA-256 for every file.
 - **Dialogue plugin**: Dialogue Manager `v4.2.0` (MIT) in `addons/dialogue_manager/`. LEX-01 uses two of its node types as widgets - `DialogueLabel` for the spoken sentence and `DialogueResponsesMenu` for the two answer sentences - so an answer set comes straight from the scenario JSON and no `.dialogue` graph is needed for gameplay. `content/dialogue/prep_smoke.dialogue` remains the plugin smoke file.
-- **Content**: `data/vocabulary/de_a1_starter.json` (15 Goethe-A1-verified lemmas), `data/scenarios/lex01_starter.json` (15 scenarios) and `data/scenarios/lex01_extension.json` (2 more scenarios, which is the data-only proof for Issue #2), plus `data/room/lex01_room.json` for where things stand.
+- **Content**: `data/vocabulary/de_a1_starter.json` (47 Goethe-A1-verified lemmas: 23 nouns, 12 verbs, 7 adjectives, 2 prepositions, 1 adverb, 2 everyday expressions), `data/scenarios/lex01_starter.json` (15 scenarios), `data/scenarios/lex01_extension.json` (2 more scenarios, which is the data-only proof for Issue #2) and `data/scenarios/tav01_sample_shift.json` (10 sample tavern-shift scenarios), plus `data/room/lex01_room.json` for where things stand. `docs/tav01_learning_plan.md` plans the rest of the shift on that data.
 
 Preview and regression scenes, all safe to run:
 
@@ -98,7 +98,7 @@ Both print `LEX01 PROBE OK` / `LEX01 INPUT PROBE OK` or `... FAIL` with reasons 
 
 - **Export and a launched build**: no export templates are installed and there is no `export_presets.cfg`, so an exported build - and whether runtime `load()` of the `.gltf` props works there - is untested. Packaging is a separate task.
 - **How the room and HUD look and read**: the probes check behaviour, not visual quality or readability. That is a human judgement.
-- **German naturalness of the sentences**, including the two in `lex01_extension.json`, is not verified by any automated check (see `docs/assets_provenance.md`).
+- **German naturalness of the sentences**, including the two in `lex01_extension.json` and the ten in `tav01_sample_shift.json`, is not verified by any automated check, and neither is the Russian and English wording of the 32 lemmas TAV-01 added (see `docs/assets_provenance.md`).
 - **Mouse picking under an arbitrary camera angle**: the input probe clicks projected object centres in the shipped camera framings; it does not sweep every angle.
 - `in_fridge` places an item in front of the fridge and highlights it. The committed fridge prop has no door, so "in dem Kühlschrank" is shown rather than opened.
 
