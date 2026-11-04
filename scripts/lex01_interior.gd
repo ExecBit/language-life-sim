@@ -61,6 +61,17 @@ func summary() -> Dictionary:
 	}
 
 
+## The already-standing node of an interior entry for this model path, or null. Staging reads
+## this instead of spawning a second table or a second fridge: the anchor of a placement slot is
+## the authored furniture itself, so a card puts its things ON what the room already has. The
+## first entry wins, which is the west half of the bar counter run when a model is used twice.
+func node_for_model(scene_object: String) -> Node3D:
+	for node: Node3D in _nodes:
+		if node != null and is_instance_valid(node) and node.scene_file_path == scene_object:
+			return node
+	return null
+
+
 ## The solid footprints, so a check can confirm that nothing solid stands outside the room shell.
 func solid_boxes() -> Array[AABB]:
 	return _solid_boxes.duplicate()

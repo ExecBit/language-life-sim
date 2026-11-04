@@ -224,6 +224,9 @@ func prompt_text() -> String:
 
 func set_held(text: String) -> void:
 	held_label.text = text
+	# An empty carry line must not reserve a row of the bottom panel: the panel sizes itself
+	# to its content, so a hidden empty label leaves that space to the 3D view.
+	held_label.visible = not text.is_empty()
 
 
 ## Build the answer buttons in the order the game shuffled them. `order` entries are the

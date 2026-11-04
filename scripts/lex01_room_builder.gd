@@ -8,6 +8,17 @@ extends RefCounted
 ## scenario, only the objects the current situation names are present, so "Such den Tisch!"
 ## never has two candidate tables standing around.
 ##
+## WHERE the objects stand is decided by the playing world's staging mode (data 'worlds'):
+##
+## - "authored_slots" (the tavern): every answer and every object the situation names stands
+##   at the station the record declares - or at the world's default station - and a station
+##   is the authored furniture itself (the bar counter, the tavern table, the fridge). Nothing
+##   is spawned onto a free floor spot, so no card rearranges the room: only small items appear
+##   and disappear on furniture that never moves. A model that already stands in the interior
+##   is reused, never instanced a second time.
+## - "candidate_slots" (the legacy LEX-01 practice room): answers stand on the shuffled pool
+##   of open floor positions, which is the regression behaviour this room has always had.
+##
 ## There is no physics simulation here: props get a runtime StaticBody3D box built from their
 ## imported bounding box so they can be aimed at and interacted with, and carrying is a position
 ## change onto the hold tray. StaticBody3D rather than Area3D because Godot's ray queries report
@@ -48,6 +59,10 @@ var _content: Lex01Content
 var _candidates: Node3D
 var _npcs: Node3D
 var _rng: RandomNumberGenerator
+# The world's built furniture. When a staging request names a model the interior already
+# stands for, its node is reused instead of instancing a second copy (null in the legacy
+# practice world, which builds no furniture).
+var _interior: Lex01Interior = null
 
 var _staged: Array[Node3D] = []
 var _colliders: Array[StaticBody3D] = []
@@ -67,11 +82,12 @@ var _markers: Dictionary = {}       # marker kind -> the one reusable MeshInstan
 var _marker_owners: Dictionary = {} # marker kind -> the node that marker currently marks
 
 
-func setup(content: Lex01Content, candidates: Node3D, npcs: Node3D, rng: RandomNumberGenerator) -> void:
+func setup(content: Lex01Content, candidates: Node3D, npcs: Node3D, rng: RandomNumberGenerator, interior: Lex01Interior = null) -> void:
 	_content = content
 	_candidates = candidates
 	_npcs = npcs
 	_rng = rng
+	_interior = interior
 	_build_markers()
 
 
@@ -121,17 +137,32 @@ func stage_scenario(scenario: Dictionary, keep_candidate_order: bool = false) ->
 	clear()
 	var context: String = String(scenario.get("context", ""))
 	var action: String = String(scenario.get("action_type", ""))
+	var authored: bool = _content.world_staging() == "authored_slots"
 	var slots: Array = _content.candidate_slots(context)
-	_slot_pool = slots.duplicate(true) if keep_candidate_order else _shuffled(slots)
+	# The candidate pool is the legacy practice world's way of staging. Authored staging never
+	# reads it: an answer stands at its station, so the room keeps its furniture from card to
+	# card and only the small things a card asks about appear and disappear.
+	_slot_pool = [] if authored else (slots.duplicate(true) if keep_candidate_order else _shuffled(slots))
 
 	var state: Dictionary = (scenario.get("scene_state", {}) as Dictionary) if scenario.get("scene_state", null) is Dictionary else {}
 	var target: Dictionary = (scenario.get("delivery_target", {}) as Dictionary) if scenario.get("delivery_target", null) is Dictionary else {}
 	var target_path: String = String(target.get("scene_object", ""))
 
+	# Which object stands at which station in authored staging: the placement slot the record
+	# declares for it, or the world's default station. Empty in the legacy world, which stages
+	# on the candidate pool instead.
+	var stations: Dictionary = _authored_station_map(scenario, state) if authored else {}
+
 	# 1. Anchors the scenario depends on: a placement slot's surface (the table a bun sits
 	#    on, the fridge something is put at) and the delivery target. These exist even when
-	#    they are not one of the answers.
+	#    they are not one of the answers. Authored staging also needs the anchor of the
+	#    default station, because answers that no scene_state slot names stand there. In the
+	#    tavern every one of these models already stands in the interior and is reused.
 	var anchor_paths: Array[String] = []
+	for slot_name: String in stations.values():
+		var station_anchor: String = String(_content.placement_slot(slot_name).get("anchor", ""))
+		if not station_anchor.is_empty() and not anchor_paths.has(station_anchor):
+			anchor_paths.append(station_anchor)
 	for key: String in _placement_keys(state):
 		var anchor: String = String(_content.placement_slot(String(state[key])).get("anchor", ""))
 		if not anchor.is_empty() and not anchor_paths.has(anchor):
@@ -141,14 +172,16 @@ func stage_scenario(scenario: Dictionary, keep_candidate_order: bool = false) ->
 	for anchor_path: String in anchor_paths:
 		_spawn_prop(anchor_path, _content.anchor_position(anchor_path, context))
 
-	# 2. The clickable answers of a find or bring task, each on a random candidate position.
+	# 2. The clickable answers of a find or bring task. Legacy staging puts each on a random
+	#    candidate position; authored staging puts each provisionally at its station's anchor
+	#    and the station pass below spreads the station's items on it.
 	var plan: Array[Dictionary] = []
 	if action != "respond":
 		for option: Variant in scenario.get("options", []):
 			var option_id: String = String((option as Dictionary).get("id", ""))
 			var scene_object: String = String((option as Dictionary).get("scene_object", ""))
 			var reused: bool = _by_path.has(scene_object)
-			var node: Node3D = _by_path[scene_object] as Node3D if reused else _spawn_prop(scene_object, _next_candidate_position())
+			var node: Node3D = _by_path[scene_object] as Node3D if reused else _spawn_prop(scene_object, _staging_position(scene_object, stations, context))
 			if node == null:
 				warnings.append("%s: could not stage option model %s" % [String(scenario.get("id", "?")), scene_object])
 				continue
@@ -161,19 +194,33 @@ func stage_scenario(scenario: Dictionary, keep_candidate_order: bool = false) ->
 	#    where the named lemmas are.
 	var focus: String = String(state.get("focus_object", ""))
 	var compared: String = String(state.get("compared_object", ""))
-	for path: String in [focus, compared]:
-		if not path.is_empty() and not _by_path.has(path):
-			_spawn_prop(path, _next_candidate_position())
 	var groups: Dictionary = {}
-	for key: String in _placement_keys(state):
-		var object_path: String = _content.object_path(key)
-		var slot: Dictionary = _content.placement_slot(String(state[key]))
-		if object_path.is_empty() or slot.is_empty():
-			continue
-		var group_key: String = "%s|%s" % [String(slot.get("anchor", "")), String(slot.get("mode", "on_top"))]
-		if not groups.has(group_key):
-			groups[group_key] = {"anchor": String(slot.get("anchor", "")), "mode": String(slot.get("mode", "on_top")), "items": []}
-		(groups[group_key] as Dictionary)["items"].append(object_path)
+	if authored:
+		# Authored staging: the groups come from the station map, which already covers the
+		# scene_state facts, the answers, the named objects of a respond sentence and the
+		# focus/compared objects. Everything stands on furniture that never moves.
+		for object_path: String in stations:
+			var station_slot: Dictionary = _content.placement_slot(String(stations[object_path]))
+			if station_slot.is_empty():
+				warnings.append("staging names an undeclared placement slot '%s' for %s" % [String(stations[object_path]), object_path])
+				continue
+			var station_key: String = "%s|%s" % [String(station_slot.get("anchor", "")), String(station_slot.get("mode", "on_top"))]
+			if not groups.has(station_key):
+				groups[station_key] = {"anchor": String(station_slot.get("anchor", "")), "mode": String(station_slot.get("mode", "on_top")), "items": []}
+			(groups[station_key] as Dictionary)["items"].append(object_path)
+	else:
+		for path: String in [focus, compared]:
+			if not path.is_empty() and not _by_path.has(path):
+				_spawn_prop(path, _next_candidate_position())
+		for key: String in _placement_keys(state):
+			var object_path: String = _content.object_path(key)
+			var slot: Dictionary = _content.placement_slot(String(state[key]))
+			if object_path.is_empty() or slot.is_empty():
+				continue
+			var group_key: String = "%s|%s" % [String(slot.get("anchor", "")), String(slot.get("mode", "on_top"))]
+			if not groups.has(group_key):
+				groups[group_key] = {"anchor": String(slot.get("anchor", "")), "mode": String(slot.get("mode", "on_top")), "items": []}
+			(groups[group_key] as Dictionary)["items"].append(object_path)
 	for group_key: String in groups:
 		var group: Dictionary = groups[group_key] as Dictionary
 		var anchor_node: Node3D = _by_path.get(String(group["anchor"]), null) as Node3D
@@ -193,8 +240,9 @@ func stage_scenario(scenario: Dictionary, keep_candidate_order: bool = false) ->
 		_highlight(_by_path[compared] as Node3D, "compared")
 
 	# 4. For a respond task the sentences name objects, so those objects have to be visible:
-	#    the player answers from what they see, not from a word game.
-	if action == "respond":
+	#    the player answers from what they see, not from a word game. Authored staging has
+	#    already added them to the station groups above, so only legacy staging spawns here.
+	if action == "respond" and not authored:
 		for option: Variant in scenario.get("options", []):
 			for lemma_id: String in _string_array((option as Dictionary).get("lemma_ids", [])):
 				var object_path: String = _content.object_path(lemma_id)
@@ -443,6 +491,16 @@ func target_at_crosshair(camera: Camera3D, max_distance: float) -> Dictionary:
 func _spawn_prop(scene_object: String, world_position: Vector3) -> Node3D:
 	if scene_object.is_empty():
 		return null
+	if _by_path.has(scene_object):
+		return _by_path[scene_object] as Node3D
+	# The world's authored furniture already stands in the room, so an anchor - and anything
+	# else this card names that happens to be that model - uses the standing node instead of
+	# instancing a second table or a second fridge next to the first one.
+	if _interior != null:
+		var standing: Node3D = _interior.node_for_model(scene_object)
+		if standing != null:
+			_by_path[scene_object] = standing
+			return standing
 	var packed: Variant = load(scene_object)
 	if not (packed is PackedScene):
 		warnings.append("cannot load model %s" % scene_object)
@@ -511,6 +569,56 @@ func _next_candidate_position() -> Vector3:
 	var index: int = mini(_used_slot_count, _slot_pool.size() - 1)
 	_used_slot_count += 1
 	return _vector3(_slot_pool[index])
+
+
+## Where a not-yet-staged object is first put down: on the candidate pool in legacy staging,
+## or provisionally at its station's anchor in authored staging (the station pass then spreads
+## the station's items across that anchor's surface).
+func _staging_position(scene_object: String, stations: Dictionary, context: String) -> Vector3:
+	if not stations.has(scene_object):
+		return _next_candidate_position()
+	var slot: Dictionary = _content.placement_slot(String(stations[scene_object]))
+	return _content.anchor_position(String(slot.get("anchor", "")), context)
+
+
+## Which placement slot every staged object of one scenario uses in authored staging: the slot
+## the record's scene_state declares for it, or the world's default station for everything the
+## record names without saying where. A model the interior already stands - the tavern table in
+## a sentence that names der Tisch, the fridge in one that names den Kuehlschrank - gets no
+## station: it already stands where it belongs and must not be moved by a card.
+func _authored_station_map(scenario: Dictionary, state: Dictionary) -> Dictionary:
+	var stations: Dictionary = {}  # scene_object path -> placement slot name
+	for key: String in _placement_keys(state):
+		var object_path: String = _content.object_path(key)
+		if not object_path.is_empty():
+			stations[object_path] = String(state[key])
+	var default_station: String = _content.default_station(String(scenario.get("context", "")))
+	if default_station.is_empty():
+		var declared: Array[String] = _content.placement_slots()
+		default_station = declared[0] if not declared.is_empty() else ""
+	var paths: Array[String] = []
+	for option: Variant in scenario.get("options", []):
+		var record: Dictionary = option as Dictionary
+		var scene_object: String = String(record.get("scene_object", ""))
+		if not scene_object.is_empty():
+			paths.append(scene_object)
+		for lemma_id: String in _string_array(record.get("lemma_ids", [])):
+			var lemma_path: String = _content.object_path(lemma_id)
+			if not lemma_path.is_empty():
+				paths.append(lemma_path)
+	for key: String in ["focus_object", "compared_object"]:
+		var named: String = String(state.get(key, ""))
+		if not named.is_empty():
+			paths.append(named)
+	for object_path: String in paths:
+		if object_path.is_empty() or stations.has(object_path):
+			continue
+		if _interior != null and _interior.node_for_model(object_path) != null:
+			continue
+		if default_station.is_empty():
+			continue
+		stations[object_path] = default_station
+	return stations
 
 
 func _enable_picking(node: Node3D, option_id: String, role: String = "option") -> void:

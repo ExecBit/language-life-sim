@@ -91,7 +91,7 @@ func _ready() -> void:
 	rng.seed = seed_value
 
 	content = Lex01Content.new()
-	if not content.load_all():
+	if not content.load_all(String(options.get("world", ""))):
 		for problem: String in content.errors:
 			print("CONTENT_ERROR %s" % problem)
 		print("LEX01 CONTENT FAIL")
@@ -101,6 +101,11 @@ func _ready() -> void:
 		print("CONTENT_ERROR %s" % problem)
 	print("CONTENT lemmas=%d scenario_files=%d scenarios=%d days=%s" % [
 		content.lemmas.size(), content.scenario_files.size(), content.scenarios.size(), content.days(),
+	])
+	# The world decides what a run is: the tavern by default, the legacy LEX-01 practice room
+	# with --world legacy. It is chosen before anything is staged so the whole run is coherent.
+	print("WORLD name=%s staging=%s interior=%s" % [
+		content.world_name(), content.world_staging(), str(content.world_uses_interior()),
 	])
 
 	progress = Lex01Progress.new()
@@ -112,19 +117,21 @@ func _ready() -> void:
 	# or delete the progress a human built by pressing F5.
 	if not _probe_mode.is_empty():
 		progress.use_probe_save()
-	builder = Lex01RoomBuilder.new()
-	builder.setup(content, candidates, npcs, rng)
-	builder.prepare_npcs()
-	for warning: String in builder.warnings:
-		print("BUILDER_WARNING %s" % warning)
-	# TAV-03 (Issue #10): the room is a tavern now, and it is built from data/room/lex01_room.json
-	# rather than from nodes in the scene, so adding a table or a crate is a data change.
+	# The tavern's fixed furniture, assembled from data once per run (TAV-03, Issue #10). It is a
+	# separate thing from the room builder on purpose: what stands in the room does not change
+	# from card to card, and only its `solid` entries stop the player. Only a world whose data
+	# declares an interior builds it - the legacy practice room keeps its empty test-room floor.
 	interior = Lex01Interior.new()
 	interior.setup(content, interior_root)
-	var tavern: Dictionary = interior.build()
+	var tavern: Dictionary = interior.build() if content.world_uses_interior() else {"built": 0, "solid": 0}
 	for warning: String in interior.warnings:
 		print("INTERIOR_WARNING %s" % warning)
 	print("TAVERN built=%d solid=%d" % [int(tavern["built"]), int(tavern["solid"])])
+	builder = Lex01RoomBuilder.new()
+	builder.setup(content, candidates, npcs, rng, interior)
+	builder.prepare_npcs()
+	for warning: String in builder.warnings:
+		print("BUILDER_WARNING %s" % warning)
 
 	hud.continue_pressed.connect(_on_continue)
 	hud.skip_pressed.connect(_on_skip)
@@ -1335,6 +1342,8 @@ func _command_line_options() -> Dictionary:
 			result["probe"] = "input" if args[index] == "--probe-input" else "logic"
 		elif args[index] == "--seed" and index + 1 < args.size():
 			result["seed"] = int(args[index + 1])
+		elif args[index] == "--world" and index + 1 < args.size():
+			result["world"] = args[index + 1]
 	return result
 
 
