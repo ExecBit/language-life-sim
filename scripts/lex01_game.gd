@@ -13,6 +13,13 @@ extends Node3D
 ## player is learning and are shown exactly as written. The instruction, status, held, skip and
 ## retry lines are interface text and come from data/ui/lex01_ui_ru.json.
 ##
+## Point of view (TAV-02, Issue #9): the player is `scenes/fps_player.tscn`, a capsule with an eye
+## camera, standing inside a room shell. An answer is given by putting the crosshair on something
+## and pressing E or clicking - one interact path, one gate that decides whether the interface or
+## the world owns the input, and one reach limit that comes from the room data. What a player does
+## to answer (find_select / bring_deliver / respond) and what gets recorded are unchanged; only
+## aiming replaced clicking a projected point on a fixed camera.
+##
 ## Beginner flow: a run that has never been started opens in `briefing`, where 3D clicks do
 ## nothing until the onboarding overlay is closed, and the record its data marks `guided` is
 ## always presented first with its translation already open. Every later card hides its
@@ -22,7 +29,8 @@ extends Node3D
 ## objects and the answer order are rebuilt from the same record, so guessing by position
 ## cannot work, and the player can always continue with the skip button.
 
-@onready var camera: Camera3D = %Camera3D
+@onready var player: FpsPlayer = %Player
+@onready var room_shell: StaticBody3D = %RoomShell
 @onready var candidates: Node3D = %Candidates
 @onready var npcs: Node3D = %NPCs
 @onready var hud: Lex01HUD = %HUD
@@ -51,6 +59,18 @@ var current_view: Array[Dictionary] = []
 var _onboarding_open: bool = false
 var _phase_before_onboarding: String = ""
 var _hint_open: bool = false
+# Pause is its own phase in the same pattern as the briefing: the phase that was running is kept
+# and restored unchanged, so an overlay can never leave the learning loop in a state it never had.
+var _pause_open: bool = false
+var _phase_before_pause: String = ""
+# Whether the answer menu of a respond task is on screen: while it is, the mouse and Enter belong
+# to the menu and nothing in the room can be acted on.
+var _answers_open: bool = false
+var _cursor_mode: String = "visible"
+var _aim: Dictionary = {}
+var _interact_range: float = 5.0
+var _player_config: Dictionary = {}
+var _probe_walk_frames: int = 300
 
 var _probe_mode: String = ""
 
@@ -75,6 +95,9 @@ func _ready() -> void:
 	])
 
 	progress = Lex01Progress.new()
+	_player_config = content.player_config()
+	_interact_range = float(_player_config.get("interact_range", 5.0))
+	_probe_walk_frames = int(_player_config.get("probe_walk_frames", 300))
 	# An automated run drives the real scene and really saves, so it is pointed at the probe file
 	# before anything is loaded, saved or deleted. A probe run can therefore never read, rewrite
 	# or delete the progress a human built by pressing F5.
@@ -95,12 +118,17 @@ func _ready() -> void:
 	hud.hint_pressed.connect(_on_hint)
 	hud.onboarding_close_pressed.connect(_on_close_onboarding)
 	hud.response_chosen.connect(_on_response_chosen)
+	hud.resume_pressed.connect(close_pause)
+	hud.pause_reset_pressed.connect(_on_reset)
+	hud.pause_quit_pressed.connect(_on_quit)
 	hud.set_labels(content)
+	player.set_tunables(_player_config)
 
 	var day: int = int(content.days()[0])
 	if progress.load_run() and content.days().has(progress.current_day):
 		day = progress.current_day
 		print("PROGRESS restored day=%d totals=%s" % [progress.current_day, progress.totals()])
+	set_cursor(true)
 	start_day(day)
 	print("RUN seed=%d mode=%s" % [seed_value, _probe_mode if not _probe_mode.is_empty() else "play"])
 
@@ -120,30 +148,189 @@ func _ready() -> void:
 		get_tree().quit(int(verdict))
 
 
+## The keys, in one place. Every check is an action check on the event itself, so a key reaches the
+## game exactly the way the probe drives it and exactly the way a player presses it.
 func _unhandled_input(event: InputEvent) -> void:
+	# Esc is the pause key now. It never ends a run directly: quitting is a button on the pause
+	# menu, and while the briefing is open Esc closes the briefing instead.
 	if event.is_action_pressed("ui_cancel"):
-		get_tree().quit(0)
-		return
-	if event is InputEventMouseMotion and phase == "asking" and not _onboarding_open:
-		var hover: Dictionary = builder.pick_at_screen(camera, event.position)
-		if String(hover.get("kind", "")) == "option":
-			builder.set_hover(String(hover["option_id"]))
+		if _pause_open:
+			close_pause()
+		elif _onboarding_open:
+			close_onboarding()
 		else:
-			builder.clear_hover()
+			open_pause()
 		return
-	if phase != "asking" or _onboarding_open:
+	if event.is_action_pressed("open_help"):
+		_on_help()
 		return
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		last_input_seen = true
-		var hit: Dictionary = builder.pick_at_screen(camera, event.position)
-		last_pick_result = hit
-		match String(hit.get("kind", "")):
-			"option":
-				answer_with_option(String(hit["option_id"]))
-			"delivery":
-				deliver_to("object", "", String(staging.get("delivery_path", "")))
-			"npc":
-				deliver_to("npc", String(hit.get("npc", "")), "")
+	if event.is_action_pressed("hint"):
+		request_hint()
+		return
+	if event.is_action_pressed("skip_task"):
+		skip_current()
+		return
+	if event.is_action_pressed("continue_task"):
+		_on_continue()
+		return
+	# E and the left mouse button are the same action in the input map, so one line covers both and
+	# there is exactly one way an object in the room can be acted on.
+	if event.is_action_pressed("interact"):
+		interact_with_target()
+
+
+## The crosshair answer is recomputed every physics frame: aiming changes with mouse-look and with
+## walking, and the target label, the crosshair colour, the object highlight and the interact key
+## all read this one answer instead of each aiming on their own.
+func _physics_process(_delta: float) -> void:
+	player.set_active(not _interface_is_open())
+	# Looking is gated by the task, not by the cursor: a respond task asks the player to look at the
+	# room while the answer menu is up, so the head still turns with the mouse even though the cursor
+	# is free and the body is not walking.
+	player.set_look_enabled(phase == "asking")
+	_aim = builder.target_at_crosshair(player.camera, _interact_range) if phase == "asking" and not _interface_is_open() else {}
+	_report_aim()
+	# Tab is read from the input state rather than from an event, because a focused HUD button would
+	# otherwise eat it as focus navigation - and freeing the cursor is the one key that has to work.
+	if Input.is_action_just_pressed("toggle_cursor") and not _interface_is_open():
+		toggle_cursor()
+
+
+# region aiming, interacting and cursor mode
+
+## The only place a pick becomes an answer. Whatever aimed at it - E or a left click - the same
+## rules apply: the interface has to be closed, the task has to be open, and what is aimed at has
+## to be within the reach the room data declares. An aim that is too far answers with the too-far
+## cue and records nothing at all, so walking past the room cannot cost an attempt.
+func interact_with_target() -> void:
+	if phase != "asking" or _interface_is_open():
+		return
+	last_input_seen = true
+	last_pick_result = _aim
+	if _aim.is_empty():
+		hud.show_feedback(content.ui_line("target_none"), false)
+		return
+	if not bool(_aim.get("in_range", false)):
+		hud.show_feedback(content.ui_line("target_too_far"), false)
+		return
+	match String(_aim.get("kind", "")):
+		"option":
+			answer_with_option(String(_aim["option_id"]))
+		"delivery":
+			deliver_to("object", "", String(staging.get("delivery_path", "")))
+		"npc":
+			deliver_to("npc", String(_aim.get("npc", "")), "")
+		_:
+			hud.show_feedback(content.ui_line("target_none"), false)
+
+
+## What the line under the crosshair says: what E would do to the thing the crosshair is on. The
+## three forms are interface text from data; the name is the German the scenario recorded.
+func _aim_label() -> String:
+	if _aim.is_empty():
+		return ""
+	if not bool(_aim.get("in_range", false)):
+		return content.ui_line("target_too_far")
+	var carrying: bool = not builder.held_option_id().is_empty()
+	match String(_aim.get("kind", "")):
+		"option":
+			if String(current_scenario.get("action_type", "")) != "bring_deliver":
+				return content.ui_line("interact_hint") % option_label(String(_aim.get("option_id", "")))
+			return content.ui_line("interact_take") % option_label(String(_aim.get("option_id", "")))
+		"delivery":
+			if carrying:
+				return content.ui_line("interact_deliver") % delivery_label()
+		"npc":
+			if carrying and String(current_scenario.get("action_type", "")) == "bring_deliver":
+				return content.ui_line("interact_deliver") % npc_label(String(_aim.get("npc", "")))
+	return ""
+
+
+## One aim, three consumers: the crosshair colour, the label under it and the object highlight.
+func _report_aim() -> void:
+	var label: String = _aim_label()
+	if label.is_empty():
+		hud.set_target("", "off" if _interface_is_open() else "none")
+		builder.clear_hover()
+		return
+	var state: String = "targeted"
+	if not bool(_aim.get("in_range", false)):
+		state = "far"
+	elif not builder.held_option_id().is_empty():
+		state = "held"
+	hud.set_target(label, state)
+	if state != "far" and String(_aim.get("kind", "")) == "option":
+		builder.set_hover(String(_aim["option_id"]))
+	else:
+		builder.clear_hover()
+
+
+## While the briefing, the pause menu, the day summary or an answer menu is on screen, the interface
+## owns the mouse and the keys: a click can only act on the interface, never on an object behind it.
+func _interface_is_open() -> bool:
+	return _onboarding_open or _pause_open or _answers_open or phase == "briefing" or phase == "paused" \
+		or phase == "day_finished" or phase == "run_finished"
+
+
+## Captured is the normal state of play: the mouse looks and the crosshair aims. Tab, or any
+## interface that opens, releases the cursor so the HUD can be clicked; capture returns with play.
+func set_cursor(captured: bool) -> void:
+	var wanted: String = "captured" if captured else "visible"
+	if _cursor_mode == wanted:
+		return
+	_cursor_mode = wanted
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if captured else Input.MOUSE_MODE_VISIBLE
+	if captured:
+		# A click is hit-tested at the OS cursor position, and a captured cursor does not move on its
+		# own, so the position is put under the crosshair: what a player clicks is what they look at.
+		get_viewport().warp_mouse(get_viewport().get_visible_rect().size * 0.5)
+		# No Control keeps focus while aiming, so Tab and the other shortcuts reach the game instead
+		# of moving focus between buttons.
+		get_viewport().gui_release_focus()
+	print("CURSOR mode=%s phase=%s scenario=%s" % [_cursor_mode, phase, String(current_scenario.get("id", ""))])
+
+
+func toggle_cursor() -> void:
+	set_cursor(_cursor_mode == "visible")
+
+
+func sync_cursor() -> void:
+	set_cursor(not _interface_is_open())
+
+
+func cursor_mode() -> String:
+	return _cursor_mode
+
+
+func open_pause() -> void:
+	if _pause_open:
+		return
+	_pause_open = true
+	_phase_before_pause = phase
+	phase = "paused"
+	builder.clear_hover()
+	hud.show_pause(content.ui_line("paused_note"))
+	_update_buttons()
+	sync_cursor()
+	print("PAUSE opened scenario=%s phase_before=%s" % [String(current_scenario.get("id", "")), _phase_before_pause])
+
+
+func close_pause() -> void:
+	if not _pause_open:
+		return
+	_pause_open = false
+	hud.hide_pause()
+	phase = _phase_before_pause if not _phase_before_pause.is_empty() else "asking"
+	_phase_before_pause = ""
+	_update_buttons()
+	sync_cursor()
+	print("PAUSE closed scenario=%s phase=%s" % [String(current_scenario.get("id", "")), phase])
+
+
+func pause_open() -> bool:
+	return _pause_open
+
+# endregion
 
 
 # region day and scenario flow
@@ -191,7 +378,7 @@ func present_current() -> void:
 	# The guided example keeps the object positions its record authored, so the first task is one
 	# calm example; a retry of it restages shuffled like every other retry.
 	staging = builder.stage_scenario(current_scenario, guided)
-	_apply_camera(String(current_scenario.get("context", "")))
+	place_player(String(current_scenario.get("context", "")))
 	progress.present(current_scenario)
 	_build_view()
 	builder.speak(String(current_scenario.get("npc", "")))
@@ -203,10 +390,12 @@ func present_current() -> void:
 	if guided:
 		progress.mark_hint_used(current_scenario)
 		hud.set_gloss(_gloss_text())
-	if String(current_scenario.get("action_type", "")) == "respond":
+	_answers_open = String(current_scenario.get("action_type", "")) == "respond"
+	if _answers_open:
 		hud.show_response_options(shuffled_options())
 	phase = "asking"
 	_update_buttons()
+	sync_cursor()
 
 
 ## The ? button: the onboarding overlay is available at any time, not only on a first run.
@@ -219,6 +408,7 @@ func open_onboarding() -> void:
 	phase = "briefing"
 	hud.show_onboarding("%s\n\n%s" % [content.onboarding_text(), content.ui_line("briefing_hint")])
 	_update_buttons()
+	sync_cursor()
 
 
 func close_onboarding() -> void:
@@ -231,6 +421,7 @@ func close_onboarding() -> void:
 	phase = _phase_before_onboarding if not _phase_before_onboarding.is_empty() else "asking"
 	_phase_before_onboarding = ""
 	_update_buttons()
+	sync_cursor()
 	print("ONBOARDING closed scenario=%s phase=%s" % [String(current_scenario.get("id", "")), phase])
 
 
@@ -412,7 +603,10 @@ func record_attempt(option_id: String, target_ok: bool = true) -> void:
 		hud.set_held("")
 		restage_same_scenario()
 	_update_buttons()
-	hud.focus_primary_button()
+	# A respond task keeps the keyboard focus in its answer menu, so arrow keys and Enter keep
+	# answering; every other phase hands focus to the button the player would press next.
+	if not _answers_open:
+		hud.focus_primary_button()
 
 
 ## Rebuild the same scenario with a fresh shuffle, keeping the feedback the player just read.
@@ -420,11 +614,13 @@ func restage_same_scenario() -> void:
 	var feedback: String = String(hud.prompt_text())
 	staging = builder.stage_scenario(current_scenario)
 	_build_view()
-	if String(current_scenario.get("action_type", "")) == "respond":
+	_answers_open = String(current_scenario.get("action_type", "")) == "respond"
+	if _answers_open:
 		hud.show_response_options(shuffled_options())
 	else:
 		hud.clear_responses()
 	hud.show_feedback(feedback, false)
+	sync_cursor()
 
 
 func advance() -> void:
@@ -460,6 +656,7 @@ func finish_day() -> void:
 	hud.set_buttons(false, false, false, has_next, true)
 	if not has_next:
 		phase = "run_finished"
+	sync_cursor()
 
 
 func end_day() -> void:
@@ -565,6 +762,10 @@ func _on_reset() -> void:
 	reset_run()
 
 
+func _on_quit() -> void:
+	get_tree().quit(0)
+
+
 func _on_help() -> void:
 	if _onboarding_open:
 		close_onboarding()
@@ -615,7 +816,34 @@ func probe_state() -> Dictionary:
 		"status_visible": hud.status_text(),
 		"onboarding_text": hud.onboarding_text(),
 		"chrome": hud.chrome_labels(),
+		"player_position": _position_text(player.global_position),
+		"player_eye": _position_text(player.eye_position()),
+		"cursor_mode": _cursor_mode,
+		"pause_open": _pause_open,
+		"answers_open": _answers_open,
+		"target_label": hud.target_text(),
+		"target_state": hud.target_state(),
+		"interact_range": _interact_range,
+		"aim": _aim_summary(),
 	}
+
+
+## What the crosshair is on right now, in a form a check can assert against.
+func _aim_summary() -> Dictionary:
+	if _aim.is_empty():
+		return {"kind": "", "option_id": "", "npc": "", "distance": -1.0, "in_range": false, "label": ""}
+	return {
+		"kind": String(_aim.get("kind", "")),
+		"option_id": String(_aim.get("option_id", "")),
+		"npc": String(_aim.get("npc", "")),
+		"distance": float(_aim.get("distance", -1.0)),
+		"in_range": bool(_aim.get("in_range", false)),
+		"label": _aim_label(),
+	}
+
+
+func _position_text(value: Vector3) -> String:
+	return "%.2f|%.2f|%.2f" % [value.x, value.y, value.z]
 
 
 func probe_select_option(option_id: String) -> Dictionary:
@@ -634,31 +862,249 @@ func probe_deliver_at(clicked_kind: String, clicked_npc: String, clicked_path: S
 	return probe_state()
 
 
+# region first-person probe affordances (TAV-02)
+
+## Walk to an answer the way a player walks to it - through the player's own movement code - and
+## report what happened. This is what replaces clicking a projected screen point.
+func probe_walk_to_option(option_id: String) -> Dictionary:
+	var center: Vector3 = builder.option_center(option_id)
+	if center == Vector3.ZERO:
+		return {"error": "no staged object for %s" % option_id}
+	var stop: float = _interact_range * 0.7
+	var walk: Dictionary = await player.walk_to(center, stop, _probe_walk_frames)
+	walk["option_id"] = option_id
+	walk["stop_distance"] = stop
+	# Aim at a visible part of the object rather than only at its middle, which is what a player does
+	# when the middle is hidden behind something bigger.
+	walk["aim"] = probe_face(option_id)
+	return walk
+
+
+## Walk forward blindly for a fixed number of physics frames, which is how a check shows that a
+## wall stops the player instead of letting them leave the room or drop through the floor.
+func probe_walk_forward(frames: int) -> Dictionary:
+	var before: Dictionary = probe_state()
+	var walk: Dictionary = await player.walk_forward_for(frames)
+	walk["before_position"] = before["player_position"]
+	walk["after"] = probe_state()
+	return walk
+
+
+## Recompute the crosshair answer and report it, without waiting for a physics frame.
+func probe_aim() -> Dictionary:
+	_aim = builder.target_at_crosshair(player.camera, _interact_range)
+	_report_aim()
+	return _aim_summary()
+
+
+## Turn the eye toward an answer, which is exactly what aiming at it by hand means. If the first
+## point lands the crosshair on something in front of it, the next points try the top of its box,
+## because that is what a player does: they aim at the part of the object they can actually see.
+func probe_face(option_id: String) -> Dictionary:
+	var box: AABB = builder.option_aabb(option_id)
+	if box.size.length() <= 0.0:
+		return {"error": "no staged object for %s" % option_id}
+	var top: float = box.position.y + box.size.y
+	var points: Array[Vector3] = [
+		box.get_center(),
+		Vector3(box.get_center().x, top, box.get_center().z),
+		Vector3(box.position.x + box.size.x * 0.25, top, box.get_center().z),
+		Vector3(box.position.x + box.size.x * 0.75, top, box.get_center().z),
+		Vector3(box.get_center().x, top, box.position.z + box.size.z * 0.75),
+	]
+	for point: Vector3 in points:
+		player.face_point(point)
+		var aim: Dictionary = probe_aim()
+		if String(aim.get("option_id", "")) == option_id:
+			return aim
+	return probe_aim()
+
+
+## How far an answer is from the eye, and whether that is inside the reach the room declares:
+## the reachability question a player answers by walking. `surface_distance` is the distance to the
+## nearest point of the object's box, because that is what the crosshair measures, not the middle
+## of a large object.
+func probe_reach(option_id: String) -> Dictionary:
+	var center: Vector3 = builder.option_center(option_id)
+	var box: AABB = builder.option_aabb(option_id)
+	var eye: Vector3 = player.eye_position()
+	var nearest: Vector3 = Vector3(
+		clampf(eye.x, box.position.x, box.position.x + box.size.x),
+		clampf(eye.y, box.position.y, box.position.y + box.size.y),
+		clampf(eye.z, box.position.z, box.position.z + box.size.z),
+	)
+	return {
+		"option_id": option_id,
+		"distance": eye.distance_to(center),
+		"surface_distance": eye.distance_to(nearest),
+		"interact_range": _interact_range,
+		"in_range": eye.distance_to(nearest) <= _interact_range,
+		"center": _position_text(center),
+	}
+
+
+## Press E the way a player does, through the viewport, so the ordinary interact path runs.
+func probe_press_interact() -> Dictionary:
+	var pressed: InputEventKey = InputEventKey.new()
+	pressed.physical_keycode = KEY_E
+	pressed.pressed = true
+	var released: InputEventKey = InputEventKey.new()
+	released.physical_keycode = KEY_E
+	released.pressed = false
+	get_viewport().push_input(pressed)
+	get_viewport().push_input(released)
+	return probe_state()
+
+
+## Press a named action key the way a player does: H for the translation, X to skip, F1 for the
+## briefing, Tab to free the cursor. In first person these are the controls, not the HUD buttons.
+func probe_press_key(action: String) -> Dictionary:
+	var pressed: InputEventAction = InputEventAction.new()
+	pressed.action = action
+	pressed.pressed = true
+	var released: InputEventAction = InputEventAction.new()
+	released.action = action
+	released.pressed = false
+	get_viewport().push_input(pressed)
+	get_viewport().push_input(released)
+	return probe_state()
+
+
+## Free or capture the cursor the way Tab does.
+func probe_toggle_cursor() -> Dictionary:
+	toggle_cursor()
+	return probe_state()
+
+
+func probe_open_pause() -> Dictionary:
+	open_pause()
+	return probe_state()
+
+
+func probe_close_pause() -> Dictionary:
+	close_pause()
+	return probe_state()
+
+
+## Where every staged answer stands in the room, so a check can confirm a spawn really looks at the
+## situation instead of trusting one hand-placed coordinate.
+func probe_spawn_clearance() -> Dictionary:
+	var result: Dictionary = {"player": _position_text(player.global_position)}
+	var blocked: PackedStringArray = PackedStringArray()
+	var radius: float = float(_player_config.get("capsule_radius", 0.35))
+	for option_id: String in builder.option_ids():
+		var box: AABB = builder.option_aabb(option_id)
+		if box.size.length() <= 0.0:
+			continue
+		var grown: AABB = box.grow(radius + 0.05)
+		if grown.has_point(player.global_position) or grown.has_point(player.eye_position()):
+			blocked.append(option_id)
+	var npcs: Variant = content.room.get("npcs", null)
+	if npcs is Dictionary:
+		for npc_name: String in (npcs as Dictionary):
+			var node: Node3D = builder.npc_node(npc_name)
+			if node != null and node.global_position.distance_to(player.global_position) < radius + 0.6:
+				blocked.append(String(node.name))
+	result["blocked_by"] = blocked
+	return result
+
+# endregion
+
+
 ## Choose an answer sentence, as the response menu would.
 func probe_respond(option_id: String) -> Dictionary:
 	_on_response_chosen(option_id)
 	return probe_state()
 
 
-## Click the delivery target the scenario declares, through the ordinary picking path.
-func probe_click_delivery_on_screen() -> Dictionary:
+## Where the delivery target of the staged scenario is in the room, whether it is a prop or a
+## person: the point the crosshair has to land on to answer a bring task.
+func _delivery_target_point() -> Vector3:
 	var kind: String = String(staging.get("delivery_kind", ""))
-	var target: Vector3 = Vector3.ZERO
 	if kind == "object":
-		target = builder.prop_center(String(staging.get("delivery_path", "")))
-	elif kind == "npc":
+		return builder.prop_center(String(staging.get("delivery_path", "")))
+	if kind == "npc":
 		var npc_node: Node3D = builder.npc_node(String(staging.get("delivery_npc", "")))
 		if npc_node != null:
-			target = npc_node.global_position + Vector3(0, 0.9, 0)
+			return npc_node.global_position + Vector3(0, 0.9, 0)
+	return Vector3.ZERO
+
+
+## Click the delivery target the scenario declares, through the ordinary interact path, from where
+## the player is standing. The first-person probe uses this to confirm the aim really lands on the
+## target; the answer itself is given by walking to it and pressing E.
+func probe_click_delivery_on_screen() -> Dictionary:
+	var target: Vector3 = _delivery_target_point()
 	if target == Vector3.ZERO:
 		return {"error": "no delivery target to click", "staging": staging}
-	var screen: Vector2 = camera.unproject_position(target)
+	player.face_point(target)
 	var before: Dictionary = probe_state()
-	_push_mouse_click(screen)
+	_push_mouse_click(_crosshair_point())
 	return {
-		"screen": screen,
+		"screen": _crosshair_point(),
 		"pick": last_pick_result,
+		"aim": probe_aim(),
 		"input_reached_game": last_input_seen,
+		"before": before,
+		"after": probe_state(),
+	}
+
+
+## Walk to a world point with the player's own movement, used by the containment and out-of-range
+## checks so a walk can start and end at a known place in the room.
+func probe_walk_to_point(point: Vector3) -> Dictionary:
+	var walk: Dictionary = await player.walk_to(point, 0.8, _probe_walk_frames)
+	walk["point"] = _position_text(point)
+	return walk
+
+
+## Walk to the delivery target the way a player walks to a person or a place they were told to bring
+## something to.
+func probe_walk_to_delivery_target() -> Dictionary:
+	var target: Vector3 = _delivery_target_point()
+	if target == Vector3.ZERO:
+		return {"error": "no delivery target in the staged scenario", "staging": staging}
+	var walk: Dictionary = await player.walk_to(target, _interact_range * 0.6, _probe_walk_frames)
+	walk["aim"] = probe_face_point(target)
+	return walk
+
+
+## Turn the eye toward an exact world point and report what the crosshair landed on.
+func probe_face_point(point: Vector3) -> Dictionary:
+	player.face_point(point)
+	return probe_aim()
+
+
+## Put the player back at the spawn of the current context and walk straight ahead until a wall
+## stops them: the containment check has to start from a known place and a known facing.
+func probe_walk_into_wall(frames: int) -> Dictionary:
+	place_player(String(current_scenario.get("context", "")))
+	await get_tree().physics_frame
+	return await probe_walk_forward(frames)
+
+
+## Answer an answer-menu button with the keyboard instead of the mouse: the button is given focus
+## (arrow keys do that for a player) and a real Enter key is pushed through the viewport, so the
+## ordinary button activation and its `response_selected` signal run.
+func probe_answer_response_with_keys(index: int) -> Dictionary:
+	var texts: PackedStringArray = hud.response_texts()
+	if index < 0 or index >= texts.size():
+		return {"error": "no response button at index %d" % index}
+	if not hud.focus_response(index):
+		return {"error": "response button %d could not take keyboard focus" % index}
+	var before: Dictionary = probe_state()
+	var pressed: InputEventKey = InputEventKey.new()
+	pressed.keycode = KEY_ENTER
+	pressed.physical_keycode = KEY_ENTER
+	pressed.pressed = true
+	var released: InputEventKey = InputEventKey.new()
+	released.keycode = KEY_ENTER
+	released.physical_keycode = KEY_ENTER
+	released.pressed = false
+	get_viewport().push_input(pressed)
+	get_viewport().push_input(released)
+	return {
+		"clicked_text": texts[index],
 		"before": before,
 		"after": probe_state(),
 	}
@@ -728,23 +1174,8 @@ func probe_day_order(day: int, seed: int) -> PackedStringArray:
 	return ids
 
 
-## Press the ? button the way the HUD does.
-func probe_click_help_on_screen() -> Dictionary:
-	var screen: Vector2 = hud.help_button_center()
-	var before: Dictionary = probe_state()
-	_push_mouse_click(screen)
-	return {"screen": screen, "before": before, "after": probe_state()}
-
-
-## Press the translation button the way the HUD does.
-func probe_click_hint_on_screen() -> Dictionary:
-	var screen: Vector2 = hud.hint_button_center()
-	var before: Dictionary = probe_state()
-	_push_mouse_click(screen)
-	return {"screen": screen, "before": before, "after": probe_state()}
-
-
-## Press the button on the briefing overlay itself, which is the one a beginner is meant to press.
+## Press the button on the briefing overlay itself, which is the one a beginner is meant to press -
+## and the cursor is free while that overlay is open, so this click is what a player really does.
 func probe_click_onboarding_close_on_screen() -> Dictionary:
 	var screen: Vector2 = hud.onboarding_close_button_center()
 	var before: Dictionary = probe_state()
@@ -752,49 +1183,31 @@ func probe_click_onboarding_close_on_screen() -> Dictionary:
 	return {"screen": screen, "before": before, "after": probe_state()}
 
 
-## Find a screen point where this object really is the thing under the cursor, so the probe
-## clicks where a player would click it instead of clicking through another object.
-func probe_option_screen_point(option_id: String) -> Dictionary:
-	var box: AABB = builder.option_aabb(option_id)
-	if box.size.length() <= 0.0:
-		return {"error": "no staged object for %s" % option_id}
-	var top: float = box.position.y + box.size.y
-	var candidates: Array[Vector3] = [
-		box.get_center(),
-		Vector3(box.get_center().x, top, box.get_center().z),
-		Vector3(box.position.x + box.size.x * 0.25, top, box.get_center().z),
-		Vector3(box.position.x + box.size.x * 0.75, top, box.get_center().z),
-		Vector3(box.get_center().x, top, box.position.z + box.size.z * 0.25),
-		Vector3(box.get_center().x, top, box.position.z + box.size.z * 0.75),
-	]
-	var tried: PackedStringArray = PackedStringArray()
-	for point: Vector3 in candidates:
-		var screen: Vector2 = camera.unproject_position(point)
-		var hit: Dictionary = builder.pick_at_screen(camera, screen)
-		tried.append("%s->%s" % [screen, hit.get("option_id", hit.get("kind", "none"))])
-		if String(hit.get("option_id", "")) == option_id:
-			return {"screen": screen, "hit": hit, "tried": tried}
-	return {"error": "no screen point where %s is the object under the cursor" % option_id, "tried": tried}
-
-
-## Push a real left click at the screen position of a staged object, so what gets tested is
-## the ordinary mouse picking path. Returns what the picking resolved plus the state change.
+## Push a real left click while the eye is aimed at a staged object, through the ordinary interact
+## path. This is the click half of the shared path: a click acts on the crosshair target, exactly
+## like E, and never on wherever the OS cursor happens to be.
 func probe_click_option_on_screen(option_id: String) -> Dictionary:
-	var point: Dictionary = probe_option_screen_point(option_id)
-	if point.has("error"):
-		return point
-	var screen: Vector2 = point["screen"]
+	var aim: Dictionary = probe_face(option_id)
+	if String(aim.get("option_id", "")) != option_id:
+		return {
+			"error": "aiming at %s resolves %s instead" % [option_id, aim.get("option_id", aim.get("kind", "nothing"))],
+			"aim": aim,
+		}
 	var before: Dictionary = probe_state()
-	_push_mouse_click(screen)
+	_push_mouse_click(_crosshair_point())
 	return {
-		"screen": screen,
+		"screen": _crosshair_point(),
 		"pick": last_pick_result,
-		"direct_pick": builder.pick_at_screen(camera, screen),
-		"tried": point.get("tried", []),
+		"aim": aim,
 		"input_reached_game": last_input_seen,
 		"before": before,
 		"after": probe_state(),
 	}
+
+
+## The point the crosshair is at, which is the point a click is aimed at while the mouse is captured.
+func _crosshair_point() -> Vector2:
+	return get_viewport().get_visible_rect().size * 0.5
 
 
 ## Push a real left click onto a response button of the DialogueResponsesMenu.
@@ -849,28 +1262,87 @@ func _command_line_options() -> Dictionary:
 	return result
 
 
-func _apply_camera(context: String) -> void:
+## The room shell's own bounds, merged from its collision shapes: a StaticBody3D has no bounding box
+## of its own, and "is the player still inside the room" is a question about those shapes.
+func room_shell_bounds() -> AABB:
+	if room_shell == null:
+		return AABB()
+	var low: Vector3 = Vector3(INF, INF, INF)
+	var high: Vector3 = Vector3(-INF, -INF, -INF)
+	var found: bool = false
+	for child: Node in room_shell.get_children():
+		if not (child is CollisionShape3D):
+			continue
+		var shape_node: CollisionShape3D = child as CollisionShape3D
+		if shape_node.shape == null:
+			continue
+		for corner: Vector3 in _corners(_shape_rect(shape_node.shape)):
+			var point: Vector3 = shape_node.global_transform * corner
+			low = Vector3(minf(low.x, point.x), minf(low.y, point.y), minf(low.z, point.z))
+			high = Vector3(maxf(high.x, point.x), maxf(high.y, point.y), maxf(high.z, point.z))
+			found = true
+	return AABB(low, high - low) if found else AABB()
+
+
+## The box a collision shape occupies around its own origin. Godot's Shape3D has no bounding box of
+## its own, and the room shell is built from boxes, so their declared size is the measurement.
+func _shape_rect(shape: Shape3D) -> AABB:
+	if shape is BoxShape3D:
+		var size: Vector3 = (shape as BoxShape3D).size
+		return AABB(-size * 0.5, size)
+	if shape is CapsuleShape3D:
+		var capsule: CapsuleShape3D = shape as CapsuleShape3D
+		var diameter: float = capsule.radius * 2.0
+		return AABB(
+			Vector3(-capsule.radius, -capsule.height * 0.5, -capsule.radius),
+			Vector3(diameter, capsule.height, diameter),
+		)
+	if shape is SphereShape3D:
+		var radius: float = (shape as SphereShape3D).radius
+		return AABB(Vector3(-radius, -radius, -radius), Vector3(radius * 2.0, radius * 2.0, radius * 2.0))
+	return AABB()
+
+
+func _corners(box: AABB) -> Array[Vector3]:
+	var low: Vector3 = box.position
+	var high: Vector3 = box.position + box.size
+	return [
+		low,
+		Vector3(high.x, low.y, low.z),
+		Vector3(low.x, high.y, low.z),
+		Vector3(low.x, low.y, high.z),
+		Vector3(high.x, high.y, low.z),
+		Vector3(high.x, low.y, high.z),
+		Vector3(low.x, high.y, high.z),
+		high,
+	]
+
+
+## Where the player stands for one context. TAV-02 (Issue #9) put the player where the fixed camera
+## used to be, read from the same `cameras` section of the room layout: a day-2 revisit is still a
+## different situation because the player is put down somewhere else and looks at a different layout.
+func place_player(context: String) -> void:
 	var config: Dictionary = content.camera_for(context)
 	if config.is_empty():
 		return
-	camera.position = Vector3(
-		float((config.get("position", [0, 4, 8.6]) as Array)[0]),
-		float((config.get("position", [0, 4, 8.6]) as Array)[1]),
-		float((config.get("position", [0, 4, 8.6]) as Array)[2]),
+	var position_value: Variant = config.get("position", [0, 0, 0])
+	if not (position_value is Array):
+		return
+	var rotation_value: Variant = config.get("rotation_deg", [0, 0, 0])
+	player.spawn_at(
+		Vector3(float((position_value as Array)[0]), float((position_value as Array)[1]), float((position_value as Array)[2])),
+		Vector3(0.0, 0.0, 0.0) if not (rotation_value is Array) else Vector3(float(rotation_value[0]), float(rotation_value[1]), float(rotation_value[2])),
 	)
-	var rotation_deg: Variant = config.get("rotation_deg", [-22, 0, 0])
-	if rotation_deg is Array:
-		camera.rotation_degrees = Vector3(float(rotation_deg[0]), float(rotation_deg[1]), float(rotation_deg[2]))
-	camera.current = true
+	print("SPAWN context=%s scenario=%s position=%.2f|%.2f|%.2f" % [context, String(current_scenario.get("id", "")), player.global_position.x, player.global_position.y, player.global_position.z])
 
 
 func _update_buttons() -> void:
 	var asking: bool = phase == "asking"
 	var solved: bool = phase == "solved"
-	# While the onboarding overlay is open the only control that makes sense is closing it, and
-	# that button lives on the overlay itself.
-	var briefing: bool = phase == "briefing"
-	hud.set_buttons(solved, asking, asking or solved, false, not briefing)
+	# While the onboarding overlay or the pause menu is open the only controls that make sense are
+	# the ones on the overlay itself, and the panels behind them would only overlap them.
+	var overlay: bool = phase == "briefing" or phase == "paused"
+	hud.set_buttons(solved, asking, asking or solved, false, not overlay)
 	hud.set_hint_visible(asking)
 
 

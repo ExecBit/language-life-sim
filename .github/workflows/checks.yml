@@ -28,6 +28,14 @@ jobs:
            scene = Path('scenes/main.tscn').read_text(encoding='utf-8')
            assert 'run/main_scene="res://scenes/main.tscn"' in project
            assert '[node name="LanguageLifeSim" type="Node3D"]' in scene
+           # TAV-02 (Issue #9): the room is walked through now, so the shipped scene has to carry
+           # the two things a first-person room needs - a player body and a room shell to collide
+           # with - and the input map has to declare the keys the controls read.
+           assert '[node name="RoomShell" type="StaticBody3D"' in scene, 'scenes/main.tscn has no room shell to collide with'
+           assert 'scenes/fps_player.tscn' in scene, 'scenes/main.tscn does not instance the first-person player'
+           assert Path('scripts/fps_player.gd').is_file() and Path('scenes/fps_player.tscn').is_file(), 'the first-person rig is missing'
+           for action in ('move_forward', 'move_back', 'move_left', 'move_right', 'interact', 'toggle_cursor', 'hint', 'skip_task', 'open_help'):
+               assert action in project, 'project.godot does not declare the %s input action' % action
            print('Bootstrap structure OK; Godot runtime NOT_TESTED by CI.')
 
            # Vocabulary handoff from PREP-01 (Issue #4).
@@ -90,7 +98,9 @@ jobs:
            assert set(ui['action_prompts']) == allowed, 'interface text must carry exactly one instruction per action type, found %s' % sorted(ui['action_prompts'])
            for key, instruction in ui['action_prompts'].items():
                assert instruction.strip() and has_cyrillic(instruction), 'action instruction for %s is empty or not in the interface language' % key
-           for key in ('continue', 'skip', 'end_day', 'next_day', 'reset', 'help', 'hint', 'close_onboarding'):
+           # TAV-02 (Issue #9): keyboard shortcuts and a pause menu only stay reachable if their
+           # labels exist in data, so the pause buttons are guarded like every other control.
+           for key in ('continue', 'skip', 'end_day', 'next_day', 'reset', 'help', 'hint', 'close_onboarding', 'pause_resume', 'pause_new_run', 'pause_quit'):
                value = ui['buttons'].get(key, '')
                assert value.strip(), 'interface text missing the button label %s' % key
                # The ? button is a symbol by design; every other control has to read as Russian.
@@ -98,11 +108,19 @@ jobs:
                    assert has_cyrillic(value), 'button label %s contains no Cyrillic: %s' % (key, value)
            for key in ('briefing_hint', 'guided', 'gloss_prefix', 'held', 'delivery_hint', 'nothing_held', 'skipped', 'retry', 'assisted', 'unaided'):
                assert str(ui['lines'].get(key, '')).strip(), 'interface text missing the line %s' % key
+           # Aiming needs its two cues and an always-on control reminder: a first-person player who
+           # cannot tell "nothing aimed" from "too far" has no way to find out what went wrong.
+           for key in ('controls_hint', 'target_none', 'target_too_far', 'interact_hint', 'paused_note'):
+               value = str(ui['lines'].get(key, ''))
+               assert value.strip() and has_cyrillic(value), 'interface text missing the aiming line %s' % key
+           for key in ('interact_take', 'interact_deliver'):
+               value = str(ui['lines'].get(key, ''))
+               assert value.strip() and has_cyrillic(value) and '%s' in value, 'interface text %s must name the object with a %%s placeholder' % key
            assert ui['onboarding'].get('title', '').strip() and has_cyrillic(ui['onboarding']['title']), 'onboarding needs a title in the interface language'
            assert len(ui['onboarding'].get('lines', [])) >= 3, 'onboarding explains fewer than three steps'
            for index, line in enumerate(ui['onboarding']['lines']):
                assert str(line).strip() and has_cyrillic(line), 'onboarding line %d is empty or not in the interface language' % index
-           for script in ('scripts/lex01_game.gd', 'scripts/lex01_hud.gd', 'scripts/lex01_progress.gd'):
+           for script in ('scripts/lex01_game.gd', 'scripts/lex01_hud.gd', 'scripts/lex01_progress.gd', 'scripts/fps_player.gd'):
                body = Path(script).read_text(encoding='utf-8')
                assert not has_cyrillic(body), '%s contains interface text, which belongs in data/ui/lex01_ui_ru.json' % script
                assert 'Klicke' not in body and 'bersprungen' not in body, '%s still hard-codes a German instruction' % script
@@ -165,8 +183,27 @@ jobs:
            # The room layout is data too: LEX-01 places objects from it, so its own references
            # have to be checked or a scenario could name a surface that does not exist.
            room = json.loads(Path('data/room/lex01_room.json').read_text(encoding='utf-8'))
-           for section in ('npcs', 'cameras', 'candidate_slots', 'anchors', 'placement_slots', 'hold', 'delivery'):
+           for section in ('npcs', 'cameras', 'candidate_slots', 'anchors', 'placement_slots', 'hold', 'delivery', 'player'):
                assert isinstance(room.get(section), dict), 'room layout missing the %s section' % section
+           # TAV-02 (Issue #9): the first-person body and its reach are data, not constants, so a
+           # broken tunable is caught here instead of becoming a player who cannot move, cannot see
+           # over the furniture, or cannot ever reach an answer.
+           player = room['player']
+           for key in ('eye_height', 'walk_speed', 'interact_range'):
+               value = player.get(key)
+               assert isinstance(value, (int, float)) and value > 0, 'room layout player.%s must be a positive number, got %s' % (key, value)
+           assert player['eye_height'] > 1.0, 'room layout player.eye_height of %s puts the crosshair at the floor' % player['eye_height']
+           assert player['interact_range'] <= 20.0, 'room layout player.interact_range of %s makes aiming a distance instead of an approach' % player['interact_range']
+           assert 0 < player.get('pitch_limit_deg', 0) <= 90, 'room layout player.pitch_limit_deg has to stay between 0 and 90 degrees'
+           # `cameras` keeps its name from LEX-01 but is read as where the player is put down per
+           # context, so a spawn outside the room or below the floor is a data error.
+           for context, camera in room['cameras'].items():
+               if context == 'note':
+                   continue
+               position = camera.get('position')
+               assert isinstance(position, list) and len(position) == 3, 'spawn for context %s has no position: %s' % (context, camera)
+               assert position[1] >= 0.0, 'spawn for context %s is below the floor: %s' % (context, position)
+               assert abs(position[0]) < 8.0 and abs(position[2]) < 8.0, 'spawn for context %s stands outside the room: %s' % (context, position)
            for name, npc in room['npcs'].items():
                assert Path(npc['scene'].replace('res://', '')).is_file(), 'npc %s model missing' % name
                assert npc.get('label_de'), 'npc %s has no label_de' % name
@@ -243,5 +280,5 @@ jobs:
                assert len(slots) >= 2, 'context %s has fewer than two candidate positions' % context
                assert context in room['cameras'] or 'default' in room['cameras'], 'context %s has no camera' % context
            print('Content OK: %d lemmas %s, %d scenario files, %d scenarios, %d lemmas recurring in two contexts, %d day-2 revisits, %d glossed prompts, %d glossed answer sentences, guided=%s, correct-answer positions %s.' % (
-                len(lemmas), sorted('%s=%d' % pair for pair in pos_counts.items()), len(scenario_files), len(all_scenarios), len(repeated), len(revisits), glossed, glossed_options, guided[0]['id'], correct_positions))
+               len(lemmas), sorted('%s=%d' % pair for pair in pos_counts.items()), len(scenario_files), len(all_scenarios), len(repeated), len(revisits), glossed, glossed_options, guided[0]['id'], correct_positions))
            PY

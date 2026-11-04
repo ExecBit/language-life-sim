@@ -222,3 +222,110 @@ bbcode_enabled = true
 scroll_active = false
 theme_override_font_sizes/normal_size = 20
 text = ""
+
+[node name="CrosshairLabel" type="Label" parent="Layer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -18.0
+offset_right = 24.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 24
+text = "+"
+horizontal_alignment = 1
+
+[node name="TargetLabel" type="RichTextLabel" parent="Layer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -52.0
+offset_right = 340.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+theme_override_font_sizes/normal_size = 18
+text = ""
+autowrap_mode = 0
+
+[node name="ControlsLabel" type="RichTextLabel" parent="Layer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 9
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 14.0
+offset_right = -110.0
+offset_bottom = 44.0
+grow_horizontal = 2
+mouse_filter = 2
+fit_content = true
+scroll_active = false
+theme_override_colors/default_color = Color(0.72, 0.76, 0.82, 1)
+theme_override_font_sizes/normal_size = 15
+text = ""
+
+[node name="PausePanel" type="PanelContainer" parent="Layer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.0
+offset_top = -150.0
+offset_right = 330.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("PanelDark")
+
+[node name="PauseMain" type="VBoxContainer" parent="Layer/PausePanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PauseLabel" type="RichTextLabel" parent="Layer/PausePanel/PauseMain"]
+unique_name_in_owner = true
+layout_mode = 2
+scroll_active = false
+theme_override_font_sizes/normal_size = 18
+text = ""
+
+[node name="PauseControls" type="HBoxContainer" parent="Layer/PausePanel/PauseMain"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PauseResumeButton" type="Button" parent="Layer/PausePanel/PauseMain/PauseControls"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(160, 40)
+text = "Продолжить"
+
+[node name="PauseResetButton" type="Button" parent="Layer/PausePanel/PauseMain/PauseControls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Новый проход"
+
+[node name="PauseQuitButton" type="Button" parent="Layer/PausePanel/PauseMain/PauseControls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Выйти из игры"

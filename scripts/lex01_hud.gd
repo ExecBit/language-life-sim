@@ -23,6 +23,18 @@ signal help_pressed()
 signal hint_pressed()
 signal onboarding_close_pressed()
 signal response_chosen(option_id: String)
+signal resume_pressed()
+signal pause_reset_pressed()
+signal pause_quit_pressed()
+
+# Crosshair states the game reports and the HUD only colours.
+const CROSSHAIR_COLOR: Dictionary = {
+	"off": Color(1, 1, 1, 0.15),
+	"none": Color(1, 1, 1, 0.45),
+	"targeted": Color(0.98, 0.85, 0.35, 0.95),
+	"held": Color(1.0, 0.95, 0.6, 0.95),
+	"far": Color(0.9, 0.42, 0.42, 0.95),
+}
 
 @onready var speaker_label: RichTextLabel = %SpeakerLabel
 @onready var utterance_label: RichTextLabel = %UtteranceLabel
@@ -43,10 +55,20 @@ signal response_chosen(option_id: String)
 @onready var onboarding_panel: PanelContainer = %OnboardingPanel
 @onready var onboarding_label: RichTextLabel = %OnboardingLabel
 @onready var onboarding_close_button: Button = %OnboardingCloseButton
+@onready var crosshair_label: Label = %CrosshairLabel
+@onready var target_label: RichTextLabel = %TargetLabel
+@onready var controls_label: RichTextLabel = %ControlsLabel
+@onready var pause_panel: PanelContainer = %PausePanel
+@onready var pause_label: RichTextLabel = %PauseLabel
+@onready var pause_resume_button: Button = %PauseResumeButton
+@onready var pause_reset_button: Button = %PauseResetButton
+@onready var pause_quit_button: Button = %PauseQuitButton
 
 var _responses: Array[DialogueResponse] = []
 var _last_feedback: String = ""
 var _gloss: String = ""
+var _target_text: String = ""
+var _target_state: String = "none"
 
 
 func _ready() -> void:
@@ -59,10 +81,15 @@ func _ready() -> void:
 	help_button.pressed.connect(func() -> void: help_pressed.emit())
 	hint_button.pressed.connect(func() -> void: hint_pressed.emit())
 	onboarding_close_button.pressed.connect(func() -> void: onboarding_close_pressed.emit())
+	pause_resume_button.pressed.connect(func() -> void: resume_pressed.emit())
+	pause_reset_button.pressed.connect(func() -> void: pause_reset_pressed.emit())
+	pause_quit_button.pressed.connect(func() -> void: pause_quit_pressed.emit())
 	responses_menu.response_selected.connect(_on_response_selected)
 	hide_summary()
 	hide_onboarding()
+	hide_pause()
 	clear_gloss()
+	set_target("", "off")
 	set_buttons(false, false, false, false, false)
 
 
@@ -76,6 +103,11 @@ func set_labels(content: Lex01Content) -> void:
 	reset_button.text = content.button_label("reset")
 	help_button.text = content.button_label("help")
 	onboarding_close_button.text = content.button_label("close_onboarding")
+	pause_resume_button.text = content.button_label("pause_resume")
+	pause_reset_button.text = content.button_label("pause_new_run")
+	pause_quit_button.text = content.button_label("pause_quit")
+	# The control line is interface text too, so it comes from data like every other label.
+	controls_label.text = content.ui_line("controls_hint")
 
 
 func show_scenario(speaker: String, utterance: String, prompt: String, status: String) -> void:
@@ -140,11 +172,17 @@ func help_button_center() -> Vector2:
 	return help_button.get_global_rect().get_center()
 
 
+## The crosshair cue line in the top-left corner, so a check can read the control reminder the player
+## is meant to see instead of a copy of it.
+func controls_text() -> String:
+	return controls_label.text
+
+
 ## The labels of the controls themselves, so a check reads the buttons the player clicks instead
 ## of a copy of them.
 func chrome_labels() -> PackedStringArray:
 	var result: PackedStringArray = PackedStringArray()
-	for button: Button in [continue_button, skip_button, hint_button, end_day_button, next_day_button, reset_button, help_button, onboarding_close_button]:
+	for button: Button in [continue_button, skip_button, hint_button, end_day_button, next_day_button, reset_button, help_button, onboarding_close_button, pause_resume_button, pause_reset_button, pause_quit_button]:
 		result.append(button.text)
 	return result
 
@@ -201,13 +239,23 @@ func show_response_options(order: Array[Dictionary]) -> void:
 		_responses.append(response)
 	responses_menu.responses = _responses
 	responses_menu.show()
-	responses_menu.focus_first_item()
+	# The menu configures its own focus chain (arrow keys between the answer sentences) and focuses
+	# its first item, so the keyboard can answer from the moment the task appears.
 
 
 func clear_responses() -> void:
 	_responses.clear()
 	responses_menu.responses = []
 	responses_menu.hide()
+
+
+## Hand keyboard focus to one answer button, which is what the arrow keys do for a player.
+func focus_response(index: int) -> bool:
+	var items: Array = responses_menu.get_menu_items()
+	if index < 0 or index >= items.size() or not (items[index] is Control):
+		return false
+	(items[index] as Control).grab_focus()
+	return true
 
 
 func set_buttons(continue_visible: bool, skip_visible: bool, end_day_visible: bool, next_day_visible: bool, reset_visible: bool) -> void:
@@ -225,6 +273,51 @@ func focus_primary_button() -> void:
 		if button.visible:
 			button.grab_focus()
 			return
+
+
+## The crosshair and the line under it are the only place first-person targeting is reported, so
+## the game pushes one state per frame and the HUD decides what it looks like. `text` empty means
+## no aim: during a briefing, a pause, a summary or an answer menu nothing in the room is aimable.
+func set_target(text: String, state: String) -> void:
+	_target_text = text
+	_target_state = state if CROSSHAIR_COLOR.has(state) else "none"
+	var aiming: bool = _target_state != "off"
+	crosshair_label.visible = aiming
+	crosshair_label.modulate = CROSSHAIR_COLOR[_target_state]
+	target_label.visible = not text.is_empty()
+	if text.is_empty():
+		target_label.text = ""
+	elif _target_state == "far":
+		target_label.text = "[color=#e08a8a]%s[/color]" % text
+	else:
+		var color: String = "#f0d76a" if _target_state != "held" else "#fff0b0"
+		target_label.text = "[color=%s]%s[/color]" % [color, text]
+
+
+func target_text() -> String:
+	return _target_text
+
+
+func target_state() -> String:
+	return _target_state
+
+
+func show_pause(text: String) -> void:
+	pause_label.text = text
+	pause_panel.visible = true
+	pause_resume_button.grab_focus()
+
+
+func hide_pause() -> void:
+	pause_panel.visible = false
+
+
+func pause_open() -> bool:
+	return pause_panel.visible
+
+
+func pause_text() -> String:
+	return pause_label.text
 
 
 func show_summary(title: String, lines: Array[String]) -> void:

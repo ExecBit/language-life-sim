@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/lex01_game.gd" id="1_game"]
 [ext_resource type="PackedScene" path="res://assets/kaykit/characters/Knight.glb" id="2_knight"]
 [ext_resource type="PackedScene" path="res://assets/kaykit/characters/Mage.glb" id="3_mage"]
 [ext_resource type="PackedScene" path="res://scenes/lex01_hud.tscn" id="4_hud"]
+[ext_resource type="PackedScene" path="res://scenes/fps_player.tscn" id="5_player"]
 
 [sub_resource type="BoxMesh" id="FloorMesh"]
 size = Vector3(14, 0.2, 14)
@@ -27,6 +28,18 @@ ambient_light_source = 3
 ambient_light_color = Color(0.55, 0.57, 0.62, 1)
 ambient_light_energy = 0.7
 
+[sub_resource type="BoxShape3D" id="ShellFloorShape"]
+size = Vector3(14, 0.2, 14)
+
+[sub_resource type="BoxShape3D" id="ShellBackShape"]
+size = Vector3(14.4, 3.0, 0.2)
+
+[sub_resource type="BoxShape3D" id="ShellFrontShape"]
+size = Vector3(14.4, 3.0, 0.2)
+
+[sub_resource type="BoxShape3D" id="ShellSideShape"]
+size = Vector3(0.2, 3.0, 14.4)
+
 [node name="LanguageLifeSim" type="Node3D"]
 script = ExtResource("1_game")
 
@@ -39,30 +52,57 @@ mesh = SubResource("FloorMesh")
 surface_material_override/0 = SubResource("FloorMaterial")
 
 [node name="BackWall" type="MeshInstance3D" parent="."]
-transform = Transform3D(14, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 1.5, -5.6)
+transform = Transform3D(14.4, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 1.5, -5.6)
+mesh = SubResource("WallMesh")
+surface_material_override/0 = SubResource("WallMaterial")
+
+[node name="FrontWall" type="MeshInstance3D" parent="."]
+transform = Transform3D(14.4, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 1.5, 6.6)
 mesh = SubResource("WallMesh")
 surface_material_override/0 = SubResource("WallMaterial")
 
 [node name="LeftWall" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 3, 0, 0, 0, 12, -6.6, 1.5, 0)
+transform = Transform3D(0.2, 0, 0, 0, 3, 0, 0, 0, 14.4, -6.6, 1.5, 0)
 mesh = SubResource("WallMesh")
 surface_material_override/0 = SubResource("WallMaterial")
 
 [node name="RightWall" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 3, 0, 0, 0, 12, 6.6, 1.5, 0)
+transform = Transform3D(0.2, 0, 0, 0, 3, 0, 0, 0, 14.4, 6.6, 1.5, 0)
 mesh = SubResource("WallMesh")
 surface_material_override/0 = SubResource("WallMaterial")
+
+[node name="RoomShell" type="StaticBody3D" parent="."]
+unique_name_in_owner = true
+collision_layer = 1
+collision_mask = 0
+
+[node name="FloorShape" type="CollisionShape3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("ShellFloorShape")
+
+[node name="BackShape" type="CollisionShape3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -5.6)
+shape = SubResource("ShellBackShape")
+
+[node name="FrontShape" type="CollisionShape3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 6.6)
+shape = SubResource("ShellFrontShape")
+
+[node name="LeftShape" type="CollisionShape3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6, 1.5, 0)
+shape = SubResource("ShellSideShape")
+
+[node name="RightShape" type="CollisionShape3D" parent="RoomShell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 1.5, 0)
+shape = SubResource("ShellSideShape")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.707107, 0, 0.707107, -0.353553, 0.866025, 0.353553, -0.612372, -0.5, 0.612372, 0, 7, 0)
 light_energy = 1.1
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Player" parent="." instance=ExtResource("5_player")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 8.6)
-current = true
-far = 120.0
 
 [node name="NPCs" type="Node3D" parent="."]
 unique_name_in_owner = true
