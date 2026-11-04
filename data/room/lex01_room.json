@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "note": "Where things stand in the LEX-01 room, separated from what a scenario means. Scenario JSON decides WHICH objects appear and which role they have; this file decides only WHERE the named role is placed, so a new scenario never needs a code change. Candidate positions differ between contexts on purpose: the same prop in 'room' and in 'kitchen' stands somewhere else and is framed by a different camera, so a day-2 revisit is a changed situation and not a repeated screenshot. Ground level is y = 0 and props are placed so the bottom of their imported bounding box sits on that level.",
+  "note": "Where things stand in the LEX-01 room, separated from what a scenario means. Scenario JSON decides WHICH objects appear and which role they have; this file decides only WHERE the named role is placed, so a new scenario never needs a code change. Candidate positions differ between contexts on purpose: the same prop in 'room' and in 'kitchen' stands somewhere else and the player is put down at a different place, so a day-2 revisit is a changed situation and not a repeated screenshot. Ground level is y = 0 and props are placed so the bottom of their imported bounding box sits on that level.",
   "npcs": {
     "mage": {
       "scene": "res://assets/kaykit/characters/Mage.glb",
@@ -18,9 +18,22 @@
     }
   },
   "cameras": {
-    "default": { "position": [0.0, 4.0, 8.6], "rotation_deg": [-22.0, 0.0, 0.0] },
-    "room": { "position": [0.0, 4.0, 8.6], "rotation_deg": [-22.0, 0.0, 0.0] },
-    "kitchen": { "position": [-0.8, 3.6, 8.4], "rotation_deg": [-20.0, 6.0, 0.0] }
+    "note": "TAV-02 (Issue #9) reads this section as where the PLAYER is put down per context, not as a fixed camera framing: 'position' is the feet position on the floor, 'rotation_deg' is the initial [pitch, yaw, roll] of the eye and yaw 0 looks toward -z. The section keeps its old name because it is the already-shipped per-context framing contract. Every spawn sits inside the room shell and clear of the anchors, the NPCs and the hold tray.",
+    "default": { "position": [0.0, 0.0, 5.8], "rotation_deg": [-6.0, 0.0, 0.0] },
+    "room": { "position": [0.0, 0.0, 5.8], "rotation_deg": [-6.0, 0.0, 0.0] },
+    "kitchen": { "position": [-1.0, 0.0, 4.8], "rotation_deg": [-6.0, 0.0, 0.0] }
+  },
+  "player": {
+    "eye_height": 1.6,
+    "capsule_radius": 0.35,
+    "capsule_height": 1.7,
+    "walk_speed": 4.0,
+    "look_sensitivity": 0.0022,
+    "pitch_limit_deg": 70.0,
+    "interact_range": 5.0,
+    "fov": 80.0,
+    "probe_walk_frames": 300,
+    "note": "The first-person body and its reach (TAV-02). The player is a capsule on collision layer 1 and the room shell is the only thing on that layer, so no prop or NPC can block or trap them. interact_range is the only limit on what the crosshair can act on: aiming further away is allowed and is answered with the too-far cue, never with an answer or an attempt."
   },
   "candidate_slots": {
     "default": [[-3.6, 0.0, 1.2], [-1.4, 0.0, 2.0], [1.8, 0.0, 2.0], [3.8, 0.0, 0.8], [3.6, 0.0, -2.4], [-1.0, 0.0, -3.6]],
@@ -44,9 +57,9 @@
     "in_fridge": { "anchor": "res://assets/kaykit/items/fridge_A.gltf", "mode": "at_front", "note": "Item stands directly in front of the fridge and is highlighted. The committed fridge prop has no door, so 'in dem Kuhlschrank' is shown as 'at the fridge' and is stated as a limitation." }
   },
   "hold": {
-    "tray_position": [0.0, 0.85, 4.8],
+    "tray_position": [0.0, 0.85, 3.0],
     "tray_size": [1.1, 0.12, 0.9],
-    "note": "bring_deliver keeps the picked object on this tray. It is an abstract carrying state, not a hand attachment, physics or IK: the object simply moves to the tray and the HUD names it."
+    "note": "bring_deliver keeps the picked object on this tray. It is an abstract carrying state, not a hand attachment, physics or IK: the object simply moves to the tray and the HUD names it. In first person the tray sits between the spawn and the candidate slots, at waist height, so what you are carrying stays in view."
   },
   "delivery": {
     "npc_offset": [0.0, 0.95, 0.8],
@@ -57,6 +70,7 @@
     "compared": [0.2, 0.8, 1.0, 0.45],
     "delivery": [0.35, 1.0, 0.45, 0.45],
     "hover": [1.0, 1.0, 1.0, 0.3],
+    "targeted": [1.0, 1.0, 1.0, 0.55],
     "held": [1.0, 0.95, 0.6, 0.5]
   }
 }

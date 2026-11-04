@@ -7,17 +7,24 @@ extends RefCounted
 ##
 ##   --probe         headless: the whole learning loop over both days, progress, saves, retry
 ##                   re-shuffling, skip, end-of-day summary, day-2 revisits, the beginner
-##                   briefing gate, the guided first task and assisted vs unaided answers
-##   --probe-input   windowed: a real mouse click on a prop, on a delivery target, on a response
-##                   button of the DialogueResponsesMenu, on the ? button and on the translation
-##                   button
+##                   briefing gate, the guided first task and assisted vs unaided answers, and now
+##                   also the first-person room: the player body, the room shell, the reach of the
+##                   crosshair and where every answer stands relative to the spawn
+##   --probe-input   windowed: a real player walking with WASD through the room, a real E key on a
+##                   prop, a real left click on the crosshair target, a real answer-button click and
+##                   a real Enter key on an answer sentence, real F1 / H keys, the pause menu, the
+##                   cursor mode of every state, walls stopping the player, and an aim that is too
+##                   far away costing nothing
 
 var _failures: PackedStringArray = []
 var _checks: int = 0
 var _completed: bool = false
 # A probe that stopped early is a failure, never an empty pass.
 const MIN_LOGIC_CHECKS: int = 120
-const MIN_INPUT_CHECKS: int = 26
+const MIN_INPUT_CHECKS: int = 45
+# How far a player may have to cross the room for one answer. Longer than this and a task is a
+# walk across the whole room instead of a step toward a situation.
+const MAX_WALK_METERS: float = 11.0
 
 
 func run(game: Node, mode: String) -> int:
@@ -78,6 +85,9 @@ func _run_logic(game: Node) -> void:
 
 	_check_beginning(game, content, progress)
 	_check_font_and_chrome(game)
+	_check_first_person_room(game)
+	for context: String in content.candidate_contexts():
+		_check_spawn(game, context)
 	_expect(String(game.probe_state()["phase"]) == "asking", "the day starts in a playable situation once the briefing is closed")
 	_check_skip_does_not_lock(game, progress)
 
@@ -123,6 +133,10 @@ func _run_logic(game: Node) -> void:
 			_collect_text(seen, game.probe_hud_texts(), scenario)
 			if action == "respond":
 				_check_response_menu(game, scenario)
+			else:
+				# First person (TAV-02): a task the player has to cross the whole room for is not a
+				# situation, it is a chore, so the distance from the spawn is measured for every task.
+				_check_option_reach(game, scenario)
 			# Two kinds of answer are recorded on scenarios the loop plays anyway, so no task is used
 			# up just to test the accounting.
 			var assisted_this_one: bool = false
@@ -510,6 +524,71 @@ func _check_wrong_response(game: Node, scenario: Dictionary, progress: Variant) 
 	_expect(_distinct_count(orders) >= 2, "%s re-orders the answer sentences after a wrong answer" % id)
 
 
+## The room is walked through now, so where an answer stands relative to where the player is put
+## down is part of the data contract, not a tuning detail.
+func _check_option_reach(game: Node, scenario: Dictionary) -> void:
+	var id: String = String(scenario["id"])
+	var report: PackedStringArray = PackedStringArray()
+	var too_far: PackedStringArray = PackedStringArray()
+	for option_id: String in _option_ids(scenario):
+		var reach: Dictionary = game.probe_reach(option_id)
+		report.append("%s=%.1fm" % [option_id, float(reach["surface_distance"])])
+		if float(reach["surface_distance"]) > MAX_WALK_METERS:
+			too_far.append(option_id)
+		_expect(bool(reach["in_range"]) or float(reach["surface_distance"]) <= MAX_WALK_METERS,
+			"%s can be reached from the spawn of context '%s'" % [id, String(scenario.get("context", ""))])
+	print("REACH %s context=%s range=%.1f distances=%s too_far=%s" % [
+		id, String(scenario.get("context", "")), float(game.probe_state()["interact_range"]), report, too_far,
+	])
+
+
+## The first-person body and the rule that keeps a walked-through room free of soft-locks.
+func _check_first_person_room(game: Node) -> void:
+	var player: Node = game.player
+	var shell: Node = game.room_shell
+	var capsule: CollisionShape3D = null
+	for child: Node in player.get_children():
+		if child is CollisionShape3D and (child as CollisionShape3D).shape is CapsuleShape3D:
+			capsule = child as CollisionShape3D
+	var clickable_only: bool = true
+	for body: StaticBody3D in game.builder.pick_bodies():
+		if int(body.collision_mask) & 1 != 0:
+			clickable_only = false
+	print("ROOM player=%s layer=%d mask=%d capsule=%s shell=%s layer=%d clickable_bodies=%d clickable_only=%s eye_height=%.2f speed=%.2f range=%.2f" % [
+		player is CharacterBody3D, int(player.collision_layer), int(player.collision_mask),
+		capsule != null, shell is StaticBody3D, int(shell.collision_layer),
+		game.builder.pick_bodies().size(), clickable_only, game.player.eye_height, game.player.walk_speed,
+		float(game.probe_state()["interact_range"]),
+	])
+	_expect(player is CharacterBody3D, "the player is a body inside the room instead of a camera above it")
+	_expect(capsule != null, "the player body has a capsule collider")
+	_expect(int(player.collision_layer) == 1 and int(player.collision_mask) == 1,
+		"the player collides with the room shell and with nothing else")
+	_expect(shell is StaticBody3D and int(shell.collision_layer) == 1, "the room shell is a solid static body")
+	_expect(game.builder.pick_bodies().size() > 0, "the staged room has clickable objects to aim at")
+	_expect(clickable_only, "nothing clickable is solid to the player, so no prop or NPC can trap them")
+
+
+## A spawn has to stand inside the room, above the floor, and clear of the objects the player has to
+## walk up to. Checked per context, because a context without a usable spawn drops the player in a
+## wall or inside a table.
+func _check_spawn(game: Node, context: String) -> void:
+	game.place_player(context)
+	var player: Node = game.player
+	var shell: AABB = game.room_shell_bounds()
+	var clearance: Dictionary = game.probe_spawn_clearance()
+	var position: Vector3 = player.global_position
+	var inside: bool = shell.has_point(position) and shell.has_point(player.eye_position())
+	print("SPAWN_CHECK context=%s position=%.2f|%.2f|%.2f shell=%s inside=%s clear_of=%s" % [
+		context, position.x, position.y, position.z, shell, inside, clearance.get("blocked_by", []),
+	])
+	_expect(inside, "the spawn of context '%s' stands inside the room shell" % context)
+	_expect(position.y >= -0.05 and player.eye_position().y > 1.0,
+		"the spawn of context '%s' stands on the floor with the eye at a usable height" % context)
+	_expect((clearance.get("blocked_by", []) as Array).is_empty(),
+		"the spawn of context '%s' is not inside a prop or standing on a person" % context)
+
+
 func _check_response_menu(game: Node, scenario: Dictionary) -> void:
 	var id: String = String(scenario["id"])
 	var expected: PackedStringArray = PackedStringArray()
@@ -578,37 +657,56 @@ func _run_input(game: Node) -> void:
 	var start: Dictionary = game.probe_state()
 	var guided_id: String = String(start["scenario_id"])
 	var guided_correct: String = String(game.current_scenario["correct_option_id"])
-	print("INPUT_BEGIN phase=%s overlay_open=%s first=%s guided=%s gloss_shown=%s" % [
+	print("INPUT_BEGIN phase=%s overlay_open=%s first=%s guided=%s gloss_shown=%s cursor=%s player=%s range=%.1f" % [
 		String(start["phase"]), bool(start["onboarding_open"]), guided_id, bool(start["guided"]),
-		not String(start["gloss"]).is_empty(),
+		not String(start["gloss"]).is_empty(), String(start["cursor_mode"]), String(start["player_position"]),
+		float(start["interact_range"]),
 	])
 	_expect(String(start["phase"]) == "briefing", "the windowed run opens in the briefing as well")
 	_expect(bool(start["onboarding_open"]), "the briefing overlay is on screen in the window")
+	_check_first_person_room(game)
+	_check_spawn(game, String(game.current_scenario.get("context", "")))
+	_expect(String(start["cursor_mode"]) == "visible",
+		"the cursor is free while the briefing is on screen, so the button on it can be clicked")
 
-	# Clicking a prop through the open briefing must not answer anything.
+	# Aiming and pressing E through the open briefing must not answer anything.
 	await _settle(game)
-	var blocked: Dictionary = game.probe_click_option_on_screen(guided_correct)
-	print("INPUT_BRIEFING_CLICK scenario=%s screen=%s pick=%s phase_after=%s solved=%s" % [
-		guided_id, blocked.get("screen", Vector2.ZERO), blocked.get("pick", {}),
-		String(blocked.get("after", {}).get("phase", "")),
+	await _settle(game)
+	var blocked_click: Dictionary = game.probe_click_option_on_screen(guided_correct)
+	print("INPUT_BRIEFING_CLICK scenario=%s aim=%s pick=%s phase_after=%s solved=%s" % [
+		guided_id, blocked_click.get("aim", {}), blocked_click.get("pick", {}),
+		String(blocked_click.get("after", {}).get("phase", "")),
 		bool(game.progress.scenario_entry(guided_id).get("solved", false)),
 	])
-	_expect(String(blocked.get("after", {}).get("phase", "")) == "briefing",
-		"a real prop click while the briefing is open leaves the briefing open")
-	_expect(String(blocked.get("pick", {}).get("option_id", "")).is_empty(),
-		"a real prop click while the briefing is open picks nothing and answers nothing")
-
-	# Close the briefing with the ? button, by mouse, the way a player closes it.
-	var help_click: Dictionary = game.probe_click_help_on_screen()
-	print("INPUT_CLICK control=help screen=%s phase_after=%s overlay_open_after=%s scenario=%s" % [
-		help_click.get("screen", Vector2.ZERO), String(help_click.get("after", {}).get("phase", "")),
-		bool(help_click.get("after", {}).get("onboarding_open", true)), String(help_click.get("after", {}).get("scenario_id", "")),
+	_expect(String(blocked_click.get("after", {}).get("phase", "")) == "briefing",
+		"a real click through the open briefing leaves the briefing open")
+	_expect(String(blocked_click.get("pick", {}).get("option_id", "")).is_empty(),
+		"a real click through the open briefing picks nothing and answers nothing")
+	var blocked_key: Dictionary = game.probe_press_interact()
+	print("INPUT_BRIEFING_KEY scenario=%s phase_after=%s attempts=%d aim=%s solved=%s" % [
+		guided_id, String(blocked_key["phase"]), int(blocked_key["attempts"]), blocked_key["aim"],
+		bool(game.progress.scenario_entry(guided_id).get("solved", false)),
 	])
-	_expect(String(help_click.get("after", {}).get("phase", "")) == "asking",
-		"clicking ? closes the briefing and leaves the first task playable")
-	_expect(not bool(help_click.get("after", {}).get("onboarding_open", true)), "the briefing overlay is gone after ? was clicked")
-	_expect(String(help_click.get("after", {}).get("scenario_id", "")) == guided_id,
+	_expect(String(blocked_key["phase"]) == "briefing", "pressing E through the open briefing changes nothing")
+	_expect(int(blocked_key["attempts"]) == 0, "pressing E through the open briefing is not even counted")
+
+	# Close the briefing with the button on it, by mouse, the way a player closes it.
+	var closed: Dictionary = game.probe_click_onboarding_close_on_screen()
+	print("INPUT_CLICK control=onboarding_close screen=%s phase_after=%s overlay_open_after=%s scenario=%s cursor_after=%s" % [
+		closed.get("screen", Vector2.ZERO), String(closed.get("after", {}).get("phase", "")),
+		bool(closed.get("after", {}).get("onboarding_open", true)), String(closed.get("after", {}).get("scenario_id", "")),
+		String(closed.get("after", {}).get("cursor_mode", "")),
+	])
+	_expect(String(closed.get("after", {}).get("phase", "")) == "asking",
+		"clicking the button on the briefing closes it and leaves the first task playable")
+	_expect(not bool(closed.get("after", {}).get("onboarding_open", true)),
+		"the briefing overlay is gone after its button was clicked")
+	_expect(String(closed.get("after", {}).get("scenario_id", "")) == guided_id,
 		"the task that starts after the briefing is still the guided example")
+	_expect(String(closed.get("after", {}).get("cursor_mode", "")) == "captured",
+		"normal play captures the mouse, so moving the mouse looks around instead of moving a cursor")
+	_expect(_has_cyrillic(game.hud.controls_text()),
+		"the control reminder in the window is written in the interface language")
 
 	var guided_state: Dictionary = game.probe_state()
 	print("INPUT_GUIDED gloss=\"%s\" utterance=\"%s\"" % [
@@ -622,74 +720,209 @@ func _run_input(game: Node) -> void:
 		_completed = true
 		return
 	var scenario: Dictionary = game.current_scenario
+	var id: String = String(scenario["id"])
 	var correct: String = String(scenario["correct_option_id"])
 	var wrong: String = _wrong_option_id(scenario)
 	await _settle(game)
-	var wrong_click: Dictionary = game.probe_click_option_on_screen(wrong)
-	print("INPUT_CLICK scenario=%s action=find_select wrong_object=%s screen=%s pick=%s phase_after=%s" % [
-		String(scenario["id"]), wrong, wrong_click.get("screen", Vector2.ZERO), wrong_click.get("pick", {}),
-		String(wrong_click.get("after", {}).get("phase", "")),
+
+	# Where the answers of this task stand relative to where the player is put down.
+	var survey_text: PackedStringArray = PackedStringArray()
+	var reachable: bool = true
+	for option_id: String in _option_ids(scenario):
+		var reach: Dictionary = game.probe_reach(option_id)
+		survey_text.append("%s=%.1fm" % [option_id, float(reach["surface_distance"])])
+		if float(reach["surface_distance"]) > MAX_WALK_METERS:
+			reachable = false
+	print("INPUT_REACH scenario=%s context=%s range=%.1f from_spawn=%s walkable=%s" % [
+		id, String(scenario.get("context", "")), float(game.probe_state()["interact_range"]), survey_text, reachable,
 	])
-	_expect(not wrong_click.has("error"), "the wrong object of %s could be clicked at a visible point" % String(scenario["id"]))
-	_expect(String(wrong_click.get("pick", {}).get("option_id", "")) == wrong,
-		"a real mouse click on a prop resolves exactly that prop by option id")
-	_expect(String(wrong_click.get("after", {}).get("phase", "")) == "asking",
-		"a wrong click leaves the scenario playable instead of ending it")
+	_expect(reachable, "every answer of %s can be reached from its spawn" % id)
+
+	# Walk straight ahead until something stops the player: the room has to contain them.
+	var wall: Dictionary = await game.probe_walk_into_wall(240)
+	var shell: AABB = game.room_shell_bounds()
+	var stopped: Vector3 = game.player.global_position
+	print("INPUT_WALL scenario=%s start=%s end=%s traveled=%.1f lowest_y=%.2f inside_shell=%s shell=%s" % [
+		id, wall.get("start", ""), wall.get("position", ""), float(wall["traveled"]), float(wall["lowest_y"]),
+		shell.has_point(stopped), shell,
+	])
+	_expect(float(wall["traveled"]) > 3.0, "the walk really moves the player through the room")
+	_expect(shell.has_point(stopped), "walking into a wall keeps the player inside the room")
+	_expect(float(wall["lowest_y"]) > -0.2, "the player never falls through the floor")
+	_expect(float(wall["traveled"]) < shell.size.length(), "a wall stopped the walk instead of the player walking through it")
+	# Stand in a corner of the room and aim at an answer that is genuinely out of reach from there, so
+	# "too far" is a fact about the room rather than about one lucky layout. The corner is inset from
+	# the shell so the player can actually stand in it, and the answer is chosen by how far it is from
+	# that corner.
+	var far: Dictionary = _farthest_corner(game, _option_ids(scenario))
+	var walked_far: Dictionary = await game.probe_walk_to_point(far["corner"] as Vector3)
+	await _settle(game)
+	await _settle(game)
+	var attempts_before: int = int(game.progress.scenario_entry(id).get("attempts", 0))
+	var far_option: String = ""
+	var far_reach: Dictionary = {}
+	var far_aim: Dictionary = {}
+	for candidate: Variant in far["options"] as Array:
+		var option_id: String = String(candidate)
+		var reach: Dictionary = game.probe_reach(option_id)
+		if bool(reach["in_range"]):
+			continue
+		var aim: Dictionary = game.probe_face(option_id)
+		if bool(aim.get("in_range", true)):
+			# Something nearer stands in the line of sight, so this answer cannot show the too-far
+			# case from this corner; the next out-of-reach answer of the task is used instead.
+			continue
+		far_option = option_id
+		far_reach = reach
+		far_aim = aim
+		break
+	var far_state: Dictionary = game.probe_state()
+	print("INPUT_FAR scenario=%s corner=%s walked=%s option=%s surface=%.1f range=%.1f aim=%s target_state=%s label=\"%s\"" % [
+		id, far.get("corner", Vector3.ZERO), walked_far, far_option, float(far_reach.get("surface_distance", -1.0)),
+		float(far_reach.get("interact_range", 0.0)), far_aim, String(far_state["target_state"]), String(far_state["target_label"]),
+	])
+	_expect(bool(walked_far.get("arrived", false)), "the player could walk to the far corner of the room")
+	_expect(not far_option.is_empty(), "at least one answer of %s is out of reach from that corner" % id)
+	_expect(String(far_state["target_state"]) == "far", "the crosshair reports the too-far state instead of a target")
+	_expect(_has_cyrillic(String(far_state["target_label"])), "the too-far cue is written in the interface language")
+	var far_press: Dictionary = game.probe_press_interact()
+	print("INPUT_FAR_KEY scenario=%s phase_after=%s attempts_before=%d attempts_after=%d" % [
+		id, String(far_press["phase"]), attempts_before, int(far_press["attempts"]),
+	])
+	_expect(String(far_press["phase"]) == "asking", "an out-of-range interact does not answer")
+	_expect(int(far_press["attempts"]) == attempts_before, "an out-of-range interact is not counted as an attempt")
+
+	# Walk to the wrong object with the player's own movement and answer with a real E key.
+	var walked_wrong: Dictionary = await game.probe_walk_to_option(wrong)
+	await _settle(game)
+	var press_wrong: Dictionary = game.probe_press_interact()
+	print("INPUT_KEY scenario=%s action=find_select key=E walk=%s aim=%s target=\"%s\" phase_after=%s attempts=%d" % [
+		id, walked_wrong, press_wrong["aim"], String(press_wrong["target_label"]), String(press_wrong["phase"]),
+		int(press_wrong["attempts"]),
+	])
+	_expect(not walked_wrong.has("error"), "the player could start walking to %s" % wrong)
+	_expect(bool(walked_wrong.get("arrived", false)), "walking reaches %s from where the player stood" % wrong)
+	_expect(bool(press_wrong["aim"]["in_range"]), "%s is within reach after the walk" % wrong)
+	_expect(not String(press_wrong["target_label"]).is_empty(), "the crosshair names the object it is aimed at")
+	_expect(String(press_wrong["aim"]["option_id"]) == wrong, "E resolves exactly the object the crosshair is on")
+	_expect(String(press_wrong["phase"]) == "asking", "a wrong answer leaves the scenario playable instead of ending it")
+	_expect(int(press_wrong["attempts"]) == attempts_before + 1, "a wrong answer counts as exactly one attempt")
+
+	# A wrong answer re-stages the room and puts the player back at the spawn, so the answer has to be
+	# walked to again - and this time it is given with a left click, the other half of one path.
+	var walked_right: Dictionary = await game.probe_walk_to_option(correct)
 	await _settle(game)
 	var click: Dictionary = game.probe_click_option_on_screen(correct)
-	print("INPUT_CLICK scenario=%s action=find_select object=%s screen=%s pick=%s phase_after=%s" % [
-		String(scenario["id"]), correct, click.get("screen", Vector2.ZERO), click.get("pick", {}),
-		String(click.get("after", {}).get("phase", "")),
+	print("INPUT_CLICK scenario=%s action=find_select walk=%s aim=%s pick=%s phase_after=%s" % [
+		id, walked_right, click.get("aim", {}), click.get("pick", {}), String(click.get("after", {}).get("phase", "")),
 	])
-	_expect(String(click.get("pick", {}).get("option_id", "")) == correct,
-		"clicking the prop the German sentence asked for resolves that prop")
+	_expect(bool(walked_right.get("arrived", false)), "the answer of %s could be walked to after the retry re-stage" % id)
+	_expect(not click.has("error"), "aiming at the object %s asks for lands on that object" % id)
+	_expect(String(click.get("pick", {}).get("option_id", "")) == correct, "a real left click acts on the crosshair target")
 	_expect(String(click.get("after", {}).get("phase", "")) == "solved",
-		"clicking the object the utterance asked for solves the scenario")
+		"acting on the object the utterance asked for solves the scenario")
 	game.probe_continue()
 
 	if not _goto_action(game, "bring_deliver"):
 		_completed = true
 		return
 	scenario = game.current_scenario
+	id = String(scenario["id"])
 	correct = String(scenario["correct_option_id"])
 
-	# The translation button, pressed with a real mouse on a task that does not offer one.
+	# The translation, asked for with the keyboard on a task that does not offer one.
 	var hint_before: Dictionary = game.probe_state()
-	var hint_click: Dictionary = game.probe_click_hint_on_screen()
-	print("INPUT_CLICK control=hint scenario=%s screen=%s gloss_before_empty=%s gloss_after=\"%s\" hint_open_after=%s" % [
-		String(scenario["id"]), hint_click.get("screen", Vector2.ZERO),
-		String(hint_before["gloss"]).is_empty(), String(hint_click.get("after", {}).get("gloss", "")).replace("\n", " | "),
-		bool(hint_click.get("after", {}).get("hint_open", false)),
+	var hint_press: Dictionary = game.probe_press_key("hint")
+	print("INPUT_KEY control=hint key=H scenario=%s gloss_before_empty=%s gloss_after=\"%s\" hint_open_after=%s" % [
+		id, String(hint_before["gloss"]).is_empty(), String(hint_press["gloss"]).replace("\n", " | "),
+		bool(hint_press["hint_open"]),
 	])
-	_expect(not String(hint_click.get("after", {}).get("gloss", "")).is_empty(),
-		"clicking the translation button reveals the translation on screen")
-	_expect(_has_cyrillic(String(hint_click.get("after", {}).get("gloss", ""))),
-		"the translation revealed by the button is Russian")
-	_expect(bool(hint_click.get("after", {}).get("hint_open", false)), "the game knows the translation was asked for")
+	_expect(not String(hint_press["gloss"]).is_empty(), "the translation key reveals the translation on screen")
+	_expect(_has_cyrillic(String(hint_press["gloss"])), "the translation revealed by the key is Russian")
+	_expect(bool(hint_press["hint_open"]), "the game knows the translation was asked for")
+
+	# Pause is its own overlay with its own buttons, and it hands the task back unchanged.
+	var phase_before_pause: String = String(hint_press["phase"])
+	var paused: Dictionary = game.probe_open_pause()
+	print("INPUT_PAUSE scenario=%s phase_before=%s phase_after=%s cursor=%s pause_open=%s text=\"%s\"" % [
+		id, phase_before_pause, String(paused["phase"]), String(paused["cursor_mode"]),
+		bool(paused["pause_open"]), String(game.hud.pause_text()),
+	])
+	_expect(String(paused["phase"]) == "paused", "the pause is its own phase instead of ending the run")
+	_expect(bool(paused["pause_open"]), "the pause menu is on screen")
+	_expect(String(paused["cursor_mode"]) == "visible", "the pause releases the cursor so its buttons can be clicked")
+	_expect(_has_cyrillic(game.hud.pause_text()), "the pause menu is written in the interface language")
+	var paused_press: Dictionary = game.probe_press_interact()
+	_expect(String(paused_press["phase"]) == "paused", "pressing E while paused does not answer anything")
+	_expect(int(paused_press["attempts"]) == 0, "pressing E while paused is not counted as an attempt")
+	var resumed: Dictionary = game.probe_close_pause()
+	print("INPUT_RESUME scenario=%s phase_after=%s cursor=%s scenario_after=%s" % [
+		id, String(resumed["phase"]), String(resumed["cursor_mode"]), String(resumed["scenario_id"]),
+	])
+	_expect(String(resumed["phase"]) == phase_before_pause, "resuming hands back the phase the pause was opened in")
+	_expect(String(resumed["scenario_id"]) == id, "the pause does not skip a task")
+	_expect(String(resumed["cursor_mode"]) == "captured", "resuming captures the mouse again")
+
+	# Tab is how a player reaches the HUD buttons while still being able to look around. Moving the
+	# mouse while it is free has to move the cursor and leave the view exactly where it was.
+	var yaw_before: float = float(game.player.rotation_degrees.y)
+	var pitch_before: float = float(game.player.camera.rotation_degrees.x)
+	var freed: Dictionary = game.probe_toggle_cursor()
+	var motion_free: Dictionary = game.probe_push_mouse_motion(Vector2(240.0, 120.0))
+	var recaptured: Dictionary = game.probe_toggle_cursor()
+	var motion_captured: Dictionary = game.probe_push_mouse_motion(Vector2(240.0, 120.0))
+	print("INPUT_TAB cursor_after_first=%s cursor_after_second=%s" % [
+		String(freed["cursor_mode"]), String(recaptured["cursor_mode"]),
+	])
+	print("INPUT_MOUSE_FREE cursor=%s look_enabled=%s yaw=%.2f->%.2f pitch=%.2f->%.2f" % [
+		String(motion_free["cursor_mode"]), bool(motion_free["look_enabled"]),
+		yaw_before, float(motion_free["player_yaw"]), pitch_before, float(motion_free["camera_pitch"]),
+	])
+	print("INPUT_MOUSE_CAPTURED cursor=%s look_enabled=%s yaw=%.2f->%.2f" % [
+		String(motion_captured["cursor_mode"]), bool(motion_captured["look_enabled"]),
+		float(motion_free["player_yaw"]), float(motion_captured["player_yaw"]),
+	])
+	_expect(String(freed["cursor_mode"]) == "visible", "Tab frees the cursor so the HUD can be clicked")
+	_expect(String(recaptured["cursor_mode"]) == "captured", "Tab captures the cursor again for looking around")
+	_expect(not bool(motion_free["look_enabled"]), "looking is switched off while the cursor is free")
+	_expect(abs(float(motion_free["player_yaw"]) - yaw_before) < 0.01 and abs(float(motion_free["camera_pitch"]) - pitch_before) < 0.01,
+		"moving the mouse with the cursor free does not rotate the view")
+	_expect(abs(float(motion_captured["player_yaw"]) - float(motion_free["player_yaw"])) > 0.5,
+		"the same mouse motion still turns the view while the mouse is captured")
+
 	await _settle(game)
 	await _settle(game)
-	var picked: Dictionary = game.probe_click_option_on_screen(correct)
-	print("INPUT_CLICK scenario=%s action=bring_deliver object=%s pick=%s held_after=%s attempts=%d" % [
-		String(scenario["id"]), correct, picked.get("pick", {}), String(picked.get("after", {}).get("held", "")), int(picked.get("after", {}).get("attempts", 0)),
-	])
-	_expect(String(picked.get("after", {}).get("held", "")) == correct, "a real click picks the clicked object up")
-	_expect(int(picked.get("after", {}).get("attempts", 0)) == 0, "picking something up is not yet an answer")
+	var walked_pick: Dictionary = await game.probe_walk_to_option(correct)
 	await _settle(game)
-	var delivered: Dictionary = game.probe_click_delivery_on_screen()
-	print("INPUT_CLICK scenario=%s action=bring_deliver target_click=%s error=%s input_reached_game=%s phase_after=%s totals=%s" % [
-		String(scenario["id"]), delivered.get("pick", {}), delivered.get("error", ""), bool(delivered.get("input_reached_game", false)), String(delivered.get("after", {}).get("phase", "")), delivered.get("after", {}).get("totals", {}),
+	var press_pick: Dictionary = game.probe_press_interact()
+	print("INPUT_KEY scenario=%s action=bring_deliver key=E walk=%s aim=%s held_after=%s attempts=%d" % [
+		id, walked_pick, press_pick["aim"], String(press_pick["held"]), int(press_pick["attempts"]),
 	])
-	_expect(String(delivered.get("after", {}).get("phase", "")) == "solved",
-		"clicking the declared delivery target with the right object solves the scenario")
+	_expect(bool(walked_pick.get("arrived", false)), "the object %s asks for can be walked to" % id)
+	_expect(String(press_pick["held"]) == correct, "E on the object the sentence named picks it up")
+	_expect(int(press_pick["attempts"]) == 0, "picking something up is not yet an answer")
+
+	var walked_target: Dictionary = await game.probe_walk_to_delivery_target()
+	await _settle(game)
+	var delivered: Dictionary = game.probe_press_interact()
+	print("INPUT_DELIVER scenario=%s walk=%s aim=%s phase_after=%s totals=%s" % [
+		id, walked_target, delivered["aim"], String(delivered["phase"]), delivered["totals"],
+	])
+	_expect(not walked_target.has("error"), "the delivery target of %s could be walked to" % id)
+	_expect(bool(walked_target.get("arrived", false)), "the player can walk to the declared delivery target")
+	_expect(String(delivered["aim"]["kind"]) == "delivery" or String(delivered["aim"]["kind"]) == "npc",
+		"the crosshair lands on the delivery target")
+	_expect(String(delivered["phase"]) == "solved",
+		"delivering the right object to the declared target solves the scenario")
 	game.probe_continue()
 
 	if not _goto_action(game, "respond"):
 		_completed = true
 		return
 	scenario = game.current_scenario
+	id = String(scenario["id"])
 	correct = String(scenario["correct_option_id"])
 	var view: Array = game.probe_state()["view_order"]
-	var index: int = view.find(correct)
 	var shown: PackedStringArray = game.hud.response_texts()
 	var expected_labels: PackedStringArray = PackedStringArray()
 	for option: Dictionary in game.current_view:
@@ -700,16 +933,69 @@ func _run_input(game: Node) -> void:
 			menu_matches_view = false
 	_expect(menu_matches_view, "the answer buttons on screen are the shuffled options in the order the game reports")
 	await _settle(game)
+	var menu_state: Dictionary = game.probe_state()
+	print("INPUT_MENU scenario=%s cursor=%s answers_open=%s target_state=%s" % [
+		id, String(menu_state["cursor_mode"]), bool(menu_state["answers_open"]), String(menu_state["target_state"]),
+	])
+	_expect(String(menu_state["cursor_mode"]) == "visible",
+		"the answer menu releases the cursor so an answer sentence can be clicked")
+	_expect(bool(menu_state["answers_open"]), "the game knows the answer menu is on screen")
+	_expect(String(menu_state["target_state"]) == "off",
+		"nothing in the room is aimable while an answer menu is open")
+	var menu_yaw: float = float(game.player.rotation_degrees.y)
+	var menu_motion: Dictionary = game.probe_push_mouse_motion(Vector2(200.0, 90.0))
+	print("INPUT_MENU_MOTION scenario=%s cursor=%s look_enabled=%s yaw=%.2f->%.2f" % [
+		id, String(menu_motion["cursor_mode"]), bool(menu_motion["look_enabled"]),
+		menu_yaw, float(menu_motion["player_yaw"]),
+	])
+	_expect(not bool(menu_motion["look_enabled"]), "the answer menu owns the mouse while an answer is being chosen")
+	_expect(abs(float(menu_motion["player_yaw"]) - menu_yaw) < 0.01,
+		"moving the mouse while choosing a German answer sentence leaves the camera still")
+	var free_click: Dictionary = game.probe_click_without_aim()
+	print("INPUT_MENU_CLICK scenario=%s cursor=%s click_reached_world=%s attempts=%d phase_after=%s" % [
+		id, String(free_click["cursor_mode"]), bool(free_click["click_reached_world"]),
+		int(game.progress.scenario_entry(id).get("attempts", 0)),
+		String(free_click.get("after", {}).get("phase", "")),
+	])
+	_expect(String(free_click["cursor_mode"]) == "visible", "the cursor is free for the answer menu when this click is made")
+	_expect(not bool(free_click["click_reached_world"]),
+		"a left click made while the cursor is free never acts on the 3D crosshair")
+	_expect(int(game.progress.scenario_entry(id).get("attempts", 0)) == 0,
+		"a left click made while the cursor is free records no answer on the scenario")
+	var room_press: Dictionary = game.probe_press_interact()
+	print("INPUT_MENU_KEY scenario=%s phase_after=%s attempts=%d aim=%s" % [
+		id, String(room_press["phase"]), int(room_press["attempts"]), room_press["aim"],
+	])
+	_expect(String(room_press["phase"]) == "asking" and int(room_press["attempts"]) == 0,
+		"E while the answer menu is open does not answer through the room behind it")
+
+	# A wrong sentence answered with the keyboard: focus moved to that button and a real Enter pressed,
+	# which is how the menu is answered without a mouse.
+	var wrong_index: int = view.find(correct) + 1
+	if wrong_index >= view.size():
+		wrong_index = 0
+	var keys: Dictionary = game.probe_answer_response_with_keys(wrong_index)
+	print("INPUT_KEYS scenario=%s action=respond key=Enter button=%d text=\"%s\" attempts=%d phase_after=%s" % [
+		id, wrong_index, String(keys.get("clicked_text", "")),
+		int(keys.get("after", {}).get("attempts", 0)), String(keys.get("after", {}).get("phase", "")),
+	])
+	_expect(not keys.has("error"), "an answer sentence could take keyboard focus")
+	_expect(int(keys.get("after", {}).get("attempts", 0)) == 1, "answering with the keyboard counts as exactly one attempt")
+	_expect(String(keys.get("after", {}).get("phase", "")) == "asking", "a wrong answer keeps the scenario open")
+
+	await _settle(game)
+	view = game.probe_state()["view_order"]
+	var index: int = view.find(correct)
 	var response_click: Dictionary = game.probe_click_response_on_screen(index)
 	print("INPUT_CLICK scenario=%s action=respond button=%d text=\"%s\" attempts=%d phase_after=%s" % [
-		String(scenario["id"]), index, String(response_click.get("clicked_text", "")),
+		id, index, String(response_click.get("clicked_text", "")),
 		int(response_click.get("after", {}).get("attempts", 0)), String(response_click.get("after", {}).get("phase", "")),
 	])
 	_expect(index >= 0, "the correct answer is one of the visible buttons")
-	_expect(int(response_click.get("after", {}).get("attempts", 0)) == 1, "a real click on an answer button counts as exactly one attempt")
+	_expect(int(response_click.get("after", {}).get("attempts", 0)) == 2,
+		"the keyboard answer and the click are two separate attempts on the same scenario")
 	_expect(String(response_click.get("after", {}).get("phase", "")) == "solved",
 		"clicking the answer sentence that matches the scene solves the scenario")
-
 	var texts: Dictionary = game.probe_hud_texts()
 	print("INPUT HUD speaker=\"%s\" utterance=\"%s\" prompt=\"%s\" status=\"%s\"" % [
 		String(texts.get("speaker", "")), String(texts.get("utterance", "")), String(texts.get("prompt", "")), String(texts.get("status", "")),
@@ -725,25 +1011,63 @@ func _run_input(game: Node) -> void:
 	print("INPUT MENU responses=%d order=%s" % [responses.size(), game.probe_state()["view_order"]])
 	_expect(responses.size() == (scenario["options"] as Array).size(), "the answer menu shows every option of the scenario")
 
-	# The ? button works during a task too, and closing it returns to the same task.
-	var reopen: Dictionary = game.probe_click_help_on_screen()
-	print("INPUT_HELP_REOPEN phase_before=%s phase_after=%s overlay_open_after=%s scenario_after=%s" % [
-		String(reopen.get("before", {}).get("phase", "")), String(reopen.get("after", {}).get("phase", "")),
-		bool(reopen.get("after", {}).get("onboarding_open", false)),
-		String(reopen.get("after", {}).get("scenario_id", "")),
+	# F1 opens the briefing during a task too, and closing it returns to the same task.
+	var phase_before_help: String = String(game.probe_state()["phase"])
+	var reopen: Dictionary = game.probe_press_key("open_help")
+	print("INPUT_HELP_REOPEN control=F1 phase_before=%s phase_after=%s overlay_open_after=%s scenario_after=%s cursor_after=%s" % [
+		phase_before_help, String(reopen["phase"]), bool(reopen["onboarding_open"]),
+		String(reopen["scenario_id"]), String(reopen["cursor_mode"]),
 	])
-	_expect(String(reopen.get("after", {}).get("phase", "")) == "briefing", "? opens the briefing again in the middle of a run")
+	_expect(String(reopen["phase"]) == "briefing", "F1 opens the briefing again in the middle of a run")
+	_expect(String(reopen["cursor_mode"]) == "visible", "the briefing releases the cursor while it is read")
 	var reclosed: Dictionary = game.probe_click_onboarding_close_on_screen()
 	print("INPUT_ONBOARDING_BUTTON phase_after=%s overlay_open_after=%s scenario_after=%s" % [
 		String(reclosed.get("after", {}).get("phase", "")), bool(reclosed.get("after", {}).get("onboarding_open", true)),
 		String(reclosed.get("after", {}).get("scenario_id", "")),
 	])
-	# Whatever state the ? button was pressed in - mid-task or already answered - the overlay hands
-	# that state back unchanged.
-	_expect(String(reclosed.get("after", {}).get("phase", "")) == String(reopen.get("before", {}).get("phase", "")),
-		"the button on the overlay returns to the phase the ? button was pressed in")
-	_expect(String(reclosed.get("after", {}).get("scenario_id", "")) == String(scenario["id"]),
+	# Whatever state F1 was pressed in - mid-task or already answered - the overlay hands that state
+	# back unchanged.
+	_expect(String(reclosed.get("after", {}).get("phase", "")) == phase_before_help,
+		"the button on the overlay returns to the phase the overlay was opened in")
+	_expect(String(reclosed.get("after", {}).get("scenario_id", "")) == id,
 		"reopening and closing the briefing does not skip a task")
+
+	# The pause key, then its new-run button: a new run started from the pause menu has to close the
+	# pause first, and the briefing it opens has to lead back into a playable room instead of leaving
+	# the old pause panel and the old phase behind.
+	var pause_again: Dictionary = game.probe_press_key("ui_cancel")
+	await _settle(game)
+	game.probe_pause_new_run()
+	await _settle(game)
+	var after_reset: Dictionary = game.probe_state()
+	print("INPUT_RESET_FROM_PAUSE scenario_before=%s phase_after_pause=%s pause_open=%s panel_open=%s phase_after_reset=%s briefing=%s scenario_after=%s cursor=%s" % [
+		id, String(pause_again["phase"]), bool(after_reset["pause_open"]), game.hud.pause_open(),
+		String(after_reset["phase"]), bool(after_reset["onboarding_open"]), String(after_reset["scenario_id"]),
+		String(after_reset["cursor_mode"]),
+	])
+	_expect(String(pause_again["phase"]) == "paused", "the pause key opens the pause menu in the middle of a run")
+	_expect(not bool(after_reset["pause_open"]), "a new run started from the pause menu closes the pause state")
+	_expect(not game.hud.pause_open(), "a new run started from the pause menu hides the pause panel")
+	_expect(String(after_reset["phase"]) == "briefing" and bool(after_reset["onboarding_open"]),
+		"a new run started from the pause menu opens its briefing the way a first run does")
+	var reopened: Dictionary = game.probe_press_key("ui_cancel")
+	await _settle(game)
+	var reset_aim: Dictionary = game.probe_face(String(game.current_scenario["correct_option_id"]))
+	var playable: Dictionary = game.probe_state()
+	print("INPUT_RESET_PLAYABLE phase_after=%s briefing_open=%s pause_open=%s panel_open=%s cursor=%s aim=%s target_state=%s label=\"%s\"" % [
+		String(playable["phase"]), bool(playable["onboarding_open"]), bool(playable["pause_open"]),
+		game.hud.pause_open(), String(playable["cursor_mode"]), reset_aim, String(playable["target_state"]),
+		String(playable["target_label"]),
+	])
+	_expect(String(reopened["phase"]) == "asking",
+		"the pause key closes the briefing instead of restoring a phase of the run that was discarded")
+	_expect(String(playable["scenario_id"]) == String(after_reset["scenario_id"]),
+		"the briefing of the new run leads to the first task of that run")
+	_expect(not game.hud.pause_open() and not bool(playable["pause_open"]),
+		"the pause panel is gone from the screen of the new run")
+	_expect(String(playable["cursor_mode"]) == "captured", "the room of the new run is played with a captured mouse again")
+	_expect(String(reset_aim.get("option_id", "")) == String(game.current_scenario["correct_option_id"]),
+		"the room of the new run can be aimed at and answered again")
 
 	var chrome: PackedStringArray = game.hud.chrome_labels()
 	var cyrillic_chrome: int = 0
@@ -753,6 +1077,39 @@ func _run_input(game: Node) -> void:
 	print("INPUT_CHROME labels=%d cyrillic_labels=%d values=%s" % [chrome.size(), cyrillic_chrome, chrome])
 	_expect(cyrillic_chrome >= 7, "the controls in the window are labelled in the interface language")
 	_completed = true
+
+
+## A corner of the room a player can really stand in, and the staged answers of this scenario ordered
+## by how far they are from there. The corner is inset from the merged shell box, so it sits inside
+## the room instead of inside the wall the player would be stopped by.
+func _farthest_corner(game: Node, option_ids: Array[String]) -> Dictionary:
+	var shell: AABB = game.room_shell_bounds()
+	var inset: float = 2.0
+	var eye_height: float = float(game.player.eye_height)
+	var best: Dictionary = {"corner": Vector3.ZERO, "options": PackedStringArray()}
+	var best_total: float = -1.0
+	for corner: Vector3 in [
+		Vector3(shell.position.x + inset, 0.0, shell.position.z + inset),
+		Vector3(shell.position.x + shell.size.x - inset, 0.0, shell.position.z + inset),
+		Vector3(shell.position.x + inset, 0.0, shell.position.z + shell.size.z - inset),
+		Vector3(shell.position.x + shell.size.x - inset, 0.0, shell.position.z + shell.size.z - inset),
+	]:
+		var eye: Vector3 = corner + Vector3(0.0, eye_height, 0.0)
+		var measured: Array = []
+		var total: float = 0.0
+		for option_id: String in option_ids:
+			var distance: float = eye.distance_to(game.builder.option_center(option_id))
+			measured.append([distance, option_id])
+			total += distance
+		if total <= best_total:
+			continue
+		best_total = total
+		measured.sort()
+		var ordered: PackedStringArray = PackedStringArray()
+		for index: int in range(measured.size() - 1, -1, -1):
+			ordered.append(String((measured[index] as Array)[1]))
+		best = {"corner": corner, "options": ordered}
+	return best
 
 # endregion
 

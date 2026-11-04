@@ -9,10 +9,19 @@ extends RefCounted
 ## never has two candidate tables standing around.
 ##
 ## There is no physics simulation here: props get a runtime StaticBody3D box built from their
-## imported bounding box so they can be clicked, and carrying is a position change onto the hold
-## tray. StaticBody3D rather than Area3D because Godot's ray queries report bodies. Collision
-## boxes approximate irregular props, which is acceptable - pixel-precise collision is an
-## explicit non-goal of this slice.
+## imported bounding box so they can be aimed at and interacted with, and carrying is a position
+## change onto the hold tray. StaticBody3D rather than Area3D because Godot's ray queries report
+## bodies. Collision boxes approximate irregular props, which is acceptable - pixel-precise
+## collision is an explicit non-goal of this slice.
+##
+## TAV-02 (Issue #9) added one collision rule: these bodies stay on layer 2 and mask nothing, and
+## the player masks only layer 1, which is the room shell. A prop is therefore never solid to the
+## player, so no prop, anchor or NPC can block or trap them in a first-person room.
+##
+## Aiming goes through `pick_at_screen` (a screen point, which is what the probes drive) or
+## `target_at_crosshair` (the centre of the screen, which is what play drives). Both report the
+## distance and whether the aim is within the data-declared reach, so "too far" is one shared
+## answer instead of a separate rule.
 
 const PICK_LAYER: int = 2  # collision layer used by everything clickable
 const GROUND_Y: float = 0.0
@@ -259,6 +268,18 @@ func staged_count() -> int:
 	return _staged.size()
 
 
+## Every clickable body in the room, so a check can confirm that none of them is solid to the player.
+func pick_bodies() -> Array[StaticBody3D]:
+	var result: Array[StaticBody3D] = []
+	for body: StaticBody3D in _colliders:
+		result.append(body)
+	for npc_name: String in _npc_bodies:
+		var body: StaticBody3D = _npc_bodies[npc_name] as StaticBody3D
+		if body != null:
+			result.append(body)
+	return result
+
+
 func set_held(option_id: String) -> void:
 	if _held_option_id == option_id or not _by_option.has(option_id):
 		return
@@ -326,19 +347,28 @@ func set_hover(option_id: String) -> void:
 	if node == null:
 		return
 	_hover_option_id = option_id
-	_highlight(node, "hover")
+	# The aimed object is marked with the reach colour from the room data; delivery, focus and
+	# compared objects already carry their own highlight from staging.
+	_highlight(node, "targeted")
+
+
+func hover_option_id() -> String:
+	return _hover_option_id
 
 
 func clear_hover() -> void:
 	if _hover_option_id.is_empty():
 		return
-	_drop_highlight(option_node(_hover_option_id), "hover")
+	_drop_highlight(option_node(_hover_option_id), "targeted")
 	_hover_option_id = ""
 
 
-## Resolve a screen point to the clickable thing under it. The real mouse handler and the
-## windowed probe both go through this one picking path.
-func pick_at_screen(camera: Camera3D, screen_position: Vector2) -> Dictionary:
+## Resolve a screen point to the clickable thing under it, and report how far away it is.
+## `max_distance` of 0 means "no reach limit", which is exactly how the existing probe calls use
+## it; play passes the reach declared in the room data. The aim is never truncated by the limit,
+## because an object the player can see but cannot reach has to be reported as too far instead of
+## silently reported as nothing.
+func pick_at_screen(camera: Camera3D, screen_position: Vector2, max_distance: float = 0.0) -> Dictionary:
 	if camera == null:
 		return {}
 	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
@@ -353,7 +383,23 @@ func pick_at_screen(camera: Camera3D, screen_position: Vector2) -> Dictionary:
 	var collider: Variant = hit.get("collider", null)
 	if collider == null or not _interactive.has(collider):
 		return {}
-	return _interactive[collider] as Dictionary
+	var result: Dictionary = (_interactive[collider] as Dictionary).duplicate()
+	var origin: Vector3 = camera.project_position(screen_position, 0.0)
+	result["distance"] = origin.distance_to(hit.get("position", origin) as Vector3)
+	result["range"] = max_distance
+	result["in_range"] = max_distance <= 0.0 or float(result["distance"]) <= max_distance
+	return result
+
+
+## What the crosshair is on. One ray through the centre of the viewport, so play, the target label
+## and the interact key all read the same answer.
+func target_at_crosshair(camera: Camera3D, max_distance: float) -> Dictionary:
+	if camera == null:
+		return {}
+	var viewport: Viewport = camera.get_viewport()
+	if viewport == null:
+		return {}
+	return pick_at_screen(camera, viewport.get_visible_rect().size * 0.5, max_distance)
 
 
 # region staging internals

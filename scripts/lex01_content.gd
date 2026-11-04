@@ -23,8 +23,8 @@ const SCENE_STATE_SPECIAL_KEYS: PackedStringArray = ["focus_object", "compared_o
 # The interface text is content too, so its shape is checked here: a missing button label or a
 # missing action instruction is a CONTENT_ERROR with a name, not an empty label at play time.
 const UI_SECTIONS: PackedStringArray = ["onboarding", "action_prompts", "buttons", "lines", "stat_labels"]
-const UI_BUTTON_KEYS: PackedStringArray = ["continue", "skip", "end_day", "next_day", "reset", "help", "hint", "close_onboarding"]
-const UI_LINE_KEYS: PackedStringArray = ["briefing_hint", "guided", "gloss_prefix", "words_prefix", "held", "delivery_hint", "nothing_held", "skipped", "retry", "new_words", "assisted", "unaided", "guided_note", "no_next_day"]
+const UI_BUTTON_KEYS: PackedStringArray = ["continue", "skip", "end_day", "next_day", "reset", "help", "hint", "close_onboarding", "pause_resume", "pause_new_run", "pause_quit"]
+const UI_LINE_KEYS: PackedStringArray = ["briefing_hint", "guided", "gloss_prefix", "words_prefix", "held", "delivery_hint", "nothing_held", "skipped", "retry", "new_words", "assisted", "unaided", "guided_note", "no_next_day", "controls_hint", "target_none", "target_too_far", "interact_hint", "interact_take", "interact_deliver", "paused_note"]
 const UI_STAT_KEYS: PackedStringArray = ["day", "met", "correct", "incorrect", "repeat", "skip", "attempts", "assisted", "unaided", "totals", "summary_title", "meets", "pos", "inflection", "case", "example", "translation", "empty"]
 
 # interface language, so a label that accidentally stayed German is an error. The one exception is
@@ -201,9 +201,29 @@ func _validate_scenario(scenario: Dictionary, path: String) -> void:
 
 
 func _validate_room_shell() -> void:
-	for required: String in ["npcs", "cameras", "candidate_slots", "anchors", "placement_slots", "hold", "delivery"]:
+	for required: String in ["npcs", "cameras", "candidate_slots", "anchors", "placement_slots", "hold", "delivery", "player"]:
 		if not (room.get(required, null) is Dictionary):
 			errors.append("room layout is missing the '%s' section" % required)
+	# TAV-02 (Issue #9): the first-person body and its reach are data, so a broken tunable is a
+	# named content error instead of a player who cannot move or can never reach an answer.
+	var player: Dictionary = player_config()
+	if not player.is_empty():
+		for key: String in ["eye_height", "walk_speed", "interact_range"]:
+			var value: float = float(player.get(key, 0.0))
+			if value <= 0.0:
+				errors.append("room layout 'player.%s' must be a positive number, got %s" % [key, player.get(key, null)])
+		if float(player.get("eye_height", 0.0)) <= 1.0:
+			errors.append("room layout 'player.eye_height' must be above 1.0, or the crosshair points at the floor")
+		if float(player.get("interact_range", 0.0)) > 20.0:
+			errors.append("room layout 'player.interact_range' of %s makes aiming a distance instead of an approach" % player.get("interact_range", null))
+		if float(player.get("pitch_limit_deg", 0.0)) <= 0.0 or float(player.get("pitch_limit_deg", 0.0)) > 90.0:
+			errors.append("room layout 'player.pitch_limit_deg' must stay between 0 and 90 degrees")
+	for context: String in candidate_contexts():
+		var spawn: Dictionary = camera_for(context)
+		if spawn.is_empty():
+			errors.append("context '%s' has no player spawn in %s" % [context, ROOM_PATH])
+		elif not (spawn.get("position", null) is Array):
+			errors.append("context '%s' spawn has no position array in %s" % [context, ROOM_PATH])
 	for slot_name: String in placement_slots():
 		var slot: Dictionary = placement_slot(slot_name)
 		var anchor: String = String(slot.get("anchor", ""))
@@ -394,6 +414,25 @@ func camera_for(context: String) -> Dictionary:
 	if section is Dictionary and section.has("default"):
 		return section["default"] as Dictionary
 	return {}
+
+
+## Every context the room declares a spawn for - used to check that no scenario is dropped into a
+## room the player cannot be put in.
+func candidate_contexts() -> Array[String]:
+	var result: Array[String] = []
+	var section: Variant = room.get("candidate_slots", null)
+	if section is Dictionary:
+		for key: String in section:
+			if key != "note":
+				result.append(key)
+	result.sort()
+	return result
+
+
+## The first-person body: eye height, capsule, speed, look sensitivity and reach (TAV-02).
+func player_config() -> Dictionary:
+	var section: Variant = room.get("player", null)
+	return section as Dictionary if section is Dictionary else {}
 
 
 func candidate_slots(context: String) -> Array:
