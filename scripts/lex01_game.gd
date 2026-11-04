@@ -66,7 +66,11 @@ var _phase_before_pause: String = ""
 # Whether the answer menu of a respond task is on screen: while it is, the mouse and Enter belong
 # to the menu and nothing in the room can be acted on.
 var _answers_open: bool = false
-var _cursor_mode: String = "visible"
+# The cursor has exactly two modes, and aiming, looking and clicking all read this one state:
+# captured means the mouse aims the crosshair, visible means the interface owns the mouse.
+const CURSOR_CAPTURED: String = "captured"
+const CURSOR_VISIBLE: String = "visible"
+var _cursor_mode: String = CURSOR_VISIBLE
 var _aim: Dictionary = {}
 var _interact_range: float = 5.0
 var _player_config: Dictionary = {}
@@ -173,8 +177,17 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("continue_task"):
 		_on_continue()
 		return
-	# E and the left mouse button are the same action in the input map, so one line covers both and
-	# there is exactly one way an object in the room can be acted on.
+	# E and the left mouse button share the `interact` action. The click half only counts while the
+	# mouse is captured, because captured is when the crosshair is what the player aims with; a click
+	# made while the cursor is free belongs to the interface, even on HUD space with no button under
+	# it, and must never answer through the room behind that space.
+	if event is InputEventMouseButton:
+		if event.button_index != MOUSE_BUTTON_LEFT or not event.pressed:
+			return
+		if _cursor_mode != CURSOR_CAPTURED:
+			return
+		interact_with_target()
+		return
 	if event.is_action_pressed("interact"):
 		interact_with_target()
 
@@ -184,10 +197,10 @@ func _unhandled_input(event: InputEvent) -> void:
 ## all read this one answer instead of each aiming on their own.
 func _physics_process(_delta: float) -> void:
 	player.set_active(not _interface_is_open())
-	# Looking is gated by the task, not by the cursor: a respond task asks the player to look at the
-	# room while the answer menu is up, so the head still turns with the mouse even though the cursor
-	# is free and the body is not walking.
-	player.set_look_enabled(phase == "asking")
+	# Looking follows the cursor, not the phase: mouse motion turns the view only while the mouse is
+	# captured. While `Tab` or an overlay has released the cursor, moving the mouse reaches the HUD
+	# and has to leave the view exactly where it was.
+	player.set_look_enabled(_cursor_mode == CURSOR_CAPTURED)
 	_aim = builder.target_at_crosshair(player.camera, _interact_range) if phase == "asking" and not _interface_is_open() else {}
 	_report_aim()
 	# Tab is read from the input state rather than from an event, because a focused HUD button would
@@ -275,11 +288,12 @@ func _interface_is_open() -> bool:
 ## Captured is the normal state of play: the mouse looks and the crosshair aims. Tab, or any
 ## interface that opens, releases the cursor so the HUD can be clicked; capture returns with play.
 func set_cursor(captured: bool) -> void:
-	var wanted: String = "captured" if captured else "visible"
+	var wanted: String = CURSOR_CAPTURED if captured else CURSOR_VISIBLE
 	if _cursor_mode == wanted:
 		return
 	_cursor_mode = wanted
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if captured else Input.MOUSE_MODE_VISIBLE
+	player.set_look_enabled(captured)
 	if captured:
 		# A click is hit-tested at the OS cursor position, and a captured cursor does not move on its
 		# own, so the position is put under the crosshair: what a player clicks is what they look at.
@@ -291,7 +305,7 @@ func set_cursor(captured: bool) -> void:
 
 
 func toggle_cursor() -> void:
-	set_cursor(_cursor_mode == "visible")
+	set_cursor(_cursor_mode == CURSOR_VISIBLE)
 
 
 func sync_cursor() -> void:
@@ -759,7 +773,19 @@ func _on_next_day() -> void:
 
 
 func _on_reset() -> void:
+	# The pause menu offers a new run too, so the pause has to be closed before the new run starts:
+	# otherwise the new briefing sits behind the old pause panel, and `Esc` would later restore a
+	# phase saved from a run that no longer exists.
+	_close_pause_state()
 	reset_run()
+
+
+## Drop pause state without handing back a phase. `close_pause()` is the resume path and restores
+## what was running; this is the path that replaces the run instead.
+func _close_pause_state() -> void:
+	_pause_open = false
+	_phase_before_pause = ""
+	hud.hide_pause()
 
 
 func _on_quit() -> void:
@@ -973,6 +999,43 @@ func probe_press_key(action: String) -> Dictionary:
 ## Free or capture the cursor the way Tab does.
 func probe_toggle_cursor() -> Dictionary:
 	toggle_cursor()
+	return probe_state()
+
+
+## Move the mouse the way a player does, through the viewport, so the ordinary look path runs and a
+## check can see whether the view turned or stayed where it was.
+func probe_push_mouse_motion(relative: Vector2) -> Dictionary:
+	var motion: InputEventMouseMotion = InputEventMouseMotion.new()
+	motion.relative = relative
+	motion.position = get_viewport().get_visible_rect().size * 0.5
+	get_viewport().push_input(motion)
+	return {
+		"cursor_mode": _cursor_mode,
+		"look_enabled": player.is_look_enabled(),
+		"player_yaw": player.rotation_degrees.y,
+		"camera_pitch": player.camera.rotation_degrees.x if player.camera != null else 0.0,
+	}
+
+
+## Click at the centre of the screen without aiming at anything first, which is what a player does
+## when they click HUD space that has no button under it. With the cursor free this must stay a click
+## on the interface, and with the mouse captured it is the ordinary crosshair action.
+func probe_click_without_aim() -> Dictionary:
+	var before: Dictionary = probe_state()
+	_push_mouse_click(_crosshair_point())
+	return {
+		"cursor_mode": _cursor_mode,
+		"pick": last_pick_result,
+		"click_reached_world": last_input_seen,
+		"before": before,
+		"after": probe_state(),
+	}
+
+
+## Press the new-run button of the pause menu, which has to close the pause before the new run and
+## its briefing appear.
+func probe_pause_new_run() -> Dictionary:
+	_on_reset()
 	return probe_state()
 
 

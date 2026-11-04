@@ -863,14 +863,32 @@ func _run_input(game: Node) -> void:
 	_expect(String(resumed["scenario_id"]) == id, "the pause does not skip a task")
 	_expect(String(resumed["cursor_mode"]) == "captured", "resuming captures the mouse again")
 
-	# Tab is how a player reaches the HUD buttons while still being able to look around.
+	# Tab is how a player reaches the HUD buttons while still being able to look around. Moving the
+	# mouse while it is free has to move the cursor and leave the view exactly where it was.
+	var yaw_before: float = float(game.player.rotation_degrees.y)
+	var pitch_before: float = float(game.player.camera.rotation_degrees.x)
 	var freed: Dictionary = game.probe_toggle_cursor()
+	var motion_free: Dictionary = game.probe_push_mouse_motion(Vector2(240.0, 120.0))
 	var recaptured: Dictionary = game.probe_toggle_cursor()
+	var motion_captured: Dictionary = game.probe_push_mouse_motion(Vector2(240.0, 120.0))
 	print("INPUT_TAB cursor_after_first=%s cursor_after_second=%s" % [
 		String(freed["cursor_mode"]), String(recaptured["cursor_mode"]),
 	])
+	print("INPUT_MOUSE_FREE cursor=%s look_enabled=%s yaw=%.2f->%.2f pitch=%.2f->%.2f" % [
+		String(motion_free["cursor_mode"]), bool(motion_free["look_enabled"]),
+		yaw_before, float(motion_free["player_yaw"]), pitch_before, float(motion_free["camera_pitch"]),
+	])
+	print("INPUT_MOUSE_CAPTURED cursor=%s look_enabled=%s yaw=%.2f->%.2f" % [
+		String(motion_captured["cursor_mode"]), bool(motion_captured["look_enabled"]),
+		float(motion_free["player_yaw"]), float(motion_captured["player_yaw"]),
+	])
 	_expect(String(freed["cursor_mode"]) == "visible", "Tab frees the cursor so the HUD can be clicked")
 	_expect(String(recaptured["cursor_mode"]) == "captured", "Tab captures the cursor again for looking around")
+	_expect(not bool(motion_free["look_enabled"]), "looking is switched off while the cursor is free")
+	_expect(abs(float(motion_free["player_yaw"]) - yaw_before) < 0.01 and abs(float(motion_free["camera_pitch"]) - pitch_before) < 0.01,
+		"moving the mouse with the cursor free does not rotate the view")
+	_expect(abs(float(motion_captured["player_yaw"]) - float(motion_free["player_yaw"])) > 0.5,
+		"the same mouse motion still turns the view while the mouse is captured")
 
 	await _settle(game)
 	await _settle(game)
@@ -924,6 +942,26 @@ func _run_input(game: Node) -> void:
 	_expect(bool(menu_state["answers_open"]), "the game knows the answer menu is on screen")
 	_expect(String(menu_state["target_state"]) == "off",
 		"nothing in the room is aimable while an answer menu is open")
+	var menu_yaw: float = float(game.player.rotation_degrees.y)
+	var menu_motion: Dictionary = game.probe_push_mouse_motion(Vector2(200.0, 90.0))
+	print("INPUT_MENU_MOTION scenario=%s cursor=%s look_enabled=%s yaw=%.2f->%.2f" % [
+		id, String(menu_motion["cursor_mode"]), bool(menu_motion["look_enabled"]),
+		menu_yaw, float(menu_motion["player_yaw"]),
+	])
+	_expect(not bool(menu_motion["look_enabled"]), "the answer menu owns the mouse while an answer is being chosen")
+	_expect(abs(float(menu_motion["player_yaw"]) - menu_yaw) < 0.01,
+		"moving the mouse while choosing a German answer sentence leaves the camera still")
+	var free_click: Dictionary = game.probe_click_without_aim()
+	print("INPUT_MENU_CLICK scenario=%s cursor=%s click_reached_world=%s attempts=%d phase_after=%s" % [
+		id, String(free_click["cursor_mode"]), bool(free_click["click_reached_world"]),
+		int(game.progress.scenario_entry(id).get("attempts", 0)),
+		String(free_click.get("after", {}).get("phase", "")),
+	])
+	_expect(String(free_click["cursor_mode"]) == "visible", "the cursor is free for the answer menu when this click is made")
+	_expect(not bool(free_click["click_reached_world"]),
+		"a left click made while the cursor is free never acts on the 3D crosshair")
+	_expect(int(game.progress.scenario_entry(id).get("attempts", 0)) == 0,
+		"a left click made while the cursor is free records no answer on the scenario")
 	var room_press: Dictionary = game.probe_press_interact()
 	print("INPUT_MENU_KEY scenario=%s phase_after=%s attempts=%d aim=%s" % [
 		id, String(room_press["phase"]), int(room_press["attempts"]), room_press["aim"],
@@ -993,6 +1031,43 @@ func _run_input(game: Node) -> void:
 		"the button on the overlay returns to the phase the overlay was opened in")
 	_expect(String(reclosed.get("after", {}).get("scenario_id", "")) == id,
 		"reopening and closing the briefing does not skip a task")
+
+	# The pause key, then its new-run button: a new run started from the pause menu has to close the
+	# pause first, and the briefing it opens has to lead back into a playable room instead of leaving
+	# the old pause panel and the old phase behind.
+	var pause_again: Dictionary = game.probe_press_key("ui_cancel")
+	await _settle(game)
+	game.probe_pause_new_run()
+	await _settle(game)
+	var after_reset: Dictionary = game.probe_state()
+	print("INPUT_RESET_FROM_PAUSE scenario_before=%s phase_after_pause=%s pause_open=%s panel_open=%s phase_after_reset=%s briefing=%s scenario_after=%s cursor=%s" % [
+		id, String(pause_again["phase"]), bool(after_reset["pause_open"]), game.hud.pause_open(),
+		String(after_reset["phase"]), bool(after_reset["onboarding_open"]), String(after_reset["scenario_id"]),
+		String(after_reset["cursor_mode"]),
+	])
+	_expect(String(pause_again["phase"]) == "paused", "the pause key opens the pause menu in the middle of a run")
+	_expect(not bool(after_reset["pause_open"]), "a new run started from the pause menu closes the pause state")
+	_expect(not game.hud.pause_open(), "a new run started from the pause menu hides the pause panel")
+	_expect(String(after_reset["phase"]) == "briefing" and bool(after_reset["onboarding_open"]),
+		"a new run started from the pause menu opens its briefing the way a first run does")
+	var reopened: Dictionary = game.probe_press_key("ui_cancel")
+	await _settle(game)
+	var reset_aim: Dictionary = game.probe_face(String(game.current_scenario["correct_option_id"]))
+	var playable: Dictionary = game.probe_state()
+	print("INPUT_RESET_PLAYABLE phase_after=%s briefing_open=%s pause_open=%s panel_open=%s cursor=%s aim=%s target_state=%s label=\"%s\"" % [
+		String(playable["phase"]), bool(playable["onboarding_open"]), bool(playable["pause_open"]),
+		game.hud.pause_open(), String(playable["cursor_mode"]), reset_aim, String(playable["target_state"]),
+		String(playable["target_label"]),
+	])
+	_expect(String(reopened["phase"]) == "asking",
+		"the pause key closes the briefing instead of restoring a phase of the run that was discarded")
+	_expect(String(playable["scenario_id"]) == String(after_reset["scenario_id"]),
+		"the briefing of the new run leads to the first task of that run")
+	_expect(not game.hud.pause_open() and not bool(playable["pause_open"]),
+		"the pause panel is gone from the screen of the new run")
+	_expect(String(playable["cursor_mode"]) == "captured", "the room of the new run is played with a captured mouse again")
+	_expect(String(reset_aim.get("option_id", "")) == String(game.current_scenario["correct_option_id"]),
+		"the room of the new run can be aimed at and answered again")
 
 	var chrome: PackedStringArray = game.hud.chrome_labels()
 	var cyrillic_chrome: int = 0

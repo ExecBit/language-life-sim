@@ -60,8 +60,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Looking and walking are gated apart: while an answer menu is up the player stands still but can
-	# still turn the head, because a respond task asks them to look at the room.
+	# Looking is gated by one thing: whether the mouse is captured. While the cursor is free it belongs
+	# to the interface, so dragging it toward a HUD button must leave the view where it was - the game
+	# sets this from its cursor mode (see `set_cursor` in `scripts/lex01_game.gd`).
 	if not _look_enabled:
 		return
 	if event is InputEventMouseMotion:
@@ -106,6 +107,10 @@ func set_active(enabled: bool) -> void:
 
 func set_look_enabled(enabled: bool) -> void:
 	_look_enabled = enabled
+
+
+func is_look_enabled() -> bool:
+	return _look_enabled
 
 
 func is_active() -> bool:
