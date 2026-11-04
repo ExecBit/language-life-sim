@@ -76,6 +76,7 @@ layout_mode = 2
 mouse_filter = 2
 fit_content = true
 scroll_active = false
+bbcode_enabled = true
 theme_override_font_sizes/normal_size = 20
 text = ""
 
@@ -92,6 +93,7 @@ layout_mode = 2
 mouse_filter = 2
 fit_content = true
 scroll_active = false
+bbcode_enabled = true
 theme_override_font_sizes/normal_size = 18
 text = ""
 

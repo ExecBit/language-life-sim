@@ -14,6 +14,16 @@ extends RefCounted
 ## bodies. Collision boxes approximate irregular props, which is acceptable - pixel-precise
 ## collision is an explicit non-goal of this slice.
 ##
+## A pick box is only trustworthy while it surrounds the object it was measured from, so every
+## placement move is followed by `_sync_pick`: the collider is built where the object first stands
+## and then follows it onto the table, in front of the fridge, onto the carry tray and to the
+## delivery target. `option_aabb`, the aim and the crosshair therefore always describe one thing.
+##
+## Aiming (PR #16 review). What the crosshair is on is reported by its colour and the label under it;
+## no geometry is created or freed while aiming. Only the four meanings a scenario states - focus,
+## compared, delivery, held - are marked in the room, and those four boxes are built once in `setup`
+## and reused.
+##
 ## TAV-02 (Issue #9) added one collision rule: these bodies stay on layer 2 and mask nothing, and
 ## the player masks only layer 1, which is the room shell. A prop is therefore never solid to the
 ## player, so no prop, anchor or NPC can block or trap them in a first-person room.
@@ -28,6 +38,10 @@ const GROUND_Y: float = 0.0
 const SPREAD_GAP: float = 0.24
 const FRONT_GAP: float = 0.18
 
+## The only marks this room ever draws: one reusable box per meaning the scenario states. Aiming
+## itself draws nothing at all - the crosshair colour and the target label are the aim feedback.
+const MARKER_KINDS: Array[String] = ["focus", "compared", "delivery", "held"]
+
 var warnings: PackedStringArray = []
 
 var _content: Lex01Content
@@ -37,11 +51,11 @@ var _rng: RandomNumberGenerator
 
 var _staged: Array[Node3D] = []
 var _colliders: Array[StaticBody3D] = []
-var _highlights: Array[MeshInstance3D] = []
 var _by_path: Dictionary = {}       # scene_object path -> Node3D
 var _by_option: Dictionary = {}     # option id -> Node3D
 var _option_slot: Dictionary = {}   # option id -> candidate slot index used
 var _option_origin: Dictionary = {} # option id -> Vector3 where the object was placed
+var _option_pick: Dictionary = {}   # option id -> { "body": StaticBody3D, "shape": BoxShape3D }
 var _interactive: Dictionary = {}   # pick body -> { "kind": ..., "option_id": ... }
 var _npc_bodies: Dictionary = {}    # npc name -> StaticBody3D
 var _tray: Node3D = null
@@ -49,6 +63,8 @@ var _held_option_id: String = ""
 var _hover_option_id: String = ""
 var _slot_pool: Array = []
 var _used_slot_count: int = 0
+var _markers: Dictionary = {}       # marker kind -> the one reusable MeshInstance3D for it
+var _marker_owners: Dictionary = {} # marker kind -> the node that marker currently marks
 
 
 func setup(content: Lex01Content, candidates: Node3D, npcs: Node3D, rng: RandomNumberGenerator) -> void:
@@ -56,6 +72,28 @@ func setup(content: Lex01Content, candidates: Node3D, npcs: Node3D, rng: RandomN
 	_candidates = candidates
 	_npcs = npcs
 	_rng = rng
+	_build_markers()
+
+
+## Every mark the room can show is built exactly once here, hidden, from one shared unit box and one
+## cached material per kind. Nothing in aiming or staging ever creates a mesh, a mesh resource or a
+## material again; the markers are only moved, resized and shown or hidden.
+func _build_markers() -> void:
+	var unit: BoxMesh = BoxMesh.new()
+	unit.size = Vector3.ONE
+	for kind: String in MARKER_KINDS:
+		var material: StandardMaterial3D = StandardMaterial3D.new()
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		material.albedo_color = _content.highlight_color(kind, Color(1, 1, 1, 0.4))
+		var mesh: MeshInstance3D = MeshInstance3D.new()
+		mesh.name = "%sMarker" % kind
+		mesh.mesh = unit
+		mesh.material_override = material
+		mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		mesh.visible = false
+		_candidates.add_child(mesh)
+		_markers[kind] = mesh
 
 
 func prepare_npcs() -> void:
@@ -68,7 +106,8 @@ func prepare_npcs() -> void:
 		var config: Dictionary = _content.npc_config(npc_name)
 		node.position = _vector3(config.get("position", [0, 0, 0]))
 		node.rotation_degrees = _vector3(config.get("rotation_deg", [0, 0, 0]))
-		var body: StaticBody3D = _add_collider(node, "%sPickBody" % npc_name, true)
+		var built: Dictionary = _add_collider(node, "%sPickBody" % npc_name, true)
+		var body: StaticBody3D = built.get("body", null) as StaticBody3D
 		if body != null:
 			_interactive[body] = {"kind": "npc", "npc": npc_name}
 			_npc_bodies[npc_name] = body
@@ -176,10 +215,12 @@ func stage_scenario(scenario: Dictionary, keep_candidate_order: bool = false) ->
 			if npc_node != null:
 				_highlight(npc_node, "delivery")
 
-	# Origins are recorded last, after every placement has moved the objects.
+	# Origins and pick colliders are recorded last, after every placement has moved the objects, so
+	# the box a click has to land on always surrounds the object the player can see.
 	for option_id: String in _by_option:
 		var node: Node3D = _by_option[option_id] as Node3D
 		_option_origin[option_id] = node.position
+		_sync_pick(option_id)
 	for entry: Dictionary in plan:
 		entry["position"] = (_by_option[String(entry["id"])] as Node3D).position
 
@@ -203,14 +244,12 @@ func clear() -> void:
 		if is_instance_valid(body):
 			body.queue_free()
 	_colliders.clear()
-	for mesh: MeshInstance3D in _highlights:
-		if is_instance_valid(mesh):
-			mesh.queue_free()
-	_highlights.clear()
+	_hide_all_markers()
 	_by_path.clear()
 	_by_option.clear()
 	_option_slot.clear()
 	_option_origin.clear()
+	_option_pick.clear()
 	_interactive.clear()
 	# NPC pick bodies belong to the scene rather than to one scenario.
 	for npc_name: String in _npc_bodies:
@@ -291,6 +330,7 @@ func set_held(option_id: String) -> void:
 	_spread_on(single, _tray, "on_top")
 	_held_option_id = option_id
 	_highlight(node, "held")
+	_sync_pick(option_id)
 
 
 func held_option_id() -> String:
@@ -304,6 +344,7 @@ func clear_held() -> void:
 	if node != null:
 		node.position = _option_origin.get(_held_option_id, node.position) as Vector3
 		_drop_highlight(node, "held")
+		_sync_pick(_held_option_id)
 	_held_option_id = ""
 
 
@@ -323,6 +364,7 @@ func place_delivered(option_id: String, delivery_kind: String, delivery_npc: Str
 				var single: Array[Node3D] = [node]
 				_spread_on(single, delivery_node, "on_top")
 			_highlight(node, "held")
+	_sync_pick(option_id)
 	_held_option_id = option_id
 
 
@@ -339,17 +381,12 @@ func idle_all() -> void:
 			_play_clip(node, String(_content.npc_config(npc_name).get("clips", {}).get("idle", "Idle")))
 
 
+## The object the crosshair is on. Only the bookkeeping is remembered: aiming feedback is the
+## crosshair colour and the target label, so hovering never creates or frees any geometry.
 func set_hover(option_id: String) -> void:
 	if _hover_option_id == option_id:
 		return
-	clear_hover()
-	var node: Node3D = option_node(option_id)
-	if node == null:
-		return
 	_hover_option_id = option_id
-	# The aimed object is marked with the reach colour from the room data; delivery, focus and
-	# compared objects already carry their own highlight from staging.
-	_highlight(node, "targeted")
 
 
 func hover_option_id() -> String:
@@ -359,7 +396,6 @@ func hover_option_id() -> String:
 func clear_hover() -> void:
 	if _hover_option_id.is_empty():
 		return
-	_drop_highlight(option_node(_hover_option_id), "targeted")
 	_hover_option_id = ""
 
 
@@ -478,19 +514,23 @@ func _next_candidate_position() -> Vector3:
 
 
 func _enable_picking(node: Node3D, option_id: String, role: String = "option") -> void:
-	var body: StaticBody3D = _add_collider(node, "%sPickBody" % node.name, false)
+	var built: Dictionary = _add_collider(node, "%sPickBody" % node.name, false)
+	var body: StaticBody3D = built.get("body", null) as StaticBody3D
 	if body == null:
 		return
 	if option_id.is_empty():
 		_interactive[body] = {"kind": role, "option_id": option_id}
 	else:
 		_interactive[body] = {"kind": "option", "option_id": option_id}
+		_option_pick[option_id] = {"body": body, "shape": built.get("shape", null)}
 
 
-func _add_collider(node: Node3D, body_name: String, persistent: bool) -> StaticBody3D:
+## The pick box is measured where the object stands at this moment and remembered together with the
+## body, because placement passes move the object afterwards and the collider has to follow it.
+func _add_collider(node: Node3D, body_name: String, persistent: bool) -> Dictionary:
 	var box: AABB = _world_aabb(node)
 	if box.size.length() <= 0.0:
-		return null
+		return {}
 	var body: StaticBody3D = StaticBody3D.new()
 	body.name = body_name
 	body.collision_layer = PICK_LAYER
@@ -504,40 +544,67 @@ func _add_collider(node: Node3D, body_name: String, persistent: bool) -> StaticB
 	body.global_position = box.get_center()
 	if not persistent:
 		_colliders.append(body)
-	return body
+	return {"body": body, "shape": box_shape}
 
 
-func _highlight(node: Node3D, kind: String) -> void:
+## Move a stored pick box onto the object it belongs to, so what the crosshair aims at and what the
+## object's own AABB reports are always the same thing.
+func _sync_pick(option_id: String) -> void:
+	var entry: Variant = _option_pick.get(option_id, null)
+	if not (entry is Dictionary):
+		return
+	var body: StaticBody3D = (entry as Dictionary).get("body", null) as StaticBody3D
+	if body == null or not is_instance_valid(body):
+		return
+	var node: Node3D = option_node(option_id)
 	if node == null:
 		return
 	var box: AABB = _world_aabb(node)
 	if box.size.length() <= 0.0:
 		return
-	var mesh: MeshInstance3D = MeshInstance3D.new()
-	mesh.name = "%sHighlight_%s" % [kind, node.name]
-	var box_mesh: BoxMesh = BoxMesh.new()
-	box_mesh.size = box.size * 1.12
-	mesh.mesh = box_mesh
-	var material: StandardMaterial3D = StandardMaterial3D.new()
-	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	material.albedo_color = _content.highlight_color(kind, Color(1, 1, 1, 0.4))
-	mesh.material_override = material
-	mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	_candidates.add_child(mesh)
+	var shape: BoxShape3D = (entry as Dictionary).get("shape", null) as BoxShape3D
+	if shape != null and is_instance_valid(shape):
+		shape.size = box.size * 1.06
+	body.global_position = box.get_center()
+
+
+## Show this kind's one reusable marker around the given object: position, size and visibility only.
+func _highlight(node: Node3D, kind: String) -> void:
+	if node == null:
+		return
+	var mesh: MeshInstance3D = _markers.get(kind, null) as MeshInstance3D
+	if mesh == null or not is_instance_valid(mesh):
+		return
+	var box: AABB = _world_aabb(node)
+	if box.size.length() <= 0.0:
+		return
+	mesh.scale = box.size * 1.12
 	mesh.global_position = box.get_center()
-	_highlights.append(mesh)
+	mesh.visible = true
+	_marker_owners[kind] = node
 
 
+## Hide the marker only if it is still the one marking this object, so two scenarios cannot fight
+## over one marker.
 func _drop_highlight(node: Node3D, kind: String) -> void:
 	if node == null:
 		return
-	var marker: String = "%sHighlight_%s" % [kind, node.name]
-	for index: int in range(_highlights.size() - 1, -1, -1):
-		var mesh: MeshInstance3D = _highlights[index]
-		if is_instance_valid(mesh) and String(mesh.name) == marker:
-			mesh.queue_free()
-			_highlights.remove_at(index)
+	if (_marker_owners.get(kind, null) as Node3D) != node:
+		return
+	_marker_owners.erase(kind)
+	_hide_marker(kind)
+
+
+func _hide_marker(kind: String) -> void:
+	var mesh: MeshInstance3D = _markers.get(kind, null) as MeshInstance3D
+	if mesh != null and is_instance_valid(mesh):
+		mesh.visible = false
+
+
+func _hide_all_markers() -> void:
+	_marker_owners.clear()
+	for kind: String in _markers:
+		_hide_marker(kind)
 
 
 func _ensure_tray() -> void:
