@@ -13,7 +13,8 @@ func _ready() -> void:
 	var stage1 := OS.get_cmdline_user_args().has("--stage1")
 	var stage2 := OS.get_cmdline_user_args().has("--stage2")
 	var stage3 := OS.get_cmdline_user_args().has("--stage3")
-	var default_layout := "res://stage1_layout.json" if stage1 else ("res://stage2-A-layout.json" if stage2 else ("res://stage3-A-layout.json" if stage3 else LAYOUT_PATH))
+	var stage4 := OS.get_cmdline_user_args().has("--stage4")
+	var default_layout := "res://stage1_layout.json" if stage1 else ("res://stage2-A-layout.json" if stage2 else ("res://stage4-A-layout.json" if stage4 else ("res://stage3-A-layout.json" if stage3 else LAYOUT_PATH)))
 	var layout_path := _argument("layout", default_layout)
 	if not layout_path.begins_with("res://"):
 		layout_path = "res://" + layout_path
@@ -23,7 +24,7 @@ func _ready() -> void:
 		get_tree().quit(1)
 		return
 
-	if stage3:
+	if stage4 or stage3:
 		_build_stage3_rooms(parsed)
 	elif stage1 or stage2:
 		_build_stage1_rooms(parsed)
@@ -50,7 +51,9 @@ func _ready() -> void:
 	_root_camera.current = true
 	_root_camera.fov = 72.0
 	add_child(_root_camera)
-	if stage3:
+	if stage4:
+		_select_stage4_view(_argument("view", "top"), parsed)
+	elif stage3:
 		_select_stage3_view(_argument("view", "top"), parsed)
 	elif stage2:
 		_select_stage2_view(_argument("view", "top"), parsed)
@@ -162,6 +165,18 @@ func _build_stage3_rooms(layout: Dictionary) -> void:
 		_add_box(room["id"] + "South", center + Vector3(0, 1.5, -depth / 2 - wall / 2), Vector3(width, 3, wall), wall_material)
 	_add_box("HallWest", _room_edge(rooms[0], "west", 0) + Vector3(-wall / 2, 0, 0), Vector3(wall, 3, float(rooms[0]["depth"])), wall_material)
 	_add_box("StoreEast", _room_edge(rooms[2], "east", 0) + Vector3(wall / 2, 0, 0), Vector3(wall, 3, float(rooms[2]["depth"])), wall_material)
+	# Main entrance is derived from the generated hall and remains 1.4 m wide.
+	var hall: Dictionary = rooms[0]
+	var hall_x := float(hall["originX"])
+	var hall_z := float(hall["originZ"])
+	var hall_width := float(hall["width"])
+	var hall_depth := float(hall["depth"])
+	var entrance_width := float(layout["mainEntrance"]["width"])
+	var south_z := hall_z - hall_depth / 2
+	var side_span := (hall_width - entrance_width) / 2
+	_add_box("HallSouthWest", Vector3(hall_x - entrance_width / 2 - side_span / 2, 1.5, south_z), Vector3(side_span, 3, wall), wall_material)
+	_add_box("HallSouthEast", Vector3(hall_x + entrance_width / 2 + side_span / 2, 1.5, south_z), Vector3(side_span, 3, wall), wall_material)
+	_add_box("MainEntranceHeader", Vector3(hall_x, 2.8, south_z), Vector3(entrance_width, 0.4, wall), trim_material)
 	var doors: Array = layout["doors"]
 	for i in range(2):
 		var left: Dictionary = rooms[i]
@@ -263,6 +278,17 @@ func _select_stage3_view(view_name: String, layout: Dictionary) -> void:
 		return
 	_root_camera.position = Vector3(float(store["originX"]) - 2.4, 1.65, -float(store["depth"]) / 2 + 1.5)
 	_root_camera.look_at(Vector3(float(store["originX"]), 1.0, 0), Vector3.UP)
+
+
+func _select_stage4_view(view_name: String, layout: Dictionary) -> void:
+	_select_stage3_view("top" if view_name == "top" else view_name, layout)
+	if view_name != "entrance": return
+	var hall: Dictionary = layout["rooms"][0]
+	var z := float(hall["originZ"]) - float(hall["depth"]) / 2
+	var x := float(layout["mainEntrance"]["centerX"])
+	_root_camera.position = Vector3(x, 1.65, z + 1.1)
+	_root_camera.fov = 82
+	_root_camera.look_at(Vector3(x, 1.25, z + 8.5), Vector3.UP)
 
 
 func _select_stage1_view(view_name: String, layout: Dictionary) -> void:

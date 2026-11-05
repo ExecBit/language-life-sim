@@ -24,6 +24,7 @@ internal static class Program
         if (args.Length > 0 && args[0] == "--stage1") return RunStage1(args[1..]);
         if (args.Length > 0 && args[0] == "--stage2") return RunStage2(args[1..]);
         if (args.Length > 0 && args[0] == "--stage3") return Stage3.Run(args[1..]);
+        if (args.Length > 0 && args[0] == "--stage4") return Stage4.Run(args[1..]);
         return RunLegacy(args);
     }
 
