@@ -1,0 +1,15 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/prop_semantics.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "KayKit small round dining table"
+scene_path = "res://experiments/level_builder_lite/props/round_table_small.tscn"
+tags = PackedStringArray("lbg02_table")
+footprint = Vector2i(2, 2)
+prefer_zones = PackedStringArray("presentation", "work")
+avoid_zones = PackedStringArray("travel", "entrance")
+needs_nearby = PackedStringArray("lbg02_chair")
+needs_range = 2
+style_tags = PackedStringArray("kaykit", "intact")

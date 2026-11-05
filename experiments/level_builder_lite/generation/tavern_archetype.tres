@@ -1,0 +1,35 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/room_archetype.gd" id="1_room"]
+[ext_resource type="Script" path="res://addons/level_builder/resources/zone_rule.gd" id="2_zone"]
+
+[sub_resource type="Resource" id="zone_work"]
+script = ExtResource("2_zone")
+zone = "work"
+rule = "near_anchor"
+radius = 5
+over = PackedStringArray("wall", "corner", "center")
+
+[sub_resource type="Resource" id="zone_storage"]
+script = ExtResource("2_zone")
+zone = "storage"
+rule = "far_from_entrances"
+reach = 0.35
+over = PackedStringArray("wall", "corner", "center")
+
+[sub_resource type="Resource" id="zone_lounge"]
+script = ExtResource("2_zone")
+zone = "presentation"
+rule = "remaining"
+over = PackedStringArray("wall", "corner", "center")
+
+[resource]
+script = ExtResource("1_room")
+archetype_id = "tavern"
+display_name = "KayKit Tavern"
+min_modules = Vector2i(4, 3)
+max_modules = Vector2i(4, 3)
+anchor_tag = "lbg02_bar_counter"
+groups = PackedStringArray("lbg02_bar_set", "lbg02_table_set", "lbg02_kitchen_set", "lbg02_lounge_set", "lbg02_storage_set")
+group_counts = PackedInt32Array(1, 3, 1, 1, 1)
+zone_rules = Array[Resource]([SubResource("zone_work"), SubResource("zone_storage"), SubResource("zone_lounge")])

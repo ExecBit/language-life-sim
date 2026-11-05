@@ -1,0 +1,15 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/prop_semantics.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "KayKit potato crate"
+scene_path = "res://experiments/level_builder_lite/props/crate_potatoes.tscn"
+tags = PackedStringArray("lbg02_crate_potatoes", "lbg02_storage")
+footprint = Vector2i(2, 2)
+prefer_zones = PackedStringArray("storage", "wall", "corner")
+avoid_zones = PackedStringArray("travel", "entrance", "presentation")
+needs_nearby = PackedStringArray("lbg02_crate")
+needs_range = 2
+style_tags = PackedStringArray("kaykit", "intact")

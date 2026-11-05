@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/activity_group.gd" id="1_group"]
+
+[resource]
+script = ExtResource("1_group")
+group_id = "lbg02_table_set"
+display_name = "Dining table and chairs"
+lead_tag = "lbg02_table"
+optional_tags = PackedStringArray("lbg02_chair", "lbg02_chair")
+radius = 3

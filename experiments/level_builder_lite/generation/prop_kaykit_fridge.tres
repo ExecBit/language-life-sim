@@ -1,0 +1,15 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/prop_semantics.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+display_name = "KayKit refrigerator"
+scene_path = "res://experiments/level_builder_lite/props/fridge.tscn"
+tags = PackedStringArray("lbg02_fridge", "lbg02_kitchen")
+footprint = Vector2i(2, 3)
+prefer_zones = PackedStringArray("work", "storage", "wall", "corner")
+avoid_zones = PackedStringArray("travel", "entrance", "presentation")
+needs_nearby = PackedStringArray("lbg02_counter", "lbg02_storage")
+needs_range = 10
+style_tags = PackedStringArray("kaykit", "intact")

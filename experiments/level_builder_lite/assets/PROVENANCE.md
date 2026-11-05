@@ -1,0 +1,32 @@
+# LBG-02 asset provenance
+
+These are the only third-party assets copied from TAV-03 PR #16. The pull request was used as a read-only source; none of its commits or game changes were copied.
+
+- Pack: KayKit Restaurant Bits 1.0
+- License: CC0, copied verbatim to `kaykit/items/LICENSE.txt`
+- Upstream repository: `KayKit-Game-Assets/KayKit-Restaurant-Bits-1.0`
+- Pinned source commit recorded by PR #16: `153c8a7535b48237854cb54ff6890679f8c574d1`
+- Upstream asset folder: `addons/kaykit_restaurant_bits/Assets/gltf/`
+- `*.gltf.import` files are Godot 4.7.1 import metadata generated for their isolated paths. The `.bin` files and `restaurantbits_texture.png` are required source dependencies.
+
+SHA-256 values for copied source assets:
+
+| File | SHA-256 |
+| --- | --- |
+| `chair_A.bin` | `C95A15BC30E2BB9F122762590819C99934DB31B7E7DBF3E54B68EB105E36148B` |
+| `chair_A.gltf` | `0D0ABDC382ABEDB3E4BC2E0260AF663C16FF2DAB0D441F09D675E0709A7A7310` |
+| `chair_stool.bin` | `DC5B44CAD6AECE8DC5C6DE343F76FF6D600A8BF3C24DA27DC44E62A583176325` |
+| `chair_stool.gltf` | `6B224AB4884E7FFF7083C02F630AFC63CAD698DBD4A99860D6F8988F308069B6` |
+| `crate.bin` | `252687039209B62A3283319D2836D0E0D6745DD638EA53E2315DF981C75A6C07` |
+| `crate.gltf` | `F745014F6239147F2528AC24EF988A5833D048BD3AEDE81085F4C4FC879A8E16` |
+| `crate_potatoes.bin` | `0F77C9BDEF536155F586907F3D100D373C8A62A7A017F032E5E623E604794996` |
+| `crate_potatoes.gltf` | `4D04ACF2BFEBDEE4D1F3585CF7E0507D50C61B729C255231271416171AF564F5` |
+| `kitchencounter_straight_A.bin` | `78E3E82538FAF0F03D0799B7980F006F1FE7A45AB7C64AE401D66DEE576EBB19` |
+| `kitchencounter_straight_A.gltf` | `500AFFFA4C87A579A046B67F10C8B2B7907A3DD0983544643C581B95153D6008` |
+| `stove_single.bin` | `A388F9F1668F7DEEC37DEDF9B45113E593A4F0876D25454D9C22DECD0EDBAF28` |
+| `stove_single.gltf` | `CCE0730EC2025399A68CB6AFAA8ACB2F54FCB3D70537A26F62564F6F7754F679` |
+| `table_round_A.bin` | `D6122D1B2B5C5B7348F033B97E6CAC7F897DD0978A4B7A9C383D2F15A02A5844` |
+| `table_round_A.gltf` | `20A3B1B8D1CF6CAD642F3F9590667BB9B7FA3C318DD603604280A3254BE5CF33` |
+| `table_round_A_small.bin` | `8F39B021B1153EB22653A20103E3308BCC8FB7D3C53439C53D6F0E20331F51C4` |
+| `table_round_A_small.gltf` | `EBA53971817C536C8DF8B69DD41E1F320CF16C450A2F3141AC92BC0EB5213996` |
+| `restaurantbits_texture.png` | `1BFFF8F880C5E5E1B793BC46FA1F91149B7F70766174A817B3D5962495C5E40F` |

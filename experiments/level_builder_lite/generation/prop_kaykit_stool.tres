@@ -1,0 +1,15 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/prop_semantics.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "KayKit bar stool"
+scene_path = "res://experiments/level_builder_lite/props/stool.tscn"
+tags = PackedStringArray("lbg02_stool")
+footprint = Vector2i(1, 1)
+prefer_zones = PackedStringArray("wall", "work")
+avoid_zones = PackedStringArray("travel", "entrance")
+needs_nearby = PackedStringArray("lbg02_bar_counter")
+needs_range = 2
+style_tags = PackedStringArray("kaykit", "intact")
