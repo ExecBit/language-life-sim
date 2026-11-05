@@ -146,6 +146,24 @@ func _select_stage1_view(view_name: String, layout: Dictionary) -> void:
 		_root_camera.size = float(layout["totalWidth"]) + 2.0
 		_root_camera.position = Vector3(center_x, 22.0, 0.0)
 		_root_camera.look_at(Vector3(center_x, 0, 0), Vector3(0, 0, -1))
+		return
+	if view_name == "doorway":
+		_root_camera.projection = Camera3D.PROJECTION_PERSPECTIVE
+		_root_camera.fov = 84.0
+		var doorway_placements: Array = layout["placements"]
+		var kitchen_target := Vector3.ZERO
+		var kitchen_count := 0
+		for placement: Dictionary in doorway_placements:
+			if placement["zoneId"] == "kitchen":
+				var p: Array = placement["translation"]
+				kitchen_target += Vector3(float(p[0]), 1.0, float(p[2]))
+				kitchen_count += 1
+		kitchen_target /= max(1, kitchen_count)
+		kitchen_target.x += 1.1
+		# Hall side of the partition, aligned so the sightline passes through its clear opening.
+		_root_camera.position = Vector3(float(hall["originX"]) + float(hall["width"]) / 2 - 3.0, 1.65, 1.5)
+		_root_camera.look_at(kitchen_target, Vector3.UP)
+		return
 	else:
 		_root_camera.projection = Camera3D.PROJECTION_PERSPECTIVE
 		_root_camera.fov = 72.0

@@ -10,19 +10,21 @@ $expectedCommit = '1cdb703197b41d418e7ce686e74c7aad835ddb37'
 if (-not (Test-Path (Join-Path $upstream '.git'))) {
     git clone https://github.com/david-dot/FittingPlacer.git $upstream
     if ($LASTEXITCODE -ne 0) { throw 'Could not clone FittingPlacer.' }
+}
+$actualCommit = (git -C $upstream rev-parse HEAD).Trim()
+if ($actualCommit -ne $expectedCommit) {
     git -C $upstream fetch --depth 1 origin $expectedCommit
     if ($LASTEXITCODE -ne 0) { throw 'Could not fetch the pinned FittingPlacer revision.' }
     git -C $upstream checkout --detach $expectedCommit
     if ($LASTEXITCODE -ne 0) { throw 'Could not select the pinned FittingPlacer revision.' }
-} else {
-    Write-Host "Reusing existing ignored FittingPlacer checkout (expected pinned revision $expectedCommit)."
 }
+Write-Host "FittingPlacer upstream commit verified: $actualCommit"
 $project = Join-Path $root 'godot_preview'
 $brief = Join-Path $project 'stage1_brief.json'
 $layout = Join-Path $project 'stage1_layout.json'
 $semantics = Join-Path $PSScriptRoot 'tavern.xml'
 $runner = Join-Path $PSScriptRoot 'runner/Runner.csproj'
-dotnet run --project $runner -- $brief $layout $semantics
+dotnet run --project $runner -- --stage1 $brief $layout $semantics
 if ($LASTEXITCODE -ne 0) { throw "Stage 1 FittingPlacer generation failed ($LASTEXITCODE)." }
 & $GodotExe --headless --path $project --import
 if ($LASTEXITCODE -ne 0) { throw "Godot import failed ($LASTEXITCODE)." }

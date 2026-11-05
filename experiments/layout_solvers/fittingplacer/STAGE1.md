@@ -20,9 +20,11 @@ The script generates `stage1_layout.json` and captures the isolated preview. Bui
 
 ## Evidence
 
+- **PASS** — Existing `generate.ps1 -Seed 4242` retains its original XML/JSON/seed CLI and generated 14/14 placements.
 - **PASS** — FittingPlacer generated `hall requested=5 placed=5` and `kitchen requested=3 placed=3`, seed 4242.
+- **PASS** — both generator scripts verify the local upstream `HEAD` against `1cdb703197b41d418e7ce686e74c7aad835ddb37`; Stage 1 only fetches/checks out that commit when needed.
 - **PASS** — the isolated Godot 4.7.1 scene rendered the generated pieces from the KayKit glTF assets and the partition has an open 1.4 m doorway.
-- **PASS (visual checkpoint)** — top-down shows the two rooms, shared wall opening, dining group and kitchen work line. Eye-level view is from just inside the doorway facing the generated kitchen work fronts.
+- **PASS (visual checkpoint)** — top-down shows the two rooms, shared wall opening, dining group and kitchen work line. The eye-level doorway view is taken from the hall, shows the dining chair beside the viewer, the open partition, and kitchen furniture beyond it.
 - **NOT_TESTED** — runtime walkability/collision, route validation, variation briefs, and complete-tavern requirements. These are deferred from Stage 1 by the scope correction.
 - **Known limitation** — the public hall sizing formula is currently specialized to the Stage 1 one-table brief; requests with other table counts are explicitly rejected. Kitchen sizing is a measured fixed allowance for this appliance set.
 
