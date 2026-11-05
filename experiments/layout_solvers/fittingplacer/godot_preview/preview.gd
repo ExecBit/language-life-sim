@@ -10,13 +10,18 @@ var _root_camera: Camera3D
 
 
 func _ready() -> void:
-	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(LAYOUT_PATH))
+	var stage1 := OS.get_cmdline_user_args().has("--stage1")
+	var layout_path := "res://stage1_layout.json" if stage1 else LAYOUT_PATH
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(layout_path))
 	if not parsed is Dictionary or not parsed.has("placements"):
 		push_error("Missing or invalid FittingPlacer layout JSON: %s" % LAYOUT_PATH)
 		get_tree().quit(1)
 		return
 
-	_build_room()
+	if stage1:
+		_build_stage1_rooms(parsed)
+	else:
+		_build_room()
 	for placement: Dictionary in parsed["placements"]:
 		var packed := load(placement["assetPath"]) as PackedScene
 		if packed == null:
@@ -38,7 +43,10 @@ func _ready() -> void:
 	_root_camera.current = true
 	_root_camera.fov = 72.0
 	add_child(_root_camera)
-	_select_view(_argument("view", "top"))
+	if stage1:
+		_select_stage1_view(_argument("view", "top"), parsed)
+	else:
+		_select_view(_argument("view", "top"))
 
 	await get_tree().process_frame
 	await get_tree().process_frame
@@ -52,6 +60,35 @@ func _ready() -> void:
 		else:
 			print("CAPTURED ", absolute_path)
 	get_tree().quit()
+
+
+func _build_stage1_rooms(layout: Dictionary) -> void:
+	var floor_material := _material(Color(0.29, 0.25, 0.2))
+	var wall_material := _material(Color(0.48, 0.42, 0.33))
+	var trim_material := _material(Color(0.22, 0.17, 0.12))
+	var zones: Array = layout["zones"]
+	var hall: Dictionary = zones[0]
+	var kitchen: Dictionary = zones[1]
+	var wall := 0.2
+	for zone: Dictionary in zones:
+		var center := Vector3(float(zone["originX"]), 0, float(zone["originZ"]))
+		var width := float(zone["width"])
+		var depth := float(zone["depth"])
+		_add_box(zone["id"] + "Floor", center + Vector3(0, -0.12, 0), Vector3(width, 0.24, depth), floor_material)
+		_add_box(zone["id"] + "North", center + Vector3(0, 1.5, depth / 2), Vector3(width, 3, wall), wall_material)
+		_add_box(zone["id"] + "South", center + Vector3(0, 1.5, -depth / 2), Vector3(width, 3, wall), wall_material)
+		if zone["id"] == "hall":
+			_add_box("HallWest", center + Vector3(-width / 2, 1.5, 0), Vector3(wall, 3, depth), wall_material)
+		else:
+			_add_box("KitchenEast", center + Vector3(width / 2, 1.5, 0), Vector3(wall, 3, depth), wall_material)
+	# Shared partition has two solid jamb spans and a header; the center remains a real doorway.
+	var partition_x := (float(hall["originX"]) + float(hall["width"]) / 2 + float(kitchen["originX"]) - float(kitchen["width"]) / 2) / 2
+	var opening := float(layout["doorWidth"])
+	var half_depth: float = max(float(hall["depth"]), float(kitchen["depth"])) / 2.0
+	var jamb_depth: float = (half_depth * 2.0 - opening) / 2.0
+	_add_box("PartitionNorth", Vector3(partition_x, 1.5, opening / 2 + jamb_depth / 2), Vector3(wall, 3, jamb_depth), wall_material)
+	_add_box("PartitionSouth", Vector3(partition_x, 1.5, -opening / 2 - jamb_depth / 2), Vector3(wall, 3, jamb_depth), wall_material)
+	_add_box("DoorHeader", Vector3(partition_x, 2.8, 0), Vector3(wall, 0.4, opening), trim_material)
 
 
 func _argument(name: String, fallback: String) -> String:
@@ -97,6 +134,35 @@ func _select_view(view_name: String) -> void:
 		eye = target + front * 4.6 + Vector3.UP * 0.75
 	_root_camera.position = eye
 	_root_camera.look_at(target, Vector3.UP)
+
+
+func _select_stage1_view(view_name: String, layout: Dictionary) -> void:
+	var zones: Array = layout["zones"]
+	var hall: Dictionary = zones[0]
+	var kitchen: Dictionary = zones[1]
+	var center_x := (float(hall["originX"]) - float(hall["width"]) / 2 + float(kitchen["originX"]) + float(kitchen["width"]) / 2) / 2
+	if view_name == "top":
+		_root_camera.projection = Camera3D.PROJECTION_ORTHOGONAL
+		_root_camera.size = float(layout["totalWidth"]) + 2.0
+		_root_camera.position = Vector3(center_x, 22.0, 0.0)
+		_root_camera.look_at(Vector3(center_x, 0, 0), Vector3(0, 0, -1))
+	else:
+		_root_camera.projection = Camera3D.PROJECTION_PERSPECTIVE
+		_root_camera.fov = 72.0
+		var placements: Array = layout["placements"]
+		var kitchen_points: Array[Vector3] = []
+		for placement: Dictionary in placements:
+			if placement["zoneId"] == "kitchen":
+				var p: Array = placement["translation"]
+				kitchen_points.append(Vector3(float(p[0]), 1.0, float(p[2])))
+		var target := Vector3.ZERO
+		for point: Vector3 in kitchen_points: target += point
+		target /= max(1, kitchen_points.size())
+		# Favor the work line over the fridge so the eye-level view shows the separate room's function.
+		target.x += 1.1
+		# Eye-level inside the kitchen, in front of the solver-generated work line.
+		_root_camera.position = Vector3(float(kitchen["originX"]) - 0.5, 1.65, 0.5)
+		_root_camera.look_at(target, Vector3.UP)
 
 
 func _build_room() -> void:

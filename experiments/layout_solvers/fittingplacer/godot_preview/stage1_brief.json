@@ -1,0 +1,9 @@
+{
+  "location": "two_room_tavern_checkpoint",
+  "seed": 4242,
+  "zones": [
+    { "id": "hall", "type": "public_hall", "tables": 1, "chairsPerTable": 4 },
+    { "id": "kitchen", "type": "kitchen" }
+  ],
+  "adjacency": [["hall", "kitchen"]]
+}
