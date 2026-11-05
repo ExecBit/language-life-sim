@@ -6,7 +6,7 @@ extends RefCounted
 ## The room builder (`Lex01RoomBuilder`) stages one scenario's answer objects, which change from
 ## card to card. The tavern itself does not change, so it is not staged anywhere: it is assembled
 ## from the `interior` array of data/room/lex01_room.json, which names a model, where it stands,
-## which way it faces and whether the player can walk into it. Adding a table, a crate or a lamp to
+## which way it faces and, for a group, its fixed local member transforms. Adding a composition to
 ## the room is therefore one JSON entry, not a code change, exactly like a new scenario.
 ##
 ## Two rules keep the first-person room trustworthy:
@@ -17,11 +17,11 @@ extends RefCounted
 ##    sits on the floor (y = 0) unless it declares `"ground": false`, which is how a wall unit or a
 ##    picture keeps the height it was modelled at.
 ## 2. Collision. Only entries marked `"solid"` get a collider, all of them in ONE StaticBody3D on
-##    the room layer, so the walls, the bar counter and the storage crates stop the player while
+##    the room layer, so the walls, the bar and preparation counters stop the player while
 ##    guest tables, chairs, lamps, NPCs and every staged answer object stay walk-through. The player
 ##    masks only that layer, which is the same rule TAV-02 shipped for props: nothing a task can ask
 ##    about can ever block or trap the player. Colliders are measured BoxShape3D boxes rather than
-##    imported meshes - a bar counter and a crate are boxes, and precise collision is an explicit
+##    imported meshes - a bar or preparation counter is a box, and precise collision is an explicit
 ##    non-goal of this slice.
 
 const GROUND_Y: float = 0.0
@@ -67,9 +67,10 @@ func summary() -> Dictionary:
 ## first entry wins, which is ambiguous when several pieces share one model - prefer
 ## `node_for_id` whenever the slot names a stable instance id.
 func node_for_model(scene_object: String) -> Node3D:
-	for node: Node3D in _nodes:
-		if node != null and is_instance_valid(node) and node.scene_file_path == scene_object:
-			return node
+	for root: Node3D in _nodes:
+		var match: Node3D = _find_model_node(root, scene_object)
+		if match != null:
+			return match
 	return null
 
 
@@ -79,9 +80,10 @@ func node_for_model(scene_object: String) -> Node3D:
 func node_for_id(id: String) -> Node3D:
 	if id.is_empty():
 		return null
-	for node: Node3D in _nodes:
-		if node != null and is_instance_valid(node) and String(node.get_meta("station_id", "")) == id:
-			return node
+	for root: Node3D in _nodes:
+		var match: Node3D = _find_id_node(root, id)
+		if match != null:
+			return match
 	return null
 
 
@@ -126,11 +128,57 @@ func _place(entry: Dictionary) -> void:
 	_root.add_child(node)
 	node.position = _vector3(entry.get("position", [0.0, 0.0, 0.0]))
 	node.rotation_degrees = _vector3(entry.get("rotation_deg", [0.0, 0.0, 0.0]))
+	_apply_member_ids(node, entry.get("member_ids", {}))
 	if entry.get("ground", true) == true:
 		_ground(node)
 	_nodes.append(node)
 	if entry.get("solid", false) == true:
 		_make_solid(node, scene_object)
+	for member_name: String in _string_array(entry.get("solid_members", [])):
+		var member: Node3D = node.get_node_or_null(NodePath(member_name)) as Node3D
+		if member == null:
+			warnings.append("interior group %s has no solid member %s" % [scene_object, member_name])
+			continue
+		_make_solid(member, member.scene_file_path if not member.scene_file_path.is_empty() else scene_object)
+
+
+func _apply_member_ids(root: Node3D, raw_ids: Variant) -> void:
+	if not raw_ids is Dictionary:
+		return
+	for raw_name: Variant in (raw_ids as Dictionary):
+		var member: Node3D = root.get_node_or_null(NodePath(String(raw_name))) as Node3D
+		if member == null:
+			warnings.append("interior group %s has no id member %s" % [root.scene_file_path, String(raw_name)])
+			continue
+		member.set_meta("station_id", String((raw_ids as Dictionary)[raw_name]))
+
+
+func _find_model_node(root: Node, scene_object: String) -> Node3D:
+	if root is Node3D and root.scene_file_path == scene_object:
+		return root as Node3D
+	for child: Node in root.get_children():
+		var found: Node3D = _find_model_node(child, scene_object)
+		if found != null:
+			return found
+	return null
+
+
+func _find_id_node(root: Node, id: String) -> Node3D:
+	if root is Node3D and String(root.get_meta("station_id", "")) == id:
+		return root as Node3D
+	for child: Node in root.get_children():
+		var found: Node3D = _find_id_node(child, id)
+		if found != null:
+			return found
+	return null
+
+
+func _string_array(value: Variant) -> Array[String]:
+	var result: Array[String] = []
+	if value is Array:
+		for item: Variant in value:
+			result.append(String(item))
+	return result
 
 
 ## One shared static body holds every solid piece, so the room's walk-blocking furniture is a single

@@ -636,10 +636,14 @@ func _check_tavern(game: Node, content: Variant) -> void:
 	for context: String in content.candidate_contexts():
 		var camera: Dictionary = content.camera_for(context)
 		spots.append({"what": "spawn " + context, "at": _data_vector(camera.get("position", []))})
-		var index: int = 0
-		for slot: Variant in content.candidate_slots(context):
-			index += 1
-			spots.append({"what": "slot %s#%d" % [context, index], "at": _data_vector(slot)})
+		# Candidate slots are dormant in the authored tavern world; only the legacy practice
+		# world stages answers there. Don't report furniture near an inactive legacy slot as a
+		# blocked tavern route.
+		if String(content.world_staging()) == "candidate_slots":
+			var index: int = 0
+			for slot: Variant in content.candidate_slots(context):
+				index += 1
+				spots.append({"what": "slot %s#%d" % [context, index], "at": _data_vector(slot)})
 		for slot_name: String in content.placement_slots():
 			var anchor: String = String(content.placement_slot(slot_name).get("anchor", ""))
 			if anchor.is_empty():
@@ -673,7 +677,7 @@ func _check_tavern(game: Node, content: Variant) -> void:
 	if content.world_uses_interior():
 		_expect(int(tavern["built"]) >= 20, "the tavern stands as built furniture instead of an empty test room")
 		_expect(int(tavern["solid"]) >= 3 and int(tavern["solid"]) <= 8,
-			"only the bar and the storage crates are solid, so guest furniture stays walk-through")
+			"only the fixed counter pieces are solid, so guest furniture stays walk-through")
 	else:
 		_expect(int(tavern["built"]) == 0, "the legacy practice world builds no furniture, the way it always was")
 	_expect(outside.is_empty(), "every solid piece stands inside the room shell")
@@ -719,7 +723,7 @@ func _check_response_menu(game: Node, scenario: Dictionary) -> void:
 func _check_scene_state_placement(game: Node, content: Variant) -> void:
 	# Data-driven, so both worlds are checked on the facts their own records state: the probe
 	# looks up a loaded scenario that stages each fact instead of naming legacy scenario ids.
-	var table: String = "res://assets/kaykit/items/table_round_A.gltf"
+	var table: String = "res://assets/kaykit/items/table_round_A_small.gltf"
 	var fridge: String = "res://assets/kaykit/items/fridge_A.gltf"
 	var facts: Array = [
 		{"lemma": "broetchen", "slot": "on_table", "anchor": table},

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/fridge_A.gltf" id="1_fridge"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/stove_single.gltf" id="2_stove"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/kitchencounter_straight_A.gltf" id="3_counter"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/kitchencabinet.gltf" id="4_cabinet"]
+
+[node name="KitchenGroup" type="Node3D"]
+
+[node name="Fridge" parent="." instance=ExtResource("1_fridge")]
+position = Vector3(0, 0, -0.01)
+
+[node name="Stove" parent="." instance=ExtResource("2_stove")]
+position = Vector3(2, 0, 0)
+
+[node name="PreparationCounter" parent="." instance=ExtResource("3_counter")]
+position = Vector3(-1, 0, 2.47)
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="PreparationStorage" parent="." instance=ExtResource("4_cabinet")]
+position = Vector3(-2, 0, 2.47)
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="StoveStorage" parent="." instance=ExtResource("4_cabinet")]
+position = Vector3(2, 0, -1.13)\n

@@ -36,10 +36,10 @@
     "gast": {
       "scene": "res://assets/kaykit/characters/Rogue_Hooded.glb",
       "label_de": "der Gast",
-      "position": [3.1, 0.0, -2.2],
+      "position": [2.4, 0.0, -2.5],
       "rotation_deg": [0.0, 90.0, 0.0],
       "clips": { "idle": "Idle", "speak": "Interact" },
-      "note": "Guest: stands at the east side of guest_table_1 facing it (yaw 90 faces -x). The measured model box (x 2.53..4.08 at this node) stays clear of the table's rim at x = 2.10 and grazes guest_table_3's box by 0.08 m."
+      "note": "Guest: stands in the gap between guest_table_1 and guest_table_2, facing west toward the first table. The off-centre KayKit bounds remain clear of both table tops."
     }
   },
   "cameras": {
@@ -74,10 +74,10 @@
   },
   "anchors": {
     "note": "Where the surfaces the scenarios place things on stand. In the tavern world the anchor is the authored interior instance itself (selected by the placement slot's 'anchor_id', or by model path when no id is given), so staging puts its things ON the furniture that already stands there; these positions are what the legacy practice world spawns its own anchors at, because it builds no interior. Measured boxes are in docs/tavern_layout.md.",
-    "res://assets/kaykit/items/table_round_A.gltf": {
-      "default": [0.6, 0.0, -2.2],
-      "room": [0.6, 0.0, -2.2],
-      "kitchen": [0.6, 0.0, -2.2]
+    "res://assets/kaykit/items/table_round_A_small.gltf": {
+      "default": [0.6, 0.0, -2.5],
+      "room": [0.6, 0.0, -2.5],
+      "kitchen": [0.6, 0.0, -2.5]
     },
     "res://assets/kaykit/items/fridge_A.gltf": {
       "default": [-6.0, 0.0, -4.88],
@@ -91,7 +91,7 @@
     }
   },
   "placement_slots": {
-    "on_table": { "anchor": "res://assets/kaykit/items/table_round_A.gltf", "anchor_id": "guest_table_1", "mode": "on_top", "note": "Item sits on the top surface of the tavern's round guest table (id guest_table_1), which is authored furniture standing there all run; several items are spread along the middle of the 3 m surface so nothing is hidden. The tabletop is measured at y = 1.00." },
+    "on_table": { "anchor": "res://assets/kaykit/items/table_round_A_small.gltf", "anchor_id": "guest_table_1", "mode": "on_top", "note": "Item sits on the top surface of the fixed guest table in group 1 (id guest_table_1). The tabletop is measured at y = 1.00; its 1.5 m surface is enough for the few small props in one situation." },
     "on_counter": { "anchor": "res://assets/kaykit/items/kitchencounter_straight_A.gltf", "anchor_id": "service_counter", "mode": "on_top", "note": "Item stands on the kitchen prep counter - the tavern's keeping place and the station every answer starts at unless the record says otherwise. The anchor is the authored prep counter (id service_counter), its top surface measured at y = 1.00, and it is one of the pieces the player walks into, so an item on it always sits on the far side of a solid piece the player stands in front of." },
     "in_fridge": { "anchor": "res://assets/kaykit/items/fridge_A.gltf", "anchor_id": "kitchen_fridge", "mode": "at_front", "note": "Item stands directly in front of the authored fridge (id kitchen_fridge) and is highlighted. The committed fridge prop has no door, so 'in dem Kuehlschrank' is shown as 'at the fridge' and is stated as a limitation." }
   },
@@ -125,27 +125,12 @@
     { "model": "res://assets/kaykit/items/wall.gltf", "position": [8.25, 0.0, -4.0], "rotation_deg": [0.0, 90.0, 0.0], "note": "East wall, north section, behind the lounge." },
     { "model": "res://assets/kaykit/items/wall.gltf", "position": [8.25, 0.0, 0.0], "rotation_deg": [0.0, 90.0, 0.0] },
     { "model": "res://assets/kaykit/items/wall.gltf", "position": [8.25, 0.0, 4.0], "rotation_deg": [0.0, 90.0, 0.0] },
-    { "model": "res://assets/kaykit/items/fridge_A.gltf", "position": [-6.0, 0.0, -4.88], "id": "kitchen_fridge", "note": "The kitchen fridge, against the north wall of the kitchen corner: the anchor of the in_fridge station, so 'Hol die Tomate aus dem Kuehlschrank!' happens at a fridge that always stands there. Measured box 2.0 x 2.50 x 2.24, world x -7.0..-5.0, z -6.0..-3.76, top at y = 2.50. Non-solid, so a fridge can never stand between the player and an answer." },
-    { "model": "res://assets/kaykit/items/stove_single.gltf", "position": [-4.0, 0.0, -4.87], "id": "kitchen_stove", "note": "The stove beside the fridge on the north wall (measured box x -5.0..-3.0, z -6.0..-3.71 at this node), joined to the fridge edge so the two read as one kitchen run. Non-solid." },
-    { "model": "res://assets/kaykit/items/kitchencounter_straight_A.gltf", "position": [-7.0, 0.0, -2.4], "rotation_deg": [0.0, 90.0, 0.0], "id": "service_counter", "solid": true, "note": "The kitchen prep counter along the west wall of the kitchen (measured box x -8.02..-5.98, z -3.4..-1.4, top at y = 1.00). It is the on_counter station: what a record offers stands here, on the far side of a solid piece the player stands in front of." },
-    { "model": "res://assets/kaykit/items/kitchencabinet.gltf", "position": [-8.0, 0.0, -2.4], "rotation_deg": [0.0, 90.0, 0.0], "ground": false, "note": "Wall unit hanging above the prep counter. KayKit models it at its hanging height (its mesh starts at y = 2), so 'ground': false keeps it on the wall instead of dropping it to the floor; at yaw 90 its 1.04 m depth points east into the room, over the counter." },
-    { "model": "res://assets/kaykit/items/kitchencabinet.gltf", "position": [-4.0, 0.0, -6.0], "ground": false, "note": "Wall unit above the stove, flush on the north wall (measured box x -5.0..-3.0, z -6.0..-4.96)." },
-    { "model": "res://assets/kaykit/items/kitchencounter_straight_A.gltf", "position": [-7.0, 0.0, 0.0], "rotation_deg": [0.0, 90.0, 0.0], "id": "bar_counter_1", "solid": true, "note": "Bar counter, north half of the west-wall run (measured box x -8.02..-5.98, z -1.0..1.0), its long side facing the room. Solid: walking into the bar is the furniture collision this room is meant to have." },
-    { "model": "res://assets/kaykit/items/kitchencounter_straight_A.gltf", "position": [-7.0, 0.0, 2.0], "rotation_deg": [0.0, 90.0, 0.0], "id": "bar_counter_2", "solid": true, "note": "Bar counter, south half of the same run, joined end to end with the first so the bar reads as one piece (z 1.0..3.0)." },
-    { "model": "res://assets/kaykit/items/chair_stool.gltf", "position": [-5.2, 0.0, 0.2], "rotation_deg": [0.0, 90.0, 0.0], "note": "Bar stool on the customer side of the counter (measured box x -5.58..-4.83, 0.4 m clear of the counter front)." },
-    { "model": "res://assets/kaykit/items/chair_stool.gltf", "position": [-5.2, 0.0, 1.8], "rotation_deg": [0.0, 90.0, 0.0], "note": "Second bar stool." },
-    { "model": "res://assets/kaykit/items/table_round_A.gltf", "position": [0.6, 0.0, -2.2], "id": "guest_table_1", "note": "The tavern's big round guest table in the middle of the room: the anchor of the on_table station and the delivery target of 'bring it to the table', so staging reuses this standing table instead of ever instancing a second one. Measured box 3.0 x 1.0 x 3.0 (x -0.9..2.1, z -3.7..-0.7), top at y = 1.00. Non-solid: the guest area is the floor the player walks through." },
-    { "model": "res://assets/kaykit/items/chair_A.gltf", "position": [0.6, 0.0, -4.05], "rotation_deg": [0.0, 180.0, 0.0], "note": "Chair at the table's north side, facing it, tucked against the rim (measured box z -4.45..-3.65 against the rim at z = -3.70)." },
-    { "model": "res://assets/kaykit/items/chair_A.gltf", "position": [-1.4, 0.0, -2.2], "rotation_deg": [0.0, 90.0, 0.0], "note": "Chair at the table's west side, facing it (measured box x -1.82..-1.03, clear of the rim at x = -0.90). The east side stays free: that is where der Gast stands." },
-    { "model": "res://assets/kaykit/items/table_round_A_small.gltf", "position": [2.8, 0.0, 1.4], "id": "guest_table_2", "note": "Small round table south-east of the big one (measured box x 2.05..3.55, z 0.65..2.15), 1.35 m clear of guest_table_1 and clear of the entrance aisle." },
-    { "model": "res://assets/kaykit/items/chair_A.gltf", "position": [2.8, 0.0, 2.55], "rotation_deg": [0.0, 0.0, 0.0], "note": "Chair at that table's south side, facing it, tucked against the rim." },
-    { "model": "res://assets/kaykit/furniture/table_medium.gltf", "position": [5.0, 0.0, -2.4], "id": "guest_table_3", "note": "Medium square table in the east half (measured box x 4.0..6.0, z -3.4..-1.4), 1.9 m clear of guest_table_1's rim and clear of the lounge table." },
-    { "model": "res://assets/kaykit/items/chair_A.gltf", "position": [5.0, 0.0, -3.75], "rotation_deg": [0.0, 180.0, 0.0], "note": "Chair at that table's north side, tucked against the rim." },
-    { "model": "res://assets/kaykit/items/chair_A.gltf", "position": [5.0, 0.0, -1.15], "rotation_deg": [0.0, 0.0, 0.0], "note": "Chair at that table's south side, facing it, tucked against the rim (measured box z -1.55..-0.75 against the rim at z = -1.40). The west side stays free: der Gast stands between the two tables." },
-    { "model": "res://assets/kaykit/furniture/couch.gltf", "position": [5.5, 0.0, -5.15], "rotation_deg": [0.0, 180.0, 0.0], "id": "lounge_sofa", "note": "The lounge sofa against the north wall in the north-east corner (measured box x 4.0..7.0, z -6.0..-4.4 at yaw 180, its back to the wall). It is permanent room furniture, never a staged answer." },
-    { "model": "res://assets/kaykit/items/table_round_A_small.gltf", "position": [7.0, 0.0, -3.3], "id": "lounge_table", "note": "Small side table beside the sofa (measured box x 6.25..7.75, z -4.05..-2.55), clear of the sofa and of guest_table_3." },
-    { "model": "res://assets/kaykit/furniture/lamp_standing.gltf", "position": [7.2, 0.0, -1.2], "note": "Standing lamp by the east wall between the lounge and the guest side (measured box x 6.7..7.7, z -1.7..-0.7)." },
-    { "model": "res://assets/kaykit/furniture/rug_rectangle_A.gltf", "position": [0.6, 0.0, -2.2], "note": "Rug under the big guest table. Rugs are flat, so they are never solid and never stand in the way." },
+    { "model": "res://scenes/furniture_groups/kitchen.tscn", "position": [-6.0, 0.0, -4.87], "member_ids": { "Fridge": "kitchen_fridge", "Stove": "kitchen_stove", "PreparationCounter": "service_counter", "PreparationStorage": "kitchen_storage_prep", "StoveStorage": "kitchen_storage_stove" }, "solid_members": ["PreparationCounter"], "note": "One fixed north-west kitchen composition: fridge and stove share the north-wall run, prep counter and storage cabinets sit together. Local item transforms are authored in the reusable PackedScene. The prep surface remains the named on_counter station." },
+    { "model": "res://scenes/furniture_groups/bar.tscn", "position": [-5.75, 0.0, 0.0], "member_ids": { "NorthCounter": "bar_counter_1", "SouthCounter": "bar_counter_2", "NorthStool": "bar_stool_1", "SouthStool": "bar_stool_2" }, "solid_members": ["NorthCounter", "SouthCounter"], "note": "One fixed west-wall bar composition. The two counter sections meet continuously; stools face the customer side, and the ~1.2 m strip behind the counter is kept as the service area." },
+    { "model": "res://scenes/furniture_groups/guest_table.tscn", "position": [0.6, 0.0, -2.5], "member_ids": { "Table": "guest_table_1", "NorthChair": "guest_table_1_chair_north", "SouthChair": "guest_table_1_chair_south" }, "note": "Fixed guest table group 1; two chairs face the table from its north and south sides. This table remains the on_table station." },
+    { "model": "res://scenes/furniture_groups/guest_table.tscn", "position": [5.0, 0.0, -2.5], "member_ids": { "Table": "guest_table_2", "NorthChair": "guest_table_2_chair_north", "SouthChair": "guest_table_2_chair_south" }, "note": "Fixed guest table group 2, reused from the same PackedScene." },
+    { "model": "res://scenes/furniture_groups/guest_table.tscn", "position": [5.0, 0.0, 1.35], "member_ids": { "Table": "guest_table_3", "NorthChair": "guest_table_3_chair_north", "SouthChair": "guest_table_3_chair_south" }, "note": "Fixed guest table group 3, reused from the same PackedScene." },
+    { "model": "res://scenes/furniture_groups/lounge.tscn", "position": [5.5, 0.0, -5.15], "member_ids": { "Sofa": "lounge_sofa", "CoffeeTable": "lounge_table", "Lamp": "lounge_lamp" }, "note": "Fixed north-east lounge composition: sofa backs to the north wall, with a small coffee table in front and a lamp to the side." },
     { "model": "res://assets/kaykit/items/menu.gltf", "position": [0.7, 0.0, 5.5], "note": "Menu stand just inside the entrance, to the east of the doorway. 'die Speisekarte' is not taught as a lemma yet, so this is decoration and not a clickable object." },
     { "model": "res://assets/kaykit/furniture/pictureframe_large_A.gltf", "position": [-1.8, 2.6, -5.95], "ground": false, "note": "Picture on the north wall between the kitchen and the stock crate. It is modelled around its own centre (-0.6 to +0.6), so the entry supplies the hanging height instead of dropping it to the floor." },
     { "model": "res://assets/kaykit/furniture/pictureframe_large_A.gltf", "position": [2.0, 2.6, 5.95], "rotation_deg": [0.0, 180.0, 0.0], "ground": false, "note": "Picture on the south wall east of the doorway, where a player entering sees the guest side lit." }

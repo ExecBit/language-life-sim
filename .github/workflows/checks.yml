@@ -233,13 +233,19 @@ jobs:
                    assert isinstance(rotation, list) and len(rotation) == 3, 'interior entry %s declares rotation_deg as %s' % (model, rotation)
                if entry.get('solid'):
                    solid_count += 1
-           # Solid means "the player walks into it", so it is limited on purpose: the bar counter and
-           # the storage crates, and nothing in the guest area a task can ask about.
-           assert 3 <= solid_count <= 8, 'interior declares %d solid pieces, expected only the bar counter and the storage crates' % solid_count
+               solid_members = entry.get('solid_members', [])
+               assert isinstance(solid_members, list), 'interior group %s declares solid_members as something other than a list' % model
+               solid_count += len(solid_members)
+               member_ids = entry.get('member_ids', {})
+               assert isinstance(member_ids, dict), 'interior group %s declares member_ids as something other than an object' % model
+           # Solid means "the player walks into it". The fixed tavern uses two bar sections and one
+           # preparation counter; guest furniture stays walk-through so tasks cannot trap a player.
+           assert 3 <= solid_count <= 8, 'interior declares %d solid pieces; expected fixed counter furniture' % solid_count
            # Stable instance ids: a placement slot or a delivery target that addresses one
            # specific piece of authored furniture by id must name an id the interior declares,
            # or the station would silently resolve to whichever piece shares the model.
            interior_ids = {e.get('id') for e in interior if isinstance(e, dict) and e.get('id')}
+           interior_ids.update(member_id for e in interior if isinstance(e, dict) for member_id in e.get('member_ids', {}).values())
            for name, slot in room['placement_slots'].items():
                anchor_id = slot.get('anchor_id')
                if anchor_id:

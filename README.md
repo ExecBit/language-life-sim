@@ -6,7 +6,7 @@ A small Godot 4 learning-game prototype. The goal is to test whether **10–15 e
 
 **LEX-01 is playable, from inside a tavern.** `scenes/main.tscn` is the learning room: since TAV-03 (Issue #10) and the approved layout redesign it is a 16 x 12 m tavern with zoned areas - a kitchen corner (fridge, stove, prep counter) in the north-west, the bar with stools on the west wall, three guest tables with chairs in the middle and east, a lounge with a sofa in the north-east corner, a doorway you start in front of, and three people in it - a Mage at the kitchen side, a Knight at the bar and a Gast at a table. They give short German sentences, and the player walks up to them, looks through a crosshair and answers by acting on the object the sentence names, by carrying an object to a target, or by choosing a spoken answer. Progress per lemma is tracked and some situations repeat a lemma one simulated day later in a changed context. The layout and its measured furniture footprints are documented in `docs/tavern_layout.md`.
 
-The room itself is data: `data/room/lex01_room.json` names every wall, table, chair, crate and lamp with its model, position and whether the player walks into it, and `scripts/lex01_interior.gd` stands them up. Adding a table to the tavern is one JSON entry, not a code change.
+The room shell and fixed furniture locations are data in `data/room/lex01_room.json`; the reusable kitchen, bar, guest-table and lounge compositions are native PackedScenes in `scenes/furniture_groups/`. Each group is authored once with fixed local transforms and reused at fixed room positions. `scripts/lex01_interior.gd` resolves their stable member IDs for gameplay stations.
 
 All content lives in JSON. Adding a learning situation means adding or editing a scenario record - no gameplay script, no new asset, no new test file.
 
@@ -45,7 +45,7 @@ Run `scenes/main.tscn` in Godot (F5). TAV-02 (Issue #9) made the room first-pers
 | `bring_deliver` | `E` on the object to pick it up (the HUD names what you hold), then `E` on the person or place it belongs at. `E` on another object swaps what you hold. Only the delivery counts as an answer. |
 | `respond` | Look at the room and pick one of the two answer sentences under the German prompt - click it, or use the arrow keys and `Enter`. The objects those sentences name are in the room, and the one in focus is highlighted. |
 
-The player is a capsule and an eye camera with no body mesh, and carrying is abstract: no hands, no hand physics, no IK, no animation. What stops you is the room shell (floor, four walls, ceiling height) plus four marked pieces of furniture: the two bar-counter sections and the two storage crates. Everything else - tables, chairs, stools, lamps, rugs, wall units, the stove, every prop and every NPC - stays clickable-only, so nothing a task can ask about can block or trap you.
+The player is a capsule and an eye camera with no body mesh, and carrying is abstract: no hands, no hand physics, no IK, no animation. What stops you is the room shell (floor, four walls, ceiling height) plus three marked furniture pieces: the preparation counter and two joined bar-counter sections. Everything else - tables, chairs, stools, lamps, rugs, wall units, the stove, every prop and every NPC - stays clickable-only, so nothing a task can ask about can block or trap you.
 
 - A wrong answer costs an attempt, never the run: the objects move and the answer order changes, so guessing by position cannot work.
 - **Пропустить** (key `X`) ends a situation without an answer; it is recorded as skipped, never as correct.
@@ -122,14 +122,18 @@ Both print `LEX01 PROBE OK` / `LEX01 INPUT PROBE OK` or `... FAIL` with reasons 
 
 `data/room/lex01_room.json` declares **worlds**. A normal run (F5, no arguments) plays the **tavern** world: the fixed furniture stands where the `interior` array authors it for the whole run, and the TAV-01 sample shift stages its small items at fixed stations - the bar counter, the tavern table, the fridge. No card spawns furniture, and no card moves the room. The **legacy** world (`--world legacy`) is the original LEX-01 practice room: no built furniture, answers staged on the shuffled candidate pool, the guided first example and the beginner briefing. It is kept as regression content for the 17 LEX-01 records and runs through the same probes and the same scene.
 
+## TAV-03 fixed layout review
+
+The four reusable composition types and their fixed 16 × 12 m arrangement are documented in [`docs/tavern_layout.md`](docs/tavern_layout.md). Launch `scenes/main.tscn` and press F6 to inspect and play. Godot 4.7.1 movie capture crashed with signal 11, so this change includes no screenshots; visual acceptance remains NOT_TESTED and the F6 scene is ready for direct review.
+
 ## Not verified yet
 
 - **Export and a launched build**: no export templates are installed and there is no `export_presets.cfg`, so an exported build - and whether runtime `load()` of the `.gltf` props works there - is untested. Packaging is a separate task.
-- **How the room and HUD look and read**: the probes check behaviour, not visual quality or readability. That is a human judgement.
+- **Human visual acceptance**: screenshot capture failed in this environment, so the furniture arrangement and room readability still need direct F6 review.
 - **German naturalness of the sentences**, including the two in `lex01_extension.json` and the ten in `tav01_sample_shift.json`, is not verified by any automated check, and neither is the Russian and English wording of the 32 lemmas TAV-01 added (see `docs/assets_provenance.md`).
 - **Crosshair aiming at an arbitrary viewing angle**: the input probe aims the eye at the staged objects from the shipped spawn points and walks to them; it does not sweep every angle a player could stand at.
-- **Props are clickable, not solid.** They carry collision boxes only so the crosshair can land on them. Since TAV-03 the bar counter and the storage crates are solid furniture and the guest tables, chairs and everything else a scenario can stage are not, so you can still walk through a table - a deliberate trade-off so no task object can ever block or trap the player.
-- **How the tavern looks**: the layout, the furniture and the three characters are placed from data and checked for reachability, but whether the room reads as a recognisable tavern is a human judgement the probes cannot make.
+- **Props are clickable, not solid.** They carry collision boxes only so the crosshair can land on them. The preparation counter and bar counters are solid furniture and the guest tables, chairs and everything else a scenario can stage are not, so you can still walk through a table - a deliberate trade-off so no task object can ever block or trap the player.
+- **Visual arrangement**: screenshot capture did not work in this environment; human review via F6 remains outstanding.
 - **NPC roles are positional only.** der Ritter stands behind the counter and der Gast at a table, but no scenario record addresses a character as the guest yet, and there is no NPC behaviour: no AI, no navigation, no schedule, no dialogue driven by role.
 - `in_fridge` places an item in front of the fridge and highlights it. The committed fridge prop has no door, so "in dem Kühlschrank" is shown rather than opened.
 

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/kitchencounter_straight_A.gltf" id="1_counter"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/chair_stool.gltf" id="2_stool"]
+
+[node name="BarGroup" type="Node3D"]
+
+[node name="NorthCounter" parent="." instance=ExtResource("1_counter")]
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="SouthCounter" parent="." instance=ExtResource("1_counter")]
+position = Vector3(0, 0, 2)
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="NorthStool" parent="." instance=ExtResource("2_stool")]
+position = Vector3(1.8, 0, 0.2)
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="SouthStool" parent="." instance=ExtResource("2_stool")]
+position = Vector3(1.8, 0, 1.8)
+rotation_degrees = Vector3(0, 90, 0)

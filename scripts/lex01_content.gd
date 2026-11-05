@@ -294,7 +294,7 @@ func _validate_room_shell() -> void:
 			errors.append("context '%s' has no player spawn in %s" % [context, ROOM_PATH])
 		elif not (spawn.get("position", null) is Array):
 			errors.append("context '%s' spawn has no position array in %s" % [context, ROOM_PATH])
-	# TAV-03 (Issue #10): the walls, the bar and the storage crates are data too, so a typo in an
+	# TAV-03 (Issue #10): the walls and modular furniture groups are data too, so a typo in an
 	# interior entry is a named content error instead of a room with a hole in it or a crate that the
 	# player cannot walk past.
 	var entries: Array = interior_entries()
@@ -562,9 +562,16 @@ func interior_ids() -> Array[String]:
 	var result: Array[String] = []
 	for entry: Variant in interior_entries():
 		if entry is Dictionary:
-			var id: String = String((entry as Dictionary).get("id", ""))
+			var interior_entry: Dictionary = entry as Dictionary
+			var id: String = String(interior_entry.get("id", ""))
 			if not id.is_empty():
 				result.append(id)
+			var member_ids: Variant = interior_entry.get("member_ids", {})
+			if member_ids is Dictionary:
+				for member_id: Variant in (member_ids as Dictionary).values():
+					var stable_id: String = String(member_id)
+					if not stable_id.is_empty():
+						result.append(stable_id)
 	return result
 
 
@@ -572,8 +579,13 @@ func interior_ids() -> Array[String]:
 ## declares it (staging treats that as "no authored spot" and falls back to the anchor data).
 func interior_position(id: String) -> Vector3:
 	for entry: Variant in interior_entries():
-		if entry is Dictionary and String((entry as Dictionary).get("id", "")) == id:
-			return _vector3((entry as Dictionary).get("position", [0, 0, 0]))
+		if entry is Dictionary:
+			var interior_entry: Dictionary = entry as Dictionary
+			if String(interior_entry.get("id", "")) == id:
+				return _vector3(interior_entry.get("position", [0, 0, 0]))
+			var member_ids: Variant = interior_entry.get("member_ids", {})
+			if member_ids is Dictionary and (member_ids as Dictionary).values().has(id):
+				return _vector3(interior_entry.get("position", [0, 0, 0]))
 	return Vector3.ZERO
 
 

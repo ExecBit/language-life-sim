@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/kaykit/furniture/couch.gltf" id="1_couch"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/table_round_A_small.gltf" id="2_table"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/furniture/lamp_standing.gltf" id="3_lamp"]
+
+[node name="LoungeGroup" type="Node3D"]
+
+[node name="Sofa" parent="." instance=ExtResource("1_couch")]
+rotation_degrees = Vector3(0, 180, 0)
+
+[node name="CoffeeTable" parent="." instance=ExtResource("2_table")]
+position = Vector3(1.5, 0, 1.85)
+
+[node name="Lamp" parent="." instance=ExtResource("3_lamp")]
+position = Vector3(1.7, 0, 3.95)
