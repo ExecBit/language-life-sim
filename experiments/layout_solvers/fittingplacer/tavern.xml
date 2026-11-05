@@ -26,12 +26,16 @@
     <face_type><face_type_id>kitchen_counter_left</face_type_id></face_type>
     <face_type><face_type_id>kitchen_counter_right</face_type_id></face_type>
     <face_type>
-      <face_type_id>stove_back</face_type_id>
+      <face_type_id>stove_right</face_type_id>
       <relations><relation><support_face_type_id>kitchen_counter_left</support_face_type_id><distance>0</distance></relation></relations>
     </face_type>
     <face_type>
-      <face_type_id>fridge_back</face_type_id>
+      <face_type_id>fridge_left</face_type_id>
       <relations><relation><support_face_type_id>kitchen_counter_right</support_face_type_id><distance>0</distance></relation></relations>
+    </face_type>
+    <face_type>
+      <face_type_id>kitchen_counter_wall</face_type_id>
+      <relations><relation><support_face_type_id>wall</support_face_type_id><distance>0</distance></relation></relations>
     </face_type>
     <face_type><face_type_id>neutral_side</face_type_id></face_type>
   </face_types>
@@ -70,7 +74,7 @@
       <faces>
         <face><facing>left</facing><face_type_id>bar_b_join</face_type_id></face>
         <face><facing>back</facing><face_type_id>bar_service_side</face_type_id></face>
-        <face><facing>left</facing><face_type_id>neutral_side</face_type_id></face>
+        <face><facing>right</facing><face_type_id>neutral_side</face_type_id></face>
         <face><facing>front</facing><face_type_id>bar_customer_side</face_type_id></face>
       </faces>
     </fitting_type>
@@ -88,7 +92,7 @@
       <fitting_type_id>kitchen_counter</fitting_type_id>
       <faces>
         <face><facing>right</facing><face_type_id>kitchen_counter_right</face_type_id></face>
-        <face><facing>back</facing><face_type_id>neutral_side</face_type_id></face>
+        <face><facing>back</facing><face_type_id>kitchen_counter_wall</face_type_id></face>
         <face><facing>left</facing><face_type_id>kitchen_counter_left</face_type_id></face>
         <face><facing>front</facing><face_type_id>neutral_side</face_type_id></face>
       </faces>
@@ -96,8 +100,8 @@
     <fitting_type>
       <fitting_type_id>kitchen_stove</fitting_type_id>
       <faces>
-        <face><facing>right</facing><face_type_id>neutral_side</face_type_id></face>
-        <face><facing>back</facing><face_type_id>stove_back</face_type_id></face>
+        <face><facing>right</facing><face_type_id>stove_right</face_type_id></face>
+        <face><facing>back</facing><face_type_id>neutral_side</face_type_id></face>
         <face><facing>left</facing><face_type_id>neutral_side</face_type_id></face>
         <face><facing>front</facing><face_type_id>neutral_side</face_type_id></face>
       </faces>
@@ -106,8 +110,8 @@
       <fitting_type_id>kitchen_fridge</fitting_type_id>
       <faces>
         <face><facing>right</facing><face_type_id>neutral_side</face_type_id></face>
-        <face><facing>back</facing><face_type_id>fridge_back</face_type_id></face>
-        <face><facing>left</facing><face_type_id>neutral_side</face_type_id></face>
+        <face><facing>back</facing><face_type_id>neutral_side</face_type_id></face>
+        <face><facing>left</facing><face_type_id>fridge_left</face_type_id></face>
         <face><facing>front</facing><face_type_id>neutral_side</face_type_id></face>
       </faces>
     </fitting_type>

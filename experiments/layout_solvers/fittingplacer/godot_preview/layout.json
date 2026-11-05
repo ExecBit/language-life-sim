@@ -17,125 +17,125 @@
       "assetId": "bar_section_a",
       "assetPath": "res://assets/kitchencounter_straight_A.gltf",
       "translation": [
-        -6.07905,
+        -0.2999997,
         0,
-        1.1254165
+        4.07905
       ],
       "rotation": [
         0,
-        -1.5707964,
+        -0,
         0
       ],
-      "solverX": -6.07905,
-      "solverY": 1.1254165,
-      "solverOrientationRadians": 1.5707964
+      "solverX": -0.2999997,
+      "solverY": 4.07905,
+      "solverOrientationRadians": 0
     },
     {
       "id": "bar_section_b_01",
       "assetId": "bar_section_b",
       "assetPath": "res://assets/kitchencounter_straight_A.gltf",
       "translation": [
-        -6.07905,
+        1.7000003,
         0,
-        3.1254165
+        4.07905
       ],
       "rotation": [
         0,
-        -1.5707964,
+        -0,
         0
       ],
-      "solverX": -6.07905,
-      "solverY": 3.1254165,
-      "solverOrientationRadians": 1.5707964
+      "solverX": 1.7000003,
+      "solverY": 4.07905,
+      "solverOrientationRadians": 0
     },
     {
       "id": "customer_stool_01",
       "assetId": "customer_stool",
       "assetPath": "res://assets/chair_stool.gltf",
       "translation": [
-        -4.4831,
+        -0.79166627,
         0,
-        0.63374996
+        2.4831
       ],
       "rotation": [
         0,
-        -4.712389,
+        -3.1415927,
         0
       ],
-      "solverX": -4.4831,
-      "solverY": 0.63374996,
-      "solverOrientationRadians": 4.712389
+      "solverX": -0.79166627,
+      "solverY": 2.4831,
+      "solverOrientationRadians": 3.1415927
     },
     {
       "id": "customer_stool_02",
       "assetId": "customer_stool",
       "assetPath": "res://assets/chair_stool.gltf",
       "translation": [
-        -4.4831,
+        1.2083337,
         0,
-        2.63375
+        2.4831
       ],
       "rotation": [
         0,
-        -4.712389,
+        -3.1415927,
         0
       ],
-      "solverX": -4.4831,
-      "solverY": 2.63375,
-      "solverOrientationRadians": 4.712389
+      "solverX": 1.2083337,
+      "solverY": 2.4831,
+      "solverOrientationRadians": 3.1415927
     },
     {
       "id": "customer_stool_03",
       "assetId": "customer_stool",
       "assetPath": "res://assets/chair_stool.gltf",
       "translation": [
-        -4.4831,
+        0.19166696,
         0,
-        1.6170832
+        2.4831
       ],
       "rotation": [
         0,
-        -4.712389,
+        -3.1415927,
         0
       ],
-      "solverX": -4.4831,
-      "solverY": 1.6170832,
-      "solverOrientationRadians": 4.712389
+      "solverX": 0.19166696,
+      "solverY": 2.4831,
+      "solverOrientationRadians": 3.1415927
     },
     {
       "id": "customer_stool_04",
       "assetId": "customer_stool",
       "assetPath": "res://assets/chair_stool.gltf",
       "translation": [
-        -4.4831,
+        2.191667,
         0,
-        3.6170833
+        2.4831
       ],
       "rotation": [
         0,
-        -4.712389,
+        -3.1415927,
         0
       ],
-      "solverX": -4.4831,
-      "solverY": 3.6170833,
-      "solverOrientationRadians": 4.712389
+      "solverX": 2.191667,
+      "solverY": 2.4831,
+      "solverOrientationRadians": 3.1415927
     },
     {
       "id": "dining_table_01",
       "assetId": "dining_table",
       "assetPath": "res://assets/table_round_A.gltf",
       "translation": [
-        -0.1000638,
+        -1.6010213,
         0,
-        0.6006665
+        -2.602889
       ],
       "rotation": [
         0,
         -1.5707964,
         0
       ],
-      "solverX": -0.1000638,
-      "solverY": 0.6006665,
+      "solverX": -1.6010213,
+      "solverY": -2.602889,
       "solverOrientationRadians": 1.5707964
     },
     {
@@ -143,17 +143,17 @@
       "assetId": "dining_chair",
       "assetPath": "res://assets/chair_A.gltf",
       "translation": [
-        -2.2485638,
+        -3.7495213,
         0,
-        0.6006665
+        -2.602889
       ],
       "rotation": [
         0,
         -1.5707964,
         0
       ],
-      "solverX": -2.2485638,
-      "solverY": 0.6006665,
+      "solverX": -3.7495213,
+      "solverY": -2.602889,
       "solverOrientationRadians": 1.5707964
     },
     {
@@ -161,17 +161,17 @@
       "assetId": "dining_chair",
       "assetPath": "res://assets/chair_A.gltf",
       "translation": [
-        -0.1000638,
+        -1.6010213,
         0,
-        -1.5478334
+        -4.751389
       ],
       "rotation": [
         0,
         -3.1415927,
         0
       ],
-      "solverX": -0.1000638,
-      "solverY": -1.5478334,
+      "solverX": -1.6010213,
+      "solverY": -4.751389,
       "solverOrientationRadians": 3.1415927
     },
     {
@@ -179,17 +179,17 @@
       "assetId": "dining_chair",
       "assetPath": "res://assets/chair_A.gltf",
       "translation": [
-        -0.1000638,
+        -1.6010213,
         0,
-        2.7491665
+        -0.4543891
       ],
       "rotation": [
         0,
         -0,
         0
       ],
-      "solverX": -0.1000638,
-      "solverY": 2.7491665,
+      "solverX": -1.6010213,
+      "solverY": -0.4543891,
       "solverOrientationRadians": 0
     },
     {
@@ -197,17 +197,17 @@
       "assetId": "dining_chair",
       "assetPath": "res://assets/chair_A.gltf",
       "translation": [
-        2.0484362,
+        0.5474787,
         0,
-        0.6006665
+        -2.602889
       ],
       "rotation": [
         0,
         -4.712389,
         0
       ],
-      "solverX": 2.0484362,
-      "solverY": 0.6006665,
+      "solverX": 0.5474787,
+      "solverY": -2.602889,
       "solverOrientationRadians": 4.712389
     },
     {
@@ -215,53 +215,53 @@
       "assetId": "kitchen_counter",
       "assetPath": "res://assets/kitchencounter_straight_A.gltf",
       "translation": [
-        6.079367,
+        4,
         0,
-        -0.5220511
-      ],
-      "rotation": [
-        0,
-        -1.5707964,
-        0
-      ],
-      "solverX": 6.079367,
-      "solverY": -0.5220511,
-      "solverOrientationRadians": 1.5707964
-    },
-    {
-      "id": "kitchen_stove_01",
-      "assetId": "kitchen_stove",
-      "assetPath": "res://assets/stove_single.gltf",
-      "translation": [
-        6.079367,
-        0,
-        -2.6660511
-      ],
-      "rotation": [
-        0,
-        -0,
-        0
-      ],
-      "solverX": 6.079367,
-      "solverY": -2.6660511,
-      "solverOrientationRadians": 0
-    },
-    {
-      "id": "kitchen_fridge_01",
-      "assetId": "kitchen_fridge",
-      "assetPath": "res://assets/fridge_A.gltf",
-      "translation": [
-        6.079367,
-        0,
-        1.5979483
+        -4.97905
       ],
       "rotation": [
         0,
         -3.1415927,
         0
       ],
-      "solverX": 6.079367,
-      "solverY": 1.5979483,
+      "solverX": 4,
+      "solverY": -4.97905,
+      "solverOrientationRadians": 3.1415927
+    },
+    {
+      "id": "kitchen_stove_01",
+      "assetId": "kitchen_stove",
+      "assetPath": "res://assets/stove_single.gltf",
+      "translation": [
+        6,
+        0,
+        -4.97905
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ],
+      "solverX": 6,
+      "solverY": -4.97905,
+      "solverOrientationRadians": 3.1415927
+    },
+    {
+      "id": "kitchen_fridge_01",
+      "assetId": "kitchen_fridge",
+      "assetPath": "res://assets/fridge_A.gltf",
+      "translation": [
+        2,
+        0,
+        -4.97905
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ],
+      "solverX": 2,
+      "solverY": -4.97905,
       "solverOrientationRadians": 3.1415927
     }
   ]

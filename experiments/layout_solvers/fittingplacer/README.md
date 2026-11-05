@@ -1,10 +1,10 @@
 # FittingPlacer tavern experiment (LAY-01 / Issue #24, LAY-01B / Issue #28)
 
-## LAY-01B result: GO for the tested two-seed layout gate
+## LAY-01B result: PARTIAL for the tested two-seed layout gate
 
-The unchanged pinned FittingPlacer solver produced all 14 requested pieces for seeds 4242 and 8675309 from the same XML rules. The kitchen topology is a counter with distinct left and right support faces; the stove and refrigerator attach independently to those faces. The bar sections are authored 0.9 m from the west wall, and reserve the same 0.9 m behind them. The exported positions confirm this is a physical gap: the west wall is at x = -8 m, the bar back edge at x = -7.1 m, leaving 0.9 m of floor between them.
+The unchanged pinned FittingPlacer solver produced all 14 requested pieces for seeds 4242 and 8675309 from the same XML rules. The kitchen topology is a counter with distinct left and right support faces; the stove RIGHT and refrigerator LEFT faces attach independently to those sides. Godot confirms both working fronts face the same side of the contiguous row. The bar sections keep a 0.9 m physical gap from the wall they attach to and reserve the same 0.9 m behind them.
 
-Godot 4.7.1 renders the actual KayKit glTF assets at the exported transforms. Top-down, south-entrance, and kitchen eye-level captures are included for each seed below. The kitchen screenshots show the stove and refrigerator fronts facing the open work aisle. The south entrance view shows open access into the room and between dining and kitchen/bar areas. Route connectivity is a visual observation, not a solver guarantee.
+Godot 4.7.1 renders the actual KayKit glTF assets at the solver-exported transforms. Top-down, south-entrance, and kitchen eye-level captures are included for each seed below. The entrance composition remains weak: seed 4242 puts the kitchen beside the south entry; seed 8675309 puts it against the west wall. The fridge occupies a large part of the entrance view. FittingPlacer's XML wall relation selects a generic room wall and cannot target a wall opposite the entrance or define a no-furniture entrance sightline. The 1.2 m door opening itself remains free, but reasonable visual composition is not guaranteed. This gate is therefore **PARTIAL**, not GO.
 
 ### Seed 4242
 
@@ -21,16 +21,19 @@ Godot 4.7.1 renders the actual KayKit glTF assets at the exported transforms. To
 ### Encoded relationships and limitations
 
 - **Encoded:** bar sections join end-to-end; the bar back face is 0.9 m from a room wall; a 0.9 m back clearance reserves the staff aisle; stools attach to the customer face.
-- **Encoded:** the counter's left and right faces have distinct support types; stove and fridge each attach to one side. Each appliance retains a 0.8 m front clearance.
+- **Encoded:** the counter's left and right faces have distinct support types; the stove RIGHT and fridge LEFT faces each attach to one side. Each appliance retains a 0.8 m front clearance.
+- **Encoded:** the kitchen counter is attached to a generic room wall to test whether a wall anchor improves the entrance composition. The solver may select any wall.
 - **Encoded:** four chairs attach to four table edges and face inward; the south door opening remains reserved.
-- **Observed in Godot:** both kitchen appliances face outward to the shared open aisle; bar wall gap, stools, entrance, dining arrangement and broad route are visually clear in both seeded layouts.
+- **Observed in Godot:** both kitchen appliance fronts face the same accessible side of the shared row; the bar wall gap, customer stools and dining arrangement remain coherent in both layouts.
+- **Not achieved:** an entrance composition clear of the kitchen/fridge in both seeds. Generic wall attachment does not constrain the kitchen to a particular wall or zone; seed 4242 places it along the south entry side.
 - **Not guaranteed:** global route connectivity or navigation; no pathfinder or runtime character movement test is included.
 
 ### PASS / FAIL / NOT_TESTED
 
 - **PASS** — unchanged pinned upstream solver generated 14/14 placements for seeds 4242 and 8675309 using identical XML semantics.
 - **PASS** — exported bar footprint leaves exactly 0.9 m between its back edge and west wall; its 0.9 m clearance strip reserves that usable space.
-- **PASS (visual)** — both Godot layouts show a stove-counter-fridge row with appliance fronts facing the open aisle, customer-side stools, and the intact round table with four inward-facing chairs.
+- **PASS (visual)** — both Godot layouts show the contiguous stove-counter-fridge row with appliance fronts facing the same accessible aisle, customer-side stools, and the intact round table with four inward-facing chairs.
+- **PARTIAL** — entrance opening is physically unoccupied, but entrance composition is poor for both seeds; FittingPlacer cannot target a particular wall or reserve an entrance sightline using this XML model.
 - **PASS** — six new Godot 4.7.1 captures (top-down, entrance, kitchen eye-level per seed).
 - **NOT_TESTED** — runtime walkability/path connectivity; the isolated preview has no player controller.
 
@@ -48,10 +51,10 @@ It does not infer relationships from KayKit meshes, choose tavern zones, identif
 
 | Group | Authored relationship | Generated result |
 | --- | --- | --- |
-| Bar | Section A right end attaches to section B left end at 0 m; A's back attaches 0.9 m from a wall; both sections have a distinct front/customer face and 0.9 m back clearance. | Both counter sections form one 4 m run parallel to the west wall, with a physical 0.9 m staff aisle. All four stools attach to the customer face. |
+| Bar | Section A right end attaches to section B left end at 0 m; A's back attaches 0.9 m from a wall; both sections have a distinct front/customer face and 0.9 m back clearance. | Both counter sections form one 4 m run parallel to the selected wall, with a physical 0.9 m staff aisle. All four stools attach to the customer face. |
 | Dining | Each chair's front face attaches 0.25 m from one of the round table's four typed edges. Chair width and side clearance limit the support edge capacity. | Four chairs, one on each side of the table, facing inward. |
-| Kitchen | Stove back attaches to the counter's left support face; fridge back attaches to its distinct right support face, both at 0 m. Each work front reserves 0.8 m clearance. | Stove, counter and refrigerator form a side-by-side row for both seeds; Godot captures show both appliance fronts facing away from the counter into open floor. |
-| Entrance | South door center `(0, -6)`, width `1.2 m`, inward normal `+Y`; the solver reserves its immediate opening area. | Furniture groups fit without occupying the doorway. The entrance view visually shows a clear aisle into the room. |
+| Kitchen | Stove right face attaches to the counter's left support face; fridge left face attaches to its distinct right support face, both at 0 m. Each work front reserves 0.8 m clearance. Counter back also has a generic wall relation. | Stove, counter and refrigerator form a contiguous row for both seeds; Godot captures show appliance fronts on the same working side. The generic wall relation selects different walls across seeds. |
+| Entrance | South door center `(0, -6)`, width `1.2 m`, inward normal `+Y`; the solver reserves its immediate opening area. | The doorway footprint itself is unoccupied, but the fridge dominates the initial eye-level view in both seeds; a generic wall relation cannot keep the kitchen away from the south entrance zone. |
 
 The JSON records each output as an `assetId`, `assetPath`, `translation` and `rotation`, plus the original solver X/Y/orientation for traceability. Godot maps solver `(x, y)` to world `(x, 0, z)` and maps the solver's positive quarter-turn to Godot's negative Y rotation. The loader does not move or rotate placements after reading JSON. Camera positions and static room shell geometry are preview-only.
 
@@ -84,7 +87,7 @@ The script obtains the pinned upstream solver into ignored `.local/FittingPlacer
 
 Godot's scene launch imports assets as needed; all six real OpenGL compatibility captures completed successfully.
 
-## PASS / FAIL / NOT_TESTED
+## LAY-01 historical verification (Issue #24)
 
 - **PASS** — Upstream solver source compiled unchanged and returned 14/14 placements in the 16 × 12 m room for seeds 4242 and 8675309.
 - **PASS** — Actual KayKit furniture rendered from each generated JSON in Godot 4.7.1; top-down, entrance and kitchen eye-level screenshots captured for both seeds.
@@ -93,6 +96,6 @@ Godot's scene launch imports assets as needed; all six real OpenGL compatibility
 - **NOT_TESTED** — Runtime character movement through the aisle, because the preview has no player/controller.
 - No live game systems or PR #16/#22 files were changed.
 
-**Conclusion:** FittingPlacer expresses the tested bar service gap and side-by-side kitchen topology using XML face relations and clearance rules. This is a standalone functional layout proof, not a global navigation guarantee.
+**Historical conclusion:** FittingPlacer expressed the original relative furniture groups for seed 4242. LAY-01B's additional kitchen-front and entrance-composition findings are recorded above; this standalone preview does not provide a global navigation guarantee.
 
 Closes #24 (original LAY-01 proof; LAY-01B is tracked by Issue #28)

@@ -84,8 +84,10 @@ func _select_view(view_name: String) -> void:
 	elif view_name == "kitchen":
 		var counter: Dictionary = _placements_by_id.get("kitchen_counter_01", {})
 		var p: Array = counter.get("translation", [0.0, 0.0, 0.0])
+		var yaw := float(counter.get("rotation", [0.0, 0.0, 0.0])[1])
+		var work_front := Vector3(0.0, 0.0, -1.0).rotated(Vector3.UP, yaw)
 		target = Vector3(float(p[0]), 1.0, float(p[2]))
-		eye = target + Vector3(-4.2, 0.65, 0.0)
+		eye = target + work_front * 7.0 + Vector3.UP * 0.65
 	elif view_name == "dining":
 		var table: Dictionary = _placements_by_id.get("dining_table_01", {})
 		var p: Array = table.get("translation", [0.0, 0.0, 0.0])
