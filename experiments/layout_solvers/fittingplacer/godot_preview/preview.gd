@@ -11,14 +11,18 @@ var _root_camera: Camera3D
 
 func _ready() -> void:
 	var stage1 := OS.get_cmdline_user_args().has("--stage1")
-	var layout_path := "res://stage1_layout.json" if stage1 else LAYOUT_PATH
+	var stage2 := OS.get_cmdline_user_args().has("--stage2")
+	var default_layout := "res://stage1_layout.json" if stage1 else ("res://stage2-A-layout.json" if stage2 else LAYOUT_PATH)
+	var layout_path := _argument("layout", default_layout)
+	if not layout_path.begins_with("res://"):
+		layout_path = "res://" + layout_path
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(layout_path))
 	if not parsed is Dictionary or not parsed.has("placements"):
 		push_error("Missing or invalid FittingPlacer layout JSON: %s" % LAYOUT_PATH)
 		get_tree().quit(1)
 		return
 
-	if stage1:
+	if stage1 or stage2:
 		_build_stage1_rooms(parsed)
 	else:
 		_build_room()
@@ -43,7 +47,9 @@ func _ready() -> void:
 	_root_camera.current = true
 	_root_camera.fov = 72.0
 	add_child(_root_camera)
-	if stage1:
+	if stage2:
+		_select_stage2_view(_argument("view", "top"), parsed)
+	elif stage1:
 		_select_stage1_view(_argument("view", "top"), parsed)
 	else:
 		_select_view(_argument("view", "top"))
@@ -181,6 +187,67 @@ func _select_stage1_view(view_name: String, layout: Dictionary) -> void:
 		# Eye-level inside the kitchen, in front of the solver-generated work line.
 		_root_camera.position = Vector3(float(kitchen["originX"]) - 0.5, 1.65, 0.5)
 		_root_camera.look_at(target, Vector3.UP)
+
+
+func _select_stage2_view(view_name: String, layout: Dictionary) -> void:
+	var hall: Dictionary = layout["zones"][0]
+	var dining: Dictionary = layout["logicalZones"][0]
+	var bar: Dictionary = layout["logicalZones"][1]
+	if view_name == "top":
+		var kitchen: Dictionary = layout["zones"][1]
+		var left_edge := float(hall["originX"]) - float(hall["width"]) / 2.0
+		var right_edge := float(kitchen["originX"]) + float(kitchen["width"]) / 2.0
+		var center_x := (left_edge + right_edge) / 2.0
+		_root_camera.projection = Camera3D.PROJECTION_ORTHOGONAL
+		_root_camera.size = max(float(layout["totalDepth"]), float(layout["totalWidth"]) / 1.72) + 2.0
+		_root_camera.position = Vector3(center_x, 28.0, 0.0)
+		_root_camera.look_at(Vector3(center_x, 0, 0), Vector3(0, 0, -1))
+		return
+	_root_camera.projection = Camera3D.PROJECTION_PERSPECTIVE
+	_root_camera.fov = 82.0
+	var targets := _zone_asset_centers(layout["placements"])
+	var target: Vector3
+	var eye: Vector3
+	if view_name == "hall_bar":
+		target = targets.get("bar", Vector3(float(bar["originX"]), 1.0, float(bar["originZ"])))
+		var bar_rotated := false
+		for placement: Dictionary in layout["placements"]:
+			if placement["zoneId"] == "bar" and String(placement["assetId"]).begins_with("bar_section_"):
+				bar_rotated = absf(float(placement["rotation"][1])) > 3.0
+				break
+		if bar_rotated:
+			eye = Vector3(float(bar["originX"]) - float(bar["width"]) / 2.0 - 2.5, 1.65, float(bar["originZ"]))
+		else:
+			eye = Vector3(float(bar["originX"]), 1.65, float(bar["originZ"]) - float(bar["depth"]) / 2.0 + 0.35)
+	else:
+		target = targets.get("dining", Vector3(float(dining["originX"]), 1.0, float(dining["originZ"])))
+		var dining_east := float(dining["originX"]) + float(dining["width"]) / 2.0
+		var dining_north := float(dining["originZ"]) + float(dining["depth"]) / 2.0
+		var bar_south := float(bar["originZ"]) - float(bar["depth"]) / 2.0
+		var open_strip_south: float = maxf(dining_north, bar_south)
+		eye = Vector3(dining_east + 1.0, 1.65, open_strip_south - 0.8)
+	_root_camera.position = eye
+	_root_camera.look_at(target, Vector3.UP)
+
+
+func _zone_asset_centers(placements: Array) -> Dictionary:
+	var sums := {"dining": Vector3.ZERO, "bar": Vector3.ZERO}
+	var counts := {"dining": 0, "bar": 0}
+	for placement: Dictionary in placements:
+		var zone_id: String = placement["zoneId"]
+		var asset_id: String = placement["assetId"]
+		if zone_id == "dining" and asset_id != "dining_chair":
+			var dining_position: Array = placement["translation"]
+			sums["dining"] += Vector3(float(dining_position[0]), 1.0, float(dining_position[2]))
+			counts["dining"] += 1
+		elif zone_id == "bar" and asset_id.begins_with("bar_section_"):
+			var bar_position: Array = placement["translation"]
+			sums["bar"] += Vector3(float(bar_position[0]), 1.0, float(bar_position[2]))
+			counts["bar"] += 1
+	for zone_id: String in ["dining", "bar"]:
+		if counts[zone_id] > 0:
+			sums[zone_id] /= counts[zone_id]
+	return sums
 
 
 func _build_room() -> void:
