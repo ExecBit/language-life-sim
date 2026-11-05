@@ -92,14 +92,18 @@ internal static class Stage3
         var kitchenModels = new List<string> { "kitchen_counter", "kitchen_stove", "kitchen_fridge" };
         var kitchenResult = furnisher.GeneratePlacements(new Room(kitchenW,kitchenD,3,Grid),kitchenModels,brief.Seed);
         var kitchenShift=FitGroup(kitchenResult,-kitchenW/2+0.25f,kitchenW/2-0.25f,-kitchenD/2+0.25f,kitchenD/2-0.25f);
-        if (!Append(kitchenResult,kitchenModels.Count,kitchen.Id,kitchenX+kitchenShift.x,kitchenShift.z,placements)) return 1;
+        var kitchenWallX=kitchenX-kitchenW/2;
+        var originalKitchenMinX=kitchenResult.Min(item=>item.PositionX-Extents(item.RepresentationObject.FittingModelId,item.Orientation).x)+kitchenShift.x+kitchenX;
+        var kitchenEntryShift=Math.Max(0f,kitchenWallX+0.9f-originalKitchenMinX);
+        if (!Append(kitchenResult,kitchenModels.Count,kitchen.Id,kitchenX+kitchenShift.x+kitchenEntryShift,kitchenShift.z,placements)) return 1;
 
         var loungeModels = new List<string> { "lounge_coffee_table" };
         for (var i=0;i<lounge.Sofas;i++) loungeModels.Add("lounge_sofa");
         var loungeResult = furnisher.GeneratePlacements(new Room(loungeW,loungeD,3,Grid),loungeModels,brief.Seed);
         if (!Append(loungeResult,loungeModels.Count,lounge.Id,logical[2].originX,logical[2].originZ,placements)) return 1;
 
-        var storageModels = Enumerable.Repeat("storeroom_cabinet",storage.StorageObjects).ToList();
+        var storageModels = Enumerable.Range(0,storage.StorageObjects).Select(i=>i%2==0?"storeroom_crate":"storeroom_cabinet").ToList();
+        for(var i=0;i<storageModels.Count;i+=4)storageModels[i]="storeroom_crate_potatoes";
         var storageResult = furnisher.GeneratePlacements(StorageRoom(storeW,storeD,storeDoorZ),storageModels,brief.Seed);
         if (!Append(storageResult,storageModels.Count,storage.Id,storeX,0,placements)) return 1;
 
@@ -107,12 +111,15 @@ internal static class Stage3
         storeDoorZ=SelectDoorCenter(placements,new[]{kitchen.Id,storage.Id},storeDoorX,Math.Min(kitchenD,storeD)/2-DoorWidth/2-0.1f);
         if(float.IsNaN(storeDoorZ))return Fail("Could not find an unobstructed kitchen-to-storeroom doorway in the derived shared boundary.");
         var hallDoorX=(hallX+hallW/2+kitchenX-kitchenW/2)/2;
-        var hallDoorZ=SelectDoorCenter(placements,new[]{dining.Id,bar.Id,lounge.Id,kitchen.Id},hallDoorX,Math.Min(hallD,kitchenD)/2-DoorWidth/2-0.1f);
+        var hallDoorZ=SelectKitchenDoorCenter(placements,new[]{dining.Id,bar.Id,lounge.Id,kitchen.Id},hallDoorX,Math.Min(hallD,kitchenD)/2-DoorWidth/2-0.1f);
         if(float.IsNaN(hallDoorZ))return Fail("Could not find an unobstructed hall-to-kitchen doorway in the derived shared boundary.");
         if (!Validate(placements,dining.Tables,lounge.Sofas,storage.StorageObjects,rooms,logical,barW,barD,hallX,hallW,hallD,kitchenX,kitchenW,storeX,storeW,hallDoorZ,storeDoorZ)) return 1;
+        var kitchenAccess=ValidateKitchenAccess(placements,rooms.Single(r=>r.id==kitchen.Id),hallDoorZ);
+        if(kitchenAccess.width<0.9f||!kitchenAccess.reachable)return Fail("Kitchen entrance corridor or route to the working aisle is blocked.");
         var doors = new[] { new { from=hall.Id, to=kitchen.Id, width=DoorWidth, axis="x", centerZ=hallDoorZ }, new { from=kitchen.Id, to=store.Id, width=DoorWidth, axis="x", centerZ=storeDoorZ } };
         var layout = new { solver="FittingPlacer", upstreamCommit=Commit, seed=brief.Seed, totalWidth=hallW+kitchenW+storeW,
-            totalDepth=Math.Max(hallD,Math.Max(kitchenD,storeD)), roomHeight=3f, doorWidth=DoorWidth, rooms, zones=rooms,
+            totalDepth=Math.Max(hallD,Math.Max(kitchenD,storeD)), roomHeight=3f, doorWidth=DoorWidth,
+            kitchenAccess=new { entryCorridorWidth=kitchenAccess.width, workAreaReachable=kitchenAccess.reachable, route="around_furniture_front" }, rooms, zones=rooms,
             logicalZones=logical, doors, placements };
         File.WriteAllText(args[1],JsonSerializer.Serialize(layout,new JsonSerializerOptions{WriteIndented=true})+Environment.NewLine);
         Console.WriteLine($"STAGE3 PASS rooms={rooms.Length} dining_tables={dining.Tables} lounge_sofas={lounge.Sofas} storage_objects={storage.StorageObjects}");
@@ -174,6 +181,17 @@ internal static class Stage3
         }
         return float.NaN;
     }
+    private static float SelectKitchenDoorCenter(List<Place> placements,string[] zoneIds,float wallX,float maxOffset)
+    {
+        var candidates=new List<float>{0};
+        for(var step=1;step*Grid<=maxOffset;step++){candidates.Add(step*Grid);candidates.Add(-step*Grid);}
+        var kitchen=placements.Where(p=>p.zoneId=="kitchen").ToArray();
+        var viable=candidates.Where(center=>placements.Where(p=>zoneIds.Contains(p.zoneId)).All(item=>{
+            var (ex,ez)=Extents(item);
+            return !(item.translation[0]+ex>wallX-0.15f&&item.translation[0]-ex<wallX+0.15f&&item.translation[2]+ez>center-DoorWidth/2&&item.translation[2]-ez<center+DoorWidth/2);
+        })).ToArray();
+        return viable.OrderByDescending(center=>kitchen.Min(item=>{var (_,ez)=Extents(item);return MathF.Abs(item.translation[2]-center)-ez-DoorWidth/2;})).FirstOrDefault(float.NaN);
+    }
     private static bool Append(FittingPlacement[] source,int requested,string zone,float ox,float oz,List<Place> dest)
     {
         Console.WriteLine($"zone={zone} requested={requested} placed={source.Length}"); if(source.Length!=requested){ Console.Error.WriteLine($"STAGE3 FAIL: Incomplete FittingPlacer result in {zone}."); return false; }
@@ -186,7 +204,8 @@ internal static class Stage3
                 "bar_section_a" or "bar_section_b"=>(model,"res://assets/kitchencounter_straight_A.gltf"), "customer_stool"=>("customer_stool","res://assets/chair_stool.gltf"),
                 "kitchen_counter"=>(model,"res://assets/kitchencounter_straight_A.gltf"), "kitchen_stove"=>(model,"res://assets/stove_single.gltf"),
                 "kitchen_fridge"=>(model,"res://assets/fridge_A.gltf"), "lounge_sofa"=>(model,"res://assets/couch.gltf"),
-                "lounge_coffee_table"=>(model,"res://assets/table_medium.gltf"), "storeroom_cabinet"=>(model,"res://assets/cabinet_medium.gltf"), _=>throw new InvalidOperationException(model)};
+                "lounge_coffee_table"=>(model,"res://assets/table_medium.gltf"), "storeroom_cabinet"=>(model,"res://assets/cabinet_medium.gltf"),
+                "storeroom_crate"=>(model,"res://assets/crate.gltf"), "storeroom_crate_potatoes"=>(model,"res://assets/crate_potatoes.gltf"), _=>throw new InvalidOperationException(model)};
             counts.TryGetValue(id,out var n); counts[id]=++n;
             dest.Add(new Place($"{zone}_{id}_{n:00}",zone,id,path,new[]{p.PositionX+ox,0f,p.PositionY+oz},new[]{0f,-p.Orientation,0f}));
         }
@@ -195,7 +214,8 @@ internal static class Stage3
     private static bool Validate(List<Place> p,int tableCount,int sofas,int storage,Rect[] rooms,Rect[] logical,float barW,float barD,float hallX,float hallW,float hallD,float kitchenX,float kitchenW,float storeX,float storeW,float hallDoorZ,float storeDoorZ)
     {
         bool Count(string id,int n)=>p.Count(x=>x.assetId==id)==n;
-        if(!Count("dining_table",tableCount)||!Count("dining_chair",tableCount*4)||!Count("bar_section_a",1)||!Count("bar_section_b",1)||!Count("customer_stool",4)||!Count("kitchen_counter",1)||!Count("kitchen_stove",1)||!Count("kitchen_fridge",1)||!Count("lounge_sofa",sofas)||!Count("lounge_coffee_table",1)||!Count("storeroom_cabinet",storage)) { Console.Error.WriteLine("STAGE3 FAIL: Generated counts differ from the brief."); return false; }
+        var storageCount=p.Count(x=>x.zoneId=="storage"&&x.assetId.StartsWith("storeroom_"));
+        if(!Count("dining_table",tableCount)||!Count("dining_chair",tableCount*4)||!Count("bar_section_a",1)||!Count("bar_section_b",1)||!Count("customer_stool",4)||!Count("kitchen_counter",1)||!Count("kitchen_stove",1)||!Count("kitchen_fridge",1)||!Count("lounge_sofa",sofas)||!Count("lounge_coffee_table",1)||storageCount!=storage) { Console.Error.WriteLine("STAGE3 FAIL: Generated counts differ from the brief."); return false; }
         foreach(var r in rooms) if(r.width<=0||r.depth<=0){ Console.Error.WriteLine($"STAGE3 FAIL: Invalid physical boundary for {r.id}."); return false; }
         var table=p.Single(x=>x.assetId=="lounge_coffee_table");
         var facing=0;
@@ -210,7 +230,7 @@ internal static class Stage3
             var gaps=alongZ?new[]{hallRight-(section.translation[0]+sx),section.translation[0]-sx-hallLeft}:new[]{hallNorth-(section.translation[2]+sz),section.translation[2]-sz-hallSouth};
             var gap=gaps.Min(); if(gap+0.02f<0.9f)return FailBool($"Bar staff clearance is {gap:F3}m, below 0.9m."); staffGaps.Add(gap);
         }
-        foreach(var cabinet in p.Where(x=>x.assetId=="storeroom_cabinet")) { var yawC=cabinet.rotation[1]; var fx=-MathF.Sin(yawC); var fz=-MathF.Cos(yawC); if(MathF.Abs(fx)+MathF.Abs(fz)<0.99f){ Console.Error.WriteLine("STAGE3 FAIL: Storage cabinet front orientation invalid."); return false; } }
+        foreach(var cabinet in p.Where(x=>x.zoneId=="storage"&&x.assetId.StartsWith("storeroom_"))) { var yawC=cabinet.rotation[1]; var fx=-MathF.Sin(yawC); var fz=-MathF.Cos(yawC); if(MathF.Abs(fx)+MathF.Abs(fz)<0.99f){ Console.Error.WriteLine("STAGE3 FAIL: Storage furniture access orientation invalid."); return false; } }
         // The two openings are clear only if no furniture footprint intersects their 1.4m span.
         var zones=rooms.Concat(logical).GroupBy(r=>r.id).ToDictionary(g=>g.Key,g=>g.Last());
         var boxes=new List<(Place item,float x,float z)>();
@@ -232,7 +252,7 @@ internal static class Stage3
     }
     private static bool ValidateStorage(List<Place> items,Rect room)
     {
-        var cabinets=items.Where(p=>p.zoneId=="storage"&&p.assetId=="storeroom_cabinet").ToArray();
+        var cabinets=items.Where(p=>p.zoneId=="storage"&&p.assetId.StartsWith("storeroom_")).ToArray();
         foreach(var cabinet in cabinets)
         {
             var (ex,ez)=Extents(cabinet);
@@ -243,7 +263,8 @@ internal static class Stage3
             var toCenter=new Vector2(room.originX-cabinet.translation[0],room.originZ-cabinet.translation[2]);
             if(Vector2.Dot(front,toCenter)<=0)return FailBool($"{cabinet.id} faces away from the storeroom interior.");
             const float approach=0.9f;var right=new Vector2(MathF.Cos(cabinet.rotation[1]),-MathF.Sin(cabinet.rotation[1]));
-            var cx=cabinet.translation[0]+front.X*(0.5f+approach/2);var cz=cabinet.translation[2]+front.Y*(0.5f+approach/2);
+            var halfDepth=cabinet.assetId=="storeroom_cabinet"?0.5f:1f;
+            var cx=cabinet.translation[0]+front.X*(halfDepth+approach/2);var cz=cabinet.translation[2]+front.Y*(halfDepth+approach/2);
             var ax=(MathF.Abs(right.X)*2f+MathF.Abs(front.X)*approach)/2;var az=(MathF.Abs(right.Y)*2f+MathF.Abs(front.Y)*approach)/2;
             foreach(var other in items.Where(p=>p.zoneId=="storage"&&p.id!=cabinet.id))
             {
@@ -252,13 +273,43 @@ internal static class Stage3
                     return FailBool($"Storage approach to {cabinet.id} is blocked by {other.id}.");
             }
         }
-        Console.WriteLine($"storage PASS wall_aligned={cabinets.Length} accessible_fronts={cabinets.Length}");
+        Console.WriteLine($"storage PASS wall_aligned={cabinets.Length} accessible_fronts={cabinets.Length} crates={cabinets.Count(c=>c.assetId!="storeroom_cabinet")}");
         return true;
     }
     private static (float x,float z) Extents(Place p)
     {
-        var (w,d)=p.assetId switch {"dining_table"=>(3f,3f),"dining_chair"=>(.75f,.797f),"bar_section_a" or "bar_section_b" or "kitchen_counter"=>(2f,2.0419f),"customer_stool"=>(.75f,.75f),"kitchen_stove"=>(2f,2.288f),"kitchen_fridge"=>(2f,2.24f),"lounge_sofa"=>(3f,1.6f),"lounge_coffee_table"=>(2f,2f),"storeroom_cabinet"=>(2f,1f),_=>throw new InvalidOperationException(p.assetId)};
-        var yaw=p.rotation[1];return ((MathF.Abs(MathF.Cos(yaw))*w+MathF.Abs(MathF.Sin(yaw))*d)/2,(MathF.Abs(MathF.Sin(yaw))*w+MathF.Abs(MathF.Cos(yaw))*d)/2);
+        return Extents(p.assetId,p.rotation[1]);
+    }
+    private static (float x,float z) Extents(string id,float yaw)
+    {
+        var (w,d)=id switch {"dining_table"=>(3f,3f),"dining_chair"=>(.75f,.797f),"bar_section_a" or "bar_section_b" or "kitchen_counter"=>(2f,2.0419f),"customer_stool"=>(.75f,.75f),"kitchen_stove"=>(2f,2.288f),"kitchen_fridge"=>(2f,2.24f),"lounge_sofa"=>(3f,1.6f),"lounge_coffee_table"=>(2f,2f),"storeroom_cabinet"=>(2f,1f),"storeroom_crate" or "storeroom_crate_potatoes"=>(2f,2f),_=>throw new InvalidOperationException(id)};
+        return ((MathF.Abs(MathF.Cos(yaw))*w+MathF.Abs(MathF.Sin(yaw))*d)/2,(MathF.Abs(MathF.Sin(yaw))*w+MathF.Abs(MathF.Cos(yaw))*d)/2);
+    }
+    private static (float width,bool reachable) ValidateKitchenAccess(List<Place> placements,Rect room,float doorZ)
+    {
+        const float walkRadius=0.4f;
+        var kitchen=placements.Where(p=>p.zoneId=="kitchen").ToArray();
+        var bounds=kitchen.Select(p=>{var e=Extents(p);return (minX:p.translation[0]-e.x,maxX:p.translation[0]+e.x,minZ:p.translation[2]-e.z,maxZ:p.translation[2]+e.z);}).ToArray();
+        var wallX=room.originX-room.width/2;
+        var corridorWidth=bounds.Min(b=>b.minX)-wallX;
+        if(corridorWidth+0.001f<0.9f)return (corridorWidth,false);
+        var minX=wallX+walkRadius+0.05f;var maxX=room.originX+room.width/2-walkRadius-0.05f;
+        var minZ=room.originZ-room.depth/2+walkRadius+0.05f;var maxZ=room.originZ+room.depth/2-walkRadius-0.05f;
+        var nx=(int)MathF.Floor((maxX-minX)/Grid)+1;var nz=(int)MathF.Floor((maxZ-minZ)/Grid)+1;
+        var sx=(int)MathF.Round((wallX+0.45f-minX)/Grid);var sz=(int)MathF.Round((doorZ-minZ)/Grid);
+        var counter=kitchen.Single(p=>p.assetId=="kitchen_counter");
+        var tx=(int)MathF.Round((bounds.Max(b=>b.maxX)+0.45f-minX)/Grid);var tz=(int)MathF.Round((counter.translation[2]-minZ)/Grid);
+        bool Open(int x,int z)
+        {
+            if(x<0||z<0||x>=nx||z>=nz)return false;
+            var px=minX+x*Grid;var pz=minZ+z*Grid;
+            return bounds.All(b=>px<b.minX-walkRadius||px>b.maxX+walkRadius||pz<b.minZ-walkRadius||pz>b.maxZ+walkRadius);
+        }
+        var seen=new bool[nx,nz];var q=new Queue<(int x,int z)>();
+        if(!Open(sx,sz)||!Open(tx,tz))return (corridorWidth,false);
+        q.Enqueue((sx,sz));seen[sx,sz]=true;var dirs=new[]{(1,0),(-1,0),(0,1),(0,-1)};
+        while(q.Count>0){var (x,z)=q.Dequeue();if(x==tx&&z==tz){Console.WriteLine($"kitchen access PASS entry_corridor={corridorWidth:F3}m work_route=clear route=around_furniture_front");return (corridorWidth,true);}foreach(var (dx,dz) in dirs){var xx=x+dx;var zz=z+dz;if(xx>=0&&zz>=0&&xx<nx&&zz<nz&&!seen[xx,zz]&&Open(xx,zz)){seen[xx,zz]=true;q.Enqueue((xx,zz));}}}
+        return (corridorWidth,false);
     }
     private static bool FailBool(string message){Console.Error.WriteLine("STAGE3 FAIL: "+message);return false;}
     private static int Fail(string message){Console.Error.WriteLine("STAGE3 FAIL: "+message);return 2;}

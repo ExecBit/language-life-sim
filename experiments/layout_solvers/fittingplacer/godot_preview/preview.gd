@@ -216,6 +216,13 @@ func _select_stage3_view(view_name: String, layout: Dictionary) -> void:
 		_root_camera.position = Vector3(float(hall["originX"]) - 2.0, 6.0, float(hall["originZ"]) - float(hall["depth"]) / 2 - 2.0)
 		_root_camera.look_at(target, Vector3.UP)
 		return
+	if view_name == "hall_kitchen_doorway":
+		var wall_x := float(hall["originX"]) + float(hall["width"]) / 2
+		var door_z := float(layout["doors"][0]["centerZ"])
+		_root_camera.fov = 82
+		_root_camera.position = Vector3(wall_x - 2.0, 1.65, door_z)
+		_root_camera.look_at(Vector3(wall_x + 2.0, 1.2, door_z), Vector3.UP)
+		return
 	if view_name == "lounge":
 		var table: Dictionary = _placements_by_id.get("lounge_lounge_coffee_table_01", {})
 		var tp: Array = table.get("translation", [float(hall["originX"]), 0, 0])

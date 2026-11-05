@@ -6,6 +6,11 @@
   "totalDepth": 24.7,
   "roomHeight": 3,
   "doorWidth": 1.4,
+  "kitchenAccess": {
+    "entryCorridorWidth": 0.9000001,
+    "workAreaReachable": true,
+    "route": "around_furniture_front"
+  },
   "rooms": [
     {
       "id": "hall",
@@ -98,7 +103,7 @@
       "to": "kitchen",
       "width": 1.4,
       "axis": "x",
-      "centerZ": 0
+      "centerZ": 2.9
     },
     {
       "from": "kitchen",
@@ -451,7 +456,7 @@
       "assetId": "kitchen_counter",
       "assetPath": "res://assets/kitchencounter_straight_A.gltf",
       "translation": [
-        4.394,
+        5.044,
         0,
         -0.49399996
       ],
@@ -467,7 +472,7 @@
       "assetId": "kitchen_stove",
       "assetPath": "res://assets/stove_single.gltf",
       "translation": [
-        4.394,
+        5.044,
         0,
         -2.494
       ],
@@ -483,7 +488,7 @@
       "assetId": "kitchen_fridge",
       "assetPath": "res://assets/fridge_A.gltf",
       "translation": [
-        4.394,
+        5.044,
         0,
         1.506
       ],
@@ -542,14 +547,14 @@
       ]
     },
     {
-      "id": "storage_storeroom_cabinet_01",
+      "id": "storage_storeroom_crate_potatoes_01",
       "zoneId": "storage",
-      "assetId": "storeroom_cabinet",
-      "assetPath": "res://assets/cabinet_medium.gltf",
+      "assetId": "storeroom_crate_potatoes",
+      "assetPath": "res://assets/crate_potatoes.gltf",
       "translation": [
         16,
         0,
-        -2.3
+        -1.8
       ],
       "rotation": [
         0,
@@ -558,7 +563,7 @@
       ]
     },
     {
-      "id": "storage_storeroom_cabinet_02",
+      "id": "storage_storeroom_cabinet_01",
       "zoneId": "storage",
       "assetId": "storeroom_cabinet",
       "assetPath": "res://assets/cabinet_medium.gltf",
@@ -574,14 +579,14 @@
       ]
     },
     {
-      "id": "storage_storeroom_cabinet_03",
+      "id": "storage_storeroom_crate_01",
       "zoneId": "storage",
-      "assetId": "storeroom_cabinet",
-      "assetPath": "res://assets/cabinet_medium.gltf",
+      "assetId": "storeroom_crate",
+      "assetPath": "res://assets/crate.gltf",
       "translation": [
         16.8,
         0,
-        2.3
+        1.8
       ],
       "rotation": [
         0,
@@ -590,18 +595,18 @@
       ]
     },
     {
-      "id": "storage_storeroom_cabinet_04",
+      "id": "storage_storeroom_cabinet_02",
       "zoneId": "storage",
       "assetId": "storeroom_cabinet",
       "assetPath": "res://assets/cabinet_medium.gltf",
       "translation": [
-        17.5,
+        13.7,
         0,
-        -0.30000007
+        -2.3
       ],
       "rotation": [
         0,
-        -4.712389,
+        -3.1415927,
         0
       ]
     }

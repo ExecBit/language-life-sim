@@ -12,7 +12,10 @@ $previewAssets = Join-Path $project 'assets'
 foreach ($asset in @('couch.gltf','couch.bin','cabinet_medium.gltf','cabinet_medium.bin','table_medium.gltf','table_medium.bin','furniturebits_texture.png')) {
     Copy-Item -LiteralPath (Join-Path $sourceFurniture $asset) -Destination $previewAssets -Force
 }
-Copy-Item -LiteralPath (Join-Path $sourceFurniture 'LICENSE.txt') -Destination (Join-Path $previewAssets 'FURNITURE_LICENSE.txt') -Force
+$furnitureLicense = Join-Path $previewAssets 'FURNITURE_LICENSE.txt'
+Copy-Item -LiteralPath (Join-Path $sourceFurniture 'LICENSE.txt') -Destination $furnitureLicense -Force
+$licenseLines = [IO.File]::ReadAllLines($furnitureLicense) | ForEach-Object { $_.TrimEnd() }
+[IO.File]::WriteAllText($furnitureLicense, (($licenseLines -join "`n").TrimEnd() + "`n"), [Text.UTF8Encoding]::new($false))
 $brief = Join-Path $project "stage3-$Variant-brief.json"
 $layout = Join-Path $project "stage3-$Variant-layout.json"
 $runner = Join-Path $root 'runner/Runner.csproj'
@@ -21,7 +24,7 @@ dotnet run --project $runner -- --stage3 $brief $layout $semantics
 if ($LASTEXITCODE -ne 0) { throw "Stage 3 FittingPlacer generation failed ($LASTEXITCODE)." }
 & $GodotExe --headless --path $project --import
 if ($LASTEXITCODE -ne 0) { throw "Godot import failed ($LASTEXITCODE)." }
-foreach ($view in @('top','hall_overview','hall_dining','hall_bar','lounge','kitchen_storeroom_doorway','storeroom')) {
+foreach ($view in @('top','hall_overview','hall_dining','hall_bar','hall_kitchen_doorway','lounge','kitchen_storeroom_doorway','storeroom')) {
     $capture = Join-Path $project "screenshots/stage3-$Variant-$view.png"
     & $GodotExe --path $project res://preview.tscn -- '--stage3' "--view=$view" "--layout=stage3-$Variant-layout.json" "--capture=$capture"
     if ($LASTEXITCODE -ne 0) { throw "Godot $view capture failed ($LASTEXITCODE)." }
