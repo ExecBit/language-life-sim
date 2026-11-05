@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_itjkx"]
+albedo_color = Color(0.52, 0.54, 0.5, 1)
+roughness = 0.9
+
+[sub_resource type="PrismMesh" id="PrismMesh_qcwas"]
+material = SubResource("StandardMaterial3D_itjkx")
+left_to_right = 0.0
+size = Vector3(4, 1.5, 4)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_fi8h3"]
+points = PackedVector3Array(-2, -0.75, -2, -2, 0.75, -2, 2, -0.75, -2, -2, -0.75, 2, -2, 0.75, 2, 2, -0.75, 2)
+
+[node name="Ramp4" type="StaticBody3D" unique_id=683024449]
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=984592384]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("PrismMesh_qcwas")
+
+[node name="Shape" type="CollisionShape3D" parent="." unique_id=925760402]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("ConvexPolygonShape3D_fi8h3")

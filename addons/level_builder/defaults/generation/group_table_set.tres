@@ -1,0 +1,12 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/activity_group.gd" id="1_xws4y"]
+
+[resource]
+script = ExtResource("1_xws4y")
+group_id = "table_set"
+display_name = "Table and stools"
+lead_tag = "table"
+required_tags = PackedStringArray()
+optional_tags = PackedStringArray("stool", "stool")
+radius = 3

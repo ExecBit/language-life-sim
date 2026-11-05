@@ -1,0 +1,18 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/style_palette.gd" id="1_xgmbl"]
+
+[resource]
+script = ExtResource("1_xgmbl")
+palette_id = "neglected"
+display_name = "Neglected"
+wealth = 0.3
+cleanliness = 0.2
+occupancy = 0.3
+damage = 0.2
+age = 0.8
+prefer_style_tags = PackedStringArray()
+exclude_style_tags = PackedStringArray()
+clutter_density = 1.8
+condition_tags = PackedStringArray("debris", "stain")
+condition_density = 2.2

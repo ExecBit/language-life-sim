@@ -1,0 +1,257 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://addons/level_builder/greybox/floor_4x4.tscn" id="1_mh8bn"]
+[ext_resource type="PackedScene" path="res://addons/level_builder/greybox/wall_4x2.tscn" id="2_27pik"]
+[ext_resource type="PackedScene" path="res://addons/level_builder/greybox/platform_2x2.tscn" id="3_t3equ"]
+[ext_resource type="PackedScene" path="res://addons/level_builder/greybox/crate_1.tscn" id="4_bxcfn"]
+[ext_resource type="Script" path="res://addons/level_builder/runtime/test_player.gd" id="5_45ytx"]
+
+[sub_resource type="Environment" id="Environment_ig5cq"]
+background_mode = 1
+background_color = Color(0.05, 0.05, 0.06, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.55, 0.53, 0.5, 1)
+ambient_light_energy = 0.6
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mg5j8"]
+albedo_color = Color(0.42, 0.44, 0.42, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_o7cqx"]
+material = SubResource("StandardMaterial3D_mg5j8")
+size = Vector2(60, 60)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6f54e"]
+size = Vector3(60, 1, 60)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pe5cm"]
+radius = 0.35
+height = 1.7
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6q5eo"]
+radius = 0.35
+height = 1.7
+
+[node name="LBG01StockBedroom" type="Node3D" unique_id=1124284143]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1783453380]
+environment = SubResource("Environment_ig5cq")
+
+[node name="Geometry" type="Node3D" parent="." unique_id=1238578687]
+
+[node name="Ground" type="StaticBody3D" parent="Geometry" unique_id=977134353]
+collision_mask = 0
+
+[node name="GroundMesh" type="MeshInstance3D" parent="Geometry/Ground" unique_id=927877103]
+mesh = SubResource("PlaneMesh_o7cqx")
+
+[node name="GroundShape" type="CollisionShape3D" parent="Geometry/Ground" unique_id=921491679]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_6f54e")
+
+[node name="Generated" type="Node3D" parent="Geometry" unique_id=1270020297]
+metadata/lb_gen_seed = 4242
+metadata/lb_gen_scope = 0
+metadata/lb_kit = "greybox"
+metadata/lb_palette = "pristine"
+
+[node name="Room_0" type="Node3D" parent="Geometry/Generated" unique_id=138953989]
+metadata/lb_unit_id = "Room_0"
+metadata/lb_unit_kind = "room"
+metadata/lb_unit_layer = "room"
+metadata/lb_unit_type = "bedroom"
+metadata/lb_rect = Rect2i(0, 0, 4, 3)
+metadata/lb_base_y = 0.0
+metadata/lb_walls = true
+metadata/lb_seed = 1395246601
+
+[node name="Floor_0_0" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=1555342217 instance=ExtResource("1_mh8bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+collision_mask = 0
+
+[node name="Wall_0_0_W" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=1046879603 instance=ExtResource("2_27pik")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.2, 2)
+collision_mask = 0
+
+[node name="Wall_0_0_N" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=1177503290 instance=ExtResource("2_27pik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.2, 0)
+collision_mask = 0
+
+[node name="Floor_1_0" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=800206781 instance=ExtResource("1_mh8bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 2)
+collision_mask = 0
+
+[node name="Wall_1_0_N" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=1913529525 instance=ExtResource("2_27pik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 0)
+collision_mask = 0
+
+[node name="Floor_2_0" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=929297229 instance=ExtResource("1_mh8bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 2)
+collision_mask = 0
+
+[node name="Floor_3_0" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=828664177 instance=ExtResource("1_mh8bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 2)
+collision_mask = 0
+
+[node name="Wall_3_0_E" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=657424196 instance=ExtResource("2_27pik")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 16, 0.2, 2)
+collision_mask = 0
+
+[node name="Wall_3_0_N" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=1590173075 instance=ExtResource("2_27pik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0.2, 0)
+collision_mask = 0
+
+[node name="Floor_0_1" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=1454275177 instance=ExtResource("1_mh8bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6)
+collision_mask = 0
+
+[node name="Wall_0_1_W" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=324957322 instance=ExtResource("2_27pik")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.2, 6)
+collision_mask = 0
+
+[node name="Floor_1_1" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=2009812356 instance=ExtResource("1_mh8bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 6)
+collision_mask = 0
+
+[node name="Floor_2_1" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=304646963 instance=ExtResource("1_mh8bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 6)
+collision_mask = 0
+
+[node name="Floor_3_1" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=1017977178 instance=ExtResource("1_mh8bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 6)
+collision_mask = 0
+
+[node name="Wall_3_1_E" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=2089713157 instance=ExtResource("2_27pik")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 16, 0.2, 6)
+collision_mask = 0
+
+[node name="Floor_0_2" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=13938826 instance=ExtResource("1_mh8bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 10)
+collision_mask = 0
+
+[node name="Wall_0_2_W" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=1593075031 instance=ExtResource("2_27pik")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.2, 10)
+collision_mask = 0
+
+[node name="Wall_0_2_S" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=1007135050 instance=ExtResource("2_27pik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.2, 12)
+collision_mask = 0
+
+[node name="Floor_1_2" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=221585731 instance=ExtResource("1_mh8bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 10)
+collision_mask = 0
+
+[node name="Wall_1_2_S" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=253426377 instance=ExtResource("2_27pik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 12)
+collision_mask = 0
+
+[node name="Floor_2_2" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=570085148 instance=ExtResource("1_mh8bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 10)
+collision_mask = 0
+
+[node name="Wall_2_2_S" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=400362670 instance=ExtResource("2_27pik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.2, 12)
+collision_mask = 0
+
+[node name="Floor_3_2" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=1723732562 instance=ExtResource("1_mh8bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 10)
+collision_mask = 0
+
+[node name="Wall_3_2_E" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=1155666075 instance=ExtResource("2_27pik")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 16, 0.2, 10)
+collision_mask = 0
+
+[node name="Wall_3_2_S" type="StaticBody3D" parent="Geometry/Generated/Room_0" unique_id=830897085 instance=ExtResource("2_27pik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0.2, 12)
+collision_mask = 0
+
+[node name="Entry" type="Node3D" parent="Geometry/Generated" unique_id=1089499300]
+metadata/lb_unit_id = "Entry"
+metadata/lb_unit_kind = "corridor"
+metadata/lb_unit_layer = "room"
+metadata/lb_unit_type = ""
+metadata/lb_rect = Rect2i(2, -1, 1, 1)
+metadata/lb_base_y = 0.0
+metadata/lb_walls = false
+metadata/lb_seed = 1130690130
+
+[node name="Floor_2_-1" type="StaticBody3D" parent="Geometry/Generated/Entry" unique_id=1660824714 instance=ExtResource("1_mh8bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -2)
+collision_mask = 0
+
+[node name="Props" type="Node3D" parent="." unique_id=425076012]
+
+[node name="Generated" type="Node3D" parent="Props" unique_id=47418015]
+
+[node name="Room_0" type="Node3D" parent="Props/Generated" unique_id=1633068782]
+metadata/lb_unit_id = "Room_0"
+
+[node name="Anchor_bed" type="StaticBody3D" parent="Props/Generated/Room_0" unique_id=1304597828 instance=ExtResource("3_t3equ")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 11, 0.2, 11)
+collision_mask = 0
+metadata/lb_prop_tag = "bed"
+
+[node name="Anchor_0_storage" type="StaticBody3D" parent="Props/Generated/Room_0" unique_id=1216009928 instance=ExtResource("4_bxcfn")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 12.5, 0.2, 10.5)
+collision_mask = 0
+metadata/lb_prop_tag = "storage"
+
+[node name="Anchor_1_clutter" type="StaticBody3D" parent="Props/Generated/Room_0" unique_id=1319566787 instance=ExtResource("4_bxcfn")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 9.5, 0.2, 9.5)
+collision_mask = 0
+metadata/lb_prop_tag = "clutter"
+
+[node name="Gameplay" type="Node3D" parent="." unique_id=1928244871]
+
+[node name="PlayerSpawn" type="Marker3D" parent="Gameplay" unique_id=874403469]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 1.2, -1.5)
+
+[node name="Generated" type="Node3D" parent="Gameplay" unique_id=1450391218]
+
+[node name="Room_0" type="Node3D" parent="Gameplay/Generated" unique_id=2059103700]
+metadata/lb_unit_id = "Room_0"
+
+[node name="Objective" type="Marker3D" parent="Gameplay/Generated/Room_0" unique_id=444728754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 6)
+metadata/lb_role = "objective"
+
+[node name="Lighting" type="Node3D" parent="." unique_id=410726206]
+
+[node name="Sun" type="DirectionalLight3D" parent="Lighting" unique_id=1166808780]
+transform = Transform3D(0.9396926, 0.29619813, -0.17101005, 0, 0.49999997, 0.86602545, 0.34202012, -0.8137977, 0.46984628, 0, 0, 0)
+light_color = Color(1, 0.95, 0.85, 1)
+light_energy = 0.4
+shadow_enabled = true
+
+[node name="FX" type="Node3D" parent="." unique_id=1284581627]
+
+[node name="TestPlayer" type="CharacterBody3D" parent="." unique_id=1750017207]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.5, 0.7, -1.5)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("5_45ytx")
+
+[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="TestPlayer" unique_id=925692258]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("CapsuleShape3D_pe5cm")
+
+[node name="@MeshInstance3D@3" type="MeshInstance3D" parent="TestPlayer" unique_id=293941426]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+mesh = SubResource("CapsuleMesh_6q5eo")
+
+[node name="@Camera3D@4" type="Camera3D" parent="TestPlayer" unique_id=971410411]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
+current = true
+
+[node name="@CanvasLayer@6" type="CanvasLayer" parent="TestPlayer" unique_id=1112375435]
+
+[node name="@Label@5" type="Label" parent="TestPlayer/@CanvasLayer@6" unique_id=1749683777]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 12.0
+offset_bottom = 8.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.8)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_constants/outline_size = 4
+text = "TEST WALK   WASD move · Space jump · Shift run · F fly · Esc mouse"

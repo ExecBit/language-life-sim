@@ -1,0 +1,18 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/style_palette.gd" id="1_fu6q5"]
+
+[resource]
+script = ExtResource("1_fu6q5")
+palette_id = "ruined"
+display_name = "Ruined"
+wealth = 0.1
+cleanliness = 0.0
+occupancy = 0.0
+damage = 1.0
+age = 1.0
+prefer_style_tags = PackedStringArray("broken")
+exclude_style_tags = PackedStringArray()
+clutter_density = 1.4
+condition_tags = PackedStringArray("rubble", "debris", "stain")
+condition_density = 5.0

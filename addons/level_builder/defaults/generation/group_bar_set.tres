@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/activity_group.gd" id="1_dww10"]
+
+[resource]
+script = ExtResource("1_dww10")
+group_id = "bar_set"
+display_name = "Bar"
+lead_tag = "counter"
+required_tags = PackedStringArray("keg")
+optional_tags = PackedStringArray("stool")
