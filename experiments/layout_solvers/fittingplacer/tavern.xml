@@ -38,6 +38,15 @@
       <relations><relation><support_face_type_id>wall</support_face_type_id><distance>0</distance></relation></relations>
     </face_type>
     <face_type><face_type_id>neutral_side</face_type_id></face_type>
+    <face_type>
+      <face_type_id>sofa_front</face_type_id>
+      <relations><relation><support_face_type_id>coffee_table_edge</support_face_type_id><distance>0.9</distance></relation></relations>
+    </face_type>
+    <face_type><face_type_id>coffee_table_edge</face_type_id></face_type>
+    <face_type>
+      <face_type_id>storage_back</face_type_id>
+      <relations><relation><support_face_type_id>wall</support_face_type_id><distance>0</distance></relation></relations>
+    </face_type>
   </face_types>
 
   <fitting_types>
@@ -115,6 +124,33 @@
         <face><facing>front</facing><face_type_id>neutral_side</face_type_id></face>
       </faces>
     </fitting_type>
+    <fitting_type>
+      <fitting_type_id>lounge_sofa</fitting_type_id>
+      <faces>
+        <face><facing>right</facing><face_type_id>neutral_side</face_type_id></face>
+        <face><facing>back</facing><face_type_id>neutral_side</face_type_id></face>
+        <face><facing>left</facing><face_type_id>neutral_side</face_type_id></face>
+        <face><facing>front</facing><face_type_id>sofa_front</face_type_id></face>
+      </faces>
+    </fitting_type>
+    <fitting_type>
+      <fitting_type_id>lounge_coffee_table</fitting_type_id>
+      <faces>
+        <face><facing>right</facing><face_type_id>coffee_table_edge</face_type_id></face>
+        <face><facing>back</facing><face_type_id>coffee_table_edge</face_type_id></face>
+        <face><facing>left</facing><face_type_id>coffee_table_edge</face_type_id></face>
+        <face><facing>front</facing><face_type_id>coffee_table_edge</face_type_id></face>
+      </faces>
+    </fitting_type>
+    <fitting_type>
+      <fitting_type_id>storeroom_cabinet</fitting_type_id>
+      <faces>
+        <face><facing>right</facing><face_type_id>neutral_side</face_type_id></face>
+        <face><facing>back</facing><face_type_id>storage_back</face_type_id></face>
+        <face><facing>left</facing><face_type_id>neutral_side</face_type_id></face>
+        <face><facing>front</facing><face_type_id>neutral_side</face_type_id></face>
+      </faces>
+    </fitting_type>
   </fitting_types>
 
   <fitting_models>
@@ -157,6 +193,21 @@
       <fitting_type_id>kitchen_fridge</fitting_type_id><fitting_model_id>kitchen_fridge</fitting_model_id>
       <bounding_box><width>2</width><depth>2.24</depth><height>2.5</height></bounding_box>
       <clearance_areas><clearance_area><side>front</side><perpendicular_length>0.8</perpendicular_length></clearance_area><clearance_area><side>back</side><perpendicular_length>0</perpendicular_length></clearance_area></clearance_areas>
+    </fitting_model>
+    <fitting_model>
+      <fitting_type_id>lounge_sofa</fitting_type_id><fitting_model_id>lounge_sofa</fitting_model_id>
+      <bounding_box><width>3.0</width><depth>1.6</depth><height>1.224</height></bounding_box>
+      <clearance_areas><clearance_area><side>front</side><perpendicular_length>0.3</perpendicular_length></clearance_area><clearance_area><side>back</side><perpendicular_length>0.1</perpendicular_length></clearance_area><clearance_area><side>left</side><perpendicular_length>0.2</perpendicular_length></clearance_area><clearance_area><side>right</side><perpendicular_length>0.2</perpendicular_length></clearance_area></clearance_areas>
+    </fitting_model>
+    <fitting_model>
+      <fitting_type_id>lounge_coffee_table</fitting_type_id><fitting_model_id>lounge_coffee_table</fitting_model_id>
+      <bounding_box><width>2.0</width><depth>2.0</depth><height>1.0</height></bounding_box>
+      <clearance_areas><clearance_area><side>front</side><perpendicular_length>0</perpendicular_length></clearance_area><clearance_area><side>back</side><perpendicular_length>0</perpendicular_length></clearance_area><clearance_area><side>left</side><perpendicular_length>0</perpendicular_length></clearance_area><clearance_area><side>right</side><perpendicular_length>0</perpendicular_length></clearance_area></clearance_areas>
+    </fitting_model>
+    <fitting_model>
+      <fitting_type_id>storeroom_cabinet</fitting_type_id><fitting_model_id>storeroom_cabinet</fitting_model_id>
+      <bounding_box><width>2.0</width><depth>1.0</depth><height>2.0</height></bounding_box>
+      <clearance_areas><clearance_area><side>front</side><perpendicular_length>0.9</perpendicular_length></clearance_area><clearance_area><side>back</side><perpendicular_length>0</perpendicular_length></clearance_area></clearance_areas>
     </fitting_model>
   </fitting_models>
 </fitting_database>

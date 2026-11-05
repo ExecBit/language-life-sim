@@ -1,0 +1,16 @@
+{
+  "location": "tavern_lounge_storeroom_B",
+  "seed": 4242,
+  "physicalRooms": [
+    { "id": "hall", "type": "public_hall" },
+    { "id": "kitchen", "type": "kitchen" },
+    { "id": "storeroom", "type": "storeroom" }
+  ],
+  "logicalZones": [
+    { "id": "dining", "roomId": "hall", "type": "dining", "tables": 3, "chairsPerTable": 4 },
+    { "id": "bar", "roomId": "hall", "type": "bar", "sections": 2, "stools": 4 },
+    { "id": "lounge", "roomId": "hall", "type": "lounge", "sofas": 3, "coffeeTables": 1 },
+    { "id": "storage", "roomId": "storeroom", "type": "storage", "storageObjects": 6 }
+  ],
+  "adjacency": [["hall", "kitchen"], ["kitchen", "storeroom"]]
+}
