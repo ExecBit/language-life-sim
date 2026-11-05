@@ -1,0 +1,3 @@
+Level Builder Lite — Room scope.
+The dock reads this file to know which edition it is. Deleting it does not unlock anything;
+the building and region presets simply aren't in this package.

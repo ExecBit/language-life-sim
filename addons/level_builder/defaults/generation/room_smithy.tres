@@ -1,0 +1,44 @@
+[gd_resource type="Resource" format=3 uid="uid://cxo40qk0q6ser"]
+
+[ext_resource type="Script" uid="uid://bur5uudbaaksw" path="res://addons/level_builder/resources/room_archetype.gd" id="1_r7x1a"]
+[ext_resource type="Script" uid="uid://cq5su53h250xi" path="res://addons/level_builder/resources/zone_rule.gd" id="2_jyqfb"]
+
+[sub_resource type="Resource" id="Resource_ne24k"]
+script = ExtResource("2_jyqfb")
+radius = 5
+reach = 0.0
+over = PackedStringArray("wall", "corner", "center")
+
+[sub_resource type="Resource" id="Resource_0h0t7"]
+script = ExtResource("2_jyqfb")
+zone = "presentation"
+rule = "between_entrance_and_anchor"
+radius = 0
+reach = 0.0
+over = PackedStringArray("center")
+
+[sub_resource type="Resource" id="Resource_m7odq"]
+script = ExtResource("2_jyqfb")
+zone = "storage"
+rule = "far_from_entrances"
+radius = 0
+over = PackedStringArray("wall", "corner")
+
+[sub_resource type="Resource" id="Resource_fqymf"]
+script = ExtResource("2_jyqfb")
+zone = "clutter"
+rule = "remaining"
+radius = 0
+reach = 0.0
+over = PackedStringArray("wall", "corner")
+
+[resource]
+script = ExtResource("1_r7x1a")
+archetype_id = "smithy"
+display_name = "Smithy"
+max_modules = Vector2i(4, 4)
+anchor_tag = "forge"
+groups = PackedStringArray("forge_set", "storage_nook")
+group_counts = PackedInt32Array(1, 1)
+zone_rules = Array[Resource]([SubResource("Resource_ne24k"), SubResource("Resource_0h0t7"), SubResource("Resource_m7odq"), SubResource("Resource_fqymf")])
+clutter_tags = PackedStringArray("clutter", "clutter")

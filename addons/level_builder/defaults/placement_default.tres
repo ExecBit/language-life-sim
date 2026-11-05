@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/placement_profile.gd" id="1"]
+[ext_resource type="Resource" path="res://addons/level_builder/defaults/layer_world.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+category = ""
+container_name = "Props"
+collider_policy = 1
+layer_profile = ExtResource("2")
+snap_step = 0.0
+align_to_surface = false
+random_y_rotation = true
+scale_jitter_min = 0.95
+scale_jitter_max = 1.05

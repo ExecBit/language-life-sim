@@ -1,0 +1,16 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/style_palette.gd" id="1_teyuo"]
+
+[resource]
+script = ExtResource("1_teyuo")
+palette_id = "pristine"
+display_name = "Pristine"
+wealth = 0.8
+cleanliness = 1.0
+occupancy = 0.4
+age = 0.1
+prefer_style_tags = PackedStringArray("intact")
+exclude_style_tags = PackedStringArray()
+clutter_density = 0.25
+condition_tags = PackedStringArray()

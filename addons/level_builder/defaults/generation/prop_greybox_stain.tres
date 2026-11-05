@@ -1,0 +1,14 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/prop_semantics.gd" id="1_4p45p"]
+
+[resource]
+script = ExtResource("1_4p45p")
+display_name = "Stain"
+scene_path = "res://addons/level_builder/greybox/stain_1.tscn"
+tags = PackedStringArray("stain")
+prefer_zones = PackedStringArray("center", "work", "clutter", "wall")
+avoid_zones = PackedStringArray("travel", "entrance")
+needs_nearby = PackedStringArray()
+avoids = PackedStringArray()
+style_tags = PackedStringArray("greybox", "broken")

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/prop_semantics.gd" id="1_bt2vc"]
+
+[resource]
+script = ExtResource("1_bt2vc")
+display_name = "Broken crate"
+scene_path = "res://addons/level_builder/greybox/crate_broken.tscn"
+tags = PackedStringArray("storage", "chest", "clutter", "keg")
+prefer_zones = PackedStringArray("storage", "wall", "corner", "clutter")
+avoid_zones = PackedStringArray("travel", "entrance", "presentation")
+needs_nearby = PackedStringArray()
+avoids = PackedStringArray()
+style_tags = PackedStringArray("greybox", "broken")

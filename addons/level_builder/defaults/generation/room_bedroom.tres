@@ -1,0 +1,40 @@
+[gd_resource type="Resource" format=3 uid="uid://bm2wphqy4fp0y"]
+
+[ext_resource type="Script" uid="uid://bur5uudbaaksw" path="res://addons/level_builder/resources/room_archetype.gd" id="1_y6n7r"]
+[ext_resource type="Script" uid="uid://cq5su53h250xi" path="res://addons/level_builder/resources/zone_rule.gd" id="2_jmi1e"]
+
+[sub_resource type="Resource" id="Resource_3slip"]
+script = ExtResource("2_jmi1e")
+reach = 0.0
+over = PackedStringArray("wall", "corner", "center")
+
+[sub_resource type="Resource" id="Resource_qhik5"]
+script = ExtResource("2_jmi1e")
+zone = "presentation"
+rule = "between_entrance_and_anchor"
+radius = 0
+reach = 0.0
+over = PackedStringArray("center")
+
+[sub_resource type="Resource" id="Resource_nb5de"]
+script = ExtResource("2_jmi1e")
+zone = "storage"
+rule = "far_from_entrances"
+radius = 0
+over = PackedStringArray("wall", "corner")
+
+[sub_resource type="Resource" id="Resource_bacqx"]
+script = ExtResource("2_jmi1e")
+zone = "clutter"
+rule = "remaining"
+radius = 0
+reach = 0.0
+over = PackedStringArray("wall", "corner")
+
+[resource]
+script = ExtResource("1_y6n7r")
+max_modules = Vector2i(4, 4)
+groups = PackedStringArray("bed_set")
+group_counts = PackedInt32Array(1)
+zone_rules = Array[Resource]([SubResource("Resource_3slip"), SubResource("Resource_qhik5"), SubResource("Resource_nb5de"), SubResource("Resource_bacqx")])
+clutter_tags = PackedStringArray("clutter")

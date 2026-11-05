@@ -1,0 +1,44 @@
+[gd_resource type="Resource" format=3 uid="uid://cmi04lxuvp1ja"]
+
+[ext_resource type="Script" uid="uid://bur5uudbaaksw" path="res://addons/level_builder/resources/room_archetype.gd" id="1_27mex"]
+[ext_resource type="Script" uid="uid://cq5su53h250xi" path="res://addons/level_builder/resources/zone_rule.gd" id="2_o8xum"]
+
+[sub_resource type="Resource" id="Resource_t4olf"]
+script = ExtResource("2_o8xum")
+reach = 0.0
+over = PackedStringArray("wall", "corner", "center")
+
+[sub_resource type="Resource" id="Resource_k1wtg"]
+script = ExtResource("2_o8xum")
+zone = "presentation"
+rule = "between_entrance_and_anchor"
+radius = 0
+reach = 0.0
+over = PackedStringArray("center")
+
+[sub_resource type="Resource" id="Resource_oaa0y"]
+script = ExtResource("2_o8xum")
+zone = "storage"
+rule = "far_from_entrances"
+radius = 0
+over = PackedStringArray("wall", "corner")
+
+[sub_resource type="Resource" id="Resource_t2213"]
+script = ExtResource("2_o8xum")
+zone = "clutter"
+rule = "remaining"
+radius = 0
+reach = 0.0
+over = PackedStringArray("wall", "corner")
+
+[resource]
+script = ExtResource("1_27mex")
+archetype_id = "tavern"
+display_name = "Tavern"
+min_modules = Vector2i(3, 3)
+max_modules = Vector2i(5, 5)
+anchor_tag = "counter"
+groups = PackedStringArray("bar_set", "table_set")
+group_counts = PackedInt32Array(1, 3)
+zone_rules = Array[Resource]([SubResource("Resource_t4olf"), SubResource("Resource_k1wtg"), SubResource("Resource_oaa0y"), SubResource("Resource_t2213")])
+clutter_tags = PackedStringArray("clutter")

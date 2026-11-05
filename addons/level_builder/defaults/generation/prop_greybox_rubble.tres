@@ -1,0 +1,14 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/prop_semantics.gd" id="1_u8sin"]
+
+[resource]
+script = ExtResource("1_u8sin")
+display_name = "Rubble"
+scene_path = "res://addons/level_builder/greybox/rubble_1.tscn"
+tags = PackedStringArray("rubble", "clutter")
+prefer_zones = PackedStringArray("wall", "corner", "clutter")
+avoid_zones = PackedStringArray("travel", "entrance")
+needs_nearby = PackedStringArray()
+avoids = PackedStringArray()
+style_tags = PackedStringArray("greybox", "broken")

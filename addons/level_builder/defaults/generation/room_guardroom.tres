@@ -1,0 +1,43 @@
+[gd_resource type="Resource" format=3 uid="uid://51x5cbeatbgu"]
+
+[ext_resource type="Script" uid="uid://bur5uudbaaksw" path="res://addons/level_builder/resources/room_archetype.gd" id="1_8pbj0"]
+[ext_resource type="Script" uid="uid://cq5su53h250xi" path="res://addons/level_builder/resources/zone_rule.gd" id="2_utfla"]
+
+[sub_resource type="Resource" id="Resource_phrau"]
+script = ExtResource("2_utfla")
+reach = 0.0
+over = PackedStringArray("wall", "corner", "center")
+
+[sub_resource type="Resource" id="Resource_w1yom"]
+script = ExtResource("2_utfla")
+zone = "presentation"
+rule = "between_entrance_and_anchor"
+radius = 0
+reach = 0.0
+over = PackedStringArray("center")
+
+[sub_resource type="Resource" id="Resource_ce72b"]
+script = ExtResource("2_utfla")
+zone = "storage"
+rule = "far_from_entrances"
+radius = 0
+over = PackedStringArray("wall", "corner")
+
+[sub_resource type="Resource" id="Resource_dgled"]
+script = ExtResource("2_utfla")
+zone = "clutter"
+rule = "remaining"
+radius = 0
+reach = 0.0
+over = PackedStringArray("wall", "corner")
+
+[resource]
+script = ExtResource("1_8pbj0")
+archetype_id = "guardroom"
+display_name = "Guardroom"
+max_modules = Vector2i(4, 3)
+anchor_tag = "table"
+groups = PackedStringArray("watch_set", "storage_nook")
+group_counts = PackedInt32Array(1, 1)
+zone_rules = Array[Resource]([SubResource("Resource_phrau"), SubResource("Resource_w1yom"), SubResource("Resource_ce72b"), SubResource("Resource_dgled")])
+clutter_tags = PackedStringArray("clutter")
