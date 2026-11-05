@@ -1,0 +1,351 @@
+{
+  "solver": "FittingPlacer",
+  "upstreamCommit": "1cdb703197b41d418e7ce686e74c7aad835ddb37",
+  "seed": 4242,
+  "doorWidth": 1.4,
+  "totalWidth": 28.1419,
+  "totalDepth": 15.2,
+  "roomHeight": 3,
+  "zones": [
+    {
+      "id": "hall",
+      "type": "public_hall",
+      "width": 20.1419,
+      "depth": 15.2,
+      "originX": -4,
+      "originZ": 0
+    },
+    {
+      "id": "kitchen",
+      "type": "kitchen",
+      "width": 8,
+      "depth": 6.988,
+      "originX": 10.07095,
+      "originZ": 0
+    }
+  ],
+  "logicalZones": [
+    {
+      "id": "dining",
+      "type": "dining",
+      "width": 15,
+      "depth": 8,
+      "originX": -6.5709496,
+      "originZ": -3.6
+    },
+    {
+      "id": "bar",
+      "type": "bar",
+      "width": 5.1419,
+      "depth": 6,
+      "originX": 3.4999995,
+      "originZ": 4.6
+    }
+  ],
+  "placements": [
+    {
+      "id": "dining_dining_table_01",
+      "zoneId": "dining",
+      "assetId": "dining_table",
+      "assetPath": "res://assets/table_round_A.gltf",
+      "translation": [
+        -8.0720215,
+        0,
+        -3.7004285
+      ],
+      "rotation": [
+        0,
+        -4.712389,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_01",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -8.0720215,
+        0,
+        -5.8489285
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_02",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -5.923521,
+        0,
+        -3.7004285
+      ],
+      "rotation": [
+        0,
+        -4.712389,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_03",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -4.816664,
+        0,
+        -2.8969998
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_04",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -2.6681643,
+        0,
+        -5.0455
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_table_02",
+      "zoneId": "dining",
+      "assetId": "dining_table",
+      "assetPath": "res://assets/table_round_A.gltf",
+      "translation": [
+        -2.6681643,
+        0,
+        -2.8969998
+      ],
+      "rotation": [
+        0,
+        -0,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_05",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -8.0720215,
+        0,
+        -1.5519285
+      ],
+      "rotation": [
+        0,
+        -0,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_06",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -0.5196643,
+        0,
+        -2.8969998
+      ],
+      "rotation": [
+        0,
+        -4.712389,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_07",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -10.220521,
+        0,
+        -3.7004285
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_08",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -2.6681643,
+        0,
+        -0.7484999
+      ],
+      "rotation": [
+        0,
+        -0,
+        0
+      ]
+    },
+    {
+      "id": "bar_bar_section_a_01",
+      "zoneId": "bar",
+      "assetId": "bar_section_a",
+      "assetPath": "res://assets/kitchencounter_straight_A.gltf",
+      "translation": [
+        2.068347,
+        0,
+        5.67905
+      ],
+      "rotation": [
+        0,
+        -0,
+        0
+      ]
+    },
+    {
+      "id": "bar_bar_section_b_01",
+      "zoneId": "bar",
+      "assetId": "bar_section_b",
+      "assetPath": "res://assets/kitchencounter_straight_A.gltf",
+      "translation": [
+        4.068347,
+        0,
+        5.67905
+      ],
+      "rotation": [
+        0,
+        -0,
+        0
+      ]
+    },
+    {
+      "id": "bar_customer_stool_01",
+      "zoneId": "bar",
+      "assetId": "customer_stool",
+      "assetPath": "res://assets/chair_stool.gltf",
+      "translation": [
+        1.5766807,
+        0,
+        4.0831
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "bar_customer_stool_02",
+      "zoneId": "bar",
+      "assetId": "customer_stool",
+      "assetPath": "res://assets/chair_stool.gltf",
+      "translation": [
+        3.5766802,
+        0,
+        4.0831
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "bar_customer_stool_03",
+      "zoneId": "bar",
+      "assetId": "customer_stool",
+      "assetPath": "res://assets/chair_stool.gltf",
+      "translation": [
+        2.5600138,
+        0,
+        4.0831
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "bar_customer_stool_04",
+      "zoneId": "bar",
+      "assetId": "customer_stool",
+      "assetPath": "res://assets/chair_stool.gltf",
+      "translation": [
+        4.560014,
+        0,
+        4.0831
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "kitchen_kitchen_counter_01",
+      "zoneId": "kitchen",
+      "assetId": "kitchen_counter",
+      "assetPath": "res://assets/kitchencounter_straight_A.gltf",
+      "translation": [
+        9.67095,
+        0,
+        -2.47305
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "kitchen_kitchen_stove_01",
+      "zoneId": "kitchen",
+      "assetId": "kitchen_stove",
+      "assetPath": "res://assets/stove_single.gltf",
+      "translation": [
+        11.67095,
+        0,
+        -2.47305
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "kitchen_kitchen_fridge_01",
+      "zoneId": "kitchen",
+      "assetId": "kitchen_fridge",
+      "assetPath": "res://assets/fridge_A.gltf",
+      "translation": [
+        7.6709495,
+        0,
+        -2.47305
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    }
+  ]
+}
