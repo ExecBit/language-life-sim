@@ -147,7 +147,7 @@ internal static class Stage4
             }
             foreach(var target in targets)
             {
-                var pos=(Cell(target.X),Cell(target.Z));var ok=ReachableNear(target.X,target.Z);all &= ok;
+                var ok=ReachableNear(target.X,target.Z);all &= ok;
                 reports.Add(new {target=target.Id,reason=target.Reason,reachable=ok,standingPosition=new[]{target.X,target.Z},walkingRadius=Radius});
                 if(!ok)Console.Error.WriteLine($"STAGE4 FAIL target={target.Id}: {target.Reason} has no reachable standing position with {Radius:F1} m clearance (requested {target.X:F2},{target.Z:F2}).");
             }
