@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://experiments/level_builder_lite/assets/kaykit/items/table_round_A.gltf" id="1"]
+
+[node name="KayKitRoundTable" type="Node3D"]
+[node name="Model" parent="." instance=ExtResource("1")]

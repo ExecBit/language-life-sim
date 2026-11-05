@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/kaykit/furniture/couch.gltf" id="1_asset"]
+
+[node name="KayKitCouch" type="Node3D"]
+
+[node name="Model" parent="." instance=ExtResource("1_asset")]
+position = Vector3(0, 0, -0.05)

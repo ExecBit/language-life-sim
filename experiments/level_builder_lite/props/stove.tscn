@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://experiments/level_builder_lite/assets/kaykit/items/stove_single.gltf" id="1"]
+
+[node name="KayKitStove" type="Node3D"]
+[node name="Model" parent="." instance=ExtResource("1")]
+position = Vector3(0, 0, -0.11393)

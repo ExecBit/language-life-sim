@@ -1,0 +1,15 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/generation_brief.gd" id="1_brief"]
+
+[resource]
+script = ExtResource("1_brief")
+brief_name = "KayKit tavern experiment"
+scope = 0
+archetype_id = "tavern"
+size_class = 1
+kit_id = "greybox"
+palette_id = "lived_in"
+density = 0.25
+openness = 0.5
+branching = 0.5

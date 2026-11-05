@@ -1,0 +1,12 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://addons/level_builder/resources/activity_group.gd" id="1_group"]
+
+[resource]
+script = ExtResource("1_group")
+group_id = "lbg02_kitchen_set"
+display_name = "Stove and kitchen prep"
+lead_tag = "lbg02_stove"
+required_tags = PackedStringArray("lbg02_kitchen_counter")
+optional_tags = PackedStringArray("lbg02_fridge")
+radius = 3

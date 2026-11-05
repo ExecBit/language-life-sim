@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://experiments/level_builder_lite/assets/kaykit/items/chair_stool.gltf" id="1"]
+
+[node name="KayKitStool" type="Node3D"]
+[node name="Model" parent="." instance=ExtResource("1")]
