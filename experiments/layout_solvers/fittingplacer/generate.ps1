@@ -1,3 +1,5 @@
+param([int]$Seed = 4242)
+
 $ErrorActionPreference = 'Stop'
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '../../..')).Path
 $upstream = Join-Path $repoRoot '.local/FittingPlacer'
@@ -18,5 +20,5 @@ if ($actualCommit -ne $expectedCommit) {
 $project = Join-Path $PSScriptRoot 'runner/Runner.csproj'
 $inputXml = Join-Path $PSScriptRoot 'tavern.xml'
 $outputJson = Join-Path $PSScriptRoot 'godot_preview/layout.json'
-dotnet run --project $project -- $inputXml $outputJson
+dotnet run --project $project -- $inputXml $outputJson $Seed
 if ($LASTEXITCODE -ne 0) { throw "FittingPlacer generation failed with exit code $LASTEXITCODE." }

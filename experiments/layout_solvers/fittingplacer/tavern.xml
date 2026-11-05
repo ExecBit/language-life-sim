@@ -14,7 +14,7 @@
     <face_type><face_type_id>bar_b_join</face_type_id></face_type>
     <face_type>
       <face_type_id>bar_wall</face_type_id>
-      <relations><relation><support_face_type_id>wall</support_face_type_id><distance>0</distance></relation></relations>
+      <relations><relation><support_face_type_id>wall</support_face_type_id><distance>0.9</distance></relation></relations>
     </face_type>
     <face_type><face_type_id>bar_customer_side</face_type_id></face_type>
     <face_type><face_type_id>bar_service_side</face_type_id></face_type>
@@ -23,15 +23,19 @@
       <relations><relation><support_face_type_id>bar_customer_side</support_face_type_id><distance>0.2</distance></relation></relations>
     </face_type>
 
-    <face_type><face_type_id>kitchen_counter_front</face_type_id></face_type>
-    <face_type><face_type_id>kitchen_counter_back</face_type_id></face_type>
+    <face_type><face_type_id>kitchen_counter_left</face_type_id></face_type>
+    <face_type><face_type_id>kitchen_counter_right</face_type_id></face_type>
     <face_type>
-      <face_type_id>stove_back</face_type_id>
-      <relations><relation><support_face_type_id>kitchen_counter_front</support_face_type_id><distance>0</distance></relation></relations>
+      <face_type_id>stove_right</face_type_id>
+      <relations><relation><support_face_type_id>kitchen_counter_left</support_face_type_id><distance>0</distance></relation></relations>
     </face_type>
     <face_type>
-      <face_type_id>fridge_front</face_type_id>
-      <relations><relation><support_face_type_id>kitchen_counter_back</support_face_type_id><distance>0</distance></relation></relations>
+      <face_type_id>fridge_left</face_type_id>
+      <relations><relation><support_face_type_id>kitchen_counter_right</support_face_type_id><distance>0</distance></relation></relations>
+    </face_type>
+    <face_type>
+      <face_type_id>kitchen_counter_wall</face_type_id>
+      <relations><relation><support_face_type_id>wall</support_face_type_id><distance>0</distance></relation></relations>
     </face_type>
     <face_type><face_type_id>neutral_side</face_type_id></face_type>
   </face_types>
@@ -70,7 +74,7 @@
       <faces>
         <face><facing>left</facing><face_type_id>bar_b_join</face_type_id></face>
         <face><facing>back</facing><face_type_id>bar_service_side</face_type_id></face>
-        <face><facing>left</facing><face_type_id>neutral_side</face_type_id></face>
+        <face><facing>right</facing><face_type_id>neutral_side</face_type_id></face>
         <face><facing>front</facing><face_type_id>bar_customer_side</face_type_id></face>
       </faces>
     </fitting_type>
@@ -87,17 +91,17 @@
     <fitting_type>
       <fitting_type_id>kitchen_counter</fitting_type_id>
       <faces>
-        <face><facing>right</facing><face_type_id>neutral_side</face_type_id></face>
-        <face><facing>back</facing><face_type_id>kitchen_counter_back</face_type_id></face>
-        <face><facing>left</facing><face_type_id>neutral_side</face_type_id></face>
-        <face><facing>front</facing><face_type_id>kitchen_counter_front</face_type_id></face>
+        <face><facing>right</facing><face_type_id>kitchen_counter_right</face_type_id></face>
+        <face><facing>back</facing><face_type_id>kitchen_counter_wall</face_type_id></face>
+        <face><facing>left</facing><face_type_id>kitchen_counter_left</face_type_id></face>
+        <face><facing>front</facing><face_type_id>neutral_side</face_type_id></face>
       </faces>
     </fitting_type>
     <fitting_type>
       <fitting_type_id>kitchen_stove</fitting_type_id>
       <faces>
-        <face><facing>right</facing><face_type_id>neutral_side</face_type_id></face>
-        <face><facing>back</facing><face_type_id>stove_back</face_type_id></face>
+        <face><facing>right</facing><face_type_id>stove_right</face_type_id></face>
+        <face><facing>back</facing><face_type_id>neutral_side</face_type_id></face>
         <face><facing>left</facing><face_type_id>neutral_side</face_type_id></face>
         <face><facing>front</facing><face_type_id>neutral_side</face_type_id></face>
       </faces>
@@ -107,8 +111,8 @@
       <faces>
         <face><facing>right</facing><face_type_id>neutral_side</face_type_id></face>
         <face><facing>back</facing><face_type_id>neutral_side</face_type_id></face>
-        <face><facing>left</facing><face_type_id>neutral_side</face_type_id></face>
-        <face><facing>front</facing><face_type_id>fridge_front</face_type_id></face>
+        <face><facing>left</facing><face_type_id>fridge_left</face_type_id></face>
+        <face><facing>front</facing><face_type_id>neutral_side</face_type_id></face>
       </faces>
     </fitting_type>
   </fitting_types>
@@ -127,12 +131,12 @@
     <fitting_model>
       <fitting_type_id>bar_a</fitting_type_id><fitting_model_id>bar_section_a</fitting_model_id>
       <bounding_box><width>2</width><depth>2.0419</depth><height>1</height></bounding_box>
-      <clearance_areas><clearance_area><side>front</side><perpendicular_length>0</perpendicular_length></clearance_area><clearance_area><side>back</side><perpendicular_length>0</perpendicular_length></clearance_area><clearance_area><side>left</side><perpendicular_length>0</perpendicular_length></clearance_area><clearance_area><side>right</side><perpendicular_length>0</perpendicular_length></clearance_area></clearance_areas>
+      <clearance_areas><clearance_area><side>front</side><perpendicular_length>0</perpendicular_length></clearance_area><clearance_area><side>back</side><perpendicular_length>0.9</perpendicular_length></clearance_area><clearance_area><side>left</side><perpendicular_length>0</perpendicular_length></clearance_area><clearance_area><side>right</side><perpendicular_length>0</perpendicular_length></clearance_area></clearance_areas>
     </fitting_model>
     <fitting_model>
       <fitting_type_id>bar_b</fitting_type_id><fitting_model_id>bar_section_b</fitting_model_id>
       <bounding_box><width>2</width><depth>2.0419</depth><height>1</height></bounding_box>
-      <clearance_areas><clearance_area><side>front</side><perpendicular_length>0</perpendicular_length></clearance_area><clearance_area><side>back</side><perpendicular_length>0</perpendicular_length></clearance_area><clearance_area><side>left</side><perpendicular_length>0</perpendicular_length></clearance_area><clearance_area><side>right</side><perpendicular_length>0</perpendicular_length></clearance_area></clearance_areas>
+      <clearance_areas><clearance_area><side>front</side><perpendicular_length>0</perpendicular_length></clearance_area><clearance_area><side>back</side><perpendicular_length>0.9</perpendicular_length></clearance_area><clearance_area><side>left</side><perpendicular_length>0</perpendicular_length></clearance_area><clearance_area><side>right</side><perpendicular_length>0</perpendicular_length></clearance_area></clearance_areas>
     </fitting_model>
     <fitting_model>
       <fitting_type_id>bar_stool</fitting_type_id><fitting_model_id>customer_stool</fitting_model_id>
