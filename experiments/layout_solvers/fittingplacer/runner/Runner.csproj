@@ -8,5 +8,6 @@
   <ItemGroup>
     <Compile Include="$(FittingPlacerRoot)\Main\*.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Stage3.cs" />
   </ItemGroup>
 </Project>
