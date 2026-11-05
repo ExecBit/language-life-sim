@@ -208,6 +208,16 @@ func _select_stage2_view(view_name: String, layout: Dictionary) -> void:
 	var targets := _zone_asset_centers(layout["placements"])
 	var target: Vector3
 	var eye: Vector3
+	if view_name == "hall_doorway":
+		var kitchen: Dictionary = layout["zones"][1]
+		var hall_edge_x := float(hall["originX"]) + float(hall["width"]) / 2.0
+		var kitchen_edge_x := float(kitchen["originX"]) - float(kitchen["width"]) / 2.0
+		var partition_x := (hall_edge_x + kitchen_edge_x) / 2.0
+		var eye_x := hall_edge_x - 3.0
+		_root_camera.fov = 84.0
+		_root_camera.position = Vector3(eye_x, 1.65, 0.0)
+		_root_camera.look_at(Vector3(partition_x + minf(2.5, float(kitchen["width"]) / 2.0), 1.2, 0.0), Vector3.UP)
+		return
 	if view_name == "hall_bar":
 		target = targets.get("bar", Vector3(float(bar["originX"]), 1.0, float(bar["originZ"])))
 		var bar_rotated := false

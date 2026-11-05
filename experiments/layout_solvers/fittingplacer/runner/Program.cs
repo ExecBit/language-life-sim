@@ -190,8 +190,8 @@ internal static class Program
         var barSections = placements.Where(p => p.assetId.StartsWith("bar_section_", StringComparison.Ordinal)).ToArray();
         var eastWallX = hallOriginX + hallWidth / 2.0f;
         var barYaw = barSections[0].rotation[1];
-        if (barSections.Any(section => MathF.Abs(MathF.Sin(section.rotation[1] - barYaw)) > 0.01f))
-            return Fail("the counter sections do not share one coherent orientation.");
+        if (barSections.Any(section => MathF.Cos(section.rotation[1] - barYaw) < 0.99f))
+            return Fail("the counter sections do not share the same facing orientation.");
         var runsAlongZ = MathF.Abs(MathF.Sin(barYaw)) > 0.99f;
         var sectionCenters = barSections.Select(section => section.translation).ToArray();
         var wallClearance = 0.0f;

@@ -19,6 +19,7 @@ if ($actualCommit -ne $expectedCommit) {
     git -C $upstream checkout --detach $expectedCommit
     if ($LASTEXITCODE -ne 0) { throw 'Could not select the pinned FittingPlacer revision.' }
 }
+$actualCommit = (git -C $upstream rev-parse HEAD).Trim()
 Write-Host "FittingPlacer upstream commit verified: $actualCommit"
 $project = Join-Path $root 'godot_preview'
 $brief = Join-Path $project "stage2-$Variant-brief.json"
@@ -29,7 +30,7 @@ dotnet run --project $runner -- --stage2 $brief $layout $semantics
 if ($LASTEXITCODE -ne 0) { throw "Stage 2 FittingPlacer generation failed ($LASTEXITCODE)." }
 & $GodotExe --headless --path $project --import
 if ($LASTEXITCODE -ne 0) { throw "Godot import failed ($LASTEXITCODE)." }
-foreach ($view in @('top', 'hall_dining', 'hall_bar')) {
+foreach ($view in @('top', 'hall_dining', 'hall_bar', 'hall_doorway')) {
     $capture = Join-Path $project "screenshots/stage2-$Variant-$view.png"
     & $GodotExe --path $project res://preview.tscn -- "--stage2" "--view=$view" "--layout=stage2-$Variant-layout.json" "--capture=$capture"
     if ($LASTEXITCODE -ne 0) { throw "Godot $view capture failed ($LASTEXITCODE)." }
