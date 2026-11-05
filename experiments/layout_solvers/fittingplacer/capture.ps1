@@ -1,5 +1,6 @@
 param(
-    [string]$GodotExe = (Get-Command Godot_v4.7.1-stable_win64_console.exe -ErrorAction Stop).Source
+    [string]$GodotExe = (Get-Command Godot_v4.7.1-stable_win64_console.exe -ErrorAction Stop).Source,
+    [int[]]$Seeds = @(4242, 8675309)
 )
 
 $ErrorActionPreference = 'Stop'
@@ -10,14 +11,18 @@ $localAppData = Join-Path $repoRoot '.local/godot_user'
 New-Item -ItemType Directory -Force $screenshots, $localAppData | Out-Null
 $env:APPDATA = $localAppData
 
-& (Join-Path $PSScriptRoot 'generate.ps1')
-if ($LASTEXITCODE -ne 0) { throw 'FittingPlacer generation failed.' }
+foreach ($seed in $Seeds) {
+    & (Join-Path $PSScriptRoot 'generate.ps1') $seed
+    if ($LASTEXITCODE -ne 0) { throw "FittingPlacer generation failed for seed $seed." }
 
-& $GodotExe --headless --editor --path $godotProject --quit
-if ($LASTEXITCODE -ne 0) { throw 'Godot 4.7.1 asset import failed.' }
+    foreach ($view in @('top', 'entrance', 'kitchen')) {
+        $capture = Join-Path $screenshots "$seed-$view.png"
+        & $GodotExe --path $godotProject --scene res://preview.tscn -- "--view=$view" "--capture=$capture"
+        if ($LASTEXITCODE -ne 0) { throw "Godot capture failed for seed $seed view '$view'." }
+    }
+}
 
-foreach ($view in @('top', 'entrance', 'bar', 'dining', 'kitchen')) {
-    $capture = Join-Path $screenshots "$view.png"
-    & $GodotExe --path $godotProject --scene res://preview.tscn -- "--view=$view" "--capture=$capture"
-    if ($LASTEXITCODE -ne 0) { throw "Godot capture failed for view '$view'." }
+if ($Seeds -contains 4242) {
+    & (Join-Path $PSScriptRoot 'generate.ps1') 4242
+    if ($LASTEXITCODE -ne 0) { throw 'Could not restore the seed 4242 preview layout.' }
 }

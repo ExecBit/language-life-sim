@@ -32,11 +32,12 @@ internal static class Program
 
     public static int Main(string[] args)
     {
-        if (args.Length != 2)
+        if (args.Length is < 2 or > 3)
         {
-            Console.Error.WriteLine("Usage: Runner <tavern.xml> <layout.json>");
+            Console.Error.WriteLine("Usage: Runner <tavern.xml> <layout.json> [seed]");
             return 2;
         }
+        var seed = args.Length == 3 ? int.Parse(args[2]) : Seed;
 
         var models = new List<string>
         {
@@ -51,8 +52,8 @@ internal static class Program
             new List<float[]> { new[] { 0f, -6f, 1.2f, (float)(Math.PI / 2) } },
             new List<float[]>());
 
-        var placements = new Furnisher(args[0]).GeneratePlacements(room, models, Seed);
-        Console.WriteLine($"requested={models.Count} placed={placements.Length} seed={Seed}");
+        var placements = new Furnisher(args[0]).GeneratePlacements(room, models, seed);
+        Console.WriteLine($"requested={models.Count} placed={placements.Length} seed={seed}");
         if (placements.Length != models.Count)
         {
             Console.Error.WriteLine("FittingPlacer returned an incomplete layout; JSON was not written.");
@@ -86,7 +87,7 @@ internal static class Program
         }).ToArray();
 
         var export = new LayoutExport(
-            "FittingPlacer", UpstreamCommit, Seed, 16f, 12f, 3f,
+            "FittingPlacer", UpstreamCommit, seed, 16f, 12f, 3f,
             new[] { 0f, -6f, 1.2f, 90f }, output);
         var json = JsonSerializer.Serialize(export, new JsonSerializerOptions
         {
