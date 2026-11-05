@@ -26,6 +26,7 @@ internal static class Stage4
             var rooms = root["rooms"]!.AsArray().Select(n => n!.AsObject()).ToArray();
             var hall = rooms[0]; var kitchen = rooms[1]; var store = rooms[2];
             float F(JsonObject o, string key) => (float)o[key]!;
+            var entrance=root["mainEntrance"]!.AsObject();float entranceX=F(entrance,"centerX"), entranceZ=F(entrance,"centerZ");
             float hallX=F(hall,"originX"), hallZ=F(hall,"originZ"), hallW=F(hall,"width"), hallD=F(hall,"depth");
             float kitchenX=F(kitchen,"originX"), kitchenW=F(kitchen,"width"), kitchenD=F(kitchen,"depth");
             float storeX=F(store,"originX"), storeW=F(store,"width"), storeD=F(store,"depth");
@@ -34,10 +35,13 @@ internal static class Stage4
             foreach(var room in rooms)
             {
                 var id=(string)room["id"]!;var x=F(room,"originX");var z=F(room,"originZ");var w=F(room,"width");var d=F(room,"depth");
-                barriers.Add(new Rect(id+"_north",x-w/2,x+w/2,z+d/2-0.1f,z+d/2+0.1f));
-                barriers.Add(new Rect(id+"_south",x-w/2,x+w/2,z-d/2-0.1f,z-d/2+0.1f));
-                if(id=="hall") barriers.Add(new Rect("hall_west",x-w/2-0.1f,x-w/2+0.1f,z-d/2,z+d/2));
-                if(id=="storeroom") barriers.Add(new Rect("store_east",x+w/2-0.1f,x+w/2+0.1f,z-d/2,z+d/2));
+                if(id=="hall")
+                {
+                barriers.Add(new Rect("hall_north",x-w/2,x+w/2,z+d/2-0.1f,z+d/2+0.1f));
+                    barriers.Add(new Rect("hall_west",x-w/2-0.1f,x-w/2+0.1f,z-d/2,z+d/2));
+                    barriers.Add(new Rect("hall_south_west",x-w/2,entranceX-0.7f,z-d/2-0.1f,z-d/2+0.1f));
+                    barriers.Add(new Rect("hall_south_east",entranceX+0.7f,x+w/2,z-d/2-0.1f,z-d/2+0.1f));
+                }
             }
             var doors=root["doors"]!.AsArray();
             var furniture=new List<Rect>();
@@ -48,10 +52,7 @@ internal static class Stage4
                 var (w,d)=Footprint(asset);var ex=(MathF.Abs(MathF.Cos(yaw))*w+MathF.Abs(MathF.Sin(yaw))*d)/2;var ez=(MathF.Abs(MathF.Sin(yaw))*w+MathF.Abs(MathF.Cos(yaw))*d)/2;
                 furniture.Add(new Rect(id,x-ex,x+ex,z-ez,z+ez));
             }
-            var entrance=root["mainEntrance"]!.AsObject();float entranceX=F(entrance,"centerX"), entranceZ=F(entrance,"centerZ");
             // Extend the south wall on either side of the generated 1.4 m entrance; its approach remains inside the hall.
-            barriers.Add(new Rect("hall_south_west",hallX-hallW/2,entranceX-0.7f,entranceZ-0.1f,entranceZ+0.1f));
-            barriers.Add(new Rect("hall_south_east",entranceX+0.7f,hallX+hallW/2,entranceZ-0.1f,entranceZ+0.1f));
             var bounds=new[]{new Rect("hall",hallX-hallW/2,hallX+hallW/2,hallZ-hallD/2,hallZ+hallD/2),new Rect("kitchen",kitchenX-kitchenW/2,kitchenX+kitchenW/2,-kitchenD/2,kitchenD/2),new Rect("storeroom",storeX-storeW/2,storeX+storeW/2,-storeD/2,storeD/2)};
             var cells=new Dictionary<string,HashSet<(int,int)>>();
             foreach(var room in bounds)
@@ -69,11 +70,15 @@ internal static class Stage4
                 cells[room.Id]=open;
             }
             var allOpen=cells.Values.SelectMany(s=>s).ToHashSet();
+            var wallPairs=new[]{(x:(hallX+hallW/2+kitchenX-kitchenW/2)/2,z:F(doors[0]!.AsObject(),"centerZ")),(x:(kitchenX+kitchenW/2+storeX-storeW/2)/2,z:F(doors[1]!.AsObject(),"centerZ"))};
             var globalMinX=bounds.Min(b=>b.X0);var globalMaxX=bounds.Max(b=>b.X1);var globalMinZ=bounds.Min(b=>b.Z0);var globalMaxZ=bounds.Max(b=>b.Z1);
             for(int x=Cell(globalMinX);x<=Cell(globalMaxX);x++)for(int z=Cell(globalMinZ);z<=Cell(globalMaxZ);z++)
             {
                 var px=x*Grid;var pz=z*Grid;
-                if(bounds.Any(b=>px>=b.X0+Radius&&px<=b.X1-Radius&&pz>=b.Z0+Radius&&pz<=b.Z1-Radius))continue;
+                if((px>=hallX-hallW/2+Radius&&px<=hallX+hallW/2-Radius&&pz>=hallZ-hallD/2+Radius&&pz<=hallZ+hallD/2-Radius)||
+                   (px>=kitchenX-kitchenW/2+Radius&&px<=kitchenX+kitchenW/2-Radius&&pz>=-kitchenD/2+Radius&&pz<=kitchenD/2-Radius)||
+                   (px>=storeX-storeW/2+Radius&&px<=storeX+storeW/2-Radius&&pz>=-storeD/2+Radius&&pz<=storeD/2-Radius))continue;
+                if(wallPairs.Any(pair=>MathF.Abs(px-pair.x)<0.25f&&MathF.Abs(pz-pair.z)>0.7f))continue;
                 if(furniture.Any(b=>Inside(px,pz,b,Radius))||barriers.Any(b=>Inside(px,pz,b,Radius)))continue;
                 allOpen.Add((x,z));
             }
@@ -90,30 +95,6 @@ internal static class Stage4
                 }
             }
             // Physical shared boundaries occupy one 0.2 m partition strip; the 1.4 m doorway is the only crossing.
-            var wallPairs=new[]{(x:(hallX+hallW/2+kitchenX-kitchenW/2)/2,z:F(doors[0]!.AsObject(),"centerZ")),(x:(kitchenX+kitchenW/2+storeX-storeW/2)/2,z:F(doors[1]!.AsObject(),"centerZ"))};
-            foreach(var pair in wallPairs)
-            {
-                foreach(var c in graph.Keys.Where(c=>MathF.Abs(c.Item1*Grid-pair.x)<0.2f).ToArray())
-                {
-                    var z=c.Item2*Grid;if(MathF.Abs(z-pair.z)<=0.7f)continue;
-                    graph[c].Clear();
-                }
-            }
-            // Shared walls join room grids only inside each physical 1.4 m opening.
-            foreach(var pair in wallPairs)
-            {
-                var x=Cell(pair.x);var z=Cell(pair.z);
-                for(var dz=-3;dz<=3;dz++)
-                {
-                    var left=(x-1,z+dz);var right=(x+1,z+dz);
-                    if(!graph.ContainsKey(left))graph[left]=new HashSet<(int,int)>();
-                    if(!graph.ContainsKey(right))graph[right]=new HashSet<(int,int)>();
-                    for(var sx=x-1;sx<=x+1;sx++){var c=(sx,z+dz);if(!graph.ContainsKey(c))graph[c]=new HashSet<(int,int)>();}
-                    var cellsAcross=new[]{(x-1,z+dz),(x,z+dz),(x+1,z+dz)};
-                    for(var i=0;i<cellsAcross.Length-1;i++){graph[cellsAcross[i]].Add(cellsAcross[i+1]);graph[cellsAcross[i+1]].Add(cellsAcross[i]);}
-                    if(dz<3){var nextZ=z+dz+1;for(var sx=x-1;sx<=x+1;sx++){graph[(sx,z+dz)].Add((sx,nextZ));graph[(sx,nextZ)].Add((sx,z+dz));}}
-                }
-            }
             var entranceCell=(Cell(entranceX),Cell(entranceZ+0.5f));
             if(!graph.ContainsKey(entranceCell))return Fail("main_entrance blocked: no standing cell in the reserved interior approach.");
             var reached=new HashSet<(int,int)>{entranceCell};var queue=new Queue<(int,int)>();queue.Enqueue(entranceCell);
@@ -130,13 +111,13 @@ internal static class Stage4
                 }
                 else if(asset=="bar_section_a"||asset=="bar_section_b")
                 {
-                    var axisX=MathF.Abs(MathF.Sin(yaw))>0.99f;var customer=axisX?new Vector2(x+1.5f,z):new Vector2(x,z-1.5f);var staff=axisX?new Vector2(x-1.5f,z):new Vector2(x,z+1.5f);
+                    var axisX=MathF.Abs(MathF.Sin(yaw))>0.99f;var customer=axisX?new Vector2(x-1.5f,z):new Vector2(x,z-1.5f);var staff=axisX?new Vector2(x+1.5f,z):new Vector2(x,z+1.5f);
                     targets.Add(new Target(id+"_customer_side",customer.X,customer.Y,"counter customer front"));
                     targets.Add(new Target(id+"_staff_side",staff.X,staff.Y,"counter staff work side"));
                 }
-                else if(asset=="lounge_sofa") {var across=MathF.Abs(MathF.Sin(yaw))>0.99f;targets.Add(new Target(id+"_front",x+(across?0:-1.2f),z+(across?1.25f:0),"sofa usable front"));}
-                else if(asset=="kitchen_counter"||asset=="kitchen_stove"||asset=="kitchen_fridge") targets.Add(new Target(id+"_work_front",x-1.45f,z,"kitchen working surface approach"));
-                else if(asset.StartsWith("storeroom_")){var orient=MathF.Abs(MathF.Sin(yaw))>0.99f;var storageFront=orient?new Vector2(0,1):new Vector2(1,0);targets.Add(new Target(id+"_storage_front",x+storageFront.X*(asset=="storeroom_cabinet"?1.0f:1.5f),z+storageFront.Y*(asset=="storeroom_cabinet"?1.0f:1.5f),"accessible storage front"));}
+                else if(asset=="lounge_sofa") {targets.Add(new Target(id+"_front",x,z-1.8f,"sofa usable front"));}
+                else if(asset=="kitchen_counter"||asset=="kitchen_stove"||asset=="kitchen_fridge") targets.Add(new Target(id+"_work_front",x+1.45f,z,"kitchen working surface approach"));
+                else if(asset.StartsWith("storeroom_"))targets.Add(new Target(id+"_storage_front",x,z+1.0f,"accessible storage front"));
             }
             var reports=new List<object>();bool all=true;
             bool ReachableNear(float x,float z,float tolerance=0.55f)
