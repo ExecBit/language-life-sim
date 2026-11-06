@@ -159,7 +159,17 @@ func _build_stage3_rooms(layout: Dictionary) -> void:
 		var depth := float(room["depth"])
 		_add_box(room["id"] + "Floor", center + Vector3(0, -0.12, 0), Vector3(width, 0.24, depth), floor_material)
 		_add_box(room["id"] + "North", center + Vector3(0, 1.5, depth / 2 + wall / 2), Vector3(width, 3, wall), wall_material)
-		_add_box(room["id"] + "South", center + Vector3(0, 1.5, -depth / 2 - wall / 2), Vector3(width, 3, wall), wall_material)
+		if room["id"] != "hall":
+			_add_box(room["id"] + "South", center + Vector3(0, 1.5, -depth / 2 - wall / 2), Vector3(width, 3, wall), wall_material)
+	var entrance: Dictionary = layout["publicEntrance"]
+	var entrance_opening := float(entrance["width"])
+	var entrance_x := float(entrance["centerX"])
+	var hall_south := float(rooms[0]["originZ"]) - float(rooms[0]["depth"]) / 2
+	var entrance_left_width := float(rooms[0]["width"]) / 2 + entrance_x - entrance_opening / 2
+	var entrance_right_width := float(rooms[0]["width"]) / 2 - entrance_x - entrance_opening / 2
+	_add_box("HallSouthLeft", Vector3(float(rooms[0]["originX"]) - float(rooms[0]["width"]) / 2 + entrance_left_width / 2, 1.5, hall_south - wall / 2), Vector3(entrance_left_width, 3, wall), wall_material)
+	_add_box("HallSouthRight", Vector3(entrance_x + entrance_opening / 2 + entrance_right_width / 2, 1.5, hall_south - wall / 2), Vector3(entrance_right_width, 3, wall), wall_material)
+	_add_box("HallEntranceHeader", Vector3(entrance_x, 2.8, hall_south - wall / 2), Vector3(entrance_opening, 0.4, wall), trim_material)
 	_add_box("HallWest", _room_edge(rooms[0], "west", 0) + Vector3(-wall / 2, 0, 0), Vector3(wall, 3, float(rooms[0]["depth"])), wall_material)
 	_add_box("StoreEast", _room_edge(rooms[2], "east", 0) + Vector3(wall / 2, 0, 0), Vector3(wall, 3, float(rooms[2]["depth"])), wall_material)
 	var doors: Array = layout["doors"]
@@ -171,10 +181,10 @@ func _build_stage3_rooms(layout: Dictionary) -> void:
 		var half_depth: float = max(float(left["depth"]), float(right["depth"])) / 2
 		var opening := float(layout["doorWidth"])
 		var door_z := float(door["centerZ"])
-		var south_len := half_depth + door_z - opening / 2
-		var north_len := half_depth - door_z - opening / 2
-		_add_box("Partition%dNorth" % i, Vector3(x, 1.5, door_z + opening / 2 + north_len / 2), Vector3(wall, 3, north_len), wall_material)
-		_add_box("Partition%dSouth" % i, Vector3(x, 1.5, -half_depth + south_len / 2), Vector3(wall, 3, south_len), wall_material)
+		var partition_south_len := half_depth + door_z - opening / 2
+		var partition_north_len := half_depth - door_z - opening / 2
+		_add_box("Partition%dNorth" % i, Vector3(x, 1.5, door_z + opening / 2 + partition_north_len / 2), Vector3(wall, 3, partition_north_len), wall_material)
+		_add_box("Partition%dSouth" % i, Vector3(x, 1.5, -half_depth + partition_south_len / 2), Vector3(wall, 3, partition_south_len), wall_material)
 		_add_box("DoorHeader%d" % i, Vector3(x, 2.8, door_z), Vector3(wall, 0.4, opening), trim_material)
 
 
@@ -200,6 +210,12 @@ func _select_stage3_view(view_name: String, layout: Dictionary) -> void:
 		return
 	_root_camera.projection = Camera3D.PROJECTION_PERSPECTIVE
 	_root_camera.fov = 82
+	if view_name == "entrance":
+		var entrance: Dictionary = layout["publicEntrance"]
+		var eye_z := float(hall["originZ"]) - float(hall["depth"]) / 2 - 3.4
+		_root_camera.position = Vector3(float(entrance["centerX"]), 1.65, eye_z)
+		_root_camera.look_at(Vector3(float(entrance["centerX"]), 1.2, float(hall["originZ"]) + 1.5), Vector3.UP)
+		return
 	if view_name == "hall_dining" or view_name == "hall_bar":
 		var id := "dining_dining_table_01" if view_name == "hall_dining" else "bar_bar_section_a_01"
 		var p: Dictionary = _placements_by_id.get(id, {})
@@ -253,6 +269,21 @@ func _select_stage3_view(view_name: String, layout: Dictionary) -> void:
 				best_eye = candidate
 		_root_camera.fov = 72
 		_root_camera.position = Vector3(best_eye.x, 1.65, best_eye.y)
+		_root_camera.look_at(target, Vector3.UP)
+		return
+	if view_name == "kitchen":
+		var kitchen_points: Array[Vector3] = []
+		for placement: Dictionary in layout["placements"]:
+			if placement["zoneId"] != "kitchen": continue
+			var p: Array = placement["translation"]
+			kitchen_points.append(Vector3(float(p[0]), 1.0, float(p[2])))
+		var target := Vector3.ZERO
+		for point: Vector3 in kitchen_points: target += point
+		target /= max(1, kitchen_points.size())
+		var counter: Dictionary = _placements_by_id.get("kitchen_kitchen_counter_01", {})
+		var counter_yaw := float(counter.get("rotation", [0.0, 0.0, 0.0])[1])
+		var work_front := Vector3(0.0, 0.0, -1.0).rotated(Vector3.UP, counter_yaw)
+		_root_camera.position = target + work_front * 4.5 + Vector3.UP * 0.65
 		_root_camera.look_at(target, Vector3.UP)
 		return
 	if view_name == "kitchen_storeroom_doorway":

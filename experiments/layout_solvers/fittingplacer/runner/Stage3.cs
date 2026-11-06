@@ -8,7 +8,7 @@ using FittingPlacer;
 
 internal static class Stage3
 {
-    private sealed record RoomBrief(string Id, string Type);
+    private sealed record RoomBrief(string Id, string Type, string Size = "standard");
     private sealed record ZoneBrief(string Id, string RoomId, string Type, int Tables = 0, int ChairsPerTable = 0,
         int Sections = 0, int Stools = 0, int Sofas = 0, int CoffeeTables = 0, int StorageObjects = 0);
     private sealed record Brief(string Location, int Seed, RoomBrief[] PhysicalRooms, ZoneBrief[] LogicalZones, string[][] Adjacency);
@@ -33,8 +33,9 @@ internal static class Stage3
         var lounge = brief.LogicalZones.SingleOrDefault(z => z.Type == "lounge" && z.RoomId == hall?.Id);
         var storage = brief.LogicalZones.SingleOrDefault(z => z.Type == "storage" && z.RoomId == store?.Id);
         if (hall is null || kitchen is null || store is null || dining is null || bar is null || lounge is null || storage is null ||
-            dining.Tables < 1 || dining.ChairsPerTable != 4 || bar.Sections != 2 || bar.Stools != 4 || lounge.Sofas < 2 || lounge.CoffeeTables != 1 || storage.StorageObjects < 1)
-            return Fail("Brief counts/types are invalid; dining needs four chairs per table, bar needs two sections/four stools, lounge at least two sofas/one table, and storage at least one object.");
+            dining.Tables < 1 || dining.ChairsPerTable != 4 || bar.Sections < 2 || bar.Stools < 1 || lounge.Sofas < 2 || lounge.CoffeeTables != 1 || storage.StorageObjects < 1 ||
+            kitchen.Size is not ("standard" or "compact" or "generous") || store.Size is not ("standard" or "compact" or "large"))
+            return Fail("Brief counts/types are invalid; dining needs four chairs per table, bar at least two sections, lounge at least two sofas/one table, and each room needs a supported size.");
         var edges = brief.Adjacency.Select(pair => pair.ToHashSet()).ToArray();
         if (!edges.Any(e => e.SetEquals(new[] { hall.Id, kitchen.Id })) || !edges.Any(e => e.SetEquals(new[] { kitchen.Id, store.Id })))
             return Fail("Physical room adjacency must connect hall to kitchen and kitchen to storeroom.");
@@ -45,8 +46,9 @@ internal static class Stage3
         var diningD = rows * 7f + 1f;
         var staffSide = 0.9f + 2.0419f + 0.2f + 0.75f + 0.75f + 0.5f;
         var barRun = Math.Max(bar.Sections * 2f, (bar.Stools - 1) * 0.75f + 0.75f);
-        var barW = barRun + 2 * 0.9f + 0.2f;
-        var barD = staffSide;
+        // The KayKit counter run is laid along the zone depth; keep staff/customer aisles in width.
+        var barW = staffSide;
+        var barD = barRun + 2 * 0.9f + 0.2f;
         var loungeW = Math.Max(6.0f, lounge.Sofas * 2.5f + 1.0f);
         var loungeD = 5.5f + Math.Max(0, lounge.Sofas - 2) * 1.5f;
         var hallW = Math.Max(diningW + barW, loungeW + barW + 1.2f);
@@ -54,12 +56,12 @@ internal static class Stage3
         const float northCirculation = 3.0f;
         var hallD = diningD + upperD + 1.2f + northCirculation;
         var upperLocalZ = -hallD / 2 + diningD + 1.2f + upperD / 2;
-        const float kitchenW = 9f;
-        var kitchenD = MathF.Max(2.042f, MathF.Max(2.288f, 2.24f)) + 0.8f + 3.9f + 0.5f;
+        var kitchenW = kitchen.Size switch { "generous" => 12f, "compact" => 8f, _ => 9f };
+        var kitchenD = kitchen.Size == "generous" ? 9f : MathF.Max(2.042f, MathF.Max(2.288f, 2.24f)) + 0.8f + 3.9f + 0.5f;
         var storeColumns = (int)Math.Ceiling(Math.Sqrt(storage.StorageObjects));
         var storeRows = (int)Math.Ceiling((double)storage.StorageObjects / storeColumns);
-        var storeW = Math.Max(6.0f, storeColumns * 2.0f + 2.0f);
-        var storeD = Math.Max(5.5f, storeRows * 1.8f + 2.0f);
+        var storeW = Math.Max(store.Size switch { "large" => 8.0f, "compact" => 5.0f, _ => 6.0f }, storeColumns * 2.0f + 2.0f);
+        var storeD = Math.Max(store.Size switch { "large" => 7.0f, "compact" => 4.5f, _ => 5.5f }, storeRows * 1.8f + 2.0f);
         var storeDoorZ = 0f;
         var hallX = -(hallW + kitchenW + storeW) / 2 + hallW / 2;
         var kitchenX = hallX + hallW / 2 + kitchenW / 2;
@@ -84,7 +86,8 @@ internal static class Stage3
         var diningResult = furnisher.GeneratePlacements(new Room(diningW,diningD,3,Grid), diningModels, brief.Seed);
         if (!Append(diningResult,diningModels.Count,dining.Id,logical[0].originX,logical[0].originZ,placements)) return 1;
 
-        var barModels = new List<string> { "bar_section_a", "bar_section_b", "customer_stool", "customer_stool", "customer_stool", "customer_stool" };
+        var barModels = Enumerable.Range(0,bar.Sections).Select(i=>i%2==0?"bar_section_a":"bar_section_b").ToList();
+        barModels.AddRange(Enumerable.Repeat("customer_stool",bar.Stools));
         var barResult = furnisher.GeneratePlacements(BarRoom(hallW,hallD,barW,barD,upperLocalZ),barModels,brief.Seed);
         var barShift=FitGroup(barResult,hallW/2-barW,hallW/2,upperLocalZ-barD/2,upperLocalZ+barD/2);
         if (!Append(barResult,barModels.Count,bar.Id,hallX+barShift.x,barShift.z,placements)) return 1;
@@ -113,12 +116,14 @@ internal static class Stage3
         var hallDoorX=(hallX+hallW/2+kitchenX-kitchenW/2)/2;
         var hallDoorZ=SelectKitchenDoorCenter(placements,new[]{dining.Id,bar.Id,lounge.Id,kitchen.Id},hallDoorX,Math.Min(hallD,kitchenD)/2-DoorWidth/2-0.1f);
         if(float.IsNaN(hallDoorZ))return Fail("Could not find an unobstructed hall-to-kitchen doorway in the derived shared boundary.");
-        if (!Validate(placements,dining.Tables,lounge.Sofas,storage.StorageObjects,rooms,logical,barW,barD,hallX,hallW,hallD,kitchenX,kitchenW,storeX,storeW,hallDoorZ,storeDoorZ)) return 1;
+        var entranceX=SelectEntranceCenter(placements,hallX,hallW,hallD);
+        if(float.IsNaN(entranceX))return Fail("Could not find an unobstructed main entrance in the public hall.");
+        if (!Validate(placements,dining.Tables,lounge.Sofas,storage.StorageObjects,rooms,logical,bar.Sections,bar.Stools,barW,barD,hallX,hallW,hallD,kitchenX,kitchenW,storeX,storeW,hallDoorZ,storeDoorZ)) return 1;
         var kitchenAccess=ValidateKitchenAccess(placements,rooms.Single(r=>r.id==kitchen.Id),hallDoorZ);
         if(kitchenAccess.width<0.9f||!kitchenAccess.reachable)return Fail("Kitchen entrance corridor or route to the working aisle is blocked.");
         var doors = new[] { new { from=hall.Id, to=kitchen.Id, width=DoorWidth, axis="x", centerZ=hallDoorZ }, new { from=kitchen.Id, to=store.Id, width=DoorWidth, axis="x", centerZ=storeDoorZ } };
         var layout = new { solver="FittingPlacer", upstreamCommit=Commit, seed=brief.Seed, totalWidth=hallW+kitchenW+storeW,
-            totalDepth=Math.Max(hallD,Math.Max(kitchenD,storeD)), roomHeight=3f, doorWidth=DoorWidth,
+            totalDepth=Math.Max(hallD,Math.Max(kitchenD,storeD)), roomHeight=3f, doorWidth=DoorWidth, publicEntrance=new { axis="z", wall="south", centerX=entranceX, width=DoorWidth },
             kitchenAccess=new { entryCorridorWidth=kitchenAccess.width, workAreaReachable=kitchenAccess.reachable, route="around_furniture_front" }, rooms, zones=rooms,
             logicalZones=logical, doors, placements };
         File.WriteAllText(args[1],JsonSerializer.Serialize(layout,new JsonSerializerOptions{WriteIndented=true})+Environment.NewLine);
@@ -192,6 +197,15 @@ internal static class Stage3
         })).ToArray();
         return viable.OrderByDescending(center=>kitchen.Min(item=>{var (_,ez)=Extents(item);return MathF.Abs(item.translation[2]-center)-ez-DoorWidth/2;})).FirstOrDefault(float.NaN);
     }
+    private static float SelectEntranceCenter(List<Place> placements,float hallX,float hallW,float hallD)
+    {
+        var candidates=new List<float>{hallX};
+        for(var step=1;step*Grid<=hallW/2-DoorWidth/2-0.4f;step++){candidates.Add(hallX+step*Grid);candidates.Add(hallX-step*Grid);}
+        return candidates.Where(center=>placements.Where(p=>p.zoneId is "dining" or "bar" or "lounge").All(item=>{
+            var (ex,ez)=Extents(item);
+            return !(item.translation[0]+ex>center-DoorWidth/2-0.15f&&item.translation[0]-ex<center+DoorWidth/2+0.15f&&item.translation[2]-ez<hallD/2*-1+0.15f);
+        })).OrderBy(center=>MathF.Abs(center-hallX)).FirstOrDefault(float.NaN);
+    }
     private static bool Append(FittingPlacement[] source,int requested,string zone,float ox,float oz,List<Place> dest)
     {
         Console.WriteLine($"zone={zone} requested={requested} placed={source.Length}"); if(source.Length!=requested){ Console.Error.WriteLine($"STAGE3 FAIL: Incomplete FittingPlacer result in {zone}."); return false; }
@@ -211,11 +225,11 @@ internal static class Stage3
         }
         return true;
     }
-    private static bool Validate(List<Place> p,int tableCount,int sofas,int storage,Rect[] rooms,Rect[] logical,float barW,float barD,float hallX,float hallW,float hallD,float kitchenX,float kitchenW,float storeX,float storeW,float hallDoorZ,float storeDoorZ)
+    private static bool Validate(List<Place> p,int tableCount,int sofas,int storage,Rect[] rooms,Rect[] logical,int barSections,int stools,float barW,float barD,float hallX,float hallW,float hallD,float kitchenX,float kitchenW,float storeX,float storeW,float hallDoorZ,float storeDoorZ)
     {
         bool Count(string id,int n)=>p.Count(x=>x.assetId==id)==n;
         var storageCount=p.Count(x=>x.zoneId=="storage"&&x.assetId.StartsWith("storeroom_"));
-        if(!Count("dining_table",tableCount)||!Count("dining_chair",tableCount*4)||!Count("bar_section_a",1)||!Count("bar_section_b",1)||!Count("customer_stool",4)||!Count("kitchen_counter",1)||!Count("kitchen_stove",1)||!Count("kitchen_fridge",1)||!Count("lounge_sofa",sofas)||!Count("lounge_coffee_table",1)||storageCount!=storage) { Console.Error.WriteLine("STAGE3 FAIL: Generated counts differ from the brief."); return false; }
+        if(!Count("dining_table",tableCount)||!Count("dining_chair",tableCount*4)||!Count("bar_section_a",(barSections+1)/2)||!Count("bar_section_b",barSections/2)||!Count("customer_stool",stools)||!Count("kitchen_counter",1)||!Count("kitchen_stove",1)||!Count("kitchen_fridge",1)||!Count("lounge_sofa",sofas)||!Count("lounge_coffee_table",1)||storageCount!=storage) { Console.Error.WriteLine("STAGE3 FAIL: Generated counts differ from the brief."); return false; }
         foreach(var r in rooms) if(r.width<=0||r.depth<=0){ Console.Error.WriteLine($"STAGE3 FAIL: Invalid physical boundary for {r.id}."); return false; }
         var table=p.Single(x=>x.assetId=="lounge_coffee_table");
         var facing=0;

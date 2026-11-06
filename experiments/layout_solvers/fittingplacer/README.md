@@ -1,5 +1,9 @@
 # FittingPlacer tavern experiment (LAY-01 / Issue #24, LAY-01B / Issue #28)
 
+## LAY-05 visual brief stress test
+
+See [STAGE5.md](STAGE5.md) for the two same-seed declarative tavern briefs, generated layouts, Godot screenshots, reproduction commands and **PARTIAL** capability verdict.
+
 ## LAY-01B result: PARTIAL for the tested two-seed layout gate
 
 The unchanged pinned FittingPlacer solver produced all 14 requested pieces for seeds 4242 and 8675309 from the same XML rules. The kitchen topology is a counter with distinct left and right support faces; the stove RIGHT and refrigerator LEFT faces attach independently to those sides. Godot confirms both working fronts face the same side of the contiguous row. The bar sections keep a 0.9 m physical gap from the wall they attach to and reserve the same 0.9 m behind them.
