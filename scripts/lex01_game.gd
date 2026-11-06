@@ -87,6 +87,8 @@ var _probe_mode: String = ""
 func _ready() -> void:
 	var options: Dictionary = _command_line_options()
 	_probe_mode = String(options.get("probe", ""))
+	if has_meta("integration_probe"):
+		_probe_mode = "external"
 	seed_value = int(options.get("seed", Time.get_unix_time_from_system()))
 	rng.seed = seed_value
 
@@ -107,6 +109,11 @@ func _ready() -> void:
 	print("WORLD name=%s staging=%s interior=%s" % [
 		content.world_name(), content.world_staging(), str(content.world_uses_interior()),
 	])
+
+	if content.world_uses_interior():
+		if not preload("res://scripts/generated_tavern.gd").install(self, content):
+			get_tree().quit(1)
+			return
 
 	progress = Lex01Progress.new()
 	_player_config = content.player_config()
@@ -156,7 +163,7 @@ func _ready() -> void:
 	start_day(day)
 	print("RUN seed=%d mode=%s" % [seed_value, _probe_mode if not _probe_mode.is_empty() else "play"])
 
-	if not _probe_mode.is_empty():
+	if not _probe_mode.is_empty() and _probe_mode != "external":
 		await get_tree().process_frame
 		var probe_script: Variant = load("res://tools/lex01_probe.gd")
 		if not (probe_script is GDScript):

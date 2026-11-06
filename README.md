@@ -146,3 +146,18 @@ The four reusable composition types and their fixed 16 × 12 m arrangement are d
 5. **Issues / Project / PR**: Issue defines task, GitHub Project tracks its status, PR holds change + verification. The user alone merges.
 
 See `AGENTS.md` for local-agent instructions. The prior `tavern-language-mvp` repository is independent: do not copy its process constraints or asset pipeline.
+
+### Generated playable tavern (TAV-03)
+
+F5 now loads the compact LAY-05 B output from `data/room/tavern_generated.json` into the actual main scene. The existing stations/NPCs bind to generated furniture; walls and collision follow the three generated rooms. Furniture is fixed for the whole run. Guest furniture remains non-solid as in TAV-02; walls and counters block movement.
+
+Regenerate using the existing pinned FittingPlacer checkout (requires .NET 9):
+
+```powershell
+./tools/generate_tavern.ps1 -Variant B -SolverRoot <path-to-pinned-FittingPlacer>
+# -Variant A installs the spacious brief instead.
+# Focused Godot check for the committed B layout; output goes to ignored .local/:
+& $godot --path . --script tools/tav03_integration_probe.gd
+```
+
+The focused check traverses the actual room with the player capsule, checks that blocking the service door disconnects both service rooms, then picks up and delivers a small item through E. `--world legacy --probe` still exercises the original practice room.

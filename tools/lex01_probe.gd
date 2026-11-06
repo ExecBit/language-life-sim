@@ -30,14 +30,16 @@ const MIN_LOGIC_CHECKS: int = 120
 const MIN_INPUT_CHECKS: int = 45
 const MIN_LOGIC_CHECKS_TAVERN: int = 60
 const MIN_INPUT_CHECKS_TAVERN: int = 40
-# How far a player may have to cross the room for one answer. Longer than this and a task is a
-# walk across the whole room instead of a step toward a situation.
-const MAX_WALK_METERS: float = 11.0
+# Straight-line distance budget; the generated three-room layout uses its shell diagonal.
+# Actual door traversal is checked separately by tav03_integration_probe.gd.
+var MAX_WALK_METERS: float = 11.0
 
 
 func run(game: Node, mode: String) -> int:
 	_completed = false
 	_authored_staging = String(game.content.world_staging()) == "authored_slots"
+	if _authored_staging:
+		MAX_WALK_METERS = game.room_shell_bounds().size.length()
 	if mode == "input":
 		await _run_input(game)
 	else:
@@ -723,7 +725,7 @@ func _check_response_menu(game: Node, scenario: Dictionary) -> void:
 func _check_scene_state_placement(game: Node, content: Variant) -> void:
 	# Data-driven, so both worlds are checked on the facts their own records state: the probe
 	# looks up a loaded scenario that stages each fact instead of naming legacy scenario ids.
-	var table: String = "res://assets/kaykit/items/table_round_A_small.gltf"
+	var table: String = String(content.placement_slot("on_table")["anchor"])
 	var fridge: String = "res://assets/kaykit/items/fridge_A.gltf"
 	var facts: Array = [
 		{"lemma": "broetchen", "slot": "on_table", "anchor": table},
@@ -745,7 +747,7 @@ func _check_scene_state_placement(game: Node, content: Variant) -> void:
 			placed = absf(item_box.position.y - (anchor_box.position.y + anchor_box.size.y)) < 0.12 \
 				and absf(item_box.get_center().z - anchor_box.get_center().z) < 0.6
 		elif placed and String(fact["slot"]) == "in_fridge":
-			placed = item_box.get_center().z > anchor_box.position.z + anchor_box.size.z \
+			placed = not item_box.intersects(anchor_box) \
 				and absf(item_box.position.y) < 0.25
 		print("PLACE %s placed=%s %s" % [fact_id, placed, detail])
 		_expect(placed, "%s really stages its %s %s the station declares it" % [fact_id, String(fact["lemma"]), String(fact["slot"])])

@@ -537,33 +537,32 @@ func _spread_on(items: Array[Node3D], anchor: Node3D, mode: String) -> void:
 	var anchor_box: AABB = _world_aabb(anchor)
 	var boxes: Array[AABB] = []
 	var total_width: float = 0.0
+	var right := Vector3.RIGHT.rotated(Vector3.UP, anchor.global_rotation.y)
 	for node: Node3D in items:
 		var box: AABB = _world_aabb(node)
 		boxes.append(box)
-		total_width += box.size.x
+		total_width += absf(right.x) * box.size.x + absf(right.z) * box.size.z
 	total_width += SPREAD_GAP * float(maxi(items.size() - 1, 0))
-	var cursor: float = anchor_box.get_center().x - total_width * 0.5
-	var front_z: float = anchor_box.position.z + anchor_box.size.z + FRONT_GAP
+	var cursor: float = -total_width * 0.5
+	# Generated KayKit work fronts face local -Z; legacy staging keeps its +Z convention.
+	var front := Vector3(0, 0, -1 if _content.world_uses_interior() else 1).rotated(Vector3.UP, anchor.global_rotation.y)
+	var front_extent := absf(front.x) * anchor_box.size.x / 2 + absf(front.z) * anchor_box.size.z / 2
 	for index: int in items.size():
 		var node: Node3D = items[index]
 		var box: AABB = boxes[index]
 		var local_low: float = box.position.y - node.position.y
 		var local_center: Vector3 = box.get_center() - node.position
-		var center_x: float = cursor + box.size.x * 0.5
-		cursor += box.size.x + SPREAD_GAP
+		var width := absf(right.x) * box.size.x + absf(right.z) * box.size.z
+		var offset: float = cursor + width * 0.5
+		cursor += width + SPREAD_GAP
 		var position: Vector3 = node.position
 		if mode == "on_top":
-			position = Vector3(
-				center_x - local_center.x,
-				anchor_box.position.y + anchor_box.size.y - local_low,
-				anchor_box.get_center().z - local_center.z,
-			)
+			position = anchor_box.get_center() + right * offset - local_center
+			position.y = anchor_box.position.y + anchor_box.size.y - local_low
 		else:
-			position = Vector3(
-				anchor_box.get_center().x - local_center.x,
-				GROUND_Y - local_low,
-				front_z + box.size.z * 0.5 - local_center.z,
-			)
+			var item_extent := absf(front.x) * box.size.x / 2 + absf(front.z) * box.size.z / 2
+			position = anchor_box.get_center() + front * (front_extent + FRONT_GAP + item_extent) - local_center
+			position.y = GROUND_Y - local_low
 		node.position = position
 
 
