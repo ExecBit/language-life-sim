@@ -3,6 +3,8 @@
   "scenario_count": 2,
   "action_types": ["find_select", "bring_deliver", "respond"],
   "vocabulary_file": "res://data/vocabulary/de_a1_starter.json",
+  "world": "legacy",
+  "world_note": "This file belongs to the legacy practice world, the same as lex01_starter.json: played with --world legacy, answers staged on the candidate pool. It stays runnable by the existing probes as LEX-01 regression content.",
   "purpose_note": "This file is the data-only proof for Issue #2 verification item 5: the loader reads every *.json in res://data/scenarios/, so these two learning situations play in the room without touching a single gameplay script, asset or test file. They reuse only lemmas, props and action types that PREP-01 already committed.",
   "authoring_note": "Authored for this project in the same A1 style as lex01_starter.json: short main clauses, present tense, one new idea per utterance. A human must still judge naturalness (see docs/assets_provenance.md).",
   "presentation_note": "Option ids stay the positional labels of the authored display order (a = first authored option, b = second, c = third). LEX-01 shuffles the visible order at play time and resolves correctness by option id, never by index, so no position can become the strategy.",

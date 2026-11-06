@@ -3,6 +3,8 @@
   "scenario_count": 15,
   "action_types": ["find_select", "bring_deliver", "respond"],
   "vocabulary_file": "res://data/vocabulary/de_a1_starter.json",
+  "world": "legacy",
+  "world_note": "This file belongs to the legacy practice world (data/room/lex01_room.json 'worlds'): it plays with --world legacy, in the room with no built furniture, its answers staged on the candidate pool. It is regression content for LEX-01, not the default playable tavern.",
   "authoring_note": "All 15 scenario records are authored for this project (not copied from a textbook). The German is written for A1: short main clauses, present tense, one new idea per utterance. A human must still judge naturalness - see docs/assets_provenance.md.",
   "language_note": "German is the content the player is learning, so utterance_de, the option labels and the feedback stay German. The interface around them is Russian and comes from data/ui/lex01_ui_ru.json. This replaces the earlier decision to keep all in-game text German, which made the slice unusable for a beginner tester.",
   "gloss_note": "utterance_gloss_ru (and gloss_ru on a respond option) is the short Russian meaning the 'Подсказка · Перевод' button shows. It is authored by the agent, needs human review, and is hidden by default: an answer given while a gloss is open is recorded as assisted, not as unaided. Only the record with guided: true shows its gloss without being asked, because that record is the teach-before-test example.",

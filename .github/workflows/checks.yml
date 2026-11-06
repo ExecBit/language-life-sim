@@ -203,7 +203,7 @@ jobs:
                position = camera.get('position')
                assert isinstance(position, list) and len(position) == 3, 'spawn for context %s has no position: %s' % (context, camera)
                assert position[1] >= 0.0, 'spawn for context %s is below the floor: %s' % (context, position)
-               assert abs(position[0]) < 8.0 and abs(position[2]) < 8.0, 'spawn for context %s stands outside the room: %s' % (context, position)
+               assert abs(position[0]) < 9.0 and abs(position[2]) < 9.0, 'spawn for context %s stands outside the room: %s' % (context, position)
            for name, npc in room['npcs'].items():
                assert Path(npc['scene'].replace('res://', '')).is_file(), 'npc %s model missing' % name
                assert npc.get('label_de'), 'npc %s has no label_de' % name
@@ -212,7 +212,50 @@ jobs:
                assert Path(str(anchor).replace('res://', '')).is_file(), 'placement slot %s anchor missing: %s' % (name, anchor)
                assert anchor in room['anchors'], 'placement slot %s anchor has no position data: %s' % (name, anchor)
                assert slot.get('mode') in ('on_top', 'at_front'), 'placement slot %s uses an unknown mode %s' % (name, slot.get('mode'))
-
+           # TAV-03 (Issue #10): the tavern itself is data. The room is assembled from the interior
+           # section at run time, so a wrong model path or a bad position here is a room with a hole
+           # in it, and it is named here instead of showing up as missing furniture.
+           interior = room.get('interior')
+           assert isinstance(interior, list) and interior, 'room layout has no interior entries: the tavern would be an empty test room'
+           solid_count = 0
+           for entry in interior:
+               assert isinstance(entry, dict), 'interior entry is not an object: %s' % entry
+               model = str(entry.get('model', ''))
+               assert Path(model.replace('res://', '')).is_file(), 'interior entry has no model file: %s' % model
+               position = entry.get('position')
+               assert isinstance(position, list) and len(position) == 3, 'interior entry %s has no position: %s' % (model, position)
+               assert abs(position[0]) < 9.0 and abs(position[2]) < 9.0, 'interior entry %s stands outside the room: %s' % (model, position)
+               for key in ('solid', 'ground'):
+                   if key in entry:
+                       assert isinstance(entry[key], bool), 'interior entry %s declares %s as something other than true or false' % (model, key)
+               rotation = entry.get('rotation_deg')
+               if rotation is not None:
+                   assert isinstance(rotation, list) and len(rotation) == 3, 'interior entry %s declares rotation_deg as %s' % (model, rotation)
+               if entry.get('solid'):
+                   solid_count += 1
+               solid_members = entry.get('solid_members', [])
+               assert isinstance(solid_members, list), 'interior group %s declares solid_members as something other than a list' % model
+               solid_count += len(solid_members)
+               member_ids = entry.get('member_ids', {})
+               assert isinstance(member_ids, dict), 'interior group %s declares member_ids as something other than an object' % model
+           # Solid means "the player walks into it". The fixed tavern uses two bar sections and one
+           # preparation counter; guest furniture stays walk-through so tasks cannot trap a player.
+           assert 3 <= solid_count <= 8, 'interior declares %d solid pieces; expected fixed counter furniture' % solid_count
+           # Stable instance ids: a placement slot or a delivery target that addresses one
+           # specific piece of authored furniture by id must name an id the interior declares,
+           # or the station would silently resolve to whichever piece shares the model.
+           interior_ids = {e.get('id') for e in interior if isinstance(e, dict) and e.get('id')}
+           interior_ids.update(member_id for e in interior if isinstance(e, dict) for member_id in e.get('member_ids', {}).values())
+           for name, slot in room['placement_slots'].items():
+               anchor_id = slot.get('anchor_id')
+               if anchor_id:
+                   assert anchor_id in interior_ids, 'placement slot %s names unknown interior instance %s' % (name, anchor_id)
+           assert len(room['npcs']) >= 3, 'the tavern room has %d npcs, expected at least three so the room reads as a place with people in it' % len(room['npcs'])
+           for context in ('default', 'room', 'kitchen'):
+               slots = room['candidate_slots'].get(context)
+               assert isinstance(slots, list) and len(slots) >= 2, 'candidate_slots.%s needs at least two positions' % context
+               for slot in slots:
+                   assert isinstance(slot, list) and len(slot) == 3, 'candidate slot in %s is not a position: %s' % (context, slot)
            # LEX-01 (Issue #2) reads every scenario file in the directory, which is what makes a
            # new learning situation a data change instead of a code change. So the directory is
            # validated as a whole, not just the file PREP-01 delivered.

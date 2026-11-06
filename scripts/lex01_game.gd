@@ -33,11 +33,16 @@ extends Node3D
 @onready var room_shell: StaticBody3D = %RoomShell
 @onready var candidates: Node3D = %Candidates
 @onready var npcs: Node3D = %NPCs
+@onready var interior_root: Node3D = %Interior
 @onready var hud: Lex01HUD = %HUD
 
 var content: Lex01Content
 var progress: Lex01Progress
 var builder: Lex01RoomBuilder
+# The tavern's fixed furniture, assembled from data once per run (TAV-03, Issue #10). It is a
+# separate thing from the room builder on purpose: what stands in the room does not change from
+# card to card, and only its `solid` entries stop the player.
+var interior: Lex01Interior
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var seed_value: int = 0
@@ -82,11 +87,13 @@ var _probe_mode: String = ""
 func _ready() -> void:
 	var options: Dictionary = _command_line_options()
 	_probe_mode = String(options.get("probe", ""))
+	if has_meta("integration_probe"):
+		_probe_mode = "external"
 	seed_value = int(options.get("seed", Time.get_unix_time_from_system()))
 	rng.seed = seed_value
 
 	content = Lex01Content.new()
-	if not content.load_all():
+	if not content.load_all(String(options.get("world", ""))):
 		for problem: String in content.errors:
 			print("CONTENT_ERROR %s" % problem)
 		print("LEX01 CONTENT FAIL")
@@ -97,6 +104,16 @@ func _ready() -> void:
 	print("CONTENT lemmas=%d scenario_files=%d scenarios=%d days=%s" % [
 		content.lemmas.size(), content.scenario_files.size(), content.scenarios.size(), content.days(),
 	])
+	# The world decides what a run is: the tavern by default, the legacy LEX-01 practice room
+	# with --world legacy. It is chosen before anything is staged so the whole run is coherent.
+	print("WORLD name=%s staging=%s interior=%s" % [
+		content.world_name(), content.world_staging(), str(content.world_uses_interior()),
+	])
+
+	if content.world_uses_interior():
+		if not preload("res://scripts/generated_tavern.gd").install(self, content):
+			get_tree().quit(1)
+			return
 
 	progress = Lex01Progress.new()
 	_player_config = content.player_config()
@@ -107,8 +124,18 @@ func _ready() -> void:
 	# or delete the progress a human built by pressing F5.
 	if not _probe_mode.is_empty():
 		progress.use_probe_save()
+	# The tavern's fixed furniture, assembled from data once per run (TAV-03, Issue #10). It is a
+	# separate thing from the room builder on purpose: what stands in the room does not change
+	# from card to card, and only its `solid` entries stop the player. Only a world whose data
+	# declares an interior builds it - the legacy practice room keeps its empty test-room floor.
+	interior = Lex01Interior.new()
+	interior.setup(content, interior_root)
+	var tavern: Dictionary = interior.build() if content.world_uses_interior() else {"built": 0, "solid": 0}
+	for warning: String in interior.warnings:
+		print("INTERIOR_WARNING %s" % warning)
+	print("TAVERN built=%d solid=%d" % [int(tavern["built"]), int(tavern["solid"])])
 	builder = Lex01RoomBuilder.new()
-	builder.setup(content, candidates, npcs, rng)
+	builder.setup(content, candidates, npcs, rng, interior)
 	builder.prepare_npcs()
 	for warning: String in builder.warnings:
 		print("BUILDER_WARNING %s" % warning)
@@ -136,7 +163,7 @@ func _ready() -> void:
 	start_day(day)
 	print("RUN seed=%d mode=%s" % [seed_value, _probe_mode if not _probe_mode.is_empty() else "play"])
 
-	if not _probe_mode.is_empty():
+	if not _probe_mode.is_empty() and _probe_mode != "external":
 		await get_tree().process_frame
 		var probe_script: Variant = load("res://tools/lex01_probe.gd")
 		if not (probe_script is GDScript):
@@ -1081,11 +1108,17 @@ func probe_respond(option_id: String) -> Dictionary:
 
 
 ## Where the delivery target of the staged scenario is in the room, whether it is a prop or a
-## person: the point the crosshair has to land on to answer a bring task.
+## person: the point the crosshair has to land on to answer a bring task. An object target is
+## aimed at the middle of its top surface - what a player aims at - rather than at the centre of
+## its bounding box, which sits below a table's top and is a marginal aim.
 func _delivery_target_point() -> Vector3:
 	var kind: String = String(staging.get("delivery_kind", ""))
 	if kind == "object":
-		return builder.prop_center(String(staging.get("delivery_path", "")))
+		var path: String = String(staging.get("delivery_path", ""))
+		var box: AABB = builder.prop_aabb(path)
+		if box.size.length() > 0.0:
+			return Vector3(box.get_center().x, box.position.y + box.size.y, box.get_center().z)
+		return builder.prop_center(path)
 	if kind == "npc":
 		var npc_node: Node3D = builder.npc_node(String(staging.get("delivery_npc", "")))
 		if npc_node != null:
@@ -1322,6 +1355,8 @@ func _command_line_options() -> Dictionary:
 			result["probe"] = "input" if args[index] == "--probe-input" else "logic"
 		elif args[index] == "--seed" and index + 1 < args.size():
 			result["seed"] = int(args[index + 1])
+		elif args[index] == "--world" and index + 1 < args.size():
+			result["world"] = args[index + 1]
 	return result
 
 

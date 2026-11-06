@@ -30,7 +30,7 @@
       "sample_form": "der Tisch",
       "en": "table",
       "ru": "стол",
-      "scene_object": "res://assets/kaykit/furniture/table_medium.gltf",
+      "scene_object": "res://assets/kaykit/items/table_round_A.gltf",
       "source_entry": "der Tisch, -e",
       "source_example_de": "Die Fotos liegen auf dem Tisch.",
       "source_page": 24,

@@ -4,26 +4,28 @@ A small Godot 4 learning-game prototype. The goal is to test whether **10–15 e
 
 ## Current status
 
-**LEX-01 is playable, from inside the room.** `scenes/main.tscn` is the learning room: a Mage and a Knight give short German sentences, and the player walks up to the room, looks through a crosshair and answers by acting on the object the sentence names, by carrying an object to a target, or by choosing a spoken answer. Progress per lemma is tracked and some situations repeat a lemma one simulated day later in a changed context.
+**LEX-01 is playable, from inside a tavern.** `scenes/main.tscn` is the learning room: since TAV-03 (Issue #10) and the approved layout redesign it is a 16 x 12 m tavern with zoned areas - a kitchen corner (fridge, stove, prep counter) in the north-west, the bar with stools on the west wall, three guest tables with chairs in the middle and east, a lounge with a sofa in the north-east corner, a doorway you start in front of, and three people in it - a Mage at the kitchen side, a Knight at the bar and a Gast at a table. They give short German sentences, and the player walks up to them, looks through a crosshair and answers by acting on the object the sentence names, by carrying an object to a target, or by choosing a spoken answer. Progress per lemma is tracked and some situations repeat a lemma one simulated day later in a changed context. The layout and its measured furniture footprints are documented in `docs/tavern_layout.md`.
+
+The room shell and fixed furniture locations are data in `data/room/lex01_room.json`; the reusable kitchen, bar, guest-table and lounge compositions are native PackedScenes in `scenes/furniture_groups/`. Each group is authored once with fixed local transforms and reused at fixed room positions. `scripts/lex01_interior.gd` resolves their stable member IDs for gameplay stations.
 
 All content lives in JSON. Adding a learning situation means adding or editing a scenario record - no gameplay script, no new asset, no new test file.
 
 What is in place now:
 
 - **Engine verified locally**: Godot `4.7.1.stable.official.a13da4feb`, headless import and both preview scenes run clean.
-- **Assets** under `assets/kaykit/`: two KayKit Adventurers characters (`Knight.glb`, `Mage.glb`) that share one rig and already carry `Idle`, `Walking_A`, `Interact` clips, five Furniture Bits props and five Restaurant Bits objects. `docs/assets_provenance.md` records source commit, size and SHA-256 for every file.
+- **Assets** under `assets/kaykit/`: three KayKit Adventurers characters (`Knight.glb`, `Mage.glb`, `Rogue_Hooded.glb`) that share one rig and already carry `Idle`, `Walking_A`, `Interact` clips, five Furniture Bits props, five Restaurant Bits objects and the 20 room models the tavern is assembled from (walls, doorway, windows, bar counter, wall cabinets, stove, crates, tables, chairs, stools, lamps, rugs, pictures, pot, menu stand). All of them come from the three pinned KayKit commits and the two shared texture atlases already in the repository, so TAV-03 introduced no new licence or texture. `docs/assets_provenance.md` records source commit, size and SHA-256 for every file.
 - **Dialogue plugin**: Dialogue Manager `v4.2.0` (MIT) in `addons/dialogue_manager/`. LEX-01 uses two of its node types as widgets - `DialogueLabel` for the spoken sentence and `DialogueResponsesMenu` for the two answer sentences - so an answer set comes straight from the scenario JSON and no `.dialogue` graph is needed for gameplay. `content/dialogue/prep_smoke.dialogue` remains the plugin smoke file.
 - **Content**: `data/vocabulary/de_a1_starter.json` (47 Goethe-A1-verified lemmas: 23 nouns, 12 verbs, 7 adjectives, 2 prepositions, 1 adverb, 2 everyday expressions), `data/scenarios/lex01_starter.json` (15 scenarios), `data/scenarios/lex01_extension.json` (2 more scenarios, which is the data-only proof for Issue #2) and `data/scenarios/tav01_sample_shift.json` (10 sample tavern-shift scenarios), plus `data/room/lex01_room.json` for where things stand. `docs/tav01_learning_plan.md` plans the rest of the shift on that data.
 
 Preview and regression scenes, all safe to run:
 
-- `scenes/main.tscn` - the playable LEX-01 room.
+- `scenes/main.tscn` - the playable LEX-01 tavern.
 - `scenes/prep_preview.tscn` - the two characters and the ten props; a short probe plays idle/walk/interact and exits.
 - `scenes/prep_dialogue_smoke.tscn` - prints one German line, its two options and both branch outcomes.
 
 ## Playing LEX-01
 
-Run `scenes/main.tscn` in Godot. TAV-02 (Issue #9) made the room first-person, so a run starts with a briefing overlay; close it and you are standing in the room:
+Run `scenes/main.tscn` in Godot (F5). TAV-02 (Issue #9) made the room first-person, so a run starts with a briefing overlay; close it and you are standing just inside the tavern door, looking north down the room to the bar:
 
 | Control | What it does |
 | --- | --- |
@@ -43,7 +45,7 @@ Run `scenes/main.tscn` in Godot. TAV-02 (Issue #9) made the room first-person, s
 | `bring_deliver` | `E` on the object to pick it up (the HUD names what you hold), then `E` on the person or place it belongs at. `E` on another object swaps what you hold. Only the delivery counts as an answer. |
 | `respond` | Look at the room and pick one of the two answer sentences under the German prompt - click it, or use the arrow keys and `Enter`. The objects those sentences name are in the room, and the one in focus is highlighted. |
 
-The player is a capsule and an eye camera with no body mesh, and carrying is abstract: no hands, no hand physics, no IK, no animation. Only the room shell (floor and four walls) is solid; every prop and every NPC stays clickable-only, so nothing can block or trap you.
+The player is a capsule and an eye camera with no body mesh, and carrying is abstract: no hands, no hand physics, no IK, no animation. What stops you is the room shell (floor, four walls, ceiling height) plus three marked furniture pieces: the preparation counter and two joined bar-counter sections. Everything else - tables, chairs, stools, lamps, rugs, wall units, the stove, every prop and every NPC - stays clickable-only, so nothing a task can ask about can block or trap you.
 
 - A wrong answer costs an attempt, never the run: the objects move and the answer order changes, so guessing by position cannot work.
 - **Пропустить** (key `X`) ends a situation without an answer; it is recorded as skipped, never as correct.
@@ -87,12 +89,13 @@ Rules the data has to respect (CI enforces them, and the game prints them as `CO
 - `scene_object` paths must exist; `day` decides which day a scenario appears in; `revisit_of` marks a delayed revisit of another scenario id.
 - `scene_state` may state where something is: `"broetchen": "on_table"`, `"kartoffel": "in_fridge"`, or `focus_object` / `compared_object` for highlighting. A placement name must be declared in `data/room/lex01_room.json`.
 
-`data/room/lex01_room.json` is the only file that knows positions: `npcs`, `cameras` per `context` (since TAV-02 this section is read as **where the player is put down** per context - a feet position and an initial facing - and it keeps its name because it is the already-shipped per-context framing contract), `player` for the first-person body and its reach, `candidate_slots` per `context` (the kitchen layout is deliberately different from the room layout, so a day-2 revisit is a changed situation), `anchors` for surfaces, `placement_slots` (`on_table`, `in_fridge`), the hold tray and the delivery offset. Nothing in the gameplay scripts contains a German word, a prop path or a coordinate.
+`data/room/lex01_room.json` is the only file that knows positions: `interior` (the tavern's fixed furniture, since TAV-03), `npcs`, `cameras` per `context` (since TAV-02 this section is read as **where the player is put down** per context - a feet position and an initial facing - and it keeps its name because it is the already-shipped per-context framing contract), `player` for the first-person body and its reach, `candidate_slots` per `context` (the kitchen layout is deliberately different from the room layout, so a day-2 revisit is a changed situation), `anchors` for surfaces, `placement_slots` (`on_table`, `in_fridge`), the hold tray and the delivery offset. Nothing in the gameplay scripts contains a German word, a prop path or a coordinate.
 
 - [BOOT-01: bootstrap](https://github.com/ExecBit/language-life-sim/issues/1)
 - [PREP-01: asset, dialogue and content preparation](https://github.com/ExecBit/language-life-sim/issues/4)
 - [LEX-01: learning vertical slice](https://github.com/ExecBit/language-life-sim/issues/2)
 - [TAV-02: first-person controls in the learning room](https://github.com/ExecBit/language-life-sim/issues/9)
+- [TAV-03: compact tavern interior](https://github.com/ExecBit/language-life-sim/issues/10)
 
 ## Open the Godot project
 
@@ -102,22 +105,36 @@ Use Godot **4.7.1** (the version this work was verified with). Open the **reposi
 $godot = "C:/Users/agdei/AppData/Local/Microsoft/WinGet/Packages/GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe/Godot_v4.7.1-stable_win64_console.exe"
 
 # whole learning loop over both days, headless, on the real scene: also checks the player body,
-# the room shell, the reach of the crosshair and where every answer stands relative to the spawn
+# the room shell, the reach of the crosshair and where every answer stands relative to the spawn.
+# A normal run plays the tavern world (the TAV-01 sample shift); --world legacy plays the older
+# LEX-01 practice room instead (data/room/lex01_room.json 'worlds').
 & $godot --headless --path . --quit-after 20000 res://scenes/main.tscn -- --probe --seed 1234
+# the same learning loop over the legacy LEX-01 records, in the empty practice room
+& $godot --headless --path . --quit-after 20000 res://scenes/main.tscn -- --probe --world legacy --seed 1234
 # a real player walking through the room with a real E key, a real click on the crosshair target,
 # a real answer-button click and a real Enter key, walls stopping the walk, windowed
 & $godot --path . --quit-after 20000 res://scenes/main.tscn -- --probe-input --seed 7
 ```
 
-Both print `LEX01 PROBE OK` / `LEX01 INPUT PROBE OK` or `... FAIL` with reasons and a non-zero exit code.
+Both print `LEX01 PROBE OK` / `LEX01 INPUT PROBE OK` or `... FAIL` with reasons and a non-zero exit code. `--probe-input` needs a real window: run headless and the HUD's briefing button resolves off-screen, so the probe never gets past the overlay (it stops at `checks=24`). Windowed the tavern run prints `LEX01 INPUT PROBE OK checks=91` and the legacy run `LEX01 INPUT PROBE OK checks=102`. The input probe once failed two of those 102 checks, and the cause was not the room: a staged option's pick collider was measured where the object first stood and never followed the placement moves that then relocated the object, so the crosshair aimed at the visible prop while its collider sat elsewhere and `E` picked nothing. `scripts/lex01_room_builder.gd` now re-measures each pick box after every staging, carrying and delivery move (`_sync_pick`), and the same two checks pass.
+
+## Two worlds, one room
+
+`data/room/lex01_room.json` declares **worlds**. A normal run (F5, no arguments) plays the **tavern** world: the fixed furniture stands where the `interior` array authors it for the whole run, and the TAV-01 sample shift stages its small items at fixed stations - the bar counter, the tavern table, the fridge. No card spawns furniture, and no card moves the room. The **legacy** world (`--world legacy`) is the original LEX-01 practice room: no built furniture, answers staged on the shuffled candidate pool, the guided first example and the beginner briefing. It is kept as regression content for the 17 LEX-01 records and runs through the same probes and the same scene.
+
+## TAV-03 fixed layout review
+
+The four reusable composition types and their fixed 16 × 12 m arrangement are documented in [`docs/tavern_layout.md`](docs/tavern_layout.md). Launch `scenes/main.tscn` and press F6 to inspect and play. Godot 4.7.1 movie capture crashed with signal 11, so this change includes no screenshots; visual acceptance remains NOT_TESTED and the F6 scene is ready for direct review.
 
 ## Not verified yet
 
 - **Export and a launched build**: no export templates are installed and there is no `export_presets.cfg`, so an exported build - and whether runtime `load()` of the `.gltf` props works there - is untested. Packaging is a separate task.
-- **How the room and HUD look and read**: the probes check behaviour, not visual quality or readability. That is a human judgement.
+- **Human visual acceptance**: screenshot capture failed in this environment, so the furniture arrangement and room readability still need direct F6 review.
 - **German naturalness of the sentences**, including the two in `lex01_extension.json` and the ten in `tav01_sample_shift.json`, is not verified by any automated check, and neither is the Russian and English wording of the 32 lemmas TAV-01 added (see `docs/assets_provenance.md`).
 - **Crosshair aiming at an arbitrary viewing angle**: the input probe aims the eye at the staged objects from the shipped spawn points and walks to them; it does not sweep every angle a player could stand at.
-- **Props are not solid.** They carry collision boxes only so the crosshair can land on them, so you can walk through a table. Making furniture solid belongs with the real furniture of TAV-03.
+- **Props are clickable, not solid.** They carry collision boxes only so the crosshair can land on them. The preparation counter and bar counters are solid furniture and the guest tables, chairs and everything else a scenario can stage are not, so you can still walk through a table - a deliberate trade-off so no task object can ever block or trap the player.
+- **Visual arrangement**: screenshot capture did not work in this environment; human review via F6 remains outstanding.
+- **NPC roles are positional only.** der Ritter stands behind the counter and der Gast at a table, but no scenario record addresses a character as the guest yet, and there is no NPC behaviour: no AI, no navigation, no schedule, no dialogue driven by role.
 - `in_fridge` places an item in front of the fridge and highlights it. The committed fridge prop has no door, so "in dem Kühlschrank" is shown rather than opened.
 
 ## Development principles
@@ -129,3 +146,18 @@ Both print `LEX01 PROBE OK` / `LEX01 INPUT PROBE OK` or `... FAIL` with reasons 
 5. **Issues / Project / PR**: Issue defines task, GitHub Project tracks its status, PR holds change + verification. The user alone merges.
 
 See `AGENTS.md` for local-agent instructions. The prior `tavern-language-mvp` repository is independent: do not copy its process constraints or asset pipeline.
+
+### Generated playable tavern (TAV-03)
+
+F5 now loads the compact LAY-05 B output from `data/room/tavern_generated.json` into the actual main scene. The existing stations/NPCs bind to generated furniture; walls and collision follow the three generated rooms. Furniture is fixed for the whole run. Guest furniture remains non-solid as in TAV-02; walls and counters block movement.
+
+Regenerate using the existing pinned FittingPlacer checkout (requires .NET 9):
+
+```powershell
+./tools/generate_tavern.ps1 -Variant B -SolverRoot <path-to-pinned-FittingPlacer>
+# -Variant A installs the spacious brief instead.
+# Focused Godot check for the committed B layout; output goes to ignored .local/:
+& $godot --path . --script tools/tav03_integration_probe.gd
+```
+
+The focused check traverses the actual room with the player capsule, checks that blocking the service door disconnects both service rooms, then picks up and delivers a small item through E. `--world legacy --probe` still exercises the original practice room.
