@@ -1,6 +1,5 @@
 param(
     [Parameter(Mandatory = $true)][ValidateSet('A', 'B')][string]$Variant,
-    [switch]$NegativeTest,
     [string]$GodotExe = (Get-Command Godot_v4.7.1-stable_win64_console.exe -ErrorAction Stop).Source
 )
 $ErrorActionPreference = 'Stop'
@@ -17,23 +16,16 @@ $furnitureLicense = Join-Path $previewAssets 'FURNITURE_LICENSE.txt'
 Copy-Item -LiteralPath (Join-Path $sourceFurniture 'LICENSE.txt') -Destination $furnitureLicense -Force
 $licenseLines = [IO.File]::ReadAllLines($furnitureLicense) | ForEach-Object { $_.TrimEnd() }
 [IO.File]::WriteAllText($furnitureLicense, (($licenseLines -join "`n").TrimEnd() + "`n"), [Text.UTF8Encoding]::new($false))
-$brief = Join-Path $project "stage4-$Variant-brief.json"
-$layout = Join-Path $project "stage4-$Variant-layout.json"
+$brief = Join-Path $project "stage3-$Variant-brief.json"
+$layout = Join-Path $project "stage3-$Variant-layout.json"
 $runner = Join-Path $root 'runner/Runner.csproj'
 $semantics = Join-Path $root 'tavern.xml'
-if ($NegativeTest) { $env:STAGE4_BLOCK_SERVICE_DOOR = '1' }
-try { dotnet run --project $runner -- --stage4 $brief $layout $semantics }
-finally { Remove-Item Env:STAGE4_BLOCK_SERVICE_DOOR -ErrorAction SilentlyContinue }
-if ($NegativeTest) {
-    if ($LASTEXITCODE -eq 0) { throw 'Stage 4 negative test unexpectedly succeeded.' }
-    Write-Host 'STAGE4 NEGATIVE TEST PASS: blocked doorway rejected with diagnostic.'
-    exit 0
-}
-if ($LASTEXITCODE -ne 0) { throw "Stage 4 FittingPlacer generation failed ($LASTEXITCODE)." }
+dotnet run --project $runner -- --stage3 $brief $layout $semantics
+if ($LASTEXITCODE -ne 0) { throw "Stage 3 FittingPlacer generation failed ($LASTEXITCODE)." }
 & $GodotExe --headless --path $project --import
 if ($LASTEXITCODE -ne 0) { throw "Godot import failed ($LASTEXITCODE)." }
-foreach ($view in @('top','entrance','hall_dining','hall_bar','hall_kitchen_doorway','lounge','kitchen_storeroom_doorway','storeroom')) {
-    $capture = Join-Path $project "screenshots/stage4-$Variant-$view.png"
-    & $GodotExe --path $project res://preview.tscn -- '--stage4' "--view=$view" "--layout=stage4-$Variant-layout.json" "--capture=$capture"
+foreach ($view in @('top','hall_overview','hall_dining','hall_bar','hall_kitchen_doorway','lounge','kitchen_storeroom_doorway','storeroom')) {
+    $capture = Join-Path $project "screenshots/stage3-$Variant-$view.png"
+    & $GodotExe --path $project res://preview.tscn -- '--stage3' "--view=$view" "--layout=stage3-$Variant-layout.json" "--capture=$capture"
     if ($LASTEXITCODE -ne 0) { throw "Godot $view capture failed ($LASTEXITCODE)." }
 }

@@ -25,7 +25,7 @@ func _ready() -> void:
 		return
 
 	if stage4 or stage3:
-		_build_stage3_rooms(parsed)
+		_build_stage3_rooms(parsed, stage4)
 	elif stage1 or stage2:
 		_build_stage1_rooms(parsed)
 	else:
@@ -150,7 +150,7 @@ func _select_view(view_name: String) -> void:
 	_root_camera.look_at(target, Vector3.UP)
 
 
-func _build_stage3_rooms(layout: Dictionary) -> void:
+func _build_stage3_rooms(layout: Dictionary, stage4: bool = false) -> void:
 	var floor_material := _material(Color(0.29, 0.25, 0.2))
 	var wall_material := _material(Color(0.48, 0.42, 0.33))
 	var trim_material := _material(Color(0.22, 0.17, 0.12))
@@ -162,21 +162,12 @@ func _build_stage3_rooms(layout: Dictionary) -> void:
 		var depth := float(room["depth"])
 		_add_box(room["id"] + "Floor", center + Vector3(0, -0.12, 0), Vector3(width, 0.24, depth), floor_material)
 		_add_box(room["id"] + "North", center + Vector3(0, 1.5, depth / 2 + wall / 2), Vector3(width, 3, wall), wall_material)
-		_add_box(room["id"] + "South", center + Vector3(0, 1.5, -depth / 2 - wall / 2), Vector3(width, 3, wall), wall_material)
+		if not (stage4 and room["id"] == "hall"):
+			_add_box(room["id"] + "South", center + Vector3(0, 1.5, -depth / 2 - wall / 2), Vector3(width, 3, wall), wall_material)
 	_add_box("HallWest", _room_edge(rooms[0], "west", 0) + Vector3(-wall / 2, 0, 0), Vector3(wall, 3, float(rooms[0]["depth"])), wall_material)
 	_add_box("StoreEast", _room_edge(rooms[2], "east", 0) + Vector3(wall / 2, 0, 0), Vector3(wall, 3, float(rooms[2]["depth"])), wall_material)
-	# Main entrance is derived from the generated hall and remains 1.4 m wide.
-	var hall: Dictionary = rooms[0]
-	var hall_x := float(hall["originX"])
-	var hall_z := float(hall["originZ"])
-	var hall_width := float(hall["width"])
-	var hall_depth := float(hall["depth"])
-	var entrance_width := float(layout["mainEntrance"]["width"])
-	var south_z := hall_z - hall_depth / 2
-	var side_span := (hall_width - entrance_width) / 2
-	_add_box("HallSouthWest", Vector3(hall_x - entrance_width / 2 - side_span / 2, 1.5, south_z), Vector3(side_span, 3, wall), wall_material)
-	_add_box("HallSouthEast", Vector3(hall_x + entrance_width / 2 + side_span / 2, 1.5, south_z), Vector3(side_span, 3, wall), wall_material)
-	_add_box("MainEntranceHeader", Vector3(hall_x, 2.8, south_z), Vector3(entrance_width, 0.4, wall), trim_material)
+	if stage4:
+		_add_main_entrance(layout, wall, wall_material, trim_material)
 	var doors: Array = layout["doors"]
 	for i in range(2):
 		var left: Dictionary = rooms[i]
@@ -191,6 +182,23 @@ func _build_stage3_rooms(layout: Dictionary) -> void:
 		_add_box("Partition%dNorth" % i, Vector3(x, 1.5, door_z + opening / 2 + north_len / 2), Vector3(wall, 3, north_len), wall_material)
 		_add_box("Partition%dSouth" % i, Vector3(x, 1.5, -half_depth + south_len / 2), Vector3(wall, 3, south_len), wall_material)
 		_add_box("DoorHeader%d" % i, Vector3(x, 2.8, door_z), Vector3(wall, 0.4, opening), trim_material)
+
+
+func _add_main_entrance(layout: Dictionary, wall: float, wall_material: Material, trim_material: Material) -> void:
+	var hall: Dictionary = layout["rooms"][0]
+	var hall_x := float(hall["originX"])
+	var hall_z := float(hall["originZ"])
+	var hall_width := float(hall["width"])
+	var hall_depth := float(hall["depth"])
+	var entrance: Dictionary = layout["mainEntrance"]
+	var entrance_x := float(entrance["centerX"])
+	var entrance_width := float(entrance["width"])
+	var south_z := hall_z - hall_depth / 2 - wall / 2
+	var west_span := entrance_x - entrance_width / 2 - (hall_x - hall_width / 2)
+	var east_span := (hall_x + hall_width / 2) - (entrance_x + entrance_width / 2)
+	_add_box("HallSouthWest", Vector3(hall_x - hall_width / 2 + west_span / 2, 1.5, south_z), Vector3(west_span, 3, wall), wall_material)
+	_add_box("HallSouthEast", Vector3(entrance_x + entrance_width / 2 + east_span / 2, 1.5, south_z), Vector3(east_span, 3, wall), wall_material)
+	_add_box("MainEntranceHeader", Vector3(entrance_x, 2.8, south_z), Vector3(entrance_width, 0.4, wall), trim_material)
 
 
 func _room_edge(room: Dictionary, side: String, y: float) -> Vector3:
@@ -286,9 +294,9 @@ func _select_stage4_view(view_name: String, layout: Dictionary) -> void:
 	var hall: Dictionary = layout["rooms"][0]
 	var z := float(hall["originZ"]) - float(hall["depth"]) / 2
 	var x := float(layout["mainEntrance"]["centerX"])
-	_root_camera.position = Vector3(x, 1.65, z + 1.1)
+	_root_camera.position = Vector3(x, 1.65, z + 2.0)
 	_root_camera.fov = 82
-	_root_camera.look_at(Vector3(x, 1.25, z + 8.5), Vector3.UP)
+	_root_camera.look_at(Vector3(x, 1.25, z - 5.0), Vector3.UP)
 
 
 func _select_stage1_view(view_name: String, layout: Dictionary) -> void:

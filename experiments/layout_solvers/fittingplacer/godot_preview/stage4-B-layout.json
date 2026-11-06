@@ -1,0 +1,752 @@
+{
+  "solver": "FittingPlacer",
+  "upstreamCommit": "1cdb703197b41d418e7ce686e74c7aad835ddb37",
+  "seed": 4242,
+  "totalWidth": 38,
+  "totalDepth": 26.2,
+  "roomHeight": 3,
+  "doorWidth": 1.4,
+  "kitchenAccess": {
+    "entryCorridorWidth": 0.9000001,
+    "workAreaReachable": true,
+    "route": "around_furniture_front"
+  },
+  "rooms": [
+    {
+      "id": "hall",
+      "type": "public_hall",
+      "width": 21,
+      "depth": 26.2,
+      "originX": -8.5,
+      "originZ": 0
+    },
+    {
+      "id": "kitchen",
+      "type": "kitchen",
+      "width": 9,
+      "depth": 7.488,
+      "originX": 6.5,
+      "originZ": 0
+    },
+    {
+      "id": "storeroom",
+      "type": "storeroom",
+      "width": 8,
+      "depth": 5.6,
+      "originX": 15,
+      "originZ": 0
+    }
+  ],
+  "zones": [
+    {
+      "id": "hall",
+      "type": "public_hall",
+      "width": 21,
+      "depth": 26.2,
+      "originX": -8.5,
+      "originZ": 0
+    },
+    {
+      "id": "kitchen",
+      "type": "kitchen",
+      "width": 9,
+      "depth": 7.488,
+      "originX": 6.5,
+      "originZ": 0
+    },
+    {
+      "id": "storeroom",
+      "type": "storeroom",
+      "width": 8,
+      "depth": 5.6,
+      "originX": 15,
+      "originZ": 0
+    }
+  ],
+  "logicalZones": [
+    {
+      "id": "dining",
+      "type": "dining",
+      "width": 15,
+      "depth": 15,
+      "originX": -11.5,
+      "originZ": -5.6000004
+    },
+    {
+      "id": "bar",
+      "type": "bar",
+      "width": 6,
+      "depth": 5.1419,
+      "originX": -1,
+      "originZ": 6.5999994
+    },
+    {
+      "id": "lounge",
+      "type": "lounge",
+      "width": 8.5,
+      "depth": 7,
+      "originX": -14.75,
+      "originZ": 6.5999994
+    },
+    {
+      "id": "storage",
+      "type": "storage",
+      "width": 8,
+      "depth": 5.6,
+      "originX": 15,
+      "originZ": 0
+    }
+  ],
+  "doors": [
+    {
+      "from": "hall",
+      "to": "kitchen",
+      "width": 1.4,
+      "axis": "x",
+      "centerZ": 2.9
+    },
+    {
+      "from": "kitchen",
+      "to": "storeroom",
+      "width": 1.4,
+      "axis": "x",
+      "centerZ": 0
+    }
+  ],
+  "placements": [
+    {
+      "id": "dining_dining_table_01",
+      "zoneId": "dining",
+      "assetId": "dining_table",
+      "assetPath": "res://assets/table_round_A.gltf",
+      "translation": [
+        -15.402786,
+        0,
+        -6.5006433
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_01",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -10.499286,
+        0,
+        -11.851429
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_02",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -7.6972857,
+        0,
+        -4.0458574
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_03",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -10.499286,
+        0,
+        -7.554429
+      ],
+      "rotation": [
+        0,
+        -0,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_04",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -12.647785,
+        0,
+        -9.702929
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_table_02",
+      "zoneId": "dining",
+      "assetId": "dining_table",
+      "assetPath": "res://assets/table_round_A.gltf",
+      "translation": [
+        -10.499286,
+        0,
+        -9.702929
+      ],
+      "rotation": [
+        0,
+        -4.712389,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_05",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -9.845785,
+        0,
+        -1.8973575
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_06",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -15.402786,
+        0,
+        -4.3521433
+      ],
+      "rotation": [
+        0,
+        -0,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_07",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -17.551285,
+        0,
+        -6.5006433
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_08",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -7.6972857,
+        0,
+        0.2511425
+      ],
+      "rotation": [
+        0,
+        -0,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_table_03",
+      "zoneId": "dining",
+      "assetId": "dining_table",
+      "assetPath": "res://assets/table_round_A.gltf",
+      "translation": [
+        -7.6972857,
+        0,
+        -1.8973575
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_09",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -15.402786,
+        0,
+        -8.649143
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_10",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -13.254286,
+        0,
+        -6.5006433
+      ],
+      "rotation": [
+        0,
+        -4.712389,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_11",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -8.350786,
+        0,
+        -9.702929
+      ],
+      "rotation": [
+        0,
+        -4.712389,
+        0
+      ]
+    },
+    {
+      "id": "dining_dining_chair_12",
+      "zoneId": "dining",
+      "assetId": "dining_chair",
+      "assetPath": "res://assets/chair_A.gltf",
+      "translation": [
+        -5.5487857,
+        0,
+        -1.8973575
+      ],
+      "rotation": [
+        0,
+        -4.712389,
+        0
+      ]
+    },
+    {
+      "id": "bar_bar_section_a_01",
+      "zoneId": "bar",
+      "assetId": "bar_section_a",
+      "assetPath": "res://assets/kitchencounter_straight_A.gltf",
+      "translation": [
+        0.079050064,
+        0,
+        7.799999
+      ],
+      "rotation": [
+        0,
+        -4.712389,
+        0
+      ]
+    },
+    {
+      "id": "bar_bar_section_b_01",
+      "zoneId": "bar",
+      "assetId": "bar_section_b",
+      "assetPath": "res://assets/kitchencounter_straight_A.gltf",
+      "translation": [
+        0.079050064,
+        0,
+        5.799999
+      ],
+      "rotation": [
+        0,
+        -4.712389,
+        0
+      ]
+    },
+    {
+      "id": "bar_customer_stool_01",
+      "zoneId": "bar",
+      "assetId": "customer_stool",
+      "assetPath": "res://assets/chair_stool.gltf",
+      "translation": [
+        -1.5168991,
+        0,
+        8.291666
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "bar_customer_stool_02",
+      "zoneId": "bar",
+      "assetId": "customer_stool",
+      "assetPath": "res://assets/chair_stool.gltf",
+      "translation": [
+        -1.5168991,
+        0,
+        6.291666
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "bar_customer_stool_03",
+      "zoneId": "bar",
+      "assetId": "customer_stool",
+      "assetPath": "res://assets/chair_stool.gltf",
+      "translation": [
+        -1.5168991,
+        0,
+        7.3083324
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "bar_customer_stool_04",
+      "zoneId": "bar",
+      "assetId": "customer_stool",
+      "assetPath": "res://assets/chair_stool.gltf",
+      "translation": [
+        -1.5168991,
+        0,
+        5.3083324
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "kitchen_kitchen_counter_01",
+      "zoneId": "kitchen",
+      "assetId": "kitchen_counter",
+      "assetPath": "res://assets/kitchencounter_straight_A.gltf",
+      "translation": [
+        4.044,
+        0,
+        -0.49399996
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "kitchen_kitchen_stove_01",
+      "zoneId": "kitchen",
+      "assetId": "kitchen_stove",
+      "assetPath": "res://assets/stove_single.gltf",
+      "translation": [
+        4.044,
+        0,
+        -2.494
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "kitchen_kitchen_fridge_01",
+      "zoneId": "kitchen",
+      "assetId": "kitchen_fridge",
+      "assetPath": "res://assets/fridge_A.gltf",
+      "translation": [
+        4.044,
+        0,
+        1.506
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "lounge_lounge_coffee_table_01",
+      "zoneId": "lounge",
+      "assetId": "lounge_coffee_table",
+      "assetPath": "res://assets/table_medium.gltf",
+      "translation": [
+        -15.4,
+        0,
+        8.199999
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "lounge_lounge_sofa_01",
+      "zoneId": "lounge",
+      "assetId": "lounge_sofa",
+      "assetPath": "res://assets/couch.gltf",
+      "translation": [
+        -18.1,
+        0,
+        8.199999
+      ],
+      "rotation": [
+        0,
+        -1.5707964,
+        0
+      ]
+    },
+    {
+      "id": "lounge_lounge_sofa_02",
+      "zoneId": "lounge",
+      "assetId": "lounge_sofa",
+      "assetPath": "res://assets/couch.gltf",
+      "translation": [
+        -15.4,
+        0,
+        5.499999
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "lounge_lounge_sofa_03",
+      "zoneId": "lounge",
+      "assetId": "lounge_sofa",
+      "assetPath": "res://assets/couch.gltf",
+      "translation": [
+        -12.7,
+        0,
+        8.199999
+      ],
+      "rotation": [
+        0,
+        -4.712389,
+        0
+      ]
+    },
+    {
+      "id": "storage_storeroom_crate_potatoes_01",
+      "zoneId": "storage",
+      "assetId": "storeroom_crate_potatoes",
+      "assetPath": "res://assets/crate_potatoes.gltf",
+      "translation": [
+        17.6,
+        0,
+        1.8
+      ],
+      "rotation": [
+        0,
+        -0,
+        0
+      ]
+    },
+    {
+      "id": "storage_storeroom_cabinet_01",
+      "zoneId": "storage",
+      "assetId": "storeroom_cabinet",
+      "assetPath": "res://assets/cabinet_medium.gltf",
+      "translation": [
+        17.1,
+        0,
+        -2.3
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "storage_storeroom_crate_01",
+      "zoneId": "storage",
+      "assetId": "storeroom_crate",
+      "assetPath": "res://assets/crate.gltf",
+      "translation": [
+        14.6,
+        0,
+        1.8
+      ],
+      "rotation": [
+        0,
+        -0,
+        0
+      ]
+    },
+    {
+      "id": "storage_storeroom_cabinet_02",
+      "zoneId": "storage",
+      "assetId": "storeroom_cabinet",
+      "assetPath": "res://assets/cabinet_medium.gltf",
+      "translation": [
+        12.2,
+        0,
+        -2.3
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "storage_storeroom_crate_potatoes_02",
+      "zoneId": "storage",
+      "assetId": "storeroom_crate_potatoes",
+      "assetPath": "res://assets/crate_potatoes.gltf",
+      "translation": [
+        14.8,
+        0,
+        -1.8
+      ],
+      "rotation": [
+        0,
+        -3.1415927,
+        0
+      ]
+    },
+    {
+      "id": "storage_storeroom_cabinet_03",
+      "zoneId": "storage",
+      "assetId": "storeroom_cabinet",
+      "assetPath": "res://assets/cabinet_medium.gltf",
+      "translation": [
+        12.4,
+        0,
+        2.3
+      ],
+      "rotation": [
+        0,
+        -0,
+        0
+      ]
+    }
+  ],
+  "mainEntrance": {
+    "wall": "south",
+    "axis": "x",
+    "centerX": -8.5,
+    "centerZ": -13.1,
+    "width": 1.4
+  },
+  "walkability": {
+    "status": "ROOM_CONNECTIVITY_PASS",
+    "walkingRadius": 0.4,
+    "gridResolution": 0.1,
+    "roomConnectivity": [
+      {
+        "target": "hall_interior",
+        "reachable": true,
+        "requestedPosition": [
+          -8.5,
+          -11.1
+        ],
+        "standingPosition": [
+          -8.5,
+          -11.1
+        ],
+        "reason": "reachable free cell in room"
+      },
+      {
+        "target": "kitchen_door_inside",
+        "reachable": true,
+        "requestedPosition": [
+          2.6,
+          2.9
+        ],
+        "standingPosition": [
+          2.5,
+          2.9
+        ],
+        "reason": "reachable free cell in room"
+      },
+      {
+        "target": "kitchen_interior",
+        "reachable": true,
+        "requestedPosition": [
+          6.5,
+          0
+        ],
+        "standingPosition": [
+          6.5,
+          0
+        ],
+        "reason": "reachable free cell in room"
+      },
+      {
+        "target": "storeroom_door_inside",
+        "reachable": true,
+        "requestedPosition": [
+          11.6,
+          0
+        ],
+        "standingPosition": [
+          11.6,
+          0
+        ],
+        "reason": "reachable free cell in room"
+      },
+      {
+        "target": "storeroom_interior",
+        "reachable": true,
+        "requestedPosition": [
+          15,
+          0
+        ],
+        "standingPosition": [
+          15,
+          0
+        ],
+        "reason": "reachable free cell in room"
+      },
+      {
+        "target": "door_hall_kitchen",
+        "reachable": true,
+        "reason": "at least one complete 1.0 m cross-section has free adjacent cells"
+      },
+      {
+        "target": "door_kitchen_storeroom",
+        "reachable": true,
+        "reason": "at least one complete 1.0 m cross-section has free adjacent cells"
+      }
+    ],
+    "interactionTargets": "DEFERRED"
+  }
+}

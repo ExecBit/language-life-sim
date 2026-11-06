@@ -42,14 +42,14 @@ internal static class Stage3
         var columns = (int)Math.Ceiling(Math.Sqrt(dining.Tables));
         var rows = (int)Math.Ceiling((double)dining.Tables / columns);
         var diningW = columns * 7f + 1f;
-        var diningD = rows * 7f + 3f;
+        var diningD = rows * 7f + 1f;
         var staffSide = 0.9f + 2.0419f + 0.2f + 0.75f + 0.75f + 0.5f;
         var barRun = Math.Max(bar.Sections * 2f, (bar.Stools - 1) * 0.75f + 0.75f);
         var barW = barRun + 2 * 0.9f + 0.2f;
         var barD = staffSide;
         var loungeW = Math.Max(6.0f, lounge.Sofas * 2.5f + 1.0f);
         var loungeD = 5.5f + Math.Max(0, lounge.Sofas - 2) * 1.5f;
-        var hallW = Math.Max(diningW + barW + 1.2f, loungeW + barW + 1.2f);
+        var hallW = Math.Max(diningW + barW, loungeW + barW + 1.2f);
         var upperD = Math.Max(loungeD, barD);
         const float northCirculation = 3.0f;
         var hallD = diningD + upperD + 1.2f + northCirculation;
@@ -113,16 +113,14 @@ internal static class Stage3
         var hallDoorX=(hallX+hallW/2+kitchenX-kitchenW/2)/2;
         var hallDoorZ=SelectKitchenDoorCenter(placements,new[]{dining.Id,bar.Id,lounge.Id,kitchen.Id},hallDoorX,Math.Min(hallD,kitchenD)/2-DoorWidth/2-0.1f);
         if(float.IsNaN(hallDoorZ))return Fail("Could not find an unobstructed hall-to-kitchen doorway in the derived shared boundary.");
-        if(Environment.GetEnvironmentVariable("STAGE4_BLOCK_SERVICE_DOOR") == "1") return Fail("Controlled negative test: hall-to-kitchen doorway intentionally blocked by test configuration.");
         if (!Validate(placements,dining.Tables,lounge.Sofas,storage.StorageObjects,rooms,logical,barW,barD,hallX,hallW,hallD,kitchenX,kitchenW,storeX,storeW,hallDoorZ,storeDoorZ)) return 1;
         var kitchenAccess=ValidateKitchenAccess(placements,rooms.Single(r=>r.id==kitchen.Id),hallDoorZ);
         if(kitchenAccess.width<0.9f||!kitchenAccess.reachable)return Fail("Kitchen entrance corridor or route to the working aisle is blocked.");
         var doors = new[] { new { from=hall.Id, to=kitchen.Id, width=DoorWidth, axis="x", centerZ=hallDoorZ }, new { from=kitchen.Id, to=store.Id, width=DoorWidth, axis="x", centerZ=storeDoorZ } };
-        var entranceX=hallX;
         var layout = new { solver="FittingPlacer", upstreamCommit=Commit, seed=brief.Seed, totalWidth=hallW+kitchenW+storeW,
             totalDepth=Math.Max(hallD,Math.Max(kitchenD,storeD)), roomHeight=3f, doorWidth=DoorWidth,
             kitchenAccess=new { entryCorridorWidth=kitchenAccess.width, workAreaReachable=kitchenAccess.reachable, route="around_furniture_front" }, rooms, zones=rooms,
-            mainEntrance=new { wall="south", axis="x", centerX=entranceX, centerZ=-hallD/2, width=DoorWidth }, logicalZones=logical, doors, placements };
+            logicalZones=logical, doors, placements };
         File.WriteAllText(args[1],JsonSerializer.Serialize(layout,new JsonSerializerOptions{WriteIndented=true})+Environment.NewLine);
         Console.WriteLine($"STAGE3 PASS rooms={rooms.Length} dining_tables={dining.Tables} lounge_sofas={lounge.Sofas} storage_objects={storage.StorageObjects}");
         return 0;
