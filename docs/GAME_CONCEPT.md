@@ -1,81 +1,81 @@
-# Language Life Sim — Game Concept
+# Language Life Sim — концепция игры
 
-**Status:** Concept draft 0.1 · **Purpose:** product vision, not an implementation specification
+**Статус:** черновик концепции 0.1 · **Назначение:** видение продукта, а не техническое задание.
 
-## High concept
+## Основная идея
 
-A small game about finding your feet in a place where you do not understand the local language. The player starts with **zero German**. By interacting with people and solving ordinary situations, they gradually acquire words and ready-made expressions that let them ask, answer, clarify, and act with increasing independence.
+Небольшая игра о том, как человек осваивается в месте, где не понимает местный язык. Игрок начинает с **нулевым знанием немецкого**. Взаимодействуя с людьми и решая повседневные задачи, он постепенно осваивает слова и готовые выражения, позволяющие задавать вопросы, отвечать, уточнять непонятное и действовать всё самостоятельнее.
 
-**The language is a tool for accomplishing goals in the world, not a quiz layered over the game.**
+**Язык — инструмент достижения игровых целей, а не тест, наложенный поверх игры.**
 
-The newcomer/immigrant premise provides an understandable starting situation; it is not intended as a realistic immigration bureaucracy simulation. Neither a tavern nor any other specific building or occupation is essential to the concept.
+Образ недавно прибывшего человека (например, иммигранта) задаёт понятную исходную ситуацию, но игра не претендует на реалистичную симуляцию миграционных процедур. Таверна, конкретное здание или профессия не являются обязательными элементами концепции.
 
-## Player experience
+## Ощущения и опыт игрока
 
-At first, other characters' words are unfamiliar. The player can rely on clear context, gestures/visual cues, and optional help in a language they know. Early interactions should be safe to try and easy to repeat.
+Поначалу речь персонажей незнакома. Игрок опирается на контекст, жесты и визуальные подсказки, а при необходимости — на помощь на знакомом языке. Первые взаимодействия безопасны, понятны и допускают повторение.
 
-Over time, the same useful expressions return in different situations. The player begins to understand without assistance and can achieve things that previously required a translation or explicit guidance. The intended sense of progression is **growing autonomy**: being able to navigate everyday encounters through the new language.
+Позднее полезные выражения возвращаются в новых обстоятельствах. Игрок начинает понимать их без помощи и справляться с задачами, для которых раньше требовался перевод или прямое указание. Основа ощущения прогресса — **растущая самостоятельность** в повседневных ситуациях благодаря новому языку.
 
-The game should still offer a reason to act beyond completing a vocabulary exercise: a concrete, small, understandable goal in the fictional world. Whether this loop feels engaging enough is a hypothesis to test, not an established fact.
+В игровом мире должна существовать причина действовать помимо выполнения языкового упражнения: небольшая, конкретная и понятная цель. Будет ли этот процесс достаточно интересен сам по себе — гипотеза, которую ещё предстоит проверить.
 
-## Audience and starting conditions
+## Аудитория и исходные условия
 
-- Primary audience: adults and older beginners who know no German, including people who dislike drill-heavy flashcard study.
-- Assumed entry level: **below A1 / Pre-A1**; no prerequisite German vocabulary or grammar.
-- Starting language: German, with Russian-language support for the initial prototype. Other learning/translation languages are future possibilities, not MVP requirements.
-- The game is a supplement to learning, not a promise of fluency or a substitute for real conversation.
+- Основная аудитория — взрослые и начинающие игроки старшего возраста, не знающие немецкого, в том числе те, кому не подходят однообразные упражнения с карточками.
+- Начальный уровень — **ниже A1 / Pre-A1**; знание немецких слов и грамматики не требуется.
+- Первый изучаемый язык — немецкий, язык помощи в начальном прототипе — русский. Другие языки обучения и перевода возможны позже, но не входят в требования к MVP.
+- Игра дополняет изучение языка, но не обещает свободного владения им и не заменяет настоящее общение.
 
-## Design pillars
+## Принципы игрового дизайна
 
-1. **Zero-knowledge entry.** The first meaningful interaction must work for someone who knows no German at all. Introduce a small amount of language with explicit meaning and context before testing it.
-2. **Communication before object catalogs.** Prioritize transferable abilities such as greeting, yes/no, thanking, apologizing, indicating non-understanding, asking to repeat, requesting help, and locating something. Objects and verbs appear when needed to enact these abilities.
-3. **Language changes what the player can do.** Understanding or choosing an expression should produce a clear outcome in the game world, not only a correct/incorrect popup.
-4. **Meaningful repetition.** Reuse an expression for different purposes and with changed context. Correctness must depend on understanding it, not remembering a button, item position, or the previous answer.
-5. **Help without punishment.** Make translation, repetition, and contextual guidance available, but distinguish supported success from independent comprehension. Mistakes should not cause dead ends.
-6. **Small and reusable interactions.** Favor a few consistent, legible actions over specialized minigames, simulated NPC behavior, complex animation or elaborate environments.
+1. **Вход с нуля.** Самое первое осмысленное взаимодействие должно быть доступно человеку, не знающему ни одного немецкого слова. Сначала — объяснение значения через контекст и доступную помощь; потом — проверка.
+2. **Общение важнее каталога предметов.** В приоритете переносимые между ситуациями способности: поздороваться, согласиться или отказаться, поблагодарить, извиниться, сообщить о непонимании, попросить повторить, обратиться за помощью, узнать местоположение. Названия предметов и глаголы вводятся по мере необходимости.
+3. **Язык меняет возможности игрока.** Понимание или использование выражения должно приводить к заметному результату в игровом мире, а не только к уведомлению «правильно/неправильно».
+4. **Осмысленное повторение.** Одно выражение применяется для разных целей и в изменённом контексте. Правильный результат должен зависеть от его понимания, а не от запоминания кнопки, положения предмета или предыдущего ответа.
+5. **Помощь без наказания.** Перевод, повторение и контекстные подсказки доступны при необходимости. Успех с подсказкой отличается от самостоятельного понимания. Ошибки не должны заводить игрока в тупик.
+6. **Простые переиспользуемые действия.** Несколько понятных универсальных взаимодействий предпочтительнее отдельных мини-игр, сложного поведения NPC, анимации и детализированного окружения.
 
-## Core loop
+## Основной игровой цикл
 
-1. **Encounter** an understandable everyday need or interaction.
-2. **Interpret** a short German utterance using the scene and, when needed, assistance.
-3. **Respond or act** using a minimal set of interactions.
-4. **Observe a consequence**: a person responds, an item moves, an option is accepted or declined, a request is resolved.
-5. **Reuse** the relevant language later with different circumstances; observe whether the player can succeed with less help.
+1. **Столкнуться** с понятной бытовой потребностью или ситуацией общения.
+2. **Разобраться** в короткой немецкой реплике по контексту, при необходимости запросив помощь.
+3. **Ответить или выполнить действие** с помощью минимального набора взаимодействий.
+4. **Увидеть последствие:** персонаж реагирует, предмет перемещается, предложение принимается или отклоняется, просьба выполняется.
+5. **Вновь применить** знакомое выражение позднее, но в других обстоятельствах, и попробовать справиться с меньшим количеством подсказок.
 
-This is a design loop, **not** a requirement to interrupt play with an exercise screen after every utterance.
+Это принцип организации игрового процесса, **а не требование прерывать игру экраном упражнения после каждой реплики**.
 
-## Language progression
+## Языковая прогрессия
 
-Progression is organized around **communicative capabilities**, not locations or raw vocabulary totals:
+Развитие строится вокруг **коммуникативных возможностей**, а не списка локаций или общего числа слов:
 
-1. **Make contact:** greet, say goodbye, say yes/no, thank someone.
-2. **Repair communication:** apologize/get attention, say “I don't understand,” request repetition or help.
-3. **Orient and identify:** ask what/where, recognize simple indications of places and things.
-4. **Express basic needs:** make a simple request, accept/refuse an offer.
-5. **Follow short requests:** understand and execute simple instructions in everyday routines.
+1. **Установить контакт:** поздороваться, попрощаться, сказать «да» или «нет», поблагодарить.
+2. **Восстановить понимание:** извиниться или привлечь внимание, сказать «я не понимаю», попросить повторить или помочь.
+3. **Ориентироваться:** спросить «что?» и «где?», распознать простые указания на предметы и места.
+4. **Выразить базовые потребности:** сформулировать простую просьбу, принять или отклонить предложение.
+5. **Выполнить короткую просьбу:** понять простую инструкцию и сделать что-то в рамках повседневной рутины.
 
-A starting set of roughly **12–15 high-utility words and fixed expressions** is a candidate for exploration, not a finalized curriculum. Multi-word phrases count as communicative units, not single lemmas. The exact selection, order, German naturalness and ability to teach each expression through play must be validated in the MVP design. A player should encounter only a few new units at once.
+Начальный набор из примерно **12–15 полезных слов и готовых выражений** — гипотеза для исследования, а не утверждённая программа обучения. Фразы из нескольких слов считаются коммуникативными единицами, а не отдельными леммами. Точный набор, порядок введения, естественность немецких формулировок и возможность обучать каждой из них через игру ещё нужно проверить в дизайне MVP. За один раз игрок должен встречать лишь несколько новых единиц.
 
-## Success criteria and learning integrity
+## Критерии успеха и достоверность обучения
 
-The game succeeds at the concept level if a complete beginner can start without external instruction, understand why they are acting, and subsequently recognize or use a small set of German expressions in **new situations without compulsory translation**—while finding the process sufficiently interesting to continue.
+Концепция подтверждается, если полный новичок может начать без внешних инструкций, понимает смысл своих действий и затем распознаёт либо использует небольшой набор немецких выражений **в новых ситуациях без обязательного перевода** — при этом сам процесс достаточно интересен, чтобы захотелось продолжить.
 
-Testing must distinguish:
-- exposure to an expression;
-- a correct response with hints or translation;
-- an independent correct response in a changed context;
-- delayed recall or recognition after actual elapsed time.
+При проверке необходимо различать:
+- знакомство с выражением;
+- правильный ответ с подсказкой или переводом;
+- самостоятельный правильный ответ в изменённом контексте;
+- узнавание или воспроизведение выражения после реального перерыва.
 
-A single correct click is not evidence that a word has been learned. Evidence of listening comprehension requires audio; a text-only prototype measures primarily reading-based comprehension.
+Один правильный клик не доказывает, что слово выучено. Для проверки понимания речи на слух нужен звук; прототип только с текстом преимущественно проверяет понимание написанного.
 
-## Scope boundaries
+## Границы концепции
 
-**Part of the vision:** recurring everyday encounters; increasing independence; reusable language, situational help, and context-dependent actions.
+**Часть видения:** повторяющиеся бытовые ситуации, растущая самостоятельность, переиспользуемые выражения, доступная помощь и действия, зависящие от контекста.
 
-**Not a foundational requirement:** tavern work, a particular first location, specific props, first-person 3D, an open world, a complex life simulator, simulated economy, free-form conversations, character animation, or audio in the first prototype.
+**Не обязательны для концепции:** работа в таверне, конкретная стартовая локация, определённые предметы, вид от первого лица, открытый мир, сложный симулятор жизни, экономика, свободные диалоги, анимации персонажей и озвучка в первом прототипе.
 
-The existing Godot tavern, assets, 47-lemma corpus and 27 scenarios are **reusable experimental material**, not the definition of the new vision. Do not discard or rewrite them solely because this concept has changed. Existing Issues and implementation are not automatically re-scoped by this document.
+Существующая Godot-таверна, ассеты, словарь из 47 лемм и 27 сценариев — **материал, который можно использовать повторно**, но не определение новой концепции. Не нужно удалять или переписывать их только из-за изменения видения. Этот документ сам по себе не меняет требования существующих Issues и реализацию.
 
-## Next design decision
+## Следующее проектное решение
 
-A separate `MVP_DESIGN.md` should specify **one testable, very small learning experience**: the first communicative capabilities and expressions, the simplest suitable setting and player routine, exact interactions and hints, how outcomes change the world, and the evidence needed to decide whether to expand. Those choices are intentionally not settled by this concept.
+Отдельный документ `MVP_DESIGN.md` должен описать **один небольшой проверяемый игровой опыт**: первые коммуникативные способности и выражения, самое простое подходящее окружение и рутину игрока, конкретные взаимодействия и подсказки, последствия действий и свидетельства, на основании которых можно принять решение о расширении. Эти детали намеренно не зафиксированы в общей концепции.
