@@ -10,13 +10,13 @@ extends RefCounted
 ##
 ## WHERE the objects stand is decided by the playing world's staging mode (data 'worlds'):
 ##
-## - "authored_slots" (the tavern): every answer and every object the situation names stands
+## - "authored_slots" (the TAV-01 sample): every answer and every object the situation names stands
 ##   at the station the record declares - or at the world's default station - and a station
 ##   is the authored furniture itself (the bar counter, the tavern table, the fridge). Nothing
 ##   is spawned onto a free floor spot, so no card rearranges the room: only small items appear
 ##   and disappear on furniture that never moves. A model that already stands in the interior
 ##   is reused, never instanced a second time.
-## - "candidate_slots" (the legacy LEX-01 practice room): answers stand on the shuffled pool
+## - "candidate_slots" (the retained LEX-01 records in the same tavern): answers stand on the shuffled pool
 ##   of open floor positions, which is the regression behaviour this room has always had.
 ##
 ## There is no physics simulation here: props get a runtime StaticBody3D box built from their
@@ -119,9 +119,6 @@ func prepare_npcs() -> void:
 		if node == null:
 			warnings.append("npc '%s' is not instanced under %s (name it after the npc key in %s)" % [npc_name, _npcs.get_path(), Lex01Content.ROOM_PATH])
 			continue
-		var config: Dictionary = _content.npc_config(npc_name)
-		node.position = _vector3(config.get("position", [0, 0, 0]))
-		node.rotation_degrees = _vector3(config.get("rotation_deg", [0, 0, 0]))
 		var built: Dictionary = _add_collider(node, "%sPickBody" % npc_name, true)
 		var body: StaticBody3D = built.get("body", null) as StaticBody3D
 		if body != null:
@@ -149,8 +146,8 @@ func stage_scenario(scenario: Dictionary, keep_candidate_order: bool = false) ->
 	var target_path: String = String(target.get("scene_object", ""))
 
 	# Which object stands at which station in authored staging: the placement slot the record
-	# declares for it, or the world's default station. Empty in the legacy world, which stages
-	# on the candidate pool instead.
+	# declares for it, or the world's default station. Candidate staging places small props at
+	# shuffled positions in the same room.
 	var stations: Dictionary = _authored_station_map(scenario, state) if authored else {}
 
 	# 1. Anchors the scenario depends on: a placement slot's surface (the table a bun sits
@@ -158,8 +155,8 @@ func stage_scenario(scenario: Dictionary, keep_candidate_order: bool = false) ->
 	#    they are not one of the answers. Authored staging also needs the anchor of the
 	#    default station, because answers that no scene_state slot names stand there. In the
 	#    tavern every one of these is an authored interior instance, addressed by stable id
-	#    when the slot names one; the legacy world spawns its own anchors from the position
-	#    data instead.
+	#    when the slot names one; candidate-slot mode still uses the same authored stations
+	#    as delivery targets.
 	var anchors: Array[Dictionary] = []
 	for slot_name: String in stations.values():
 		var station_slot: Dictionary = _content.placement_slot(slot_name)
@@ -500,7 +497,7 @@ func _spawn_prop(scene_object: String, world_position: Vector3, instance_id: Str
 	# else this card names that happens to be that model - uses the standing node instead of
 	# instancing a second table or a second fridge. A named instance id resolves ONE specific
 	# piece (several counters share a model); the model-path match is the fallback.
-	if _interior != null:
+	if _interior != null and (not instance_id.is_empty() or _content.world_staging() == "authored_slots"):
 		var standing: Node3D = _interior.node_for_id(instance_id) if not instance_id.is_empty() else _interior.node_for_model(scene_object)
 		if standing != null:
 			_by_path[scene_object] = standing
@@ -544,8 +541,8 @@ func _spread_on(items: Array[Node3D], anchor: Node3D, mode: String) -> void:
 		total_width += absf(right.x) * box.size.x + absf(right.z) * box.size.z
 	total_width += SPREAD_GAP * float(maxi(items.size() - 1, 0))
 	var cursor: float = -total_width * 0.5
-	# Generated KayKit work fronts face local -Z; legacy staging keeps its +Z convention.
-	var front := Vector3(0, 0, -1 if _content.world_uses_interior() else 1).rotated(Vector3.UP, anchor.global_rotation.y)
+	# Tavern work fronts face local -Z in both staging modes.
+	var front := Vector3(0, 0, -1).rotated(Vector3.UP, anchor.global_rotation.y)
 	var front_extent := absf(front.x) * anchor_box.size.x / 2 + absf(front.z) * anchor_box.size.z / 2
 	for index: int in items.size():
 		var node: Node3D = items[index]
@@ -583,10 +580,10 @@ func _staging_position(scene_object: String, stations: Dictionary, context: Stri
 		return _next_candidate_position()
 	var slot: Dictionary = _content.placement_slot(String(stations[scene_object]))
 	var anchor_id: String = String(slot.get("anchor_id", ""))
-	if not anchor_id.is_empty():
-		var authored: Vector3 = _content.interior_position(anchor_id)
-		if authored != Vector3.ZERO:
-			return authored
+	if not anchor_id.is_empty() and _interior != null:
+		var authored_node := _interior.node_for_id(anchor_id)
+		if authored_node != null:
+			return authored_node.position
 	return _content.anchor_position(String(slot.get("anchor", "")), context)
 
 
@@ -765,7 +762,11 @@ func _ensure_tray() -> void:
 	material.albedo_color = Color(0.20, 0.22, 0.26, 1.0)
 	mesh.material_override = material
 	_candidates.add_child(mesh)
-	mesh.position = _vector3(config.get("tray_position", [0, 0.9, 4.5]))
+	var tray_marker := _npcs.get_parent().get_node_or_null("CarryTraySpawn") as Marker3D
+	if tray_marker == null:
+		warnings.append("authored tavern has no CarryTraySpawn marker")
+	else:
+		mesh.global_position = tray_marker.global_position
 	_tray = mesh
 
 

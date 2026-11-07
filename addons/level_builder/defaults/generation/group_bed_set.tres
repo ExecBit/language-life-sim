@@ -1,8 +1,0 @@
-[gd_resource type="Resource" format=3]
-
-[ext_resource type="Script" path="res://addons/level_builder/resources/activity_group.gd" id="1_qi1ph"]
-
-[resource]
-script = ExtResource("1_qi1ph")
-required_tags = PackedStringArray("storage")
-optional_tags = PackedStringArray("clutter")

@@ -11,7 +11,7 @@ extends RefCounted
 ##                   also the first-person room: the player body, the room shell, the reach of the
 ##                   crosshair and where every answer stands relative to the spawn. Runs in the
 ##                   world the game itself would play; --world legacy (passed to the game) runs
-##                   the full LEX-01 regression in the practice room
+##                   the full LEX-01 regression with candidate-slot staging in the tavern
 ##   --probe-input   windowed: a real player walking with WASD through the room, a real E key on a
 ##                   prop, a real left click on the crosshair target, a real answer-button click and
 ##                   a real Enter key on an answer sentence, real F1 / H keys, the pause menu, the
@@ -30,7 +30,7 @@ const MIN_LOGIC_CHECKS: int = 120
 const MIN_INPUT_CHECKS: int = 45
 const MIN_LOGIC_CHECKS_TAVERN: int = 60
 const MIN_INPUT_CHECKS_TAVERN: int = 40
-# Straight-line distance budget; the generated three-room layout uses its shell diagonal.
+# Straight-line distance budget; the authored three-room layout uses its shell diagonal.
 # Actual door traversal is checked separately by tav03_integration_probe.gd.
 var MAX_WALK_METERS: float = 11.0
 
@@ -636,11 +636,12 @@ func _check_tavern(game: Node, content: Variant) -> void:
 			outside.append("%.2f|%.2f|%.2f" % [box.get_center().x, box.get_center().y, box.get_center().z])
 	var spots: Array[Dictionary] = []
 	for context: String in content.candidate_contexts():
-		var camera: Dictionary = content.camera_for(context)
-		spots.append({"what": "spawn " + context, "at": _data_vector(camera.get("position", []))})
-		# Candidate slots are dormant in the authored tavern world; only the legacy practice
-		# world stages answers there. Don't report furniture near an inactive legacy slot as a
-		# blocked tavern route.
+		var spawn_config: Dictionary = content.camera_for(context)
+		var spawn_marker := game.interior_root.get_node_or_null(String(spawn_config.get("marker", ""))) as Marker3D
+		if spawn_marker != null:
+			spots.append({"what": "spawn " + context, "at": spawn_marker.global_position})
+		# Candidate slots are used by the retained LEX-01 staging mode. The TAV-01 sample uses
+		# named furniture stations instead.
 		if String(content.world_staging()) == "candidate_slots":
 			var index: int = 0
 			for slot: Variant in content.candidate_slots(context):
@@ -658,8 +659,9 @@ func _check_tavern(game: Node, content: Variant) -> void:
 				if not anchor_id.is_empty() \
 				else game.interior.node_for_model(anchor) != null
 			spots.append({"what": "anchor %s in %s" % [slot_name, context], "at": content.anchor_position(anchor, context), "authored": authored})
-	var hold: Dictionary = (content.room.get("hold", {}) as Dictionary) if content.room.get("hold", null) is Dictionary else {}
-	spots.append({"what": "hold tray", "at": _data_vector(hold.get("tray_position", []))})
+	var tray_marker := game.interior_root.get_node_or_null("CarryTraySpawn") as Marker3D
+	if tray_marker != null:
+		spots.append({"what": "hold tray", "at": tray_marker.global_position})
 	var blocked: PackedStringArray = PackedStringArray()
 	for spot: Dictionary in spots:
 		if bool(spot.get("authored", false)):
@@ -676,12 +678,9 @@ func _check_tavern(game: Node, content: Variant) -> void:
 	print("TAVERN built=%d solid=%d solid_inside=%d solid_outside=%d npc_labels=%s blocked=%s" % [
 		int(tavern["built"]), int(tavern["solid"]), boxes.size() - outside.size(), outside.size(), npc_names, blocked,
 	])
-	if content.world_uses_interior():
-		_expect(int(tavern["built"]) >= 20, "the tavern stands as built furniture instead of an empty test room")
-		_expect(int(tavern["solid"]) >= 3 and int(tavern["solid"]) <= 8,
-			"only the fixed counter pieces are solid, so guest furniture stays walk-through")
-	else:
-		_expect(int(tavern["built"]) == 0, "the legacy practice world builds no furniture, the way it always was")
+	_expect(int(tavern["built"]) >= 20, "the authored tavern furniture is present in the scene")
+	_expect(int(tavern["solid"]) >= 3 and int(tavern["solid"]) <= 8,
+		"only the fixed counter pieces are solid, so guest furniture stays walk-through")
 	_expect(outside.is_empty(), "every solid piece stands inside the room shell")
 	_expect(blocked.is_empty(), "no solid piece stands where the player, an answer, an anchor or the tray has to be")
 	_expect(npc_names.size() >= 3, "the room has three people the player can reach and read a name for")
@@ -856,8 +855,8 @@ func _run_input(game: Node) -> void:
 	_expect(String(guided_state["utterance_visible"]) == String(game.current_scenario["utterance_de"]),
 		"the German sentence stays on screen above its translation")
 
-	# The legacy world tests find_select with a wrong answer and a re-stage; the tavern world's
-	# TAV-01 sample has no find_select record, so the room walk checks run on its first bring
+	# The legacy scenario set tests find_select with a wrong answer and a re-stage; the TAV-01
+	# sample has no find_select record, so the room walk checks run on its first bring
 	# task instead and the pick-up/delivery sequence below tests the same scenario.
 	if not _goto_action(game, "find_select" if not _authored_staging else "bring_deliver"):
 		_completed = true

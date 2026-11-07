@@ -4,9 +4,9 @@ A small Godot 4 learning-game prototype. The goal is to test whether **10–15 e
 
 ## Current status
 
-**LEX-01 is playable, from inside a tavern.** `scenes/main.tscn` is the learning room: since TAV-03 (Issue #10) and the approved layout redesign it is a 16 x 12 m tavern with zoned areas - a kitchen corner (fridge, stove, prep counter) in the north-west, the bar with stools on the west wall, three guest tables with chairs in the middle and east, a lounge with a sofa in the north-east corner, a doorway you start in front of, and three people in it - a Mage at the kitchen side, a Knight at the bar and a Gast at a table. They give short German sentences, and the player walks up to them, looks through a crosshair and answers by acting on the object the sentence names, by carrying an object to a target, or by choosing a spoken answer. Progress per lemma is tracked and some situations repeat a lemma one simulated day later in a changed context. The layout and its measured furniture footprints are documented in `docs/tavern_layout.md`.
+**LEX-01 is playable, from inside a tavern.** `scenes/main.tscn` instantiates the editor-authored `scenes/tavern.tscn`: a hall connected to the kitchen and storeroom, with LAY-05 B furniture, doors, collision, staff and spawn markers. The player walks up to people, looks through a crosshair and answers by acting on the object a sentence names, carrying an object to a target, or choosing a spoken answer. Progress per lemma is tracked and some situations repeat a lemma one simulated day later in a changed context. Furniture transforms are edited directly in the scene, which is the location source of truth.
 
-The room shell and fixed furniture locations are data in `data/room/lex01_room.json`; the reusable kitchen, bar, guest-table and lounge compositions are native PackedScenes in `scenes/furniture_groups/`. Each group is authored once with fixed local transforms and reused at fixed room positions. `scripts/lex01_interior.gd` resolves their stable member IDs for gameplay stations.
+`data/room/lex01_room.json` contains gameplay settings and small-item placement metadata. Furniture, walls, room connections, NPCs and spawn transforms live in the ordinary editable scene. `scripts/lex01_interior.gd` resolves stable station IDs directly from that scene.
 
 All content lives in JSON. Adding a learning situation means adding or editing a scenario record - no gameplay script, no new asset, no new test file.
 
@@ -89,7 +89,7 @@ Rules the data has to respect (CI enforces them, and the game prints them as `CO
 - `scene_object` paths must exist; `day` decides which day a scenario appears in; `revisit_of` marks a delayed revisit of another scenario id.
 - `scene_state` may state where something is: `"broetchen": "on_table"`, `"kartoffel": "in_fridge"`, or `focus_object` / `compared_object` for highlighting. A placement name must be declared in `data/room/lex01_room.json`.
 
-`data/room/lex01_room.json` is the only file that knows positions: `interior` (the tavern's fixed furniture, since TAV-03), `npcs`, `cameras` per `context` (since TAV-02 this section is read as **where the player is put down** per context - a feet position and an initial facing - and it keeps its name because it is the already-shipped per-context framing contract), `player` for the first-person body and its reach, `candidate_slots` per `context` (the kitchen layout is deliberately different from the room layout, so a day-2 revisit is a changed situation), `anchors` for surfaces, `placement_slots` (`on_table`, `in_fridge`), the hold tray and the delivery offset. Nothing in the gameplay scripts contains a German word, a prop path or a coordinate.
+`data/room/lex01_room.json` contains world and staging choices, player controls, context-to-marker names, placement modes, tray sizing and delivery behavior. The marker and furniture transforms are in `scenes/tavern.tscn`; candidate slots remain only for the retained LEX-01 staging mode.
 
 - [BOOT-01: bootstrap](https://github.com/ExecBit/language-life-sim/issues/1)
 - [PREP-01: asset, dialogue and content preparation](https://github.com/ExecBit/language-life-sim/issues/4)
@@ -106,10 +106,10 @@ $godot = "C:/Users/agdei/AppData/Local/Microsoft/WinGet/Packages/GodotEngine.God
 
 # whole learning loop over both days, headless, on the real scene: also checks the player body,
 # the room shell, the reach of the crosshair and where every answer stands relative to the spawn.
-# A normal run plays the tavern world (the TAV-01 sample shift); --world legacy plays the older
-# LEX-01 practice room instead (data/room/lex01_room.json 'worlds').
+# A normal run uses authored station placement; --world legacy keeps the older LEX-01
+# scenarios and candidate-slot staging in the same tavern.
 & $godot --headless --path . --quit-after 20000 res://scenes/main.tscn -- --probe --seed 1234
-# the same learning loop over the legacy LEX-01 records, in the empty practice room
+# the same tavern with legacy LEX-01 records and candidate-slot staging
 & $godot --headless --path . --quit-after 20000 res://scenes/main.tscn -- --probe --world legacy --seed 1234
 # a real player walking through the room with a real E key, a real click on the crosshair target,
 # a real answer-button click and a real Enter key, walls stopping the walk, windowed
@@ -118,13 +118,13 @@ $godot = "C:/Users/agdei/AppData/Local/Microsoft/WinGet/Packages/GodotEngine.God
 
 Both print `LEX01 PROBE OK` / `LEX01 INPUT PROBE OK` or `... FAIL` with reasons and a non-zero exit code. `--probe-input` needs a real window: run headless and the HUD's briefing button resolves off-screen, so the probe never gets past the overlay (it stops at `checks=24`). Windowed the tavern run prints `LEX01 INPUT PROBE OK checks=91` and the legacy run `LEX01 INPUT PROBE OK checks=102`. The input probe once failed two of those 102 checks, and the cause was not the room: a staged option's pick collider was measured where the object first stood and never followed the placement moves that then relocated the object, so the crosshair aimed at the visible prop while its collider sat elsewhere and `E` picked nothing. `scripts/lex01_room_builder.gd` now re-measures each pick box after every staging, carrying and delivery move (`_sync_pick`), and the same two checks pass.
 
-## Two worlds, one room
+## One tavern, two staging modes
 
-`data/room/lex01_room.json` declares **worlds**. A normal run (F5, no arguments) plays the **tavern** world: the fixed furniture stands where the `interior` array authors it for the whole run, and the TAV-01 sample shift stages its small items at fixed stations - the bar counter, the tavern table, the fridge. No card spawns furniture, and no card moves the room. The **legacy** world (`--world legacy`) is the original LEX-01 practice room: no built furniture, answers staged on the shuffled candidate pool, the guided first example and the beginner briefing. It is kept as regression content for the 17 LEX-01 records and runs through the same probes and the same scene.
+A normal run (F5, no arguments) plays the TAV-01 sample shift and stages its small items at named furniture stations. `--world legacy` keeps the original LEX-01 scenarios, guided first example and beginner briefing, with answers staged on candidate slots. Both modes use the same authored tavern scene.
 
-## TAV-03 fixed layout review
+## CLEAN-01 editor-authored tavern
 
-The four reusable composition types and their fixed 16 × 12 m arrangement are documented in [`docs/tavern_layout.md`](docs/tavern_layout.md). Launch `scenes/main.tscn` and press F6 to inspect and play. Godot 4.7.1 movie capture crashed with signal 11, so this change includes no screenshots; visual acceptance remains NOT_TESTED and the F6 scene is ready for direct review.
+Open `scenes/tavern.tscn` in Godot to inspect the complete hall, kitchen and storeroom before running the game. Furniture transforms, spawn markers, lighting, walls and collision are saved in that scene. `scenes/main.tscn` instances the tavern with the first-person player and HUD.
 
 ## Not verified yet
 
@@ -147,17 +147,6 @@ The four reusable composition types and their fixed 16 × 12 m arrangement are d
 
 See `AGENTS.md` for local-agent instructions. The prior `tavern-language-mvp` repository is independent: do not copy its process constraints or asset pipeline.
 
-### Generated playable tavern (TAV-03)
+### Editing the tavern
 
-F5 now loads the compact LAY-05 B output from `data/room/tavern_generated.json` into the actual main scene. The existing stations/NPCs bind to generated furniture; walls and collision follow the three generated rooms. Furniture is fixed for the whole run. Guest furniture remains non-solid as in TAV-02; walls and counters block movement.
-
-Regenerate using the existing pinned FittingPlacer checkout (requires .NET 9):
-
-```powershell
-./tools/generate_tavern.ps1 -Variant B -SolverRoot <path-to-pinned-FittingPlacer>
-# -Variant A installs the spacious brief instead.
-# Focused Godot check for the committed B layout; output goes to ignored .local/:
-& $godot --path . --script tools/tav03_integration_probe.gd
-```
-
-The focused check traverses the actual room with the player capsule, checks that blocking the service door disconnects both service rooms, then picks up and delivers a small item through E. `--world legacy --probe` still exercises the original practice room.
+Open `scenes/tavern.tscn` in Godot to inspect and edit the whole location before running the game. Furniture and NPC transforms are saved in that scene and read directly by gameplay. Scenario props are staged at runtime; the static room is never generated at launch.

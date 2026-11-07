@@ -1,10 +1,14 @@
 {
   "schema_version": 1,
   "scenario_count": 15,
-  "action_types": ["find_select", "bring_deliver", "respond"],
+  "action_types": [
+    "find_select",
+    "bring_deliver",
+    "respond"
+  ],
   "vocabulary_file": "res://data/vocabulary/de_a1_starter.json",
   "world": "legacy",
-  "world_note": "This file belongs to the legacy practice world (data/room/lex01_room.json 'worlds'): it plays with --world legacy, in the room with no built furniture, its answers staged on the candidate pool. It is regression content for LEX-01, not the default playable tavern.",
+  "world_note": "This file retains the original LEX-01 scenarios, played with --world legacy in the same scenes/tavern.tscn location. Answers use shuffled candidate-slot staging; this is regression content, not the default sample shift.",
   "authoring_note": "All 15 scenario records are authored for this project (not copied from a textbook). The German is written for A1: short main clauses, present tense, one new idea per utterance. A human must still judge naturalness - see docs/assets_provenance.md.",
   "language_note": "German is the content the player is learning, so utterance_de, the option labels and the feedback stay German. The interface around them is Russian and comes from data/ui/lex01_ui_ru.json. This replaces the earlier decision to keep all in-game text German, which made the slice unusable for a beginner tester.",
   "gloss_note": "utterance_gloss_ru (and gloss_ru on a respond option) is the short Russian meaning the 'Подсказка · Перевод' button shows. It is authored by the agent, needs human review, and is hidden by default: an answer given while a gloss is open is recorded as assisted, not as unaided. Only the record with guided: true shows its gloss without being asked, because that record is the teach-before-test example.",
@@ -26,20 +30,49 @@
       "npc": "mage",
       "context": "room",
       "verb_lemma_id": "suchen",
-      "target_lemma_ids": ["tisch"],
-      "distractor_lemma_ids": ["schrank", "sofa"],
+      "target_lemma_ids": [
+        "tisch"
+      ],
+      "distractor_lemma_ids": [
+        "schrank",
+        "sofa"
+      ],
       "utterance_de": "Such den Tisch!",
       "utterance_gloss_ru": "Найди стол.",
       "guided": true,
       "options": [
-        { "id": "a", "label_de": "der Schrank", "scene_object": "res://assets/kaykit/furniture/cabinet_medium.gltf", "lemma_ids": ["schrank"] },
-        { "id": "b", "label_de": "der Tisch", "scene_object": "res://assets/kaykit/furniture/table_medium.gltf", "lemma_ids": ["tisch"] },
-        { "id": "c", "label_de": "das Sofa", "scene_object": "res://assets/kaykit/furniture/couch.gltf", "lemma_ids": ["sofa"] }
+        {
+          "id": "a",
+          "label_de": "der Schrank",
+          "scene_object": "res://assets/kaykit/furniture/cabinet_medium.gltf",
+          "lemma_ids": [
+            "schrank"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "der Tisch",
+          "scene_object": "res://assets/kaykit/furniture/table_medium.gltf",
+          "lemma_ids": [
+            "tisch"
+          ]
+        },
+        {
+          "id": "c",
+          "label_de": "das Sofa",
+          "scene_object": "res://assets/kaykit/furniture/couch.gltf",
+          "lemma_ids": [
+            "sofa"
+          ]
+        }
       ],
       "correct_option_id": "b",
       "feedback_correct_de": "Ja, das ist der Tisch. Gut gefunden.",
       "feedback_wrong_de": "Das ist nicht der Tisch. Such weiter.",
-      "feedback_lemma_ids": ["finden", "tisch"]
+      "feedback_lemma_ids": [
+        "finden",
+        "tisch"
+      ]
     },
     {
       "id": "s02",
@@ -48,19 +81,47 @@
       "npc": "knight",
       "context": "room",
       "verb_lemma_id": "suchen",
-      "target_lemma_ids": ["bett"],
-      "distractor_lemma_ids": ["sofa", "bild"],
+      "target_lemma_ids": [
+        "bett"
+      ],
+      "distractor_lemma_ids": [
+        "sofa",
+        "bild"
+      ],
       "utterance_de": "Wo ist das Bett?",
       "utterance_gloss_ru": "Где кровать?",
       "options": [
-        { "id": "a", "label_de": "das Sofa", "scene_object": "res://assets/kaykit/furniture/couch.gltf", "lemma_ids": ["sofa"] },
-        { "id": "b", "label_de": "das Bild", "scene_object": "res://assets/kaykit/furniture/pictureframe_medium.gltf", "lemma_ids": ["bild"] },
-        { "id": "c", "label_de": "das Bett", "scene_object": "res://assets/kaykit/furniture/bed_single_A.gltf", "lemma_ids": ["bett"] }
+        {
+          "id": "a",
+          "label_de": "das Sofa",
+          "scene_object": "res://assets/kaykit/furniture/couch.gltf",
+          "lemma_ids": [
+            "sofa"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "das Bild",
+          "scene_object": "res://assets/kaykit/furniture/pictureframe_medium.gltf",
+          "lemma_ids": [
+            "bild"
+          ]
+        },
+        {
+          "id": "c",
+          "label_de": "das Bett",
+          "scene_object": "res://assets/kaykit/furniture/bed_single_A.gltf",
+          "lemma_ids": [
+            "bett"
+          ]
+        }
       ],
       "correct_option_id": "c",
       "feedback_correct_de": "Richtig, das Bett ist hier.",
       "feedback_wrong_de": "Nein, das ist nicht das Bett.",
-      "feedback_lemma_ids": ["bett"]
+      "feedback_lemma_ids": [
+        "bett"
+      ]
     },
     {
       "id": "s03",
@@ -69,19 +130,48 @@
       "npc": "mage",
       "context": "kitchen",
       "verb_lemma_id": "suchen",
-      "target_lemma_ids": ["kuehlschrank"],
-      "distractor_lemma_ids": ["schrank", "tisch"],
+      "target_lemma_ids": [
+        "kuehlschrank"
+      ],
+      "distractor_lemma_ids": [
+        "schrank",
+        "tisch"
+      ],
       "utterance_de": "Such den Kühlschrank!",
       "utterance_gloss_ru": "Найди холодильник.",
       "options": [
-        { "id": "a", "label_de": "der Kühlschrank", "scene_object": "res://assets/kaykit/items/fridge_A.gltf", "lemma_ids": ["kuehlschrank"] },
-        { "id": "b", "label_de": "der Schrank", "scene_object": "res://assets/kaykit/furniture/cabinet_medium.gltf", "lemma_ids": ["schrank"] },
-        { "id": "c", "label_de": "der Tisch", "scene_object": "res://assets/kaykit/furniture/table_medium.gltf", "lemma_ids": ["tisch"] }
+        {
+          "id": "a",
+          "label_de": "der Kühlschrank",
+          "scene_object": "res://assets/kaykit/items/fridge_A.gltf",
+          "lemma_ids": [
+            "kuehlschrank"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "der Schrank",
+          "scene_object": "res://assets/kaykit/furniture/cabinet_medium.gltf",
+          "lemma_ids": [
+            "schrank"
+          ]
+        },
+        {
+          "id": "c",
+          "label_de": "der Tisch",
+          "scene_object": "res://assets/kaykit/furniture/table_medium.gltf",
+          "lemma_ids": [
+            "tisch"
+          ]
+        }
       ],
       "correct_option_id": "a",
       "feedback_correct_de": "Ja, der Kühlschrank ist gefunden.",
       "feedback_wrong_de": "Das ist nicht der Kühlschrank.",
-      "feedback_lemma_ids": ["finden", "kuehlschrank"]
+      "feedback_lemma_ids": [
+        "finden",
+        "kuehlschrank"
+      ]
     },
     {
       "id": "s04",
@@ -90,20 +180,53 @@
       "npc": "mage",
       "context": "kitchen",
       "verb_lemma_id": "bringen",
-      "target_lemma_ids": ["tomate"],
-      "distractor_lemma_ids": ["kartoffel", "broetchen"],
+      "target_lemma_ids": [
+        "tomate"
+      ],
+      "distractor_lemma_ids": [
+        "kartoffel",
+        "broetchen"
+      ],
       "utterance_de": "Bring mir bitte die Tomate!",
       "utterance_gloss_ru": "Принеси мне, пожалуйста, помидор.",
-      "delivery_target": { "kind": "npc", "npc": "mage", "label_de": "der Mage" },
+      "delivery_target": {
+        "kind": "npc",
+        "npc": "mage",
+        "label_de": "der Mage"
+      },
       "options": [
-        { "id": "a", "label_de": "die Kartoffel", "scene_object": "res://assets/kaykit/items/food_ingredient_potato.gltf", "lemma_ids": ["kartoffel"] },
-        { "id": "b", "label_de": "das Brötchen", "scene_object": "res://assets/kaykit/items/food_ingredient_bun.gltf", "lemma_ids": ["broetchen"] },
-        { "id": "c", "label_de": "die Tomate", "scene_object": "res://assets/kaykit/items/food_ingredient_tomato.gltf", "lemma_ids": ["tomate"] }
+        {
+          "id": "a",
+          "label_de": "die Kartoffel",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_potato.gltf",
+          "lemma_ids": [
+            "kartoffel"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "das Brötchen",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_bun.gltf",
+          "lemma_ids": [
+            "broetchen"
+          ]
+        },
+        {
+          "id": "c",
+          "label_de": "die Tomate",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_tomato.gltf",
+          "lemma_ids": [
+            "tomate"
+          ]
+        }
       ],
       "correct_option_id": "c",
       "feedback_correct_de": "Danke, die Tomate ist da.",
       "feedback_wrong_de": "Das ist nicht die Tomate. Bring die Tomate!",
-      "feedback_lemma_ids": ["bringen", "tomate"]
+      "feedback_lemma_ids": [
+        "bringen",
+        "tomate"
+      ]
     },
     {
       "id": "s05",
@@ -112,20 +235,56 @@
       "npc": "knight",
       "context": "room",
       "verb_lemma_id": "bringen",
-      "target_lemma_ids": ["broetchen", "tisch"],
-      "distractor_lemma_ids": ["fleisch", "tomate"],
+      "target_lemma_ids": [
+        "broetchen",
+        "tisch"
+      ],
+      "distractor_lemma_ids": [
+        "fleisch",
+        "tomate"
+      ],
       "utterance_de": "Bring das Brötchen auf den Tisch!",
       "utterance_gloss_ru": "Отнеси булочку на стол.",
-      "delivery_target": { "kind": "object", "lemma_id": "tisch", "scene_object": "res://assets/kaykit/furniture/table_medium.gltf", "label_de": "der Tisch" },
+      "delivery_target": {
+        "kind": "object",
+        "lemma_id": "tisch",
+        "scene_object": "res://assets/kaykit/furniture/table_medium.gltf",
+        "label_de": "der Tisch"
+      },
       "options": [
-        { "id": "a", "label_de": "das Fleisch", "scene_object": "res://assets/kaykit/items/food_ingredient_steak.gltf", "lemma_ids": ["fleisch"] },
-        { "id": "b", "label_de": "das Brötchen", "scene_object": "res://assets/kaykit/items/food_ingredient_bun.gltf", "lemma_ids": ["broetchen"] },
-        { "id": "c", "label_de": "die Tomate", "scene_object": "res://assets/kaykit/items/food_ingredient_tomato.gltf", "lemma_ids": ["tomate"] }
+        {
+          "id": "a",
+          "label_de": "das Fleisch",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_steak.gltf",
+          "lemma_ids": [
+            "fleisch"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "das Brötchen",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_bun.gltf",
+          "lemma_ids": [
+            "broetchen"
+          ]
+        },
+        {
+          "id": "c",
+          "label_de": "die Tomate",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_tomato.gltf",
+          "lemma_ids": [
+            "tomate"
+          ]
+        }
       ],
       "correct_option_id": "b",
       "feedback_correct_de": "Das Brötchen liegt auf dem Tisch. Gut gebracht.",
       "feedback_wrong_de": "Nein, bring das Brötchen auf den Tisch.",
-      "feedback_lemma_ids": ["bringen", "broetchen", "tisch"]
+      "feedback_lemma_ids": [
+        "bringen",
+        "broetchen",
+        "tisch"
+      ]
     },
     {
       "id": "s06",
@@ -133,19 +292,42 @@
       "action_type": "respond",
       "npc": "mage",
       "context": "room",
-      "target_lemma_ids": ["bett", "sofa"],
-      "distractor_lemma_ids": ["sofa"],
-      "scene_state": { "focus_object": "res://assets/kaykit/furniture/bed_single_A.gltf" },
+      "target_lemma_ids": [
+        "bett",
+        "sofa"
+      ],
+      "distractor_lemma_ids": [
+        "sofa"
+      ],
+      "scene_state": {
+        "focus_object": "res://assets/kaykit/furniture/bed_single_A.gltf"
+      },
       "utterance_de": "Was ist das? Ein Bett oder ein Sofa?",
       "utterance_gloss_ru": "Что это? Кровать или диван?",
       "options": [
-        { "id": "a", "label_de": "Das ist ein Bett.", "gloss_ru": "Это кровать.", "lemma_ids": ["bett"] },
-        { "id": "b", "label_de": "Das ist ein Sofa.", "gloss_ru": "Это диван.", "lemma_ids": ["sofa"] }
+        {
+          "id": "a",
+          "label_de": "Das ist ein Bett.",
+          "gloss_ru": "Это кровать.",
+          "lemma_ids": [
+            "bett"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "Das ist ein Sofa.",
+          "gloss_ru": "Это диван.",
+          "lemma_ids": [
+            "sofa"
+          ]
+        }
       ],
       "correct_option_id": "a",
       "feedback_correct_de": "Ja, das ist ein Bett.",
       "feedback_wrong_de": "Nein, das ist ein Bett.",
-      "feedback_lemma_ids": ["bett"]
+      "feedback_lemma_ids": [
+        "bett"
+      ]
     },
     {
       "id": "s07",
@@ -153,19 +335,41 @@
       "action_type": "respond",
       "npc": "knight",
       "context": "kitchen",
-      "target_lemma_ids": ["kartoffel"],
-      "distractor_lemma_ids": ["broetchen"],
-      "scene_state": { "focus_object": "res://assets/kaykit/items/food_ingredient_potato.gltf" },
+      "target_lemma_ids": [
+        "kartoffel"
+      ],
+      "distractor_lemma_ids": [
+        "broetchen"
+      ],
+      "scene_state": {
+        "focus_object": "res://assets/kaykit/items/food_ingredient_potato.gltf"
+      },
       "utterance_de": "Was ist das?",
       "utterance_gloss_ru": "Что это? (посмотри на предмет в центре)",
       "options": [
-        { "id": "a", "label_de": "Das ist ein Brötchen.", "gloss_ru": "Это булочка.", "lemma_ids": ["broetchen"] },
-        { "id": "b", "label_de": "Das ist eine Kartoffel.", "gloss_ru": "Это картофель.", "lemma_ids": ["kartoffel"] }
+        {
+          "id": "a",
+          "label_de": "Das ist ein Brötchen.",
+          "gloss_ru": "Это булочка.",
+          "lemma_ids": [
+            "broetchen"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "Das ist eine Kartoffel.",
+          "gloss_ru": "Это картофель.",
+          "lemma_ids": [
+            "kartoffel"
+          ]
+        }
       ],
       "correct_option_id": "b",
       "feedback_correct_de": "Ja, eine Kartoffel. Gut gesagt.",
       "feedback_wrong_de": "Nein, das ist eine Kartoffel.",
-      "feedback_lemma_ids": ["kartoffel"]
+      "feedback_lemma_ids": [
+        "kartoffel"
+      ]
     },
     {
       "id": "s08",
@@ -174,19 +378,48 @@
       "npc": "mage",
       "context": "room",
       "verb_lemma_id": "suchen",
-      "target_lemma_ids": ["bild"],
-      "distractor_lemma_ids": ["schrank", "sofa"],
+      "target_lemma_ids": [
+        "bild"
+      ],
+      "distractor_lemma_ids": [
+        "schrank",
+        "sofa"
+      ],
       "utterance_de": "Such das Bild!",
       "utterance_gloss_ru": "Найди картину.",
       "options": [
-        { "id": "a", "label_de": "der Schrank", "scene_object": "res://assets/kaykit/furniture/cabinet_medium.gltf", "lemma_ids": ["schrank"] },
-        { "id": "b", "label_de": "das Sofa", "scene_object": "res://assets/kaykit/furniture/couch.gltf", "lemma_ids": ["sofa"] },
-        { "id": "c", "label_de": "das Bild", "scene_object": "res://assets/kaykit/furniture/pictureframe_medium.gltf", "lemma_ids": ["bild"] }
+        {
+          "id": "a",
+          "label_de": "der Schrank",
+          "scene_object": "res://assets/kaykit/furniture/cabinet_medium.gltf",
+          "lemma_ids": [
+            "schrank"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "das Sofa",
+          "scene_object": "res://assets/kaykit/furniture/couch.gltf",
+          "lemma_ids": [
+            "sofa"
+          ]
+        },
+        {
+          "id": "c",
+          "label_de": "das Bild",
+          "scene_object": "res://assets/kaykit/furniture/pictureframe_medium.gltf",
+          "lemma_ids": [
+            "bild"
+          ]
+        }
       ],
       "correct_option_id": "c",
       "feedback_correct_de": "Das Bild ist gefunden.",
       "feedback_wrong_de": "Das ist nicht das Bild.",
-      "feedback_lemma_ids": ["finden", "bild"]
+      "feedback_lemma_ids": [
+        "finden",
+        "bild"
+      ]
     },
     {
       "id": "s09",
@@ -195,20 +428,56 @@
       "npc": "knight",
       "context": "kitchen",
       "verb_lemma_id": "bringen",
-      "target_lemma_ids": ["kartoffel", "kuehlschrank"],
-      "distractor_lemma_ids": ["fleisch", "tomate"],
+      "target_lemma_ids": [
+        "kartoffel",
+        "kuehlschrank"
+      ],
+      "distractor_lemma_ids": [
+        "fleisch",
+        "tomate"
+      ],
       "utterance_de": "Bring die Kartoffel in den Kühlschrank!",
       "utterance_gloss_ru": "Отнеси картофель в холодильник.",
-      "delivery_target": { "kind": "object", "lemma_id": "kuehlschrank", "scene_object": "res://assets/kaykit/items/fridge_A.gltf", "label_de": "der Kühlschrank" },
+      "delivery_target": {
+        "kind": "object",
+        "lemma_id": "kuehlschrank",
+        "scene_object": "res://assets/kaykit/items/fridge_A.gltf",
+        "label_de": "der Kühlschrank"
+      },
       "options": [
-        { "id": "a", "label_de": "die Kartoffel", "scene_object": "res://assets/kaykit/items/food_ingredient_potato.gltf", "lemma_ids": ["kartoffel"] },
-        { "id": "b", "label_de": "das Fleisch", "scene_object": "res://assets/kaykit/items/food_ingredient_steak.gltf", "lemma_ids": ["fleisch"] },
-        { "id": "c", "label_de": "die Tomate", "scene_object": "res://assets/kaykit/items/food_ingredient_tomato.gltf", "lemma_ids": ["tomate"] }
+        {
+          "id": "a",
+          "label_de": "die Kartoffel",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_potato.gltf",
+          "lemma_ids": [
+            "kartoffel"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "das Fleisch",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_steak.gltf",
+          "lemma_ids": [
+            "fleisch"
+          ]
+        },
+        {
+          "id": "c",
+          "label_de": "die Tomate",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_tomato.gltf",
+          "lemma_ids": [
+            "tomate"
+          ]
+        }
       ],
       "correct_option_id": "a",
       "feedback_correct_de": "Die Kartoffel ist im Kühlschrank.",
       "feedback_wrong_de": "Nein, bring die Kartoffel in den Kühlschrank.",
-      "feedback_lemma_ids": ["bringen", "kartoffel", "kuehlschrank"]
+      "feedback_lemma_ids": [
+        "bringen",
+        "kartoffel",
+        "kuehlschrank"
+      ]
     },
     {
       "id": "s10",
@@ -216,19 +485,46 @@
       "action_type": "respond",
       "npc": "mage",
       "context": "room",
-      "target_lemma_ids": ["tomate", "tisch"],
-      "distractor_lemma_ids": ["schrank"],
-      "scene_state": { "tomate": "on_table", "kartoffel": "on_table", "broetchen": "on_table", "fleisch": "on_table" },
+      "target_lemma_ids": [
+        "tomate",
+        "tisch"
+      ],
+      "distractor_lemma_ids": [
+        "schrank"
+      ],
+      "scene_state": {
+        "tomate": "on_table",
+        "kartoffel": "on_table",
+        "broetchen": "on_table",
+        "fleisch": "on_table"
+      },
       "utterance_de": "Wo ist die Tomate?",
       "utterance_gloss_ru": "Где помидор?",
       "options": [
-        { "id": "a", "label_de": "In dem Schrank.", "gloss_ru": "В шкафу.", "lemma_ids": ["schrank"] },
-        { "id": "b", "label_de": "Auf dem Tisch.", "gloss_ru": "На столе.", "lemma_ids": ["tisch"] }
+        {
+          "id": "a",
+          "label_de": "In dem Schrank.",
+          "gloss_ru": "В шкафу.",
+          "lemma_ids": [
+            "schrank"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "Auf dem Tisch.",
+          "gloss_ru": "На столе.",
+          "lemma_ids": [
+            "tisch"
+          ]
+        }
       ],
       "correct_option_id": "b",
       "feedback_correct_de": "Ja, die Tomate liegt auf dem Tisch.",
       "feedback_wrong_de": "Nein, die Tomate ist auf dem Tisch.",
-      "feedback_lemma_ids": ["tomate", "tisch"]
+      "feedback_lemma_ids": [
+        "tomate",
+        "tisch"
+      ]
     },
     {
       "id": "s11",
@@ -238,20 +534,50 @@
       "context": "room",
       "verb_lemma_id": "suchen",
       "revisit_of": "s03",
-      "target_lemma_ids": ["schrank"],
-      "distractor_lemma_ids": ["kuehlschrank", "tisch"],
+      "target_lemma_ids": [
+        "schrank"
+      ],
+      "distractor_lemma_ids": [
+        "kuehlschrank",
+        "tisch"
+      ],
       "utterance_de": "Wo ist der Schrank?",
       "utterance_gloss_ru": "Где шкаф?",
       "options": [
-        { "id": "a", "label_de": "der Kühlschrank", "scene_object": "res://assets/kaykit/items/fridge_A.gltf", "lemma_ids": ["kuehlschrank"] },
-        { "id": "b", "label_de": "der Schrank", "scene_object": "res://assets/kaykit/furniture/cabinet_medium.gltf", "lemma_ids": ["schrank"] },
-        { "id": "c", "label_de": "der Tisch", "scene_object": "res://assets/kaykit/furniture/table_medium.gltf", "lemma_ids": ["tisch"] }
+        {
+          "id": "a",
+          "label_de": "der Kühlschrank",
+          "scene_object": "res://assets/kaykit/items/fridge_A.gltf",
+          "lemma_ids": [
+            "kuehlschrank"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "der Schrank",
+          "scene_object": "res://assets/kaykit/furniture/cabinet_medium.gltf",
+          "lemma_ids": [
+            "schrank"
+          ]
+        },
+        {
+          "id": "c",
+          "label_de": "der Tisch",
+          "scene_object": "res://assets/kaykit/furniture/table_medium.gltf",
+          "lemma_ids": [
+            "tisch"
+          ]
+        }
       ],
       "correct_option_id": "b",
       "feedback_correct_de": "Ja, der Schrank ist gefunden. Der Kühlschrank ist etwas anderes.",
       "feedback_wrong_de": "Das ist nicht der Schrank.",
       "notes": "Day 2 revisits the day-1 fridge search with the roles swapped: Schrank is now the target and Kühlschrank is a distractor.",
-      "feedback_lemma_ids": ["finden", "schrank", "kuehlschrank"]
+      "feedback_lemma_ids": [
+        "finden",
+        "schrank",
+        "kuehlschrank"
+      ]
     },
     {
       "id": "s12",
@@ -261,21 +587,57 @@
       "context": "room",
       "verb_lemma_id": "bringen",
       "revisit_of": "s05",
-      "target_lemma_ids": ["fleisch", "tisch"],
-      "distractor_lemma_ids": ["broetchen", "kartoffel"],
+      "target_lemma_ids": [
+        "fleisch",
+        "tisch"
+      ],
+      "distractor_lemma_ids": [
+        "broetchen",
+        "kartoffel"
+      ],
       "utterance_de": "Bring das Fleisch auf den Tisch!",
       "utterance_gloss_ru": "Отнеси мясо на стол.",
-      "delivery_target": { "kind": "object", "lemma_id": "tisch", "scene_object": "res://assets/kaykit/furniture/table_medium.gltf", "label_de": "der Tisch" },
+      "delivery_target": {
+        "kind": "object",
+        "lemma_id": "tisch",
+        "scene_object": "res://assets/kaykit/furniture/table_medium.gltf",
+        "label_de": "der Tisch"
+      },
       "options": [
-        { "id": "a", "label_de": "das Brötchen", "scene_object": "res://assets/kaykit/items/food_ingredient_bun.gltf", "lemma_ids": ["broetchen"] },
-        { "id": "b", "label_de": "die Kartoffel", "scene_object": "res://assets/kaykit/items/food_ingredient_potato.gltf", "lemma_ids": ["kartoffel"] },
-        { "id": "c", "label_de": "das Fleisch", "scene_object": "res://assets/kaykit/items/food_ingredient_steak.gltf", "lemma_ids": ["fleisch"] }
+        {
+          "id": "a",
+          "label_de": "das Brötchen",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_bun.gltf",
+          "lemma_ids": [
+            "broetchen"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "die Kartoffel",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_potato.gltf",
+          "lemma_ids": [
+            "kartoffel"
+          ]
+        },
+        {
+          "id": "c",
+          "label_de": "das Fleisch",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_steak.gltf",
+          "lemma_ids": [
+            "fleisch"
+          ]
+        }
       ],
       "correct_option_id": "c",
       "feedback_correct_de": "Das Fleisch liegt auf dem Tisch.",
       "feedback_wrong_de": "Nein, bring das Fleisch auf den Tisch.",
       "notes": "Same sentence frame as s05 with a different object, so the frame is repeated while the target lemma changes.",
-      "feedback_lemma_ids": ["bringen", "fleisch", "tisch"]
+      "feedback_lemma_ids": [
+        "bringen",
+        "fleisch",
+        "tisch"
+      ]
     },
     {
       "id": "s13",
@@ -283,21 +645,46 @@
       "action_type": "respond",
       "npc": "knight",
       "context": "kitchen",
-      "target_lemma_ids": ["tomate", "kuehlschrank"],
+      "target_lemma_ids": [
+        "tomate",
+        "kuehlschrank"
+      ],
       "distractor_lemma_ids": [],
       "revisit_of": "s04",
-      "scene_state": { "tomate": "on_table", "kartoffel": "in_fridge" },
+      "scene_state": {
+        "tomate": "on_table",
+        "kartoffel": "in_fridge"
+      },
       "utterance_de": "Ist die Tomate im Kühlschrank?",
       "utterance_gloss_ru": "Помидор стоит в холодильнике?",
       "options": [
-        { "id": "a", "label_de": "Ja, die Tomate ist im Kühlschrank.", "gloss_ru": "Да, помидор в холодильнике.", "lemma_ids": ["tomate", "kuehlschrank"] },
-        { "id": "b", "label_de": "Nein, die Tomate ist nicht im Kühlschrank.", "gloss_ru": "Нет, помидор не в холодильнике.", "lemma_ids": ["tomate", "kuehlschrank"] }
+        {
+          "id": "a",
+          "label_de": "Ja, die Tomate ist im Kühlschrank.",
+          "gloss_ru": "Да, помидор в холодильнике.",
+          "lemma_ids": [
+            "tomate",
+            "kuehlschrank"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "Nein, die Tomate ist nicht im Kühlschrank.",
+          "gloss_ru": "Нет, помидор не в холодильнике.",
+          "lemma_ids": [
+            "tomate",
+            "kuehlschrank"
+          ]
+        }
       ],
       "correct_option_id": "b",
       "feedback_correct_de": "Richtig. Die Tomate liegt auf dem Tisch.",
       "feedback_wrong_de": "Nein. Die Tomate liegt auf dem Tisch.",
       "notes": "Yes/no question form: both sentences contain the same lemmas and differ only by ja/nein and the negation, so distractor_lemma_ids is empty by the documented rule.",
-      "feedback_lemma_ids": ["tomate", "tisch"]
+      "feedback_lemma_ids": [
+        "tomate",
+        "tisch"
+      ]
     },
     {
       "id": "s14",
@@ -305,28 +692,60 @@
       "action_type": "respond",
       "npc": "mage",
       "context": "room",
-      "target_lemma_ids": ["sofa", "gross"],
-      "distractor_lemma_ids": ["klein"],
+      "target_lemma_ids": [
+        "sofa",
+        "gross"
+      ],
+      "distractor_lemma_ids": [
+        "klein"
+      ],
       "scene_state": {
         "focus_object": "res://assets/kaykit/furniture/couch.gltf",
         "compared_object": "res://assets/kaykit/furniture/pictureframe_medium.gltf",
         "size_evidence": {
-          "couch_size_m": [3.0, 1.224, 1.6],
-          "pictureframe_medium_size_m": [0.7, 0.9, 0.2],
+          "couch_size_m": [
+            3.0,
+            1.224,
+            1.6
+          ],
+          "pictureframe_medium_size_m": [
+            0.7,
+            0.9,
+            0.2
+          ],
           "measured_by": "tools/prep_probe.gd PROP_SIZE / SIZE_CHECK during the headless run of scenes/prep_preview.tscn"
         }
       },
       "utterance_de": "Ist das Sofa größer als das Bild?",
       "utterance_gloss_ru": "Диван больше, чем картина?",
       "options": [
-        { "id": "a", "label_de": "Ja, das Sofa ist größer als das Bild.", "gloss_ru": "Да, диван больше, чем картина.", "lemma_ids": ["sofa", "gross"] },
-        { "id": "b", "label_de": "Nein, das Sofa ist kleiner als das Bild.", "gloss_ru": "Нет, диван меньше, чем картина.", "lemma_ids": ["sofa", "klein"] }
+        {
+          "id": "a",
+          "label_de": "Ja, das Sofa ist größer als das Bild.",
+          "gloss_ru": "Да, диван больше, чем картина.",
+          "lemma_ids": [
+            "sofa",
+            "gross"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "Nein, das Sofa ist kleiner als das Bild.",
+          "gloss_ru": "Нет, диван меньше, чем картина.",
+          "lemma_ids": [
+            "sofa",
+            "klein"
+          ]
+        }
       ],
       "correct_option_id": "a",
       "feedback_correct_de": "Ja, das Sofa ist größer als das Bild.",
       "feedback_wrong_de": "Nein, das Sofa ist größer als das Bild.",
       "notes": "Unambiguous because both objects are in the same scene and the answer rests on their imported mesh sizes, which tools/prep_probe.gd prints and asserts in the preview scene (couch 3.00 x 1.22 x 1.60 m, pictureframe_medium 0.70 x 0.90 x 0.20 m, both at unit scale). No subjective size judgement is required.",
-      "feedback_lemma_ids": ["sofa", "gross"]
+      "feedback_lemma_ids": [
+        "sofa",
+        "gross"
+      ]
     },
     {
       "id": "s15",
@@ -336,21 +755,57 @@
       "context": "kitchen",
       "verb_lemma_id": "bringen",
       "revisit_of": "s09",
-      "target_lemma_ids": ["tomate", "kuehlschrank"],
-      "distractor_lemma_ids": ["kartoffel", "broetchen"],
+      "target_lemma_ids": [
+        "tomate",
+        "kuehlschrank"
+      ],
+      "distractor_lemma_ids": [
+        "kartoffel",
+        "broetchen"
+      ],
       "utterance_de": "Bring die Tomate in den Kühlschrank!",
       "utterance_gloss_ru": "Отнеси помидор в холодильник.",
-      "delivery_target": { "kind": "object", "lemma_id": "kuehlschrank", "scene_object": "res://assets/kaykit/items/fridge_A.gltf", "label_de": "der Kühlschrank" },
+      "delivery_target": {
+        "kind": "object",
+        "lemma_id": "kuehlschrank",
+        "scene_object": "res://assets/kaykit/items/fridge_A.gltf",
+        "label_de": "der Kühlschrank"
+      },
       "options": [
-        { "id": "a", "label_de": "die Tomate", "scene_object": "res://assets/kaykit/items/food_ingredient_tomato.gltf", "lemma_ids": ["tomate"] },
-        { "id": "b", "label_de": "die Kartoffel", "scene_object": "res://assets/kaykit/items/food_ingredient_potato.gltf", "lemma_ids": ["kartoffel"] },
-        { "id": "c", "label_de": "das Brötchen", "scene_object": "res://assets/kaykit/items/food_ingredient_bun.gltf", "lemma_ids": ["broetchen"] }
+        {
+          "id": "a",
+          "label_de": "die Tomate",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_tomato.gltf",
+          "lemma_ids": [
+            "tomate"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "die Kartoffel",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_potato.gltf",
+          "lemma_ids": [
+            "kartoffel"
+          ]
+        },
+        {
+          "id": "c",
+          "label_de": "das Brötchen",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_bun.gltf",
+          "lemma_ids": [
+            "broetchen"
+          ]
+        }
       ],
       "correct_option_id": "a",
       "feedback_correct_de": "Die Tomate ist im Kühlschrank.",
       "feedback_wrong_de": "Nein, bring die Tomate in den Kühlschrank.",
       "notes": "Repeats the s09 frame with the second food item so both food lemmas are practised in the same structure.",
-      "feedback_lemma_ids": ["bringen", "tomate", "kuehlschrank"]
+      "feedback_lemma_ids": [
+        "bringen",
+        "tomate",
+        "kuehlschrank"
+      ]
     }
   ]
 }

@@ -1,123 +1,16 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/lex01_game.gd" id="1_game"]
-[ext_resource type="PackedScene" path="res://assets/kaykit/characters/Knight.glb" id="2_knight"]
-[ext_resource type="PackedScene" path="res://assets/kaykit/characters/Mage.glb" id="3_mage"]
-[ext_resource type="PackedScene" path="res://assets/kaykit/characters/Rogue_Hooded.glb" id="6_gast"]
+[ext_resource type="PackedScene" path="res://scenes/tavern.tscn" id="2_tavern"]
+[ext_resource type="PackedScene" path="res://scenes/fps_player.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://scenes/lex01_hud.tscn" id="4_hud"]
-[ext_resource type="PackedScene" path="res://scenes/fps_player.tscn" id="5_player"]
-
-[sub_resource type="BoxMesh" id="FloorMesh"]
-size = Vector3(17, 0.2, 13)
-
-[sub_resource type="StandardMaterial3D" id="FloorMaterial"]
-albedo_color = Color(0.35, 0.24, 0.16, 1)
-roughness = 0.9
-
-[sub_resource type="BoxMesh" id="CeilingMesh"]
-size = Vector3(17, 0.2, 13)
-
-[sub_resource type="StandardMaterial3D" id="CeilingMaterial"]
-albedo_color = Color(0.16, 0.13, 0.11, 1)
-roughness = 1
-
-[sub_resource type="Environment" id="RoomEnvironment"]
-background_mode = 1
-background_color = Color(0.11, 0.13, 0.16, 1)
-tonemap_mode = 2
-ambient_light_source = 3
-ambient_light_color = Color(0.6, 0.56, 0.5, 1)
-ambient_light_energy = 0.7
-
-[sub_resource type="BoxShape3D" id="ShellFloorShape"]
-size = Vector3(17, 0.2, 13)
-
-[sub_resource type="BoxShape3D" id="ShellEndShape"]
-size = Vector3(17, 4, 0.5)
-
-[sub_resource type="BoxShape3D" id="ShellSideShape"]
-size = Vector3(0.5, 4, 13)
 
 [node name="LanguageLifeSim" type="Node3D"]
 script = ExtResource("1_game")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("RoomEnvironment")
+[node name="Tavern" parent="." instance=ExtResource("2_tavern")]
 
-[node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-mesh = SubResource("FloorMesh")
-surface_material_override/0 = SubResource("FloorMaterial")
-
-[node name="Ceiling" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1, 0)
-mesh = SubResource("CeilingMesh")
-surface_material_override/0 = SubResource("CeilingMaterial")
-
-[node name="RoomShell" type="StaticBody3D" parent="."]
-unique_name_in_owner = true
-collision_layer = 1
-collision_mask = 0
-
-[node name="FloorShape" type="CollisionShape3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-shape = SubResource("ShellFloorShape")
-
-[node name="BackShape" type="CollisionShape3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -6.25)
-shape = SubResource("ShellEndShape")
-
-[node name="FrontShape" type="CollisionShape3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 6.25)
-shape = SubResource("ShellEndShape")
-
-[node name="LeftShape" type="CollisionShape3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.25, 2, 0)
-shape = SubResource("ShellSideShape")
-
-[node name="RightShape" type="CollisionShape3D" parent="RoomShell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.25, 2, 0)
-shape = SubResource("ShellSideShape")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.707107, 0, 0.707107, -0.353553, 0.866025, 0.353553, -0.612372, -0.5, 0.612372, 0, 7, 0)
-light_energy = 0.8
-shadow_enabled = true
-
-[node name="BarLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2, 2.6, 0.8)
-light_color = Color(1, 0.82, 0.6, 1)
-light_energy = 1.4
-omni_light_range_fade_mode = 1
-distance_fade_max_distance = 9
-
-[node name="GuestLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 2.6, 0.2)
-light_color = Color(1, 0.85, 0.65, 1)
-light_energy = 1.2
-omni_light_range_fade_mode = 1
-distance_fade_max_distance = 9
-
-[node name="KitchenLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 2.8, -4.2)
-light_color = Color(1, 0.82, 0.6, 1)
-light_energy = 1.2
-omni_light_range_fade_mode = 1
-distance_fade_max_distance = 9
-
-[node name="Player" parent="." instance=ExtResource("5_player")]
-unique_name_in_owner = true
-
-[node name="NPCs" type="Node3D" parent="."]
-unique_name_in_owner = true
-
-[node name="Knight" parent="NPCs" instance=ExtResource("2_knight")]
-
-[node name="Mage" parent="NPCs" instance=ExtResource("3_mage")]
-
-[node name="Gast" parent="NPCs" instance=ExtResource("6_gast")]
-
-[node name="Interior" type="Node3D" parent="."]
+[node name="Player" parent="." instance=ExtResource("3_player")]
 unique_name_in_owner = true
 
 [node name="Candidates" type="Node3D" parent="."]
