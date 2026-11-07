@@ -37,14 +37,9 @@ var scenario_files: PackedStringArray = []
 var room: Dictionary = {}
 var ui: Dictionary = {}
 var errors: PackedStringArray = []
-# Which world a run plays (data/room/lex01_room.json 'worlds'): the tavern by default, the
-# legacy LEX-01 practice room with --world legacy. The world decides which scenario records
-# load, whether the interior furniture is built and where staging puts the answers.
-var world: String = ""
-var world_config: Dictionary = {}
 
 
-func load_all(requested_world: String = "") -> bool:
+func load_all() -> bool:
 	var vocabulary: Variant = _read_json(VOCABULARY_PATH)
 	if not (vocabulary is Dictionary):
 		errors.append("cannot read vocabulary file " + VOCABULARY_PATH)
@@ -61,8 +56,6 @@ func load_all(requested_world: String = "") -> bool:
 		errors.append("cannot read room layout " + ROOM_PATH)
 		return false
 	room = layout
-	if not _select_world(requested_world):
-		return false
 	_validate_room_shell()
 
 	var interface_text: Variant = _read_json(UI_PATH)
@@ -94,10 +87,6 @@ func load_all(requested_world: String = "") -> bool:
 			errors.append("cannot read scenario file " + path)
 			continue
 		scenario_files.append(path)
-		# A file belongs to one world and a record may override it (data/room/lex01_room.json
-		# 'worlds'). Every record is validated no matter which world is playing, but only the
-		# active world's records become playable content.
-		var file_world: String = String(document.get("world", "legacy"))
 		for scenario: Variant in document.get("scenarios", []):
 			if not (scenario is Dictionary):
 				errors.append("scenario record is not an object in " + path)
@@ -112,10 +101,7 @@ func load_all(requested_world: String = "") -> bool:
 				errors.append("duplicate scenario id '%s' in %s, already defined in %s (ids are progress keys, so each record needs its own)" % [id, path, scenario_origin[id]])
 			else:
 				scenario_origin[id] = path
-			var record_world: String = String((scenario as Dictionary).get("world", file_world))
-			scenario["_world"] = record_world
-			if record_world == world:
-				scenarios.append(scenario)
+			scenarios.append(scenario)
 
 	if scenarios.is_empty():
 		errors.append("no scenario records loaded")
@@ -132,50 +118,7 @@ func _read_json(path: String) -> Variant:
 	return parsed
 
 
-## Pick the world a run plays: the one named on the command line, or the one the room data
-## names as its default. Room data without a 'worlds' section is the pre-TAV-03 practice room,
-## so it plays as legacy with no built furniture.
-func _select_world(requested: String) -> bool:
-	var section: Variant = room.get("worlds", null)
-	if not (section is Dictionary) or (section as Dictionary).is_empty():
-		world = "legacy"
-		world_config = {"interior": false, "staging": "candidate_slots"}
-		return true
-	var worlds: Dictionary = section as Dictionary
-	var wanted: String = requested
-	if wanted.is_empty():
-		wanted = String(worlds.get("default", "legacy"))
-	if wanted == "note" or not worlds.has(wanted) or not (worlds[wanted] is Dictionary):
-		var names: PackedStringArray = []
-		for key: String in worlds:
-			if key != "note" and key != "default":
-				names.append(key)
-		errors.append("room layout declares no world '%s' to play (worlds: %s)" % [wanted, ", ".join(names)])
-		return false
-	world = wanted
-	world_config = worlds[wanted] as Dictionary
-	return true
-
-
-func world_name() -> String:
-	return world
-
-
-## Where staging puts a scenario's answers: "authored_slots" (the tavern - every answer stands
-## at the station the record or the world's default station names) or "candidate_slots" (the
-## legacy practice room - the shuffled pool).
-func world_staging() -> String:
-	return String(world_config.get("staging", "candidate_slots"))
-
-
-## Whether this world's fixed furniture is built from the 'interior' array once per run. The
-## tavern keeps its furniture for the whole run; the legacy practice room has none.
-func world_uses_interior() -> bool:
-	return bool(world_config.get("interior", false))
-
-
-## The placement slot an object stands at when a record names it without saying where. Only
-## authored staging reads this; empty means the room data names no station.
+## The placement slot an object stands at when a record names it without saying where.
 func default_station(context: String) -> String:
 	var section: Variant = room.get("default_stations", null)
 	if not (section is Dictionary):
@@ -188,6 +131,9 @@ func default_station(context: String) -> String:
 func _validate_scenario(scenario: Dictionary, path: String) -> void:
 	var id: String = String(scenario.get("id", "<no id>"))
 	var action: String = String(scenario.get("action_type", ""))
+	var staging: String = String(scenario.get("staging", "authored_slots"))
+	if not ["authored_slots", "candidate_slots"].has(staging):
+		errors.append("%s: unknown staging mode '%s'" % [id, staging])
 	if not ALLOWED_ACTION_TYPES.has(action):
 		errors.append("%s: unknown action_type '%s' (allowed: %s)" % [id, action, ", ".join(ALLOWED_ACTION_TYPES)])
 	if String(scenario.get("utterance_de", "")).strip_edges().is_empty():
@@ -271,7 +217,7 @@ func _validate_scenario(scenario: Dictionary, path: String) -> void:
 
 
 func _validate_room_shell() -> void:
-	for required: String in ["npcs", "cameras", "candidate_slots", "anchors", "placement_slots", "hold", "delivery", "player"]:
+	for required: String in ["npcs", "cameras", "candidate_slots", "placement_slots", "hold", "delivery", "player"]:
 		if not (room.get(required, null) is Dictionary):
 			errors.append("room layout is missing the '%s' section" % required)
 	# TAV-02 (Issue #9): the first-person body and its reach are data, so a broken tunable is a
@@ -288,47 +234,27 @@ func _validate_room_shell() -> void:
 			errors.append("room layout 'player.interact_range' of %s makes aiming a distance instead of an approach" % player.get("interact_range", null))
 		if float(player.get("pitch_limit_deg", 0.0)) <= 0.0 or float(player.get("pitch_limit_deg", 0.0)) > 90.0:
 			errors.append("room layout 'player.pitch_limit_deg' must stay between 0 and 90 degrees")
+	var tavern: Node = (load("res://scenes/tavern.tscn") as PackedScene).instantiate()
 	for context: String in candidate_contexts():
 		var spawn: Dictionary = camera_for(context)
-		if spawn.is_empty():
+		var marker_name := String(spawn.get("marker", ""))
+		if marker_name.is_empty() or not (tavern.get_node_or_null(NodePath(marker_name)) is Marker3D):
 			errors.append("context '%s' has no player spawn in %s" % [context, ROOM_PATH])
-		elif not (spawn.get("position", null) is Array):
-			errors.append("context '%s' spawn has no position array in %s" % [context, ROOM_PATH])
-	# TAV-03 (Issue #10): the walls and modular furniture groups are data too, so a typo in an
-	# interior entry is a named content error instead of a room with a hole in it or a crate that the
-	# player cannot walk past.
-	var entries: Array = interior_entries()
-	if entries.is_empty():
-		errors.append("room layout declares no 'interior' entries in %s" % ROOM_PATH)
-	for entry: Variant in entries:
-		if not (entry is Dictionary):
-			errors.append("room layout 'interior' entry is not an object: %s" % entry)
-			continue
-		var record: Dictionary = entry as Dictionary
-		var model: String = String(record.get("model", ""))
-		if model.is_empty() or not ResourceLoader.exists(model):
-			errors.append("interior entry has no usable model: %s" % [model])
-		var position: Variant = record.get("position", null)
-		if not (position is Array) or (position as Array).size() < 3:
-			errors.append("interior entry %s has no position array: %s" % [model, position])
-		for key: String in ["solid", "ground"]:
-			if record.has(key) and not (record[key] is bool):
-				errors.append("interior entry %s declares %s as something other than true or false" % [model, key])
-		var rotation: Variant = record.get("rotation_deg", null)
-		if rotation != null and not (rotation is Array):
-			errors.append("interior entry %s declares rotation_deg as something other than an array" % model)
+	tavern.free()
+	if not ResourceLoader.exists("res://scenes/tavern.tscn"):
+		errors.append("authored tavern scene is missing: res://scenes/tavern.tscn")
 
 	for slot_name: String in placement_slots():
 		var slot: Dictionary = placement_slot(slot_name)
 		var anchor: String = String(slot.get("anchor", ""))
 		if anchor.is_empty() or not ResourceLoader.exists(anchor):
 			errors.append("placement slot '%s' has no usable anchor model: %s" % [slot_name, anchor])
-		if anchor_entries(anchor).is_empty():
+		if String(slot.get("anchor_id", "")).is_empty() and anchor_entries(anchor).is_empty():
 			errors.append("placement slot '%s' anchor has no position data: %s" % [slot_name, anchor])
 		if not ["on_top", "at_front"].has(String(slot.get("mode", ""))):
 			errors.append("placement slot '%s' uses an unknown mode '%s'" % [slot_name, String(slot.get("mode", ""))])
 		# A slot that names a stable interior instance (an authored station) must name one that
-		# the interior array actually declares, or the station would silently resolve to
+		# the authored tavern scene declares, or the station would silently resolve to
 		# whichever piece happens to share the model.
 		var anchor_id: String = String(slot.get("anchor_id", ""))
 		if not anchor_id.is_empty() and not interior_ids().has(anchor_id):
@@ -343,10 +269,8 @@ func _validate_scenario_rooms() -> void:
 
 
 ## The first card a player ever sees is chosen in data, so the guarantee survives a new file,
-## a new scenario or a different seed. At most one record of the playing world may claim it,
-## and it has to be a task a beginner can actually do first. The tavern world (TAV-01) carries
-## no guided record - its content is not the beginner's first lesson - so zero is valid here;
-## CI still asserts that the whole data set declares exactly one.
+## a new scenario or a different seed. At most one record may claim it, and it has to be a task
+## a beginner can actually do first.
 func _validate_guided_record() -> void:
 	var guided: Array[Dictionary] = []
 	for scenario: Dictionary in scenarios:
@@ -514,9 +438,11 @@ func npc_config(npc_name: String) -> Dictionary:
 func camera_for(context: String) -> Dictionary:
 	var section: Variant = room.get("cameras", null)
 	if section is Dictionary and section.has(context):
-		return section[context] as Dictionary
+		var config: Variant = section[context]
+		return {"marker": String(config)} if config is String else config as Dictionary
 	if section is Dictionary and section.has("default"):
-		return section["default"] as Dictionary
+		var fallback: Variant = section["default"]
+		return {"marker": String(fallback)} if fallback is String else fallback as Dictionary
 	return {}
 
 
@@ -548,45 +474,24 @@ func candidate_slots(context: String) -> Array:
 	return []
 
 
-## The tavern's fixed furniture, in the order the room data declares it (TAV-03, Issue #10).
-## Entries are read as written: `model`, `position`, optional `rotation_deg`, optional `solid`,
-## optional `ground`, and anything unknown is ignored, exactly like everywhere else in this data.
-func interior_entries() -> Array:
-	var section: Variant = room.get("interior", null)
-	return section as Array if section is Array else []
-
-
 ## The stable ids the interior entries declare (`"id": "guest_table_1"`), used by placement
 ## slots and delivery targets that must address one specific piece of furniture.
 func interior_ids() -> Array[String]:
 	var result: Array[String] = []
-	for entry: Variant in interior_entries():
-		if entry is Dictionary:
-			var interior_entry: Dictionary = entry as Dictionary
-			var id: String = String(interior_entry.get("id", ""))
-			if not id.is_empty():
-				result.append(id)
-			var member_ids: Variant = interior_entry.get("member_ids", {})
-			if member_ids is Dictionary:
-				for member_id: Variant in (member_ids as Dictionary).values():
-					var stable_id: String = String(member_id)
-					if not stable_id.is_empty():
-						result.append(stable_id)
+	var packed := load("res://scenes/tavern.tscn") as PackedScene
+	if packed == null:
+		return result
+	var root := packed.instantiate()
+	_collect_station_ids(root, result)
+	root.free()
 	return result
 
 
-## The authored position of the interior entry with this id, or Vector3.ZERO when no entry
-## declares it (staging treats that as "no authored spot" and falls back to the anchor data).
-func interior_position(id: String) -> Vector3:
-	for entry: Variant in interior_entries():
-		if entry is Dictionary:
-			var interior_entry: Dictionary = entry as Dictionary
-			if String(interior_entry.get("id", "")) == id:
-				return _vector3(interior_entry.get("position", [0, 0, 0]))
-			var member_ids: Variant = interior_entry.get("member_ids", {})
-			if member_ids is Dictionary and (member_ids as Dictionary).values().has(id):
-				return _vector3(interior_entry.get("position", [0, 0, 0]))
-	return Vector3.ZERO
+func _collect_station_ids(node: Node, out: Array[String]) -> void:
+	if node.has_meta("station_id"):
+		out.append(String(node.get_meta("station_id")))
+	for child in node.get_children():
+		_collect_station_ids(child, out)
 
 
 func placement_slots() -> Array[String]:

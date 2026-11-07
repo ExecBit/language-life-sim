@@ -30,10 +30,10 @@ extends Node3D
 ## cannot work, and the player can always continue with the skip button.
 
 @onready var player: FpsPlayer = %Player
-@onready var room_shell: StaticBody3D = %RoomShell
+@onready var room_shell: StaticBody3D = $Tavern/RoomShell
 @onready var candidates: Node3D = %Candidates
-@onready var npcs: Node3D = %NPCs
-@onready var interior_root: Node3D = %Interior
+@onready var npcs: Node3D = $Tavern/NPCs
+@onready var interior_root: Node3D = $Tavern
 @onready var hud: Lex01HUD = %HUD
 
 var content: Lex01Content
@@ -93,7 +93,7 @@ func _ready() -> void:
 	rng.seed = seed_value
 
 	content = Lex01Content.new()
-	if not content.load_all(String(options.get("world", ""))):
+	if not content.load_all():
 		for problem: String in content.errors:
 			print("CONTENT_ERROR %s" % problem)
 		print("LEX01 CONTENT FAIL")
@@ -104,16 +104,7 @@ func _ready() -> void:
 	print("CONTENT lemmas=%d scenario_files=%d scenarios=%d days=%s" % [
 		content.lemmas.size(), content.scenario_files.size(), content.scenarios.size(), content.days(),
 	])
-	# The world decides what a run is: the tavern by default, the legacy LEX-01 practice room
-	# with --world legacy. It is chosen before anything is staged so the whole run is coherent.
-	print("WORLD name=%s staging=%s interior=%s" % [
-		content.world_name(), content.world_staging(), str(content.world_uses_interior()),
-	])
-
-	if content.world_uses_interior():
-		if not preload("res://scripts/generated_tavern.gd").install(self, content):
-			get_tree().quit(1)
-			return
+	print("LOCATION authored_tavern")
 
 	progress = Lex01Progress.new()
 	_player_config = content.player_config()
@@ -124,13 +115,11 @@ func _ready() -> void:
 	# or delete the progress a human built by pressing F5.
 	if not _probe_mode.is_empty():
 		progress.use_probe_save()
-	# The tavern's fixed furniture, assembled from data once per run (TAV-03, Issue #10). It is a
-	# separate thing from the room builder on purpose: what stands in the room does not change
-	# from card to card, and only its `solid` entries stop the player. Only a world whose data
-	# declares an interior builds it - the legacy practice room keeps its empty test-room floor.
+	# The tavern is authored in scenes/tavern.tscn. Bind its existing nodes for gameplay; never
+	# construct or reposition the location from data at run time.
 	interior = Lex01Interior.new()
 	interior.setup(content, interior_root)
-	var tavern: Dictionary = interior.build() if content.world_uses_interior() else {"built": 0, "solid": 0}
+	var tavern: Dictionary = interior.build()
 	for warning: String in interior.warnings:
 		print("INTERIOR_WARNING %s" % warning)
 	print("TAVERN built=%d solid=%d" % [int(tavern["built"]), int(tavern["solid"])])
@@ -1355,8 +1344,6 @@ func _command_line_options() -> Dictionary:
 			result["probe"] = "input" if args[index] == "--probe-input" else "logic"
 		elif args[index] == "--seed" and index + 1 < args.size():
 			result["seed"] = int(args[index + 1])
-		elif args[index] == "--world" and index + 1 < args.size():
-			result["world"] = args[index + 1]
 	return result
 
 
@@ -1421,17 +1408,12 @@ func _corners(box: AABB) -> Array[Vector3]:
 ## different situation because the player is put down somewhere else and looks at a different layout.
 func place_player(context: String) -> void:
 	var config: Dictionary = content.camera_for(context)
-	if config.is_empty():
+	var marker_name := String(config.get("marker", "PlayerSpawn"))
+	var marker := interior_root.get_node_or_null(NodePath(marker_name)) as Marker3D
+	if marker != null:
+		player.spawn_at(marker.global_position, marker.global_rotation_degrees)
 		return
-	var position_value: Variant = config.get("position", [0, 0, 0])
-	if not (position_value is Array):
-		return
-	var rotation_value: Variant = config.get("rotation_deg", [0, 0, 0])
-	player.spawn_at(
-		Vector3(float((position_value as Array)[0]), float((position_value as Array)[1]), float((position_value as Array)[2])),
-		Vector3(0.0, 0.0, 0.0) if not (rotation_value is Array) else Vector3(float(rotation_value[0]), float(rotation_value[1]), float(rotation_value[2])),
-	)
-	print("SPAWN context=%s scenario=%s position=%.2f|%.2f|%.2f" % [context, String(current_scenario.get("id", "")), player.global_position.x, player.global_position.y, player.global_position.z])
+	push_error("Missing authored tavern spawn marker: " + marker_name)
 
 
 func _update_buttons() -> void:

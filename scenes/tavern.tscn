@@ -1,0 +1,446 @@
+[gd_scene load_steps=42 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/table_round_A.gltf" id="1"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/chair_A.gltf" id="2"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/kitchencounter_straight_A.gltf" id="3"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/chair_stool.gltf" id="4"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/stove_single.gltf" id="5"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/fridge_A.gltf" id="6"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/furniture/table_medium.gltf" id="7"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/furniture/couch.gltf" id="8"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/crate_potatoes.gltf" id="9"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/furniture/cabinet_medium.gltf" id="10"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/items/crate.gltf" id="11"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/characters/Mage.glb" id="12"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/characters/Knight.glb" id="13"]
+[ext_resource type="PackedScene" path="res://assets/kaykit/characters/Rogue_Hooded.glb" id="14"]
+
+[sub_resource type="Environment" id="Environment"]
+background_mode = 1
+background_color = Color(0.11, 0.13, 0.16, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.6, 0.56, 0.5, 1)
+ambient_light_energy = 0.7
+tonemap_mode = 2
+[sub_resource type="StandardMaterial3D" id="FloorMaterial"]
+albedo_color = Color(0.29, 0.25, 0.2, 1)
+roughness = 0.9
+[sub_resource type="StandardMaterial3D" id="WallMaterial"]
+albedo_color = Color(0.48, 0.42, 0.33, 1)
+roughness = 0.9
+[sub_resource type="StandardMaterial3D" id="CeilingMaterial"]
+albedo_color = Color(0.16, 0.13, 0.11, 1)
+roughness = 1.0
+[sub_resource type="BoxShape3D" id="HallFloorColliderShape"]
+size = Vector3(20.1419, 0.24, 20.7)
+[sub_resource type="BoxShape3D" id="HallCeilingColliderShape"]
+size = Vector3(20.1419, 0.24, 20.7)
+[sub_resource type="BoxShape3D" id="EntranceWestWallShape"]
+size = Vector3(9.37095, 3, 0.2)
+[sub_resource type="BoxShape3D" id="EntranceEastWallShape"]
+size = Vector3(9.37095, 3, 0.2)
+[sub_resource type="BoxShape3D" id="EntranceLintelShape"]
+size = Vector3(1.4, 0.8, 0.2)
+[sub_resource type="BoxShape3D" id="HallSouthWallColliderShape"]
+size = Vector3(20.1419, 3, 0.2)
+[sub_resource type="BoxShape3D" id="HallWestWallColliderShape"]
+size = Vector3(0.2, 3, 20.7)
+[sub_resource type="BoxShape3D" id="KitchenFloorColliderShape"]
+size = Vector3(8, 0.24, 7.488)
+[sub_resource type="BoxShape3D" id="KitchenCeilingColliderShape"]
+size = Vector3(8, 0.24, 7.488)
+[sub_resource type="BoxShape3D" id="KitchenNorthWallColliderShape"]
+size = Vector3(8, 3, 0.2)
+[sub_resource type="BoxShape3D" id="KitchenSouthWallColliderShape"]
+size = Vector3(8, 3, 0.2)
+[sub_resource type="BoxShape3D" id="StoreroomFloorColliderShape"]
+size = Vector3(6, 0.24, 5.6)
+[sub_resource type="BoxShape3D" id="StoreroomCeilingColliderShape"]
+size = Vector3(6, 0.24, 5.6)
+[sub_resource type="BoxShape3D" id="StoreroomNorthWallColliderShape"]
+size = Vector3(6, 3, 0.2)
+[sub_resource type="BoxShape3D" id="StoreroomSouthWallColliderShape"]
+size = Vector3(6, 3, 0.2)
+[sub_resource type="BoxShape3D" id="StoreroomEastWallColliderShape"]
+size = Vector3(0.2, 3, 5.6)
+[sub_resource type="BoxShape3D" id="Door1NorthWallColliderShape"]
+size = Vector3(0.2, 3, 6.75)
+[sub_resource type="BoxShape3D" id="Door1SouthWallColliderShape"]
+size = Vector3(0.2, 3, 12.55)
+[sub_resource type="BoxShape3D" id="Door2NorthWallColliderShape"]
+size = Vector3(0.2, 3, 3.0440000000000005)
+[sub_resource type="BoxShape3D" id="Door2SouthWallColliderShape"]
+size = Vector3(0.2, 3, 3.0440000000000005)
+[sub_resource type="BoxShape3D" id="ServiceCounterCollisionShape"]
+size = Vector3(2.04, 1.0, 0.8)
+[sub_resource type="BoxShape3D" id="BarCounter1CollisionShape"]
+size = Vector3(2.04, 1.0, 0.8)
+[sub_resource type="BoxShape3D" id="BarCounter2CollisionShape"]
+size = Vector3(2.04, 1.0, 0.8)
+
+[node name="Tavern" type="Node3D"]
+
+[node name="Hall" type="Node3D" parent="."]
+[node name="Kitchen" type="Node3D" parent="."]
+[node name="Storeroom" type="Node3D" parent="."]
+[node name="HallFloor" type="CSGBox3D" parent="Hall"]
+material = SubResource("FloorMaterial")
+size = Vector3(20.1419, 0.24, 20.7)
+position = Vector3(-7, -0.12, 0)
+use_collision = false
+[node name="HallCeiling" type="CSGBox3D" parent="Hall"]
+material = SubResource("CeilingMaterial")
+size = Vector3(20.1419, 0.24, 20.7)
+position = Vector3(-7, 3.12, 0)
+use_collision = false
+[node name="KitchenFloor" type="CSGBox3D" parent="Kitchen"]
+material = SubResource("FloorMaterial")
+size = Vector3(8, 0.24, 7.488)
+position = Vector3(7.0709496, -0.12, 0)
+use_collision = false
+[node name="KitchenCeiling" type="CSGBox3D" parent="Kitchen"]
+material = SubResource("CeilingMaterial")
+size = Vector3(8, 0.24, 7.488)
+position = Vector3(7.0709496, 3.12, 0)
+use_collision = false
+[node name="StoreroomFloor" type="CSGBox3D" parent="Storeroom"]
+material = SubResource("FloorMaterial")
+size = Vector3(6, 0.24, 5.6)
+position = Vector3(14.07095, -0.12, 0)
+use_collision = false
+[node name="StoreroomCeiling" type="CSGBox3D" parent="Storeroom"]
+material = SubResource("CeilingMaterial")
+size = Vector3(6, 0.24, 5.6)
+position = Vector3(14.07095, 3.12, 0)
+use_collision = false
+[node name="RoomShell" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+[node name="NPCs" type="Node3D" parent="."]
+[node name="Candidates" type="Node3D" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment")
+[node name="BarLight" type="OmniLight3D" parent="."]
+position = Vector3(-6.2, 2.6, 0.8)
+light_color = Color(1, 0.82, 0.6, 1)
+light_energy = 1.4
+omni_light_range_fade_mode = 1
+distance_fade_max_distance = 9.0
+[node name="GuestLight" type="OmniLight3D" parent="."]
+position = Vector3(2.2, 2.6, 0.2)
+light_color = Color(1, 0.85, 0.65, 1)
+light_energy = 1.2
+omni_light_range_fade_mode = 1
+distance_fade_max_distance = 9.0
+[node name="KitchenLight" type="OmniLight3D" parent="."]
+position = Vector3(-5.6, 2.8, -4.2)
+light_color = Color(1, 0.82, 0.6, 1)
+light_energy = 1.2
+omni_light_range_fade_mode = 1
+distance_fade_max_distance = 9.0
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-30, 45, 0)
+light_energy = 0.8
+shadow_enabled = true
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+position = Vector3(-7, 0, -8.85)
+rotation_degrees = Vector3(-6, 180, 0)
+[node name="KitchenSpawn" type="Marker3D" parent="."]
+position = Vector3(1.1, 0, -2)
+rotation_degrees = Vector3(-6, 0, 0)
+[node name="CarryTraySpawn" type="Marker3D" parent="."]
+position = Vector3(-2.2, 0.85, 1.6)
+[node name="HallFloorCollider" type="CollisionShape3D" parent="RoomShell"]
+position = Vector3(-7, -0.12, 0)
+shape = SubResource("HallFloorColliderShape")
+[node name="HallCeilingCollider" type="CollisionShape3D" parent="RoomShell"]
+position = Vector3(-7, 3.12, 0)
+shape = SubResource("HallCeilingColliderShape")
+[node name="KitchenFloorCollider" type="CollisionShape3D" parent="RoomShell"]
+position = Vector3(7.0709496, -0.12, 0)
+shape = SubResource("KitchenFloorColliderShape")
+[node name="KitchenCeilingCollider" type="CollisionShape3D" parent="RoomShell"]
+position = Vector3(7.0709496, 3.12, 0)
+shape = SubResource("KitchenCeilingColliderShape")
+[node name="StoreroomFloorCollider" type="CollisionShape3D" parent="RoomShell"]
+position = Vector3(14.07095, -0.12, 0)
+shape = SubResource("StoreroomFloorColliderShape")
+[node name="StoreroomCeilingCollider" type="CollisionShape3D" parent="RoomShell"]
+position = Vector3(14.07095, 3.12, 0)
+shape = SubResource("StoreroomCeilingColliderShape")
+[node name="GuestTable1" parent="Hall" instance=ExtResource("1")]
+position = Vector3(-11.0720215, 0, -6.450429)
+rotation_degrees = Vector3(0.0, -270.0, 0.0)
+metadata/station_id = "guest_table_1"
+[node name="DiningDiningChair01" parent="Hall" instance=ExtResource("2")]
+position = Vector3(-11.0720215, 0, -8.598928)
+rotation_degrees = Vector3(0.0, -180.0, 0.0)
+metadata/station_id = "dining_dining_chair_01"
+[node name="DiningDiningChair02" parent="Hall" instance=ExtResource("2")]
+position = Vector3(-8.923521, 0, -6.450429)
+rotation_degrees = Vector3(0.0, -270.0, 0.0)
+metadata/station_id = "dining_dining_chair_02"
+[node name="DiningDiningChair03" parent="Hall" instance=ExtResource("2")]
+position = Vector3(-7.816664, 0, -5.6470003)
+rotation_degrees = Vector3(0.0, -90.0, 0.0)
+metadata/station_id = "dining_dining_chair_03"
+[node name="DiningDiningChair04" parent="Hall" instance=ExtResource("2")]
+position = Vector3(-5.6681643, 0, -7.7955003)
+rotation_degrees = Vector3(0.0, -180.0, 0.0)
+metadata/station_id = "dining_dining_chair_04"
+[node name="DiningDiningTable02" parent="Hall" instance=ExtResource("1")]
+position = Vector3(-5.6681643, 0, -5.6470003)
+rotation_degrees = Vector3(0.0, 0.0, 0.0)
+metadata/station_id = "dining_dining_table_02"
+[node name="DiningDiningChair05" parent="Hall" instance=ExtResource("2")]
+position = Vector3(-11.0720215, 0, -4.301929)
+rotation_degrees = Vector3(0.0, 0.0, 0.0)
+metadata/station_id = "dining_dining_chair_05"
+[node name="DiningDiningChair06" parent="Hall" instance=ExtResource("2")]
+position = Vector3(-3.5196643, 0, -5.6470003)
+rotation_degrees = Vector3(0.0, -270.0, 0.0)
+metadata/station_id = "dining_dining_chair_06"
+[node name="DiningDiningChair07" parent="Hall" instance=ExtResource("2")]
+position = Vector3(-13.220521, 0, -6.450429)
+rotation_degrees = Vector3(0.0, -90.0, 0.0)
+metadata/station_id = "dining_dining_chair_07"
+[node name="DiningDiningChair08" parent="Hall" instance=ExtResource("2")]
+position = Vector3(-5.6681643, 0, -3.4985003)
+rotation_degrees = Vector3(0.0, 0.0, 0.0)
+metadata/station_id = "dining_dining_chair_08"
+[node name="BarCounter1" parent="Hall" instance=ExtResource("3")]
+position = Vector3(1.1499996, 0, 3.4499998)
+rotation_degrees = Vector3(0.0, -270.0, 0.0)
+metadata/station_id = "bar_counter_1"
+[node name="BarCounter1Collision" type="StaticBody3D" parent="Hall/BarCounter1"]
+collision_layer = 1
+collision_mask = 0
+[node name="Shape" type="CollisionShape3D" parent="Hall/BarCounter1/BarCounter1Collision"]
+position = Vector3(0, 0.5, 0)
+shape = SubResource("BarCounter1CollisionShape")
+[node name="BarCounter2" parent="Hall" instance=ExtResource("3")]
+position = Vector3(1.1499996, 0, 1.4499998)
+rotation_degrees = Vector3(0.0, -270.0, 0.0)
+metadata/station_id = "bar_counter_2"
+[node name="BarCounter2Collision" type="StaticBody3D" parent="Hall/BarCounter2"]
+collision_layer = 1
+collision_mask = 0
+[node name="Shape" type="CollisionShape3D" parent="Hall/BarCounter2/BarCounter2Collision"]
+position = Vector3(0, 0.5, 0)
+shape = SubResource("BarCounter2CollisionShape")
+[node name="BarCustomerStool01" parent="Hall" instance=ExtResource("4")]
+position = Vector3(-0.4459505, 0, 3.9416666)
+rotation_degrees = Vector3(0.0, -90.0, 0.0)
+metadata/station_id = "bar_customer_stool_01"
+[node name="BarCustomerStool02" parent="Hall" instance=ExtResource("4")]
+position = Vector3(-0.4459505, 0, 1.9416666)
+rotation_degrees = Vector3(0.0, -90.0, 0.0)
+metadata/station_id = "bar_customer_stool_02"
+[node name="BarCustomerStool03" parent="Hall" instance=ExtResource("4")]
+position = Vector3(-0.4459505, 0, 2.958333)
+rotation_degrees = Vector3(0.0, -90.0, 0.0)
+metadata/station_id = "bar_customer_stool_03"
+[node name="BarCustomerStool04" parent="Hall" instance=ExtResource("4")]
+position = Vector3(-0.4459505, 0, 0.958333)
+rotation_degrees = Vector3(0.0, -90.0, 0.0)
+metadata/station_id = "bar_customer_stool_04"
+[node name="ServiceCounter" parent="Kitchen" instance=ExtResource("3")]
+position = Vector3(5.1149497, 0, 0.44639993)
+rotation_degrees = Vector3(0.0, -90.0, 0.0)
+metadata/station_id = "service_counter"
+[node name="ServiceCounterCollision" type="StaticBody3D" parent="Kitchen/ServiceCounter"]
+collision_layer = 1
+collision_mask = 0
+[node name="Shape" type="CollisionShape3D" parent="Kitchen/ServiceCounter/ServiceCounterCollision"]
+position = Vector3(0, 0.5, 0)
+shape = SubResource("ServiceCounterCollisionShape")
+[node name="KitchenStove" parent="Kitchen" instance=ExtResource("5")]
+position = Vector3(5.1149497, 0, -1.5536001)
+rotation_degrees = Vector3(0.0, -90.0, 0.0)
+metadata/station_id = "kitchen_stove"
+[node name="KitchenFridge" parent="Kitchen" instance=ExtResource("6")]
+position = Vector3(5.1149497, 0, 2.4464)
+rotation_degrees = Vector3(0.0, -90.0, 0.0)
+metadata/station_id = "kitchen_fridge"
+[node name="LoungeLoungeCoffeeTable01" parent="Hall" instance=ExtResource("7")]
+position = Vector3(-10.07095, 0, 2.6499996)
+rotation_degrees = Vector3(0.0, -90.0, 0.0)
+metadata/station_id = "lounge_lounge_coffee_table_01"
+[node name="LoungeLoungeSofa01" parent="Hall" instance=ExtResource("8")]
+position = Vector3(-10.07095, 0, 5.3499994)
+rotation_degrees = Vector3(0.0, 0.0, 0.0)
+metadata/station_id = "lounge_lounge_sofa_01"
+[node name="LoungeLoungeSofa02" parent="Hall" instance=ExtResource("8")]
+position = Vector3(-12.770949, 0, 2.6499996)
+rotation_degrees = Vector3(0.0, -90.0, 0.0)
+metadata/station_id = "lounge_lounge_sofa_02"
+[node name="LoungeLoungeSofa03" parent="Hall" instance=ExtResource("8")]
+position = Vector3(-10.07095, 0, -0.05000043)
+rotation_degrees = Vector3(0.0, -180.0, 0.0)
+metadata/station_id = "lounge_lounge_sofa_03"
+[node name="LoungeLoungeSofa04" parent="Hall" instance=ExtResource("8")]
+position = Vector3(-7.3709497, 0, 2.6499996)
+rotation_degrees = Vector3(0.0, -270.0, 0.0)
+metadata/station_id = "lounge_lounge_sofa_04"
+[node name="StorageStoreroomCratePotatoes01" parent="Storeroom" instance=ExtResource("9")]
+position = Vector3(14.67095, 0, -1.8)
+rotation_degrees = Vector3(0.0, -180.0, 0.0)
+metadata/station_id = "storage_storeroom_crate_potatoes_01"
+[node name="StorageStoreroomCabinet01" parent="Storeroom" instance=ExtResource("10")]
+position = Vector3(14.07095, 0, 2.3)
+rotation_degrees = Vector3(0.0, 0.0, 0.0)
+metadata/station_id = "storage_storeroom_cabinet_01"
+[node name="StorageStoreroomCrate01" parent="Storeroom" instance=ExtResource("11")]
+position = Vector3(16.07095, 0, 1.8)
+rotation_degrees = Vector3(0.0, 0.0, 0.0)
+metadata/station_id = "storage_storeroom_crate_01"
+[node name="Mage" parent="NPCs" instance=ExtResource("12")]
+position = Vector3(9.57095, 0, -1.7)
+rotation_degrees = Vector3(0.0, 90.0, 0.0)
+[node name="Knight" parent="NPCs" instance=ExtResource("13")]
+position = Vector3(-1.6, 0, 3.45)
+rotation_degrees = Vector3(0.0, 0.0, 0.0)
+[node name="Gast" parent="NPCs" instance=ExtResource("14")]
+position = Vector3(-14.07202, 0, -6.450429)
+rotation_degrees = Vector3(0.0, 90.0, 0.0)
+
+[node name="EntranceWestWall" type="StaticBody3D" parent="Hall"]
+position = Vector3(-12.385475, 1.5, -10.45)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="Hall/EntranceWestWall"]
+material = SubResource("WallMaterial")
+size = Vector3(9.37095, 3, 0.2)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="Hall/EntranceWestWall"]
+shape = SubResource("EntranceWestWallShape")
+[node name="EntranceEastWall" type="StaticBody3D" parent="Hall"]
+position = Vector3(-1.614525, 1.5, -10.45)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="Hall/EntranceEastWall"]
+material = SubResource("WallMaterial")
+size = Vector3(9.37095, 3, 0.2)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="Hall/EntranceEastWall"]
+shape = SubResource("EntranceEastWallShape")
+[node name="EntranceLintel" type="StaticBody3D" parent="Hall"]
+position = Vector3(-7, 2.6, -10.45)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="Hall/EntranceLintel"]
+material = SubResource("WallMaterial")
+size = Vector3(1.4, 0.8, 0.2)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="Hall/EntranceLintel"]
+shape = SubResource("EntranceLintelShape")
+[node name="HallSouthWall" type="StaticBody3D" parent="Hall"]
+position = Vector3(-7, 1.5, 10.45)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="Hall/HallSouthWall"]
+material = SubResource("WallMaterial")
+size = Vector3(20.1419, 3, 0.2)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="Hall/HallSouthWall"]
+shape = SubResource("HallSouthWallColliderShape")
+[node name="HallWestWall" type="StaticBody3D" parent="Hall"]
+position = Vector3(-17.17095, 1.5, 0)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="Hall/HallWestWall"]
+material = SubResource("WallMaterial")
+size = Vector3(0.2, 3, 20.7)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="Hall/HallWestWall"]
+shape = SubResource("HallWestWallColliderShape")
+[node name="KitchenNorthWall" type="StaticBody3D" parent="Kitchen"]
+position = Vector3(7.0709496, 1.5, -3.8440000000000003)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="Kitchen/KitchenNorthWall"]
+material = SubResource("WallMaterial")
+size = Vector3(8, 3, 0.2)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="Kitchen/KitchenNorthWall"]
+shape = SubResource("KitchenNorthWallColliderShape")
+[node name="KitchenSouthWall" type="StaticBody3D" parent="Kitchen"]
+position = Vector3(7.0709496, 1.5, 3.8440000000000003)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="Kitchen/KitchenSouthWall"]
+material = SubResource("WallMaterial")
+size = Vector3(8, 3, 0.2)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="Kitchen/KitchenSouthWall"]
+shape = SubResource("KitchenSouthWallColliderShape")
+[node name="StoreroomNorthWall" type="StaticBody3D" parent="Storeroom"]
+position = Vector3(14.07095, 1.5, -2.9)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="Storeroom/StoreroomNorthWall"]
+material = SubResource("WallMaterial")
+size = Vector3(6, 3, 0.2)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="Storeroom/StoreroomNorthWall"]
+shape = SubResource("StoreroomNorthWallColliderShape")
+[node name="StoreroomSouthWall" type="StaticBody3D" parent="Storeroom"]
+position = Vector3(14.07095, 1.5, 2.9)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="Storeroom/StoreroomSouthWall"]
+material = SubResource("WallMaterial")
+size = Vector3(6, 3, 0.2)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="Storeroom/StoreroomSouthWall"]
+shape = SubResource("StoreroomSouthWallColliderShape")
+[node name="StoreroomEastWall" type="StaticBody3D" parent="Storeroom"]
+position = Vector3(17.17095, 1.5, 0)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="Storeroom/StoreroomEastWall"]
+material = SubResource("WallMaterial")
+size = Vector3(0.2, 3, 5.6)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="Storeroom/StoreroomEastWall"]
+shape = SubResource("StoreroomEastWallColliderShape")
+[node name="Door1NorthWall" type="StaticBody3D" parent="."]
+position = Vector3(3.07095, 1.5, -6.975)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="./Door1NorthWall"]
+material = SubResource("WallMaterial")
+size = Vector3(0.2, 3, 6.75)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="./Door1NorthWall"]
+shape = SubResource("Door1NorthWallColliderShape")
+[node name="Door1SouthWall" type="StaticBody3D" parent="."]
+position = Vector3(3.07095, 1.5, 4.074999999999999)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="./Door1SouthWall"]
+material = SubResource("WallMaterial")
+size = Vector3(0.2, 3, 12.55)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="./Door1SouthWall"]
+shape = SubResource("Door1SouthWallColliderShape")
+[node name="Door2NorthWall" type="StaticBody3D" parent="."]
+position = Vector3(11.070949599999999, 1.5, -2.222)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="./Door2NorthWall"]
+material = SubResource("WallMaterial")
+size = Vector3(0.2, 3, 3.0440000000000005)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="./Door2NorthWall"]
+shape = SubResource("Door2NorthWallColliderShape")
+[node name="Door2SouthWall" type="StaticBody3D" parent="."]
+position = Vector3(11.070949599999999, 1.5, 2.222)
+collision_layer = 1
+collision_mask = 0
+[node name="Visual" type="CSGBox3D" parent="./Door2SouthWall"]
+material = SubResource("WallMaterial")
+size = Vector3(0.2, 3, 3.0440000000000005)
+use_collision = false
+[node name="Collision" type="CollisionShape3D" parent="./Door2SouthWall"]
+shape = SubResource("Door2SouthWallColliderShape")

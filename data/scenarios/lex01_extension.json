@@ -1,15 +1,17 @@
 {
   "schema_version": 1,
   "scenario_count": 2,
-  "action_types": ["find_select", "bring_deliver", "respond"],
+  "action_types": [
+    "find_select",
+    "bring_deliver",
+    "respond"
+  ],
   "vocabulary_file": "res://data/vocabulary/de_a1_starter.json",
-  "world": "legacy",
-  "world_note": "This file belongs to the legacy practice world, the same as lex01_starter.json: played with --world legacy, answers staged on the candidate pool. It stays runnable by the existing probes as LEX-01 regression content.",
   "purpose_note": "This file is the data-only proof for Issue #2 verification item 5: the loader reads every *.json in res://data/scenarios/, so these two learning situations play in the room without touching a single gameplay script, asset or test file. They reuse only lemmas, props and action types that PREP-01 already committed.",
   "authoring_note": "Authored for this project in the same A1 style as lex01_starter.json: short main clauses, present tense, one new idea per utterance. A human must still judge naturalness (see docs/assets_provenance.md).",
   "presentation_note": "Option ids stay the positional labels of the authored display order (a = first authored option, b = second, c = third). LEX-01 shuffles the visible order at play time and resolves correctness by option id, never by index, so no position can become the strategy.",
   "distractor_note": "distractor_lemma_ids = union of the lemma_ids in the incorrect options MINUS the union of the lemma_ids in the correct option. An empty list is valid when both answers use the same lemmas.",
-  "context_note": "context names a reusable room layout declared in data/room/lex01_room.json. x01 uses the kitchen candidate positions and kitchen camera; x02 uses the room layout, so the day-2 revisit is a changed situation.",
+  "context_note": "context names the shared tavern in scenes/tavern.tscn. x01 uses the kitchen spawn marker and open-floor display staging; x02 uses the room spawn marker, so the day-2 revisit is a changed situation.",
   "language_note": "German is the content the player is learning, so utterance_de, the option labels and the feedback stay German. The interface around them is Russian and comes from data/ui/lex01_ui_ru.json.",
   "gloss_note": "utterance_gloss_ru (and gloss_ru on a respond option) is the short Russian meaning the 'Подсказка · Перевод' button shows. Authored by the agent, needs human review, hidden by default, and an answer given while it is open is recorded as assisted. No record in this file carries guided, which CI asserts: the teach-before-test example belongs to one file only.",
   "scenarios": [
@@ -20,20 +22,50 @@
       "npc": "mage",
       "context": "kitchen",
       "verb_lemma_id": "suchen",
-      "target_lemma_ids": ["broetchen"],
-      "distractor_lemma_ids": ["tomate", "kartoffel"],
+      "target_lemma_ids": [
+        "broetchen"
+      ],
+      "distractor_lemma_ids": [
+        "tomate",
+        "kartoffel"
+      ],
       "utterance_de": "Such das Brötchen!",
       "utterance_gloss_ru": "Найди булочку.",
       "options": [
-        { "id": "a", "label_de": "die Tomate", "scene_object": "res://assets/kaykit/items/food_ingredient_tomato.gltf", "lemma_ids": ["tomate"] },
-        { "id": "b", "label_de": "das Brötchen", "scene_object": "res://assets/kaykit/items/food_ingredient_bun.gltf", "lemma_ids": ["broetchen"] },
-        { "id": "c", "label_de": "die Kartoffel", "scene_object": "res://assets/kaykit/items/food_ingredient_potato.gltf", "lemma_ids": ["kartoffel"] }
+        {
+          "id": "a",
+          "label_de": "die Tomate",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_tomato.gltf",
+          "lemma_ids": [
+            "tomate"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "das Brötchen",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_bun.gltf",
+          "lemma_ids": [
+            "broetchen"
+          ]
+        },
+        {
+          "id": "c",
+          "label_de": "die Kartoffel",
+          "scene_object": "res://assets/kaykit/items/food_ingredient_potato.gltf",
+          "lemma_ids": [
+            "kartoffel"
+          ]
+        }
       ],
       "correct_option_id": "b",
       "feedback_correct_de": "Ja, das ist das Brötchen. Gut gefunden.",
       "feedback_wrong_de": "Das ist nicht das Brötchen. Such weiter.",
       "notes": "In lex01_starter.json das Brötchen is only ever met inside a bring frame (s05). Here the same lemma is met as the target of a search, in the kitchen, against the two food distractors that the starter set already established - a new situation for an old word.",
-      "feedback_lemma_ids": ["finden", "broetchen"]
+      "feedback_lemma_ids": [
+        "finden",
+        "broetchen"
+      ],
+      "staging": "candidate_slots"
     },
     {
       "id": "x02",
@@ -42,20 +74,46 @@
       "npc": "knight",
       "context": "room",
       "revisit_of": "x01",
-      "target_lemma_ids": ["broetchen", "tisch"],
-      "distractor_lemma_ids": ["kuehlschrank"],
-      "scene_state": { "broetchen": "on_table" },
+      "target_lemma_ids": [
+        "broetchen",
+        "tisch"
+      ],
+      "distractor_lemma_ids": [
+        "kuehlschrank"
+      ],
+      "scene_state": {
+        "broetchen": "on_table"
+      },
       "utterance_de": "Ist das Brötchen auf dem Tisch?",
       "utterance_gloss_ru": "Булочка лежит на столе?",
       "options": [
-        { "id": "a", "label_de": "Ja, das Brötchen ist auf dem Tisch.", "gloss_ru": "Да, булочка на столе.", "lemma_ids": ["broetchen", "tisch"] },
-        { "id": "b", "label_de": "Nein, das Brötchen ist im Kühlschrank.", "gloss_ru": "Нет, булочка в холодильнике.", "lemma_ids": ["broetchen", "kuehlschrank"] }
+        {
+          "id": "a",
+          "label_de": "Ja, das Brötchen ist auf dem Tisch.",
+          "gloss_ru": "Да, булочка на столе.",
+          "lemma_ids": [
+            "broetchen",
+            "tisch"
+          ]
+        },
+        {
+          "id": "b",
+          "label_de": "Nein, das Brötchen ist im Kühlschrank.",
+          "gloss_ru": "Нет, булочка в холодильнике.",
+          "lemma_ids": [
+            "broetchen",
+            "kuehlschrank"
+          ]
+        }
       ],
       "correct_option_id": "a",
       "feedback_correct_de": "Ja, das Brötchen liegt auf dem Tisch.",
       "feedback_wrong_de": "Nein, das Brötchen liegt auf dem Tisch.",
       "notes": "Delayed retrieval of the lemma found in x01, one simulated day later, with both the context (kitchen -> room) and the action type (find_select -> respond) changed. The visible scene_state puts the bun on the table, so the answer rests on what the player sees, and der Schrank/Kühlschrank stays a plausible alternative rather than a guess.",
-      "feedback_lemma_ids": ["broetchen", "tisch"]
+      "feedback_lemma_ids": [
+        "broetchen",
+        "tisch"
+      ]
     }
   ]
 }

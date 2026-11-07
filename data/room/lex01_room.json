@@ -1,53 +1,40 @@
 {
   "schema_version": 1,
-  "generated_layout": "res://data/room/tavern_generated.json",
-  "note": "Where things stand, separated from what a scenario means. Scenario JSON decides WHICH objects appear and which role they have; this file decides only WHERE the named role is placed, so a new scenario never needs a code change. Ground level is y = 0 and props are placed so the bottom of their imported bounding box sits on that level. TAV-03 (Issue #10) made this a tavern; the approved redesign (PR #16 review round 3, docs/tavern_layout.md) laid it out as a 16 x 12 m zoned room: kitchen north-west, bar on the west wall, three guest tables middle/east, lounge north-east, entrance south.",
-  "worlds": {
-    "note": "Which content is playable in a run, so the tavern and the older LEX-01 practice room are two authored situations instead of one room that a scenario rearranges. A scenario belongs to a world: the scenario file declares it once and a record may override it. 'default' names the world a normal run plays, and --world <name> on the command line plays another. 'interior' is true for a world built from the interior array below - its furniture stands where it is authored for the whole run and is never rebuilt or moved per scenario - and false for a world with no built furniture. 'staging' decides where a scenario's answers stand: authored_slots puts every answer and every object a situation names at the station the record declares for it (or the world's default station), candidate_slots uses the random pool below. Unknown keys are ignored, as everywhere else in this file.",
-    "default": "tavern",
-    "tavern": {
-      "interior": true,
-      "staging": "authored_slots",
-      "note": "The TAV-01 tavern and the playable content of a normal run. Fixed furniture stands where it is authored; only the small things a scenario asks about appear and disappear, each at a station that means something in the room - the prep counter, the guest table, the fridge."
-    },
-    "legacy": {
-      "interior": false,
-      "staging": "candidate_slots",
-      "note": "The LEX-01 practice room (Issue #2): no built furniture, answers staged on the candidate pool, the guided first example and the beginner briefing included. Kept for regression testing and for practising one action at a time, played with --world legacy."
-    }
-  },
-  "interior_note": "The tavern's fixed furniture, assembled once per run by scripts/lex01_interior.gd instead of being staged card by card, and only for a world whose interior flag is true. An entry names a model, where it stands, an optional rotation_deg (yaw 0 faces -z, +90 faces -x), an optional 'solid', an optional 'ground' and, for pieces a station or a delivery target must name individually, a stable 'id'. Unknown keys are ignored. 'solid' is set only on the bar counters and the prep counter - the pieces it should feel like walking into, all flush against the west wall. Everything else, including every object a scenario can stage as an answer, stays non-solid, which keeps the TAV-02 rule that no task object can block or trap the player. 'ground' defaults to true and stands the model's bounding-box bottom on the floor; it is off for the two hanging cabinets and the picture frames, which are modelled at their hanging height / around their own centre. Positions come from the measured boxes in docs/tavern_layout.md; deliberate contacts (chairs tucked into rims, the rug under a table, joined counter halves, the sofa back against the wall line) are intended.",
+  "note": "Gameplay settings and small-item placement metadata. The tavern location, furniture, NPCs, spawn markers and transforms are authored in scenes/tavern.tscn.",
   "npcs": {
     "mage": {
       "scene": "res://assets/kaykit/characters/Mage.glb",
       "label_de": "der Mage",
-      "position": [-1.8, 0.0, -4.6],
-      "rotation_deg": [0.0, 90.0, 0.0],
-      "clips": { "idle": "Idle", "speak": "Interact" },
+      "clips": {
+        "idle": "Idle",
+        "speak": "Interact"
+      },
       "note": "Worker: stands at the north wall at the kitchen's east edge, facing west (yaw 90 faces -x) toward the stove and the prep counter. The spot is chosen for the aim lines as much as for the look: the model's pick box is 2.4 x 2.5 m around the node, and every earlier kitchen spot sat inside the walk-and-aim corridor from the entrance to the fridge station, so the crosshair hit the worker instead of the item. Here the box only grazes the stove's box by 0.09 m and the round table's empty corner by 0.35 m, and no spawn-to-station line crosses it."
     },
     "knight": {
       "scene": "res://assets/kaykit/characters/Knight.glb",
       "label_de": "der Ritter",
-      "position": [-6.4, 0.0, 4.4],
-      "rotation_deg": [0.0, 0.0, 0.0],
-      "clips": { "idle": "Idle", "speak": "Interact" },
+      "clips": {
+        "idle": "Idle",
+        "speak": "Interact"
+      },
       "note": "Owner: stands at the south end of the bar run facing north along it. The counters are 2.04 m deep and flush to the west wall, so there is no gap behind the bar; the end of the bar is the spot that reads as the person serving without putting him inside a wall. His weapon-sweep AABB grazes the counter's south end; the body is clear of it and of the south wall."
     },
     "gast": {
       "scene": "res://assets/kaykit/characters/Rogue_Hooded.glb",
       "label_de": "der Gast",
-      "position": [2.4, 0.0, -2.5],
-      "rotation_deg": [0.0, 90.0, 0.0],
-      "clips": { "idle": "Idle", "speak": "Interact" },
+      "clips": {
+        "idle": "Idle",
+        "speak": "Interact"
+      },
       "note": "Guest: stands in the gap between guest_table_1 and guest_table_2, facing west toward the first table. The off-centre KayKit bounds remain clear of both table tops."
     }
   },
   "cameras": {
-    "note": "This section is where the PLAYER is put down per context: 'position' is the feet position on the floor, 'rotation_deg' is the initial [pitch, yaw, roll] of the eye and yaw 0 looks toward -z. The section keeps its old name because it is the already-shipped per-context framing contract. 'room'/'default' stands just inside the south entrance facing north down the aisle; 'kitchen' stands at the edge of the service side facing the kitchen, so the two framings of a day-2 revisit are the entrance view and the working view of one room.",
-    "default": { "position": [-2.0, 0.0, 4.6], "rotation_deg": [-6.0, 0.0, 0.0] },
-    "room": { "position": [-2.0, 0.0, 4.6], "rotation_deg": [-6.0, 0.0, 0.0] },
-    "kitchen": { "position": [-2.8, 0.0, -0.6], "rotation_deg": [-6.0, -35.0, 0.0] }
+    "note": "Scenario contexts select named spawn markers in scenes/tavern.tscn.",
+    "default": "PlayerSpawn",
+    "room": "PlayerSpawn",
+    "kitchen": "KitchenSpawn"
   },
   "player": {
     "eye_height": 1.6,
@@ -58,7 +45,7 @@
     "pitch_limit_deg": 70.0,
     "interact_range": 5.0,
     "fov": 80.0,
-    "probe_walk_frames": 300,
+    "probe_walk_frames": 500,
     "note": "The first-person body and its reach (TAV-02). The player is a capsule on collision layer 1 and the room shell plus the interior entries marked solid are the only things on that layer, so no guest furniture, prop or NPC can block or trap them. interact_range is the only limit on what the crosshair can act on: aiming further away is allowed and is answered with the too-far cue, never with an answer or an attempt."
   },
   "default_stations": {
@@ -68,72 +55,134 @@
     "kitchen": "on_counter"
   },
   "candidate_slots": {
-    "note": "The staging pool of the legacy practice world, i.e. of a world whose staging is candidate_slots, and so of the older LEX-01 records: where a scenario's answers may stand, in the open floor the player walks through, chosen in random order per card so answer position cannot be guessed. The tavern world does not use them. The slots sit in the open floor of the 16 x 12 m shell, at least 3.1 m apart so the largest staged props (a 3 m couch beside a 2 m table) cannot intersect, and clear of the walls by their own size.",
-    "default": [[1.2, 0.0, -4.0], [3.6, 0.0, 1.0], [-1.6, 0.0, 2.6], [-4.6, 0.0, 3.6]],
-    "room": [[1.2, 0.0, -4.0], [3.6, 0.0, 1.0], [-1.6, 0.0, 2.6], [-4.6, 0.0, 3.6]],
-    "kitchen": [[-3.9, 0.0, -3.0], [0.6, 0.0, -1.0], [-1.8, 0.0, 2.6], [-4.6, 0.0, 1.4], [-3.4, 0.0, 4.4]]
-  },
-  "anchors": {
-    "note": "Where the surfaces the scenarios place things on stand. In the tavern world the anchor is the authored interior instance itself (selected by the placement slot's 'anchor_id', or by model path when no id is given), so staging puts its things ON the furniture that already stands there; these positions are what the legacy practice world spawns its own anchors at, because it builds no interior. Measured boxes are in docs/tavern_layout.md.",
-    "res://assets/kaykit/items/table_round_A_small.gltf": {
-      "default": [0.6, 0.0, -2.5],
-      "room": [0.6, 0.0, -2.5],
-      "kitchen": [0.6, 0.0, -2.5]
-    },
-    "res://assets/kaykit/items/fridge_A.gltf": {
-      "default": [-6.0, 0.0, -4.88],
-      "room": [-6.0, 0.0, -4.88],
-      "kitchen": [-6.0, 0.0, -4.88]
-    },
-    "res://assets/kaykit/items/kitchencounter_straight_A.gltf": {
-      "default": [-7.0, 0.0, -2.4],
-      "room": [-7.0, 0.0, -2.4],
-      "kitchen": [-7.0, 0.0, -2.4]
-    }
+    "note": "Open-floor answer display positions used by find_select scenarios for large furniture props. Other scenarios stage at authored furniture stations.",
+    "default": [
+      [
+        -10.0,
+        0.0,
+        -3.0
+      ],
+      [
+        -6.0,
+        0.0,
+        -2.0
+      ],
+      [
+        -10.0,
+        0.0,
+        -0.5
+      ],
+      [
+        -6.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "room": [
+      [
+        -10.0,
+        0.0,
+        -3.0
+      ],
+      [
+        -6.0,
+        0.0,
+        -2.0
+      ],
+      [
+        -10.0,
+        0.0,
+        -0.5
+      ],
+      [
+        -6.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "kitchen": [
+      [
+        9.8,
+        0.0,
+        2.7
+      ],
+      [
+        9.8,
+        0.0,
+        0.2
+      ],
+      [
+        9.8,
+        0.0,
+        -2.8
+      ],
+      [
+        7.8,
+        0.0,
+        2.7
+      ]
+    ]
   },
   "placement_slots": {
-    "on_table": { "anchor": "res://assets/kaykit/items/table_round_A_small.gltf", "anchor_id": "guest_table_1", "mode": "on_top", "note": "Item sits on the top surface of the fixed guest table in group 1 (id guest_table_1). The tabletop is measured at y = 1.00; its 1.5 m surface is enough for the few small props in one situation." },
-    "on_counter": { "anchor": "res://assets/kaykit/items/kitchencounter_straight_A.gltf", "anchor_id": "service_counter", "mode": "on_top", "note": "Item stands on the kitchen prep counter - the tavern's keeping place and the station every answer starts at unless the record says otherwise. The anchor is the authored prep counter (id service_counter), its top surface measured at y = 1.00, and it is one of the pieces the player walks into, so an item on it always sits on the far side of a solid piece the player stands in front of." },
-    "in_fridge": { "anchor": "res://assets/kaykit/items/fridge_A.gltf", "anchor_id": "kitchen_fridge", "mode": "at_front", "note": "Item stands directly in front of the authored fridge (id kitchen_fridge) and is highlighted. The committed fridge prop has no door, so 'in dem Kuehlschrank' is shown as 'at the fridge' and is stated as a limitation." }
+    "on_table": {
+      "anchor": "res://assets/kaykit/items/table_round_A.gltf",
+      "anchor_id": "guest_table_1",
+      "mode": "on_top",
+      "note": "Item sits on the top surface of the fixed guest table in group 1 (id guest_table_1). The tabletop is measured at y = 1.00; its 1.5 m surface is enough for the few small props in one situation."
+    },
+    "on_counter": {
+      "anchor": "res://assets/kaykit/items/kitchencounter_straight_A.gltf",
+      "anchor_id": "service_counter",
+      "mode": "on_top",
+      "note": "Item stands on the kitchen prep counter - the tavern's keeping place and the station every answer starts at unless the record says otherwise. The anchor is the authored prep counter (id service_counter), its top surface measured at y = 1.00, and it is one of the pieces the player walks into, so an item on it always sits on the far side of a solid piece the player stands in front of."
+    },
+    "in_fridge": {
+      "anchor": "res://assets/kaykit/items/fridge_A.gltf",
+      "anchor_id": "kitchen_fridge",
+      "mode": "at_front",
+      "note": "Item stands directly in front of the authored fridge (id kitchen_fridge) and is highlighted. The committed fridge prop has no door, so 'in dem Kuehlschrank' is shown as 'at the fridge' and is stated as a limitation."
+    }
   },
   "hold": {
-    "tray_position": [-2.2, 0.85, 1.6],
-    "tray_size": [1.1, 0.12, 0.9],
-    "note": "bring_deliver keeps the picked object on this tray. It is an abstract carrying state, not a hand attachment, physics or IK: the object simply moves to the tray and the HUD names it. The tray sits on the entrance aisle between the two spawns, at waist height, within reach of both."
+    "tray_size": [
+      1.1,
+      0.12,
+      0.9
+    ],
+    "note": "bring_deliver keeps the picked object on the CarryTraySpawn marker in scenes/tavern.tscn; tray_size controls its visible footprint."
   },
   "delivery": {
-    "npc_offset": [0.0, 0.95, 0.8],
+    "npc_offset": [
+      0.0,
+      0.95,
+      0.8
+    ],
     "note": "Offset from an NPC origin where a delivered object is placed."
   },
   "highlight_colors": {
-    "focus": [1.0, 0.85, 0.2, 0.55],
-    "compared": [0.2, 0.8, 1.0, 0.45],
-    "delivery": [0.35, 1.0, 0.45, 0.45],
-    "held": [1.0, 0.95, 0.6, 0.5]
-  },
-  "interior": [
-    { "model": "res://assets/kaykit/items/wall.gltf", "position": [-6.0, 0.0, -6.25], "note": "North wall, first 4 m section. Wall pieces are visual only: the RoomShell body in scenes/main.tscn is what stops the player, so no wall gets a second collider." },
-    { "model": "res://assets/kaykit/items/wall.gltf", "position": [-2.0, 0.0, -6.25] },
-    { "model": "res://assets/kaykit/items/wall.gltf", "position": [2.0, 0.0, -6.25] },
-    { "model": "res://assets/kaykit/items/wall.gltf", "position": [6.0, 0.0, -6.25] },
-    { "model": "res://assets/kaykit/items/wall.gltf", "position": [-6.0, 0.0, 6.25], "note": "South wall, west of the doorway." },
-    { "model": "res://assets/kaykit/items/wall_doorway.gltf", "position": [-2.0, 0.0, 6.25], "id": "entrance", "note": "The entrance, in the wall section spanning x -4..0, so the door opening sits just west of the room's mid line with the bar to its west and the guest area to its east." },
-    { "model": "res://assets/kaykit/items/wall.gltf", "position": [2.0, 0.0, 6.25] },
-    { "model": "res://assets/kaykit/items/wall.gltf", "position": [6.0, 0.0, 6.25] },
-    { "model": "res://assets/kaykit/items/wall.gltf", "position": [-8.25, 0.0, -4.0], "rotation_deg": [0.0, 90.0, 0.0], "note": "West wall, north section, behind the kitchen." },
-    { "model": "res://assets/kaykit/items/wall.gltf", "position": [-8.25, 0.0, 0.0], "rotation_deg": [0.0, 90.0, 0.0], "note": "West wall, middle section, behind the bar." },
-    { "model": "res://assets/kaykit/items/wall_window_open.gltf", "position": [-8.25, 0.0, 4.0], "rotation_deg": [0.0, 90.0, 0.0], "note": "Open window in the south section of the west wall, above the bar's south end." },
-    { "model": "res://assets/kaykit/items/wall.gltf", "position": [8.25, 0.0, -4.0], "rotation_deg": [0.0, 90.0, 0.0], "note": "East wall, north section, behind the lounge." },
-    { "model": "res://assets/kaykit/items/wall.gltf", "position": [8.25, 0.0, 0.0], "rotation_deg": [0.0, 90.0, 0.0] },
-    { "model": "res://assets/kaykit/items/wall.gltf", "position": [8.25, 0.0, 4.0], "rotation_deg": [0.0, 90.0, 0.0] },
-    { "model": "res://scenes/furniture_groups/kitchen.tscn", "position": [-6.0, 0.0, -4.87], "member_ids": { "Fridge": "kitchen_fridge", "Stove": "kitchen_stove", "PreparationCounter": "service_counter", "PreparationStorage": "kitchen_storage_prep", "StoveStorage": "kitchen_storage_stove" }, "solid_members": ["PreparationCounter"], "note": "One fixed north-west kitchen composition: fridge and stove share the north-wall run, prep counter and storage cabinets sit together. Local item transforms are authored in the reusable PackedScene. The prep surface remains the named on_counter station." },
-    { "model": "res://scenes/furniture_groups/bar.tscn", "position": [-5.75, 0.0, 0.0], "member_ids": { "NorthCounter": "bar_counter_1", "SouthCounter": "bar_counter_2", "NorthStool": "bar_stool_1", "SouthStool": "bar_stool_2" }, "solid_members": ["NorthCounter", "SouthCounter"], "note": "One fixed west-wall bar composition. The two counter sections meet continuously; stools face the customer side, and the ~1.2 m strip behind the counter is kept as the service area." },
-    { "model": "res://scenes/furniture_groups/guest_table.tscn", "position": [0.6, 0.0, -2.5], "member_ids": { "Table": "guest_table_1", "NorthChair": "guest_table_1_chair_north", "SouthChair": "guest_table_1_chair_south" }, "note": "Fixed guest table group 1; two chairs face the table from its north and south sides. This table remains the on_table station." },
-    { "model": "res://scenes/furniture_groups/guest_table.tscn", "position": [5.0, 0.0, -2.5], "member_ids": { "Table": "guest_table_2", "NorthChair": "guest_table_2_chair_north", "SouthChair": "guest_table_2_chair_south" }, "note": "Fixed guest table group 2, reused from the same PackedScene." },
-    { "model": "res://scenes/furniture_groups/guest_table.tscn", "position": [5.0, 0.0, 1.35], "member_ids": { "Table": "guest_table_3", "NorthChair": "guest_table_3_chair_north", "SouthChair": "guest_table_3_chair_south" }, "note": "Fixed guest table group 3, reused from the same PackedScene." },
-    { "model": "res://scenes/furniture_groups/lounge.tscn", "position": [5.5, 0.0, -5.15], "member_ids": { "Sofa": "lounge_sofa", "CoffeeTable": "lounge_table", "Lamp": "lounge_lamp" }, "note": "Fixed north-east lounge composition: sofa backs to the north wall, with a small coffee table in front and a lamp to the side." },
-    { "model": "res://assets/kaykit/items/menu.gltf", "position": [0.7, 0.0, 5.5], "note": "Menu stand just inside the entrance, to the east of the doorway. 'die Speisekarte' is not taught as a lemma yet, so this is decoration and not a clickable object." },
-    { "model": "res://assets/kaykit/furniture/pictureframe_large_A.gltf", "position": [-1.8, 2.6, -5.95], "ground": false, "note": "Picture on the north wall between the kitchen and the stock crate. It is modelled around its own centre (-0.6 to +0.6), so the entry supplies the hanging height instead of dropping it to the floor." },
-    { "model": "res://assets/kaykit/furniture/pictureframe_large_A.gltf", "position": [2.0, 2.6, 5.95], "rotation_deg": [0.0, 180.0, 0.0], "ground": false, "note": "Picture on the south wall east of the doorway, where a player entering sees the guest side lit." }
-  ]
+    "focus": [
+      1.0,
+      0.85,
+      0.2,
+      0.55
+    ],
+    "compared": [
+      0.2,
+      0.8,
+      1.0,
+      0.45
+    ],
+    "delivery": [
+      0.35,
+      1.0,
+      0.45,
+      0.45
+    ],
+    "held": [
+      1.0,
+      0.95,
+      0.6,
+      0.5
+    ]
+  }
 }

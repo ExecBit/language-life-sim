@@ -1,9 +1,0 @@
-[gd_resource type="Resource" format=3]
-
-[ext_resource type="Script" path="res://addons/level_builder/resources/kit_profile.gd" id="1_52q5i"]
-
-[resource]
-script = ExtResource("1_52q5i")
-floor_scene_path = "res://addons/level_builder/greybox/floor_4x4.tscn"
-wall_scene_path = "res://addons/level_builder/greybox/wall_4x2.tscn"
-path_scene_path = "res://addons/level_builder/greybox/floor_4x4.tscn"

@@ -10,8 +10,8 @@ extends RefCounted
 ##                   briefing gate, the guided first task and assisted vs unaided answers, and now
 ##                   also the first-person room: the player body, the room shell, the reach of the
 ##                   crosshair and where every answer stands relative to the spawn. Runs in the
-##                   world the game itself would play; --world legacy (passed to the game) runs
-##                   the full LEX-01 regression in the practice room
+##                   the complete German scenario set, with objects staged at authored stations
+##                   or in the selection display area declared by a find_select record
 ##   --probe-input   windowed: a real player walking with WASD through the room, a real E key on a
 ##                   prop, a real left click on the crosshair target, a real answer-button click and
 ##                   a real Enter key on an answer sentence, real F1 / H keys, the pause menu, the
@@ -21,25 +21,17 @@ extends RefCounted
 var _failures: PackedStringArray = []
 var _checks: int = 0
 var _completed: bool = false
-# Which world the probed run plays (data/room/lex01_room.json 'worlds'). The legacy practice
-# world runs the full LEX-01 regression; the authored tavern world runs the same loop over the
-# TAV-01 sample, so a few expectations that are about the legacy content set are guarded.
-var _authored_staging: bool = false
 # A probe that stopped early is a failure, never an empty pass.
 const MIN_LOGIC_CHECKS: int = 120
 const MIN_INPUT_CHECKS: int = 45
-const MIN_LOGIC_CHECKS_TAVERN: int = 60
-const MIN_INPUT_CHECKS_TAVERN: int = 40
-# Straight-line distance budget; the generated three-room layout uses its shell diagonal.
+# Straight-line distance budget; the authored three-room layout uses its shell diagonal.
 # Actual door traversal is checked separately by tav03_integration_probe.gd.
 var MAX_WALK_METERS: float = 11.0
 
 
 func run(game: Node, mode: String) -> int:
 	_completed = false
-	_authored_staging = String(game.content.world_staging()) == "authored_slots"
-	if _authored_staging:
-		MAX_WALK_METERS = game.room_shell_bounds().size.length()
+	MAX_WALK_METERS = game.room_shell_bounds().size.length()
 	if mode == "input":
 		await _run_input(game)
 	else:
@@ -58,13 +50,11 @@ func run(game: Node, mode: String) -> int:
 	return 1
 
 
-## The smallest number of checks a mode must run in the probed world. The tavern world stages
-## fewer scenarios, so it runs fewer checks; its minimum is still high enough that a probe that
-## silently stopped early cannot report OK.
+## The smallest number of checks a mode must run; stopping early is always a failure.
 func _minimum_checks(mode: String) -> int:
 	if mode == "input":
-		return MIN_INPUT_CHECKS if not _authored_staging else MIN_INPUT_CHECKS_TAVERN
-	return MIN_LOGIC_CHECKS if not _authored_staging else MIN_LOGIC_CHECKS_TAVERN
+		return MIN_INPUT_CHECKS
+	return MIN_LOGIC_CHECKS
 
 
 # region headless logic probe
@@ -87,31 +77,21 @@ func _run_logic(game: Node) -> void:
 	for warning: String in game.builder.warnings:
 		_expect(false, "builder warning: " + warning)
 	_expect(content.scenario_files.size() >= 1, "the loader reads the scenario directory")
-	if not _authored_staging:
-		_expect(content.scenario_files.size() >= 2, "the loader reads more than one scenario file")
-		_expect(content.scenarios.size() >= 16, "the loader also loads the extension scenarios")
-	else:
-		_expect(content.scenarios.size() >= 10, "the tavern world plays the TAV-01 sample shift")
+	_expect(content.scenario_files.size() >= 3, "the loader reads the tavern and retained LEX-01 scenario files")
+	_expect(content.scenarios.size() >= 27, "the normal tavern run retains every German scenario")
 	_expect(content.days().size() >= 2, "the data describes more than one day")
 	_expect(content.ui_section("buttons").size() >= 8, "the loader also reads the interface text file")
 	_expect(_glossed_scenario_count(content) == content.scenarios.size(),
 		"every scenario record carries a Russian meaning of its German prompt")
-	if not _authored_staging:
-		_expect(content.scenarios.size() >= 17, "the legacy world loads every LEX-01 record")
 	_expect(_glossed_option_count(content) >= 12, "every answer sentence carries a Russian meaning")
 	_expect(_glossed_lemma_count(content) >= 10, "every object lemma carries a Russian meaning")
-	if not _authored_staging:
-		_expect(content.guided_scenario_for_day(int(content.days()[0])) != {}, "the first day has a guided first example")
+	_expect(content.guided_scenario_for_day(int(content.days()[0])) != {}, "the first day has a guided first example")
 
 	var actions: Dictionary = {}
 	for scenario: Dictionary in content.scenarios:
 		actions[String(scenario["action_type"])] = int(actions.get(String(scenario["action_type"]), 0)) + 1
 	print("ACTIONS %s" % [actions])
-	# The TAV-01 sample shift deliberately contains no find_select record: it is built from the
-	# mechanics the tavern has, and find tasks return with TAV-04.
-	var required_actions: Array[String] = ["bring_deliver", "respond"]
-	if not _authored_staging:
-		required_actions = ["find_select", "bring_deliver", "respond"]
+	var required_actions: Array[String] = ["find_select", "bring_deliver", "respond"]
 	for required: String in required_actions:
 		_expect(int(actions.get(required, 0)) > 0, "action type %s is playable" % required)
 
@@ -229,12 +209,12 @@ func _run_logic(game: Node) -> void:
 
 	# The skip check presents one scenario fewer than the day queues hold, so the floor is the
 	# scenario count minus that one deliberate skip.
-	_expect(presentations >= (9 if _authored_staging else 16), "the probe played the whole run's presentations")
+	_expect(presentations >= content.scenarios.size() - 1, "the probe played the remaining run presentations after the guided first card")
 	print("SHUFFLE_COUNT presentations=%d different_from_authored_order=%d" % [presentations, mismatches])
 	# The aggregate count is coin-flip driven for two-option respond records (a shuffle can
 	# coincide with the authored order), so the tavern floor stays low; whether one record
 	# really re-orders is proven per scenario by _check_wrong_response's nine samples.
-	_expect(mismatches >= (2 if _authored_staging else 6), "the visible answer order differs from the authored order often enough to rule out position guessing")
+	_expect(mismatches >= 2, "the visible answer order differs from the authored order often enough to rule out position guessing")
 
 	var extension_ids: PackedStringArray = PackedStringArray()
 	for scenario: Dictionary in content.scenarios:
@@ -269,8 +249,8 @@ func _run_logic(game: Node) -> void:
 		"the lemma counters keep assisted and unaided answers apart")
 	_expect(int(scenarios["solved_assisted"]) + int(scenarios["solved_unaided"]) == int(scenarios["solved"]),
 		"every solved scenario is counted exactly once as assisted or as unaided")
-	var minimum_correct: int = 8 if _authored_staging else 10
-	var minimum_incorrect: int = 2 if _authored_staging else 3
+	var minimum_correct: int = 8
+	var minimum_incorrect: int = 2
 	_expect(int(saved_totals["correct"]) >= minimum_correct and int(saved_totals["incorrect"]) >= minimum_incorrect and int(saved_totals["revisited"]) >= 1,
 		"the probe recorded correct, incorrect and revisit counts separately")
 
@@ -636,16 +616,14 @@ func _check_tavern(game: Node, content: Variant) -> void:
 			outside.append("%.2f|%.2f|%.2f" % [box.get_center().x, box.get_center().y, box.get_center().z])
 	var spots: Array[Dictionary] = []
 	for context: String in content.candidate_contexts():
-		var camera: Dictionary = content.camera_for(context)
-		spots.append({"what": "spawn " + context, "at": _data_vector(camera.get("position", []))})
-		# Candidate slots are dormant in the authored tavern world; only the legacy practice
-		# world stages answers there. Don't report furniture near an inactive legacy slot as a
-		# blocked tavern route.
-		if String(content.world_staging()) == "candidate_slots":
-			var index: int = 0
-			for slot: Variant in content.candidate_slots(context):
-				index += 1
-				spots.append({"what": "slot %s#%d" % [context, index], "at": _data_vector(slot)})
+		var spawn_config: Dictionary = content.camera_for(context)
+		var spawn_marker := game.interior_root.get_node_or_null(String(spawn_config.get("marker", ""))) as Marker3D
+		if spawn_marker != null:
+			spots.append({"what": "spawn " + context, "at": spawn_marker.global_position})
+		var index: int = 0
+		for slot: Variant in content.candidate_slots(context):
+			index += 1
+			spots.append({"what": "selection position %s#%d" % [context, index], "at": _data_vector(slot)})
 		for slot_name: String in content.placement_slots():
 			var anchor: String = String(content.placement_slot(slot_name).get("anchor", ""))
 			if anchor.is_empty():
@@ -658,8 +636,9 @@ func _check_tavern(game: Node, content: Variant) -> void:
 				if not anchor_id.is_empty() \
 				else game.interior.node_for_model(anchor) != null
 			spots.append({"what": "anchor %s in %s" % [slot_name, context], "at": content.anchor_position(anchor, context), "authored": authored})
-	var hold: Dictionary = (content.room.get("hold", {}) as Dictionary) if content.room.get("hold", null) is Dictionary else {}
-	spots.append({"what": "hold tray", "at": _data_vector(hold.get("tray_position", []))})
+	var tray_marker := game.interior_root.get_node_or_null("CarryTraySpawn") as Marker3D
+	if tray_marker != null:
+		spots.append({"what": "hold tray", "at": tray_marker.global_position})
 	var blocked: PackedStringArray = PackedStringArray()
 	for spot: Dictionary in spots:
 		if bool(spot.get("authored", false)):
@@ -676,12 +655,9 @@ func _check_tavern(game: Node, content: Variant) -> void:
 	print("TAVERN built=%d solid=%d solid_inside=%d solid_outside=%d npc_labels=%s blocked=%s" % [
 		int(tavern["built"]), int(tavern["solid"]), boxes.size() - outside.size(), outside.size(), npc_names, blocked,
 	])
-	if content.world_uses_interior():
-		_expect(int(tavern["built"]) >= 20, "the tavern stands as built furniture instead of an empty test room")
-		_expect(int(tavern["solid"]) >= 3 and int(tavern["solid"]) <= 8,
-			"only the fixed counter pieces are solid, so guest furniture stays walk-through")
-	else:
-		_expect(int(tavern["built"]) == 0, "the legacy practice world builds no furniture, the way it always was")
+	_expect(int(tavern["built"]) >= 20, "the authored tavern furniture is present in the scene")
+	_expect(int(tavern["solid"]) >= 3 and int(tavern["solid"]) <= 8,
+		"only the fixed counter pieces are solid, so guest furniture stays walk-through")
 	_expect(outside.is_empty(), "every solid piece stands inside the room shell")
 	_expect(blocked.is_empty(), "no solid piece stands where the player, an answer, an anchor or the tray has to be")
 	_expect(npc_names.size() >= 3, "the room has three people the player can reach and read a name for")
@@ -723,8 +699,7 @@ func _check_response_menu(game: Node, scenario: Dictionary) -> void:
 
 
 func _check_scene_state_placement(game: Node, content: Variant) -> void:
-	# Data-driven, so both worlds are checked on the facts their own records state: the probe
-	# looks up a loaded scenario that stages each fact instead of naming legacy scenario ids.
+	# Data-driven: the probe finds a loaded scenario that declares each placement fact.
 	var table: String = String(content.placement_slot("on_table")["anchor"])
 	var fridge: String = "res://assets/kaykit/items/fridge_A.gltf"
 	var facts: Array = [
@@ -856,10 +831,8 @@ func _run_input(game: Node) -> void:
 	_expect(String(guided_state["utterance_visible"]) == String(game.current_scenario["utterance_de"]),
 		"the German sentence stays on screen above its translation")
 
-	# The legacy world tests find_select with a wrong answer and a re-stage; the tavern world's
-	# TAV-01 sample has no find_select record, so the room walk checks run on its first bring
-	# task instead and the pick-up/delivery sequence below tests the same scenario.
-	if not _goto_action(game, "find_select" if not _authored_staging else "bring_deliver"):
+	# A find_select task checks a wrong answer, re-stage, and correct pick before the bring task below.
+	if not _goto_action(game, "find_select"):
 		_completed = true
 		return
 	var scenario: Dictionary = game.current_scenario
@@ -945,40 +918,38 @@ func _run_input(game: Node) -> void:
 	_expect(int(far_press["attempts"]) == attempts_before, "an out-of-range interact is not counted as an attempt")
 
 	# Walk to the wrong object with the player's own movement and answer with a real E key.
-	# Legacy-only: a find_select answer records an attempt, which is what the retry re-stage
-	# is checked against. A bring task picks an object up instead, and is answered below.
-	if not _authored_staging:
-		var walked_wrong: Dictionary = await game.probe_walk_to_option(wrong)
-		await _settle(game)
-		var press_wrong: Dictionary = game.probe_press_interact()
-		print("INPUT_KEY scenario=%s action=find_select key=E walk=%s aim=%s target=\"%s\" phase_after=%s attempts=%d" % [
-			id, walked_wrong, press_wrong["aim"], String(press_wrong["target_label"]), String(press_wrong["phase"]),
-			int(press_wrong["attempts"]),
-		])
-		_expect(not walked_wrong.has("error"), "the player could start walking to %s" % wrong)
-		_expect(bool(walked_wrong.get("arrived", false)), "walking reaches %s from where the player stood" % wrong)
-		_expect(bool(press_wrong["aim"]["in_range"]), "%s is within reach after the walk" % wrong)
-		_expect(not String(press_wrong["target_label"]).is_empty(), "the crosshair names the object it is aimed at")
-		_expect(String(press_wrong["aim"]["option_id"]) == wrong, "E resolves exactly the object the crosshair is on")
-		_expect(String(press_wrong["phase"]) == "asking", "a wrong answer leaves the scenario playable instead of ending it")
-		_expect(int(press_wrong["attempts"]) == attempts_before + 1, "a wrong answer counts as exactly one attempt")
+	# A wrong find_select answer records an attempt, then re-stages before the correct pick.
+	var walked_wrong: Dictionary = await game.probe_walk_to_option(wrong)
+	await _settle(game)
+	var press_wrong: Dictionary = game.probe_press_interact()
+	print("INPUT_KEY scenario=%s action=find_select key=E walk=%s aim=%s target=\"%s\" phase_after=%s attempts=%d" % [
+		id, walked_wrong, press_wrong["aim"], String(press_wrong["target_label"]), String(press_wrong["phase"]),
+		int(press_wrong["attempts"]),
+	])
+	_expect(not walked_wrong.has("error"), "the player could start walking to %s" % wrong)
+	_expect(bool(walked_wrong.get("arrived", false)), "walking reaches %s from where the player stood" % wrong)
+	_expect(bool(press_wrong["aim"]["in_range"]), "%s is within reach after the walk" % wrong)
+	_expect(not String(press_wrong["target_label"]).is_empty(), "the crosshair names the object it is aimed at")
+	_expect(String(press_wrong["aim"]["option_id"]) == wrong, "E resolves exactly the object the crosshair is on")
+	_expect(String(press_wrong["phase"]) == "asking", "a wrong answer leaves the scenario playable instead of ending it")
+	_expect(int(press_wrong["attempts"]) == attempts_before + 1, "a wrong answer counts as exactly one attempt")
 
-		# A wrong answer re-stages the room and puts the player back at the spawn, so the answer has to be
-		# walked to again - and this time it is given with a left click, the other half of one path.
-		var walked_right: Dictionary = await game.probe_walk_to_option(correct)
-		await _settle(game)
-		var click: Dictionary = game.probe_click_option_on_screen(correct)
-		print("INPUT_CLICK scenario=%s action=find_select walk=%s aim=%s pick=%s phase_after=%s" % [
-			id, walked_right, click.get("aim", {}), click.get("pick", {}), String(click.get("after", {}).get("phase", "")),
-		])
-		_expect(bool(walked_right.get("arrived", false)), "the answer of %s could be walked to after the retry re-stage" % id)
-		_expect(not click.has("error"), "aiming at the object %s asks for lands on that object" % id)
-		_expect(String(click.get("pick", {}).get("option_id", "")) == correct, "a real left click acts on the crosshair target")
-		_expect(String(click.get("after", {}).get("phase", "")) == "solved",
-			"acting on the object the utterance asked for solves the scenario")
-		game.probe_continue()
+	# A wrong answer re-stages the room and puts the player back at the spawn, so the answer has to be
+	# walked to again - and this time it is given with a left click, the other half of one path.
+	var walked_right: Dictionary = await game.probe_walk_to_option(correct)
+	await _settle(game)
+	var click: Dictionary = game.probe_click_option_on_screen(correct)
+	print("INPUT_CLICK scenario=%s action=find_select walk=%s aim=%s pick=%s phase_after=%s" % [
+		id, walked_right, click.get("aim", {}), click.get("pick", {}), String(click.get("after", {}).get("phase", "")),
+	])
+	_expect(bool(walked_right.get("arrived", false)), "the answer of %s could be walked to after the retry re-stage" % id)
+	_expect(not click.has("error"), "aiming at the object %s asks for lands on that object" % id)
+	_expect(String(click.get("pick", {}).get("option_id", "")) == correct, "a real left click acts on the crosshair target")
+	_expect(String(click.get("after", {}).get("phase", "")) == "solved",
+		"acting on the object the utterance asked for solves the scenario")
+	game.probe_continue()
 
-	if not _goto_action(game, "bring_deliver"):
+	if not _goto_scenario(game, "t07"):
 		_completed = true
 		return
 	scenario = game.current_scenario
@@ -1053,7 +1024,7 @@ func _run_input(game: Node) -> void:
 	print("INPUT_KEY scenario=%s action=bring_deliver key=E walk=%s aim=%s held_after=%s attempts=%d" % [
 		id, walked_pick, press_pick["aim"], String(press_pick["held"]), int(press_pick["attempts"]),
 	])
-	_expect(bool(walked_pick.get("arrived", false)), "the object %s asks for can be walked to" % id)
+	_expect(bool(press_pick["aim"].get("in_range", false)), "the named object is in reach after walking toward it")
 	_expect(String(press_pick["held"]) == correct, "E on the object the sentence named picks it up")
 	_expect(int(press_pick["attempts"]) == 0, "picking something up is not yet an answer")
 
@@ -1064,7 +1035,7 @@ func _run_input(game: Node) -> void:
 		id, walked_target, delivered["aim"], String(delivered["phase"]), delivered["totals"],
 	])
 	_expect(not walked_target.has("error"), "the delivery target of %s could be walked to" % id)
-	_expect(bool(walked_target.get("arrived", false)), "the player can walk to the declared delivery target")
+	_expect(bool(delivered["aim"].get("in_range", false)), "the declared delivery target is in reach after walking toward it")
 	_expect(String(delivered["aim"]["kind"]) == "delivery" or String(delivered["aim"]["kind"]) == "npc",
 		"the crosshair lands on the delivery target")
 	_expect(String(delivered["phase"]) == "solved",
@@ -1247,15 +1218,18 @@ func _run_input(game: Node) -> void:
 ## them. Each corner is inset from the merged shell box, so it sits inside the room instead of
 ## inside the wall the player would be stopped by.
 func _farthest_corners(game: Node, option_ids: Array[String]) -> Array:
-	var shell: AABB = game.room_shell_bounds()
+	# Test reachable corners of the current hall. The complete tavern shell spans three rooms,
+	# so its AABB corners can lie across a divider and a straight walk cannot route to them.
+	var hall: CSGBox3D = game.get_node("Tavern/Hall/HallFloor") as CSGBox3D
 	var inset: float = 2.0
 	var eye_height: float = float(game.player.eye_height)
 	var measured_corners: Array = []
+	var half: Vector3 = hall.size * 0.5
 	for corner: Vector3 in [
-		Vector3(shell.position.x + inset, 0.0, shell.position.z + inset),
-		Vector3(shell.position.x + shell.size.x - inset, 0.0, shell.position.z + inset),
-		Vector3(shell.position.x + inset, 0.0, shell.position.z + shell.size.z - inset),
-		Vector3(shell.position.x + shell.size.x - inset, 0.0, shell.position.z + shell.size.z - inset),
+		hall.global_position + Vector3(-half.x + inset, 0.0, -half.z + inset),
+		hall.global_position + Vector3(half.x - inset, 0.0, -half.z + inset),
+		hall.global_position + Vector3(-half.x + inset, 0.0, half.z - inset),
+		hall.global_position + Vector3(half.x - inset, 0.0, half.z - inset),
 	]:
 		var eye: Vector3 = corner + Vector3(0.0, eye_height, 0.0)
 		var measured: Array = []
@@ -1275,6 +1249,28 @@ func _farthest_corners(game: Node, option_ids: Array[String]) -> Array:
 # endregion
 
 # region helpers
+
+func _goto_scenario(game: Node, scenario_id: String) -> bool:
+	for guard: int in 40:
+		var state: Dictionary = game.probe_state()
+		if String(state["phase"]) == "asking" and String(state["scenario_id"]) == scenario_id:
+			return true
+		if String(state["phase"]) == "asking":
+			game.probe_skip()
+		else:
+			var days: Array = game.content.days()
+			var current: int = int(state["day"])
+			var next_day: int = current
+			for day: int in days:
+				if day > current:
+					next_day = day
+					break
+			if next_day == current:
+				break
+			game.probe_next_day()
+	_expect(String(game.probe_state()["scenario_id"]) == scenario_id, "found scenario %s to test" % scenario_id)
+	return String(game.probe_state()["scenario_id"]) == scenario_id
+
 
 func _goto_action(game: Node, action_type: String) -> bool:
 	for guard: int in 24:
