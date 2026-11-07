@@ -1,18 +1,6 @@
 {
   "schema_version": 1,
   "note": "Gameplay settings and small-item placement metadata. The tavern location, furniture, NPCs, spawn markers and transforms are authored in scenes/tavern.tscn.",
-  "worlds": {
-    "note": "Select which learning content and small-item staging rule a run uses. Both modes use the same editor-authored tavern location.",
-    "default": "tavern",
-    "tavern": {
-      "staging": "authored_slots",
-      "note": "The TAV-01 tavern and the playable content of a normal run. Fixed furniture stands where it is authored; only the small things a scenario asks about appear and disappear, each at a station that means something in the room - the prep counter, the guest table, the fridge."
-    },
-    "legacy": {
-      "staging": "candidate_slots",
-      "note": "The original LEX-01 practice scenarios and guided beginner flow, retained as regression content. They use candidate-slot staging in the same tavern."
-    }
-  },
   "npcs": {
     "mage": {
       "scene": "res://assets/kaykit/characters/Mage.glb",
@@ -57,7 +45,7 @@
     "pitch_limit_deg": 70.0,
     "interact_range": 5.0,
     "fov": 80.0,
-    "probe_walk_frames": 300,
+    "probe_walk_frames": 500,
     "note": "The first-person body and its reach (TAV-02). The player is a capsule on collision layer 1 and the room shell plus the interior entries marked solid are the only things on that layer, so no guest furniture, prop or NPC can block or trap them. interact_range is the only limit on what the crosshair can act on: aiming further away is allowed and is answered with the too-far cue, never with an answer or an attempt."
   },
   "default_stations": {
@@ -67,7 +55,7 @@
     "kitchen": "on_counter"
   },
   "candidate_slots": {
-    "note": "Small-item staging positions for the retained LEX-01 candidate-slot mode, clear of fixed tavern counters. The tavern scenarios use named furniture stations instead.",
+    "note": "Open-floor answer display positions used by find_select scenarios for large furniture props. Other scenarios stage at authored furniture stations.",
     "default": [
       [
         -10.0,

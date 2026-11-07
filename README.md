@@ -106,21 +106,17 @@ $godot = "C:/Users/agdei/AppData/Local/Microsoft/WinGet/Packages/GodotEngine.God
 
 # whole learning loop over both days, headless, on the real scene: also checks the player body,
 # the room shell, the reach of the crosshair and where every answer stands relative to the spawn.
-# A normal run uses authored station placement; --world legacy keeps the older LEX-01
-# scenarios and candidate-slot staging in the same tavern.
 & $godot --headless --path . --quit-after 20000 res://scenes/main.tscn -- --probe --seed 1234
-# the same tavern with legacy LEX-01 records and candidate-slot staging
-& $godot --headless --path . --quit-after 20000 res://scenes/main.tscn -- --probe --world legacy --seed 1234
 # a real player walking through the room with a real E key, a real click on the crosshair target,
 # a real answer-button click and a real Enter key, walls stopping the walk, windowed
 & $godot --path . --quit-after 20000 res://scenes/main.tscn -- --probe-input --seed 7
 ```
 
-Both print `LEX01 PROBE OK` / `LEX01 INPUT PROBE OK` or `... FAIL` with reasons and a non-zero exit code. `--probe-input` needs a real window: run headless and the HUD's briefing button resolves off-screen, so the probe never gets past the overlay (it stops at `checks=24`). Windowed the tavern run prints `LEX01 INPUT PROBE OK checks=91` and the legacy run `LEX01 INPUT PROBE OK checks=102`. The input probe once failed two of those 102 checks, and the cause was not the room: a staged option's pick collider was measured where the object first stood and never followed the placement moves that then relocated the object, so the crosshair aimed at the visible prop while its collider sat elsewhere and `E` picked nothing. `scripts/lex01_room_builder.gd` now re-measures each pick box after every staging, carrying and delivery move (`_sync_pick`), and the same two checks pass.
+Both print `LEX01 PROBE OK` / `LEX01 INPUT PROBE OK` or `... FAIL` with reasons and a non-zero exit code. `--probe-input` needs a real window: run headless and the HUD's briefing button resolves off-screen, so the probe never gets past the overlay (it stops at `checks=24`). The input probe once failed two of those 102 checks, and the cause was not the room: a staged option's pick collider was measured where the object first stood and never followed the placement moves that then relocated the object, so the crosshair aimed at the visible prop while its collider sat elsewhere and `E` picked nothing. `scripts/lex01_room_builder.gd` now re-measures each pick box after every staging, carrying and delivery move (`_sync_pick`), and the same two checks pass.
 
-## One tavern, two staging modes
+## One tavern run
 
-A normal run (F5, no arguments) plays the TAV-01 sample shift and stages its small items at named furniture stations. `--world legacy` keeps the original LEX-01 scenarios, guided first example and beginner briefing, with answers staged on candidate slots. Both modes use the same authored tavern scene.
+F5 plays the complete existing German scenario set in the same authored tavern. Items use named furniture stations; large furniture answers in `find_select` scenarios use the editor-defined open-floor display positions.
 
 ## CLEAN-01 editor-authored tavern
 

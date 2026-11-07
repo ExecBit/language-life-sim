@@ -93,7 +93,7 @@ func _ready() -> void:
 	rng.seed = seed_value
 
 	content = Lex01Content.new()
-	if not content.load_all(String(options.get("world", ""))):
+	if not content.load_all():
 		for problem: String in content.errors:
 			print("CONTENT_ERROR %s" % problem)
 		print("LEX01 CONTENT FAIL")
@@ -104,11 +104,7 @@ func _ready() -> void:
 	print("CONTENT lemmas=%d scenario_files=%d scenarios=%d days=%s" % [
 		content.lemmas.size(), content.scenario_files.size(), content.scenarios.size(), content.days(),
 	])
-	# Select the content set and small-item staging rule; the spatial location stays the
-	# editor-authored tavern in every mode.
-	print("WORLD name=%s staging=%s location=authored_tavern" % [
-		content.world_name(), content.world_staging(),
-	])
+	print("LOCATION authored_tavern")
 
 	progress = Lex01Progress.new()
 	_player_config = content.player_config()
@@ -1348,8 +1344,6 @@ func _command_line_options() -> Dictionary:
 			result["probe"] = "input" if args[index] == "--probe-input" else "logic"
 		elif args[index] == "--seed" and index + 1 < args.size():
 			result["seed"] = int(args[index + 1])
-		elif args[index] == "--world" and index + 1 < args.size():
-			result["world"] = args[index + 1]
 	return result
 
 

@@ -7,13 +7,11 @@
     "respond"
   ],
   "vocabulary_file": "res://data/vocabulary/de_a1_starter.json",
-  "world": "legacy",
-  "world_note": "This file retains the LEX-01 extension scenarios in the same scenes/tavern.tscn location. Played with --world legacy, it uses shuffled candidate-slot staging for regression coverage.",
   "purpose_note": "This file is the data-only proof for Issue #2 verification item 5: the loader reads every *.json in res://data/scenarios/, so these two learning situations play in the room without touching a single gameplay script, asset or test file. They reuse only lemmas, props and action types that PREP-01 already committed.",
   "authoring_note": "Authored for this project in the same A1 style as lex01_starter.json: short main clauses, present tense, one new idea per utterance. A human must still judge naturalness (see docs/assets_provenance.md).",
   "presentation_note": "Option ids stay the positional labels of the authored display order (a = first authored option, b = second, c = third). LEX-01 shuffles the visible order at play time and resolves correctness by option id, never by index, so no position can become the strategy.",
   "distractor_note": "distractor_lemma_ids = union of the lemma_ids in the incorrect options MINUS the union of the lemma_ids in the correct option. An empty list is valid when both answers use the same lemmas.",
-  "context_note": "context names the shared tavern in scenes/tavern.tscn. x01 uses the kitchen spawn marker and legacy candidate-slot staging; x02 uses the room spawn marker, so the day-2 revisit is a changed situation.",
+  "context_note": "context names the shared tavern in scenes/tavern.tscn. x01 uses the kitchen spawn marker and open-floor display staging; x02 uses the room spawn marker, so the day-2 revisit is a changed situation.",
   "language_note": "German is the content the player is learning, so utterance_de, the option labels and the feedback stay German. The interface around them is Russian and comes from data/ui/lex01_ui_ru.json.",
   "gloss_note": "utterance_gloss_ru (and gloss_ru on a respond option) is the short Russian meaning the 'Подсказка · Перевод' button shows. Authored by the agent, needs human review, hidden by default, and an answer given while it is open is recorded as assisted. No record in this file carries guided, which CI asserts: the teach-before-test example belongs to one file only.",
   "scenarios": [
@@ -66,7 +64,8 @@
       "feedback_lemma_ids": [
         "finden",
         "broetchen"
-      ]
+      ],
+      "staging": "candidate_slots"
     },
     {
       "id": "x02",

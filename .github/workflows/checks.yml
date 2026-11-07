@@ -219,6 +219,16 @@ jobs:
                assert 'metadata/station_id = "%s"' % station_id in tavern_scene, 'authored scene has no station %s' % station_id
            assert 'KitchenSpawn' in tavern_scene and 'PlayerSpawn' in tavern_scene
            assert 'RoomShell' in tavern_scene and 'CollisionShape3D' in tavern_scene
+           for object_path in ('Hall/BarCounter1', 'Hall/BarCounter2', 'Kitchen/ServiceCounter'):
+               collision_name = object_path.rsplit('/', 1)[-1] + 'Collision'
+               assert '[node name="%s" type="StaticBody3D" parent="%s"]' % (collision_name, object_path) in tavern_scene, 'furniture collision must be parented to %s' % object_path
+               assert 'type="CollisionShape3D" parent="%s/%s"' % (object_path, collision_name) in tavern_scene, 'furniture shape must follow %s' % object_path
+           for wall, parent in (('HallSouthWall', 'Hall'), ('KitchenNorthWall', 'Kitchen'), ('StoreroomEastWall', 'Storeroom'), ('Door1NorthWall', '.')):
+               assert '[node name="%s" type="StaticBody3D" parent="%s"]' % (wall, parent) in tavern_scene, 'wall collision group missing for %s' % wall
+               wall_path = parent + '/' + wall
+               assert 'type="CollisionShape3D" parent="%s"' % wall_path in tavern_scene, 'wall shape is detached from %s' % wall
+               assert 'type="CSGBox3D" parent="%s"' % wall_path in tavern_scene, 'wall visual is detached from %s' % wall
+           assert '[node name="Interior" type="Node3D" parent="."]' not in tavern_scene, 'unused Interior node remains in the tavern scene'
            assert Path('scenes/tavern.tscn').is_file()
            assert len(room['npcs']) >= 3, 'the tavern room has %d npcs, expected at least three so the room reads as a place with people in it' % len(room['npcs'])
            for context in ('default', 'room', 'kitchen'):
@@ -246,8 +256,11 @@ jobs:
                assert document.get('distractor_note'), 'distractor_note missing in %s (distractor_lemma_ids needs a documented rule)' % path.name
                for scenario in scenarios:
                    validate_scenario(scenario)
+                   staging = scenario.get('staging', 'authored_slots')
+                   assert staging in ('authored_slots', 'candidate_slots'), 'unknown staging mode in %s: %s' % (scenario['id'], staging)
+                   assert staging != 'candidate_slots' or scenario['action_type'] == 'find_select', 'display positions are reserved for find_select in %s' % scenario['id']
                all_scenarios.extend(scenarios)
-           assert len(all_scenarios) >= 16, 'only %d scenarios loaded from %s' % (len(all_scenarios), [p.name for p in scenario_files])
+           assert len(all_scenarios) >= 27, 'only %d scenarios loaded from %s' % (len(all_scenarios), [p.name for p in scenario_files])
            # Scenario ids are the keys of Lex01Progress.scenario_log: a duplicate across two files
            # would silently merge two learning situations into one progress entry, so it is refused
            # here as well as by the in-game loader.
