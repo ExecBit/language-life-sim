@@ -5,7 +5,7 @@ var actors := {}
 var items := {}
 var anchors := {}
 var furniture := {}
-var zones := {"entrance": Vector3(0,0,5.8), "common": Vector3(-3,0,0), "bedroom": Vector3(3,0,0), "corridor": Vector3(0,0,0), "bed": Vector3(4.7,0,-4.4), "exit": Vector3(0,0,7.5)}
+var zones := {"breakfast_work": Vector3(-4,1,-2.6), "entrance": Vector3(0,0,5.8), "common": Vector3(-3,0,0), "bedroom": Vector3(3,0,0), "corridor": Vector3(0,0,0), "bed": Vector3(4.7,0,-4.4), "exit": Vector3(0,0,7.5)}
 var environment: Environment
 var sun: DirectionalLight3D
 var door: Node3D

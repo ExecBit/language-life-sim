@@ -7,6 +7,7 @@ var key_started := false
 var anna_wait := 0.0
 var anna_route := false
 var was_talking := false
+var resume_work := false
 var handoff_time := 0.0
 var drink_tween: Tween
 
@@ -16,6 +17,7 @@ func reset() -> void:
 	anna_wait = 0
 	anna_route = false
 	was_talking = false
+	resume_work = false
 	stop_drink()
 
 func stop_drink() -> void:
@@ -75,12 +77,33 @@ func tick(delta: float) -> void:
 	if anna_wait > 0 and not comm.conversation_open:
 		anna_wait -= delta
 		if anna_wait <= 0: anna.go(Vector3(-2.3,0,-1.6))
-	var talking_to_lena: bool = comm.conversation_open and comm.active_actor == "lena"
-	if not lena.walking and state.cooking.get("activity","") != "finished" and controller.step.get("wait","") != "npc_place":
-		if talking_to_lena and not was_talking: lena.gesture("a02_breakfast_attention")
-		elif not talking_to_lena and was_talking: lena.gesture("a02_breakfast_resume")
-		elif not talking_to_lena and lena.visual.current == "standing" and controller.house.pulse_time <= 0: lena.visual.play("a02_breakfast_routine",true)
-	was_talking = talking_to_lena
+	_tick_breakfast_motion()
+
+func _tick_breakfast_motion() -> void:
+	var lena = controller.house.actors.lena
+	var comm = controller.communication
+	var talking: bool = comm.conversation_open and comm.active_actor == "lena"
+	if was_talking and not talking: resume_work = true
+	var began_talking: bool = talking and not was_talking
+	was_talking = talking
+	if lena.walking or controller.state.cooking.get("activity","") == "finished" or controller.step.get("wait","") == "npc_place": return
+	if talking:
+		if began_talking: lena.gesture("a02_breakfast_attention")
+		return
+	# Explicit pointing and item handoffs finish before returning to the counter.
+	if controller.house.pointer_actor == "lena" and controller.house.pulse_time > 0 and lena.visual.current == "emote_point_at_opponent": return
+	if controller.state.held("lena") != "": return
+	if comm.active_actor == "lena": comm.attention.stop()
+	lena.face(controller.house.zones.breakfast_work)
+	# Turn the body first: a working clip must not start facing the player/shelf.
+	if absf(angle_difference(lena.rotation.y,lena.heading)) > 0.12:
+		if lena.visual.current in ["a02_breakfast_routine","a02_breakfast_resume","a02_breakfast_attention"]: lena.visual.stop()
+		return
+	if resume_work:
+		resume_work = false
+		lena.gesture("a02_breakfast_resume")
+	elif lena.visual.current in ["standing","a02_breakfast_attention"]:
+		lena.visual.play("a02_breakfast_routine",true)
 
 func anna_greeting() -> String:
 	if controller.state.flags.get("anna_introduced",false): return "Hallo!"
