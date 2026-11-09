@@ -2,6 +2,7 @@ extends Node3D
 signal motion_finished(name: String)
 
 const Catalog = preload("res://game/characters/motifect_catalog.gd")
+const GeneratedCatalog = preload("res://game/characters/generated_animation_catalog.gd")
 const Mirror = preload("res://game/characters/MirrorRetargetModifier3D.gd")
 const PRIVATE_MODEL := "res://assets/characters/private/astera.vrm"
 const FALLBACK_MODEL := "res://assets/characters/fallback.vrm"
@@ -78,6 +79,9 @@ func _canonical(bone: String) -> String:
 
 func _load_clip(name: String) -> void:
 	if library.has_animation(name): return
+	if GeneratedCatalog.SCENES.has(name):
+		_load_generated_clip(name)
+		return
 	assert(Catalog.SCENES.has(name))
 	var scene: Node = Catalog.SCENES[name].instantiate()
 	var player: AnimationPlayer = scene.find_children("*", "AnimationPlayer", true, false)[0]
@@ -90,8 +94,47 @@ func _load_clip(name: String) -> void:
 	library.add_animation(name, animation)
 	scene.free()
 
+func _load_generated_clip(name: String) -> void:
+	var packed: PackedScene = GeneratedCatalog.SCENES[name]
+	var scene := packed.instantiate()
+	var players := scene.find_children("*", "AnimationPlayer", true, false)
+	if players.is_empty():
+		push_error("Generated GLB needs an AnimationPlayer: " + name)
+		scene.free()
+		return
+	var player := players[0] as AnimationPlayer
+	var animation_names := player.get_animation_list()
+	if animation_names.is_empty():
+		push_error("Generated GLB has no animation: " + name)
+		scene.free()
+		return
+	var animation := player.get_animation(animation_names[0]).duplicate(true) as Animation
+	var mapped_tracks := 0
+	for track in animation.get_track_count():
+		var path := animation.track_get_path(track)
+		if path.get_name_count() == 0:
+			continue
+		var source_bone := str(path.get_name(path.get_name_count() - 1))
+		var canonical := _canonical(source_bone)
+		if rig_skeleton.find_bone(canonical) < 0:
+			animation.track_set_enabled(track, false)
+			continue
+		animation.track_set_path(track, NodePath(skeleton_path + ":" + canonical))
+		mapped_tracks += 1
+	if mapped_tracks == 0:
+		push_error("Generated GLB has no tracks matching the Motifect source rig: " + name)
+		scene.free()
+		return
+	animation.loop_mode = Animation.LOOP_NONE
+	library.add_animation(name, animation)
+	scene.free()
+
 func play(name: String, loop := false) -> void:
 	if name != "standing": _load_clip(name)
+	if not library.has_animation(name):
+		push_warning("Animation unavailable; using standing idle: " + name)
+		name = "standing"
+		loop = false
 	current = name
 	library.get_animation(name).loop_mode = Animation.LOOP_LINEAR if loop or name == "standing" else Animation.LOOP_NONE
 	animation_player.play("motifect/" + name, 0.25)
