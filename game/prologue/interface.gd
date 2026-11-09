@@ -11,6 +11,7 @@ var dialog: PanelContainer
 var speaker: Label
 var line: Label
 var answers: HFlowContainer
+var controls: Label
 var prompt: Label
 var notice: Label
 var chapter: Label
@@ -56,7 +57,7 @@ func _ready() -> void:
 	notice.offset_top = 62
 	notice.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	root.add_child(notice)
-	var controls := label("WASD — идти    Мышь — взгляд    E — действие    Tab — курсор    J — цель    Esc — пауза",16)
+	controls = label("WASD — идти    Мышь — взгляд    E — действие    Tab — курсор    J — цель    Esc — пауза",16)
 	controls.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
 	controls.position += Vector2(24,-28)
 	root.add_child(controls)
@@ -114,17 +115,10 @@ func _ready() -> void:
 	bag_button.add_theme_constant_override("icon_max_width",48)
 	button(subject_box,"Отмена","cancel_target")
 	subject.hide()
-	settings = centered(Vector2(530,400))
-	var options := VBoxContainer.new()
-	options.add_theme_constant_override("separation",10)
-	settings.add_child(options)
-	options.add_child(label("НАСТРОЙКИ",28))
-	slider(options,"Громкость","volume",0.0,1.0,0.8)
-	slider(options,"Чувствительность мыши","sensitivity",0.05,0.7,0.22)
-	slider(options,"Размер текста","text_scale",0.85,1.3,1.0)
-	button(options,"Окно / полный экран","fullscreen")
-	button(options,"Назад","settings_back")
-	settings.hide()
+	settings = preload("res://game/settings/settings_panel.gd").new()
+	root.add_child(settings)
+	settings.command.connect(func(id): command.emit(id))
+	settings.setting_changed.connect(func(id, value): setting_changed.emit(id, value))
 	complete_panel = centered(Vector2(540,300))
 	var end := VBoxContainer.new()
 	end.add_theme_constant_override("separation",14)
@@ -268,3 +262,14 @@ func _process(delta: float) -> void:
 	if notice_time > 0:
 		notice_time -= delta
 		if notice_time <= 0: notice.text = ""
+
+func update_control_hints() -> void:
+	var keys: Array[String] = []
+	for action in ["forward", "left", "back", "right"]:
+		var text := "?"
+		for event in InputMap.action_get_events(action):
+			if event is InputEventKey:
+				text = OS.get_keycode_string(event.physical_keycode if event.physical_keycode else event.keycode)
+				break
+		keys.append(text)
+	controls.text = "/".join(keys) + " — идти    Мышь — взгляд    E — действие    Tab — курсор    J — цель    Esc — пауза"

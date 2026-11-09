@@ -41,7 +41,7 @@ var gesture_time := 0.0
 var gesture_kind := ""
 var base_camera_rotation := Vector3.ZERO
 var settings_parent := "menu"
-var settings_values := {"volume":0.8,"sensitivity":0.22,"text_scale":1.0}
+var settings_values := {"volume":0.8,"text_scale":1.0}
 var exploration := false
 var initialized := false
 var automated := false
@@ -69,6 +69,7 @@ func _ready() -> void:
 	held = Marker3D.new()
 	held.position = Vector3(0.34,-0.29,-0.68)
 	camera.add_child(held)
+	_register_inputs()
 	ui = Interface.new()
 	add_child(ui)
 	ui.command.connect(_command)
@@ -83,8 +84,10 @@ func _ready() -> void:
 	communication = Communication.new()
 	communication.controller = self
 	add_child(communication)
-	_register_inputs()
 	_load_settings()
+	CogitoGameConfig.options_saved.connect(player._reload_options)
+	CogitoGameConfig.options_saved.connect(ui.update_control_hints)
+	ui.update_control_hints()
 	_layout(true)
 	house.sync_items(state,held)
 	InputRouter.push(_input_event)
@@ -106,6 +109,9 @@ func _register_inputs() -> void:
 		InputMap.action_add_event(action,key)
 
 func _input_event(event: InputEvent) -> void:
+	if ui.settings.visible:
+		ui.settings.input(event)
+		return
 	if communication != null and communication.input(event): return
 	if event is InputEventKey and event.echo: return
 	if event.is_action_pressed("prologue_pause"):
@@ -238,9 +244,9 @@ func _command(id: String) -> void:
 			settings_parent = "menu" if menu_active else "pause"
 			ui.menu.hide()
 			ui.pause_panel.hide()
-			ui.settings.show()
+			ui.settings.open()
 		"settings_back":
-			ui.settings.hide()
+			ui.settings.apply_and_close()
 			if settings_parent == "menu": ui.menu.show()
 			else: ui.pause_panel.show()
 		"fullscreen":
@@ -852,7 +858,6 @@ func _prepare_shop_entry() -> void:
 func _setting(id: String,value: float) -> void:
 	settings_values[id] = value
 	if id == "volume": AudioServer.set_bus_volume_db(0,linear_to_db(value) if value > 0 else -80)
-	if id == "sensitivity": player.MOUSE_SENS = value
 	if id == "text_scale": ui.text_scale(value)
 	var config := ConfigFile.new()
 	for key in settings_values: config.set_value("settings",key,settings_values[key])
@@ -861,6 +866,10 @@ func _setting(id: String,value: float) -> void:
 func _load_settings() -> void:
 	var config := ConfigFile.new()
 	config.load(SETTINGS)
+	if not FileAccess.file_exists(OptionsConstants.config_file_name) and config.has_section_key("settings", "sensitivity"):
+		CogitoGameConfig.mouse_sens = float(config.get_value("settings", "sensitivity", 0.25))
+		CogitoGameConfig.save_options()
+		player._reload_options()
 	for key in settings_values:
 		var value: float = config.get_value("settings",key,settings_values[key])
 		_setting(key,value)

@@ -11,6 +11,8 @@ root.mkdir(parents=True, exist_ok=True)
 env = os.environ.copy()
 env['APPDATA'] = str(root / 'GodotUser')
 env['LOCALAPPDATA'] = str(root / 'GodotData')
+env['XDG_DATA_HOME'] = str(root / 'GodotXdgData')
+env['XDG_CONFIG_HOME'] = str(root / 'GodotXdgConfig')
 godot = os.environ.get('GODOT') or shutil.which('Godot_v4.7.1-stable_win64_console.exe') or shutil.which('godot')
 if not godot:
     raise SystemExit('Godot executable not found')
@@ -35,6 +37,7 @@ suites = [
     ('game/shop/test_bridge.gd', 'SHOP_V4_PROLOGUE_BRIDGE_AND_BACKGROUND_COOKING_OK'),
     ('game/shop/test_restart.gd', 'SHOP_NEW_SCENE_RESTART_PRESERVES_PACKED_DELIVERY_OK'),
     ('game/shop/test_navigation.gd', 'SHOP_WALKABLE_AISLES_COUNTER_AND_WALLS_OK'),
+    ('game/settings/test_cogito_settings.gd', 'COGITO_GAME_SETTINGS_PASS'),
 ]
 results = []
 for script, marker in suites:
