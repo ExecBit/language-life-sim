@@ -1,6 +1,6 @@
 extends RefCounted
 
-const FILES := ["language_life_session_v5.json", "language_life_prologue_v4.json", "language_life_prologue_v3.json", "language_life_prologue_v2.json", "language_life_prologue_settings.cfg"]
+const FILES := ["options.cfg", "language_life_session_v5.json", "language_life_prologue_v4.json", "language_life_prologue_v3.json", "language_life_prologue_v2.json", "language_life_prologue_settings.cfg"]
 
 static func import_previous(previous_directory: String = "") -> void:
     # Standard Godot per-user location used by the original Cogito project.

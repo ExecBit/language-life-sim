@@ -49,3 +49,11 @@ python tools/run_regressions.py
 Manual review: start a new game, meet Lena, exchange greetings with E/Tab/Enter, close the conversation and walk; take/place items, sleep, complete or decline the morning request, leave for the shop, buy and return home. Pause and reload during both levels. Check idle/walking, subtitles and that the NPC stops tracking after speaking. Also open the communication experiment and exercise both door solutions.
 
 The source migration is from Cogito project commit `533e773e`; Cogito's MIT notice is in `addons/cogito/LICENSE`. This move does not establish language-learning effectiveness; a beginner playtest is still required.
+
+## Settings
+
+Open **Настройки** from the main menu or Esc pause menu. This embeds Cogito's existing options scene with project adapters under `game/settings/`; vendor code is unchanged. Gameplay (invert Y, mouse/gamepad sensitivity, headbob, crouch toggle), graphics (windowed resolution, fullscreen/render scale, VSync, 2D/3D AA, GUI scale), audio (music/SFX) and movement bindings are available. Reserved interaction/dialogue keys remain E/Tab/Enter/Esc. Project master volume and text size are retained below the tabs.
+
+**Применить** saves changes without closing; **Сохранить и назад** or Esc saves and returns to the screen that opened settings. Esc first cancels an active key capture. During play, settings keep the world paused until **Продолжить**. Settings persist in `user://options.cfg`; project master volume/text size stay in `language_life_prologue_settings.cfg`. Missing Cogito `options.cfg` is also copied from the original Cogito user directory without overwriting an existing one. Legacy mouse sensitivity is imported only when no Cogito options file exists.
+
+Settings regression: `Godot_v4.7.1-stable_win64_console.exe --headless --path . --script res://game/settings/test_cogito_settings.gd`. For visual review, run the same command without `--headless` in an isolated user-data environment: it checks actual 1280x720 window size and writes screenshots to `user://cogito_settings_*.png`. Manually change invert Y, apply/resume, look up/down, reopen settings, switch fullscreen/window resolution and restart to confirm persistence.
