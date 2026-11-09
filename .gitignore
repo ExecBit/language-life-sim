@@ -18,3 +18,9 @@ __pycache__/
 # OS/editor
 .DS_Store
 Thumbs.db
+
+# Restricted local model; never publish the source or its import settings.
+/assets/characters/private/
+/experiments/layout_solvers/
+addons/vrm/bin/~*
+*.translation

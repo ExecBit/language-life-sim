@@ -1,0 +1,51 @@
+extends SceneTree
+const State = preload("res://game/shop/shop_state.gd")
+
+func _init() -> void:
+	assert(State.price(180) == "1,80 €" and State.price(120) == "1,20 €" and State.price(300) == "3,00 €")
+	for reverse in [false,true]:
+		var state = State.new()
+		assert(state.travel("shop"))
+		var goods: Array = State.GOODS.duplicate()
+		if reverse: goods.reverse()
+		assert(state.take(str(goods[0])))
+		assert(not state.take(str(goods[1])) and not state.checkout())
+		assert(not state.travel("home"))
+		assert(state.place("counter_left"))
+		assert(not state.checkout())
+		assert(state.travel("home") and not state.delivered)
+		assert(state.travel("shop"))
+		assert(state.take(str(goods[1])))
+		assert(not state.place("counter_left"))
+		assert(state.place("counter_right"))
+		assert(state.total() == 300)
+		assert(state.checkout())
+		var after: Dictionary = state.snapshot()
+		assert(not state.checkout() and state.snapshot() == after)
+		assert(state.contents.size() == 2)
+		for item in State.GOODS: assert(state.items[item] == "in:shopping_bag")
+		assert(not state.take("grocery_milk"))
+		assert(state.take("shopping_bag"))
+		assert(state.travel("home") and state.delivered)
+		var restored = State.new()
+		assert(restored.restore(JSON.parse_string(JSON.stringify(state.snapshot()))))
+		state = restored
+		assert(state.contents == State.GOODS and state.items.shopping_bag == "player")
+		assert(not state.unpack("grocery_bread"))
+		assert(state.place("home_bag"))
+		for i in 2:
+			assert(state.unpack(str(goods[i])))
+			assert(not state.unpack(str(goods[1-i])))
+			assert(state.place("home_food_left" if i == 0 else "home_food_right"))
+			var loaded = State.new()
+			assert(loaded.restore(JSON.parse_string(JSON.stringify(state.snapshot()))))
+			state = loaded
+		assert(state.contents.is_empty() and state.delivered)
+		var damaged: Dictionary = state.snapshot()
+		damaged.contents = ["grocery_bread","grocery_bread"]
+		assert(not State.new().restore(damaged))
+		damaged = state.snapshot()
+		damaged.items.grocery_milk = damaged.items.grocery_bread
+		assert(not State.new().restore(damaged))
+	print("SHOP_STATE_TWO_ORDERS_CONTAINER_DELIVERY_UNPACK_OK")
+	quit()
