@@ -22,7 +22,7 @@ func run() -> void:
 		var target: String = "room_door" if id == "bedroom" else "door_"+id
 		var leaf = h.furniture[target]
 		if not check(leaf.get_child(0).shape.size.z <= 1.0 and leaf.get_child(0).shape.size.y <= 2.15,"Door dimensions: "+id): return
-		var source := Vector3(data.side*2.7,0,data.door_z)
+		var source := Vector3(0,0,-13.2) if data.get("end_door",false) else Vector3(data.side*2.7,0,data.door_z)
 		var points: Array[Vector3] = [source]
 		points.append_array(h.route_points(source,Vector3(0,0,4)))
 		routes.append(points)
@@ -49,7 +49,7 @@ func run() -> void:
 	if not check(not wall.is_empty() and absf(wall.position.z-1.5) < 0.15,"Kitchen and shared room have a separating wall"): return
 	var recovered: Vector3 = h.safe_player_position(Vector3(-4,0.9,1.5),game.player.get_rid())
 	if not check(recovered.x == 0,"Old save inside new partition recovers to corridor"): return
-	print("DORMITORY_LAYOUT_OK: four bedrooms, kitchen, shared room, 90cm doors, NPC capsule routes")
+	print("DORMITORY_LAYOUT_OK: four bedrooms, kitchen, shared room, bathroom, 90cm doors, NPC capsule routes")
 	game.queue_free()
 	await process_frame
 	quit(0)

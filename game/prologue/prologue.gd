@@ -863,7 +863,7 @@ func _valid_pose(data: Dictionary) -> bool:
 		if not (data.get(key) is float or data.get(key) is int) or not is_finite(float(data[key])): return false
 	if data.get("shop") is Dictionary and data.shop.get("location") == "shop":
 		return absf(data.player[0]-40.0) < 4.8 and data.player[2] > -5.3 and data.player[2] < 5.3 and data.player[1] >= 0 and data.player[1] < 3
-	return absf(data.player[0]) < 6.8 and data.player[2] > -11.8 and data.player[2] < 8.8 and data.player[1] >= -0.1 and data.player[1] < 3.0
+	return absf(data.player[0]) < 6.8 and data.player[2] > -15.3 and data.player[2] < 8.8 and data.player[1] >= -0.1 and data.player[1] < 3.0
 
 func _save_valid() -> bool:
 	var data: Variant = _read_save()

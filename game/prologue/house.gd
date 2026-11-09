@@ -149,7 +149,7 @@ func route_points(source: Vector3, destination: Vector3) -> Array[Vector3]:
 	var to_room := Layout.room_at(destination)
 	var points: Array[Vector3] = []
 	if from_room == to_room:
-		if from_room != "" and absf(source.x-destination.x) > 0.8:
+		if from_room != "" and not Layout.ROOMS[from_room].get("end_door",false) and absf(source.x-destination.x) > 0.8:
 			var z: float = Layout.ROOMS[from_room].door_z
 			points.append(Vector3(source.x,0,z))
 			points.append(Vector3(destination.x,0,z))
@@ -157,14 +157,17 @@ func route_points(source: Vector3, destination: Vector3) -> Array[Vector3]:
 		if from_room != "":
 			var room: Dictionary = Layout.ROOMS[from_room]
 			if doors.has(from_room): doors[from_room].open_door(null)
-			points.append(Vector3(room.side*2.0,0,room.door_z))
+			if room.get("end_door",false): points.append(Vector3(0,0,-13))
+			else: points.append(Vector3(room.side*2.0,0,room.door_z))
 			points.append(Vector3(0,0,room.door_z))
 		if to_room != "":
 			var room: Dictionary = Layout.ROOMS[to_room]
 			if doors.has(to_room): doors[to_room].open_door(null)
 			points.append(Vector3(0,0,room.door_z))
-			points.append(Vector3(room.side*2.0,0,room.door_z))
-			points.append(Vector3(destination.x,0,room.door_z))
+			if room.get("end_door",false): points.append(Vector3(0,0,-13))
+			else:
+				points.append(Vector3(room.side*2.0,0,room.door_z))
+				points.append(Vector3(destination.x,0,room.door_z))
 	points.append(destination)
 	return points
 

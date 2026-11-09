@@ -19,6 +19,10 @@ func _ready() -> void:
 		var side: float = data.side
 		door.position = Vector3(side*1.1,0,data.door_z-side*0.45)
 		door.open_rotation = Vector3(0,90,0)
+		if data.get("end_door",false):
+			door.position = Vector3(-0.45,0,data.door_z)
+			door.closed_rotation = Vector3(0,90,0)
+			door.open_rotation = Vector3(0,180,0)
 		door.door_speed = 5.0
 		door.forced_rotation_axis = CogitoDoor.ForcedRotationAxis.AxisY
 		h.add_child(door)
@@ -35,6 +39,9 @@ func _ready() -> void:
 		label.text = data.label
 		label.position = Vector3(side*0.98,2.25,data.door_z)
 		label.rotation.y = -side*PI/2
+		if data.get("end_door",false):
+			label.position = Vector3(0,2.25,data.door_z+0.12)
+			label.rotation.y = 0
 		label.font_size = 26
 		label.pixel_size = 0.002
 		h.add_child(label)

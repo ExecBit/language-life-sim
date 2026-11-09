@@ -163,7 +163,14 @@ func run() -> void:
 		if not await walk(room.side*3.0,room.door_z): return
 		if not check(game.house.Layout.room_at(game.player.position) == room_id,"Entered "+room_id): return
 		if not await walk(0,room.door_z): return
-	print("DORMITORY_ROOMS_VISITED_OK: common, spare, Anna, Lena, kitchen, player bedroom")
+	if not await walk(0,-10.8): return
+	if not game.house.doors.bathroom.is_open:
+		if not await use("door_bathroom"): return
+		await wait_seconds(0.8)
+	if not await walk(0,-13.2): return
+	if not check(game.house.Layout.room_at(game.player.position) == "bathroom","Entered shared bathroom"): return
+	if not await walk(0,-10.8): return
+	print("DORMITORY_ROOMS_VISITED_OK: bathroom, common, spare, Anna, Lena, kitchen, player bedroom")
 	if not await walk(0,0): return
 	if not await walk(2.6,0): return
 	if not await walk(2.2,-4.0): return
