@@ -8,7 +8,6 @@ const FALLBACK_MODEL := "res://assets/characters/fallback.vrm"
 
 func model_resource() -> PackedScene:
 	return load(PRIVATE_MODEL if ResourceLoader.exists(PRIVATE_MODEL) else FALLBACK_MODEL) as PackedScene
-const CALM_IDLE = preload("res://game/characters/calm_idle.tres")
 const MAP := {
 	"Hips": "J_Bip_C_Hips", "Spine1": "J_Bip_C_Spine", "Spine2": "J_Bip_C_Chest",
 	"Chest": "J_Bip_C_UpperChest", "Neck2": "J_Bip_C_Neck", "Head": "J_Bip_C_Head",
@@ -60,10 +59,9 @@ func _ready() -> void:
 		var first: Variant = reference.track_get_key_value(track, 0)
 		if reference.track_get_path(track).get_subname(0) == "J_Bip_C_Hips" and reference.track_get_type(track) == Animation.TYPE_POSITION_3D:
 			source_hip_height = maxf(0.01, first.y)
-	var standing := CALM_IDLE.duplicate(true) as Animation
-	for track in standing.get_track_count():
-		var bone := str(standing.track_get_path(track).get_subname(0))
-		standing.track_set_path(track, NodePath(skeleton_path + ":" + bone))
+	_load_clip("idle_neutral")
+	var standing := library.get_animation("idle_neutral").duplicate(true) as Animation
+	standing.loop_mode = Animation.LOOP_LINEAR
 	library.add_animation("standing", standing)
 	animation_player.animation_finished.connect(_finished)
 	play("standing")

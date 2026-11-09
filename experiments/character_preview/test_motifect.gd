@@ -7,9 +7,10 @@ func _init() -> void: call_deferred("run")
 func run() -> void:
 	var actor = Actor.new()
 	root.add_child(actor)
-	assert(Catalog.SCENES.size() == 70)
+	assert(Catalog.SCENES.size() == 115)
 	assert(Catalog.PACKS["Daily Life"].size() == 40)
 	assert(Catalog.PACKS["Emotes & Social"].size() == 30)
+	assert(Catalog.PACKS["Locomotion"].size() == 45)
 	var identifiers := {}
 	for pack in Catalog.PACKS.values():
 		for identifier in pack:
@@ -42,5 +43,5 @@ func run() -> void:
 	driver.animation_player.advance(30.0)
 	await process_frame
 	assert(driver.current == "standing")
-	print("MOTIFECT_ALL_70_OK")
+	print("MOTIFECT_ALL_115_OK")
 	quit()
