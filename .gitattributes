@@ -22,3 +22,9 @@
 *.md text eol=lf
 *.txt text eol=lf
 *.yml text eol=lf
+
+*.vrm binary
+*.fbx binary
+*.dll binary
+*.so binary
+*.hdr binary
