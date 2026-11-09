@@ -56,7 +56,7 @@ func _ready() -> void:
 	notice.offset_top = 62
 	notice.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	root.add_child(notice)
-	var controls := label("WASD — идти    Мышь — взгляд    E — действие    Tab — курсор    J — цель    Esc — пауза",16)
+	var controls := label("WASD — идти    Мышь — взгляд    E — действие    Tab — курсор    J — цель    I — карман    Esc — пауза",16)
 	controls.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
 	controls.position += Vector2(24,-28)
 	root.add_child(controls)
@@ -86,8 +86,8 @@ func _ready() -> void:
 	var main := VBoxContainer.new()
 	main.add_theme_constant_override("separation",12)
 	menu.add_child(main)
-	main.add_child(label("ЗАСЕЛЕНИЕ",34))
-	main.add_child(label("Language Life · Уровень 1",19))
+	main.add_child(label("ОБЩЕЖИТИЕ",34))
+	main.add_child(label("Пролог · Дни 1–2",19))
 	main.add_child(label("Освойтесь в новом доме.\nНаблюдайте, общайтесь, действуйте.",18))
 	continue_button = button(main,"Продолжить","continue")
 	button(main,"Новая игра","new")

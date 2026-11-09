@@ -4,6 +4,7 @@ const Actor = preload("res://game/prologue/actor.gd")
 var actors := {}
 var items := {}
 var anchors := {}
+var furniture := {}
 var zones := {"entrance": Vector3(0,0,5.8), "common": Vector3(-3,0,0), "bedroom": Vector3(3,0,0), "corridor": Vector3(0,0,0), "bed": Vector3(4.7,0,-4.4), "exit": Vector3(0,0,7.5)}
 var environment: Environment
 var sun: DirectionalLight3D
@@ -121,7 +122,10 @@ func _ready() -> void:
 		actor.actor_id = id
 		add_child(actor)
 		actors[id] = actor
-		if id == "anna": actor.position = Vector3(-1.5,0,-1.7)
+		if id == "anna":
+			actor.position = Vector3(0,0,-4.7)
+			actor.hide()
+			actor.collision_layer = 0
 		else: actor.position = Vector3.ZERO
 		actor.arrived.connect(func():
 			if pointer_actor == actor.actor_id and pointer_target != "": pulse_time = 4.0
@@ -236,8 +240,9 @@ func make_item(id: String) -> StaticBody3D:
 	return node
 
 func position_of(id: String) -> Vector3:
+	if furniture.has(id): return furniture[id].global_position
 	if items.has(id): return items[id].global_position + Vector3(0,0.12,0)
-	if id == "bottle": return Vector3(-5.25,1,-2.6) + Vector3(0,0.12,0)
+	if id in ["bottle","water"]: return Vector3(-5.25,1,-2.6) + Vector3(0,0.12,0)
 	if anchors.has(id): return anchors[id].global_position + Vector3(0,0.15,0)
 	if actors.has(id): return actors[id].global_position + Vector3(0,1.2,0)
 	return zones.get(id,Vector3.ZERO) + Vector3(0,0.15,0)
@@ -245,12 +250,12 @@ func position_of(id: String) -> Vector3:
 func sync_items(state, player_hand: Node3D) -> void:
 	for id in state.items:
 		var location: String = state.items[id]
-		var parent: Node3D = player_hand if location == "player" else (actors[location].hand if actors.has(location) else anchors[location])
+		var parent: Node3D = player_hand if location in ["player","player_pocket"] else (actors[location].hand if actors.has(location) else anchors[location])
 		if items[id].get_parent() != parent: items[id].reparent(parent,false)
 		items[id].position = Vector3.ZERO
 		items[id].rotation = Vector3.ZERO
-		items[id].visible = id != "bread" or state.day == 2
-		items[id].collision_layer = 0 if location in ["lena","player"] or not items[id].visible else 1
+		items[id].visible = location != "player_pocket" and (id != "bread" or state.day == 2)
+		items[id].collision_layer = 0 if location in ["lena","anna","player","player_pocket"] or not items[id].visible else 1
 
 func point(actor: String, target: String) -> void:
 	pointer_actor = actor
@@ -265,7 +270,7 @@ func set_period(period: String) -> void:
 	environment.ambient_light_energy = 0.18 if period == "evening" else 0.45
 	environment.background_color = Color("344959") if period == "evening" else Color("a9c8d5")
 	for light in lights: light.light_energy = 1.3 if period == "evening" else 0.45
-	if actors.has("anna") and period == "morning": actors.anna.go(Vector3(-1.5,0,-1.7),true)
+
 
 func _process(delta: float) -> void:
 	pulse_time -= delta

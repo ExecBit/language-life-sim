@@ -59,7 +59,7 @@ func tick(delta: float, suspended := false, selecting := false) -> void:
 	if npc.walking:
 		stop() # Do not turn a walking body backwards or queue a look after arrival.
 		return
-	if controller.house.pointer_actor == "lena" and controller.house.pulse_time > 0 and npc.visual.current == "emote_point_at_opponent":
+	if controller.house.pointer_actor == npc.actor_id and controller.house.pulse_time > 0 and npc.visual.current == "emote_point_at_opponent":
 		stop() # The object indicated by the current gesture has priority.
 		return
 	if owns_heading and absf(angle_difference(npc.heading,last_heading)) > 0.001:

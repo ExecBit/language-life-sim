@@ -23,6 +23,7 @@ func _ready() -> void:
 	collision.position.y = 0.85
 	add_child(collision)
 	visual = Visual.new()
+	if actor_id == "anna": visual.avatar_path = "res://assets/characters/anna.vrm"
 	add_child(visual)
 	var attachment := BoneAttachment3D.new()
 	visual.target_skeleton.add_child(attachment)
@@ -96,7 +97,7 @@ func gesture(name: String) -> void:
 	if walking:
 		pending_gesture = name
 		return
-	if name in visual.Catalog.SCENES: visual.play(name)
+	if name in visual.Catalog.SCENES or name in visual.GeneratedCatalog.SCENES: visual.play(name)
 
 func idle() -> void:
 	if is_instance_valid(moving): moving.kill()

@@ -1,6 +1,7 @@
 extends RefCounted
 ## Single source of lexical readings for the parser and prefix composer.
 const ENTRIES := [
+	{"lemma_id":"lamp","surface":"Lampe","pos":"noun","features":{"gender":"feminine"},"semantic_id":"lamp","availability":"available"},
 	{"lemma_id": "ich", "surface": "ich", "pos": "pronoun", "features": {"person": 1, "number": "singular", "case": "nominative"}, "semantic_id": "player", "availability": "available"},
 	{"lemma_id": "du", "surface": "du", "pos": "pronoun", "features": {"person": 2, "number": "singular", "case": "nominative"}, "semantic_id": "addressee", "availability": "available"},
 	{"lemma_id": "ich", "surface": "mir", "pos": "pronoun", "features": {"person": 1, "case": "dative"}, "semantic_id": "player", "availability": "available"},

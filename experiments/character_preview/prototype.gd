@@ -187,6 +187,9 @@ func _build_ui() -> void:
 	layer.add_child(root)
 	var title := _label("LANGUAGE LIFE  /  ПРОТОТИП 01", 23)
 	title.position = Vector2(28,20)
+	var play_link := _label("F8 — играть в пролог общежития · дни 1–2",17)
+	play_link.position = Vector2(700,20)
+	root.add_child(play_link)
 	root.add_child(title)
 	goals = _label("", 17)
 	goals.position = Vector2(28,58)
@@ -356,6 +359,11 @@ func _target() -> String:
 func _on_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		match event.physical_keycode:
+			KEY_F8:
+				InputRouter.remove(_on_input)
+				get_tree().paused = false
+				get_tree().change_scene_to_file("res://game/prologue/prologue.tscn")
+				return
 			KEY_F7:
 				if not paused: _motion_ui(not motion_panel.visible)
 				return

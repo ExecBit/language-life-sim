@@ -10,7 +10,7 @@ const BASE := [
 	["noch_einmal","Noch einmal, bitte","Ещё раз, пожалуйста"]
 ]
 const NEW := {
-	"water":["Wasser","Вода"],"cup":["Tasse","Чашка"],"key":["Schlüssel","Ключ"],
+	"lamp":["Lampe","Лампа"],"water":["Wasser","Вода"],"cup":["Tasse","Чашка"],"key":["Schlüssel","Ключ"],
 	"bag":["Tasche","Сумка"],"room":["Zimmer","Комната"],"bread":["Brot","Хлеб"],
 	"bell":["Glocke","Колокольчик"],"market":["Supermarkt","Супермаркет"]}
 

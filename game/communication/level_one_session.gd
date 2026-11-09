@@ -6,9 +6,11 @@ const Composer = preload("res://game/communication/word_composer.gd")
 const Helper = preload("res://game/communication/helper_catalog.gd")
 const Attention = preload("res://game/communication/speaker_attention.gd")
 var attention = Attention.new()
-const OBJECTS := {"key":"room_key","bag":"bag","cup":"cup","water":"cup","bread":"bread","bell":"bell","room":"bedroom"}
-const SEMANTICS := {"room_key":"key","bag":"bag","cup":"cup","bread":"bread","bell":"bell","bedroom":"room"}
-const IDENTIFY := {"room_key":"Ein Schlüssel.","bag":"Eine Tasche.","cup":"Eine Tasse.","bread":"Ein Brot.","bell":"Eine Glocke.","bedroom":"Dein Zimmer."}
+const Residents = preload("res://game/prologue/residents.gd")
+const OBJECTS = Residents.OBJECTS
+const SEMANTICS = Residents.SEMANTICS
+const IDENTIFY = Residents.IDENTIFY
+
 var controller: Node3D
 var composer: VBoxContainer
 var helper: PanelContainer
@@ -198,12 +200,13 @@ func display() -> void:
 		context.last_utterance = line_text
 		context.script_line = line_text
 	else: controller.ui.line.text = context.last_utterance
+	if new_line: controller.ui.line.text = line_text
 	if changed: context.pending = "offer" if step_id in ["b_water","f_offer"] else ""
 	meet(line_text,str(controller.step.get("point","")))
 	composer.visible = conversation_open and not selecting and not paused and not helper.visible
 	controller.ui.dialog.visible = composer.visible
 	if new_line and not conversation_open: show_subtitle(line_text,"Анна" if active_actor == "anna" else "Лена")
-	elif new_line: attention.begin_line(controller._line())
+	elif new_line: attention.begin_line(line_text)
 	sync_actor()
 
 func reopen() -> void:
@@ -311,7 +314,7 @@ func toggle_helper() -> void:
 		for row in Helper.rows(controller.state.flags):
 			helper_grid.add_child(controller.ui.label(row[1],19))
 			helper_grid.add_child(controller.ui.label(row[2],19))
-		var key: String = str(controller.step.get("id","start"))+":helper"
+		var key: String = str(context.get("step_id",controller.step.get("id","start")))+":helper"
 		controller.state.help[key] = int(controller.state.help.get(key,0))+1
 		composer.release()
 		helper_tree_paused = controller.get_tree().paused
@@ -361,7 +364,7 @@ func cancel_point() -> void:
 	attention.begin(2.0)
 
 func confirm_point(target: String) -> void:
-	if target == "" or (not controller.house.items.has(target) and not controller.house.anchors.has(target)): return
+	if target == "" or (not controller.house.items.has(target) and not controller.house.anchors.has(target) and not SEMANTICS.has(target)): return
 	if controller.state.items.get(target,"") in ["player","lena"]: return
 	context.pointed_target_id = target
 	selecting = false
@@ -390,7 +393,7 @@ func submit(text: String) -> void:
 		reply("Komm bitte näher.")
 		return
 	var parse_context := {"active":true,"pending":context.pending,"addressee":active_actor,
-		"offer_pending":controller.step.id in ["b_water","f_offer"] and controller.step.id not in controller.state.completed,
+		"offer_pending":active_actor == "lena" and controller.step.id in ["b_water","f_offer"] and controller.step.id not in controller.state.completed,
 		"pointed_object_id":SEMANTICS.get(context.pointed_target_id,context.pointed_target_id)}
 	var parsed := Parser.parse(text,context.pointed_target_id,parse_context)
 	last_parse = parsed.duplicate(true)
@@ -421,20 +424,20 @@ func resolve(parsed: Dictionary) -> void:
 		elif id == "a_greeting": controller._answer("hello")
 		else: reply("Hallo!")
 	elif intent in ["ACCEPT","REFUSE"]:
-		if id not in ["b_water","f_offer"] or id in controller.state.completed: reply("Was meinst du?")
+		if active_actor != "lena" or id not in ["b_water","f_offer"] or id in controller.state.completed: reply("Was meinst du?")
 		else:
 			var previous_index: int = controller.state.index
 			controller._answer("yes" if intent == "ACCEPT" else "no")
 			if controller.state.index != previous_index:
 				controller.house.actors[active_actor].gesture("nod_yes" if intent == "ACCEPT" else "shake_head_no")
 	elif intent == "THANKS":
-		if controller._free_conversation(): controller._answer("thanks")
+		if active_actor == "lena" and controller._free_conversation(): controller._answer("thanks")
 		else: reply("Gern.")
 	elif intent == "FAREWELL":
-		if controller._free_conversation(): controller._answer("bye")
+		if active_actor == "lena" and controller._free_conversation(): controller._answer("bye")
 		else: reply("Tschüss!")
 	elif intent == "POLITENESS":
-		if id == "f_place": controller._answer("morning_welcome")
+		if active_actor == "lena" and id == "f_place": controller._answer("morning_welcome")
 		else: reply("Gern.")
 	elif intent == "APOLOGY": reply("Ja?")
 	elif intent == "REQUEST_REPEAT":
@@ -442,45 +445,36 @@ func resolve(parsed: Dictionary) -> void:
 		reply(context.last_utterance)
 	elif intent == "REPORT_NONUNDERSTANDING":
 		controller.state.ask_help(id,"show")
-		var target: String = controller.step.get("point",controller.last_target)
+		var target: String = controller.step.get("point",controller.last_target) if active_actor == "lena" and external_line == "" else ("bottle" if "Wasser" in context.last_utterance else active_actor)
 		if target != "": controller.house.point(active_actor,target)
-		reply("Hier.")
+		reply("Anna." if target == "anna" else "Hier.")
 	elif intent == "IDENTIFY":
 		var target: String = context.pointed_target_id
 		if target == "": target = OBJECTS.get(frame.object_id,"")
-		if not IDENTIFY.has(target): reply("Das weiß ich nicht.")
-		else:
-			controller.house.point("lena",target)
-			meet("",target)
-			reply(IDENTIFY[target])
-	elif intent in ["ASK_LOCATION","REQUEST_ITEM"]:
-		var target: String = "cup" if intent == "REQUEST_ITEM" and frame.object_id == "water" else OBJECTS.get(frame.object_id,"")
-		if not controller.state.items.has(target): reply("Das weiß ich nicht.")
-		elif controller.state.items[target] == "player": reply("Du hast das.")
-		elif intent == "REQUEST_ITEM" and active_actor == "anna" and target == "cup":
-			var cup_location: String = str(controller.state.items.cup)
-			var cup_reachable: bool = cup_location in ["tray","surface_common"] and controller.player.position.distance_to(controller.house.position_of("cup")) <= 3.5
-			if controller.state.held("player") != "": reply("Stell das bitte zuerst ab.")
-			elif cup_reachable and controller.state.transfer("cup",cup_location,"player"):
-				controller.house.sync_items(controller.state,controller.held)
-				controller.state.flags.water_requested = true
-				controller._take_checkpoint()
-				controller._save()
-				reply("Bitte.")
-			else:
-				controller.house.point(active_actor,"cup")
-				reply("Dort.")
+		if not IDENTIFY.has(target) or target not in Residents.PEOPLE[active_actor].known: reply("Das weiß ich nicht.")
 		else:
 			controller.house.point(active_actor,target)
 			meet("",target)
-			reply("Ich habe das." if controller.state.items[target] == "lena" else "Dort.")
+			reply(IDENTIFY[target])
+	elif intent == "REQUEST_ITEM" and frame.object_id in ["water","cup"]:
+		reply(controller.life.offer_water(active_actor))
+	elif intent in ["ASK_LOCATION","REQUEST_ITEM"]:
+		var target: String = OBJECTS.get(frame.object_id,"")
+		if target not in Residents.PEOPLE[active_actor].known: reply("Das weiß ich nicht.")
+		elif controller.state.items.get(target,"") in ["player","player_pocket"]: reply("Du hast das.")
+		else:
+			controller.house.point(active_actor,target)
+			meet("",target)
+			reply("Dort.")
 	elif intent == "REQUEST_HELP":
 		context.pending = "help_target"
 		if frame.object_id == "": reply("Wobei?")
 		else:
-			var target: String = OBJECTS.get(frame.object_id,controller.step.get("point",""))
-			if target != "": controller.house.point(active_actor,target)
-			reply("Hier.")
+			var target: String = OBJECTS.get(frame.object_id,controller.step.get("point","") if active_actor == "lena" else "")
+			if target in Residents.PEOPLE[active_actor].known:
+				controller.house.point(active_actor,target)
+				reply("Hier.")
+			else: reply("Das weiß ich nicht.")
 			context.pending = "offer" if id in ["b_water","f_offer"] else ""
 	elif intent == "PROHIBIT_ACTION" or (intent == "EXPRESS_DESIRE" and frame.polarity == "negative"): reply("Okay.")
 	else: reply("Was möchtest du genau?")
