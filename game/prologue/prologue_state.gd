@@ -106,6 +106,8 @@ func complete(step: Dictionary, choice := "", payload := "") -> bool:
 	if step.get("wait", "") == "stored" and items.get(str(step.item)) != step.anchor: return false
 	if step.get("wait", "") == "owned" and items.get(str(step.item)) != "player": return false
 	if step.get("wait", "") == "optional": operations.append(["sleep"])
+	if step.get("wait", "") == "sleep_end":
+		operations.append_array([["period","evening"],["flag","day2_sleep",true],["finish"]])
 	if step.get("wait","") == "npc_take": operations.append(["move","bread","kitchen_shelf","lena"])
 	if step.get("wait","") == "npc_place":
 		operations.append(["move","bread","lena","breakfast_table"])

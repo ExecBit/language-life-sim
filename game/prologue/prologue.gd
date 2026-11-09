@@ -17,8 +17,8 @@ var shopping: Node
 const PREVIOUS_SAVE := "user://language_life_prologue_v3.json"
 const LEGACY_SAVE := "user://language_life_prologue_v2.json"
 const SETTINGS := "user://language_life_prologue_settings.cfg"
-const NAMES := {"lena":"Лена","player":"Вы","":""}
-const GOALS := {"A":"Познакомьтесь с Леной и войдите в дом.","B":"Ответьте на предложение воды.","C":"Поставьте дорожную сумку у кровати и заберите ключ со стола.","D":"Осмотритесь, поговорите с Леной по желанию. Когда будете готовы — ложитесь спать.","E":"Наступает утро.","F":"Лена готовит завтрак. Можно обратиться к ней или заняться своими делами; выход доступен.","G":"Ваша полка для продуктов пока пуста. Когда будете готовы — выходите из дома.","END":"Пролог завершён."}
+const NAMES := {"lena":"Лена","anna":"Анна","player":"Вы","":""}
+const GOALS := {"A":"Познакомьтесь с Леной и войдите в дом.","B":"Ответьте на предложение воды.","C":"Поставьте дорожную сумку у кровати и заберите ключ со стола.","D":"Осмотритесь, поговорите с Леной по желанию. Когда будете готовы — ложитесь спать.","E":"Наступает утро.","F":"Лена готовит завтрак. Можно помочь, отказаться или пройти мимо.","G":"Исследуйте дом, поздоровайтесь с Анной или попросите у неё воды. E у кровати завершает день.","END":"День 2 завершён. Это точка продолжения пролога."}
 
 var state = State.new()
 var steps: Array[Dictionary] = Story.build()
@@ -307,9 +307,12 @@ func _enter_step(instant := false) -> void:
 	if shopping != null and shopping.active():
 		for actor in house.actors.values(): actor.attention.hide()
 		return
-	ui.chapter.text = "Заселение · День %d · %s" % [state.day,{"day":"день","evening":"вечер","morning":"утро"}[state.period]]
+	ui.chapter.text = "Общежитие · День %d · %s" % [state.day,{"day":"день","evening":"вечер","morning":"утро"}[state.period]]
 	for actor in house.actors.values(): actor.attention.hide()
 	var speaker := str(step.get("speaker",""))
+	if house.actors.has("anna"):
+		house.actors.anna.visible = state.day >= 2
+		house.actors.anna.collision_layer = 1 if state.day >= 2 else 0
 	if house.actors.has(speaker):
 		house.actors[speaker].attention.show()
 		var recipient := str(step.get("to","player"))
@@ -506,6 +509,26 @@ func _interact() -> void:
 			return
 		if _target() == "lena": communication.reopen()
 	var target := _target()
+	if target == "anna" and state.day == 2 and not state.finished:
+		if player.position.distance_to(house.actors.anna.position) > 4.5:
+			ui.notify("Подойдите к Анне, чтобы обратиться к ней.")
+			return
+		if not state.flags.get("anna_met",false):
+			state.flags.anna_met = true
+			_take_checkpoint()
+			_save()
+		if communication != null: communication.open_for("anna","Hallo!")
+		return
+	if target == "bottle" and state.day == 2:
+		if state.items.get("cup") != "player":
+			ui.notify("Возьмите чашку на столе или попросите её у Анны: Wasser, bitte.")
+		elif not state.flags.get("water_drunk",false):
+			state.flags.water_drunk = true
+			ui.notify("Вы выпили воды. Чашка остаётся у вас в руке.")
+			_take_checkpoint()
+			_save()
+		else: ui.notify("Вы уже выпили воды.")
+		return
 	if selecting:
 		if house.items.has(target) and state.items.get(target) not in ["player","lena"]:
 			selecting = false
@@ -516,7 +539,7 @@ func _interact() -> void:
 			_show_dialog()
 		else: ui.notify("Наведитесь на видимый доступный предмет. Backspace — отмена.")
 		return
-	if step.get("wait","") == "optional" and (target == "bed" or Vector2(player.position.x-3.3,player.position.z+4.6).length() < 1.2):
+	if step.get("wait","") in ["optional","sleep_end"] and (target == "bed" or Vector2(player.position.x-3.3,player.position.z+4.6).length() < 1.2):
 		# Farewell is offered, never required to unlock sleep.
 		_advance()
 		return
@@ -628,7 +651,7 @@ func _process(delta: float) -> void:
 		return
 	if state.day == 2:
 		_tick_cooking(delta)
-		if not state.finished:
+		if not state.finished and step.get("wait","") == "exit":
 			var exit: Vector3 = house.zones.exit
 			if Vector2(player.position.x-exit.x,player.position.z-exit.z).length() < 1.05:
 				_finish_level()
@@ -642,6 +665,8 @@ func _process(delta: float) -> void:
 	if state.held("player") != "" and (house.anchors.has(target) or target.begins_with("table_")): ui.prompt.text = "E — поставить предмет"
 	elif target in ["bag","cup","room_key"] or (target == "bread" and state.day == 2): ui.prompt.text = "E — взять предмет"
 	elif target == "lena": ui.prompt.text = "E — передать хлеб" if step.get("wait","") == "give" and state.held("player") == "bread" else "E — обратиться · H — слова · Tab — курсор"
+	elif target == "anna" and state.day == 2: ui.prompt.text = "E — поздороваться / обратиться"
+	elif target == "bottle" and state.day == 2: ui.prompt.text = "E — выпить воды" if state.items.get("cup") == "player" else "Сначала нужна чашка"
 	var wait := str(step.get("wait",""))
 	if wait in ["near","exit"]:
 		var zone: Vector3 = house.zones[str(step.target)]
@@ -650,6 +675,8 @@ func _process(delta: float) -> void:
 	elif wait == "cooking": pass
 	elif wait in ["npc_take","npc_place"]: pass
 	elif wait in ["stored","owned"]: _check_object_progress()
+	elif wait == "sleep_end":
+		if Vector2(player.position.x-3.3,player.position.z+4.6).length() < 1.2: ui.prompt.text = "E — завершить день"
 	elif wait == "optional":
 		if Vector2(player.position.x-3.3,player.position.z+4.6).length() < 1.2:
 			ui.prompt.text = "E — лечь спать"
@@ -873,7 +900,7 @@ func _smoke() -> void:
 		var accept: bool = combination[0]
 		var breakfast: bool = combination[1]
 		_start_new()
-		assert(house.actors.size() == 1 and not house.actors.has("max"))
+		assert(house.actors.size() == 2 and house.actors.has("anna") and not house.actors.has("max"))
 		assert(state.items.bag == "entrance_bag" and state.held("player") == "")
 		assert(_advance()) # door
 		await _aim_at("lena")
@@ -998,8 +1025,27 @@ func _smoke() -> void:
 		assert(_save())
 		_load_save()
 		assert(step.id == "g_ready" and state.flags.breakfast_done)
-		assert(_advance())
-		assert(state.finished)
+		await _aim_at("anna")
+		assert(_target() == "anna")
+		_interact()
+		assert(communication.conversation_open and state.flags.anna_met)
+		if accept:
+			communication.submit("Hallo!")
+			assert(communication.last_parse.intent == "GREETING" and communication.context.addressee == "anna")
+		if state.items.cup not in ["player","tray"]:
+			assert(state.transfer("cup",str(state.items.cup),"tray"))
+			house.sync_items(state,held)
+		player.position = Vector3(-2.2,0.9,-1.7)
+		communication.submit("Wasser, bitte")
+		assert(communication.last_parse.intent == "REQUEST_ITEM" and state.items.cup == "player" and state.flags.water_requested)
+		communication.close()
+		await _aim_at("bottle")
+		assert(_target() == "bottle")
+		_interact()
+		assert(state.flags.get("water_drunk",false) and state.items.cup == "player")
+		player.position = Vector3(3.3,0.9,-4.6)
+		_interact()
+		assert(state.finished and step.id == "complete" and state.flags.day2_sleep)
 		_take_checkpoint()
 		assert(_save())
 		_load_save()

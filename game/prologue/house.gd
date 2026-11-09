@@ -116,16 +116,18 @@ func _ready() -> void:
 	# Water is scenery, not a second carrying exercise.
 	var water := make_item("bottle")
 	water.position = Vector3(-5.25,1,-2.6)
-	for id in ["lena"]:
+	for id in ["lena","anna"]:
 		var actor := Actor.new()
 		actor.actor_id = id
 		add_child(actor)
 		actors[id] = actor
+		if id == "anna": actor.position = Vector3(-1.5,0,-1.7)
+		else: actor.position = Vector3.ZERO
 		actor.arrived.connect(func():
 			if pointer_actor == actor.actor_id and pointer_target != "": pulse_time = 4.0
 		)
 		var label := Label3D.new()
-		label.text = "LENA"
+		label.text = "ANNA" if id == "anna" else "LENA"
 		label.position.y = 1.85
 		label.font_size = 28
 		label.pixel_size = 0.0025
@@ -235,6 +237,7 @@ func make_item(id: String) -> StaticBody3D:
 
 func position_of(id: String) -> Vector3:
 	if items.has(id): return items[id].global_position + Vector3(0,0.12,0)
+	if id == "bottle": return Vector3(-5.25,1,-2.6) + Vector3(0,0.12,0)
 	if anchors.has(id): return anchors[id].global_position + Vector3(0,0.15,0)
 	if actors.has(id): return actors[id].global_position + Vector3(0,1.2,0)
 	return zones.get(id,Vector3.ZERO) + Vector3(0,0.15,0)
@@ -262,6 +265,7 @@ func set_period(period: String) -> void:
 	environment.ambient_light_energy = 0.18 if period == "evening" else 0.45
 	environment.background_color = Color("344959") if period == "evening" else Color("a9c8d5")
 	for light in lights: light.light_energy = 1.3 if period == "evening" else 0.45
+	if actors.has("anna") and period == "morning": actors.anna.go(Vector3(-1.5,0,-1.7),true)
 
 func _process(delta: float) -> void:
 	pulse_time -= delta

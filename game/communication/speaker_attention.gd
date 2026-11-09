@@ -16,7 +16,9 @@ var initial_heading := 0.0
 
 func actor():
 	if not is_instance_valid(controller) or not is_instance_valid(controller.house): return null
-	return controller.house.actors.get("lena")
+	var actor_id := "lena"
+	if controller.communication != null: actor_id = str(controller.communication.active_actor)
+	return controller.house.actors.get(actor_id,controller.house.actors.get("lena"))
 
 func begin_line(text: String) -> void:
 	if text.strip_edges().is_empty(): return

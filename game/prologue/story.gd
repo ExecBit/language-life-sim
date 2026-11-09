@@ -17,7 +17,7 @@ static func build() -> Array[Dictionary]:
 		{"id":"f_place","phase":"F","speaker":"lena","to":"player","text":"Danke!","wait":"npc_place","units":["danke"],"result":"helped","next_id":"g_ready"},
 		{"id":"f_self_walk","phase":"F","speaker":"lena","to":"player","text":"Okay.","wait":"npc_take","next_id":"f_self_return"},
 		{"id":"f_self_return","phase":"F","speaker":"lena","to":"player","text":"","wait":"npc_place","result":"declined","next_id":"g_ready"},
-		{"id":"g_ready","phase":"G","speaker":"lena","to":"player","text":"Supermarkt.","point":"exit","wait":"exit","target":"exit"},
+		{"id":"g_ready","phase":"G","speaker":"lena","to":"player","text":"","wait":"sleep_end","target":"bed"},
 		{"id":"complete","phase":"END","speaker":"","to":"player","text":"","wait":"done","ops":[["finish"]]},
 	]
 	var indices := {}
