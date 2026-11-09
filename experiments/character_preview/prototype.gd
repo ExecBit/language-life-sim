@@ -1,6 +1,7 @@
 extends Node3D
 
 const State = preload("res://experiments/character_preview/prototype_state.gd")
+const GeneratedCatalog = preload("res://game/characters/generated_animation_catalog.gd")
 const PLAYER_SCENE = preload("res://addons/cogito/PackedScenes/cogito_player_simple.tscn")
 const LENA_VISUAL = preload("res://game/characters/lena_motifect.gd")
 const SAVE_PATH := "user://language_life_prototype.json"
@@ -250,12 +251,14 @@ func _build_ui() -> void:
 	root.add_child(motion_panel)
 	var motion_box := VBoxContainer.new()
 	motion_panel.add_child(motion_box)
-	motion_box.add_child(_label("MOTIFECT / %d КЛИПОВ" % lena_visual.visual.Catalog.SCENES.size(), 23))
+	motion_box.add_child(_label("MOTIFECT + GENERATED / %d КЛИПОВ" % (lena_visual.visual.Catalog.SCENES.size() + GeneratedCatalog.SCENES.size()), 23))
 	motion_pack = OptionButton.new()
 	motion_pack.add_theme_font_override("font", ThemeDB.fallback_font)
 	motion_pack.add_theme_font_size_override("font_size", 20)
 	for pack_name in lena_visual.visual.Catalog.PACKS:
 		motion_pack.add_item("%s — %d" % [pack_name, lena_visual.visual.Catalog.PACKS[pack_name].size()])
+	for pack_name in GeneratedCatalog.PACKS:
+		motion_pack.add_item("%s — %d" % [pack_name, GeneratedCatalog.PACKS[pack_name].size()])
 	motion_pack.item_selected.connect(_select_motion_pack)
 	motion_box.add_child(motion_pack)
 	motion_choice = OptionButton.new()
@@ -476,10 +479,18 @@ func _motion_ui(value: bool) -> void:
 
 func _select_motion_pack(index: int) -> void:
 	var catalog = lena_visual.visual.Catalog
-	var pack_name: String = catalog.PACKS.keys()[index]
+	var pack_names: Array = catalog.PACKS.keys()
+	var names: Array
+	var is_generated := index >= pack_names.size()
+	if is_generated:
+		var generated_pack_names: Array = GeneratedCatalog.PACKS.keys()
+		names = GeneratedCatalog.PACKS[generated_pack_names[index - pack_names.size()]]
+	else:
+		names = catalog.PACKS[pack_names[index]]
 	motion_choice.clear()
-	for name in catalog.PACKS[pack_name]:
-		motion_choice.add_item(str(name).trim_prefix("emote_"))
+	for name in names:
+		var label: String = str(GeneratedCatalog.LABELS.get(name, name)).trim_prefix("emote_") if is_generated else str(name).trim_prefix("emote_")
+		motion_choice.add_item(label)
 		motion_choice.set_item_metadata(motion_choice.item_count - 1, name)
 	motion_choice.select(0)
 
@@ -615,6 +626,23 @@ func _smoke() -> void:
 	_load_save()
 	assert(state.identified and state.cup_location == "lena")
 	assert(cup.get_parent() == hand)
+	var generated_pack_index: int = lena_visual.visual.Catalog.PACKS.size()
+	for pack_offset in GeneratedCatalog.PACKS.size():
+		var pack_name: String = GeneratedCatalog.PACKS.keys()[pack_offset]
+		_select_motion_pack(generated_pack_index + pack_offset)
+		assert(motion_choice.item_count == GeneratedCatalog.PACKS[pack_name].size())
+		for identifier: String in GeneratedCatalog.PACKS[pack_name]:
+			lena_visual.play_motion(identifier)
+			var animation: Animation = lena_visual.visual.library.get_animation(identifier)
+			assert(animation.length > 0 and animation.get_track_count() > 0)
+			lena_visual.visual.animation_player.seek(animation.length * 0.5, true)
+			lena_visual.visual.animation_player.advance(0.0)
+			await get_tree().process_frame
+			await get_tree().process_frame
+			for bone_index in lena_visual.visual.target_skeleton.get_bone_count():
+				assert(lena_visual.visual.target_skeleton.get_bone_global_pose(bone_index).is_finite())
+			print("GENERATED_CLIP_OK ", identifier)
+		lena_visual.stop_motion()
 	print("LANGUAGE_LIFE_SMOKE_OK")
 	get_tree().quit()
 
