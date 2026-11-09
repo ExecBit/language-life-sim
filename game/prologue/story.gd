@@ -4,7 +4,7 @@ static func build() -> Array[Dictionary]:
 	var rows: Array[Dictionary] = [
 		{"id":"a_door","phase":"A","speaker":"lena","to":"player","text":"Hallo!","wait":"near","target":"entrance","ops":[["flag","door_open",true]]},
 		{"id":"a_greeting","phase":"A","speaker":"lena","to":"player","text":"Hallo!","units":["hallo"],"answers":[{"id":"hello","text":"Hallo!"}]},
-		{"id":"a_enter","phase":"A","speaker":"lena","to":"player","text":"Komm!","wait":"near","target":"common","point":"common","help":true,"units":["komm"]},
+		{"id":"a_enter","phase":"A","speaker":"lena","to":"player","text":"Komm!","wait":"near","target":"kitchen","point":"kitchen","help":true,"units":["komm"]},
 		{"id":"b_water","phase":"B","speaker":"lena","to":"player","text":"Wasser?","point":"cup","help":true,"answers":[{"id":"yes","text":"Ja.","ops":[["move","cup","tray","player"]]},{"id":"no","text":"Nein."}]},
 		{"id":"c_follow","phase":"C","speaker":"lena","to":"player","text":"Komm!","wait":"near","target":"bedroom","point":"bedroom","help":true},
 		{"id":"c_bag","phase":"C","speaker":"lena","to":"player","text":"Hier.","wait":"stored","item":"bag","anchor":"bag_stand","point":"bag_stand","help":true,"units":["hier"]},

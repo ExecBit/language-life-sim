@@ -62,12 +62,7 @@ func go(destination: Vector3, instant := false) -> void:
 		walking = false
 		visual.stop()
 		return
-	var points: Array[Vector3] = []
-	# Walk around the partitions through the open landing.
-	if absf(position.x-destination.x) > 0.8:
-		points.append(Vector3(position.x,0,0))
-		points.append(Vector3(destination.x,0,0))
-	points.append(destination)
+	var points: Array[Vector3] = get_parent().route_points(position,destination)
 	walking = true
 	visual.animation_player.speed_scale = 1.0
 	visual.play("walking",true)

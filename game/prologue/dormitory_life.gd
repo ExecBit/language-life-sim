@@ -36,9 +36,9 @@ func enter_step() -> void:
 	var anna = controller.house.actors.anna
 	if controller.state.day == 1:
 		anna_route = false
-		anna.go(Vector3(0,0,-4.7),true)
+		anna.go(Vector3(-4.2,0,-8.4),true)
 	elif not anna_route:
-		anna.go(Vector3(-2.3,0,-1.6) if controller.state.flags.get("anna_introduced",false) else Vector3(0,0,-4.7),true)
+		anna.go(Vector3(-2.3,0,-1.6) if controller.state.flags.get("anna_introduced",false) else Vector3(-4.2,0,-8.4),true)
 		if not controller.state.flags.get("anna_introduced",false): anna.go(Vector3(-2.2,0,0.4))
 		anna_route = true
 

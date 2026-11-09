@@ -371,7 +371,7 @@ func _layout(instant := false) -> void:
 	elif phase in ["C","D"]: destination = Vector3(5.6,0,-1.65)
 	if phase == "D" and state.flags.get("said_bye",false): destination = Vector3(-3.8,0,-1)
 	if state.day == 2 and state.cooking.get("activity","") != "finished": destination = Vector3(-4,0,-1.5)
-	if id == "f_self_walk": destination = Vector3(-5.7,0,1.8)
+	if id == "f_self_walk": destination = Vector3(-5.1,0,-0.9)
 	# Keep an existing route running across consecutive lines in the same room.
 	var actor = house.actors.lena
 	if instant or not actor.has_meta("destination") or actor.get_meta("destination") != destination:
@@ -704,6 +704,7 @@ func _process(delta: float) -> void:
 	if state.held("player") != "" and (house.anchors.has(target) or target.begins_with("table_")): ui.prompt.text = "E — поставить предмет"
 	elif target in ["bag","cup","room_key"] or (target == "bread" and state.day == 2): ui.prompt.text = "E — взять предмет"
 	elif target == "lena": ui.prompt.text = "E — передать хлеб" if step.get("wait","") == "give" and state.held("player") == "bread" else "E — обратиться · H — слова · Tab — курсор"
+	elif target.begins_with("door_"): ui.prompt.text = "E — открыть / закрыть дверь"
 	elif target in ["room_door","drawer","room_lamp"]: ui.prompt.text = {"room_door":"E — открыть / закрыть дверь","drawer":"E — тумба · I — карман","room_lamp":"E — включить / выключить свет"}[target]
 	elif target == "anna" and state.day == 2: ui.prompt.text = "E — поздороваться / обратиться"
 	elif target == "bottle" and state.day == 2: ui.prompt.text = "E — выпить воды" if state.items.get("cup") == "player" else "Сначала нужна чашка"
@@ -862,7 +863,7 @@ func _valid_pose(data: Dictionary) -> bool:
 		if not (data.get(key) is float or data.get(key) is int) or not is_finite(float(data[key])): return false
 	if data.get("shop") is Dictionary and data.shop.get("location") == "shop":
 		return absf(data.player[0]-40.0) < 4.8 and data.player[2] > -5.3 and data.player[2] < 5.3 and data.player[1] >= 0 and data.player[1] < 3
-	return absf(data.player[0]) < 6.8 and data.player[2] > -5.8 and data.player[2] < 8.8 and data.player[1] >= -0.1 and data.player[1] < 3.0
+	return absf(data.player[0]) < 6.8 and data.player[2] > -11.8 and data.player[2] < 8.8 and data.player[1] >= -0.1 and data.player[1] < 3.0
 
 func _save_valid() -> bool:
 	var data: Variant = _read_save()
@@ -886,6 +887,8 @@ func _load_save() -> void:
 	last_target = str(data.get("last_target",""))
 	checkpoint = data.duplicate(true)
 	player.position = Vector3(data.player[0],data.player[1],data.player[2])
+	if not (data.get("shop") is Dictionary and data.shop.get("location") == "shop"):
+		player.position = house.safe_player_position(player.position,player.get_rid())
 	player.body.rotation.y = data.yaw
 	player.head.rotation.x = data.pitch
 	player.velocity = Vector3.ZERO

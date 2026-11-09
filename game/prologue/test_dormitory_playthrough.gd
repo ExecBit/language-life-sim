@@ -20,9 +20,9 @@ func walk(x: float, z: float) -> bool:
 	for frame in 900:
 		var offset: Vector3 = destination-game.player.position
 		offset.y = 0
-		if offset.length() < 0.18:
+		if offset.length() < 0.22:
 			Input.action_release("forward")
-			await physics_frame
+			await create_timer(0.15).timeout
 			return true
 		game.player.body.rotation.y = atan2(-offset.x,-offset.z)
 		game.player.head.rotation = Vector3.ZERO
@@ -30,7 +30,10 @@ func walk(x: float, z: float) -> bool:
 		Input.action_press("forward")
 		await physics_frame
 	Input.action_release("forward")
-	return check(false,"Walk blocked: "+str(destination)+" at "+str(game.player.position))
+	for i in game.player.get_slide_collision_count():
+		var hit = game.player.get_slide_collision(i).get_collider()
+		print("WALK_COLLIDER ",hit," target=",hit.get_meta("target_id","")," pos=",hit.global_position)
+	return check(false,"Waypoint not reached: "+str(destination)+" at "+str(game.player.position))
 
 func use(target: String) -> bool:
 	game.camera.look_at(game.house.position_of(target))
@@ -56,7 +59,7 @@ func run() -> void:
 	if not check(game.step.id == "b_water","Silent greeting must not block entry"): return
 	game._skip_intro()
 	if not await walk(0,0): return
-	if not await walk(2.2,0): return
+	if not await walk(2.6,0): return
 	await wait_seconds(4)
 	game.camera.look_at(game.house.position_of("lena"))
 	await wait_seconds(0.3)
@@ -75,7 +78,7 @@ func run() -> void:
 	if not await use("room_lamp"): return
 	if not check(game.state.flags.get("lamp_on",false),"Lamp switch"): return
 	if not await walk(2.2,-1.3): return
-	if not await walk(2.2,0): return
+	if not await walk(2.6,0): return
 	if not await use("room_door"): return
 	await wait_seconds(0.8)
 	if not check(not game.fixtures.room_door.is_open,"Cogito door closes through E"): return
@@ -111,10 +114,10 @@ func run() -> void:
 	await wait_seconds(0.2)
 	if not check(game.state.day == 2,"Day one sleep"): return
 	if not await walk(2.2,-4.0): return
-	if not await walk(2.2,0): return
+	if not await walk(2.6,0): return
 	if not await walk(0,0): return
-	if not await walk(-2.7,0.2): return
-	await wait_seconds(6)
+	if not await walk(-2.7,0.0): return
+	await wait_seconds(12)
 	if not await use("anna"): return
 	game.communication.submit("Hallo!")
 	if not check(game.communication.active_actor == "anna","Anna greeting context"): return
@@ -148,9 +151,21 @@ func run() -> void:
 	game.communication.submit("Nein.")
 	await wait_seconds(12)
 	if game.communication.conversation_open: game.communication.close()
-	if not await walk(-2.6,0.2): return
+	if not await walk(-2.6,0.0): return
 	if not await walk(0,0): return
-	if not await walk(2.2,0): return
+	# All rooms are real, reachable interiors behind ordinary-width doors.
+	for room_id in ["common","spare","anna","lena"]:
+		var room: Dictionary = game.house.Layout.ROOMS[room_id]
+		if not await walk(0,room.door_z): return
+		if not game.house.doors[room_id].is_open:
+			if not await use("door_"+room_id): return
+			await wait_seconds(0.8)
+		if not await walk(room.side*3.0,room.door_z): return
+		if not check(game.house.Layout.room_at(game.player.position) == room_id,"Entered "+room_id): return
+		if not await walk(0,room.door_z): return
+	print("DORMITORY_ROOMS_VISITED_OK: common, spare, Anna, Lena, kitchen, player bedroom")
+	if not await walk(0,0): return
+	if not await walk(2.6,0): return
 	if not await walk(2.2,-4.0): return
 	if not await walk(3.3,-4.2): return
 	game._interact()

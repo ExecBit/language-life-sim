@@ -13,27 +13,30 @@ var deposit: Button
 
 func _ready() -> void:
 	var h = controller.house
-	room_door = CogitoDoor.new()
-	room_door.position = Vector3(1.1,0,-1.0)
-	room_door.open_rotation = Vector3(0,-90,0)
-	room_door.door_speed = 5.0
-	room_door.forced_rotation_axis = CogitoDoor.ForcedRotationAxis.AxisY
-	h.add_child(room_door)
-	var leaf = h.body("room_door",Vector3(0,1.2,1),Vector3(0.12,2.4,2),room_door)
-	h.furniture.room_door = leaf
-	h.visual(leaf,BoxMesh.new(),Vector3.ZERO,Vector3(0.12,2.4,2),Color("967550"))
-	h.visual(leaf,SphereMesh.new(),Vector3(-0.1,0,0.65),Vector3.ONE*0.09,Color("e3c477"))
-	room_door.door_state_changed.connect(func(value): controller.state.flags.room_door_open = value; controller._save())
-	h.box(Vector3(1.1,1.6,-1.5),Vector3(0.2,3.2,1.0),Color("dfddd2"))
-	h.box(Vector3(1.1,1.6,1.25),Vector3(0.2,3.2,0.5),Color("dfddd2"))
-	h.box(Vector3(1.1,2.8,0),Vector3(0.2,0.8,3.0),Color("dfddd2"))
-	# Closed neighbors' rooms establish the dormitory without additional interiors.
-	for pair in [["Anna",-0.0],["02",-3.0]]:
-		h.box(Vector3(pair[1],1.15,-5.84),Vector3(0.85,2.3,0.12),Color("766851"),false)
+	for id in h.Layout.ROOMS:
+		var data: Dictionary = h.Layout.ROOMS[id]
+		var door := CogitoDoor.new()
+		var side: float = data.side
+		door.position = Vector3(side*1.1,0,data.door_z-side*0.45)
+		door.open_rotation = Vector3(0,90,0)
+		door.door_speed = 5.0
+		door.forced_rotation_axis = CogitoDoor.ForcedRotationAxis.AxisY
+		h.add_child(door)
+		var target: String = "room_door" if id == "bedroom" else "door_"+id
+		var leaf = h.body(target,Vector3(0,1.05,side*0.45),Vector3(0.08,2.1,0.9),door)
+		h.furniture[target] = leaf
+		h.doors[id] = door
+		h.visual(leaf,BoxMesh.new(),Vector3.ZERO,Vector3(0.08,2.1,0.9),Color("967550"))
+		h.visual(leaf,SphereMesh.new(),Vector3(-side*0.08,0,side*0.3),Vector3.ONE*0.07,Color("e3c477"))
+		var flag: String = "room_door_open" if id == "bedroom" else "door_open:"+id
+		door.door_state_changed.connect(func(value): controller.state.flags[flag] = value; controller._save())
+		if id == "bedroom": room_door = door
 		var label := Label3D.new()
-		label.text = pair[0]
-		label.position = Vector3(pair[1],1.65,-5.74)
-		label.font_size = 36
+		label.text = data.label
+		label.position = Vector3(side*0.98,2.25,data.door_z)
+		label.rotation.y = -side*PI/2
+		label.font_size = 26
+		label.pixel_size = 0.002
 		h.add_child(label)
 	lamp = CogitoSwitch.new()
 	var light := OmniLight3D.new()
@@ -92,15 +95,21 @@ func _ready() -> void:
 	panel.hide()
 
 func sync() -> void:
-	room_door.is_open = controller.state.flags.get("room_door_open",false)
-	room_door.is_moving = false
-	room_door.set_state()
+	for id in controller.house.doors:
+		var door = controller.house.doors[id]
+		var flag: String = "room_door_open" if id == "bedroom" else "door_open:"+id
+		door.is_open = controller.state.flags.get(flag,false)
+		door.is_moving = false
+		door.set_state()
 	if controller.state.flags.get("lamp_on",false) != lamp.is_on:
 		if controller.state.flags.get("lamp_on",false): lamp.switch_on()
 		else: lamp.switch_off()
 	refresh()
 
 func interact(target: String) -> bool:
+	if target.begins_with("door_") and controller.house.doors.has(target.trim_prefix("door_")):
+		controller.house.doors[target.trim_prefix("door_")].interact(controller.player.player_interaction_component)
+		return true
 	match target:
 		"room_door": room_door.interact(controller.player.player_interaction_component)
 		"room_lamp": lamp.interact(controller.player.player_interaction_component)
