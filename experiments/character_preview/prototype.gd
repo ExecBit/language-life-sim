@@ -250,7 +250,7 @@ func _build_ui() -> void:
 	root.add_child(motion_panel)
 	var motion_box := VBoxContainer.new()
 	motion_panel.add_child(motion_box)
-	motion_box.add_child(_label("MOTIFECT / 70 КЛИПОВ", 23))
+	motion_box.add_child(_label("MOTIFECT / %d КЛИПОВ" % lena_visual.visual.Catalog.SCENES.size(), 23))
 	motion_pack = OptionButton.new()
 	motion_pack.add_theme_font_override("font", ThemeDB.fallback_font)
 	motion_pack.add_theme_font_size_override("font_size", 20)

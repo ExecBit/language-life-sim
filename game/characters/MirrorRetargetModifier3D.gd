@@ -2,7 +2,7 @@ class_name MirrorRetargetModifier3D
 extends SkeletonModifier3D
 ## Retargets the pose of the parent Skeleton3D (source rig) onto a child
 ## Skeleton3D (target VRM), accounting for the fact that the two skeletons use
-## OPPOSITE forward conventions (the Quaternius rig faces +Z, the VRM faces -Z).
+## OPPOSITE forward conventions (the Motifect source rig faces +Z, the VRM faces -Z).
 ##
 ## Why not RetargetModifier3D? Its rest-aware math assumes both skeletons share
 ## the same bone-orientation conventions. For opposite-facing skeletons the

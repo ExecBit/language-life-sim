@@ -16,8 +16,8 @@ Other dependency directories are `godot_state_charts`, `input_helper`, `quick_au
 
 ## Motifect animations
 
-`assets/animations/motifect/` contains the Daily Life and Emotes & Social packs, with original README notices: free personal/commercial use in projects; no redistribution/resale of raw animations as a standalone product. They are included as game resources, not sold as an animation pack. Sources: https://motifect.itch.io/motifect-daily-life-motion-pack and https://motifect.itch.io/motifect-emotes-social-motion-pack.
+`assets/animations/motifect/` contains the Daily Life, Emotes & Social, and Locomotion packs. Their original README notices are retained beside the FBX files: free use in personal/commercial games and interactive projects; no redistribution/resale of raw animations as a standalone product. The clips are included as game resources, not sold as an animation pack. Sources: https://motifect.itch.io/motifect-daily-life-motion-pack, https://motifect.itch.io/motifect-emotes-social-motion-pack, and https://motifect.itch.io/motifect-locomotion-motion-pack.
 
-`game/characters/calm_idle.tres` and `game/prologue/walk.tres` are existing adapted animation resources from the source project. The existing bake script references Cogito's Quaternius Universal Animation Library; retain its attribution when shipping.
+The MVP's standing idle and prologue walk use `idle_neutral` and `walk_forward` from Motifect Locomotion through the shared retarget adapter. Quaternius's bundled library remains inside the Cogito dependency, but the MVP no longer references it for character animation.
 
 House/shop geometry and SVG item icons are existing project-authored prototype resources. Cache files, downloads, logs and the old local prototype backup are not versioned.
