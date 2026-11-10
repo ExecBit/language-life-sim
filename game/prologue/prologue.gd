@@ -17,8 +17,8 @@ var shopping: Node
 const PREVIOUS_SAVE := "user://language_life_prologue_v3.json"
 const LEGACY_SAVE := "user://language_life_prologue_v2.json"
 const SETTINGS := "user://language_life_prologue_settings.cfg"
-const NAMES := {"lena":"Лена","player":"Вы","":""}
-const GOALS := {"A":"Познакомьтесь с Леной и войдите в дом.","B":"Ответьте на предложение воды.","C":"Поставьте дорожную сумку у кровати и заберите ключ со стола.","D":"Осмотритесь, поговорите с Леной по желанию. Когда будете готовы — ложитесь спать.","E":"Наступает утро.","F":"Лена готовит завтрак. Можно обратиться к ней или заняться своими делами; выход доступен.","G":"Ваша полка для продуктов пока пуста. Когда будете готовы — выходите из дома.","END":"Пролог завершён."}
+const NAMES := {"lena":"Лена","anna":"Анна","player":"Вы","":""}
+const GOALS := {"A":"Познакомьтесь с Леной и войдите в дом.","B":"Ответьте на предложение воды.","C":"Поставьте дорожную сумку у кровати и заберите ключ со стола.","D":"Осмотритесь, поговорите с Леной по желанию. Когда будете готовы — ложитесь спать.","E":"Наступает утро.","F":"Лена готовит завтрак. Можно помочь, отказаться или пройти мимо.","G":"Исследуйте дом, поздоровайтесь с Анной или попросите у неё воды. E у кровати завершает день.","END":"День 2 завершён. Это точка продолжения пролога."}
 
 var state = State.new()
 var steps: Array[Dictionary] = Story.build()
@@ -51,6 +51,8 @@ var last_target := ""
 var talking := false
 var cooking_autosave := 0.0
 var cooking_away := 0.0
+var fixtures: Node
+var life: Node
 
 func _ready() -> void:
 	preload("res://game/save_migration.gd").import_previous()
@@ -75,21 +77,27 @@ func _ready() -> void:
 	ui.setting_changed.connect(_setting)
 	if start_in_shop:
 		for label in ui.menu.find_children("*","Label",true,false):
-			if label.text == "ЗАСЕЛЕНИЕ": label.text = "ПЕРВЫЕ ПОКУПКИ"
-			elif label.text == "Language Life · Уровень 1": label.text = "Language Life · Уровень 2"
+			if label.text in ["ЗАСЕЛЕНИЕ","ОБЩЕЖИТИЕ"]: label.text = "ПЕРВЫЕ ПОКУПКИ"
+			elif label.text in ["Language Life · Уровень 1","Пролог · Дни 1–2"]: label.text = "Language Life · Уровень 2"
 	shopping = Shopping.new()
 	shopping.controller = self
 	add_child(shopping)
 	communication = Communication.new()
 	communication.controller = self
 	add_child(communication)
+	fixtures = preload("res://game/prologue/dormitory_fixtures.gd").new()
+	fixtures.controller = self
+	add_child(fixtures)
+	life = preload("res://game/prologue/dormitory_life.gd").new()
+	life.controller = self
+	life.process_mode = Node.PROCESS_MODE_PAUSABLE
+	add_child(life)
 	_register_inputs()
 	_load_settings()
 	_layout(true)
 	house.sync_items(state,held)
 	InputRouter.push(_input_event)
 	_show_menu()
-	if "--prologue-smoke" in OS.get_cmdline_user_args(): _smoke.call_deferred()
 	if "--prologue-preview" in OS.get_cmdline_user_args(): _preview.call_deferred()
 
 func _exit_tree() -> void:
@@ -106,6 +114,17 @@ func _register_inputs() -> void:
 		InputMap.action_add_event(action,key)
 
 func _input_event(event: InputEvent) -> void:
+	if fixtures != null and initialized and not menu_active and not paused:
+		if event is InputEventKey and event.pressed and not event.echo:
+			if fixtures.mode != "":
+				if event.keycode in [KEY_I,KEY_ESCAPE]: fixtures.close()
+				elif event.keycode == KEY_H:
+					fixtures.close()
+					communication.toggle_helper()
+				return
+			if event.keycode == KEY_I and not communication.conversation_open:
+				fixtures.open("player_pocket")
+				return
 	if communication != null and communication.input(event): return
 	if event is InputEventKey and event.echo: return
 	if event.is_action_pressed("prologue_pause"):
@@ -117,6 +136,9 @@ func _input_event(event: InputEvent) -> void:
 		shopping.input(event)
 		return
 	if state.finished and not exploration: return
+	if event.is_action_pressed("prologue_cancel") and step.get("id","") in ["a_greeting","b_water"] and not communication.conversation_open:
+		_skip_intro()
+		return
 	if event.is_action_pressed("prologue_cancel") and not selecting and not choosing_subject and state.day == 2 and state.cooking.get("status","") in ["offered","accepted"]:
 		_cancel_cooking("cancelled")
 		return
@@ -158,6 +180,8 @@ func _controls() -> void:
 
 func _start_new() -> void:
 	if communication != null: communication.reset()
+	if fixtures != null: fixtures.close()
+	life.reset()
 	state = State.new()
 	if shopping != null: shopping.reset()
 	talking = false
@@ -198,6 +222,8 @@ func _start_new() -> void:
 	ui.notify("Осмотритесь. WASD — движение, E — взаимодействие. J — текущая цель.")
 
 func _command(id: String) -> void:
+	if id == "fixture_close": fixtures.close(); return
+	if id == "fixture_deposit": fixtures.put_held(); return
 	if shopping != null and shopping.handle_command(id): return
 	if id.begins_with("answer:"):
 		_answer(id.trim_prefix("answer:"))
@@ -254,10 +280,12 @@ func _command(id: String) -> void:
 			_controls()
 
 func _show_menu() -> void:
+	if fixtures != null and fixtures.mode != "": fixtures.close()
 	if communication != null: communication.suspend()
 	menu_active = true
 	paused = false
 	ui.menu.show()
+	ui.chapter.text = "Пролог · Общежитие · Дни 1–2" if not start_in_shop else "Первые покупки"
 	ui.pause_panel.hide()
 	ui.settings.hide()
 	ui.complete_panel.hide()
@@ -302,14 +330,18 @@ func _enter_step(instant := false) -> void:
 	_layout(instant)
 	house.sync_items(state,held)
 	house.set_period(state.period)
+	fixtures.sync()
 	house.door.rotation.y = -PI/2 if state.flags.get("door_open",false) else 0.0
 	house.door_collision.disabled = state.flags.get("door_open",false)
 	if shopping != null and shopping.active():
 		for actor in house.actors.values(): actor.attention.hide()
 		return
-	ui.chapter.text = "Заселение · День %d · %s" % [state.day,{"day":"день","evening":"вечер","morning":"утро"}[state.period]]
+	ui.chapter.text = "Общежитие · День %d · %s" % [state.day,{"day":"день","evening":"вечер","morning":"утро"}[state.period]]
 	for actor in house.actors.values(): actor.attention.hide()
 	var speaker := str(step.get("speaker",""))
+	if house.actors.has("anna"):
+		house.actors.anna.visible = state.day >= 2
+		house.actors.anna.collision_layer = 1 if state.day >= 2 else 0
 	if house.actors.has(speaker):
 		house.actors[speaker].attention.show()
 		var recipient := str(step.get("to","player"))
@@ -319,6 +351,7 @@ func _enter_step(instant := false) -> void:
 		if communication == null or not communication.enabled(): house.actors[speaker].face(look)
 	if step.has("point"): _point(str(step.point))
 	if step.has("gesture") and house.actors.has(speaker): house.actors[speaker].gesture(str(step.gesture))
+	life.enter_step()
 	_show_dialog()
 	pointer = false
 	_controls()
@@ -335,10 +368,10 @@ func _layout(instant := false) -> void:
 	var id := str(steps[state.index].id)
 	var destination := Vector3(-3.8,0,-1)
 	if phase == "A" and id != "a_enter": destination = Vector3(-0.55,0,4)
-	elif phase in ["C","D"]: destination = Vector3(3.2,0,-1)
+	elif phase in ["C","D"]: destination = Vector3(5.6,0,-1.65)
 	if phase == "D" and state.flags.get("said_bye",false): destination = Vector3(-3.8,0,-1)
 	if state.day == 2 and state.cooking.get("activity","") != "finished": destination = Vector3(-4,0,-1.5)
-	if id == "f_self_walk": destination = Vector3(-5.7,0,1.8)
+	if id == "f_self_walk": destination = Vector3(-5.1,0,-0.9)
 	# Keep an existing route running across consecutive lines in the same room.
 	var actor = house.actors.lena
 	if instant or not actor.has_meta("destination") or actor.get_meta("destination") != destination:
@@ -506,6 +539,22 @@ func _interact() -> void:
 			return
 		if _target() == "lena": communication.reopen()
 	var target := _target()
+	if fixtures.interact(target): return
+	if (step.id == "a_greeting" and player.position.z < 2.8) or (step.id == "b_water" and player.position.x > 1.5):
+		_skip_intro()
+	if target == "anna" and state.day == 2 and not state.finished:
+		if player.position.distance_to(house.actors.anna.position) > 4.5:
+			ui.notify("Подойдите к Анне, чтобы обратиться к ней.")
+			return
+		state.flags.anna_met = true
+		var greeting: String = life.anna_greeting()
+		communication.open_for("anna",greeting)
+		_save()
+		return
+	if target == "bottle":
+		if state.items.get("cup") != "player": ui.notify("Возьмите чашку, чтобы попить.")
+		else: life.drink()
+		return
 	if selecting:
 		if house.items.has(target) and state.items.get(target) not in ["player","lena"]:
 			selecting = false
@@ -516,7 +565,14 @@ func _interact() -> void:
 			_show_dialog()
 		else: ui.notify("Наведитесь на видимый доступный предмет. Backspace — отмена.")
 		return
-	if step.get("wait","") == "optional" and (target == "bed" or Vector2(player.position.x-3.3,player.position.z+4.6).length() < 1.2):
+	if state.day == 2 and Vector2(player.position.x-3.3,player.position.z+4.6).length() < 1.2 and not state.finished:
+		if state.cooking.get("activity","") != "finished":
+			if state.cooking.get("status","") in ["available","offered","accepted"]: _cancel_cooking("sleep")
+			if state.items.bread == "lena": state.transfer("bread","lena","breakfast_table")
+			state.finish_without_loaf()
+		state.index = _step_index("g_ready")
+		_enter_step()
+	if step.get("wait","") in ["optional","sleep_end"] and (target == "bed" or Vector2(player.position.x-3.3,player.position.z+4.6).length() < 1.2):
 		# Farewell is offered, never required to unlock sleep.
 		_advance()
 		return
@@ -551,7 +607,7 @@ func _object_action(target: String) -> bool:
 			if surface not in state.items.values():
 				target = surface
 				break
-	if house.items.has(target) and state.items.get(target) not in ["lena","player"]:
+	if house.items.has(target) and state.items.get(target) not in ["lena","anna","player","player_pocket"]:
 		if not item.is_empty():
 			ui.notify("Рука занята. Поставьте предмет на свободную поверхность: E.")
 			return false
@@ -578,6 +634,9 @@ func _check_object_progress() -> void:
 func _advance(choice := "",payload := "") -> bool:
 	var old := step.duplicate(true)
 	if not state.complete(old,choice,payload): return false
+	if old.get("wait","") in ["optional","sleep_end"]:
+		life.stop_drink()
+		life.settle_handoff()
 	if communication != null: communication.before_transition(old.id == "f_arrival")
 	if old.id == "f_offer" and choice == "no": talking = false
 	if old.get("wait","") == "optional":
@@ -613,6 +672,8 @@ func _point(target: String) -> void:
 
 func _process(delta: float) -> void:
 	if menu_active or paused or automated or (communication != null and communication.helper.visible): return
+	if fixtures.mode != "": return
+	life.tick(delta)
 	if communication != null and communication.enabled() and communication.conversation_open: return
 	if shopping != null and shopping.active():
 		_tick_cooking(delta)
@@ -628,12 +689,13 @@ func _process(delta: float) -> void:
 		return
 	if state.day == 2:
 		_tick_cooking(delta)
-		if not state.finished:
+		if not state.finished and step.get("wait","") == "exit":
 			var exit: Vector3 = house.zones.exit
 			if Vector2(player.position.x-exit.x,player.position.z-exit.z).length() < 1.05:
 				_finish_level()
 				return
 	if exploration or state.finished: return
+	if (step.id == "a_greeting" and player.position.z < 2.8) or (step.id == "b_water" and player.position.x > 1.5): _skip_intro()
 	var target := _target()
 	ui.prompt.text = ""
 	if selecting:
@@ -642,14 +704,22 @@ func _process(delta: float) -> void:
 	if state.held("player") != "" and (house.anchors.has(target) or target.begins_with("table_")): ui.prompt.text = "E — поставить предмет"
 	elif target in ["bag","cup","room_key"] or (target == "bread" and state.day == 2): ui.prompt.text = "E — взять предмет"
 	elif target == "lena": ui.prompt.text = "E — передать хлеб" if step.get("wait","") == "give" and state.held("player") == "bread" else "E — обратиться · H — слова · Tab — курсор"
+	elif target.begins_with("door_"): ui.prompt.text = "E — открыть / закрыть дверь"
+	elif target in ["room_door","drawer","room_lamp"]: ui.prompt.text = {"room_door":"E — открыть / закрыть дверь","drawer":"E — тумба · I — карман","room_lamp":"E — включить / выключить свет"}[target]
+	elif target == "anna" and state.day == 2: ui.prompt.text = "E — поздороваться / обратиться"
+	elif target == "bottle" and state.day == 2: ui.prompt.text = "E — выпить воды" if state.items.get("cup") == "player" else "Сначала нужна чашка"
+	if step.id in ["a_greeting","b_water"]: ui.prompt.text += " · Backspace — продолжить заселение"
 	var wait := str(step.get("wait",""))
+	if state.day == 2 and Vector2(player.position.x-3.3,player.position.z+4.6).length() < 1.2: ui.prompt.text = "E — лечь спать"
 	if wait in ["near","exit"]:
 		var zone: Vector3 = house.zones[str(step.target)]
-		if Vector2(player.position.x-zone.x,player.position.z-zone.z).length() < 1.05:
-			if wait == "exit" or _visible_actor("lena"): _advance()
+		if Vector2(player.position.x-zone.x,player.position.z-zone.z).length() < 1.05 or (str(step.target) == "bedroom" and player.position.x > 1.4):
+			if wait == "exit" or (str(step.target) == "bedroom" and not house.actors.lena.walking) or _visible_actor("lena"): _advance()
 	elif wait == "cooking": pass
 	elif wait in ["npc_take","npc_place"]: pass
 	elif wait in ["stored","owned"]: _check_object_progress()
+	elif wait == "sleep_end":
+		if Vector2(player.position.x-3.3,player.position.z+4.6).length() < 1.2: ui.prompt.text = "E — завершить день"
 	elif wait == "optional":
 		if Vector2(player.position.x-3.3,player.position.z+4.6).length() < 1.2:
 			ui.prompt.text = "E — лечь спать"
@@ -666,6 +736,15 @@ func _process(delta: float) -> void:
 	elif wait == "" and step.get("answers",[]).is_empty() and _visible_actor("lena"):
 		elapsed += delta
 		if elapsed > 2.8: _advance()
+
+func _skip_intro() -> void:
+	if step.id not in ["a_greeting","b_water"]: return
+	if communication.conversation_open: communication.close()
+	state.flags[str(step.id)+":choice"] = "skipped"
+	if str(step.id) not in state.completed: state.completed.append(str(step.id))
+	state.index = _step_index("b_water" if step.id == "a_greeting" else "c_follow")
+	_enter_step()
+	_save()
 
 func _step_index(id: String) -> int:
 	for i in steps.size():
@@ -784,7 +863,7 @@ func _valid_pose(data: Dictionary) -> bool:
 		if not (data.get(key) is float or data.get(key) is int) or not is_finite(float(data[key])): return false
 	if data.get("shop") is Dictionary and data.shop.get("location") == "shop":
 		return absf(data.player[0]-40.0) < 4.8 and data.player[2] > -5.3 and data.player[2] < 5.3 and data.player[1] >= 0 and data.player[1] < 3
-	return absf(data.player[0]) < 6.8 and data.player[2] > -5.8 and data.player[2] < 8.8 and data.player[1] >= -0.1 and data.player[1] < 3.0
+	return absf(data.player[0]) < 6.8 and data.player[2] > -15.3 and data.player[2] < 8.8 and data.player[1] >= -0.1 and data.player[1] < 3.0
 
 func _save_valid() -> bool:
 	var data: Variant = _read_save()
@@ -798,6 +877,8 @@ func _load_save() -> void:
 	if not data is Dictionary or not candidate.restore(data,steps.size()) or not _valid_shopping(data,candidate) or not _valid_pose(data):
 		ui.notify("Сохранение отсутствует, повреждено или несовместимо. Оно не изменено.")
 		return
+	fixtures.close()
+	life.reset()
 	state = candidate
 	talking = state.day == 2 and state.cooking.get("status","") in ["offered","accepted"]
 	cooking_autosave = 0.0
@@ -806,6 +887,8 @@ func _load_save() -> void:
 	last_target = str(data.get("last_target",""))
 	checkpoint = data.duplicate(true)
 	player.position = Vector3(data.player[0],data.player[1],data.player[2])
+	if not (data.get("shop") is Dictionary and data.shop.get("location") == "shop"):
+		player.position = house.safe_player_position(player.position,player.get_rid())
 	player.body.rotation.y = data.yaw
 	player.head.rotation.x = data.pitch
 	player.velocity = Vector3.ZERO
@@ -866,147 +949,6 @@ func _load_settings() -> void:
 		_setting(key,value)
 		var slider := ui.settings.find_child(key,true,false) as Range
 		if slider: slider.set_value_no_signal(value)
-
-func _smoke() -> void:
-	automated = true
-	for combination in [[true,true],[true,false],[false,true],[false,false]]:
-		var accept: bool = combination[0]
-		var breakfast: bool = combination[1]
-		_start_new()
-		assert(house.actors.size() == 1 and not house.actors.has("max"))
-		assert(state.items.bag == "entrance_bag" and state.held("player") == "")
-		assert(_advance()) # door
-		await _aim_at("lena")
-		_answer("hello")
-		_enter_step(true)
-		assert(_advance()) # enter
-		await _aim_at("lena")
-		_answer("yes" if accept else "no")
-		assert(state.items.cup == ("player" if accept else "tray"))
-		_enter_step(true)
-		var before: Dictionary = state.items.duplicate()
-		_answer("repeat")
-		assert(state.items == before and _line() == "Komm!")
-		_answer("show")
-		assert(state.items == before and house.pointer_target == "bedroom")
-		assert(_advance()) # follow
-		if accept:
-			assert(not _object_action("bag"))
-			await _aim_at("surface_room")
-			assert(_target() == "surface_room")
-			_interact()
-			assert(state.items.cup == "surface_room")
-		await _aim_at("bag")
-		assert(_target() == "bag")
-		_interact()
-		assert(state.items.bag == "player")
-		await _aim_at("bag_stand")
-		assert(_target() == "bag_stand")
-		_interact()
-		assert(step.id == "c_key" and state.items.room_key == "key_tray")
-		await _aim_at("room_key")
-		assert(_target() == "room_key")
-		_interact()
-		assert(step.id == "c_welcome" and state.items.room_key == "player")
-		if accept:
-			await _aim_at("lena")
-			_answer("thanks")
-			_answer("what")
-			assert(selecting and not pointer and not player.is_movement_paused)
-			_set_pause(true)
-			assert(selecting and paused)
-			_set_pause(false)
-			_cancel_target()
-			assert(not selecting and not pointer)
-			_answer("what")
-			await _aim_at("bell")
-			assert(_target() == "bell")
-			_interact()
-			assert(not selecting and _line() == "Eine Glocke.")
-		var objects: Dictionary = state.items.duplicate()
-		_take_checkpoint()
-		assert(_save())
-		_load_save()
-		assert(state.items == objects and step.id == "c_welcome")
-		player.position = Vector3(3.3,0.9,-4.6)
-		_interact()
-		objects.room_key = "nightstand"
-		assert(state.day == 2 and step.id == "f_arrival" and state.items == objects)
-		assert(state.held("player") == "")
-		_take_checkpoint()
-		assert(_save())
-		_load_save()
-		assert(state.day == 2 and state.items == objects)
-		_layout(true)
-		await _aim_at("lena")
-		assert(step.id == "f_arrival" and state.cooking.status == "available")
-		assert(not ui.dialog.visible and not player.is_movement_paused)
-		_interact()
-		assert(step.id == "f_offer" and state.cooking.status == "offered")
-		await _aim_at("lena")
-		var bread_id: int = house.items.bread.get_instance_id()
-		_answer("yes" if breakfast else "no")
-		_enter_step(true)
-		if breakfast:
-			assert(step.id == "f_take")
-			var before_help: Dictionary = state.items.duplicate()
-			_answer("repeat")
-			assert(_line() == "Nimm das Brot, bitte." and state.items == before_help)
-			_answer("show")
-			assert(house.pointer_target == "bread" and state.items == before_help)
-			await _aim_at("bread")
-			assert(_target() == "bread")
-			_interact()
-			assert(step.id == "f_give" and state.items.bread == "player")
-			assert(not state.transfer("cup",str(state.items.cup),"player"))
-			_take_checkpoint()
-			assert(_save())
-			_load_save()
-			assert(step.id == "f_give" and state.items.bread == "player")
-			var before_give: Dictionary = state.items.duplicate()
-			_answer("repeat")
-			assert(_line() == "Gib es mir, bitte." and state.items == before_give)
-			_answer("show")
-			assert(house.pointer_target == "lena" and state.items == before_give)
-			await _aim_at("lena")
-			assert(_target() == "lena")
-			_interact()
-			assert(step.id == "f_place" and state.items.bread == "lena")
-			assert(house.items.bread.get_parent() == house.actors.lena.hand)
-			_answer("morning_welcome")
-			_tick_breakfast(3.3)
-			assert(state.flags.nimm_usage == "assisted" and state.flags.gib_usage == "assisted")
-		else:
-			assert(step.id == "f_self_walk")
-			_tick_breakfast(1.3)
-			assert(step.id == "f_self_return" and state.items.bread == "lena")
-			# A route still in motion cannot place the loaf remotely.
-			_tick_breakfast(10.0)
-			assert(step.id == "f_self_return")
-			_take_checkpoint()
-			assert(_save())
-			_load_save()
-			assert(step.id == "f_self_return" and state.items.bread == "lena")
-			_tick_breakfast(1.3)
-			assert(not state.flags.has("nimm_usage") and not state.flags.has("gib_usage"))
-		assert(step.id == "g_ready" and state.flags.breakfast_done)
-		assert(state.flags.breakfast_result == ("helped" if breakfast else "declined"))
-		assert(state.items.bread == "breakfast_table" and state.items.room_key == "nightstand")
-		assert(house.items.bread.get_instance_id() == bread_id)
-		assert(house.items.bread.get_parent() == house.anchors.breakfast_table)
-		_take_checkpoint()
-		assert(_save())
-		_load_save()
-		assert(step.id == "g_ready" and state.flags.breakfast_done)
-		assert(_advance())
-		assert(state.finished)
-		_take_checkpoint()
-		assert(_save())
-		_load_save()
-		assert(state.finished and step.id == "complete")
-		print("PROLOGUE_DAY2_WORLD_ROUTE_OK water=",accept," breakfast=",breakfast)
-	print("PROLOGUE_DAY2_WORLD_ALL_OK")
-	get_tree().quit()
 
 func _aim_at(target: String) -> void:
 	var point: Vector3 = house.position_of(target)

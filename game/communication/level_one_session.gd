@@ -6,9 +6,11 @@ const Composer = preload("res://game/communication/word_composer.gd")
 const Helper = preload("res://game/communication/helper_catalog.gd")
 const Attention = preload("res://game/communication/speaker_attention.gd")
 var attention = Attention.new()
-const OBJECTS := {"key":"room_key","bag":"bag","cup":"cup","bread":"bread","bell":"bell","room":"bedroom"}
-const SEMANTICS := {"room_key":"key","bag":"bag","cup":"cup","bread":"bread","bell":"bell","bedroom":"room"}
-const IDENTIFY := {"room_key":"Ein Schlüssel.","bag":"Eine Tasche.","cup":"Eine Tasse.","bread":"Ein Brot.","bell":"Eine Glocke.","bedroom":"Dein Zimmer."}
+const Residents = preload("res://game/prologue/residents.gd")
+const OBJECTS = Residents.OBJECTS
+const SEMANTICS = Residents.SEMANTICS
+const IDENTIFY = Residents.IDENTIFY
+
 var controller: Node3D
 var composer: VBoxContainer
 var helper: PanelContainer
@@ -30,6 +32,8 @@ var subtitle: Label
 var subtitle_time := 0.0
 var held_tween: Tween
 var held_heading := 0.0
+var active_actor := "lena"
+var external_line := ""
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -84,7 +88,7 @@ func blocks_movement() -> bool:
 	return enabled() and (helper.visible or (conversation_open and not selecting))
 
 func sync_actor() -> void:
-	var actor = controller.house.actors.lena
+	var actor = controller.house.actors.get(active_actor,controller.house.actors.lena)
 	if is_instance_valid(held_tween) and (actor.moving != held_tween or not held_tween.is_valid()): held_tween = null
 	if enabled() and conversation_open:
 		if is_instance_valid(actor.moving) and actor.moving.is_running() and not is_instance_valid(held_tween):
@@ -105,6 +109,8 @@ func reset() -> void:
 	composer.opener_key = 0
 	attention.stop()
 	conversation_open = false
+	active_actor = "lena"
+	external_line = ""
 	sync_actor()
 	subtitle_time = 0.0
 	subtitle_panel.hide()
@@ -174,12 +180,13 @@ func display() -> void:
 	if not enabled(): return
 	# Existing saves already contain exposure events; do not reveal later content.
 	for entry in controller.state.entered:
-		for unit in {"b_water":["water","cup"],"c_bag":["bag"],"c_key":["key"],"f_offer":["bread"],"f_take":["bread"],"g_ready":["market"]}.get(entry,[]):
+		for unit in {"b_water":["water","cup"],"c_bag":["bag"],"c_key":["key"],"f_offer":["bread"],"f_take":["bread"]}.get(entry,[]):
 			controller.state.flags["comm_seen_"+unit] = true
 	controller.ui.answers.hide()
 	controller.ui.answer_ids.clear()
 	controller.ui.dialog.offset_top = -355
-	var step_id: String = controller.step.id
+	if not external_line.is_empty(): controller.ui.speaker.text = ("Анна" if active_actor == "anna" else "Лена")+" → Вы"
+	var step_id: String = "external:"+active_actor if not external_line.is_empty() else controller.step.id
 	var changed: bool = context.step_id != step_id
 	if changed:
 		composer.clear()
@@ -187,29 +194,55 @@ func display() -> void:
 		closed_step = ""
 		context.pointed_target_id = ""
 	context.step_id = step_id
-	var new_line: bool = changed or context.get("script_line","") != controller._line()
+	var line_text: String = external_line if not external_line.is_empty() else controller._line()
+	var new_line: bool = changed or context.get("script_line","") != line_text
 	if new_line:
-		context.last_utterance = controller._line()
-		context.script_line = controller._line()
+		context.last_utterance = line_text
+		context.script_line = line_text
 	else: controller.ui.line.text = context.last_utterance
+	if new_line: controller.ui.line.text = line_text
 	if changed: context.pending = "offer" if step_id in ["b_water","f_offer"] else ""
-	meet(controller._line(),str(controller.step.get("point","")))
+	meet(line_text,str(controller.step.get("point","")))
 	composer.visible = conversation_open and not selecting and not paused and not helper.visible
 	controller.ui.dialog.visible = composer.visible
-	if new_line and not conversation_open: show_subtitle(controller._line())
-	elif new_line: attention.begin_line(controller._line())
+	if new_line and not conversation_open: show_subtitle(line_text,"Анна" if active_actor == "anna" else "Лена")
+	elif new_line: attention.begin_line(line_text)
 	sync_actor()
 
 func reopen() -> void:
 	if not enabled(): return
+	active_actor = str(controller.step.get("speaker","lena"))
+	external_line = ""
+	context.addressee = active_actor
+	context.speaker = active_actor
 	conversation_open = true
 	controller.talking = true
 	subtitle_panel.hide()
 	closed_step = ""
+	controller._show_dialog()
 	controller.ui.dialog.show()
 	composer.show()
 	composer.prefix.grab_focus()
 	sync_actor()
+	controller._controls()
+	attention.begin(2.0)
+
+func open_for(actor_id: String, line_text: String) -> void:
+	if not enabled() or not controller.house.actors.has(actor_id): return
+	active_actor = actor_id
+	external_line = line_text
+	context.addressee = actor_id
+	context.speaker = actor_id
+	conversation_open = true
+	controller.talking = true
+	subtitle_panel.hide()
+	closed_step = ""
+	controller._show_dialog()
+	controller.ui.dialog.show()
+	composer.show()
+	composer.prefix.grab_focus()
+	controller.house.actors[actor_id].face(controller.player.global_position)
+	controller.house.actors[actor_id].attention.show()
 	controller._controls()
 	attention.begin(2.0)
 
@@ -223,6 +256,8 @@ func before_transition(keep_open := false) -> void:
 	composer.release()
 	composer.hide()
 	context.pending = ""
+	active_actor = "lena"
+	external_line = ""
 
 func pause(value: bool) -> void:
 	if not enabled(): return
@@ -279,7 +314,7 @@ func toggle_helper() -> void:
 		for row in Helper.rows(controller.state.flags):
 			helper_grid.add_child(controller.ui.label(row[1],19))
 			helper_grid.add_child(controller.ui.label(row[2],19))
-		var key: String = str(controller.step.get("id","start"))+":helper"
+		var key: String = str(context.get("step_id",controller.step.get("id","start")))+":helper"
 		controller.state.help[key] = int(controller.state.help.get(key,0))+1
 		composer.release()
 		helper_tree_paused = controller.get_tree().paused
@@ -299,6 +334,11 @@ func close() -> void:
 	controller.ui.dialog.hide()
 	controller.pointer = false
 	controller.talking = false
+	if controller.house.actors.has(active_actor): controller.house.actors[active_actor].attention.hide()
+	active_actor = "lena"
+	external_line = ""
+	context.addressee = "lena"
+	context.speaker = "lena"
 	controller._controls()
 
 func begin_point() -> void:
@@ -324,7 +364,7 @@ func cancel_point() -> void:
 	attention.begin(2.0)
 
 func confirm_point(target: String) -> void:
-	if target == "" or (not controller.house.items.has(target) and not controller.house.anchors.has(target)): return
+	if target == "" or (not controller.house.items.has(target) and not controller.house.anchors.has(target) and not SEMANTICS.has(target)): return
 	if controller.state.items.get(target,"") in ["player","lena"]: return
 	context.pointed_target_id = target
 	selecting = false
@@ -339,7 +379,7 @@ func confirm_point(target: String) -> void:
 
 func reply(text: String) -> void:
 	if conversation_open: attention.begin_line(text)
-	controller.ui.speaker.text = "Лена → Вы"
+	controller.ui.speaker.text = ("Анна" if active_actor == "anna" else "Лена")+" → Вы"
 	controller.ui.line.text = text
 	context.last_utterance = text
 	meet(text)
@@ -349,11 +389,11 @@ func reply(text: String) -> void:
 
 func submit(text: String) -> void:
 	if not enabled() or not conversation_open or helper.visible or controller.menu_active or controller.paused or controller.transition > 0 or text.strip_edges().is_empty(): return
-	if controller.player.position.distance_to(controller.house.actors.lena.position) > 4.5:
+	if not controller.house.actors.has(active_actor) or controller.player.position.distance_to(controller.house.actors[active_actor].position) > 4.5:
 		reply("Komm bitte näher.")
 		return
-	var parse_context := {"active":true,"pending":context.pending,"addressee":"lena",
-		"offer_pending":controller.step.id in ["b_water","f_offer"] and controller.step.id not in controller.state.completed,
+	var parse_context := {"active":true,"pending":context.pending,"addressee":active_actor,
+		"offer_pending":active_actor == "lena" and controller.step.id in ["b_water","f_offer"] and controller.step.id not in controller.state.completed,
 		"pointed_object_id":SEMANTICS.get(context.pointed_target_id,context.pointed_target_id)}
 	var parsed := Parser.parse(text,context.pointed_target_id,parse_context)
 	last_parse = parsed.duplicate(true)
@@ -378,23 +418,26 @@ func resolve(parsed: Dictionary) -> void:
 	var intent: String = parsed.intent
 	var id: String = controller.step.id
 	if intent == "GREETING":
-		if id == "a_greeting": controller._answer("hello")
+		if active_actor == "anna":
+			controller.house.actors.anna.gesture("wave_hello")
+			reply("Hallo!")
+		elif id == "a_greeting": controller._answer("hello")
 		else: reply("Hallo!")
 	elif intent in ["ACCEPT","REFUSE"]:
-		if id not in ["b_water","f_offer"] or id in controller.state.completed: reply("Was meinst du?")
+		if active_actor != "lena" or id not in ["b_water","f_offer"] or id in controller.state.completed: reply("Was meinst du?")
 		else:
 			var previous_index: int = controller.state.index
 			controller._answer("yes" if intent == "ACCEPT" else "no")
 			if controller.state.index != previous_index:
-				controller.house.actors.lena.gesture("nod_yes" if intent == "ACCEPT" else "shake_head_no")
+				controller.house.actors[active_actor].gesture("nod_yes" if intent == "ACCEPT" else "shake_head_no")
 	elif intent == "THANKS":
-		if controller._free_conversation(): controller._answer("thanks")
+		if active_actor == "lena" and controller._free_conversation(): controller._answer("thanks")
 		else: reply("Gern.")
 	elif intent == "FAREWELL":
-		if controller._free_conversation(): controller._answer("bye")
+		if active_actor == "lena" and controller._free_conversation(): controller._answer("bye")
 		else: reply("Tschüss!")
 	elif intent == "POLITENESS":
-		if id == "f_place": controller._answer("morning_welcome")
+		if active_actor == "lena" and id == "f_place": controller._answer("morning_welcome")
 		else: reply("Gern.")
 	elif intent == "APOLOGY": reply("Ja?")
 	elif intent == "REQUEST_REPEAT":
@@ -402,32 +445,36 @@ func resolve(parsed: Dictionary) -> void:
 		reply(context.last_utterance)
 	elif intent == "REPORT_NONUNDERSTANDING":
 		controller.state.ask_help(id,"show")
-		var target: String = controller.step.get("point",controller.last_target)
-		if target != "": controller.house.point("lena",target)
-		reply("Hier.")
+		var target: String = controller.step.get("point",controller.last_target) if active_actor == "lena" and external_line == "" else ("bottle" if "Wasser" in context.last_utterance else active_actor)
+		if target != "": controller.house.point(active_actor,target)
+		reply("Anna." if target == "anna" else "Hier.")
 	elif intent == "IDENTIFY":
 		var target: String = context.pointed_target_id
 		if target == "": target = OBJECTS.get(frame.object_id,"")
-		if not IDENTIFY.has(target): reply("Das weiß ich nicht.")
+		if not IDENTIFY.has(target) or target not in Residents.PEOPLE[active_actor].known: reply("Das weiß ich nicht.")
 		else:
-			controller.house.point("lena",target)
+			controller.house.point(active_actor,target)
 			meet("",target)
 			reply(IDENTIFY[target])
+	elif intent == "REQUEST_ITEM" and frame.object_id in ["water","cup"]:
+		reply(controller.life.offer_water(active_actor))
 	elif intent in ["ASK_LOCATION","REQUEST_ITEM"]:
 		var target: String = OBJECTS.get(frame.object_id,"")
-		if not controller.state.items.has(target): reply("Das weiß ich nicht.")
-		elif controller.state.items[target] == "player": reply("Du hast das.")
+		if target not in Residents.PEOPLE[active_actor].known: reply("Das weiß ich nicht.")
+		elif controller.state.items.get(target,"") in ["player","player_pocket"]: reply("Du hast das.")
 		else:
-			controller.house.point("lena",target)
+			controller.house.point(active_actor,target)
 			meet("",target)
-			reply("Ich habe das." if controller.state.items[target] == "lena" else "Dort.")
+			reply("Dort.")
 	elif intent == "REQUEST_HELP":
 		context.pending = "help_target"
 		if frame.object_id == "": reply("Wobei?")
 		else:
-			var target: String = OBJECTS.get(frame.object_id,controller.step.get("point",""))
-			if target != "": controller.house.point("lena",target)
-			reply("Hier.")
+			var target: String = OBJECTS.get(frame.object_id,controller.step.get("point","") if active_actor == "lena" else "")
+			if target in Residents.PEOPLE[active_actor].known:
+				controller.house.point(active_actor,target)
+				reply("Hier.")
+			else: reply("Das weiß ich nicht.")
 			context.pending = "offer" if id in ["b_water","f_offer"] else ""
 	elif intent == "PROHIBIT_ACTION" or (intent == "EXPRESS_DESIRE" and frame.polarity == "negative"): reply("Okay.")
 	else: reply("Was möchtest du genau?")

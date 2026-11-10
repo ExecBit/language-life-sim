@@ -25,7 +25,9 @@ func _init() -> void:
 							assert(state.transfer("cup","player","surface_room"))
 						assert(state.transfer("bag","entrance_bag","player"))
 						assert(state.transfer("bag","player","bag_stand"))
-					if step.id == "c_key": assert(state.transfer("room_key","key_tray","player"))
+					if step.id == "c_key":
+						assert(state.transfer("room_key","lena","key_tray")) # world setdown event
+						assert(state.transfer("room_key","key_tray","player"))
 					if step.id == "c_welcome": old_before_sleep = state.snapshot()
 					if step.id == "f_arrival":
 						assert(state.held("player") == "" and state.items.room_key == "nightstand")
@@ -106,5 +108,24 @@ func _init() -> void:
 	var malformed: Dictionary = accepted.snapshot()
 	malformed.cooking.elapsed = -1
 	assert(not State.new().restore(malformed,steps.size()))
-	print("REV04_8_STATE_ROUTES_MIGRATION_AND_EVENT_ID_OK")
+	# New storage locations retain one key; old v4 snapshots migrate without being mutated.
+	var pocket = State.new()
+	assert(pocket.transfer("room_key","lena","player"))
+	assert(pocket.transfer("room_key","player","player_pocket"))
+	assert(pocket.transfer("cup","tray","player"))
+	assert(not pocket.transfer("cup","player","player_pocket"))
+	assert(not pocket.transfer("cup","player","drawer_slot"))
+	assert(not pocket.transfer("cup","player","unknown_place"))
+	var old_v4 = pocket.snapshot()
+	old_v4.version = 4
+	assert(State.new().restore(old_v4,steps.size()) and old_v4.version == 4)
+	pocket.day = 2
+	pocket.ensure_cooking()
+	assert(pocket.complete(steps[15])) # day-two sleep safely stows the cup, preserves the pocket
+	assert(pocket.items.room_key == "player_pocket" and pocket.held("player") == "")
+	assert(State.new().restore(pocket.snapshot(),steps.size()))
+	var invalid = pocket.snapshot()
+	invalid.items.cup = "drawer_slot"
+	assert(not State.new().restore(invalid,steps.size()))
+	print("DORMITORY_STATE_8_ROUTES_STORAGE_V2_V3_V4_MIGRATION_OK")
 	quit()

@@ -1,6 +1,7 @@
 extends RefCounted
 
-const VERSION := 4
+const VERSION := 5
+const LOCATIONS := ["lena","anna","player","player_pocket","drawer_slot","tray","entrance_bag","bag_stand","key_tray","bell_stand","surface_common","surface_room","surface_side","nightstand","bedside_spare","kitchen_shelf","breakfast_table"]
 const Cooking = preload("res://game/prologue/cooking_routine.gd")
 var cooking := {}
 var index := 0
@@ -51,22 +52,23 @@ func apply(op: Array) -> bool:
 		"period": period = str(op[1])
 		"sleep":
 			if not flags.get("slept", false):
-				var item := held("player")
-				if item != "":
-					var destination: String = {"room_key":"nightstand","cup":"bedside_spare","bag":"bag_stand"}.get(item,"bedside_spare")
-					if destination in items.values():
-						for alternative in ["bedside_spare","surface_room","key_tray","surface_common","surface_side"]:
-							if alternative not in items.values():
-								destination = alternative
-								break
-					if not transfer(item,"player",destination): return false
+				if not stow_hand(): return false
 				day += 1
 				period = "morning"
 				flags.slept = true
 				ensure_cooking()
+		"stow_hand": return stow_hand()
 		"finish": finished = true
 		_: return false
 	return true
+
+func stow_hand() -> bool:
+	var item := held("player")
+	if item == "": return true
+	var preferred: String = {"room_key":"nightstand","cup":"bedside_spare","bag":"bag_stand","bread":"surface_common"}.get(item,"surface_side")
+	for place in [preferred,"bedside_spare","surface_room","key_tray","surface_common","surface_side","tray"]:
+		if place not in items.values(): return transfer(item,"player",place)
+	return false
 
 func held(actor: String) -> String:
 	for item in items:
@@ -74,10 +76,11 @@ func held(actor: String) -> String:
 	return ""
 
 func transfer(item: String, source: String, destination: String) -> bool:
-	if not items.has(item) or items[item] != source or source == destination: return false
-	if destination in ["lena", "player"] and held(destination) != "": return false
+	if not items.has(item) or items[item] != source or source == destination or destination not in LOCATIONS: return false
+	if destination in ["player_pocket","drawer_slot"] and item != "room_key": return false
+	if destination in ["lena", "anna", "player"] and held(destination) != "": return false
 	for other in items:
-		if other != item and destination not in ["lena", "player"] and items[other] == destination: return false
+		if other != item and destination not in ["lena", "anna", "player"] and items[other] == destination: return false
 	items[item] = destination
 	return true
 
@@ -106,6 +109,10 @@ func complete(step: Dictionary, choice := "", payload := "") -> bool:
 	if step.get("wait", "") == "stored" and items.get(str(step.item)) != step.anchor: return false
 	if step.get("wait", "") == "owned" and items.get(str(step.item)) != "player": return false
 	if step.get("wait", "") == "optional": operations.append(["sleep"])
+	if step.get("wait", "") == "sleep_end":
+		if day != 2: return false
+		operations.append(["stow_hand"])
+		operations.append_array([["period","evening"],["flag","day2_sleep",true],["finish"]])
 	if step.get("wait","") == "npc_take": operations.append(["move","bread","kitchen_shelf","lena"])
 	if step.get("wait","") == "npc_place":
 		operations.append(["move","bread","lena","breakfast_table"])
@@ -145,6 +152,9 @@ func restore(data: Variant, step_count: int) -> bool:
 	if not data is Dictionary: return false
 	if data.get("version") == 2: data = _upgrade_v2(data)
 	if data.get("version") == 3: data = _upgrade_v3(data)
+	if data.get("version") == 4:
+		data = data.duplicate(true)
+		data.version = VERSION
 	if data.get("version") != VERSION: return false
 	if not data.get("index") is float and not data.get("index") is int: return false
 	if int(data.index) < 0 or int(data.index) >= step_count: return false
@@ -173,9 +183,12 @@ func restore(data: Variant, step_count: int) -> bool:
 	for item in items:
 		if not data.items.has(item) or not data.items[item] is String: return false
 		var destination: String = data.items[item]
-		if destination not in ["lena","player","tray","entrance_bag","bag_stand","key_tray","bell_stand","surface_common","surface_room","surface_side","nightstand","bedside_spare","kitchen_shelf","breakfast_table"]: return false
+		if destination not in LOCATIONS: return false
+		if destination in ["player_pocket","drawer_slot"] and item != "room_key": return false
 		if locations.has(destination): return false
 		locations[destination] = item
+	if data.flags.has("water_handoff_source"):
+		if data.items.cup not in ["lena","anna"] or data.flags.water_handoff_source not in LOCATIONS or data.flags.water_handoff_source in ["player","player_pocket","lena","anna","drawer_slot"]: return false
 	cooking = data.cooking.duplicate(true)
 	index = int(data.index)
 	day = int(data.day)

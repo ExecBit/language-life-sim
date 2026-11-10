@@ -7,7 +7,10 @@ const Mirror = preload("res://game/characters/MirrorRetargetModifier3D.gd")
 const PRIVATE_MODEL := "res://assets/characters/private/astera.vrm"
 const FALLBACK_MODEL := "res://assets/characters/fallback.vrm"
 
+@export_file("*.vrm") var avatar_path := ""
+
 func model_resource() -> PackedScene:
+	if not avatar_path.is_empty() and ResourceLoader.exists(avatar_path): return load(avatar_path) as PackedScene
 	return load(PRIVATE_MODEL if ResourceLoader.exists(PRIVATE_MODEL) else FALLBACK_MODEL) as PackedScene
 const MAP := {
 	"Hips": "J_Bip_C_Hips", "Spine1": "J_Bip_C_Spine", "Spine2": "J_Bip_C_Chest",

@@ -1,10 +1,13 @@
 extends Node3D
 
+const Layout = preload("res://game/prologue/dormitory_layout.gd")
+var doors := {}
 const Actor = preload("res://game/prologue/actor.gd")
 var actors := {}
 var items := {}
 var anchors := {}
-var zones := {"entrance": Vector3(0,0,5.8), "common": Vector3(-3,0,0), "bedroom": Vector3(3,0,0), "corridor": Vector3(0,0,0), "bed": Vector3(4.7,0,-4.4), "exit": Vector3(0,0,7.5)}
+var furniture := {}
+var zones := {"breakfast_work": Vector3(-4,1,-2.6), "entrance": Vector3(0,0,5.8), "kitchen": Vector3(-3,0,0), "common": Vector3(-3,0,3), "bedroom": Vector3(3,0,0), "corridor": Vector3(0,0,0), "bed": Vector3(4.7,0,-4.4), "exit": Vector3(0,0,7.5)}
 var environment: Environment
 var sun: DirectionalLight3D
 var door: Node3D
@@ -31,25 +34,15 @@ func _ready() -> void:
 	sun.light_energy = 1.0
 	sun.shadow_enabled = true
 	add_child(sun)
-	box(Vector3(0,-0.15,1),Vector3(14,0.3,16),Color("aa9275"))
-	box(Vector3(0,-0.1,7),Vector3(4,0.12,3.8),Color("b1b9b3"))
-	for x in [-7.0,7.0]: box(Vector3(x,1.6,-0.5),Vector3(0.2,3.2,11),Color("d7d8c9"))
-	box(Vector3(0,1.6,-6),Vector3(14,3.2,0.2),Color("a5b9ae"))
-	for x in [-4.0,4.0]: box(Vector3(x,1.6,5),Vector3(6,3.2,0.2),Color("d4c6b1"))
-	box(Vector3(0,2.9,5),Vector3(2,0.6,0.2),Color("d4c6b1"))
-	for x in [-1.1,1.1]:
-		box(Vector3(x,1.6,3.25),Vector3(0.16,3.2,3.5),Color("dfddd2"))
-		box(Vector3(x,1.6,-4),Vector3(0.16,3.2,4),Color("dfddd2"))
+	Layout.build(self)
 	door = Node3D.new()
-	door.position = Vector3(-0.9,0,5)
+	door.position = Vector3(-0.475,0,5)
 	add_child(door)
-	var leaf := body("door", Vector3(0.9,1.2,0),Vector3(1.8,2.4,0.12),door)
+	var leaf := body("door",Vector3(0.475,1.05,0),Vector3(0.95,2.1,0.12),door)
 	door_collision = leaf.get_child(0)
-	visual(leaf,BoxMesh.new(),Vector3.ZERO,Vector3(1.8,2.4,0.12),Color("647c75"))
-	visual(leaf,SphereMesh.new(),Vector3(0.65,0,0.12),Vector3.ONE*0.08,Color("e1bd6c"))
-	# Distinct shared space and private bedroom, joined by the central corridor.
-	box(Vector3(-4,0.012,0),Vector3(4.7,0.025,4.5),Color("6c8d84"),false)
-	box(Vector3(4,0.012,0),Vector3(4.7,0.025,4.5),Color("b8a27c"),false)
+	visual(leaf,BoxMesh.new(),Vector3.ZERO,Vector3(0.95,2.1,0.12),Color("647c75"))
+	visual(leaf,SphereMesh.new(),Vector3(0.33,0,0.1),Vector3.ONE*0.07,Color("e1bd6c"))
+
 	table(Vector3(-4,0,-2.6),Vector3(3.6,0.12,1.3))
 	table(Vector3(4.6,0,-2.6),Vector3(2.7,0.12,1.3))
 	table(Vector3(-5.7,0,2.8),Vector3(1.4,0.12,1.1))
@@ -62,9 +55,6 @@ func _ready() -> void:
 		box(Vector3(x,0.8,-4.3),Vector3(0.6,0.7,0.1),Color("8e6e4e"))
 		for dx in [-0.22,0.22]: box(Vector3(x+dx,0.22,-4.0),Vector3(0.08,0.44,0.5),Color("695346"))
 	# Window panels, plants, shelves and warm practical lighting.
-	for x in [-4.2,4.2]:
-		box(Vector3(x,1.9,-5.85),Vector3(2.0,1.25,0.05),Color("9fc2d0"),false)
-		box(Vector3(x,1.23,-5.7),Vector3(2.1,0.1,0.32),Color("e1d7c3"))
 	for x in [-6.3,6.2]:
 		visual(self,CylinderMesh.new(),Vector3(x,0.23,3.5),Vector3(0.55,0.3,0.55),Color("af775a"))
 		visual(self,SphereMesh.new(),Vector3(x,0.8,3.5),Vector3(0.7,1.0,0.7),Color("567f59"))
@@ -98,6 +88,8 @@ func _ready() -> void:
 	bowl.inner_radius = 0.09
 	bowl.outer_radius = 0.13
 	visual(self,bowl,Vector3(-4.9,1.0,-2.9),Vector3.ONE,Color("e7dbc3"))
+	box(Vector3(-6.0,0.88,-0.9),Vector3(0.8,0.12,0.8),Color("97785c"))
+	box(Vector3(-6.0,0.42,-0.9),Vector3(0.18,0.84,0.6),Color("6d5948"))
 	var positions := {
 		"tray":Vector3(-3.05,1,-2.6),"key_tray":Vector3(5.55,1,-2.6),
 		"entrance_bag":Vector3(0.65,0.025,6.7),"bag_stand":Vector3(3.2,0.025,-3.6),
@@ -105,7 +97,7 @@ func _ready() -> void:
 		"surface_common":Vector3(-4,1,-2.6),"surface_room":Vector3(4.4,1,-2.6),
 		"surface_side":Vector3(-5.7,1,2.8),
 		"nightstand":Vector3(3.35,0.76,-5.1),"bedside_spare":Vector3(2.75,0.76,-5.1),
-		"kitchen_shelf":Vector3(-6.12,1,2.8),"breakfast_table":Vector3(-3.65,1,-2.6),
+		"kitchen_shelf":Vector3(-6.12,1,-0.9),"breakfast_table":Vector3(-3.65,1,-2.6),
 	}
 	for id in positions:
 		var anchor := body(id,positions[id],Vector3(0.36,0.04,0.35))
@@ -116,16 +108,21 @@ func _ready() -> void:
 	# Water is scenery, not a second carrying exercise.
 	var water := make_item("bottle")
 	water.position = Vector3(-5.25,1,-2.6)
-	for id in ["lena"]:
+	for id in ["lena","anna"]:
 		var actor := Actor.new()
 		actor.actor_id = id
 		add_child(actor)
 		actors[id] = actor
+		if id == "anna":
+			actor.position = Vector3(-4.2,0,-8.4)
+			actor.hide()
+			actor.collision_layer = 0
+		else: actor.position = Vector3.ZERO
 		actor.arrived.connect(func():
 			if pointer_actor == actor.actor_id and pointer_target != "": pulse_time = 4.0
 		)
 		var label := Label3D.new()
-		label.text = "LENA"
+		label.text = "ANNA" if id == "anna" else "LENA"
 		label.position.y = 1.85
 		label.font_size = 28
 		label.pixel_size = 0.0025
@@ -134,6 +131,45 @@ func _ready() -> void:
 	pointer = MeshInstance3D.new()
 	add_child(pointer)
 	pointer.hide()
+
+func safe_player_position(value: Vector3, player_rid: RID) -> Vector3:
+	var shape := CapsuleShape3D.new()
+	shape.radius = 0.24
+	shape.height = 1.4
+	var query := PhysicsShapeQueryParameters3D.new()
+	query.shape = shape
+	query.transform.origin = value
+	query.exclude = [player_rid]
+	for npc in actors.values(): query.exclude.append(npc.get_rid())
+	if get_world_3d().direct_space_state.intersect_shape(query).is_empty(): return value
+	return Vector3(0,0.9,clampf(value.z,-11.4,4.2))
+
+func route_points(source: Vector3, destination: Vector3) -> Array[Vector3]:
+	var from_room := Layout.room_at(source)
+	var to_room := Layout.room_at(destination)
+	var points: Array[Vector3] = []
+	if from_room == to_room:
+		if from_room != "" and not Layout.ROOMS[from_room].get("end_door",false) and absf(source.x-destination.x) > 0.8:
+			var z: float = Layout.ROOMS[from_room].door_z
+			points.append(Vector3(source.x,0,z))
+			points.append(Vector3(destination.x,0,z))
+	else:
+		if from_room != "":
+			var room: Dictionary = Layout.ROOMS[from_room]
+			if doors.has(from_room): doors[from_room].open_door(null)
+			if room.get("end_door",false): points.append(Vector3(0,0,-13))
+			else: points.append(Vector3(room.side*2.0,0,room.door_z))
+			points.append(Vector3(0,0,room.door_z))
+		if to_room != "":
+			var room: Dictionary = Layout.ROOMS[to_room]
+			if doors.has(to_room): doors[to_room].open_door(null)
+			points.append(Vector3(0,0,room.door_z))
+			if room.get("end_door",false): points.append(Vector3(0,0,-13))
+			else:
+				points.append(Vector3(room.side*2.0,0,room.door_z))
+				points.append(Vector3(destination.x,0,room.door_z))
+	points.append(destination)
+	return points
 
 func material(color: Color) -> StandardMaterial3D:
 	var value := StandardMaterial3D.new()
@@ -234,7 +270,9 @@ func make_item(id: String) -> StaticBody3D:
 	return node
 
 func position_of(id: String) -> Vector3:
+	if furniture.has(id): return furniture[id].global_position
 	if items.has(id): return items[id].global_position + Vector3(0,0.12,0)
+	if id in ["bottle","water"]: return Vector3(-5.25,1,-2.6) + Vector3(0,0.12,0)
 	if anchors.has(id): return anchors[id].global_position + Vector3(0,0.15,0)
 	if actors.has(id): return actors[id].global_position + Vector3(0,1.2,0)
 	return zones.get(id,Vector3.ZERO) + Vector3(0,0.15,0)
@@ -242,12 +280,12 @@ func position_of(id: String) -> Vector3:
 func sync_items(state, player_hand: Node3D) -> void:
 	for id in state.items:
 		var location: String = state.items[id]
-		var parent: Node3D = player_hand if location == "player" else (actors[location].hand if actors.has(location) else anchors[location])
+		var parent: Node3D = player_hand if location in ["player","player_pocket"] else (actors[location].hand if actors.has(location) else anchors[location])
 		if items[id].get_parent() != parent: items[id].reparent(parent,false)
 		items[id].position = Vector3.ZERO
 		items[id].rotation = Vector3.ZERO
-		items[id].visible = id != "bread" or state.day == 2
-		items[id].collision_layer = 0 if location in ["lena","player"] or not items[id].visible else 1
+		items[id].visible = location != "player_pocket" and (id != "bread" or state.day == 2)
+		items[id].collision_layer = 0 if location in ["lena","anna","player","player_pocket"] or not items[id].visible else 1
 
 func point(actor: String, target: String) -> void:
 	pointer_actor = actor
@@ -262,6 +300,7 @@ func set_period(period: String) -> void:
 	environment.ambient_light_energy = 0.18 if period == "evening" else 0.45
 	environment.background_color = Color("344959") if period == "evening" else Color("a9c8d5")
 	for light in lights: light.light_energy = 1.3 if period == "evening" else 0.45
+
 
 func _process(delta: float) -> void:
 	pulse_time -= delta

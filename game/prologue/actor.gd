@@ -23,6 +23,7 @@ func _ready() -> void:
 	collision.position.y = 0.85
 	add_child(collision)
 	visual = Visual.new()
+	if actor_id == "anna": visual.avatar_path = "res://assets/characters/anna.vrm"
 	add_child(visual)
 	var attachment := BoneAttachment3D.new()
 	visual.target_skeleton.add_child(attachment)
@@ -61,12 +62,7 @@ func go(destination: Vector3, instant := false) -> void:
 		walking = false
 		visual.stop()
 		return
-	var points: Array[Vector3] = []
-	# Walk around the partitions through the open landing.
-	if absf(position.x-destination.x) > 0.8:
-		points.append(Vector3(position.x,0,0))
-		points.append(Vector3(destination.x,0,0))
-	points.append(destination)
+	var points: Array[Vector3] = get_parent().route_points(position,destination)
 	walking = true
 	visual.animation_player.speed_scale = 1.0
 	visual.play("walking",true)
@@ -96,7 +92,7 @@ func gesture(name: String) -> void:
 	if walking:
 		pending_gesture = name
 		return
-	if name in visual.Catalog.SCENES: visual.play(name)
+	if name in visual.Catalog.SCENES or name in visual.GeneratedCatalog.SCENES: visual.play(name)
 
 func idle() -> void:
 	if is_instance_valid(moving): moving.kill()
