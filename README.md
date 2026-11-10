@@ -15,20 +15,26 @@ Open this repository's `project.godot`, allow imports to finish, and press **F5*
 
 | Directory | Responsibility |
 | --- | --- |
-| `game/prologue/` | Main entry, LEVEL_01, house, story, UI and state |
-| `game/shop/` | Existing LEVEL_02 and shopping state |
-| `game/communication/` | Shared parser, vocabulary, composer, helper and dialogue integration |
-| `game/characters/` | Project-owned model adapters and animation retargeting |
+| `implementations/dormitory/game/prologue/` | Main entry, LEVEL_01, house, story, UI and state |
+| `implementations/dormitory/game/shop/` | Existing LEVEL_02 and shopping state |
+| `implementations/dormitory/game/communication/` | Shared parser, vocabulary, composer, helper and dialogue integration |
+| `implementations/dormitory/game/characters/` | Project-owned model adapters and animation retargeting |
 | `assets/animations/motifect/` | Animation packs, with their license notices |
 | `assets/characters/` | Redistributable sample model and optional local model |
-| `addons/` | Cogito and other third-party dependencies; game code stays in `game/` |
-| `experiments/communication/` | Independent locked-room experiment |
-| `experiments/character_preview/` | Legacy character/animation preview, F7 animation browser |
+| `addons/` | Cogito and other third-party dependencies; variant-specific code stays in its own `implementations/<variant>/` |
+| `implementations/dormitory/experiments/communication/` | Independent locked-room experiment |
+| `implementations/dormitory/experiments/character_preview/` | Legacy character/animation preview, F7 animation browser |
 | `docs/` | Product requirements; historical tavern documents in `docs/archive/` |
 
 Runtime autoloads are declared explicitly in `project.godot`. Cogito, Input Helper and Quick Audio editor plugins are disabled to avoid re-registering those singletons during a first import; their runtime code remains active. VRM/MToon import plugins and State Charts remain enabled.
 
 Run the experiment or preview with F6 on its `.tscn`. They do not replace the F5 entry point.
+
+## Independent implementations
+
+The existing gameplay, dialogue parser, state, characters, shop, and prototypes belong to `implementations/dormitory/`. New implementations use separate `implementations/<variant>/` folders, including their own gameplay code, scenarios, state, vocabulary and tests. Implementations must not import one another.
+
+Only engine extensions (`addons/`) and reusable models/animations (`assets/`) are shared across variants. `project.godot` is a common Godot root and currently starts the dormitory implementation with F5; open another implementation's entry scene directly with F6. Runtime save files must have distinct names per implementation. Do not reuse the dormitory's save keys for other settings.
 
 ## Models and saves
 

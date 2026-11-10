@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://c50odhw0ukbw0"]
-
-[ext_resource type="Script" uid="uid://bpmgmc6cmmjup" path="res://experiments/communication/experiment.gd" id="1"]
-
-[node name="COMMUNICATION_EXPERIMENT" type="Node3D" unique_id=1149507820]
-script = ExtResource("1")
