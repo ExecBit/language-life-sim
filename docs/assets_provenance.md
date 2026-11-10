@@ -10,7 +10,7 @@ Other dependency directories are `godot_state_charts`, `input_helper`, `quick_au
 
 ## VRM characters
 
-- `assets/characters/fallback.vrm` and `game/shop/Assets/fallback_vendor.vrm`: VRoid Project AvatarSample_C. Embedded license URLs allow everyone, commercial use, modification and redistribution, without required credit. Original metadata remains embedded.
+- `assets/characters/fallback.vrm` and `implementations/dormitory/game/shop/Assets/fallback_vendor.vrm`: VRoid Project AvatarSample_C. Embedded license URLs allow everyone, commercial use, modification and redistribution, without required credit. Original metadata remains embedded.
 - Local-only `assets/characters/private/astera.vrm`: wondrous21, Astera. Embedded metadata: `OnlyAuthor`, `commercialUssageName: Disallow`, `licenseName: Redistribution_Prohibited`. Copied locally from the user's existing Cogito project; the entire private directory is ignored. No Astera source or import settings may be committed. The included sample is used when Astera is absent.
 - The proposed BOOTH seller is not part of this migration. No restricted BOOTH model is included.
 

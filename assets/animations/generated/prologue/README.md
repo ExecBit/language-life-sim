@@ -4,7 +4,7 @@ These Kimodo SOMA RP v1.1 motions are experimental and stored separately from th
 
 ## Preview
 
-1. Open `experiments/character_preview/language_life_prototype.tscn` and run it with F6.
+1. Open `implementations/dormitory/experiments/character_preview/language_life_prototype.tscn` and run it with F6.
 2. Press F7 to open the animation browser.
 3. Select `Generated — A-01 / Комната` or `Generated — A-02 / Завтрак`, choose a segment, and press `Проиграть`.
 
