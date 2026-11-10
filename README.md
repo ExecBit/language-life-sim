@@ -1,57 +1,23 @@
 # Language Life Sim
 
-Godot 4.7.1 project. The playable entry point is the prologue / LEVEL_01, followed by the existing LEVEL_02 shop.
+Godot-проект с несколькими **независимыми игровыми реализациями**. Общая идея — сделать иностранный язык одной из игровых механик, а не отдельным учебным режимом. Каждый вариант проверяет собственную концепцию.
 
-Open this repository's `project.godot`, allow imports to finish, and press **F5**. The initial screen offers a new game and continuing an existing save.
+## Структура
 
-## Controls
+- [Реализации и правила изоляции](implementations/README.md)
+- [Общежитие — запуск и управление](implementations/dormitory/README.md)
+- [Документация общежития](implementations/dormitory/docs/GAME_CONCEPT.md)
+- [Лицензии и происхождение общих ресурсов](assets/PROVENANCE.md)
 
-- WASD / mouse: move and look; E: interact or open an NPC conversation.
-- In conversation: type a phrase or word prefix, arrows select a suggestion, Tab inserts it, Enter sends the phrase. E opening the conversation is not inserted into the input.
-- H: word helper in world mode; click the helper button while typing. Esc: close helper, then pause. Conversation locks player movement.
-- NPC speech outside a conversation uses temporary subtitles. NPC attention is bounded rather than permanently following the player.
+`implementations/<variant>/` — отдельный игровой код, сцены, документация, словари и тесты. Они не импортируют друг друга. Общими остаются `addons/` (Cogito и плагины), `assets/animations/` и `assets/characters/`.
 
-## Structure
+Корневой `project.godot` — техническая точка входа в один проект Godot. Сейчас **F5 запускает общежитие** (`res://implementations/dormitory/game/prologue/prologue.tscn`); сцены других вариантов можно открывать отдельно через F6. Настройки сохранений разных вариантов должны быть независимыми.
 
-| Directory | Responsibility |
-| --- | --- |
-| `implementations/dormitory/game/prologue/` | Main entry, LEVEL_01, house, story, UI and state |
-| `implementations/dormitory/game/shop/` | Existing LEVEL_02 and shopping state |
-| `implementations/dormitory/game/communication/` | Shared parser, vocabulary, composer, helper and dialogue integration |
-| `implementations/dormitory/game/characters/` | Project-owned model adapters and animation retargeting |
-| `assets/animations/motifect/` | Animation packs, with their license notices |
-| `assets/characters/` | Redistributable sample model and optional local model |
-| `addons/` | Cogito and other third-party dependencies; variant-specific code stays in its own `implementations/<variant>/` |
-| `implementations/dormitory/experiments/communication/` | Independent locked-room experiment |
-| `implementations/dormitory/experiments/character_preview/` | Legacy character/animation preview, F7 animation browser |
-| `docs/` | Product requirements; historical tavern documents in `docs/archive/` |
+## Проверка текущей реализации
 
-Runtime autoloads are declared explicitly in `project.godot`. Cogito, Input Helper and Quick Audio editor plugins are disabled to avoid re-registering those singletons during a first import; their runtime code remains active. VRM/MToon import plugins and State Charts remain enabled.
-
-Run the experiment or preview with F6 on its `.tscn`. They do not replace the F5 entry point.
-
-## Independent implementations
-
-The existing gameplay, dialogue parser, state, characters, shop, and prototypes belong to `implementations/dormitory/`. New implementations use separate `implementations/<variant>/` folders, including their own gameplay code, scenarios, state, vocabulary and tests. Implementations must not import one another.
-
-Only engine extensions (`addons/`) and reusable models/animations (`assets/`) are shared across variants. `project.godot` is a common Godot root and currently starts the dormitory implementation with F5; open another implementation's entry scene directly with F6. Runtime save files must have distinct names per implementation. Do not reuse the dormitory's save keys for other settings.
-
-## Models and saves
-
-Astera prohibits redistribution in its embedded metadata and is not committed. An existing local copy lives in ignored `assets/characters/private/astera.vrm`. Without it, Lena uses the included VRoid sample model. Reimport after adding a model. See [asset provenance](docs/assets_provenance.md).
-
-Saves use the stable custom Godot directory `Language Life Sim`. On Windows this is `%APPDATA%/Language Life Sim`. On first launch, missing session/settings files are copied from `%APPDATA%/Godot/app_userdata/Cogito`; existing destination files and original files are preserved. The old tavern save is unrelated and is not imported.
-
-## Verification
-
-```powershell
-python tools/check_repository.py
-Godot_v4.7.1-stable_win64_console.exe --headless --path . --editor --import
-python tools/run_regressions.py
+```sh
+python implementations/dormitory/tools/check_repository.py
+python implementations/dormitory/tools/run_regressions.py
 ```
 
-`GODOT` can specify another Godot 4.7.1 executable. Tests isolate user data and write logs to ignored `.local/validation/`. CI runs structural checks, a clean import and the migrated regression suite.
-
-Manual review: start a new game, meet Lena, exchange greetings with E/Tab/Enter, close the conversation and walk; take/place items, sleep, complete or decline the morning request, leave for the shop, buy and return home. Pause and reload during both levels. Check idle/walking, subtitles and that the NPC stops tracking after speaking. Also open the communication experiment and exercise both door solutions.
-
-The source migration is from Cogito project commit `533e773e`; Cogito's MIT notice is in `addons/cogito/LICENSE`. This move does not establish language-learning effectiveness; a beginner playtest is still required.
+Для второго скрипта нужен Godot 4.7.1 в PATH либо переменная `GODOT`. Он проверяет только общежитие, а не другие варианты.

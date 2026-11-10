@@ -2,7 +2,7 @@
 
 Дата: 2026-11-09. Godot 4.7.1 stable, Windows, headless.
 
-Источник: [LANGUAGE_PARSER_SPEC.md](https://github.com/ExecBit/language-life-sim/blob/docs/design-01-mvp-and-level-01/docs/LANGUAGE_PARSER_SPEC.md), актуальная версия ветки `docs/design-01-mvp-and-level-01`.
+Источник: [LANGUAGE_PARSER_SPEC.md](../../docs/LANGUAGE_PARSER_SPEC.md), актуальная версия ветки `docs/design-01-mvp-and-level-01`.
 
 Итог: **358 unit-проверок — PASS; R01–R15 и W01–W07 — PASS (27 вариантов); все 14 тестовых скриптов — PASS.** Из них 9 скриптов проверяют существующие уровни 01–02. Изменений игрового парсера для новых случаев не потребовалось; добавлен отдельный регрессионный тест и проверка исправления собранной фразы через клавиатурные события.
 
@@ -48,20 +48,20 @@
 
 | Скрипт | Статус |
 | --- | --- |
-| `experiments/communication/test.gd` | PASS |
-| `experiments/communication/test_input.gd` | PASS |
-| `experiments/communication/test_world.gd` | PASS |
-| `experiments/communication/test_pause.gd` | PASS |
-| `game/prologue/test_story.gd` | PASS |
-| `game/prologue/test_cooking.gd` | PASS |
-| `game/prologue/test_day2_realtime.gd` | PASS |
-| `game/prologue/test_walking.gd` | PASS |
-| `game/shop/test_state.gd` | PASS |
-| `game/shop/test_world.gd` | PASS |
-| `game/shop/test_bridge.gd` | PASS |
-| `game/shop/test_restart.gd` | PASS |
-| `game/shop/test_navigation.gd` | PASS |
-| `experiments/communication/test_regression.gd` | PASS |
+| `implementations/dormitory/experiments/communication/test.gd` | PASS |
+| `implementations/dormitory/experiments/communication/test_input.gd` | PASS |
+| `implementations/dormitory/experiments/communication/test_world.gd` | PASS |
+| `implementations/dormitory/experiments/communication/test_pause.gd` | PASS |
+| `implementations/dormitory/game/prologue/test_story.gd` | PASS |
+| `implementations/dormitory/game/prologue/test_cooking.gd` | PASS |
+| `implementations/dormitory/game/prologue/test_day2_realtime.gd` | PASS |
+| `implementations/dormitory/game/prologue/test_walking.gd` | PASS |
+| `implementations/dormitory/game/shop/test_state.gd` | PASS |
+| `implementations/dormitory/game/shop/test_world.gd` | PASS |
+| `implementations/dormitory/game/shop/test_bridge.gd` | PASS |
+| `implementations/dormitory/game/shop/test_restart.gd` | PASS |
+| `implementations/dormitory/game/shop/test_navigation.gd` | PASS |
+| `implementations/dormitory/experiments/communication/test_regression.gd` | PASS |
 
 В `test_input.gd` префиксы `ich`, `will`, `sch`, выбор слов и отправка проходят через `InputEventKey` → viewport → сфокусированный LineEdit, без прямого вызова сигнала отправки. Перед отправкой в собранную фразу добавляется ошибочный символ и удаляется Backspace; результат сохраняется. Отдельно Enter отправляет запрет, не открывая дверь.
 

@@ -4,7 +4,7 @@ The old KayKit tavern, vocabulary and Dialogue Manager have been removed from th
 
 ## Cogito and plugins
 
-The dependency snapshot comes from the local Cogito repository commit `533e773e`, origin https://codeberg.org/Phazorknight/Cogito. Cogito stays under `addons/cogito/`; its root MIT license is preserved there. Bundled third-party notices (including fonts and prototype textures) remain with their assets. Project gameplay code is kept separately under `game/`.
+The dependency snapshot comes from the local Cogito repository commit `533e773e`, origin https://codeberg.org/Phazorknight/Cogito. Cogito stays under `addons/cogito/`; its root MIT license is preserved there. Bundled third-party notices (including fonts and prototype textures) remain with their assets. Project gameplay code is kept separately under `implementations/dormitory/game/`.
 
 Other dependency directories are `godot_state_charts`, `input_helper`, `quick_audio`, `mtoon`, and `vrm` (plugin version 2.5.9, AzPepoze fork of V-Sekai). Existing plugin license notices are preserved. The missing MIT notice for VRM was restored from https://github.com/AzPepoze/godot-vrm/blob/dev/LICENSE (blob 08e0e1772276b1853bbc8b804be6d32abebb3f36); Montserrat copyright is preserved from the bundled font name table (2011 The Montserrat Project Authors); the OFL license text was restored from https://github.com/google/fonts/blob/main/ofl/montserrat/OFL.txt (blob fe576a2ee1f96353b05d030c0b7620d525cc53a8). VRM native libraries are required for the existing importer/physics integration. Dependency license completeness must be reviewed before distributing an exported game; this migration makes no blanket claim that Cogito's MIT license covers every bundled asset.
 

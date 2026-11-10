@@ -1,8 +1,8 @@
 # Language Parser: поддержка и проверка
 
-После интеграции в MVP общий код находится в `game/communication/`: каталог содержит 69 форм / 71 чтение, текущий unit-прогон — 406 проверок. Пути `experiments/communication/parser.gd` и `word_catalog.gd` оставлены как адаптеры совместимости. Числа первоначального прогона ниже относятся к версии до интеграции; актуальный отчёт — [game/communication/INTEGRATION_REPORT.md](../game/communication/INTEGRATION_REPORT.md).
+После интеграции в MVP общий код находится в `implementations/dormitory/game/communication/`: каталог содержит 69 форм / 71 чтение, текущий unit-прогон — 406 проверок. Пути `implementations/dormitory/experiments/communication/parser.gd` и `word_catalog.gd` оставлены как адаптеры совместимости. Числа первоначального прогона ниже относятся к версии до интеграции; актуальный отчёт — [game/communication/INTEGRATION_REPORT.md](../../game/communication/INTEGRATION_REPORT.md).
 
-Основание: [LANGUAGE_PARSER_SPEC.md](https://github.com/ExecBit/language-life-sim/blob/docs/design-01-mvp-and-level-01/docs/LANGUAGE_PARSER_SPEC.md), ветка `docs/design-01-mvp-and-level-01`, прочитана 2026-11-09.
+Основание: [LANGUAGE_PARSER_SPEC.md](../../docs/LANGUAGE_PARSER_SPEC.md), ветка `docs/design-01-mvp-and-level-01`, прочитана 2026-11-09.
 
 ## Устройство
 

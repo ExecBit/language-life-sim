@@ -34,6 +34,6 @@ godot --headless --path . --script res://implementations/dormitory/experiments/c
 Переиспользованы Cogito FPS, геометрические хелперы, Astera с именем «Анна» только здесь, спокойный idle и ходьба. Существующие уровни и их сохранения не меняются. Никаких LLM/API, нового инвентаря или универсального NLP. Парсер поддерживает короткие простые конструкции; неизвестные слова и сложные придаточные отвергаются безопасно. Лексикон включает служебные формы сверх ориентира 30, чтобы не исключать необходимые конструкции.
 Публичные поля `context.gd` позволяют в тестах менять владение, знание, занятость, разрешение и причину. Кнопки редактора переключают четыре основные ситуации.
 Попытки, распознанные слоты, помощь, ответы и число открытий записываются отдельно в `user://communication_experiment.json`. Журнал не выдаёт достижения и не изменяет словарь других уровней; сброс сохраняет историю предыдущего опыта в журнале текущей сессии.
-Источник: docs/COMMUNICATION_EXPERIMENT.md, ветка docs/design-01-mvp-and-level-01 репозитория ExecBit/language-life-sim.
+Источник: implementations/dormitory/docs/COMMUNICATION_EXPERIMENT.md, ветка docs/design-01-mvp-and-level-01 репозитория ExecBit/language-life-sim.
 
 Тест меню: `godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_pause.gd` — Esc, сохранение черновика/контекста, остановка NPC и сброс через кнопку меню.
