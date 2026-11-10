@@ -1,1 +1,1 @@
-extends "res://game/communication/word_catalog.gd"
+extends "res://implementations/dormitory/game/communication/word_catalog.gd"

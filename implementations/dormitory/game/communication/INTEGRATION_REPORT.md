@@ -9,7 +9,7 @@ Tab принимает выделенное совпадение; Enter/цифр
 `test_keyboard_controls.gd` — **20 проверок, 0 ошибок**: Tab/стрелки, отсутствие отправки по Tab, одиночная отправка по Enter, цифровой Enter, неподтверждённое отрицание, отсутствие случайной автоподстановки, пустые поля, открывающая E, удержание/отпускание и обычная буква после открытия. Повторены обновлённые интеграционные и UI-проверки MVP и клавиатурный/мировой тест эксперимента.
 
 ```powershell
-godot --headless --path . --script res://game/communication/test_keyboard_controls.gd
+godot --headless --path . --script res://implementations/dormitory/game/communication/test_keyboard_controls.gd
 ```
 
 ## Короткое внимание к говорящему / собеседнику
@@ -21,7 +21,7 @@ godot --headless --path . --script res://game/communication/test_keyboard_contro
 `test_speaker_attention.gd`: **31 проверка, 0 ошибок**. Дополнительно повторены тесты UI, интеграции, ходьбы, приготовления и магазина. Графический запуск показал поворот модели лицом к игроку во время Hallo и возврат в исходное направление после реплики: `work/CogitoValidation/attention_before.png`, `attention_speaking.png`, `attention_after.png`. Это автоматический графический прогон и просмотр изображений; полный ручной playtest не заявляется.
 
 ```powershell
-godot --headless --path . --script res://game/communication/test_speaker_attention.gd
+godot --headless --path . --script res://implementations/dormitory/game/communication/test_speaker_attention.gd
 ```
 
 ## Уточнение UI по запросу пользователя
@@ -37,7 +37,7 @@ godot --headless --path . --script res://game/communication/test_speaker_attenti
 Дополнительный запуск:
 
 ```powershell
-godot --headless --path . --script res://game/communication/test_dialogue_ui.gd
+godot --headless --path . --script res://implementations/dormitory/game/communication/test_dialogue_ui.gd
 ```
 
 Дата: 2026-11-09. Контракт: [COMMUNICATION_MVP_INTEGRATION.md](https://github.com/ExecBit/language-life-sim/blob/docs/design-01-mvp-and-level-01/docs/COMMUNICATION_MVP_INTEGRATION.md), ветка `docs/design-01-mvp-and-level-01`. Реализационная ветка Cogito: `feat/communication-mvp-integration`.
@@ -111,14 +111,14 @@ Godot 4.7.1 stable, Windows. Проверки выполнялись в изол
 
 ```powershell
 $godot = (Get-Command Godot_v4.7.1-stable_win64_console.exe).Source
-& $godot --headless --path . --script res://game/communication/test_integration.gd
-& $godot --headless --path . --script res://experiments/communication/test.gd
-& $godot --headless --path . --script res://experiments/communication/test_input.gd
-& $godot --headless --path . --script res://experiments/communication/test_world.gd
-& $godot --headless --path . --script res://experiments/communication/test_pause.gd
-& $godot --headless --path . --script res://experiments/communication/test_regression.gd
+& $godot --headless --path . --script res://implementations/dormitory/game/communication/test_integration.gd
+& $godot --headless --path . --script res://implementations/dormitory/experiments/communication/test.gd
+& $godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_input.gd
+& $godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_world.gd
+& $godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_pause.gd
+& $godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_regression.gd
 # Аналогично для прежних скриптов уровней из таблицы.
-& $godot --headless --path . res://game/prologue/prologue.tscn -- --prologue-smoke
+& $godot --headless --path . res://implementations/dormitory/game/prologue/prologue.tscn -- --prologue-smoke
 ```
 
 Логи в рабочей папке Codex: `work/mvp_final_*.log`, `work/mvp_regression_*.log`, `work/mvp_level_one_full_routes.log`. Графическая проверка: `work/mvp_communication_preview.log`, снимки `work/CogitoValidation/mvp_communication_composer.png` и `mvp_communication_helper.png`. Это программный запуск графической сцены и визуальная оценка снимков, не ручное прохождение сюжета.

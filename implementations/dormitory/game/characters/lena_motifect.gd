@@ -1,6 +1,6 @@
 extends Node3D
 
-const Driver = preload("res://game/characters/motifect_visual.gd")
+const Driver = preload("res://implementations/dormitory/game/characters/motifect_visual.gd")
 var visual: Node3D
 var hand_attachment: BoneAttachment3D
 var holding := false

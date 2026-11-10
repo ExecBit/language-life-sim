@@ -1,9 +1,9 @@
 extends Node3D
 signal motion_finished(name: String)
 
-const Catalog = preload("res://game/characters/motifect_catalog.gd")
-const GeneratedCatalog = preload("res://game/characters/generated_animation_catalog.gd")
-const Mirror = preload("res://game/characters/MirrorRetargetModifier3D.gd")
+const Catalog = preload("res://implementations/dormitory/game/characters/motifect_catalog.gd")
+const GeneratedCatalog = preload("res://implementations/dormitory/game/characters/generated_animation_catalog.gd")
+const Mirror = preload("res://implementations/dormitory/game/characters/MirrorRetargetModifier3D.gd")
 const PRIVATE_MODEL := "res://assets/characters/private/astera.vrm"
 const FALLBACK_MODEL := "res://assets/characters/fallback.vrm"
 
