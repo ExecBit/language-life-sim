@@ -55,11 +55,11 @@
 
 ```powershell
 $godot = (Get-Command Godot_v4.7.1-stable_win64_console.exe).Source
-& $godot --headless --path . --script res://experiments/communication/test.gd
-& $godot --headless --path . --script res://experiments/communication/test_input.gd
-& $godot --headless --path . --script res://experiments/communication/test_world.gd
-& $godot --headless --path . --script res://experiments/communication/test_regression.gd
-& $godot --headless --path . --script res://experiments/communication/test_pause.gd
+& $godot --headless --path . --script res://implementations/dormitory/experiments/communication/test.gd
+& $godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_input.gd
+& $godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_world.gd
+& $godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_regression.gd
+& $godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_pause.gd
 ```
 
 Результаты разработки:

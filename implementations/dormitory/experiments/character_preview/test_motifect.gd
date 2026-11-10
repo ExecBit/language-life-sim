@@ -1,6 +1,6 @@
 extends SceneTree
-const Actor = preload("res://game/characters/lena_motifect.gd")
-const Catalog = preload("res://game/characters/motifect_catalog.gd")
+const Actor = preload("res://implementations/dormitory/game/characters/lena_motifect.gd")
+const Catalog = preload("res://implementations/dormitory/game/characters/motifect_catalog.gd")
 
 func _init() -> void: call_deferred("run")
 

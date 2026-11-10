@@ -1,5 +1,5 @@
 extends SceneTree
-const Driver = preload("res://game/characters/motifect_visual.gd")
+const Driver = preload("res://implementations/dormitory/game/characters/motifect_visual.gd")
 
 func _init() -> void: call_deferred("run")
 

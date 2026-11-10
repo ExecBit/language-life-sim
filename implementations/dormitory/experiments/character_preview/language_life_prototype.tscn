@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://e6igq2x4qhei"]
 
-[ext_resource type="Script" uid="uid://dj0wg4fgs8o5u" path="res://experiments/character_preview/prototype.gd" id="1"]
+[ext_resource type="Script" uid="uid://dj0wg4fgs8o5u" path="res://implementations/dormitory/experiments/character_preview/prototype.gd" id="1"]
 
 [node name="LanguageLifePrototype" type="Node3D" unique_id=632166713]
 script = ExtResource("1")

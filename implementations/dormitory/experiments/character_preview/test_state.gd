@@ -1,5 +1,5 @@
 extends SceneTree
-const State = preload("res://experiments/character_preview/prototype_state.gd")
+const State = preload("res://implementations/dormitory/experiments/character_preview/prototype_state.gd")
 
 func _init() -> void:
 	var accepted = State.new()

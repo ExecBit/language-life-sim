@@ -4,4 +4,4 @@ Open `language_life_prototype.tscn` with F6, then F7 to browse the Motifect pack
 
 ## Игровой пролог
 
-F8 открывает `res://game/prologue/prologue.tscn` — общежитие и игровые дни 1–2. F7 остаётся просмотром анимационных паков в preview.
+F8 открывает `res://implementations/dormitory/game/prologue/prologue.tscn` — общежитие и игровые дни 1–2. F7 остаётся просмотром анимационных паков в preview.

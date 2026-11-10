@@ -28,9 +28,9 @@
 ## Проверки
 
 ```powershell
-godot --headless --path . --script res://experiments/character_preview/test_motifect.gd
-godot --headless --path . --script res://experiments/character_preview/test_idle.gd
-godot --headless --path . res://experiments/character_preview/language_life_prototype.tscn -- --prototype-smoke
+godot --headless --path . --script res://implementations/dormitory/experiments/character_preview/test_motifect.gd
+godot --headless --path . --script res://implementations/dormitory/experiments/character_preview/test_idle.gd
+godot --headless --path . res://implementations/dormitory/experiments/character_preview/language_life_prototype.tscn -- --prototype-smoke
 ```
 
 `test_motifect.gd`: загрузка и проигрывание всех 115 клипов, размеры групп 40/30/45, отсутствие конфликтов ID, корректные числовые значения поз, неизменность rest-длин костей, корректная кость крепления чашки, возврат в standing после завершения клипа. Smoke-проверка также переключает F7 между наборами и запускает клип Emotes через выбранный ID. Это технические проверки; они не подтверждают визуальное качество каждого клипа.

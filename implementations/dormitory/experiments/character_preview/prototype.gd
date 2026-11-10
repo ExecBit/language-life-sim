@@ -1,9 +1,9 @@
 extends Node3D
 
-const State = preload("res://experiments/character_preview/prototype_state.gd")
-const GeneratedCatalog = preload("res://game/characters/generated_animation_catalog.gd")
+const State = preload("res://implementations/dormitory/experiments/character_preview/prototype_state.gd")
+const GeneratedCatalog = preload("res://implementations/dormitory/game/characters/generated_animation_catalog.gd")
 const PLAYER_SCENE = preload("res://addons/cogito/PackedScenes/cogito_player_simple.tscn")
-const LENA_VISUAL = preload("res://game/characters/lena_motifect.gd")
+const LENA_VISUAL = preload("res://implementations/dormitory/game/characters/lena_motifect.gd")
 const SAVE_PATH := "user://language_life_prototype.json"
 var state = State.new()
 var player: CogitoPlayerSimple
@@ -362,7 +362,7 @@ func _on_input(event: InputEvent) -> void:
 			KEY_F8:
 				InputRouter.remove(_on_input)
 				get_tree().paused = false
-				get_tree().change_scene_to_file("res://game/prologue/prologue.tscn")
+				get_tree().change_scene_to_file("res://implementations/dormitory/game/prologue/prologue.tscn")
 				return
 			KEY_F7:
 				if not paused: _motion_ui(not motion_panel.visible)
