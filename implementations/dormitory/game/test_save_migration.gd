@@ -1,7 +1,7 @@
 extends SceneTree
 
 func _init() -> void:
-    var migration = preload("res://game/save_migration.gd")
+    var migration = preload("res://implementations/dormitory/game/save_migration.gd")
     var source_dir := "user://migration_fixture"
     DirAccess.make_dir_recursive_absolute(source_dir)
     var snapshots := {}
