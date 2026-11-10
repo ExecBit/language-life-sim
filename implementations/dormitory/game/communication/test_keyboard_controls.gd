@@ -28,7 +28,7 @@ func key(code: int, unicode_value := 0) -> void:
 	await dispatch(code,unicode_value,false)
 
 func run() -> void:
-	var scene = load("res://game/prologue/prologue.tscn").instantiate()
+	var scene = load("res://implementations/dormitory/game/prologue/prologue.tscn").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	scene.automated = true

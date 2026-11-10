@@ -34,7 +34,7 @@ func fixture(player_position := Vector3(0,0.9,2)) -> void:
 	await physics_frame
 
 func run() -> void:
-	scene = load("res://game/prologue/prologue.tscn").instantiate()
+	scene = load("res://implementations/dormitory/game/prologue/prologue.tscn").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	scene.automated = true

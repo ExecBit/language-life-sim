@@ -1,12 +1,12 @@
 extends Node
 ## Adapter to the existing level-one events. No experiment room state or shop logic.
-const Parser = preload("res://game/communication/parser.gd")
-const Catalog = preload("res://game/communication/word_catalog.gd")
-const Composer = preload("res://game/communication/word_composer.gd")
-const Helper = preload("res://game/communication/helper_catalog.gd")
-const Attention = preload("res://game/communication/speaker_attention.gd")
+const Parser = preload("res://implementations/dormitory/game/communication/parser.gd")
+const Catalog = preload("res://implementations/dormitory/game/communication/word_catalog.gd")
+const Composer = preload("res://implementations/dormitory/game/communication/word_composer.gd")
+const Helper = preload("res://implementations/dormitory/game/communication/helper_catalog.gd")
+const Attention = preload("res://implementations/dormitory/game/communication/speaker_attention.gd")
 var attention = Attention.new()
-const Residents = preload("res://game/prologue/residents.gd")
+const Residents = preload("res://implementations/dormitory/game/prologue/residents.gd")
 const OBJECTS = Residents.OBJECTS
 const SEMANTICS = Residents.SEMANTICS
 const IDENTIFY = Residents.IDENTIFY

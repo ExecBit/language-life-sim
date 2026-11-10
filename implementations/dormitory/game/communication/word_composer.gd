@@ -1,5 +1,5 @@
 extends VBoxContainer
-const Parser = preload("res://game/communication/parser.gd")
+const Parser = preload("res://implementations/dormitory/game/communication/parser.gd")
 signal submitted(text: String)
 signal cancelled
 signal help_requested

@@ -1,6 +1,6 @@
 extends RefCounted
 ## Pure shallow grammar; world preconditions are resolved separately.
-const Catalog = preload("res://game/communication/word_catalog.gd")
+const Catalog = preload("res://implementations/dormitory/game/communication/word_catalog.gd")
 
 static func suggestions(prefix: String) -> Array[String]:
 	return Catalog.suggestions(prefix)

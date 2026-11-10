@@ -1,6 +1,6 @@
 extends SceneTree
-const Parser = preload("res://game/communication/parser.gd")
-const Helper = preload("res://game/communication/helper_catalog.gd")
+const Parser = preload("res://implementations/dormitory/game/communication/parser.gd")
+const Helper = preload("res://implementations/dormitory/game/communication/helper_catalog.gd")
 var scene
 var failures := 0
 var checks := 0
@@ -32,7 +32,7 @@ func say(text: String) -> void:
 	scene.communication.submit(text)
 
 func run() -> void:
-	scene = load("res://game/prologue/prologue.tscn").instantiate()
+	scene = load("res://implementations/dormitory/game/prologue/prologue.tscn").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	scene.automated = true
