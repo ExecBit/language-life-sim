@@ -1,6 +1,6 @@
 extends StaticBody3D
 
-const Visual = preload("res://game/prologue/prologue_visual.gd")
+const Visual = preload("res://implementations/dormitory/game/prologue/prologue_visual.gd")
 signal arrived
 const WALK_SPEED := 1.15 # metres per second; a calm indoor pace
 var walking := false

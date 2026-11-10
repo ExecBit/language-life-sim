@@ -1,5 +1,5 @@
 extends Node
-const Residents = preload("res://game/prologue/residents.gd")
+const Residents = preload("res://implementations/dormitory/game/prologue/residents.gd")
 ## Small authored routines; world transfers remain explicit and recoverable.
 var controller: Node3D
 var key_time := 0.0

@@ -1,8 +1,8 @@
 extends Node3D
 
-const Layout = preload("res://game/prologue/dormitory_layout.gd")
+const Layout = preload("res://implementations/dormitory/game/prologue/dormitory_layout.gd")
 var doors := {}
-const Actor = preload("res://game/prologue/actor.gd")
+const Actor = preload("res://implementations/dormitory/game/prologue/actor.gd")
 var actors := {}
 var items := {}
 var anchors := {}

@@ -1,8 +1,8 @@
 extends CanvasLayer
-const BREAD_ICON = preload("res://game/shop/bread.svg")
-const MILK_ICON = preload("res://game/shop/milk.svg")
-const KEY_ICON = preload("res://game/prologue/key.svg")
-const BAG_ICON = preload("res://game/prologue/bag.svg")
+const BREAD_ICON = preload("res://implementations/dormitory/game/shop/bread.svg")
+const MILK_ICON = preload("res://implementations/dormitory/game/shop/milk.svg")
+const KEY_ICON = preload("res://implementations/dormitory/game/prologue/key.svg")
+const BAG_ICON = preload("res://implementations/dormitory/game/prologue/bag.svg")
 signal command(id: String)
 signal setting_changed(id: String, value: float)
 

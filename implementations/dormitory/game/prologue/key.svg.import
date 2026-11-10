@@ -10,7 +10,7 @@ metadata={
 
 [deps]
 
-source_file="res://game/prologue/key.svg"
+source_file="res://implementations/dormitory/game/prologue/key.svg"
 dest_files=["res://.godot/imported/key.svg-90532b9238bd06532d970922e6280844.ctex"]
 
 [params]

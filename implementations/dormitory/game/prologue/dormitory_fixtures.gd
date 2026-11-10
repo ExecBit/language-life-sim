@@ -147,7 +147,7 @@ func refresh() -> void:
 		if controller.state.items[id] != mode: continue
 		var item := InventoryItemPD.new()
 		item.name = {"room_key":"Schlüssel","cup":"Tasse","bell":"Glocke"}.get(id,id)
-		item.icon = load("res://game/prologue/key.svg") if id == "room_key" else load("res://game/prologue/bag.svg")
+		item.icon = load("res://implementations/dormitory/game/prologue/key.svg") if id == "room_key" else load("res://implementations/dormitory/game/prologue/bag.svg")
 		item.is_unique = true
 		var slot := InventorySlotPD.new()
 		slot.inventory_item = item

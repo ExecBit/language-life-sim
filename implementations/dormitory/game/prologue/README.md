@@ -1,7 +1,7 @@
 # Пролог общежития — дни 1–2
 
-Запуск: F6 на `res://game/prologue/prologue.tscn` или F5 (главная сцена проекта).
-Из `res://experiments/character_preview/language_life_prototype.tscn` клавиша F8 открывает этот пролог; F7 в preview остаётся просмотром паков анимаций.
+Запуск: F6 на `res://implementations/dormitory/game/prologue/prologue.tscn` или F5 (главная сцена проекта).
+Из `res://implementations/dormitory/experiments/character_preview/language_life_prototype.tscn` клавиша F8 открывает этот пролог; F7 в preview остаётся просмотром паков анимаций.
 
 ## Планировка
 
@@ -56,9 +56,9 @@
 Команды из корня проекта с Godot 4.7.1:
 
 ```text
-godot --headless --path . --script res://game/prologue/test_story.gd
-godot --headless --path . --script res://game/prologue/test_dormitory_layout.gd
-godot --headless --path . --script res://game/prologue/test_dormitory_playthrough.gd
+godot --headless --path . --script res://implementations/dormitory/game/prologue/test_story.gd
+godot --headless --path . --script res://implementations/dormitory/game/prologue/test_dormitory_layout.gd
+godot --headless --path . --script res://implementations/dormitory/game/prologue/test_dormitory_playthrough.gd
 ```
 
 Первая проверка покрывает восемь сочетаний выбора воды, завтрака и помощи, атомарность переноса, карман/хранение и миграцию старых сохранений. Проверка планировки измеряет двери, разделение кухни/общей комнаты и проходимость капсулы NPC. Полный маршрут проходит оба дня через физическое движение FPS и коллизии, выбор E лучом, парсер и обычные действия. Драйвер не перемещает предметы и не меняет индекс сюжета или координаты игрока. Он также проверяет H из инвентаря, паузу во время питья, восстановление передачи чашки и сохранение после сна.
