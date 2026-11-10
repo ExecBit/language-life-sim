@@ -1,6 +1,6 @@
 # Самостоятельное общение в прологе / LEVEL_01
 
-Реализация [COMMUNICATION_MVP_INTEGRATION.md](https://github.com/ExecBit/language-life-sim/blob/docs/design-01-mvp-and-level-01/docs/COMMUNICATION_MVP_INTEGRATION.md), прочитанного 2026-11-09. Ветка реализации: `feat/communication-mvp-integration`.
+Реализация [COMMUNICATION_MVP_INTEGRATION.md](../../docs/COMMUNICATION_MVP_INTEGRATION.md), прочитанного 2026-11-09. Ветка реализации: `feat/communication-mvp-integration`.
 
 ## Запуск и управление
 

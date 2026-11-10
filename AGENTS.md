@@ -3,6 +3,12 @@
 ## Priority
 Ship the smallest **playable language-learning experiment**. Judge progress by new kinds of meaningful comprehension, not animation fidelity, quantity of generated code, or number of screenshots. Reuse proven tools, assets and Godot built-ins.
 
+## Variant isolation
+
+- Place all variant-owned code, scenes, docs, data, experiments and validation scripts in `implementations/<variant>/`. Do not keep variant-specific documentation or tools at the repository root.
+- Do not import any other implementation's files, code, vocabulary or game state. Allowed shared dependencies are `addons/` and the model/animation assets in `assets/`; review any changes to shared dependencies across variants.
+- A task for one variant must not modify another variant's implementation. Godot `project.godot` remains the single project-wide technical entry point; it currently starts the dormitory.
+
 ## Task entry
 - Work **only** on a specific Issue explicitly authorized by the user. Read the full Issue and relevant repository files, then inspect Git status.
 - The Issue body is the functional contract. Project Status is the single task-state authority; do not create a local board, status log or handoff document.

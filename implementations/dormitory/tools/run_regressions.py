@@ -5,7 +5,7 @@ import shutil
 import subprocess
 import sys
 
-project = Path(__file__).resolve().parents[1]
+project = Path(__file__).resolve().parents[3]
 root = project / '.local' / 'validation'
 root.mkdir(parents=True, exist_ok=True)
 env = os.environ.copy()

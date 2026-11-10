@@ -15,22 +15,22 @@ Open this repository's `project.godot`, allow imports to finish, and press **F5*
 
 | Directory | Responsibility |
 | --- | --- |
-| `implementations/dormitory/game/prologue/` | Main entry, LEVEL_01, house, story, UI and state |
-| `implementations/dormitory/game/shop/` | Existing LEVEL_02 and shopping state |
-| `implementations/dormitory/game/communication/` | Shared parser, vocabulary, composer, helper and dialogue integration |
-| `implementations/dormitory/game/characters/` | Project-owned model adapters and animation retargeting |
+| `game/prologue/` | Main entry, LEVEL_01, house, story, UI and state |
+| `game/shop/` | Existing LEVEL_02 and shopping state |
+| `game/communication/` | Shared parser, vocabulary, composer, helper and dialogue integration |
+| `game/characters/` | Project-owned model adapters and animation retargeting |
 | `assets/animations/motifect/` | Animation packs, with their license notices |
 | `assets/characters/` | Redistributable sample model and optional local model |
 | `addons/` | Cogito and other third-party dependencies; variant-specific code stays in its own `implementations/<variant>/` |
-| `implementations/dormitory/experiments/communication/` | Independent locked-room experiment |
-| `implementations/dormitory/experiments/character_preview/` | Legacy character/animation preview, F7 animation browser |
-| `docs/` | Product requirements; historical tavern documents in `docs/archive/` |
+| `experiments/communication/` | Independent locked-room experiment |
+| `experiments/character_preview/` | Legacy character/animation preview, F7 animation browser |
+| `docs/` | Variant-specific design documents, including the historical archive at `docs/archive/` |
 
 Runtime autoloads are declared explicitly in `project.godot`. Cogito, Input Helper and Quick Audio editor plugins are disabled to avoid re-registering those singletons during a first import; their runtime code remains active. VRM/MToon import plugins and State Charts remain enabled.
 
 Run the experiment or preview with F6 on its `.tscn`. They do not replace the F5 entry point.
 
-## Independent implementations
+## Граница вариантов
 
 The existing gameplay, dialogue parser, state, characters, shop, and prototypes belong to `implementations/dormitory/`. New implementations use separate `implementations/<variant>/` folders, including their own gameplay code, scenarios, state, vocabulary and tests. Implementations must not import one another.
 
@@ -38,16 +38,16 @@ Only engine extensions (`addons/`) and reusable models/animations (`assets/`) ar
 
 ## Models and saves
 
-Astera prohibits redistribution in its embedded metadata and is not committed. An existing local copy lives in ignored `assets/characters/private/astera.vrm`. Without it, Lena uses the included VRoid sample model. Reimport after adding a model. See [asset provenance](docs/assets_provenance.md).
+Astera prohibits redistribution in its embedded metadata and is not committed. An existing local copy lives in ignored `assets/characters/private/astera.vrm`. Without it, Lena uses the included VRoid sample model. Reimport after adding a model. See [asset provenance](../../assets/PROVENANCE.md).
 
 Saves use the stable custom Godot directory `Language Life Sim`. On Windows this is `%APPDATA%/Language Life Sim`. On first launch, missing session/settings files are copied from `%APPDATA%/Godot/app_userdata/Cogito`; existing destination files and original files are preserved. The old tavern save is unrelated and is not imported.
 
 ## Verification
 
 ```powershell
-python tools/check_repository.py
+python implementations/dormitory/tools/check_repository.py
 Godot_v4.7.1-stable_win64_console.exe --headless --path . --editor --import
-python tools/run_regressions.py
+python implementations/dormitory/tools/run_regressions.py
 ```
 
 `GODOT` can specify another Godot 4.7.1 executable. Tests isolate user data and write logs to ignored `.local/validation/`. CI runs structural checks, a clean import and the migrated regression suite.

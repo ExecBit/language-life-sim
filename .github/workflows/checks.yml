@@ -12,7 +12,7 @@ jobs:
         with:
           python-version: '3.x'
       - name: Check migrated structure
-        run: python tools/check_repository.py
+        run: python implementations/dormitory/tools/check_repository.py
       - name: Install Godot 4.7.1
         run: |
           curl --fail --location --retry 3 -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.7.1-stable/Godot_v4.7.1-stable_linux.x86_64.zip
@@ -22,7 +22,7 @@ jobs:
       - name: Import without private assets or a pre-existing cache
         run: '$GODOT --headless --path . --editor --import'
       - name: Run gameplay regressions
-        run: python tools/run_regressions.py
+        run: python implementations/dormitory/tools/run_regressions.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
