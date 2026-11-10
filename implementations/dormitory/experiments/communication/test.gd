@@ -1,7 +1,7 @@
 extends SceneTree
-const Parser = preload("res://experiments/communication/parser.gd")
-const Context = preload("res://experiments/communication/context.gd")
-const Catalog = preload("res://experiments/communication/word_catalog.gd")
+const Parser = preload("res://implementations/dormitory/experiments/communication/parser.gd")
+const Context = preload("res://implementations/dormitory/experiments/communication/context.gd")
+const Catalog = preload("res://implementations/dormitory/experiments/communication/word_catalog.gd")
 var failures := 0
 var checks := 0
 

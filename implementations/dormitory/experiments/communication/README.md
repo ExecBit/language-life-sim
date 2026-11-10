@@ -1,6 +1,6 @@
 # COMMUNICATION_EXPERIMENT — закрытая комната
 
-Открыть `res://experiments/communication/COMMUNICATION_EXPERIMENT.tscn` в Cogito, F6.
+Открыть `res://implementations/dormitory/experiments/communication/COMMUNICATION_EXPERIMENT.tscn` в Cogito, F6.
 WASD/мышь — движение; E — взаимодействовать с видимым объектом/Анной; T — открыть ввод рядом с Анной; Esc — меню паузы; F5 — полный сброс.
 
 Ввод: печатать префикс в нижнем поле, ↑/↓ выбирают форму, Tab добавляет слово. Реплику можно редактировать в верхнем поле: удалить слово, поменять порядок, дописать текст. Enter (в том числе цифровой), Ctrl+Enter или «Отправить» отправляет реплику; неподтверждённый текст префикса включается буквально, без автоматического выбора подсказки. `Hallo` доступно в словаре и вызывает приветствие Анны. Подсказки — только слова в алфавитном порядке, одинаковые для всех состояний, без готовых ответов. «Указать предмет» возвращает FPS: наведитесь на дверь/ключ, E привязывает цель и возвращает редактор. Esc открывает меню паузы и сохраняет черновик и уточнение. «Продолжить» возвращает прежний режим; «Закончить разговор» отменяет контекст; «Начать заново» сбрасывает опыт; «Выход» закрывает игру. NPC и анимации на паузе остановлены.
@@ -22,10 +22,10 @@ WASD/мышь — движение; E — взаимодействовать с 
 
 В папке проекта:
 ```
-godot --headless --path . --script res://experiments/communication/test.gd
-godot --headless --path . --script res://experiments/communication/test_input.gd
-godot --headless --path . --script res://experiments/communication/test_world.gd
-godot --headless --path . --script res://experiments/communication/test_regression.gd
+godot --headless --path . --script res://implementations/dormitory/experiments/communication/test.gd
+godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_input.gd
+godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_world.gd
+godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_regression.gd
 ```
 `test.gd` проверяет парсер и контекст; `test_input.gd` — события клавиатуры, автодополнение, исправление и отправку; `test_world.gd` — коллизию, владение и два пути решения. `test_regression.gd` отдельно прогоняет R01–R15 и W01–W07 из раздела 9 спецификации с проверкой разбора, ответа и реального состояния сцены. Результаты: [REGRESSION_REPORT.md](REGRESSION_REPORT.md). Машинный отчёт сохраняется в `user://language_parser_regression.json`.
 
@@ -36,4 +36,4 @@ godot --headless --path . --script res://experiments/communication/test_regressi
 Попытки, распознанные слоты, помощь, ответы и число открытий записываются отдельно в `user://communication_experiment.json`. Журнал не выдаёт достижения и не изменяет словарь других уровней; сброс сохраняет историю предыдущего опыта в журнале текущей сессии.
 Источник: docs/COMMUNICATION_EXPERIMENT.md, ветка docs/design-01-mvp-and-level-01 репозитория ExecBit/language-life-sim.
 
-Тест меню: `godot --headless --path . --script res://experiments/communication/test_pause.gd` — Esc, сохранение черновика/контекста, остановка NPC и сброс через кнопку меню.
+Тест меню: `godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_pause.gd` — Esc, сохранение черновика/контекста, остановка NPC и сброс через кнопку меню.

@@ -17,7 +17,7 @@ func key(code: int, unicode_value := 0) -> void:
 	await process_frame
 
 func run() -> void:
-	var scene = load("res://experiments/communication/COMMUNICATION_EXPERIMENT.tscn").instantiate()
+	var scene = load("res://implementations/dormitory/experiments/communication/COMMUNICATION_EXPERIMENT.tscn").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	await physics_frame

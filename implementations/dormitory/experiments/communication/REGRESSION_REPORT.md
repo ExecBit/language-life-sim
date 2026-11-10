@@ -72,11 +72,11 @@
 Запускать из корня Cogito; `godot` заменить именем своего исполняемого файла:
 
 ```powershell
-godot --headless --path . --script res://experiments/communication/test.gd
-godot --headless --path . --script res://experiments/communication/test_input.gd
-godot --headless --path . --script res://experiments/communication/test_world.gd
-godot --headless --path . --script res://experiments/communication/test_pause.gd
-godot --headless --path . --script res://experiments/communication/test_regression.gd
+godot --headless --path . --script res://implementations/dormitory/experiments/communication/test.gd
+godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_input.gd
+godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_world.gd
+godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_pause.gd
+godot --headless --path . --script res://implementations/dormitory/experiments/communication/test_regression.gd
 # Аналогично для каждого скрипта уровней 01–02 из таблицы выше.
 ```
 

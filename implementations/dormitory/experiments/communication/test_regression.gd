@@ -81,7 +81,7 @@ func record(id: String, text: String, attempt: Dictionary) -> void:
 	errors.clear()
 
 func run() -> void:
-	scene = load("res://experiments/communication/COMMUNICATION_EXPERIMENT.tscn").instantiate()
+	scene = load("res://implementations/dormitory/experiments/communication/COMMUNICATION_EXPERIMENT.tscn").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	await physics_frame

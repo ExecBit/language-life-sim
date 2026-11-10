@@ -1,10 +1,10 @@
 extends Node3D
-const Composer = preload("res://game/communication/word_composer.gd")
+const Composer = preload("res://implementations/dormitory/game/communication/word_composer.gd")
 var composer: VBoxContainer
-const Parser = preload("res://experiments/communication/parser.gd")
-const Context = preload("res://experiments/communication/context.gd")
-const House = preload("res://game/prologue/house.gd")
-const Actor = preload("res://game/prologue/actor.gd")
+const Parser = preload("res://implementations/dormitory/experiments/communication/parser.gd")
+const Context = preload("res://implementations/dormitory/experiments/communication/context.gd")
+const House = preload("res://implementations/dormitory/game/prologue/house.gd")
+const Actor = preload("res://implementations/dormitory/game/prologue/actor.gd")
 const PLAYER = preload("res://addons/cogito/PackedScenes/cogito_player_simple.tscn")
 var state = Context.new()
 var room: Node3D

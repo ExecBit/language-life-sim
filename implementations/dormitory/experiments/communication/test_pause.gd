@@ -2,7 +2,7 @@ extends SceneTree
 func _init() -> void:
 	call_deferred("run")
 func run() -> void:
-	var scene = load("res://experiments/communication/COMMUNICATION_EXPERIMENT.tscn").instantiate()
+	var scene = load("res://implementations/dormitory/experiments/communication/COMMUNICATION_EXPERIMENT.tscn").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	await process_frame
