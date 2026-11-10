@@ -1,17 +1,17 @@
 extends Node3D
 
-const Communication = preload("res://game/communication/level_one_session.gd")
+const Communication = preload("res://implementations/dormitory/game/communication/level_one_session.gd")
 var communication: Node
 
-const State = preload("res://game/prologue/prologue_state.gd")
-const Story = preload("res://game/prologue/story.gd")
-const House = preload("res://game/prologue/house.gd")
-const Interface = preload("res://game/prologue/interface.gd")
+const State = preload("res://implementations/dormitory/game/prologue/prologue_state.gd")
+const Story = preload("res://implementations/dormitory/game/prologue/story.gd")
+const House = preload("res://implementations/dormitory/game/prologue/house.gd")
+const Interface = preload("res://implementations/dormitory/game/prologue/interface.gd")
 const PLAYER = preload("res://addons/cogito/PackedScenes/cogito_player_simple.tscn")
 const SAVE := "user://language_life_session_v5.json"
 const PRIOR_PROLOGUE_SAVE := "user://language_life_prologue_v4.json"
-const Shopping = preload("res://game/shop/shopping_session.gd")
-const ShopState = preload("res://game/shop/shop_state.gd")
+const Shopping = preload("res://implementations/dormitory/game/shop/shopping_session.gd")
+const ShopState = preload("res://implementations/dormitory/game/shop/shop_state.gd")
 @export var start_in_shop := false
 var shopping: Node
 const PREVIOUS_SAVE := "user://language_life_prologue_v3.json"
@@ -55,7 +55,7 @@ var fixtures: Node
 var life: Node
 
 func _ready() -> void:
-	preload("res://game/save_migration.gd").import_previous()
+	preload("res://implementations/dormitory/game/save_migration.gd").import_previous()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_window().content_scale_size = Vector2i(1280,800)
 	house = House.new()
@@ -85,10 +85,10 @@ func _ready() -> void:
 	communication = Communication.new()
 	communication.controller = self
 	add_child(communication)
-	fixtures = preload("res://game/prologue/dormitory_fixtures.gd").new()
+	fixtures = preload("res://implementations/dormitory/game/prologue/dormitory_fixtures.gd").new()
 	fixtures.controller = self
 	add_child(fixtures)
-	life = preload("res://game/prologue/dormitory_life.gd").new()
+	life = preload("res://implementations/dormitory/game/prologue/dormitory_life.gd").new()
 	life.controller = self
 	life.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(life)

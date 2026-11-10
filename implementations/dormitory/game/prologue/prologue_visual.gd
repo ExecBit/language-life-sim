@@ -1,4 +1,4 @@
-extends "res://game/characters/motifect_visual.gd"
+extends "res://implementations/dormitory/game/characters/motifect_visual.gd"
 
 func _ready() -> void:
 	super._ready()

@@ -2,7 +2,7 @@ extends RefCounted
 
 const VERSION := 5
 const LOCATIONS := ["lena","anna","player","player_pocket","drawer_slot","tray","entrance_bag","bag_stand","key_tray","bell_stand","surface_common","surface_room","surface_side","nightstand","bedside_spare","kitchen_shelf","breakfast_table"]
-const Cooking = preload("res://game/prologue/cooking_routine.gd")
+const Cooking = preload("res://implementations/dormitory/game/prologue/cooking_routine.gd")
 var cooking := {}
 var index := 0
 var day := 1

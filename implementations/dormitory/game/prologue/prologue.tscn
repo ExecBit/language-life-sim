@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b0nyhsfc2jliw"]
 
-[ext_resource type="Script" uid="uid://4ix6kx6b2qwt" path="res://game/prologue/prologue.gd" id="1"]
+[ext_resource type="Script" uid="uid://4ix6kx6b2qwt" path="res://implementations/dormitory/game/prologue/prologue.gd" id="1"]
 
 [node name="LanguageLifePrologue" type="Node3D" unique_id=548512621]
 script = ExtResource("1")
