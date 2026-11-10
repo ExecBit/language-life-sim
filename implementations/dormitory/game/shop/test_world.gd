@@ -30,7 +30,7 @@ func aim(scene, target: String) -> void:
 	assert(scene._target() == target,"Ray misses "+target+"; hit="+scene._target()+" point="+str(point))
 
 func run() -> void:
-	var scene = load("res://game/shop/shop.tscn").instantiate()
+	var scene = load("res://implementations/dormitory/game/shop/shop.tscn").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	scene.automated = true

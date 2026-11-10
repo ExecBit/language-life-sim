@@ -1,5 +1,5 @@
-extends "res://game/prologue/house.gd"
-const Vendor = preload("res://game/shop/vendor.gd")
+extends "res://implementations/dormitory/game/prologue/house.gd"
+const Vendor = preload("res://implementations/dormitory/game/shop/vendor.gd")
 var register_label: Label3D
 
 func _ready() -> void:

@@ -3,7 +3,7 @@ func _init() -> void:
 	call_deferred("run")
 
 func run() -> void:
-	var scene = load("res://game/shop/shop.tscn").instantiate()
+	var scene = load("res://implementations/dormitory/game/shop/shop.tscn").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	scene.automated = true
@@ -23,7 +23,7 @@ func run() -> void:
 	scene.queue_free()
 	await process_frame
 	# Rebuild the world from disk, not just the RefCounted state or existing nodes.
-	scene = load("res://game/prologue/prologue.tscn").instantiate()
+	scene = load("res://implementations/dormitory/game/prologue/prologue.tscn").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	scene.automated = true

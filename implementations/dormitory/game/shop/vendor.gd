@@ -1,6 +1,6 @@
 extends StaticBody3D
-const MODEL_PATH := "res://game/shop/Assets/vendor.vrm"
-const FALLBACK_PATH := "res://game/shop/Assets/fallback_vendor.vrm"
+const MODEL_PATH := "res://implementations/dormitory/game/shop/Assets/vendor.vrm"
+const FALLBACK_PATH := "res://implementations/dormitory/game/shop/Assets/fallback_vendor.vrm"
 var visual: Node3D
 var hand: Node3D
 var moving: Tween
@@ -19,7 +19,7 @@ func _ready() -> void:
 	hand.position = Vector3(-0.35,1.0,0)
 	add_child(hand)
 	if ResourceLoader.exists(MODEL_PATH) or ResourceLoader.exists(FALLBACK_PATH):
-		visual = load("res://game/shop/seller_visual.gd").new()
+		visual = load("res://implementations/dormitory/game/shop/seller_visual.gd").new()
 		add_child(visual)
 	else:
 		# Explicit development fallback while the BOOTH file is being downloaded.

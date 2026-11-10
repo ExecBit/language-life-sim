@@ -1,5 +1,5 @@
 extends SceneTree
-const State = preload("res://game/shop/shop_state.gd")
+const State = preload("res://implementations/dormitory/game/shop/shop_state.gd")
 
 func _init() -> void:
 	assert(State.price(180) == "1,80 €" and State.price(120) == "1,20 €" and State.price(300) == "3,00 €")

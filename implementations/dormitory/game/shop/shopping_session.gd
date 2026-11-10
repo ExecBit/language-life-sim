@@ -1,6 +1,6 @@
 extends Node
-const State = preload("res://game/shop/shop_state.gd")
-const World = preload("res://game/shop/shop_world.gd")
+const State = preload("res://implementations/dormitory/game/shop/shop_state.gd")
+const World = preload("res://implementations/dormitory/game/shop/shop_world.gd")
 var controller: Node3D
 var state = State.new()
 var world: Node3D

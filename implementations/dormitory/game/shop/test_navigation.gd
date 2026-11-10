@@ -11,7 +11,7 @@ func walk(player, waypoint: Vector3) -> void:
 	assert(false,"Blocked shop route at "+str(player.position)+" heading to "+str(waypoint))
 
 func run() -> void:
-	var scene = load("res://game/shop/shop.tscn").instantiate()
+	var scene = load("res://implementations/dormitory/game/shop/shop.tscn").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	scene.automated = true
