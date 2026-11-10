@@ -40,23 +40,23 @@ godot --headless --path . --script res://implementations/dormitory/game/communic
 godot --headless --path . --script res://implementations/dormitory/game/communication/test_dialogue_ui.gd
 ```
 
-Дата: 2026-11-09. Контракт: [COMMUNICATION_MVP_INTEGRATION.md](https://github.com/ExecBit/language-life-sim/blob/docs/design-01-mvp-and-level-01/docs/COMMUNICATION_MVP_INTEGRATION.md), ветка `docs/design-01-mvp-and-level-01`. Реализационная ветка Cogito: `feat/communication-mvp-integration`.
+Дата: 2026-11-09. Контракт: [COMMUNICATION_MVP_INTEGRATION.md](../../docs/COMMUNICATION_MVP_INTEGRATION.md), ветка `docs/design-01-mvp-and-level-01`. Реализационная ветка Cogito: `feat/communication-mvp-integration`.
 
-Результат: новый канал общения подключён к существующему прологу/LEVEL_01. Исходный сюжет, предметные действия и утренние исходы сохранены. LEVEL_02 использует прежний интерфейс; файлы `game/shop/` не изменены. Экспериментальная сцена остаётся отдельной и проходит свою регрессию. Полная ручная приёмка уровня ещё не выполнена.
+Результат: новый канал общения подключён к существующему прологу/LEVEL_01. Исходный сюжет, предметные действия и утренние исходы сохранены. LEVEL_02 использует прежний интерфейс; файлы `implementations/dormitory/game/shop/` не изменены. Экспериментальная сцена остаётся отдельной и проходит свою регрессию. Полная ручная приёмка уровня ещё не выполнена.
 
 ## Изменённые компоненты
 
 | Файл / компонент | Изменение |
 | --- | --- |
-| `game/communication/word_catalog.gd` | Единственный каталог для общего ввода/разбора; добавлены необходимые формы базиса пролога и предметные слова LEVEL_01. |
-| `game/communication/parser.gd` | Общий парсер: текущий адресат задаёт роли, добавлены прощание, извинение, повторение, сообщение о непонимании. Нет выбора поведения по имени Лены. |
-| `game/communication/word_composer.gd` | Общий компонент редактирования/автодополнения для MVP и эксперимента. |
-| `game/communication/helper_catalog.gd` | 15 базовых единиц и отдельные записи, открываемые после знакомства. Переводы выводятся только в H. |
-| `game/communication/level_one_session.gd` | Контекст, управление H/фокусом/указанием и resolver существующих событий Лены. |
-| `game/prologue/prologue.gd` | Минимальные точки подключения нового канала, обработка ввода/паузы/выбора цели; старые немецкие кнопки в LEVEL_01 не создаются. |
-| `game/prologue/prologue_state.gd` | H включена в существующий учёт помощи при действиях с хлебом. Формат и версия сохранений не изменены. |
-| `experiments/communication/parser.gd`, `word_catalog.gd` | Совместимые пути к общим компонентам; адаптер комнаты только подставляет адресата Анну. |
-| `experiments/communication/experiment.gd` | Вместо дубликата UI используется тот же composer; сюжет и состояния комнаты сохранены. |
+| `implementations/dormitory/game/communication/word_catalog.gd` | Единственный каталог для общего ввода/разбора; добавлены необходимые формы базиса пролога и предметные слова LEVEL_01. |
+| `implementations/dormitory/game/communication/parser.gd` | Общий парсер: текущий адресат задаёт роли, добавлены прощание, извинение, повторение, сообщение о непонимании. Нет выбора поведения по имени Лены. |
+| `implementations/dormitory/game/communication/word_composer.gd` | Общий компонент редактирования/автодополнения для MVP и эксперимента. |
+| `implementations/dormitory/game/communication/helper_catalog.gd` | 15 базовых единиц и отдельные записи, открываемые после знакомства. Переводы выводятся только в H. |
+| `implementations/dormitory/game/communication/level_one_session.gd` | Контекст, управление H/фокусом/указанием и resolver существующих событий Лены. |
+| `implementations/dormitory/game/prologue/prologue.gd` | Минимальные точки подключения нового канала, обработка ввода/паузы/выбора цели; старые немецкие кнопки в LEVEL_01 не создаются. |
+| `implementations/dormitory/game/prologue/prologue_state.gd` | H включена в существующий учёт помощи при действиях с хлебом. Формат и версия сохранений не изменены. |
+| `implementations/dormitory/experiments/communication/parser.gd`, `word_catalog.gd` | Совместимые пути к общим компонентам; адаптер комнаты только подставляет адресата Анну. |
+| `implementations/dormitory/experiments/communication/experiment.gd` | Вместо дубликата UI используется тот же composer; сюжет и состояния комнаты сохранены. |
 
 Новых ассетов, локаций, экономики, LLM/API или изменений LEVEL_03 нет. Сценарный `story.gd`, интерфейс магазина и его диалоги не перерабатывались.
 
@@ -91,21 +91,21 @@ Godot 4.7.1 stable, Windows. Проверки выполнялись в изол
 
 | Скрипты | Результат |
 | --- | --- |
-| `game/communication/test_integration.gd` | PASS |
-| `experiments/communication/test.gd` | PASS |
-| `experiments/communication/test_input.gd` | PASS |
-| `experiments/communication/test_world.gd` | PASS |
-| `experiments/communication/test_pause.gd` | PASS |
-| `experiments/communication/test_regression.gd` | PASS |
-| `game/prologue/test_story.gd` | PASS |
-| `game/prologue/test_cooking.gd` | PASS |
-| `game/prologue/test_day2_realtime.gd` | PASS |
-| `game/prologue/test_walking.gd` | PASS |
-| `game/shop/test_state.gd` | PASS |
-| `game/shop/test_world.gd` | PASS |
-| `game/shop/test_bridge.gd` | PASS |
-| `game/shop/test_restart.gd` | PASS |
-| `game/shop/test_navigation.gd` | PASS |
+| `implementations/dormitory/game/communication/test_integration.gd` | PASS |
+| `implementations/dormitory/experiments/communication/test.gd` | PASS |
+| `implementations/dormitory/experiments/communication/test_input.gd` | PASS |
+| `implementations/dormitory/experiments/communication/test_world.gd` | PASS |
+| `implementations/dormitory/experiments/communication/test_pause.gd` | PASS |
+| `implementations/dormitory/experiments/communication/test_regression.gd` | PASS |
+| `implementations/dormitory/game/prologue/test_story.gd` | PASS |
+| `implementations/dormitory/game/prologue/test_cooking.gd` | PASS |
+| `implementations/dormitory/game/prologue/test_day2_realtime.gd` | PASS |
+| `implementations/dormitory/game/prologue/test_walking.gd` | PASS |
+| `implementations/dormitory/game/shop/test_state.gd` | PASS |
+| `implementations/dormitory/game/shop/test_world.gd` | PASS |
+| `implementations/dormitory/game/shop/test_bridge.gd` | PASS |
+| `implementations/dormitory/game/shop/test_restart.gd` | PASS |
+| `implementations/dormitory/game/shop/test_navigation.gd` | PASS |
 
 Команды из корня проекта:
 
@@ -127,7 +127,7 @@ $godot = (Get-Command Godot_v4.7.1-stable_win64_console.exe).Source
 
 Все перечисленные ниже проверки с физической клавиатурой/мышью в текущем прогоне имеют статус **NOT_RUN**:
 
-1. F6 в `game/prologue/prologue.tscn`, новая игра. Подойти к Лене, составить Hallo через префикс/Enter. Проверить удобство и читаемость поля в своём разрешении.
+1. F6 в `implementations/dormitory/game/prologue/prologue.tscn`, новая игра. Подойти к Лене, составить Hallo через префикс/Enter. Проверить удобство и читаемость поля в своём разрешении.
 2. В активном поле набрать Hallo/habe; открыть H кнопкой, закрыть Esc, проверить текст/курсор. Снять фокус Tab и открыть H клавишей; проверить, что перевод не показан вне заметки.
 3. Пройти заселение с Ja и отдельно с Nein на воду. Проверить видимость обоих жестов, одной чашки, перенос сумки и физическое взятие ключа. Ввод просьбы о ключе не должен сам подбирать предмет.
 4. Составить Was ist das?, осмотреться в FPS, выбрать предмет через E. Повторить с отменой; проверить отсутствие выбора через стену. Затем попросить повторить и сообщить о непонимании.

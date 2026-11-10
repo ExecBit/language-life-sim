@@ -34,4 +34,4 @@
 Тесты: test_state.gd, test_world.gd, test_restart.gd, test_navigation.gd. Прогнаны также первый уровень и сценарии необязательной готовки.
 
 Магазин пока построен из простых форм. Большой улицы, экономики, готовки/еды и третьего уровня нет.
-Источник сценария: https://github.com/ExecBit/language-life-sim/blob/docs/design-01-mvp-and-level-01/docs/LEVEL_02.md
+Источник сценария: ../../docs/LEVEL_02.md
