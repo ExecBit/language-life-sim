@@ -8,7 +8,7 @@ path="res://.godot/imported/fallback_vendor.vrm-9fba98321ecc9c26bde4bc5091be3483
 
 [deps]
 
-source_file="res://game/shop/Assets/fallback_vendor.vrm"
+source_file="res://implementations/dormitory/game/shop/Assets/fallback_vendor.vrm"
 dest_files=["res://.godot/imported/fallback_vendor.vrm-9fba98321ecc9c26bde4bc5091be3483.scn"]
 
 [params]

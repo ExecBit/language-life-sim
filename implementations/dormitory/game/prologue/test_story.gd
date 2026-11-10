@@ -1,6 +1,6 @@
 extends SceneTree
-const State = preload("res://game/prologue/prologue_state.gd")
-const Story = preload("res://game/prologue/story.gd")
+const State = preload("res://implementations/dormitory/game/prologue/prologue_state.gd")
+const Story = preload("res://implementations/dormitory/game/prologue/story.gd")
 
 func _init() -> void:
 	var steps := Story.build()

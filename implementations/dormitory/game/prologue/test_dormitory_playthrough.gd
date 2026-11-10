@@ -47,7 +47,7 @@ func run() -> void:
 	var stage := Node.new()
 	root.add_child(stage)
 	current_scene = stage
-	game = load("res://game/prologue/prologue.tscn").instantiate()
+	game = load("res://implementations/dormitory/game/prologue/prologue.tscn").instantiate()
 	stage.add_child(game)
 	await process_frame
 	game._start_new()

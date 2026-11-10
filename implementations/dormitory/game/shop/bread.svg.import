@@ -10,7 +10,7 @@ metadata={
 
 [deps]
 
-source_file="res://game/shop/bread.svg"
+source_file="res://implementations/dormitory/game/shop/bread.svg"
 dest_files=["res://.godot/imported/bread.svg-d2f0284d90f883664c542a5d98919ef8.ctex"]
 
 [params]

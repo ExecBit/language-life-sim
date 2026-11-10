@@ -3,7 +3,7 @@ func _init() -> void:
 	call_deferred("run")
 
 func run() -> void:
-	var scene = load("res://game/prologue/prologue.tscn").instantiate()
+	var scene = load("res://implementations/dormitory/game/prologue/prologue.tscn").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	scene.automated = true

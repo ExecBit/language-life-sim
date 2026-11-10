@@ -1,9 +1,9 @@
 extends Node3D
 signal motion_finished(name: String)
 
-const Catalog = preload("res://game/characters/motifect_catalog.gd")
-const Mirror = preload("res://game/characters/MirrorRetargetModifier3D.gd")
-const MODEL_PATH := "res://game/shop/Assets/vendor.vrm"
+const Catalog = preload("res://implementations/dormitory/game/characters/motifect_catalog.gd")
+const Mirror = preload("res://implementations/dormitory/game/characters/MirrorRetargetModifier3D.gd")
+const MODEL_PATH := "res://implementations/dormitory/game/shop/Assets/vendor.vrm"
 const MAP := {
 	"Hips": "J_Bip_C_Hips", "Spine1": "J_Bip_C_Spine", "Spine2": "J_Bip_C_Chest",
 	"Chest": "J_Bip_C_UpperChest", "Neck2": "J_Bip_C_Neck", "Head": "J_Bip_C_Head",
@@ -32,7 +32,7 @@ func _ready() -> void:
 		rig_skeleton.set_bone_name(i, _canonical(old))
 	animation_player.remove_animation_library("")
 	animation_player.add_animation_library("motifect", library)
-	var selected := MODEL_PATH if ResourceLoader.exists(MODEL_PATH) else "res://game/shop/Assets/fallback_vendor.vrm"
+	var selected := MODEL_PATH if ResourceLoader.exists(MODEL_PATH) else "res://implementations/dormitory/game/shop/Assets/fallback_vendor.vrm"
 	var model: Node3D = (load(selected) as PackedScene).instantiate()
 	target_skeleton = model.find_children("*", "Skeleton3D", true, false)[0]
 	var modifier := Mirror.new()
