@@ -341,3 +341,19 @@ The PR-head fixture was fetched before editing; each row below compares that exa
 | C-005 | `du helfen ich` → NEEDS_CLARIFICATION/—; actor→recipient player→astera; speech unknown; diag CLARIFY_AMBIGUOUS_HELP_ROLES; goals none; reason AMBIGUOUS_HELP_ROLES; candidates OFFER_HELP+REQUEST_HELP | `du helfen ich` → NEEDS_CLARIFICATION/—; actor→recipient player→astera; speech unknown; diag CLARIFY_AMBIGUOUS_HELP_ROLES; goals none; reason AMBIGUOUS_HELP_ROLES; candidates OFFER_HELP+REQUEST_HELP | Only help is lexically supported; the missing/malformed person marking leaves who helps whom unresolved.  Stage 2 acceptance: Yes — this corrected gold target constrains the next-stage parser behavior.|
 | C-050 | `Du hilfst mir.` → RECOGNIZED/DESCRIBE_HELP; actor→recipient astera→player; speech statement; goals none | `Du hilfst mir.` → RECOGNIZED/DESCRIBE_HELP; actor→recipient astera→player; speech statement; goals none; frames 1; helper→beneficiary astera→player; subject/experiencer astera/— | Грамматичное утверждение: „du“ — Астера как помогающий, „mir“ — игрок как получатель. Это не просьба и не предложение помощи от игрока.  Stage 2 acceptance: Yes — this corrected gold target constrains the next-stage parser behavior.|
 | C-055 | `Hallo, tschüss.` → UNSUPPORTED/—; actor→recipient —→—; speech unknown; diag MULTIPLE_INTENTS; goals none | `Hallo, tschüss.` → UNSUPPORTED/—; actor→recipient —→—; speech unknown; diag MULTIPLE_INTENTS; goals none; intents GREETING+FAREWELL; frames 2 | Hallo and tschüss express a clear greeting and farewell in one input. Both frames are preserved; the current single-intent conversation flow cannot respond to both atomically.  Stage 2 acceptance: Yes — this corrected gold target constrains the next-stage parser behavior.|
+
+## Final Stage 1 recovery-contract gold amendments (2026-11-12)
+
+These narrow amendments document the only gold recovery changes in the final benchmark correction. `recovery_used` means a grammar correction was successfully applied and the complete intended semantics were recovered; grammar evidence and semantic completeness are separate.
+
+| Case | Recovery value before → after | Semantic status / justification |
+|---|---|---|
+| B-007 | `true → true` | Explicitly COMPLETE. Both coordinated clauses remain separately represented; add positive polarity to each frame. Both are interpretable, but the combined utterance remains unsupported by the one-intent runtime. |
+| B-060 | `true → true` | Explicitly COMPLETE. The plan and farewell are separate clear frames; add positive polarity to both. Unsupported composition does not erase the recovered clauses. |
+| B-073 | `true → true` | Explicitly COMPLETE. Offer-help and Astera-low-mood frames retain their separate actors/roles and receive positive polarity. |
+| B-076 | `true → true` | Explicitly COMPLETE. Player name and player mood are separate recoverable clauses with positive polarity. |
+| B-080 | `true → true` | Explicitly COMPLETE. Astera-low-mood and player-offer-help are separate recoverable clauses with positive polarity and explicit experiencer/help roles. |
+| B-038 | `true → false` | PARTIAL. `Du mir helfen.` identifies Astera as helper and player as beneficiary but leaves request versus description unresolved. Keep `MISSING_FINITE_VERB`; a detected grammatical error is not proof the speech act was recovered. |
+
+No decision, intent, role, diagnostic, objective, or parser behavior was changed in these cases. `REDUNDANT_INFINITIVE` (B-004), `MISSING_OBJECT` (B-036), and `LEXICAL_CALQUE` (B-068) were registered without altering their gold labels.
+
