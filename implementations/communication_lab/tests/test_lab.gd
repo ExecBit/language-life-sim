@@ -149,6 +149,13 @@ func run() -> void:
 	room.call("_input", open_event)
 	check(astera.get("active_animation_id") == "greeting_wave" and room.get("reply_label").text.contains("Hallo"), "opening encounter plays a greeting motion and line")
 	check(room.get("dialog").visible and player.get("is_movement_paused"), "E interaction opens the conversation and pauses player movement")
+	var h_event := InputEventKey.new(); h_event.keycode = KEY_H; h_event.pressed = true
+	check(not room.get("composer").route_key(h_event), "H is not consumed as a word-memo shortcut while typing")
+	var memo_event := InputEventKey.new(); memo_event.keycode = KEY_F1; memo_event.pressed = true
+	room.call("_input", memo_event)
+	check(room.get("vocabulary_card").visible, "F1 opens the word memo while the phrase field is active")
+	room.call("_input", memo_event)
+	check(not room.get("vocabulary_card").visible, "F1 closes the word memo without closing the conversation")
 	room.call("_on_submitted", "Was machst du?")
 	check(astera.get("active_animation_id") == "point_at_object" and room.get("last_record").get("reaction") == "explain_activity_and_point_out_cup", "conversation response triggers selected generated motion")
 	await create_timer(4.25).timeout

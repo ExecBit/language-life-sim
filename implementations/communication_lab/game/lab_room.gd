@@ -162,7 +162,7 @@ func _build_ui() -> void:
 	composer = Composer.new(); column.add_child(composer)
 	composer.submitted.connect(_on_submitted); composer.cancelled.connect(_close_dialog)
 	composer.help_requested.connect(_toggle_vocabulary)
-	_button(column, "Памятка по словам · H", _toggle_vocabulary)
+	_button(column, "Памятка по словам · F1", _toggle_vocabulary)
 	vocabulary_card = PanelContainer.new(); canvas.add_child(vocabulary_card)
 	vocabulary_card.anchor_left = 0.5; vocabulary_card.anchor_top = 0.5
 	vocabulary_card.anchor_right = 0.5; vocabulary_card.anchor_bottom = 0.5
@@ -172,7 +172,7 @@ func _build_ui() -> void:
 	var vocab_content := VBoxContainer.new(); vocabulary_card.add_child(vocab_content)
 	var vocab_header := HBoxContainer.new(); vocab_content.add_child(vocab_header)
 	var vocab_title := _label(vocab_header, "Памятка по словам", 22); vocab_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_button(vocab_header, "Закрыть · H / Esc", _toggle_vocabulary)
+	_button(vocab_header, "Закрыть · F1", _toggle_vocabulary)
 	_label(vocab_content, "Формы из каталога · выбирайте слово и добавляйте Tab. Свободный ввод тоже доступен.", 15)
 	var vocab_scroll := ScrollContainer.new(); vocab_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL; vocab_content.add_child(vocab_scroll)
 	var vocab_list := VBoxContainer.new(); vocab_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL; vocab_scroll.add_child(vocab_list)
@@ -263,7 +263,7 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_H and vocabulary_card.visible:
+		if event.keycode == KEY_F1 and vocabulary_card.visible:
 			_toggle_vocabulary()
 			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_F2:
