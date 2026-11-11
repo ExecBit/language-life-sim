@@ -1,7 +1,7 @@
 extends Node3D
 const Composer = preload("res://implementations/communication_lab/game/communication/word_composer.gd")
 const Session = preload("res://implementations/communication_lab/game/communication/lab_session.gd")
-const AnnaVisual = preload("res://implementations/communication_lab/game/characters/lab_anna_visual.gd")
+const AsteraVisual = preload("res://implementations/communication_lab/game/characters/lab_npc_visual.gd")
 const PLAYER_SCENE = preload("res://addons/cogito/PackedScenes/cogito_player_simple.tscn")
 
 var context := Session.initial_context()
@@ -54,12 +54,13 @@ func _build_room() -> void:
 	player.name = "CogitoPlayer"
 	player.position = Vector3(0, 0, 2.5)
 	add_child(player)
-	var anna := AnnaVisual.new()
-	anna.name = "Anna"
-	anna.position = Vector3(0, 0, -2)
-	anna.rotation.y = PI
-	anna.scale = Vector3.ONE * 0.9
-	add_child(anna)
+	player.player_hud.hide()
+	var astera := AsteraVisual.new()
+	astera.name = "Astera"
+	astera.position = Vector3(0, 0, -2)
+	astera.rotation.y = PI
+	astera.scale = Vector3.ONE * 0.9
+	add_child(astera)
 	var table := MeshInstance3D.new(); table.name = "Table"
 	var table_mesh := BoxMesh.new(); table_mesh.size = Vector3(1.5, .12, .8); table.mesh = table_mesh; table.position = Vector3(1, .75, -1.6)
 	var table_mat := StandardMaterial3D.new(); table_mat.albedo_color = Color("795944"); table.material_override = table_mat; add_child(table)
@@ -80,21 +81,27 @@ func _add_wall(at: Vector3, size: Vector3) -> void:
 
 func _build_ui() -> void:
 	var layer := CanvasLayer.new(); layer.name = "LabUI"; add_child(layer)
-	var hint := Label.new(); hint.text = "WASD + мышь · E рядом с Анной — разговор · F2 — диагностика"; hint.position = Vector2(18, 12); layer.add_child(hint)
-	dialog = PanelContainer.new(); dialog.position = Vector2(18, 50); dialog.size = Vector2(620, 480); dialog.hide(); layer.add_child(dialog)
+	var hint := Label.new(); hint.text = "WASD + мышь · E рядом с Астерой — разговор · F2 — диагностика"; hint.position = Vector2(18, 12); layer.add_child(hint)
+	dialog = PanelContainer.new()
+	dialog.name = "CommunicationPanel"
+	dialog.anchor_left = 0.0; dialog.anchor_top = 1.0; dialog.anchor_right = 0.0; dialog.anchor_bottom = 1.0
+	dialog.offset_left = 18; dialog.offset_top = -510; dialog.offset_right = 738; dialog.offset_bottom = -18
+	var panel_style := StyleBoxFlat.new(); panel_style.bg_color = Color(0.055, 0.07, 0.085, 0.94); panel_style.border_color = Color("84a8b2"); panel_style.set_border_width_all(1); panel_style.set_corner_radius_all(8); panel_style.content_margin_left = 14; panel_style.content_margin_right = 14; panel_style.content_margin_top = 10; panel_style.content_margin_bottom = 10
+	dialog.add_theme_stylebox_override("panel", panel_style)
+	dialog.hide(); layer.add_child(dialog)
 	var column := VBoxContainer.new(); dialog.add_child(column)
-	var title := Label.new(); title.text = "Language Communication Lab — Anna"; column.add_child(title)
+	var title := Label.new(); title.text = "Language Communication Lab — Astera"; column.add_child(title)
 	composer = Composer.new(); column.add_child(composer); composer.submitted.connect(_on_submitted); composer.cancelled.connect(_close_dialog)
-	reply_label = Label.new(); reply_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; reply_label.text = "Анна ждёт реплику."; column.add_child(reply_label)
+	reply_label = Label.new(); reply_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; reply_label.text = "Астера ждёт реплику."; column.add_child(reply_label)
 	effects_label = Label.new(); effects_label.text = "Эффекты: —"; column.add_child(effects_label)
 	var buttons := HFlowContainer.new(); column.add_child(buttons)
 	var dev_toggle := CheckBox.new(); dev_toggle.text = "Показать диагностику (F2)"; dev_toggle.button_pressed = true; dev_toggle.toggled.connect(_toggle_dev); buttons.add_child(dev_toggle)
 	var reset_button := Button.new(); reset_button.text = "Сбросить контекст"; reset_button.pressed.connect(_reset); buttons.add_child(reset_button)
 	dev_panel = VBoxContainer.new(); column.add_child(dev_panel)
 	var settings := HFlowContainer.new(); dev_panel.add_child(settings)
-	busy_toggle = CheckBox.new(); busy_toggle.text = "Анна занята"; busy_toggle.toggled.connect(func(v): context.busy = v); settings.add_child(busy_toggle)
+	busy_toggle = CheckBox.new(); busy_toggle.text = "Астера занята"; busy_toggle.toggled.connect(func(v): context.busy = v); settings.add_child(busy_toggle)
 	knowledge_toggle = CheckBox.new(); knowledge_toggle.text = "Знает, где ключ"; knowledge_toggle.button_pressed = true; knowledge_toggle.toggled.connect(func(v): context.knows_key = v); settings.add_child(knowledge_toggle)
-	owner_option = OptionButton.new(); owner_option.add_item("Ключ у Анны", 0); owner_option.add_item("Ключ в мире", 1); owner_option.add_item("Ключ у игрока", 2); owner_option.item_selected.connect(_set_owner); settings.add_child(owner_option)
+	owner_option = OptionButton.new(); owner_option.add_item("Ключ у Астеры", 0); owner_option.add_item("Ключ в мире", 1); owner_option.add_item("Ключ у игрока", 2); owner_option.item_selected.connect(_set_owner); settings.add_child(owner_option)
 	pending_option = OptionButton.new(); pending_option.add_item("Нет предложения", 0); pending_option.add_item("Ожидает Ja/Nein", 1); pending_option.add_item("Ожидает уточнение", 2); pending_option.item_selected.connect(_set_pending); settings.add_child(pending_option)
 	raw_label = Label.new(); raw_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; dev_panel.add_child(raw_label)
 	diagnostic = RichTextLabel.new(); diagnostic.fit_content = true; diagnostic.scroll_active = true; diagnostic.custom_minimum_size.y = 180; dev_panel.add_child(diagnostic)
@@ -121,7 +128,7 @@ func _close_dialog() -> void:
 
 func _on_submitted(text: String) -> void:
 	last_record = Session.submit(text, context)
-	reply_label.text = "Анна: %s" % last_record.answer
+	reply_label.text = "Астера: %s" % last_record.answer
 	effects_label.text = "Эффекты: %s" % (", ".join(last_record.effects) if not last_record.effects.is_empty() else "—")
 	_update_diagnostics(last_record)
 	_refresh_objects()
@@ -153,5 +160,5 @@ func _refresh_objects() -> void:
 
 func _reset() -> void:
 	Session.reset(context); busy_toggle.button_pressed = false; knowledge_toggle.button_pressed = true
-	owner_option.select(0); pending_option.select(0); reply_label.text = "Анна ждёт реплику."; effects_label.text = "Эффекты: —"; raw_label.text = "Ввод: —"
+	owner_option.select(0); pending_option.select(0); reply_label.text = "Астера ждёт реплику."; effects_label.text = "Эффекты: —"; raw_label.text = "Ввод: —"
 	_update_diagnostics({}); _refresh_objects()

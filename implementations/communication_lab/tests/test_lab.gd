@@ -1,6 +1,7 @@
 extends SceneTree
 const Parser = preload("res://implementations/communication_lab/game/communication/parser.gd")
 const Session = preload("res://implementations/communication_lab/game/communication/lab_session.gd")
+const LabScene = preload("res://implementations/communication_lab/communication_lab.tscn")
 var failures := 0
 
 func _initialize() -> void:
@@ -82,5 +83,20 @@ func run() -> void:
 	c.pending = "offer"; c.door_open = true
 	Session.reset(c)
 	check(c.pending == "" and c.door_open == false and c.key_owner == "anna", "reset restores initial context and clears pending")
+	var room := LabScene.instantiate()
+	root.add_child(room)
+	await process_frame
+	var player: Node = room.get("player")
+	var hud: Control = player.get("player_hud")
+	var communication_panel: Control = room.get("dialog")
+	check(not hud.visible, "standard Cogito HUD is hidden in the lab")
+	check(communication_panel.name == "CommunicationPanel" and communication_panel.anchor_left == 0.0 and communication_panel.anchor_bottom == 1.0 and communication_panel.offset_left == 18.0, "communication panel occupies the bottom-left HUD position")
+	var astera: Node = room.get_node("Astera")
+	var expected_avatar := "res://assets/characters/private/astera.vrm" if ResourceLoader.exists("res://assets/characters/private/astera.vrm") else "res://assets/characters/anna.vrm"
+	check(astera.get("avatar_path_in_use") == expected_avatar, "Astera is selected when available with redistributable fallback")
+	var idle_player: AnimationPlayer = astera.get("animation_player")
+	check(idle_player.is_playing() and idle_player.current_animation == "lab/standing", "NPC plays the retargeted idle animation")
+	room.queue_free()
+	await process_frame
 	print("COMMUNICATION_LAB_TESTS: %d failure(s)" % failures)
 	quit(1 if failures > 0 else 0)
