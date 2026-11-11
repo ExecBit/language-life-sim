@@ -446,6 +446,7 @@ func _on_submitted(text: String) -> void:
 func _finish_reply_reveal() -> void:
 	if is_instance_valid(reveal_tween): reveal_tween.kill()
 	if is_instance_valid(transcript): transcript.visible_characters = -1
+	if is_instance_valid(astera_visual): astera_visual.fade_expression_to_rest()
 
 func _append_conversation_line(speaker: String, text: String, animate := false) -> void:
 	_finish_reply_reveal()
@@ -461,7 +462,11 @@ func _append_conversation_line(speaker: String, text: String, animate := false) 
 		var rate := 28.0 if context.get("slow_speech", false) else 50.0
 		reveal_tween = create_tween()
 		reveal_tween.tween_property(transcript, "visible_characters", total, clampf(float(total - start) / rate, 0.25, 3.0))
-		reveal_tween.tween_callback(func(): transcript.visible_characters = -1)
+		reveal_tween.tween_callback(func():
+			transcript.visible_characters = -1
+			if speaker == "Астера" and is_instance_valid(astera_visual):
+				astera_visual.fade_expression_to_rest()
+		)
 
 func _play_reaction_motion(animation_id: String) -> void:
 	if animation_id == "standing":
