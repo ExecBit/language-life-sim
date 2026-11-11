@@ -11,12 +11,14 @@ The fixture is a frozen, human-authored benchmark for the existing conversation 
 
 ## Semantic fields
 
-- `actor` is the participant performing the described action or state. For example, a request `Du mir helfen?` describes Astera as the helper; `ich dir helfen` describes the player as helper.
-- `recipient` is the participant receiving the action when one is expressed. Role ambiguity leaves both fields empty.
+- `actor` is the participant performing the described action/state, not automatically the player who typed the sentence. Overt pronouns retain their role when the verb form is wrong: in `Du bin müde`, `du` still refers to Astera. For example, `Du mir helfen?` describes Astera as helper; `ich dir helfen` describes the player as helper. Questions about Astera’s mood/activity assign Astera as the queried experiencer.
+- `recipient` is the content-level beneficiary/recipient when one is expressed. It stays empty when the clause has no such role; a question’s addressee is not automatically its semantic recipient. For example, a help request to Astera has actor `astera`, recipient `player`, while an offer has actor `player`, recipient `astera`. Role ambiguity leaves both fields empty.
 - `polarity` records grammatical polarity. `Ich kann nicht helfen` is negative and cannot be normalized to an offer.
 - `speech_act` describes the intended social move (offer, request, question, statement, farewell), not punctuation alone.
 - `recovery_used` is true only for a recoverable learner-form error. `diagnostic_codes` records the oracle's expected error/clarification category; parser output is retained separately and compared directly.
-- `may_advance_objective` describes whether the recognized meaning could validly advance the current conversation objective. Ambiguous, unknown, unsupported, or negated-help cases cannot advance the offer-help objective.
+- `expected_objectives` names the exact conversation goals that the meaning can advance in this test context; `may_advance_objective` is its compatibility boolean and must agree with whether the list is empty. An accepted parser intent is not itself proof that an objective advanced safely. Ambiguous, unknown, unsupported, or negated-help cases cannot advance the offer-help objective.
+- A phrase with two individually clear clauses is not automatically ambiguous. If the constrained one-intent lab cannot compose the clauses safely, it is labeled as an unsupported multi-intent construction; clarification is reserved for meanings that are genuinely unresolved.
+- `candidate_interpretations` contains only semantically plausible meanings supported by the words/context. The unchanged parser currently exposes no candidate list; the baseline records that as an unsupported parser feature and does not score an empty list as a correct clarification.
 
 The baseline adapter follows the same unchanged branch selection as `LabSession.submit`: first `DialogueGrammar.parse`, then the legacy `Parser.parse` fallback when the extension returns an empty dictionary. It calls the unchanged session resolver and objective helper on a per-case context. It does not append to the player's persistent attempt journal. The raw parse, NPC answer/reaction/animation, effects and resulting context are captured for inspection.
 
@@ -26,11 +28,3 @@ The baseline adapter follows the same unchanged branch selection as `LabSession.
 | --- | ---: | ---: | ---: | --- |
 | A | 50 | 40 | 10 | Clear, grammatical expressions across greetings, names, mood, activity, plans, help, repeat requests and farewells |
 | B | 80 | 64 | 16 | Understandable learner errors: agreement, missing finite/modal forms, word order, pronouns, omissions and typos |
-| C | 60 | 48 | 12 | Unresolved roles, polarity, omitted subjects, context-dependent fragments and competing intents |
-| D | 40 | 32 | 8 | Unknown lexical items and unsupported conversational structures/topics |
-| E | 20 | 16 | 4 | Same utterance under contrasting pending questions and conversation/NPC state |
-| **Total** | **250** | **200** | **50** | Stratified 80/20 development and deferred validation |
-
-The E cases use ten paired prompts. Four pairs cross the dev/validation boundary; the other six stay together in dev. This is process separation, not a blind benchmark: the validation fixture is committed and visible.
-
-High-risk probes include the exact user phrases `ich dir helfen` and `Ich mochtest helfe du`, the negation contrast `Ich kann helfen` / `Ich kann nicht helfen`, the reverse-role request `Du mir helfen?`, and `Ja` / `Nein` with and without pending questions. Conflicting or incomplete role forms remain clarification cases; no object, door, key, or quest action is part of this corpus.

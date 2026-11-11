@@ -89,9 +89,13 @@ func _validate_oracle_shape(item: Dictionary) -> void:
 		_fail("%s has invalid group %s" % [item.get("id", ""), item.get("group", "")])
 	if str(expected.get("decision", "")) not in ["RECOGNIZED", "NEEDS_CLARIFICATION", "UNKNOWN", "UNSUPPORTED"]:
 		_fail("%s has invalid expected decision %s" % [item.get("id", ""), expected.get("decision", "")])
-	for key in ["decision", "intent", "actor", "recipient", "polarity", "speech_act", "recovery_used", "diagnostic_codes", "may_advance_objective"]:
+	for key in ["decision", "intent", "actor", "recipient", "polarity", "speech_act", "recovery_used", "diagnostic_codes", "may_advance_objective", "expected_objectives"]:
 		if not expected.has(key):
 			_fail("%s missing expected.%s" % [item.get("id", ""), key])
+	if not expected.get("expected_objectives", []) is Array:
+		_fail("%s expected_objectives must be an array" % item.get("id", ""))
+	if bool(expected.get("may_advance_objective", false)) != (not expected.get("expected_objectives", []).is_empty()):
+		_fail("%s objective boolean disagrees with expected_objectives" % item.get("id", ""))
 	if expected.get("decision", "") == "NEEDS_CLARIFICATION":
 		if not expected.has("reason") or not expected.has("candidate_interpretations") or expected.candidate_interpretations.is_empty():
 			_fail("%s clarification needs a reason and candidate interpretations" % item.get("id", ""))
@@ -189,6 +193,10 @@ func _evaluate(item: Dictionary) -> Dictionary:
 	var before_objectives: Dictionary = context.objective_progress.duplicate(true)
 	Session._update_objectives(parsed, context, reaction, str(item.input))
 	var objective_changed: bool = before_objectives != context.objective_progress
+	var objectives_advanced: Array[String] = []
+	for objective_id in context.objective_progress:
+		if not bool(before_objectives.get(objective_id, false)) and bool(context.objective_progress.get(objective_id, false)):
+			objectives_advanced.append(str(objective_id))
 	var expected: Dictionary = item.expected
 	var diagnostics := _diagnostic_codes(parsed.get("diagnostics", []))
 	var recovery := false
@@ -203,6 +211,7 @@ func _evaluate(item: Dictionary) -> Dictionary:
 	var actual := {
 		"decision": decision,
 		"intent": intent,
+		"intents": parsed.get("intents", [intent] if not intent.is_empty() else []),
 		"actor": _normalize_role(str(frame.get("subject", ""))),
 		"recipient": _normalize_role(str(frame.get("recipient", frame.get("addressee", "")))),
 		"polarity": str(frame.get("polarity", "unresolved")),
@@ -210,10 +219,17 @@ func _evaluate(item: Dictionary) -> Dictionary:
 		"recovery_used": recovery,
 		"diagnostic_codes": diagnostics,
 		"may_advance_objective": objective_changed,
+		"objectives_advanced": objectives_advanced,
 		"reason": _first(parsed.get("ambiguity", [])),
-		"candidate_interpretations": [],
+		# The current parser does not expose candidate readings. Keep that
+		# capability gap explicit; an empty list would falsely imply it did.
+		"candidate_interpretations": parsed.get("candidate_interpretations", null),
+		"candidate_reporting": "PROVIDED" if parsed.has("candidate_interpretations") else "NOT_EXPOSED",
+		"semantic_frame": frame.duplicate(true),
+		"referent": parsed.get("referent", ""),
 		"unknown_tokens": _unknown_tokens(parsed),
 		"unsupported_features": parsed.get("unsupported_features", []),
+		"unsupported_domain": parsed.get("unsupported_domain", ""),
 		"effects": effects,
 		"answer": answer,
 		"reaction": reaction,
@@ -222,14 +238,42 @@ func _evaluate(item: Dictionary) -> Dictionary:
 		"world_context_after": context.duplicate(true)
 	}
 	var mismatch: Array[String] = []
-	for key in ["decision", "intent", "actor", "recipient", "polarity", "speech_act", "recovery_used", "diagnostic_codes", "may_advance_objective"]:
+	for key in ["decision", "intent", "actor", "recipient", "polarity", "speech_act", "recovery_used", "diagnostic_codes", "may_advance_objective", "referent", "intents"]:
 		if expected.has(key) and expected[key] != actual[key]:
 			mismatch.append(key)
+	var candidate_status := "NOT_APPLICABLE"
+	if expected.get("decision", "") == "NEEDS_CLARIFICATION":
+		if actual.candidate_reporting == "NOT_EXPOSED":
+			candidate_status = "UNSUPPORTED_BY_PARSER"
+		elif _sorted_strings(expected.candidate_interpretations) == _sorted_strings(actual.candidate_interpretations):
+			candidate_status = "MATCH"
+		else:
+			candidate_status = "MISMATCH"
+		if candidate_status != "MATCH": mismatch.append("candidate_interpretations")
+	actual["candidate_comparison"] = candidate_status
+	var clarification_quality := "NOT_APPLICABLE"
+	if expected.get("decision", "") == "NEEDS_CLARIFICATION":
+		if decision != "NEEDS_CLARIFICATION":
+			clarification_quality = "MISSED"
+		elif not actual.candidate_reporting == "PROVIDED":
+			clarification_quality = "INSUFFICIENT_CANDIDATES"
+		elif expected.get("reason", "") != actual.reason or candidate_status == "MISMATCH":
+			clarification_quality = "INCORRECT"
+		else:
+			clarification_quality = "CORRECT"
+	actual["clarification_quality"] = clarification_quality
+	var full_frame_match := mismatch.is_empty()
 	if expected.has("unknown_tokens") and _sorted_strings(expected.unknown_tokens) != _sorted_strings(actual.unknown_tokens):
 		mismatch.append("unknown_tokens")
+	if expected.has("unsupported_features") and _sorted_strings(expected.unsupported_features) != _sorted_strings(actual.unsupported_features):
+		mismatch.append("unsupported_features")
+	if expected.has("unsupported_domain") and str(expected.unsupported_domain) != str(actual.get("unsupported_domain", "")):
+		mismatch.append("unsupported_domain")
+	if expected.has("expected_objectives") and _sorted_strings(expected.expected_objectives) != _sorted_strings(actual.objectives_advanced):
+		mismatch.append("objectives_advanced")
 	if expected.get("decision", "") == "NEEDS_CLARIFICATION" and expected.get("reason", "") != actual.reason:
 		mismatch.append("reason")
-	return {"id":item.get("id", ""), "group":item.get("group", ""), "pair_id":item.get("pair_id", ""), "split":item.get("split", ""), "phenomena":item.get("phenomena", []), "input":item.get("input", ""), "context":item.get("context", {}), "expected":expected, "actual":actual, "parse":parsed, "mismatches":mismatch, "rationale":item.get("rationale", "")}
+	return {"id":item.get("id", ""), "group":item.get("group", ""), "pair_id":item.get("pair_id", ""), "split":item.get("split", ""), "phenomena":item.get("phenomena", []), "input":item.get("input", ""), "context":item.get("context", {}), "expected":expected, "actual":actual, "parse":parsed, "mismatches":mismatch, "full_semantic_frame_match":full_frame_match and mismatch.is_empty(), "rationale":item.get("rationale", "")}
 
 func _diagnostic_codes(raw: Variant) -> Array:
 	var codes: Array = []
@@ -264,9 +308,9 @@ func _normalize_role(role: String) -> String:
 
 func _summarize(results: Array[Dictionary]) -> Dictionary:
 	var summary := {"total":results.size(), "by_group":{}, "by_split":{
-		"dev":{"total":0,"decision_match":0,"confusion_matrix":{},"false_accept":0,"false_reject":0,"missed_clarification":0},
-		"validation":{"total":0,"decision_match":0,"confusion_matrix":{},"false_accept":0,"false_reject":0,"missed_clarification":0}
-	}, "by_intent":{}, "by_phenomenon":{}, "confusion_matrix":{}, "false_accept":0, "false_reject":0, "role_mismatch":0, "role_swap":0, "false_offer_acceptance":0, "negative_help_as_offer":0, "polarity_mismatch":0, "negation_lost":0, "missed_clarification":0, "wrong_clarification_reason":0, "unknown_vs_unsupported":0, "objective_advancement_mismatch":0, "representative_errors":[]}
+		"dev":{"total":0,"decision_match":0,"intent_match":0,"full_semantic_frame_match":0,"confusion_matrix":{},"false_accept":0,"false_reject":0,"missed_clarification":0,"insufficient_clarification":0,"incorrect_clarification":0,"objective_advancement_mismatch":0},
+		"validation":{"total":0,"decision_match":0,"intent_match":0,"full_semantic_frame_match":0,"confusion_matrix":{},"false_accept":0,"false_reject":0,"missed_clarification":0,"insufficient_clarification":0,"incorrect_clarification":0,"objective_advancement_mismatch":0}
+	}, "by_intent":{}, "by_phenomenon":{}, "confusion_matrix":{}, "decision_match":0,"intent_match":0,"full_semantic_frame_match":0,"candidate_interpretations_not_exposed":0,"candidate_interpretation_mismatch":0,"false_accept":0, "false_reject":0, "role_mismatch":0, "role_swap":0, "false_offer_acceptance":0, "negative_help_as_offer":0, "polarity_mismatch":0, "negation_lost":0, "missed_clarification":0, "wrong_clarification_reason":0,"insufficient_clarification":0,"incorrect_clarification":0, "unknown_vs_unsupported":0, "objective_advancement_mismatch":0, "representative_errors":[]}
 	for result in results:
 		var expected: Dictionary = result.expected
 		var actual: Dictionary = result.actual
@@ -281,6 +325,7 @@ func _summarize(results: Array[Dictionary]) -> Dictionary:
 		split_summary.total += 1
 		if ed == ad:
 			split_summary.decision_match += 1
+			summary.decision_match += 1
 		if not split_summary.confusion_matrix.has(ed):
 			split_summary.confusion_matrix[ed] = {}
 		split_summary.confusion_matrix[ed][ad] = int(split_summary.confusion_matrix[ed].get(ad, 0)) + 1
@@ -290,6 +335,23 @@ func _summarize(results: Array[Dictionary]) -> Dictionary:
 			split_summary.false_reject += 1
 		if ed == "NEEDS_CLARIFICATION" and ad != "NEEDS_CLARIFICATION":
 			split_summary.missed_clarification += 1
+		if expected.get("intent", "") != "" and expected.get("intent", "") == actual.get("intent", ""):
+			split_summary.intent_match += 1
+			summary.intent_match += 1
+		if result.get("full_semantic_frame_match", false):
+			split_summary.full_semantic_frame_match += 1
+			summary.full_semantic_frame_match += 1
+		if ed == "NEEDS_CLARIFICATION":
+			if actual.get("candidate_reporting", "") == "NOT_EXPOSED":
+				summary.candidate_interpretations_not_exposed += 1
+			if actual.get("candidate_comparison", "") == "MISMATCH":
+				summary.candidate_interpretation_mismatch += 1
+			if actual.get("clarification_quality", "") == "INSUFFICIENT_CANDIDATES":
+				split_summary.insufficient_clarification += 1
+				summary.insufficient_clarification += 1
+			elif actual.get("clarification_quality", "") == "INCORRECT":
+				split_summary.incorrect_clarification += 1
+				summary.incorrect_clarification += 1
 		if not summary.confusion_matrix.has(ed):
 			summary.confusion_matrix[ed] = {}
 		summary.confusion_matrix[ed][ad] = int(summary.confusion_matrix[ed].get(ad, 0)) + 1
@@ -329,11 +391,11 @@ func _summarize(results: Array[Dictionary]) -> Dictionary:
 				summary.negative_help_as_offer += 1
 		if ed == "RECOGNIZED" and ad != "RECOGNIZED":
 			summary.false_reject += 1
-		if ed == "RECOGNIZED" and ad == "RECOGNIZED" and (expected.get("actor", "") != actual.get("actor", "") or expected.get("recipient", "") != actual.get("recipient", "")):
+		if expected.get("actor", "") != "" and expected.get("actor", "") != actual.get("actor", "") or expected.get("recipient", "") != "" and expected.get("recipient", "") != actual.get("recipient", ""):
 			summary.role_mismatch += 1
 			if expected.get("actor", "") == actual.get("recipient", "") and expected.get("recipient", "") == actual.get("actor", ""):
 				summary.role_swap += 1
-		if ed == "RECOGNIZED" and ad == "RECOGNIZED" and expected.get("polarity", "") in ["negative", "positive"] and expected.get("polarity", "") != actual.get("polarity", ""):
+		if expected.get("polarity", "") in ["negative", "positive"] and expected.get("polarity", "") != actual.get("polarity", ""):
 			summary.polarity_mismatch += 1
 			if (expected.get("polarity", "") == "negative" and actual.get("polarity", "") == "positive") or (expected.get("polarity", "") == "positive" and actual.get("polarity", "") == "negative"):
 				summary.negation_lost += 1
@@ -343,8 +405,9 @@ func _summarize(results: Array[Dictionary]) -> Dictionary:
 			summary.wrong_clarification_reason += 1
 		if ed in ["UNKNOWN", "UNSUPPORTED"] and ad in ["UNKNOWN", "UNSUPPORTED"] and ed != ad:
 			summary.unknown_vs_unsupported += 1
-		if expected.get("may_advance_objective", false) != actual.get("may_advance_objective", false):
+		if expected.get("may_advance_objective", false) != actual.get("may_advance_objective", false) or expected.has("expected_objectives") and _sorted_strings(expected.expected_objectives) != _sorted_strings(actual.objectives_advanced):
 			summary.objective_advancement_mismatch += 1
+			split_summary.objective_advancement_mismatch += 1
 		if not result.mismatches.is_empty():
 			summary.representative_errors.append(result)
 	# Keep the highest-risk findings first and cap the human-readable report.
@@ -365,23 +428,3 @@ func _error_risk(result: Dictionary) -> int:
 	if "role_swap" in result.mismatches or "recipient" in result.mismatches: score += 10
 	if "polarity" in result.mismatches: score += 10
 	if result.expected.get("decision", "") == "NEEDS_CLARIFICATION" and result.actual.get("decision", "") == "RECOGNIZED": score += 8
-	if "decision" in result.mismatches: score += 4
-	return score
-
-func _write_outputs(results: Array[Dictionary], summary: Dictionary) -> void:
-	var output_path := ProjectSettings.globalize_path(OUTPUT_DIR)
-	DirAccess.make_dir_recursive_absolute(output_path)
-	var basename := "issue64-baseline"
-	for split in ["dev", "validation"]:
-		var file := FileAccess.open(output_path.path_join("%s-%s.jsonl" % [basename, split]), FileAccess.WRITE)
-		if file == null:
-			_fail("cannot write baseline results to " + output_path)
-			return
-		for result in results:
-			if result.split == split:
-				file.store_line(JSON.stringify(result))
-	var summary_file := FileAccess.open(output_path.path_join("%s-summary.json" % basename), FileAccess.WRITE)
-	if summary_file == null:
-		_fail("cannot write summary to " + output_path)
-		return
-	summary_file.store_string(JSON.stringify(summary, "\t"))
