@@ -1,5 +1,84 @@
 # Issue #64 Stage 1 — parser baseline
 
+## Recovery-adapter and category-reporting correction (latest)
+
+This addendum records the P1/P2 runner correction on PR #63. It supersedes only the runner/recovery interpretation below; previous corpus review and semantic-decision history remain intact. The 250 fixtures, expected labels, parser, resolver, session and production behavior were unchanged.
+
+### Recovery contract
+
+`actual.parser_diagnostic_codes` retains the parser's raw diagnostic codes. The runner uses one `RECOVERY_ERROR_MAP` to link linguistic error categories, oracle `diagnostic_codes`, and parser diagnostic codes; `UNKNOWN_TOKEN`, social prefixes and contextual-target notes are explicitly non-recovery diagnostics. Unknown parser codes are preserved in each result and counted under `unmapped_parser_diagnostics` instead of silently becoming recoveries.
+
+Only non-empty `parser_codes` are treated as parser evidence. Categories such as `WORD_ORDER`, `PRONOUN_CASE` and `MISSING_MODAL` currently have no parser diagnostic mapping; when such a code appears, it is surfaced as unmapped rather than treated as supported. The runner prefers a Boolean `recovery_used` or `recovery.used` emitted by the parser. If absent, the test adapter infers `recovery_used` only when the effective parser/session result is `RECOGNIZED`, a non-empty intent exists, no unknown significant token or unsupported feature/domain is present, no ambiguity/clarification reaction was returned, and at least one mapped grammatical-error diagnostic exists. The inference is labeled `INFERRED_FROM_DIAGNOSTIC`; it is benchmark instrumentation, not a production parser claim. A structured flag with an invalid type is reported as invalid. Resolver clarification and unsupported results block recovery even when the raw parse contains a grammatical diagnostic.
+
+Diagnostic coverage is a separate measure. It compares actual mapped parser categories with the oracle's `diagnostic_codes`; it never sets `actual.recovery_used`. For individually named errors it reports `FULL`, `PARTIAL` or `MISSING`. For `MULTIPLE_RECOVERABLE_ERRORS`, one mapped parser category is only `PARTIAL`; at least two distinct mapped categories are needed for aggregate `FULL` coverage. Thus recognizing one issue cannot stand in for detecting all errors in a compound-error example. `FULL` here measures diagnostic coverage, not proof that every intended meaning was recovered.
+
+### Recovery regression checks
+
+The baseline runner executes 13 focused adapter checks on every run: correct input, mapped error with a recognized intent, resolver clarification, unknown significant token, unsupported multi-intent, fully and partially covered named compound errors, fully and partially covered aggregate compound errors, expected error without parser evidence, unknown parser diagnostic, and structured-flag precedence. **13 PASS / 0 FAIL.**
+
+### Latest unchanged-parser result
+
+The complete baseline ran twice against the unchanged production path. Both runs exited 0 and wrote byte-identical outputs. Corpus agreement remains **93/250 (37.2%)**; the new adapter changes observability and recovery accounting only, not parser behavior or semantic agreement.
+
+| Recovery metric | Result |
+|---|---:|
+| Oracle `recovery_used=true` | 80 |
+| Adapter `recovery_used=true` | 1 |
+| True positive / false negative | 0 / 80 |
+| False positive / true negative | 1 / 169 |
+| Diagnostic coverage: full / partial / missing / no gold error / unexpected | 0 / 0 / 77 / 172 / 1 |
+| Recovery status: blocked ambiguity / unknown / unsupported | 29 / 139 / 3 |
+| Unmapped parser diagnostic occurrences | 0 |
+
+The one false positive is `C-049: Du helfen.`: the unchanged parser reports `RECOGNIZED/REPORT_STATE` plus `AGREEMENT_MISMATCH`, although the oracle says the speech act/beneficiary is unclear. The adapter cannot safely infer that this parser result is semantically wrong without using the oracle decision as runtime evidence; the false positive is retained and exposed as a benchmark finding. This also demonstrates why `recovery_used` remains distinct from diagnostic coverage and oracle agreement. The 80 false negatives show a real capability/diagnostic gap in the unchanged parser; this Stage 1 correction does not repair it.
+
+Decision agreement and the confusion matrix did not change: 93/250; false acceptance 28; false rejection 81; missed clarification 45; role mismatches 110 (3 reversals); polarity mismatches 130 (6 lost-negation cases); objective advancement mismatch 86.
+
+### Group labels, oracle decisions and phenomenon families
+
+Groups A–E describe the original fixture design focus. They are not outcome classes: A/B/C/D/E contain respectively 50/80/60/40/20 rows, while their actual oracle decisions are:
+
+| Group | RECOGNIZED | NEEDS_CLARIFICATION | UNKNOWN | UNSUPPORTED |
+|---|---:|---:|---:|---:|
+| A | 50 | 0 | 0 | 0 |
+| B | 69 | 5 | 0 | 6 |
+| C | 6 | 47 | 0 | 7 |
+| D | 0 | 2 | 20 | 18 |
+| E | 16 | 4 | 0 | 0 |
+
+The runner reports outcomes separately by actual oracle decision (141 recognized, 58 clarification, 20 unknown, 31 unsupported) and by phenomenon-derived family. Family assignment reads only the `phenomena` tags, not group or expected decision. A fixture may carry multiple phenomenon tags, so family counts are incidences (285), not a partition of the 250 utterances.
+
+| Phenomenon family | Incidences | Oracle decisions in those rows | Parser decisions in those rows |
+|---|---:|---|---|
+| Grammatical error | 87 | 74 recognized, 7 clarification, 6 unsupported | 21 recognized, 10 clarification, 55 unknown, 1 unsupported |
+| Semantic ambiguity | 26 | 23 clarification, 3 unsupported | 8 recognized, 8 clarification, 10 unknown |
+| Unsupported multi-intent | 16 | 14 unsupported, 2 clarification | 2 recognized, 2 clarification, 10 unknown, 2 unsupported |
+| Unknown/unsupported domain | 38 | 20 unknown, 18 unsupported | 2 recognized, 35 unknown, 1 unsupported |
+| Context-dependent | 58 | 32 recognized, 26 clarification | 46 recognized, 4 clarification, 8 unknown |
+| Other | 60 | 54 recognized, 6 clarification | 27 recognized, 3 clarification, 30 unknown |
+
+These views let reviewers distinguish a group's sampling purpose from expected semantic behavior and compare grammar, ambiguity and system-capability boundaries directly.
+
+### Verification and hashes
+
+| Check | Result |
+|---|---|
+| Corpus count, unique IDs, split and group counts | PASS — 250 total; dev 200 and validation 50; A–E 50/80/60/40/20 |
+| Baseline recovery-contract checks | PASS — 13/13 |
+| Complete unchanged-parser baseline | PASS — 250 cases, exit 0; semantic mismatches remain findings |
+| Deterministic repeat | PASS — dev, validation and summary SHA-256 identical across runs |
+| Communication Lab regression suite | PASS — 106 PASS, 0 FAIL, exit 0 |
+| Production parser/resolver/session unchanged | PASS — no production source edits |
+| Runtime cleanup | FAIL diagnostic — existing Quick Audio/Cogito null-node errors and Godot resource/ObjectDB cleanup warnings; tests completed |
+
+- Corpus dev: `f34456bd145ee7b75a37b135e2491667127266c9ba40c9be66fbf190b4ce8330`
+- Corpus validation: `d2f84c8023bf276a7d474d62495882d0f22a7f9b38eefd62e51b009be1d29f90`
+- Baseline dev: `ec0c0bb12d33a19184eb4a7eeab5e8dc4777b47e02bad6109a519d07d0da4f12`
+- Baseline validation: `d69c2dd21620e9670839b19ce58abb9be45dc35ce20832337dc96a9d3f025122`
+- Baseline summary: `02a96242dfae449e07540bc56273477f7c5b8a54805f455845a45eaf9cecd0aa`
+
+Outputs remain ignored in `.local/issue64/`. The issue's gold labels and original group/split distribution were not changed.
+
 
 ## Latest targeted review (supersedes earlier metrics below)
 
@@ -169,5 +248,6 @@ The regression suite logs existing shared Cogito/Quick Audio errors (Audio.gd at
 - The ledger documents 217 cases with expected-label changes; 11 same-group/split input replacements are itemized separately and may overlap those label corrections.
 - Some pragmatic judgments remain reviewable rather than universal, especially fragmentary forms (Langsamer, bitte; Hilfe anbieten?) and isolated Ja/Nein. Each case remains conservative, with candidate meanings recorded in the oracle.
 - No parser code was changed; no Stage 2 / Issue #65 work was started; no inference server was started/restarted; no PR was merged.
+
 
 
