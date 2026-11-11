@@ -40,7 +40,7 @@ This lab does not imply understanding of unrestricted German. `Ja/Nein` use only
 
 ## Conversation and laboratory UI
 
-Conversation starts with E near Astera; Esc closes it and restores movement. F2 opens the laboratory from anywhere and pauses movement while editing. The player panel contains the NPC response, editable phrase, catalog search, suggestions, Send and Clear. Enter sends the complete phrase including an unconfirmed search token; Tab appends a selected catalog word. Arrow keys navigate suggestions only while catalog search/list has focus.
+Conversation starts with E near Astera; Esc closes it and restores movement. F2 opens the laboratory from anywhere and pauses movement while editing. The player panel contains the NPC response, editable phrase, catalog search, suggestions, Send, Clear and an H word memo grouped by part of speech. Enter sends the complete phrase including an unconfirmed search token; Tab appends a selected catalog word. Arrow keys navigate suggestions only while catalog search/list has focus.
 
 The separate laboratory panel is hidden by default. Context controls apply to the next attempt. Four inspector tabs separate parsing (raw input, tokens, full frame, ambiguity, unsupported features and diagnostics), NPC response/effects, live and recorded before/after state, and session history. Select a historical attempt to inspect it without restoring the world. Recall loads its text for editing and an explicit resubmission under the current context. Reset restores context while retaining history for comparison. Inspector text can be selected and copied.
 

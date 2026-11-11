@@ -17,7 +17,7 @@ Screenshots and raw logs are in ignored `.local/`. Captures reflect the actual i
 ## Reproduction
 
 1. F6 the lab scene, approach Astera and press E. Enter `Hallo`; Enter sends. Use catalog search + Tab to append a word. Unknown words remain accepted as input.
-2. F2 opens the laboratory. Set NPC busy and repeat `Hallo`; compare the response in History. Select either attempt, then inspect Parse / Response and effects / State.
+2. H opens and closes the scrollable catalog word memo. F2 opens the laboratory. Set NPC busy and repeat `Hallo`; compare the response in History. Select either attempt, then inspect Parse / Response and effects / State.
 3. Reset context, submit `Ich brauche den Schlüssel`, then submit again: only the first transfer changes ownership. Inspect live controls and before/after state.
 4. Recall an earlier attempt, edit and explicitly submit it under current context. Reset preserves this history while clearing pending conversation state.
 5. Test `Ja` / `Nein` inside and outside pending offer, `Schlüssel?`, `Wo ist der Schlüssel?`, `Öffne die Tür nicht.`, and `Ich will Flöte.`. Inspect unsupported/unknown results without world effects.

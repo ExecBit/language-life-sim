@@ -106,6 +106,10 @@ func clear() -> void:
 func route_key(event: InputEvent) -> bool:
 	if consume_opener(event): return true
 	if not is_visible_in_tree() or not event is InputEventKey or not event.pressed: return false
+	if event.keycode == KEY_H and (editing() or matches.has_focus()):
+		get_viewport().set_input_as_handled()
+		if not event.echo: help_requested.emit()
+		return true
 	if event.keycode in [KEY_ENTER,KEY_KP_ENTER] and (editing() or matches.has_focus()):
 		get_viewport().set_input_as_handled()
 		if not event.echo: send()

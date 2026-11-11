@@ -8,6 +8,12 @@ func capture() -> void:
 	root.size = Vector2i(1280, 720)
 	room.player.position = Vector3(0, 0, 0.5)
 	room._open_dialog()
+	room._toggle_vocabulary()
+	assert(room.vocabulary_card.visible)
+	for i in 3: await process_frame
+	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png("res://.local/commlab-vocabulary.png")
+	room._toggle_vocabulary()
 	room.composer.phrase.text = "Hallo"
 	room.composer.send()
 	for i in 20: await process_frame

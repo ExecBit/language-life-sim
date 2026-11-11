@@ -1,6 +1,7 @@
 extends Node3D
 const Composer = preload("res://implementations/communication_lab/game/communication/word_composer.gd")
 const Session = preload("res://implementations/communication_lab/game/communication/lab_session.gd")
+const WordCatalog = preload("res://implementations/communication_lab/game/communication/word_catalog.gd")
 const AsteraVisual = preload("res://implementations/communication_lab/game/characters/lab_npc_visual.gd")
 const PLAYER_SCENE = preload("res://addons/cogito/PackedScenes/cogito_player_simple.tscn")
 
@@ -18,6 +19,7 @@ var history_list: ItemList
 var parse_view: RichTextLabel
 var context_view: RichTextLabel
 var inspection_label: Label
+var vocabulary_card: PanelContainer
 var key_visual: MeshInstance3D
 var door_visual: MeshInstance3D
 var pending_option: OptionButton
@@ -151,6 +153,32 @@ func _build_ui() -> void:
 	reply_label.custom_minimum_size.y = 54
 	composer = Composer.new(); column.add_child(composer)
 	composer.submitted.connect(_on_submitted); composer.cancelled.connect(_close_dialog)
+	composer.help_requested.connect(_toggle_vocabulary)
+	_button(column, "Памятка по словам · H", _toggle_vocabulary)
+	vocabulary_card = PanelContainer.new(); canvas.add_child(vocabulary_card)
+	vocabulary_card.anchor_left = 0.5; vocabulary_card.anchor_top = 0.5
+	vocabulary_card.anchor_right = 0.5; vocabulary_card.anchor_bottom = 0.5
+	vocabulary_card.offset_left = -340; vocabulary_card.offset_top = -260
+	vocabulary_card.offset_right = 340; vocabulary_card.offset_bottom = 260
+	vocabulary_card.hide()
+	var vocab_content := VBoxContainer.new(); vocabulary_card.add_child(vocab_content)
+	var vocab_header := HBoxContainer.new(); vocab_content.add_child(vocab_header)
+	var vocab_title := _label(vocab_header, "Памятка по словам", 22); vocab_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_button(vocab_header, "Закрыть · H / Esc", _toggle_vocabulary)
+	_label(vocab_content, "Формы из каталога · выбирайте слово и добавляйте Tab. Свободный ввод тоже доступен.", 15)
+	var vocab_scroll := ScrollContainer.new(); vocab_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL; vocab_content.add_child(vocab_scroll)
+	var vocab_list := VBoxContainer.new(); vocab_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL; vocab_scroll.add_child(vocab_list)
+	var groups := {"pronoun": [], "verb": [], "noun": [], "adjective": [], "other": []}
+	for entry in WordCatalog.ENTRIES:
+		if entry.availability != "available": continue
+		var group: String = entry.pos if groups.has(entry.pos) else "other"
+		if not groups[group].has(entry.surface): groups[group].append(entry.surface)
+	var group_titles := {"pronoun":"Местоимения", "verb":"Глаголы и формы", "noun":"Предметы и имена", "adjective":"Признаки", "other":"Другие слова"}
+	for group in ["pronoun", "verb", "noun", "adjective", "other"]:
+		if groups[group].is_empty(): continue
+		_label(vocab_list, group_titles[group], 16).modulate = Color("85c9c4")
+		var words := _label(vocab_list, "   ·   ".join(groups[group]), 16)
+		words.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	dev_panel = PanelContainer.new(); canvas.add_child(dev_panel)
 	dev_panel.anchor_left = 0.56; dev_panel.anchor_right = 1.0; dev_panel.anchor_bottom = 1.0
 	dev_panel.offset_left = 0; dev_panel.offset_top = 18; dev_panel.offset_right = -18; dev_panel.offset_bottom = -18
@@ -190,6 +218,11 @@ func _recall_attempt() -> void:
 	composer.prefix.clear()
 	composer.phrase.grab_focus()
 
+func _toggle_vocabulary() -> void:
+	vocabulary_card.visible = not vocabulary_card.visible
+	if vocabulary_card.visible: composer.release()
+	else: composer.phrase.grab_focus()
+
 func _show_live_context() -> void:
 	if is_instance_valid(context_view):
 		context_view.text = "ТЕКУЩИЙ МИР / следующая попытка\n" + JSON.stringify(context, "  ")
@@ -199,7 +232,10 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_F2:
+		if event.keycode == KEY_H and vocabulary_card.visible:
+			_toggle_vocabulary()
+			get_viewport().set_input_as_handled()
+		elif event.keycode == KEY_F2:
 			if not dialog.visible: _open_dialog()
 			_toggle_dev(not show_diagnostics)
 			get_viewport().set_input_as_handled()
