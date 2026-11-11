@@ -26,7 +26,9 @@ Ship the smallest **playable language-learning experiment**. Judge progress by n
 
 ## Verification proportional to risk
 - Documentation/data changes: structural check and simple data/links validation.
-- Gameplay change: launch the Godot scene, try the changed action, check important state and basic regression.
+- Gameplay change: launch the changed scene, exercise the changed action, and check important state and basic regression. Prefer Godot headless tests and CLI validation by default.
+- Do not use Computer Use merely to launch the game or inspect logs. Avoid redundant GUI runs when automated tests cover the changed behavior.
+- For visual verification, prefer automated rendered screenshots when practical. Use Computer Use only when acceptance criteria require real GUI interaction, visual judgment, or reproduction of a GUI-specific bug.
 - Before requesting merge of a **playable** slice, perform one export and launch of the candidate if the Issue requires it.
 - Run small, targeted checks first. Never claim a build, visual result or test PASS without having run it.
 - Report concise PASS / FAIL / NOT_TESTED, exact reproduction steps, limitations, and the visible player-facing result in the PR.
