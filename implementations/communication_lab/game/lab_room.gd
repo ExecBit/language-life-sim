@@ -322,7 +322,7 @@ func _start_conversation_camera() -> void:
 		conversation_camera.global_transform = exploration_camera.global_transform
 		conversation_camera.fov = exploration_camera.fov
 	conversation_camera.make_current()
-	var focus: Vector3 = astera_visual.global_position + Vector3(0, 1.23, 0)
+	var focus: Vector3 = astera_visual.global_position + Vector3(0, 0.95, 0)
 	var shot := Transform3D(Basis.IDENTITY, focus + Vector3(0, 0, 1.7)).looking_at(focus, Vector3.UP)
 	camera_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 	camera_tween.tween_property(conversation_camera, "global_transform", shot, 0.6)

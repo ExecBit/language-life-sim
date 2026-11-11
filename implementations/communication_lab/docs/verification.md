@@ -27,3 +27,5 @@ Run from the project root with Godot 4.7.1 console executable. In this environme
 8. Repeat the existing lab checks: `Hallo` while NPC busy/free; `Ja`/`Nein` inside/outside legacy pending offer; `Schlüssel?` then `Wo ist der Schlüssel?`; `Öffne die Tür nicht.`; repeat `Ich brauche den Schlüssel` and inspect effects; reset and continue movement.
 
 New dialogue grammar is intentionally limited to the documented lexical/intent subset. It is not unrestricted German comprehension. The attempt journal records input, parse, before/after state, NPC reply, conversation context, chosen reaction, emotion and animation ID.
+
+AvatarSample_B camera correction: conversation focus height lowered from 1.23 m to 0.95 m. Rendered close-up reviewed with the torso visible above the dialogue panel; UI_WORKFLOW passes. Local captures resolve to 1920x1200 under saved display settings; exact physical 1920x1080 capture was not confirmed.
