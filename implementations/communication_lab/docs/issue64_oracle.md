@@ -51,6 +51,29 @@ The baseline adapter follows the same unchanged branch selection as `LabSession.
 
 The E cases use ten paired prompts. Four pairs cross the dev/validation boundary; the other six stay together in dev. This is process separation, not a blind benchmark: the validation fixture is committed and visible.
 
+### Group purpose versus oracle outcome
+
+Groups A–E preserve their original test-design focus and split allocation; they do not guarantee a particular expected decision. In particular, learner-error examples can be genuinely ambiguous or exceed the runtime's compound-intent capability, and the unknown/unsupported group can contain borderline clarification cases. The fixed oracle outcome distribution is therefore reported independently from the group label:
+
+| Group | RECOGNIZED | NEEDS_CLARIFICATION | UNKNOWN | UNSUPPORTED |
+|---|---:|---:|---:|---:|
+| A — correct German | 50 | 0 | 0 | 0 |
+| B — learner-error focus | 69 | 5 | 0 | 6 |
+| C — ambiguity focus | 6 | 47 | 0 | 7 |
+| D — unknown/unsupported focus | 0 | 2 | 20 | 18 |
+| E — context-dependent focus | 16 | 4 | 0 | 0 |
+| **Total** | **141** | **58** | **20** | **31** |
+
+Baseline output provides separate `by_oracle_decision`, `by_phenomenon`, and `by_phenomenon_family` summaries. Phenomenon-family classification uses only the linguistic `phenomena` tags; it does not derive from group A–E or oracle decision. Rows with multiple phenomenon tags contribute more than one incidence, so family incidence totals are not expected to sum to 250. `MULTIPLE_INTENTS` is reported as unsupported multi-intent coverage; grammatical-error tags, ambiguity tags, unknown/unsupported-domain tags, and context-dependence tags remain distinct.
+
+### Recovery evidence
+
+`recovery_used` is evaluated from actual parser/session output, not copied from the oracle. If a parser exposes a Boolean `recovery_used` or `recovery.used`, that structured signal takes precedence (subject to the safety gates for unknown tokens, unsupported results and clarification). Otherwise the Stage 1 adapter can infer recovery only from a recognized non-empty intent plus an explicit mapped parser grammar diagnostic and no ambiguity, unsupported/unknown token, or resolver clarification. Raw parser diagnostic codes are retained separately from normalized linguistic error categories and oracle `diagnostic_codes`.
+
+The adapter reports diagnostic coverage independently: named expected error categories can be `FULL`, `PARTIAL` or `MISSING`; an aggregate `MULTIPLE_RECOVERABLE_ERRORS` expectation needs at least two distinct mapped parser error categories for `FULL`, while one is only `PARTIAL`. Expected categories only assess coverage; they never set actual `recovery_used`. This makes missing and unmapped diagnostics visible without treating error detection alone as proof of complete semantic recovery. See the latest section of [issue64_stage1_baseline.md](issue64_stage1_baseline.md) for the current unchanged-parser result and known false positive.
+
+The explicit map distinguishes parser-supported codes from oracle-only error categories. The current parser has mappings for agreement mismatch, omitted copula/finite verb, omitted subject, omitted article and article mismatch. Categories such as `WORD_ORDER`, `PRONOUN_CASE`, `MISSING_MODAL`, `INFINITIVE_FOR_FINITE`, `TYPO_OR_NEAR_FORM`, `OMITTED_MODAL` and `FINITE_VERB_AFTER_MODAL` currently have no parser diagnostic mapping; they remain valid oracle labels, but cannot be counted as actual parser evidence until the parser reports corresponding diagnostics.
+
 ## Audit and review
 
 Every fixture was checked against German grammar, error type, semantic roles, polarity, speech act, recoverability, supplied context, clarification need and goal progression. The audit corrected recurring errors in role attribution, negation, speech acts, multi-clause flattening, contextual fragments, and candidate lists. Exact before/after labels and a linguistic justification are in [issue64_gold_review_ledger.md](issue64_gold_review_ledger.md). The gold changes require user review; recording them here does not imply acceptance.
@@ -61,3 +84,4 @@ High-risk probes include the exact user phrases `ich dir helfen` and `Ich mochte
 ## Targeted review addendum (latest Issue #64 review)
 
 The current correction pass applies the compound policy consistently to clear coordinated/juxtaposed acts and separates Astera’s need/experiencer role from the implied player helper in “Brauchst du Hilfe?”. Full case-level before/after details are appended to the review ledger; previous audit history is retained. No production parsing logic changes are part of this Stage 1 update.
+
