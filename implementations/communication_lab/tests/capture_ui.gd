@@ -8,17 +8,25 @@ func capture() -> void:
 	root.size = Vector2i(1280, 720)
 	room.player.position = Vector3(0, 0, 0.5)
 	room._open_dialog()
+	for i in 30: await process_frame
+	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png("res://.local/commlab-opening.png")
+	room.astera_visual.set_emotion("happy")
+	for i in 30: await process_frame
+	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png("res://.local/commlab-happy.png")
+	room.astera_visual.set_emotion("surprised_soft")
 	room._toggle_vocabulary()
 	assert(room.vocabulary_card.visible)
 	for i in 3: await process_frame
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://.local/commlab-vocabulary.png")
 	room._toggle_vocabulary()
-	room.composer.phrase.text = "Hallo"
+	room.composer.phrase.text = "Was machst du?"
 	room.composer.send()
-	for i in 20: await process_frame
+	for i in 34: await process_frame
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("res://.local/commlab-normal.png")
+	root.get_texture().get_image().save_png("res://.local/commlab-activity.png")
 	room._toggle_dev(true)
 	room.composer.phrase.text = "Ich brauche den"
 	room.composer.prefix.text = "Schlüssel"
@@ -37,7 +45,7 @@ func capture() -> void:
 	assert(room.attempts.size() == 2)
 	room.history_list.select(0)
 	room._recall_attempt()
-	assert(room.composer.phrase.text == "Hallo")
+	assert(room.composer.phrase.text == "Was machst du?")
 	assert(room.context.key_owner == "player")
 	room._reset()
 	assert(room.context.key_owner == "anna")

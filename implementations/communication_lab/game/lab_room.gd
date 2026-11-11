@@ -2,6 +2,7 @@ extends Node3D
 const Composer = preload("res://implementations/communication_lab/game/communication/word_composer.gd")
 const Session = preload("res://implementations/communication_lab/game/communication/lab_session.gd")
 const WordCatalog = preload("res://implementations/communication_lab/game/communication/word_catalog.gd")
+const DialogueGrammar = preload("res://implementations/communication_lab/game/communication/dialogue_resolver.gd")
 const AsteraVisual = preload("res://implementations/communication_lab/game/characters/lab_npc_visual.gd")
 const PLAYER_SCENE = preload("res://addons/cogito/PackedScenes/cogito_player_simple.tscn")
 
@@ -27,8 +28,11 @@ var pending_option: OptionButton
 var owner_option: OptionButton
 var busy_toggle: CheckBox
 var knowledge_toggle: CheckBox
+var greeted := false
+var motion_paths: Dictionary = {}
 
 func _ready() -> void:
+	_load_motion_manifest()
 	_build_room()
 	_build_ui()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -68,11 +72,14 @@ func _build_room() -> void:
 	astera_visual.scale = Vector3.ONE * 0.9
 	add_child(astera_visual)
 	var table := MeshInstance3D.new(); table.name = "Table"
-	var table_mesh := BoxMesh.new(); table_mesh.size = Vector3(1.5, .12, .8); table.mesh = table_mesh; table.position = Vector3(1, .75, -1.6)
+	var table_mesh := BoxMesh.new(); table_mesh.size = Vector3(1.5, .12, .8); table.mesh = table_mesh; table.position = Vector3(-.5, .75, -1.6)
 	var table_mat := StandardMaterial3D.new(); table_mat.albedo_color = Color("795944"); table.material_override = table_mat; add_child(table)
 	key_visual = MeshInstance3D.new(); key_visual.name = "Key"
-	var key_mesh := SphereMesh.new(); key_mesh.radius = .12; key_mesh.height = .24; key_visual.mesh = key_mesh; key_visual.position = Vector3(1, .95, -1.6)
+	var key_mesh := SphereMesh.new(); key_mesh.radius = .12; key_mesh.height = .24; key_visual.mesh = key_mesh; key_visual.position = Vector3(-.15, .95, -1.6)
 	var key_mat := StandardMaterial3D.new(); key_mat.albedo_color = Color("dfb967"); key_visual.material_override = key_mat; add_child(key_visual)
+	var cup := MeshInstance3D.new(); cup.name = "Cup"
+	var cup_mesh := CylinderMesh.new(); cup_mesh.top_radius = .11; cup_mesh.bottom_radius = .09; cup_mesh.height = .22; cup.mesh = cup_mesh; cup.position = Vector3(-.75, .95, -1.6)
+	var cup_mat := StandardMaterial3D.new(); cup_mat.albedo_color = Color("77c9bc"); cup.material_override = cup_mat; add_child(cup)
 	door_visual = MeshInstance3D.new(); door_visual.name = "Door"
 	var door_mesh := BoxMesh.new(); door_mesh.size = Vector3(1.2, 2.2, .12); door_visual.mesh = door_mesh; door_visual.position = Vector3(-2, 1.1, -5.85)
 	var door_mat := StandardMaterial3D.new(); door_mat.albedo_color = Color("6b493b"); door_visual.material_override = door_mat; add_child(door_visual)
@@ -169,8 +176,18 @@ func _build_ui() -> void:
 	_label(vocab_content, "Формы из каталога · выбирайте слово и добавляйте Tab. Свободный ввод тоже доступен.", 15)
 	var vocab_scroll := ScrollContainer.new(); vocab_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL; vocab_content.add_child(vocab_scroll)
 	var vocab_list := VBoxContainer.new(); vocab_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL; vocab_scroll.add_child(vocab_list)
+	var memo_entries: Array = WordCatalog.ENTRIES.duplicate(true)
+	memo_entries.append_array(DialogueGrammar.vocabulary_entries())
+	var unique_entries: Array = []
+	var seen_surfaces := {}
+	for entry in memo_entries:
+		var normalized_surface: String = str(entry.surface).to_lower()
+		if seen_surfaces.has(normalized_surface): continue
+		seen_surfaces[normalized_surface] = true
+		unique_entries.append(entry)
+	memo_entries = unique_entries
 	var groups := {"pronoun": [], "verb": [], "noun": [], "adjective": [], "other": []}
-	for entry in WordCatalog.ENTRIES:
+	for entry in memo_entries:
 		if entry.availability != "available": continue
 		var group: String = entry.pos if groups.has(entry.pos) else "other"
 		if not groups[group].has(entry.surface): groups[group].append(entry.surface)
@@ -179,9 +196,10 @@ func _build_ui() -> void:
 	for group in ["pronoun", "verb", "noun", "adjective", "other"]:
 		if groups[group].is_empty(): continue
 		_label(vocab_list, group_titles[group], 16).modulate = Color("85c9c4")
-		for entry in WordCatalog.ENTRIES:
+		for entry in memo_entries:
 			if entry.availability != "available" or (entry.pos if groups.has(entry.pos) else "other") != group: continue
-			var translation: String = translations.get(entry.semantic_id, "перевод не указан")
+			var translation: String = DialogueGrammar.translation_for(entry.surface)
+			if translation == "": translation = translations.get(entry.semantic_id, "перевод не указан")
 			_label(vocab_list, "%s  —  %s" % [entry.surface, translation], 16)
 	dev_panel = PanelContainer.new(); canvas.add_child(dev_panel)
 	dev_panel.anchor_left = 0.56; dev_panel.anchor_right = 1.0; dev_panel.anchor_bottom = 1.0
@@ -215,6 +233,15 @@ func _build_ui() -> void:
 	_label(tools, "История — текущая сессия. Полный журнал сохраняется в JSONL.", 14).modulate = Color("9aafbd")
 	_update_diagnostics({})
 
+func _load_motion_manifest() -> void:
+	var file := FileAccess.open("res://implementations/communication_lab/animations/generated/manifest.json", FileAccess.READ)
+	if file == null: return
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
+	if not parsed is Array: return
+	for motion in parsed:
+		if motion is Dictionary and motion.has("key") and motion.has("file"):
+			motion_paths[str(motion.key)] = "res://implementations/communication_lab/animations/generated/" + str(motion.file)
+
 func _recall_attempt() -> void:
 	var selected := history_list.get_selected_items()
 	if selected.is_empty(): return
@@ -243,7 +270,7 @@ func _input(event: InputEvent) -> void:
 			if not dialog.visible: _open_dialog()
 			_toggle_dev(not show_diagnostics)
 			get_viewport().set_input_as_handled()
-		elif event.keycode == KEY_E and not dialog.visible and player.global_position.distance_to(Vector3(0, 0, -2)) < 3.0:
+		elif event.keycode == KEY_E and not dialog.visible and _can_interact():
 			composer.suppress_opener(event)
 			_open_dialog()
 			get_viewport().set_input_as_handled()
@@ -253,16 +280,24 @@ func _input(event: InputEvent) -> void:
 
 func _open_dialog() -> void:
 	dialog.show(); player.is_movement_paused = true; player.is_showing_ui = true; Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	if not greeted:
+		var opening: Dictionary = Session.opening_line(context)
+		reply_label.text = "Астера: %s" % opening.answer
+		astera_visual.set_emotion(opening.emotion_state)
+		_play_reaction_motion(opening.animation_id)
+		greeted = true
 	composer.phrase.grab_focus()
+
+func _can_interact() -> bool:
+	return is_instance_valid(player) and is_instance_valid(astera_visual) and player.global_position.distance_to(astera_visual.global_position) <= 5.0
 
 func _close_dialog() -> void:
 	dialog.hide(); _toggle_dev(false); composer.release(); player.is_movement_paused = false; player.is_showing_ui = false; Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_submitted(text: String) -> void:
 	last_record = Session.submit(text, context)
-	last_record.emotion_state = _emotion_for(last_record.parse.intent)
-	last_record.animation_id = "standing"
 	astera_visual.set_emotion(last_record.emotion_state)
+	_play_reaction_motion(last_record.animation_id)
 	owner_option.select(["anna", "world", "player"].find(context.key_owner))
 	pending_option.select(["", "offer", "help_target"].find(context.pending))
 	attempts.append(last_record.duplicate(true))
@@ -273,13 +308,11 @@ func _on_submitted(text: String) -> void:
 	_update_diagnostics(last_record)
 	_refresh_objects()
 
-func _emotion_for(intent: String) -> String:
-	return {
-		"GREETING": "surprised_soft", "THANKS": "grateful", "FAREWELL": "farewell",
-		"POLITENESS": "friendly", "APOLOGY": "concerned", "REQUEST_REPEAT": "curious",
-		"REPORT_PROBLEM": "concerned", "REQUEST_HELP": "friendly", "ACCEPT": "happy",
-		"REFUSE": "neutral", "UNKNOWN": "curious", "UNSUPPORTED": "curious",
-	}.get(intent, "neutral")
+func _play_reaction_motion(animation_id: String) -> void:
+	if animation_id == "standing":
+		astera_visual.return_to_idle()
+	elif motion_paths.has(animation_id):
+		astera_visual.play_generated(animation_id, motion_paths[animation_id])
 
 func _update_diagnostics(record: Dictionary) -> void:
 	_show_live_context()
@@ -292,7 +325,8 @@ func _update_diagnostics(record: Dictionary) -> void:
 	inspection_label.text = "Попытка %02d  ·  %s / %s" % [attempts.find(record) + 1, parsed.status, parsed.intent]
 	inspection_label.modulate = Color("85d9ba") if parsed.status == "RECOGNIZED" else Color("edc488")
 	parse_view.text = "ВВОД\n%s\n\nТОКЕНЫ\n%s\n\nСЕМАНТИЧЕСКИЙ FRAME\n%s\n\nAMBIGUITY\n%s\n\nUNSUPPORTED FEATURES\n%s\n\nDIAGNOSTICS\n%s" % [record.input, JSON.stringify(parsed.normalized_tokens), JSON.stringify(parsed.frame, "  "), JSON.stringify(parsed.ambiguity, "  "), JSON.stringify(parsed.unsupported_features, "  "), JSON.stringify(parsed.diagnostics, "  ")]
-	diagnostic.text = "ОТВЕТ NPC\n%s\n\nФАКТИЧЕСКИЕ ЭФФЕКТЫ\n%s\n\nЭМОЦИЯ\n%s\n\nANIMATION ID\n%s" % [record.answer, JSON.stringify(record.effects, "  "), record.get("emotion_state", "neutral"), record.get("animation_id", "standing")]
+	diagnostic.text = "ОТВЕТ NPC\n%s\n\nВЫБРАННАЯ РЕАКЦИЯ\n%s\n\nТЕМА\n%s\n\nФАКТИЧЕСКИЕ ЭФФЕКТЫ\n%s\n\nЭМОЦИЯ\n%s\n\nANIMATION ID\n%s" % [record.answer, record.get("reaction", ""), record.get("topic", ""), JSON.stringify(record.effects, "  "), record.get("emotion_state", "neutral"), record.get("animation_id", "standing")]
+	context_view.text += "\n\nКОНТЕКСТ РАЗГОВОРА\n%s" % JSON.stringify(record.get("conversation_context", {}), "  ")
 	context_view.text += "\n\nВЫБРАННАЯ ПОПЫТКА / до\n%s\n\nпосле\n%s" % [JSON.stringify(record.before, "  "), JSON.stringify(record.after, "  ")]
 
 func _toggle_dev(value: bool) -> void:
@@ -313,3 +347,6 @@ func _reset() -> void:
 	Session.reset(context); busy_toggle.button_pressed = false; knowledge_toggle.button_pressed = true
 	owner_option.select(0); pending_option.select(0); reply_label.text = "Астера ждёт реплику."; last_record = {}
 	_update_diagnostics({}); _refresh_objects()
+	greeted = false
+	astera_visual.set_emotion("neutral")
+	astera_visual.return_to_idle()

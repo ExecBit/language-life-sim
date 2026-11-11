@@ -1,9 +1,14 @@
 extends RefCounted
 ## Pure shallow grammar; world preconditions are resolved separately.
 const Catalog = preload("res://implementations/communication_lab/game/communication/word_catalog.gd")
+const DialogueGrammar = preload("res://implementations/communication_lab/game/communication/dialogue_resolver.gd")
 
 static func suggestions(prefix: String) -> Array[String]:
-	return Catalog.suggestions(prefix)
+	var result := Catalog.suggestions(prefix)
+	for surface in DialogueGrammar.suggestions(prefix):
+		if surface not in result: result.append(surface)
+	result.sort()
+	return result
 
 static func parse(text: String, pointed_target := "", conversation: Dictionary = {}) -> Dictionary:
 	var r := {"status":"UNKNOWN", "intent":"", "ambiguity":[], "unsupported_features":[],

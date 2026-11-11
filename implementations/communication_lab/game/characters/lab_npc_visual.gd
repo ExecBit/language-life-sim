@@ -16,6 +16,9 @@ var face_mesh: MeshInstance3D
 var emotion_state := "neutral"
 var active_animation_id := "standing"
 var expression_channels: Dictionary = {}
+## VRM 0 expression preset bindings verified in both the private Astera VRM
+## and redistributable Anna fallback. Godot imports the morphs as morph_N.
+var expression_presets := {"angry":"morph_1", "fun":"morph_2", "joy":"morph_3", "sorrow":"morph_4", "surprised":"morph_5"}
 var expression_from: Dictionary = {}
 var expression_target: Dictionary = {}
 var expression_tween := 1.0
@@ -42,7 +45,7 @@ func _ready() -> void:
 		if mesh_node.mesh != null and mesh_node.mesh.get_blend_shape_count() > 0:
 			face_mesh = mesh_node
 			for shape_index in mesh_node.mesh.get_blend_shape_count():
-				expression_channels[str(mesh_node.mesh.get_blend_shape_name(shape_index)).to_lower()] = shape_index
+				expression_channels["morph_%d" % shape_index] = shape_index
 			break
 	var modifier := MirrorRetarget.new()
 	modifier.name = "LabIdleRetarget"
@@ -95,9 +98,8 @@ func set_emotion(state: String) -> void:
 		expression_from[channel] = current
 		expression_target[channel] = 0.0
 	for emotion in preset:
-		for channel in expression_channels:
-			if channel.contains(str(emotion)):
-				expression_target[channel] = float(preset[emotion])
+		var channel: String = expression_presets.get(str(emotion), "")
+		if expression_channels.has(channel): expression_target[channel] = float(preset[emotion])
 	expression_tween = 0.0
 
 func _process(delta: float) -> void:
@@ -132,3 +134,8 @@ func play_generated(id: String, path: String) -> void:
 		scene.free()
 	active_animation_id = id
 	animation_player.play("lab/" + id, 0.3)
+
+func return_to_idle() -> void:
+	if not is_instance_valid(animation_player) or not library.has_animation("standing"): return
+	active_animation_id = "standing"
+	animation_player.play("lab/standing", 0.3)

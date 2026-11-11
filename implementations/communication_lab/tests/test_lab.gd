@@ -44,6 +44,43 @@ func run() -> void:
 	c.busy = true
 	var busy_greeting := Session.submit("Hallo", c)
 	check(free_greeting.parse.intent == "GREETING" and busy_greeting.answer != free_greeting.answer, "same utterance gets context-dependent reply")
+	var conversation := Session.initial_context()
+	Session.opening_line(conversation)
+	var named := Session.submit("Ich heiße Alex", conversation)
+	check(named.parse.intent == "PLAYER_NAME" and conversation.player_name == "Alex" and named.answer.contains("Alex"), "player name is remembered and used in a response")
+	var activity_first := Session.submit("Was machst du?", Session.initial_context())
+	check(activity_first.answer.contains("räume auf") and activity_first.animation_id == "point_at_object", "activity question works before the mood topic and points at the cup")
+	var why_context := Session.initial_context(); why_context.topic = "astera_mood"; why_context.last_npc_line = "Ich bin müde."
+	var why_answer := Session.submit("Warum?", why_context)
+	check(why_answer.answer.contains("Arbeit") and why_answer.reaction == "explain_tiredness", "why uses the tiredness context")
+	var why_without_context := Session.submit("Warum?", Session.initial_context())
+	check(why_without_context.answer.contains("Warum genau") and why_without_context.effects.is_empty(), "why without context asks for clarification")
+	var good_mood := Session.submit("Sehr gut!", Session.initial_context())
+	var low_mood := Session.submit("Nicht so gut.", Session.initial_context())
+	check(good_mood.answer != low_mood.answer and good_mood.emotion_state == "happy" and low_mood.emotion_state == "concerned", "good and low moods produce distinct responses and emotions")
+	var reciprocal_context := Session.initial_context(); reciprocal_context.topic = "player_mood"
+	var reciprocal := Session.submit("Und du?", reciprocal_context)
+	var reciprocal_without_context := Session.submit("Und du?", Session.initial_context())
+	check(reciprocal.answer.contains("Mir geht's gut") and reciprocal_without_context.answer.contains("Was möchtest du wissen"), "reciprocal question uses mood context or requests clarification")
+	var free_plan := Session.submit("Ich habe frei.", Session.initial_context())
+	var work_plan := Session.submit("Ich arbeite.", Session.initial_context())
+	var learning_plan := Session.submit("Ich lerne Deutsch.", Session.initial_context())
+	check(free_plan.answer != work_plan.answer and work_plan.answer != learning_plan.answer, "free day, work and learning plans produce distinct responses")
+	var help_context := Session.initial_context()
+	var help_offer := Session.submit("Kann ich helfen?", help_context)
+	var help_accept := Session.submit("Ja, bitte!", help_context)
+	check(help_offer.parse.intent == "OFFER_HELP" and help_accept.parse.intent == "ACCEPT_HELP" and help_context.offered_help and help_context.pending_question == "", "help offer and acceptance are remembered without pretending an object moved")
+	var help_decline_context := Session.initial_context(); help_decline_context.pending_question = "help_offer"
+	var help_decline := Session.submit("Nein, danke.", help_decline_context)
+	check(help_decline.parse.intent == "DECLINE_HELP" and help_decline.effects.is_empty(), "declining help is distinct from accepting it")
+	var learn_context := Session.initial_context()
+	Session.submit("Ich lerne Deutsch", learn_context)
+	var slow_accept := Session.submit("Ja, danke", learn_context)
+	check(slow_accept.parse.intent == "ACCEPT_SLOW" and learn_context.slow_speech, "accepting slow German affects presentation context")
+	var confused := Session.submit("Ich fliege zum Mond", Session.initial_context())
+	check(confused.parse.status in ["UNKNOWN", "UNSUPPORTED"] and confused.effects.is_empty(), "unsupported free text remains explicitly unrecognized and has no effect")
+	var goodbye := Session.submit("Bis später!", Session.initial_context())
+	check(goodbye.animation_id == "farewell_wave" and goodbye.answer.contains("Bis dann"), "farewell selects its authored line and gesture")
 	c.busy = false
 	var world_key_context := Session.initial_context(); world_key_context.key_owner = "world"
 	var unavailable_key := Session.submit("Ich brauche den Schlüssel", world_key_context)
@@ -93,8 +130,29 @@ func run() -> void:
 	var astera: Node = room.get_node("Astera")
 	var expected_avatar := "res://assets/characters/private/astera.vrm" if ResourceLoader.exists("res://assets/characters/private/astera.vrm") else "res://assets/characters/anna.vrm"
 	check(astera.get("avatar_path_in_use") == expected_avatar, "Astera is selected when available with redistributable fallback")
+	check(room.call("_can_interact"), "spawn position is inside Astera conversation range")
 	var idle_player: AnimationPlayer = astera.get("animation_player")
 	check(idle_player.is_playing() and idle_player.current_animation == "lab/standing", "NPC plays the retargeted idle animation")
+	var face_channels: Dictionary = astera.get("expression_channels")
+	check(not face_channels.is_empty(), "selected avatar has discovered VRM expression channels")
+	print("VRM_EXPRESSION_CHANNELS: ", JSON.stringify(face_channels.keys()))
+	astera.call("set_emotion", "happy")
+	for i in 30: await process_frame
+	var face_mesh: MeshInstance3D = astera.get("face_mesh")
+	var joyful_channel_used := false
+	for channel in face_channels:
+		if str(channel) == "morph_3" and face_mesh.get_blend_shape_value(face_channels[channel]) > 0.1: joyful_channel_used = true
+	check(joyful_channel_used, "happy emotion smoothly drives the Astera VRM joy blendshape")
+	var suggestions: Array = Parser.suggestions("mü")
+	check(suggestions.has("müde"), "new dialogue vocabulary is included in composer suggestions")
+	var open_event := InputEventKey.new(); open_event.keycode = KEY_E; open_event.pressed = true
+	room.call("_input", open_event)
+	check(astera.get("active_animation_id") == "greeting_wave" and room.get("reply_label").text.contains("Hallo"), "opening encounter plays a greeting motion and line")
+	check(room.get("dialog").visible and player.get("is_movement_paused"), "E interaction opens the conversation and pauses player movement")
+	room.call("_on_submitted", "Was machst du?")
+	check(astera.get("active_animation_id") == "point_at_object" and room.get("last_record").get("reaction") == "explain_activity_and_point_out_cup", "conversation response triggers selected generated motion")
+	await create_timer(4.25).timeout
+	check(astera.get("active_animation_id") == "standing", "conversation gesture returns to idle")
 	room.queue_free()
 	await process_frame
 	print("COMMUNICATION_LAB_TESTS: %d failure(s)" % failures)
