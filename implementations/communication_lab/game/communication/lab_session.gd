@@ -1,16 +1,21 @@
 extends RefCounted
 const Parser = preload("res://implementations/communication_lab/game/communication/parser.gd")
 const DialogueGrammar = preload("res://implementations/communication_lab/game/communication/dialogue_resolver.gd")
+const OBJECTIVE_TITLES := {"introduce":"Представиться", "ask_mood":"Узнать, как у неё дела", "ask_activity":"Спросить о её занятиях", "share_self":"Рассказать о себе", "offer_help":"Предложить помощь", "farewell":"Попрощаться"}
 
 static func initial_context() -> Dictionary:
-	return {"busy": false, "knows_key": true, "key_owner": "anna", "door_open": false,
-		"pending": "", "player_name":"", "topic":"introduction", "last_npc_line":"",
-		"pending_question":"player_name", "offered_help":false, "player_mood":"", "player_plan":"",
-		"slow_speech":false, "activity":"tidying"}
+	return {"busy": false, "pending": "", "player_name":"", "topic":"introduction", "last_npc_line":"",
+		"pending_question":"player_name", "offered_help":false, "player_mood":"", "astera_mood":"tired", "player_plan":"",
+		"slow_speech":false, "activity":"working", "objective_progress":_initial_objectives(), "objective_evidence":{}}
+
+static func _initial_objectives() -> Dictionary:
+	var progress := {}
+	for key in OBJECTIVE_TITLES: progress[key] = false
+	return progress
 
 static func opening_line(context: Dictionary) -> Dictionary:
 	context.topic = "introduction"
-	context.last_npc_line = "Oh! Hallo! Du bist ja schon da!"
+	context.last_npc_line = "Oh! Hallo! Ich bin Astera. Und du?"
 	context.pending_question = "player_name"
 	return {"answer":context.last_npc_line,"topic":context.topic,"reaction":"player_arrived",
 		"emotion_state":"surprised_soft","animation_id":"greeting_wave"}
@@ -39,11 +44,13 @@ static func submit(text: String, context: Dictionary) -> Dictionary:
 		var visual := _legacy_visuals(str(parsed.get("intent", "")), str(parsed.status))
 		emotion = visual.emotion_state
 		animation = visual.animation_id
+	_update_objectives(parsed, context, reaction, text)
 	context.last_npc_line = answer
 	var result := {"input": text, "before": before, "parse": parsed, "answer": answer, "effects": effects,
 		"after": context.duplicate(true), "topic":str(context.get("topic", "")),
 		"conversation_context":_conversation_snapshot(context), "reaction":reaction,
-		"emotion_state":emotion,"animation_id":animation}
+		"emotion_state":emotion,"animation_id":animation,
+		"objective_progress":context.objective_progress.duplicate(true), "objective_evidence":context.objective_evidence.duplicate(true)}
 	_append_journal(result)
 	return result
 
@@ -57,7 +64,7 @@ static func _resolve_dialogue(parsed: Dictionary, context: Dictionary) -> Dictio
 		"GREETING":
 			if context.busy:
 				context.topic = "introduction"; context.pending_question = "player_name"
-				answer = "Oh! Hallo! Einen Moment, ich bin gerade beschäftigt."
+				answer = "Hallo! Einen Moment, bitte."
 				reaction = "greet_while_busy"; emotion = "concerned"; animation = "soft_concern"
 			else:
 				var opening := opening_line(context)
@@ -66,134 +73,135 @@ static func _resolve_dialogue(parsed: Dictionary, context: Dictionary) -> Dictio
 			context.player_name = parsed.name
 			context.topic = "introduction"
 			context.pending_question = "player_mood"
-			answer = "Freut mich, %s! Wie geht's dir?" % context.player_name
+			answer = "Hallo, %s! Schön!" % context.player_name
 			reaction = "welcome_player_by_name"; emotion = "happy"; animation = "small_happy_reaction"
 		"ASK_MOOD":
 			context.topic = "astera_mood"; context.pending_question = "player_mood"
-			answer = "Puh… Ich bin ein bisschen müde. Viel Arbeit heute!"
-			reaction = "share_tired_mood"; emotion = "tired"; animation = "tired_sigh"
+			if context.astera_mood == "good":
+				answer = "Mir geht's gut, danke! Und du? Was machst du heute?"
+				reaction = "share_good_mood"; emotion = "happy"; animation = "small_happy_reaction"
+			elif context.astera_mood == "neutral":
+				answer = "Gut, danke!"
+				reaction = "share_neutral_mood"; emotion = "friendly"; animation = "gentle_nod"
+			else:
+				answer = "Puh… Ich bin müde. Ich arbeite heute viel."
+				reaction = "share_tired_mood"; emotion = "tired"; animation = "tired_sigh"
 		"ASK_ASTERA_MOOD":
 			if context.topic == "player_mood":
 				context.topic = "astera_mood"; context.pending_question = "player_plan"
-				answer = "Mir geht's gut, danke! Was machst du heute?"
+				answer = "Mir geht's gut, danke! Und du? Was machst du heute?"
 				reaction = "answer_reciprocal_mood"; emotion = "friendly"; animation = "gentle_nod"
 			elif context.topic == "astera_mood":
 				context.pending_question = "player_mood"
-				answer = "Danke! Ein bisschen müde, aber es geht."
+				answer = "Danke! Ich bin müde."
 				reaction = "answer_reciprocal_mood"; emotion = "tired"; animation = "tired_sigh"
 			else:
 				context.pending_question = "astera_mood"
-				answer = "Fragst du, wie es mir geht?"
+				answer = "Wie geht's mir? Gute Frage!"
 				reaction = "clarify_reciprocal_question"; emotion = "curious"; animation = "curious_head_tilt"
 		"ASK_BACK":
 			if context.topic == "player_mood":
 				context.topic = "astera_mood"; context.pending_question = "player_plan"
 				answer = "Mir geht's gut, danke! Was machst du heute?"
-				reaction = "answer_reciprocal_mood"; emotion = "friendly"; animation = "gentle_nod"
+				reaction = "answer_reciprocal_mood"; emotion = "friendly"; animation = "point_at_object"
 			else:
 				context.pending_question = ""
-				answer = "Und ich? Was möchtest du wissen?"
+				answer = "Was möchtest du wissen?"
 				reaction = "clarify_reciprocal_question"; emotion = "curious"; animation = "curious_head_tilt"
 		"PLAYER_MOOD_GOOD":
 			context.player_mood = "good"; context.topic = "player_mood"
 			context.pending_question = "player_plan"
-			answer = "Das freut mich! Mir geht's auch gut. Was machst du heute?"
+			answer = "Oh, schön! Mir geht's auch gut. Was machst du heute?"
 			reaction = "affirm_good_mood_and_invite_topic"; emotion = "happy"; animation = "gentle_nod"
 		"PLAYER_MOOD_LOW":
 			var is_tired: bool = parsed.normalized_tokens.has("müde") or parsed.normalized_tokens.has("mude")
 			context.player_mood = "tired" if is_tired else "low"
 			context.topic = "player_mood"; context.pending_question = "player_reason"
-			answer = "Oh, das tut mir leid. Möchtest du erzählen?"
+			answer = "Oh… warum?"
 			reaction = "respond_with_concern"; emotion = "concerned"; animation = "soft_concern"
+		"PLAYER_QUIET_ACK":
+			context.topic = "player_mood"; context.pending_question = "player_plan"
+			answer = "Oh! Okay!"
+			reaction = "respond_to_quiet_player"; emotion = "playful"; animation = "playful_shrug"
 		"WHY":
-			if context.topic in ["astera_mood", "activity"] or context.last_npc_line.to_lower().contains("müde"):
+			if context.topic == "player_mood" and context.get("player_mood", "") in ["low", "tired"]:
+				context.topic = "player_mood"; context.pending_question = "player_plan"
+				answer = "Ich bin auch müde." if context.player_mood == "tired" else "Oh."
+				reaction = "relate_to_player_reason"; emotion = "concerned"; animation = "soft_concern"
+			elif context.topic in ["astera_mood", "activity"] or context.last_npc_line.to_lower().contains("müde"):
 				context.topic = "work"; context.pending_question = ""
-				answer = "Viel Arbeit heute. Ich räume gerade auf."
+				answer = "Ich arbeite."
 				reaction = "explain_tiredness"; emotion = "tired"; animation = "tired_sigh"
 			else:
-				answer = "Warum genau? Meinst du meine Arbeit oder etwas anderes?"
+				answer = "Warum? Was meinst du?"
 				reaction = "ask_why_clarification"; emotion = "curious"; animation = "curious_head_tilt"
 		"ASK_ACTIVITY":
-			context.topic = "activity"; context.activity = "tidying"; context.pending_question = "cup_owner"
-			answer = "Ich räume auf. Aber diese Tasse ist nicht meine!"
-			reaction = "explain_activity_and_point_out_cup"; emotion = "playful"; animation = "point_at_object"
-		"ASK_CUP_OWNER", "CUP_REACTION":
-			context.topic = "cup"; context.pending_question = ""
-			answer = "Nein, die Tasse ist nicht meine. Ich weiß nicht, wem sie gehört!"
-			reaction = "clarify_unknown_cup_owner"; emotion = "playful"; animation = "playful_shrug"
+			context.topic = "activity"; context.activity = "working"; context.pending_question = "player_plan"
+			answer = "Ich arbeite. Und du?"
+			reaction = "explain_activity_and_invite_player"; emotion = "playful"; animation = "point_at_object"
 		"OFFER_HELP":
 			context.offered_help = true; context.pending_question = "help_offer"; context.topic = "help"
-			answer = "Oh, wirklich? Das ist lieb! Ja, bitte — kannst du die Tasse hierher stellen?"
+			answer = "Oh! Danke! Vielleicht später." if context.busy else "Oh! Danke! Das ist nett!"
 			reaction = "accept_help_offer"; emotion = "grateful"; animation = "surprised_delighted"
 		"ACCEPT_HELP":
 			context.pending_question = ""; context.topic = "help"
-			answer = "Danke! Das hilft mir sehr."
+			answer = "Danke!"
 			reaction = "thank_player_for_help"; emotion = "grateful"; animation = "open_palm_offer"
 		"DECLINE_HELP":
 			context.pending_question = ""; context.topic = "help"
-			answer = "Alles gut. Danke, dass du gefragt hast."
+			answer = "Okay. Danke!"
 			reaction = "accept_declined_help"; emotion = "friendly"; animation = "gentle_nod"
 		"PLAYER_PLAN":
 			if parsed.normalized_tokens.has("frei"):
 				context.player_plan = "free"; context.topic = "player_plan"
-				answer = "Das klingt schön! Ein freier Tag tut gut."
+				answer = "Oh, schön!"
 				reaction = "respond_to_free_day"; emotion = "happy"; animation = "small_happy_reaction"
 			elif parsed.normalized_tokens.has("lerne"):
 				context.player_plan = "learning_german"; context.topic = "player_plan"
 				context.pending_question = "slow_speech"
-				answer = "Ach so, du lernst Deutsch! Dann spreche ich langsam, okay?"
+				answer = "Ah, Deutsch! Schön! Ich spreche langsam. Okay?"
 				reaction = "offer_slow_speech"; emotion = "friendly"; animation = "gentle_nod"
 			else:
 				context.player_plan = "work"; context.topic = "player_plan"
-				answer = "Oh, du arbeitest heute. Ich wünsche dir einen guten Tag!"
+				answer = "Oh! Viel Arbeit heute?"
 				reaction = "respond_to_work_plan"; emotion = "friendly"; animation = "gentle_nod"
 		"ACCEPT_SLOW":
 			context.slow_speech = true; context.pending_question = ""; context.topic = "slow_speech"
-			answer = "Gern. Ich spreche langsam. Danke!"
+			answer = "Gut! Ich spreche langsam."
 			reaction = "enable_slow_speech"; emotion = "grateful"; animation = "gentle_nod"
 		"DECLINE_SLOW":
 			context.slow_speech = false; context.pending_question = ""; context.topic = "slow_speech"
-			answer = "In Ordnung. Sag einfach Bescheid."
+			answer = "Okay!"
 			reaction = "decline_slow_speech"; emotion = "friendly"; animation = "gentle_nod"
 		"FAREWELL":
 			context.topic = "farewell"; context.pending_question = ""
-			answer = "Bis dann! Wir sehen uns später."
+			answer = "Tschüss, %s!" % context.player_name if not str(context.player_name).is_empty() else "Tschüss! Bis später!"
 			reaction = "say_goodbye"; emotion = "farewell"; animation = "farewell_wave"
 	return {"answer":answer,"reaction":reaction,"emotion_state":emotion,"animation_id":animation}
 
 static func _resolve_legacy(parsed: Dictionary, context: Dictionary, effects: Array[String]) -> String:
-	if parsed.status != "RECOGNIZED": return "Was meinst du genau?" if parsed.status == "NEEDS_CLARIFICATION" else "Ich verstehe nicht."
-	var frame: Dictionary = parsed.frame
-	var target := str(frame.get("object_id", ""))
+	if parsed.status != "RECOGNIZED": return "Was meinst du?" if parsed.status == "NEEDS_CLARIFICATION" else "Ich verstehe nicht."
 	match parsed.intent:
-		"GREETING": return "Hallo! Schön, dich zu sehen."
+		"GREETING": return "Hallo!"
 		"THANKS": return "Gern!"
-		"FAREWELL": return "Auf Wiedersehen!"
-		"POLITENESS": return "Bitte schön."
-		"APOLOGY": return "Schon gut."
-		"REQUEST_REPEAT": return "Bitte frag noch einmal."
-		"ACCEPT": context.pending = ""; return "Ja, gern."
-		"REFUSE": context.pending = ""; return "In Ordnung."
-		"ASK_LOCATION": return "Der Schlüssel liegt dort auf dem Boden." if target == "key" and context.knows_key else "Das weiß ich nicht."
-		"IDENTIFY": return "Das ist der Schlüssel." if target == "key" and context.knows_key else "Das weiß ich nicht."
+		"FAREWELL": return "Tschüss!"
+		"POLITENESS": return "Bitte!"
+		"APOLOGY": return "Okay!"
+		"REQUEST_REPEAT": return "Bitte noch einmal."
+		"ACCEPT": context.pending = ""; return "Ja!"
+		"REFUSE": context.pending = ""; return "Okay."
+		"ASK_LOCATION", "IDENTIFY": return "Ich weiß es nicht."
 		"REQUEST_ITEM":
-			if context.busy: return "Einen Moment bitte."
-			if target == "key" and context.key_owner == "anna":
-				context.key_owner = "player"; effects.append("key_owner: anna → player"); return "Hier, bitte."
-			if target == "key" and context.key_owner == "player": return "Du hast den Schlüssel schon."
-			return "Das kann ich gerade nicht geben."
+			return "Das geht nicht."
 		"REQUEST_ACTION":
-			if context.busy: return "Einen Moment bitte."
-			if target == "door" and not context.door_open:
-				context.door_open = true; effects.append("door_open: false → true"); return "Die Tür ist offen."
-			return "Das kann ich gerade nicht tun."
-		"REQUEST_HELP": context.pending = "help_target"; return "Wobei soll ich helfen?"
-		"PROHIBIT_ACTION": return "Okay, das mache ich nicht."
+			return "Das geht nicht."
+		"REQUEST_HELP": context.pending = "help_target"; return "Was brauchst du?"
+		"PROHIBIT_ACTION": return "Okay. Ich mache das nicht."
 		"REPORT_NONUNDERSTANDING": return "Was möchtest du wissen?"
 		"REPORT_PROBLEM": return "Das tut mir leid."
-		"ASK_PERMISSION": return "Ja, du kannst die Tür öffnen."
-		"REPORT_STATE", "EXPRESS_DESIRE": return "Verstanden."
-	return "Was meinst du genau?"
+		"ASK_PERMISSION": return "Das geht nicht."
+		"REPORT_STATE", "EXPRESS_DESIRE": return "Okay!"
+	return "Was meinst du?"
 
 static func _legacy_visuals(intent: String, status: String) -> Dictionary:
 	var visuals := {
@@ -207,10 +215,32 @@ static func _legacy_visuals(intent: String, status: String) -> Dictionary:
 	return {"emotion_state":chosen[0],"animation_id":chosen[1]}
 
 static func _conversation_snapshot(context: Dictionary) -> Dictionary:
-	var keys := ["player_name","topic","last_npc_line","pending_question","offered_help","player_mood","player_plan","slow_speech"]
+	var keys := ["busy","player_name","topic","last_npc_line","pending_question","offered_help","player_mood","astera_mood","player_plan","slow_speech","objective_progress","objective_evidence"]
 	var snapshot := {}
 	for key in keys: snapshot[key] = context.get(key, null)
 	return snapshot
+
+static func _update_objectives(parsed: Dictionary, context: Dictionary, reaction: String, input_text: String) -> void:
+	if parsed.get("status", "") != "RECOGNIZED": return
+	if reaction.begins_with("clarify") or reaction in ["ask_why_clarification", "unrecognized"]: return
+	var intent := str(parsed.get("intent", ""))
+	var completed: Array[String] = []
+	match intent:
+		"PLAYER_NAME":
+			if not str(parsed.get("name", "")).is_empty(): completed.append("introduce")
+		"ASK_MOOD", "ASK_ASTERA_MOOD", "ASK_BACK": completed.append("ask_mood")
+		"ASK_ACTIVITY": completed.append("ask_activity")
+		"PLAYER_MOOD_GOOD", "PLAYER_MOOD_LOW", "PLAYER_PLAN": completed.append("share_self")
+		"OFFER_HELP": completed.append("offer_help")
+		"FAREWELL": completed.append("farewell")
+	var progress: Dictionary = context.get("objective_progress", {})
+	var evidence: Dictionary = context.get("objective_evidence", {})
+	for key in completed:
+		if not progress.get(key, false):
+			progress[key] = true
+			evidence[key] = {"intent":intent, "input":input_text}
+	context.objective_progress = progress
+	context.objective_evidence = evidence
 
 static func reset(context: Dictionary) -> Dictionary:
 	context.clear()

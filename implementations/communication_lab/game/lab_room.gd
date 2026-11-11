@@ -25,18 +25,38 @@ var parse_view: RichTextLabel
 var context_view: RichTextLabel
 var inspection_label: Label
 var vocabulary_card: PanelContainer
-var key_visual: MeshInstance3D
-var door_visual: MeshInstance3D
+var vocabulary_search: LineEdit
+var vocabulary_rows: Array[Dictionary] = []
 var pending_option: OptionButton
-var owner_option: OptionButton
 var busy_toggle: CheckBox
-var knowledge_toggle: CheckBox
+var mood_option: OptionButton
+var astera_mood_option: OptionButton
+var offered_help_toggle: CheckBox
+var name_toggle: CheckBox
+var topic_option: OptionButton
+var objective_panel: PanelContainer
+var objective_labels: Dictionary = {}
 var greeted := false
 var motion_paths: Dictionary = {}
 var conversation_camera: Camera3D
 var exploration_camera: Camera3D
 var camera_tween: Tween
 var heading_card: PanelContainer
+var dialogue_silence_seconds := 0.0
+var silence_tease_shown := false
+const SILENCE_TEASE_DELAY := 24.0
+
+func _process(delta: float) -> void:
+	if not dialog.visible or silence_tease_shown or vocabulary_card.visible: return
+	if not composer.phrase.text.strip_edges().is_empty():
+		dialogue_silence_seconds = 0.0
+		return
+	dialogue_silence_seconds += delta
+	if dialogue_silence_seconds >= SILENCE_TEASE_DELAY:
+		silence_tease_shown = true
+		_append_conversation_line("Астера", "Du bist sehr still!", true)
+		astera_visual.set_emotion("playful")
+		_play_reaction_motion("playful_shrug")
 
 func _ready() -> void:
 	_load_motion_manifest()
@@ -80,17 +100,7 @@ func _build_room() -> void:
 	astera_visual.scale = Vector3.ONE * 0.9
 	add_child(astera_visual)
 	conversation_camera = Camera3D.new(); conversation_camera.name = "ConversationCamera"; add_child(conversation_camera)
-	key_visual = MeshInstance3D.new(); key_visual.name = "Key"
-	var key_mesh := SphereMesh.new(); key_mesh.radius = .12; key_mesh.height = .24; key_visual.mesh = key_mesh; key_visual.position = Vector3(-.9, .12, -1.6)
-	var key_mat := StandardMaterial3D.new(); key_mat.albedo_color = Color("dfb967"); key_visual.material_override = key_mat; add_child(key_visual)
-	var cup := MeshInstance3D.new(); cup.name = "Cup"
-	var cup_mesh := CylinderMesh.new(); cup_mesh.top_radius = .11; cup_mesh.bottom_radius = .09; cup_mesh.height = .22; cup.mesh = cup_mesh; cup.position = Vector3(-1.3, .11, -1.6)
-	var cup_mat := StandardMaterial3D.new(); cup_mat.albedo_color = Color("77c9bc"); cup.material_override = cup_mat; add_child(cup)
-	door_visual = MeshInstance3D.new(); door_visual.name = "Door"
-	var door_mesh := BoxMesh.new(); door_mesh.size = Vector3(1.2, 2.2, .12); door_visual.mesh = door_mesh; door_visual.position = Vector3(-2, 1.1, -5.85)
-	var door_mat := StandardMaterial3D.new(); door_mat.albedo_color = Color("6b493b"); door_visual.material_override = door_mat; add_child(door_visual)
 	_add_wall(Vector3(0, 1.5, 6), Vector3(12, 3, .2))
-	_refresh_objects()
 
 func _add_wall(at: Vector3, size: Vector3) -> void:
 	var wall := StaticBody3D.new()
@@ -153,6 +163,7 @@ func _build_ui() -> void:
 	var heading := VBoxContainer.new(); heading_card.add_child(heading)
 	_label(heading, "COMMUNICATION / LAB", 16).modulate = Color("85c9c4")
 	_label(heading, "WASD · движение   /   E · разговор   /   F2 · лаборатория", 16)
+	_build_objective_tracker(canvas)
 	dialog = PanelContainer.new(); dialog.name = "CommunicationPanel"; canvas.add_child(dialog)
 	dialog.anchor_top = 1.0; dialog.anchor_bottom = 1.0
 	dialog.anchor_right = 1.0
@@ -188,6 +199,8 @@ func _build_ui() -> void:
 	var vocab_title := _label(vocab_header, "Памятка по словам", 22); vocab_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_button(vocab_header, "Закрыть · F1", _toggle_vocabulary)
 	_label(vocab_content, "Tab переключает варианты; пробел добавляет выбранное слово. Свободный ввод тоже доступен.", 15)
+	vocabulary_search = LineEdit.new(); vocabulary_search.placeholder_text = "Найти немецкое слово или перевод…"; vocabulary_search.clear_button_enabled = true
+	vocabulary_search.text_changed.connect(_filter_vocabulary); vocab_content.add_child(vocabulary_search)
 	var vocab_scroll := ScrollContainer.new(); vocab_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL; vocab_content.add_child(vocab_scroll)
 	var vocab_list := VBoxContainer.new(); vocab_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL; vocab_scroll.add_child(vocab_list)
 	var memo_entries: Array = WordCatalog.ENTRIES.duplicate(true)
@@ -200,21 +213,25 @@ func _build_ui() -> void:
 		seen_surfaces[normalized_surface] = true
 		unique_entries.append(entry)
 	memo_entries = unique_entries
-	var groups := {"pronoun": [], "verb": [], "noun": [], "adjective": [], "other": []}
+	var groups := {"phrase": [], "pronoun": [], "verb": [], "noun": [], "adjective": [], "other": []}
 	for entry in memo_entries:
 		if entry.availability != "available": continue
 		var group: String = entry.pos if groups.has(entry.pos) else "other"
 		if not groups[group].has(entry.surface): groups[group].append(entry.surface)
-	var group_titles := {"pronoun":"Местоимения", "verb":"Глаголы и формы", "noun":"Предметы и имена", "adjective":"Признаки", "other":"Другие слова"}
+	var group_titles := {"phrase":"Фразы целиком", "pronoun":"Местоимения", "verb":"Глаголы и формы", "noun":"Существительные и имена", "adjective":"Признаки", "other":"Другие слова"}
 	var translations := {"lamp":"лампа", "player":"я / мне", "addressee":"ты / тебе", "anna":"Анна (в каталоге)", "want":"хотеть", "need":"нуждаться", "can":"мочь", "have":"иметь", "be":"быть", "open":"открывать", "give":"давать", "help":"помогать", "know":"знать", "key":"ключ", "door":"дверь", "room":"комната", "article":"артикль", "no":"никакой / не", "reference":"это", "not":"не", "where":"где", "why":"почему", "what":"что", "please":"пожалуйста", "closed":"закрыт", "accept":"да", "refuse":"нет", "thanks":"спасибо", "greeting":"приветствие", "subordinate":"что / потому что", "here":"здесь", "later":"позже", "lena":"Лена", "farewell":"пока", "apology":"извинение", "understand":"понимать", "again":"ещё раз", "once":"один раз", "approach":"подойти", "take":"взять", "water":"вода", "cup":"чашка", "bag":"сумка", "bread":"хлеб", "bell":"колокольчик", "market":"супермаркет", "possessive":"мой / моя"}
-	for group in ["pronoun", "verb", "noun", "adjective", "other"]:
+	for group in ["phrase", "pronoun", "verb", "noun", "adjective", "other"]:
 		if groups[group].is_empty(): continue
-		_label(vocab_list, group_titles[group], 16).modulate = Color("85c9c4")
+		var group_label := _label(vocab_list, group_titles[group], 16)
+		group_label.modulate = Color("85c9c4")
+		vocabulary_rows.append({"label":group_label,"group":group,"header":true,"search":""})
 		for entry in memo_entries:
 			if entry.availability != "available" or (entry.pos if groups.has(entry.pos) else "other") != group: continue
 			var translation: String = DialogueGrammar.translation_for(entry.surface)
 			if translation == "": translation = translations.get(entry.semantic_id, "перевод не указан")
-			_label(vocab_list, "%s  —  %s" % [entry.surface, translation], 16)
+			var entry_label := _label(vocab_list, "%s  —  %s" % [entry.surface, translation], 16)
+			vocabulary_rows.append({"label":entry_label,"group":group,"header":false,"search":("%s %s" % [entry.surface, translation]).to_lower()})
+	_filter_vocabulary("")
 	dev_panel = PanelContainer.new(); canvas.add_child(dev_panel)
 	dev_panel.anchor_left = 0.56; dev_panel.anchor_right = 1.0; dev_panel.anchor_bottom = 1.0
 	dev_panel.offset_left = 0; dev_panel.offset_top = 18; dev_panel.offset_right = -18; dev_panel.offset_bottom = -440
@@ -225,13 +242,20 @@ func _build_ui() -> void:
 	_button(bar, "Скрыть · F2", func(): _toggle_dev(false))
 	_label(tools, "КОНТЕКСТ СЛЕДУЮЩЕЙ ПОПЫТКИ", 14).modulate = Color("85c9c4")
 	var settings := HFlowContainer.new(); tools.add_child(settings)
-	busy_toggle = CheckBox.new(); busy_toggle.text = "NPC занят"; busy_toggle.toggled.connect(func(v): context.busy = v; _show_live_context()); settings.add_child(busy_toggle)
-	knowledge_toggle = CheckBox.new(); knowledge_toggle.text = "Знает, где ключ"; knowledge_toggle.button_pressed = true; knowledge_toggle.toggled.connect(func(v): context.knows_key = v; _show_live_context()); settings.add_child(knowledge_toggle)
-	owner_option = OptionButton.new()
-	for title_text in ["Ключ: у NPC", "Ключ: в мире", "Ключ: у игрока"]: owner_option.add_item(title_text)
-	owner_option.item_selected.connect(_set_owner); settings.add_child(owner_option)
+	busy_toggle = CheckBox.new(); busy_toggle.text = "Астера занята"; busy_toggle.toggled.connect(func(v): context.busy = v; _show_live_context()); settings.add_child(busy_toggle)
+	name_toggle = CheckBox.new(); name_toggle.text = "Знает имя"; name_toggle.toggled.connect(func(v): context.player_name = "Alex" if v else ""; _show_live_context()); settings.add_child(name_toggle)
+	mood_option = OptionButton.new()
+	for title_text in ["Настроение: нет", "Хорошее", "Плохое", "Усталость"]: mood_option.add_item(title_text)
+	mood_option.item_selected.connect(_set_player_mood); settings.add_child(mood_option)
+	astera_mood_option = OptionButton.new()
+	for title_text in ["Астера: устала", "Астера: обычно", "Астера: хорошо"]: astera_mood_option.add_item(title_text)
+	astera_mood_option.item_selected.connect(func(index): context.astera_mood = ["tired", "neutral", "good"][index]; _show_live_context()); settings.add_child(astera_mood_option)
+	offered_help_toggle = CheckBox.new(); offered_help_toggle.text = "Помощь предложена"; offered_help_toggle.toggled.connect(func(value): context.offered_help = value; _show_live_context()); settings.add_child(offered_help_toggle)
+	topic_option = OptionButton.new()
+	for title_text in ["Тема: знакомство", "Самочувствие игрока", "Самочувствие Астеры", "Занятия", "Помощь", "Медленная речь", "Прощание"]: topic_option.add_item(title_text)
+	topic_option.item_selected.connect(_set_topic); settings.add_child(topic_option)
 	pending_option = OptionButton.new()
-	for title_text in ["Pending: нет", "Pending: предложение", "Pending: уточнение"]: pending_option.add_item(title_text)
+	for title_text in ["Ожидание: имя", "Ожидание: самочувствие", "Ожидание: занятие", "Ожидание: помощь", "Ожидание: медленная речь", "Ожидание: нет"]: pending_option.add_item(title_text)
 	pending_option.item_selected.connect(_set_pending); settings.add_child(pending_option)
 	_button(settings, "Сбросить контекст", _reset)
 	inspection_label = _label(tools, "Отправьте реплику, чтобы увидеть результат.", 16)
@@ -246,6 +270,47 @@ func _build_ui() -> void:
 	_button(history, "Вернуть выбранный текст в редактор", _recall_attempt)
 	_label(tools, "История — текущая сессия. Полный журнал сохраняется в JSONL.", 14).modulate = Color("9aafbd")
 	_update_diagnostics({})
+	_update_objective_tracker()
+
+func _build_objective_tracker(parent: Control) -> void:
+	objective_panel = PanelContainer.new()
+	objective_panel.name = "ConversationObjectives"
+	parent.add_child(objective_panel)
+	objective_panel.position = Vector2(18, 112)
+	objective_panel.custom_minimum_size = Vector2(280, 0)
+	var content := VBoxContainer.new()
+	content.add_theme_constant_override("separation", 5)
+	objective_panel.add_child(content)
+	_label(content, "ЗНАКОМСТВО С АСТЕРОЙ", 14).modulate = Color("85c9c4")
+	var objectives := {
+		"introduce":"Представиться", "ask_mood":"Узнать, как у неё дела", "ask_activity":"Спросить о её занятиях",
+		"share_self":"Рассказать о себе", "offer_help":"Предложить помощь", "farewell":"Попрощаться"}
+	for key in objectives:
+		var item := _label(content, "○  " + str(objectives[key]), 16)
+		item.name = "Objective_%s" % key
+		item.custom_minimum_size.x = 250
+		objective_labels[key] = item
+	objective_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+func _update_objective_tracker() -> void:
+	if not is_instance_valid(objective_panel): return
+	var progress: Dictionary = context.get("objective_progress", {})
+	for key in objective_labels:
+		var label: Label = objective_labels[key]
+		var done: bool = progress.get(key, false)
+		var title: String = Session.OBJECTIVE_TITLES.get(key, key)
+		label.text = ("✓  " if done else "○  ") + title
+		label.modulate = Color("85d9ba") if done else Color("e0e8ef")
+
+func _filter_vocabulary(query: String) -> void:
+	var normalized := query.strip_edges().to_lower()
+	var matching_groups := {}
+	for row in vocabulary_rows:
+		if not row.header and (normalized.is_empty() or str(row.search).contains(normalized)):
+			matching_groups[row.group] = true
+	for row in vocabulary_rows:
+		var visible := matching_groups.has(row.group) if row.header else (normalized.is_empty() or str(row.search).contains(normalized))
+		row.label.visible = visible
 
 func _load_motion_manifest() -> void:
 	var file := FileAccess.open("res://implementations/communication_lab/animations/generated/manifest.json", FileAccess.READ)
@@ -270,7 +335,7 @@ func _toggle_vocabulary() -> void:
 
 func _show_live_context() -> void:
 	if is_instance_valid(context_view):
-		context_view.text = "ТЕКУЩИЙ МИР / следующая попытка\n" + JSON.stringify(context, "  ")
+		context_view.text = "СОСТОЯНИЕ РАЗГОВОРА / следующая попытка\n" + JSON.stringify(Session._conversation_snapshot(context), "  ")
 
 func _input(event: InputEvent) -> void:
 	if dialog.visible and composer.route_key(event):
@@ -295,6 +360,7 @@ func _input(event: InputEvent) -> void:
 func _open_dialog() -> void:
 	if not dialog.visible: _start_conversation_camera()
 	dialog.show(); player.is_movement_paused = true; player.is_showing_ui = true; Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	dialogue_silence_seconds = 0.0
 	heading_card.hide()
 	if not greeted:
 		var opening: Dictionary = Session.opening_line(context)
@@ -329,12 +395,18 @@ func _start_conversation_camera() -> void:
 	camera_tween.tween_property(conversation_camera, "fov", 40.0, 0.6)
 
 func _on_submitted(text: String) -> void:
+	dialogue_silence_seconds = 0.0
 	_append_conversation_line("Вы", text)
 	last_record = Session.submit(text, context)
 	astera_visual.set_emotion(last_record.emotion_state)
 	_play_reaction_motion(last_record.animation_id)
-	owner_option.select(["anna", "world", "player"].find(context.key_owner))
-	pending_option.select(["", "offer", "help_target"].find(context.pending))
+	_update_objective_tracker()
+	name_toggle.button_pressed = not context.player_name.is_empty()
+	mood_option.select(["", "good", "low", "tired"].find(context.player_mood))
+	astera_mood_option.select(["tired", "neutral", "good"].find(context.astera_mood))
+	offered_help_toggle.button_pressed = context.offered_help
+	topic_option.select(["introduction", "player_mood", "astera_mood", "activity", "help", "slow_speech", "farewell"].find(context.topic))
+	pending_option.select(["player_name", "player_mood", "player_plan", "help_offer", "slow_speech", ""].find(context.pending_question))
 	attempts.append(last_record.duplicate(true))
 	history_list.add_item("%02d  %s  ·  %s" % [attempts.size(), text, last_record.parse.status])
 	history_list.select(attempts.size() - 1)
@@ -342,7 +414,6 @@ func _on_submitted(text: String) -> void:
 	composer.clear()
 
 	_update_diagnostics(last_record)
-	_refresh_objects()
 
 func _finish_reply_reveal() -> void:
 	if is_instance_valid(reveal_tween): reveal_tween.kill()
@@ -388,22 +459,21 @@ func _update_diagnostics(record: Dictionary) -> void:
 func _toggle_dev(value: bool) -> void:
 	show_diagnostics = value; dev_panel.visible = value
 
-func _set_owner(index: int) -> void:
-	context.key_owner = ["anna", "world", "player"][index]; _refresh_objects(); _show_live_context()
-
 func _set_pending(index: int) -> void:
-	context.pending = ["", "offer", "help_target"][index]; _show_live_context()
+	context.pending_question = ["player_name", "player_mood", "player_plan", "help_offer", "slow_speech", ""][index]; _show_live_context()
 
-func _refresh_objects() -> void:
-	if not is_instance_valid(key_visual): return
-	key_visual.visible = context.key_owner == "world" or context.key_owner == "anna"
-	if is_instance_valid(door_visual): door_visual.rotation.y = PI / 2 if context.door_open else 0.0
+func _set_player_mood(index: int) -> void:
+	context.player_mood = ["", "good", "low", "tired"][index]; _show_live_context()
+
+func _set_topic(index: int) -> void:
+	context.topic = ["introduction", "player_mood", "astera_mood", "activity", "help", "slow_speech", "farewell"][index]; _show_live_context()
 
 func _reset() -> void:
-	Session.reset(context); busy_toggle.button_pressed = false; knowledge_toggle.button_pressed = true
-	owner_option.select(0); pending_option.select(0); last_record = {}
+	Session.reset(context); busy_toggle.button_pressed = false; name_toggle.button_pressed = false; offered_help_toggle.button_pressed = false
+	mood_option.select(0); astera_mood_option.select(0); topic_option.select(0); pending_option.select(0); last_record = {}
 	_finish_reply_reveal(); transcript.clear(); conversation_lines.clear()
-	_update_diagnostics({}); _refresh_objects()
+	_update_diagnostics({}); _update_objective_tracker()
 	greeted = false
+	dialogue_silence_seconds = 0.0; silence_tease_shown = false
 	astera_visual.set_emotion("neutral")
 	astera_visual.return_to_idle()

@@ -28,8 +28,8 @@ func capture() -> void:
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://.local/commlab-activity.png")
 	room._toggle_dev(true)
-	room.composer.phrase.text = "Ich brauche den"
-	room.composer.prefix.text = "Schlüssel"
+	room.composer.phrase.text = "Kann ich helfen?"
+	room.composer.prefix.clear()
 	room.composer.send()
 	for i in 10: await process_frame
 	await RenderingServer.frame_post_draw
@@ -39,7 +39,7 @@ func capture() -> void:
 	root.get_texture().get_image().save_png("res://.local/commlab-debug.png")
 	assert(room.conversation_lines.size() == 5)
 	assert(room.transcript.get_parsed_text().contains("Вы  Was machst du?"))
-	assert(room.transcript.get_parsed_text().contains("Астера  Hier, bitte."))
+	assert(room.transcript.get_parsed_text().contains("Астера  Oh! Danke! Das ist nett!"))
 	var tabs: TabContainer = room.parse_view.get_parent()
 	for index in [1, 2, 3]:
 		tabs.current_tab = index
@@ -53,9 +53,9 @@ func capture() -> void:
 	room.history_list.select(0)
 	room._recall_attempt()
 	assert(room.composer.phrase.text == "Was machst du?")
-	assert(room.context.key_owner == "player")
+	assert(room.context.offered_help and room.context.pending_question == "help_offer")
 	room._reset()
-	assert(room.context.key_owner == "anna")
+	assert(not room.context.offered_help and not room.context.objective_progress.ask_activity)
 	assert(room.attempts.size() == 2)
 	assert(room.conversation_lines.is_empty())
 	room._close_dialog()
