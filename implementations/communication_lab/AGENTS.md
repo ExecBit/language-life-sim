@@ -51,6 +51,21 @@ Confirm these against the running UI before use if the service changes:
 - Samples and an idle-transition assertion do not establish continuous-motion polish, exact prop alignment or timing with speech. Report those checks separately and honestly. Do not mark the whole Issue complete after generating a library.
 - Keep the private Astera VRM and its import settings uncommitted. Other implementations and global assets must not be modified for this variant.
 
+## Parser generalization: anti-overfitting rules
+
+These rules are mandatory for parser changes in the Communication Lab. The corpus describes linguistic behavior families; it is not a list of strings to whitelist.
+
+1. **Never implement one rule per test utterance.** Do not add parser branches keyed to exact input text, case IDs, fixture order, or a growing allowlist of complete phrases. A test passing because its literal string was recognized is not evidence of generalization.
+2. **Generalize mechanisms.** Prefer explicit token normalization with provenance, morphology, semantic roles, negation scope, missing-constituent recovery, context binding, and ambiguity handling over full-phrase matching, arbitrary token-order hacks, or string-specific regexes.
+3. **Add counterexamples first.** For every new pattern, test minimal contrasting forms that change subject, recipient, polarity, modality, punctuation/speech act, or relevant context. State the expected difference; never force semantically different forms into one intent merely to raise coverage.
+4. **Prevent gold-label leakage.** Runtime/parser code must not read fixture `expected`, import test fixtures or test helpers, inspect case IDs, or otherwise branch on benchmark metadata. Keep oracle interpretation and test-only evaluation out of production paths.
+5. **Do not change gold labels to make tests green.** Treat a suspected oracle error as a separate review item with linguistic evidence; do not modify expected labels during parser work without explicit user approval. Keep any authorized oracle amendment separate from parser commits and metrics.
+6. **Treat validation as a final evaluation gate.** Iterate on the 200 dev cases. Do not tune to individual deferred-validation cases, add rules in response to their failures, or repeatedly run validation during development. Run the 50-case validation set once at the agreed completion milestone and report it separately; it is visible data, not a blind benchmark.
+7. **Track generalization and semantic false positives.** Report decision, role, polarity/negation, objective, grammatical-diagnostic, semantic-completeness, recovery, unknown-token, and diagnostic-coverage changes by oracle decision and linguistic class. False acceptance and role/negation errors are at least as important as recognition rate. Stop and explain any new semantic regressions.
+8. **Keep interpretation deterministic and explainable.** Preserve token and role evidence, grammar corrections, context-derived fields, and reasons for recognition/clarification in diagnostics. Do not invent confidence percentages or claim complete recovery from a recognized status or diagnostic code alone.
+
+Before implementing each error class, record its observed class, confirmed root-cause branch (distinguish hypotheses from evidence), one generalized mechanism and scope, at least two contrasting minimal examples, regression/context risks, and expected metrics. Group this concise rationale by linguistic class in the PR; do not create per-utterance architecture notes.
+
 ## Godot verification
 
 Use the installed **console** executable to wait for completion and capture logs, e.g. `Godot_v4.7.1-stable_win64_console.exe`. The GUI executable can return before the engine finishes. Resolve its actual path with `Get-Command` if `godot` is absent from PATH.
@@ -62,3 +77,4 @@ Godot_v4.7.1-stable_win64_console.exe --headless --path . --script res://impleme
 ```
 
 Headless/CLI validation and automated renders are the default. Never infer PASS from exit code alone: check assertion summaries and script errors. Existing Cogito audio/cleanup errors must remain visible in reports. Do not change shared addons merely to hide them.
+
