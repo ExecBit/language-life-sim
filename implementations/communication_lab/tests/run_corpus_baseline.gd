@@ -252,7 +252,10 @@ func _normalize_role(role: String) -> String:
 	return "astera" if role == "anna" else role
 
 func _summarize(results: Array[Dictionary]) -> Dictionary:
-	var summary := {"total":results.size(), "by_group":{}, "by_intent":{}, "by_phenomenon":{}, "confusion_matrix":{}, "false_accept":0, "false_reject":0, "role_mismatch":0, "role_swap":0, "false_offer_acceptance":0, "negative_help_as_offer":0, "polarity_mismatch":0, "negation_lost":0, "missed_clarification":0, "wrong_clarification_reason":0, "unknown_vs_unsupported":0, "objective_advancement_mismatch":0, "representative_errors":[]}
+	var summary := {"total":results.size(), "by_group":{}, "by_split":{
+		"dev":{"total":0,"decision_match":0,"confusion_matrix":{},"false_accept":0,"false_reject":0,"missed_clarification":0},
+		"validation":{"total":0,"decision_match":0,"confusion_matrix":{},"false_accept":0,"false_reject":0,"missed_clarification":0}
+	}, "by_intent":{}, "by_phenomenon":{}, "confusion_matrix":{}, "false_accept":0, "false_reject":0, "role_mismatch":0, "role_swap":0, "false_offer_acceptance":0, "negative_help_as_offer":0, "polarity_mismatch":0, "negation_lost":0, "missed_clarification":0, "wrong_clarification_reason":0, "unknown_vs_unsupported":0, "objective_advancement_mismatch":0, "representative_errors":[]}
 	for result in results:
 		var expected: Dictionary = result.expected
 		var actual: Dictionary = result.actual
@@ -263,6 +266,19 @@ func _summarize(results: Array[Dictionary]) -> Dictionary:
 		group_summary.total += 1
 		var ed := str(expected.get("decision", ""))
 		var ad := str(actual.get("decision", ""))
+		var split_summary: Dictionary = summary.by_split[str(result.split)]
+		split_summary.total += 1
+		if ed == ad:
+			split_summary.decision_match += 1
+		if not split_summary.confusion_matrix.has(ed):
+			split_summary.confusion_matrix[ed] = {}
+		split_summary.confusion_matrix[ed][ad] = int(split_summary.confusion_matrix[ed].get(ad, 0)) + 1
+		if ed != "RECOGNIZED" and ad == "RECOGNIZED":
+			split_summary.false_accept += 1
+		if ed == "RECOGNIZED" and ad != "RECOGNIZED":
+			split_summary.false_reject += 1
+		if ed == "NEEDS_CLARIFICATION" and ad != "NEEDS_CLARIFICATION":
+			split_summary.missed_clarification += 1
 		if not summary.confusion_matrix.has(ed):
 			summary.confusion_matrix[ed] = {}
 		summary.confusion_matrix[ed][ad] = int(summary.confusion_matrix[ed].get(ad, 0)) + 1

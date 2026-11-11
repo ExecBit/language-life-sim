@@ -24,7 +24,7 @@ The regression run still prints two existing Cogito/Quick Audio script errors (A
 - Oracle rules: [issue64_oracle.md](issue64_oracle.md).
 - Parser inputs: dialogue_resolver.gd, then parser.gd fallback exactly as selected by LabSession.submit; session resolution and objective updates use the unchanged lab_session.gd helpers. The runner uses a fresh context per case and does not write the persistent attempt journal.
 - Frozen fixture SHA-256: dev.jsonl `0766bf8f5603bc4ee531801525073b1ad7483744f57c879e1d4ffdeee051dc52`; validation.jsonl `f2606448aebbffa5b21065395754ff396c7387d5a4612c5423ef5d7f9852f999`.
-- Captured result SHA-256: dev JSONL `cd3f2adcbff12f6c26086fbd5159894d879a329f9ce7c29093cddf3bf6be6b67`; validation JSONL `a507fed197c3cc8c5aa04f854c32abcc06f27db0a38ad5e5875eb896bdd4cc1e`; summary `66fd99c080030f7b3e66918c05b24e7803255d9e520e1020a763a6e41f8f20ea`.
+- Captured result SHA-256: dev JSONL `cd3f2adcbff12f6c26086fbd5159894d879a329f9ce7c29093cddf3bf6be6b67`; validation JSONL `a507fed197c3cc8c5aa04f854c32abcc06f27db0a38ad5e5875eb896bdd4cc1e`; summary `50b819a1d6a9dc58fc23c76cc8b19656c554269c10b45635d8a0cf76fdcba77a`.
 
 Reproduction in PowerShell:
 
@@ -61,6 +61,33 @@ Rows are oracle decisions; columns are current parser/session decisions.
 | Unsupported | 1 | 1 | 18 | 1 |
 
 Across all cases there were **26 false acceptances** (oracle was not recognized, current parser recognized), **81 false rejections** (oracle was recognized, parser did not), and **48 missed clarifications**. For clarification cases already classified as such, 15 returned the wrong or missing reason. Unknown and unsupported were confused in 18 cases.
+
+### Deferred split results
+
+The runner reports each file independently so Stage 2 can use dev for iteration and hold validation until its cycle is complete.
+
+| Split | Cases | Exact decisions | False accepts | False rejects | Missed clarifications |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Dev | 200 | 80 (40%) | 23 | 65 | 38 |
+| Validation | 50 | 20 (40%) | 3 | 16 | 10 |
+
+Dev confusion matrix:
+
+| Expected ↓ / Actual → | Recognized | Needs clarification | Unknown | Unsupported |
+| --- | ---: | ---: | ---: | ---: |
+| Recognized | 53 | 4 | 60 | 1 |
+| Needs clarification | 20 | 12 | 18 | 0 |
+| Unknown | 2 | 0 | 14 | 0 |
+| Unsupported | 1 | 0 | 14 | 1 |
+
+Validation confusion matrix:
+
+| Expected ↓ / Actual → | Recognized | Needs clarification | Unknown | Unsupported |
+| --- | ---: | ---: | ---: | ---: |
+| Recognized | 13 | 0 | 16 | 0 |
+| Needs clarification | 3 | 3 | 6 | 1 |
+| Unknown | 0 | 0 | 4 | 0 |
+| Unsupported | 0 | 0 | 4 | 0 |
 
 ## Results by intended meaning
 
