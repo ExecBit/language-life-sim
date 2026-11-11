@@ -278,7 +278,7 @@ This section supersedes earlier recovery-contract wording and metrics in this do
 - `validation.jsonl`: `4f4154f86cae665d2f6bdff73bd5ef7dc76238565804be1ad6dd8999d14a2fd1`
 - baseline dev results: `8fd22629fe15f86725ab508803882ea3b96f06e828e8888d081fe4ecf9f7a382`
 - baseline validation results: `359ca9cb7674bf03fa267717ff5a1b5749515ebf5c0d55c15679c21b91d48432`
-- baseline summary: `a0c965e990ac7a43850b9cc28870e69c6be6dfe2fdc8b7e95d3a78570f71cb2`
+- baseline summary: `7a0b0cc0abd76d2104f6eba584d6cea1fbc0413c9f24a9f2da824b1413a45242`
 
 The full result JSONL and summary are generated under ignored `.local/issue64/` and are not committed. Reproduction commands above remain valid.
 
