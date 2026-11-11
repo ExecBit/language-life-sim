@@ -351,6 +351,12 @@ func run() -> void:
 	check(changed_bone, "restarted gesture actually changes skeletal pose")
 	await create_timer(4.25).timeout
 	check(astera.get("active_animation_id") == "standing", "conversation gesture returns to idle")
+	var face_mesh: MeshInstance3D = astera.get("face_mesh")
+	var expression_channels: Dictionary = astera.get("expression_channels")
+	var face_at_rest := true
+	for channel in expression_channels:
+		if face_mesh.get_blend_shape_value(expression_channels[channel]) > 0.01: face_at_rest = false
+	check(face_at_rest, "NPC expression fades to a closed-mouth resting face after the reply reveal")
 	var original_camera: Camera3D = room.get("exploration_camera")
 	room.call("_close_dialog")
 	check(root.get_camera_3d() == original_camera and not player.get("is_movement_paused"), "closing dialogue restores exploration camera and movement")
@@ -372,3 +378,4 @@ func run() -> void:
 	await process_frame
 	print("COMMUNICATION_LAB_TESTS: %d failure(s)" % failures)
 	quit(1 if failures > 0 else 0)
+
