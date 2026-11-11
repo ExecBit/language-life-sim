@@ -12,7 +12,9 @@ var astera_visual
 var composer: VBoxContainer
 var dialog: PanelContainer
 var diagnostic: RichTextLabel
-var reply_label: Label
+var transcript: RichTextLabel
+var conversation_lines: Array[Dictionary] = []
+var reveal_tween: Tween
 var dev_panel: PanelContainer
 var show_diagnostics := false
 var last_record: Dictionary = {}
@@ -153,7 +155,7 @@ func _build_ui() -> void:
 	dialog.anchor_top = 1.0; dialog.anchor_bottom = 1.0
 	dialog.anchor_right = 1.0
 	dialog.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	dialog.offset_left = 0; dialog.offset_top = -310; dialog.offset_right = 0; dialog.offset_bottom = 0
+	dialog.offset_left = 0; dialog.offset_top = -390; dialog.offset_right = 0; dialog.offset_bottom = 0
 	dialog.hide()
 	var column := VBoxContainer.new(); column.add_theme_constant_override("separation", 10); dialog.add_child(column)
 	var header := HBoxContainer.new(); column.add_child(header)
@@ -161,8 +163,15 @@ func _build_ui() -> void:
 	_button(header, "Памятка · F1", _toggle_vocabulary)
 	_button(header, "Лаборатория · F2", func(): _toggle_dev(not show_diagnostics))
 	_button(header, "Закрыть · Esc", _close_dialog)
-	reply_label = _label(column, "Готова слушать. Составьте реплику по-немецки.", 20)
-	reply_label.custom_minimum_size.y = 30
+	transcript = RichTextLabel.new(); transcript.name = "ConversationTranscript"
+	transcript.custom_minimum_size.y = 110
+	transcript.selection_enabled = true; transcript.scroll_following = true
+	transcript.add_theme_font_size_override("normal_font_size", 20)
+	transcript.add_theme_constant_override("line_separation", 5)
+	transcript.tooltip_text = "Нажмите на разговор, чтобы показать ответ целиком. Колесо мыши — предыдущие реплики."
+	transcript.gui_input.connect(func(event):
+		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT: _finish_reply_reveal())
+	column.add_child(transcript)
 	composer = Composer.new(); column.add_child(composer)
 	composer.submitted.connect(_on_submitted); composer.cancelled.connect(_close_dialog)
 	composer.help_requested.connect(_toggle_vocabulary)
@@ -206,7 +215,7 @@ func _build_ui() -> void:
 			_label(vocab_list, "%s  —  %s" % [entry.surface, translation], 16)
 	dev_panel = PanelContainer.new(); canvas.add_child(dev_panel)
 	dev_panel.anchor_left = 0.56; dev_panel.anchor_right = 1.0; dev_panel.anchor_bottom = 1.0
-	dev_panel.offset_left = 0; dev_panel.offset_top = 18; dev_panel.offset_right = -18; dev_panel.offset_bottom = -360
+	dev_panel.offset_left = 0; dev_panel.offset_top = 18; dev_panel.offset_right = -18; dev_panel.offset_bottom = -440
 	dev_panel.hide()
 	var tools := VBoxContainer.new(); tools.add_theme_constant_override("separation", 12); dev_panel.add_child(tools)
 	var bar := HBoxContainer.new(); tools.add_child(bar)
@@ -287,7 +296,7 @@ func _open_dialog() -> void:
 	heading_card.hide()
 	if not greeted:
 		var opening: Dictionary = Session.opening_line(context)
-		reply_label.text = "Астера: %s" % opening.answer
+		_append_conversation_line("Астера", opening.answer, true)
 		astera_visual.set_emotion(opening.emotion_state)
 		_play_reaction_motion(opening.animation_id)
 		greeted = true
@@ -297,6 +306,7 @@ func _can_interact() -> bool:
 	return is_instance_valid(player) and is_instance_valid(astera_visual) and player.global_position.distance_to(astera_visual.global_position) <= 5.0
 
 func _close_dialog() -> void:
+	_finish_reply_reveal()
 	dialog.hide(); _toggle_dev(false); composer.release(); player.is_movement_paused = false; player.is_showing_ui = false; Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	vocabulary_card.hide()
 	heading_card.show()
@@ -317,6 +327,7 @@ func _start_conversation_camera() -> void:
 	camera_tween.tween_property(conversation_camera, "fov", 40.0, 0.6)
 
 func _on_submitted(text: String) -> void:
+	_append_conversation_line("Вы", text)
 	last_record = Session.submit(text, context)
 	astera_visual.set_emotion(last_record.emotion_state)
 	_play_reaction_motion(last_record.animation_id)
@@ -325,10 +336,31 @@ func _on_submitted(text: String) -> void:
 	attempts.append(last_record.duplicate(true))
 	history_list.add_item("%02d  %s  ·  %s" % [attempts.size(), text, last_record.parse.status])
 	history_list.select(attempts.size() - 1)
-	reply_label.text = "Астера: %s" % last_record.answer
+	_append_conversation_line("Астера", last_record.answer, true)
+	composer.clear()
 
 	_update_diagnostics(last_record)
 	_refresh_objects()
+
+func _finish_reply_reveal() -> void:
+	if is_instance_valid(reveal_tween): reveal_tween.kill()
+	if is_instance_valid(transcript): transcript.visible_characters = -1
+
+func _append_conversation_line(speaker: String, text: String, animate := false) -> void:
+	_finish_reply_reveal()
+	conversation_lines.append({"speaker":speaker, "text":text})
+	transcript.push_color(Color("85d9ba") if speaker == "Астера" else Color("9ac9ff"))
+	transcript.add_text(speaker + "  ")
+	transcript.pop()
+	var start := transcript.get_total_character_count()
+	transcript.add_text(text + "\n")
+	if animate:
+		var total := transcript.get_total_character_count()
+		transcript.visible_characters = start
+		var rate := 28.0 if context.get("slow_speech", false) else 50.0
+		reveal_tween = create_tween()
+		reveal_tween.tween_property(transcript, "visible_characters", total, clampf(float(total - start) / rate, 0.25, 3.0))
+		reveal_tween.tween_callback(func(): transcript.visible_characters = -1)
 
 func _play_reaction_motion(animation_id: String) -> void:
 	if animation_id == "standing":
@@ -367,7 +399,8 @@ func _refresh_objects() -> void:
 
 func _reset() -> void:
 	Session.reset(context); busy_toggle.button_pressed = false; knowledge_toggle.button_pressed = true
-	owner_option.select(0); pending_option.select(0); reply_label.text = "Астера ждёт реплику."; last_record = {}
+	owner_option.select(0); pending_option.select(0); last_record = {}
+	_finish_reply_reveal(); transcript.clear(); conversation_lines.clear()
 	_update_diagnostics({}); _refresh_objects()
 	greeted = false
 	astera_visual.set_emotion("neutral")

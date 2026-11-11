@@ -134,6 +134,9 @@ func play_generated(id: String, path: String) -> void:
 		scene.free()
 	active_animation_id = id
 	animation_player.play("lab/" + id, 0.3)
+	# play() keeps the current position when the same clip is already playing.
+	# Each utterance must visibly begin its own reaction, including repeated tests.
+	animation_player.seek(0.0, true)
 
 func return_to_idle() -> void:
 	if not is_instance_valid(animation_player) or not library.has_animation("standing"): return

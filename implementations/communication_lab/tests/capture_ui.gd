@@ -33,7 +33,13 @@ func capture() -> void:
 	room.composer.send()
 	for i in 10: await process_frame
 	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png("res://.local/commlab-response-start.png")
+	await create_timer(1.2).timeout
+	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://.local/commlab-debug.png")
+	assert(room.conversation_lines.size() == 5)
+	assert(room.transcript.get_parsed_text().contains("Вы  Was machst du?"))
+	assert(room.transcript.get_parsed_text().contains("Астера  Hier, bitte."))
 	var tabs: TabContainer = room.parse_view.get_parent()
 	for index in [1, 2, 3]:
 		tabs.current_tab = index
@@ -51,6 +57,7 @@ func capture() -> void:
 	room._reset()
 	assert(room.context.key_owner == "anna")
 	assert(room.attempts.size() == 2)
+	assert(room.conversation_lines.is_empty())
 	room._close_dialog()
 	assert(not room.player.is_movement_paused)
 	assert(not room.dev_panel.visible)

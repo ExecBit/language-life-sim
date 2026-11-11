@@ -148,7 +148,7 @@ func run() -> void:
 	check(suggestions.has("müde"), "new dialogue vocabulary is included in composer suggestions")
 	var open_event := InputEventKey.new(); open_event.keycode = KEY_E; open_event.pressed = true
 	room.call("_input", open_event)
-	check(astera.get("active_animation_id") == "greeting_wave" and room.get("reply_label").text.contains("Hallo"), "opening encounter plays a greeting motion and line")
+	check(astera.get("active_animation_id") == "greeting_wave" and room.get("transcript").get_parsed_text().contains("Hallo"), "opening encounter plays a greeting motion and line")
 	check(room.get("dialog").visible and player.get("is_movement_paused"), "E interaction opens the conversation and pauses player movement")
 	var h_event := InputEventKey.new(); h_event.keycode = KEY_H; h_event.pressed = true
 	check(not room.get("composer").route_key(h_event), "H is not consumed as a word-memo shortcut while typing")
@@ -172,11 +172,35 @@ func run() -> void:
 	check(root.get_camera_3d() == room.get("conversation_camera") and is_equal_approx(room.get("conversation_camera").fov, 40.0), "dialogue camera completes its smooth close-up")
 	room.call("_on_submitted", "Was machst du?")
 	check(astera.get("active_animation_id") == "point_at_object" and room.get("last_record").get("reaction") == "explain_activity_and_point_out_cup", "conversation response triggers selected generated motion")
+	check(room.get("conversation_lines").size() == 3 and room.get("transcript").get_parsed_text().contains("Вы  Was machst du?"), "player-visible transcript retains greeting, player message and NPC response")
+	check(room.get("transcript").visible_characters < room.get("transcript").get_total_character_count(), "new NPC response starts a text reveal animation")
+	room.call("_finish_reply_reveal")
+	check(room.get("transcript").visible_characters == -1, "reply reveal can be completed immediately")
+	editor.phrase.text = "Ich brauche den Schlüssel"; editor.send()
+	check(astera.get("active_animation_id") == "open_palm_offer" and editor.phrase.text.is_empty(), "actual composer submission triggers a legacy reply gesture and clears the sent draft")
+	await create_timer(0.4).timeout
+	idle_player.seek(1.5, true)
+	await process_frame
+	var rig: Skeleton3D = astera.get("rig_skeleton")
+	var before_pose: Array[Quaternion] = []
+	for bone in rig.get_bone_count(): before_pose.append(rig.get_bone_pose_rotation(bone))
+	editor.phrase.text = "Ich brauche den Schlüssel"; editor.send()
+	check(idle_player.current_animation_position < 0.1 and astera.get("active_animation_id") == "open_palm_offer", "repeated submission restarts the same gesture at its beginning")
+	await create_timer(0.4).timeout
+	var changed_bone := false
+	for bone in rig.get_bone_count():
+		if before_pose[bone].angle_to(rig.get_bone_pose_rotation(bone)) > 0.03: changed_bone = true
+	check(changed_bone, "restarted gesture actually changes skeletal pose")
 	await create_timer(4.25).timeout
 	check(astera.get("active_animation_id") == "standing", "conversation gesture returns to idle")
 	var original_camera: Camera3D = room.get("exploration_camera")
 	room.call("_close_dialog")
 	check(root.get_camera_3d() == original_camera and not player.get("is_movement_paused"), "closing dialogue restores exploration camera and movement")
+	var retained_lines: int = room.get("conversation_lines").size()
+	room.call("_open_dialog")
+	check(room.get("conversation_lines").size() == retained_lines, "reopening conversation preserves its transcript without duplicating the greeting")
+	room.call("_reset")
+	check(room.get("conversation_lines").is_empty() and room.get("transcript").get_parsed_text().is_empty(), "reset clears player-visible conversation while diagnostic attempt history remains")
 	room.queue_free()
 	await process_frame
 	print("COMMUNICATION_LAB_TESTS: %d failure(s)" % failures)

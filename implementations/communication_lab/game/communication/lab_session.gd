@@ -199,9 +199,11 @@ static func _legacy_visuals(intent: String, status: String) -> Dictionary:
 	var visuals := {
 		"GREETING":["surprised_soft","greeting_wave"], "THANKS":["grateful","gentle_nod"],
 		"FAREWELL":["farewell","farewell_wave"], "REQUEST_HELP":["friendly","open_palm_offer"],
+		"REQUEST_ITEM":["friendly","open_palm_offer"], "REQUEST_ACTION":["friendly","gentle_nod"],
+		"ASK_LOCATION":["friendly","point_at_object"], "IDENTIFY":["curious","curious_head_tilt"],
 		"ACCEPT":["happy","gentle_nod"], "REFUSE":["friendly","gentle_nod"],
 		"REQUEST_REPEAT":["curious","curious_head_tilt"], "REPORT_PROBLEM":["concerned","soft_concern"]}
-	var chosen: Array = visuals.get(intent, ["curious","curious_head_tilt"] if status != "RECOGNIZED" else ["neutral","standing"])
+	var chosen: Array = visuals.get(intent, ["curious","curious_head_tilt"] if status != "RECOGNIZED" else ["friendly","gentle_nod"])
 	return {"emotion_state":chosen[0],"animation_id":chosen[1]}
 
 static func _conversation_snapshot(context: Dictionary) -> Dictionary:
