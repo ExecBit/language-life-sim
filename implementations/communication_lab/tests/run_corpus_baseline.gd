@@ -17,7 +17,27 @@ const EXPECTED_SPLITS := {
 	"D": {"dev": 32, "validation": 8},
 	"E": {"dev": 16, "validation": 4}
 }
-const RECOVERY_CODES := ["AGREEMENT_MISMATCH", "OMITTED_COPULA", "OMITTED_SUBJECT", "OMITTED_ARTICLE", "ARTICLE_MISMATCH", "MISSING_FINITE_VERB"]
+## Parser diagnostic code -> oracle linguistic error category. This is evidence of
+## a diagnosed grammatical error, not by itself proof of successful recovery.
+## One mapping table makes parser evidence and oracle terminology explicit.
+## Empty parser_codes mean the current parser has no diagnostic for that error.
+const RECOVERY_ERROR_MAP := {
+	"VERB_AGREEMENT":{"parser_codes":["AGREEMENT_MISMATCH"],"oracle_codes":["AGREEMENT_MISMATCH","VERB_AGREEMENT"]},
+	"MISSING_FINITE_VERB":{"parser_codes":["OMITTED_COPULA"],"oracle_codes":["OMITTED_COPULA","MISSING_FINITE_VERB"]},
+	"OMITTED_SUBJECT":{"parser_codes":["OMITTED_SUBJECT"],"oracle_codes":["OMITTED_SUBJECT","MISSING_SUBJECT","OMITTED_PRONOUN"]},
+	"OMITTED_ARTICLE":{"parser_codes":["OMITTED_ARTICLE"],"oracle_codes":["OMITTED_ARTICLE"]},
+	"ARTICLE_MISMATCH":{"parser_codes":["ARTICLE_MISMATCH"],"oracle_codes":["ARTICLE_MISMATCH"]},
+	"WORD_ORDER":{"parser_codes":[],"oracle_codes":["WORD_ORDER"]},
+	"PRONOUN_CASE":{"parser_codes":[],"oracle_codes":["PRONOUN_CASE"]},
+	"MISSING_MODAL":{"parser_codes":[],"oracle_codes":["MISSING_MODAL"]},
+	"INFINITIVE_FOR_FINITE":{"parser_codes":[],"oracle_codes":["INFINITIVE_FOR_FINITE"]},
+	"TYPO_OR_NEAR_FORM":{"parser_codes":[],"oracle_codes":["TYPO_OR_NEAR_FORM"]},
+	"OMITTED_MODAL":{"parser_codes":[],"oracle_codes":["OMITTED_MODAL"]},
+	"FINITE_VERB_AFTER_MODAL":{"parser_codes":[],"oracle_codes":["FINITE_VERB_AFTER_MODAL"]},
+	"OMITTED_SUBJECT_OR_VERB":{"parser_codes":[],"oracle_codes":["OMITTED_SUBJECT_OR_VERB"]},
+	"MULTIPLE_RECOVERABLE_ERRORS":{"parser_codes":[],"oracle_codes":["MULTIPLE_RECOVERABLE_ERRORS"]}
+}
+const NON_RECOVERY_DIAGNOSTICS := ["UNKNOWN_TOKEN", "SOCIAL_PREFIX", "CONTEXTUAL_TARGET"]
 
 var structural_failures: Array[String] = []
 var all_results: Array[Dictionary] = []
@@ -31,6 +51,7 @@ func _fail(message: String) -> void:
 	push_error("CORPUS FAIL: " + message)
 
 func run() -> void:
+	_test_recovery_contract()
 	var counts := {"dev": {}, "validation": {}}
 	for corpus_path in CORPUS_FILES:
 		_load_split(corpus_path, counts)
@@ -181,6 +202,125 @@ func _find_case(input_text: String) -> Dictionary:
 			return result
 	return {}
 
+func _test_recovery_contract() -> void:
+	var cases := [
+		{"name":"correct German has no recovery", "parsed":{"status":"RECOGNIZED","intent":"GREETING","diagnostics":[]}, "expected_codes":[], "used":false, "status":"NOT_REPORTED", "coverage":"NO_GOLD_ERROR_EXPECTED"},
+		{"name":"mapped error plus recognized intent infers recovery", "parsed":{"status":"RECOGNIZED","intent":"PLAYER_PLAN","diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":true, "status":"INFERRED_FROM_DIAGNOSTIC", "coverage":"FULL"},
+		{"name":"resolver clarification does not count recovery", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["AGREEMENT_MISMATCH"]}, "resolved_decision":"RECOGNIZED", "resolver_reaction":"clarify_missing_beneficiary", "expected_codes":["VERB_AGREEMENT"], "used":false, "status":"BLOCKED_AMBIGUITY", "coverage":"FULL"},
+		{"name":"unknown token does not count recovery", "parsed":{"status":"RECOGNIZED","intent":"PLAYER_PLAN","diagnostics":[{"code":"UNKNOWN_TOKEN","token":"wombat"},"AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":false, "status":"BLOCKED_UNKNOWN_TOKEN", "coverage":"FULL"},
+		{"name":"unsupported compound error is detected but not recovered", "parsed":{"status":"UNSUPPORTED","intent":"","unsupported_features":["MULTIPLE_INTENTS"],"diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":false, "status":"BLOCKED_UNSUPPORTED", "coverage":"FULL"},
+		{"name":"all reported combined errors have full diagnostic coverage", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["AGREEMENT_MISMATCH","OMITTED_COPULA"]}, "expected_codes":["VERB_AGREEMENT","MISSING_FINITE_VERB"], "used":true, "status":"INFERRED_FROM_DIAGNOSTIC", "coverage":"FULL"},
+		{"name":"one of multiple errors is partial, not full coverage", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT","MISSING_FINITE_VERB"], "used":true, "status":"INFERRED_FROM_DIAGNOSTIC", "coverage":"PARTIAL"},
+		{"name":"aggregate multiple-error oracle needs multiple parser diagnostics", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["AGREEMENT_MISMATCH","OMITTED_COPULA"]}, "expected_codes":["MULTIPLE_RECOVERABLE_ERRORS"], "used":true, "status":"INFERRED_FROM_DIAGNOSTIC", "coverage":"FULL"},
+		{"name":"one parser diagnostic cannot satisfy aggregate multiple-error coverage", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["MULTIPLE_RECOVERABLE_ERRORS"], "used":true, "status":"INFERRED_FROM_DIAGNOSTIC", "coverage":"PARTIAL"},
+		{"name":"expected gold error alone does not infer recovery", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":[]}, "expected_codes":["WORD_ORDER"], "used":false, "status":"NOT_REPORTED", "coverage":"MISSING"},
+		{"name":"oracle category absent from parser mapping stays visible", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["WORD_ORDER"]}, "expected_codes":["WORD_ORDER"], "used":false, "status":"UNMAPPED_DIAGNOSTICS", "coverage":"MISSING", "unmapped":["WORD_ORDER"]},
+		{"name":"unrecognized parser diagnostic is surfaced", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["FUTURE_PARSER_FLAG"]}, "expected_codes":[], "used":false, "status":"UNMAPPED_DIAGNOSTICS", "coverage":"NO_GOLD_ERROR_EXPECTED", "unmapped":["FUTURE_PARSER_FLAG"]},
+		{"name":"explicit parser recovery flag takes precedence", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","recovery_used":false,"diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":false, "status":"PARSER_REPORTED_NO_RECOVERY", "coverage":"FULL"}
+	]
+	for test_case in cases:
+		var assessment := _assess_recovery(test_case.parsed, test_case.expected_codes, str(test_case.get("resolved_decision", "")), str(test_case.get("resolver_reaction", "")))
+		var passed: bool = bool(assessment.recovery_used) == bool(test_case.used) and str(assessment.status) == str(test_case.status) and str(assessment.diagnostic_coverage) == str(test_case.coverage)
+		if test_case.has("unmapped"):
+			passed = passed and _sorted_strings(assessment.unmapped_parser_diagnostics) == _sorted_strings(test_case.unmapped)
+		if passed:
+			print("PASS recovery contract: ", test_case.name)
+		else:
+			_fail("recovery contract test failed: %s → %s" % [test_case.name, JSON.stringify(assessment)])
+
+func _assess_recovery(parsed: Dictionary, expected_diagnostic_codes: Array, resolved_decision: String = "", resolver_reaction: String = "") -> Dictionary:
+	var parser_codes := _diagnostic_codes(parsed.get("diagnostics", []))
+	var detected_categories := _detected_error_categories(parser_codes)
+	var unmapped: Array[String] = []
+	for code in parser_codes:
+		if not _has_parser_diagnostic_mapping(code) and code not in NON_RECOVERY_DIAGNOSTICS:
+			unmapped.append(code if not code.is_empty() else "<empty>")
+	var expected_categories := _canonical_error_categories(expected_diagnostic_codes)
+	var coverage := "NO_GOLD_ERROR_EXPECTED"
+	if not expected_categories.is_empty():
+		var detected_set := {}
+		for category in detected_categories: detected_set[category] = true
+		var matched := 0
+		var aggregate_partial := false
+		for category in expected_categories:
+			if category == "MULTIPLE_RECOVERABLE_ERRORS":
+				if detected_categories.size() >= 2: matched += 1
+				elif not detected_categories.is_empty(): aggregate_partial = true
+			elif category == "OMITTED_SUBJECT_OR_VERB":
+				var has_subject := detected_set.has("OMITTED_SUBJECT")
+				var has_verb := detected_set.has("MISSING_FINITE_VERB")
+				if has_subject and has_verb: matched += 1
+				elif has_subject or has_verb: aggregate_partial = true
+			elif detected_set.has(category):
+				matched += 1
+		if matched == expected_categories.size() and not aggregate_partial: coverage = "FULL"
+		elif matched > 0 or aggregate_partial: coverage = "PARTIAL"
+		else: coverage = "MISSING"
+	elif not detected_categories.is_empty():
+		coverage = "UNEXPECTED_DETECTION"
+	var status := "NOT_REPORTED"
+	var used := false
+	var has_structured_flag := parsed.has("recovery_used")
+	if not has_structured_flag and parsed.get("recovery", null) is Dictionary and parsed.recovery.has("used"):
+		has_structured_flag = true
+	var structured_used: Variant = parsed.get("recovery_used", parsed.get("recovery", {}).get("used", false))
+	var effective_decision := resolved_decision if not resolved_decision.is_empty() else str(parsed.get("status", "UNKNOWN"))
+	if has_structured_flag and not structured_used is bool:
+		status = "INVALID_STRUCTURED_RECOVERY_FLAG"
+	elif effective_decision == "UNSUPPORTED" or not parsed.get("unsupported_features", []).is_empty() or not str(parsed.get("unsupported_domain", "")).is_empty():
+		status = "BLOCKED_UNSUPPORTED"
+	elif effective_decision == "NEEDS_CLARIFICATION" or not parsed.get("ambiguity", []).is_empty() or resolver_reaction.begins_with("clarify") or resolver_reaction == "ask_why_clarification":
+		status = "BLOCKED_AMBIGUITY"
+	elif resolver_reaction == "unrecognized":
+		status = "BLOCKED_NO_RECOGNIZED_INTENT"
+	elif not _unknown_tokens(parsed).is_empty():
+		status = "BLOCKED_UNKNOWN_TOKEN"
+	elif effective_decision != "RECOGNIZED" or str(parsed.get("semantic", parsed.get("intent", ""))).is_empty() and str(parsed.get("intent", "")).is_empty():
+		status = "BLOCKED_NO_RECOGNIZED_INTENT"
+	elif has_structured_flag:
+		used = bool(structured_used)
+		status = "PARSER_REPORTED_RECOVERY" if used else "PARSER_REPORTED_NO_RECOVERY"
+	elif not detected_categories.is_empty():
+		used = true
+		status = "INFERRED_FROM_DIAGNOSTIC"
+	elif not unmapped.is_empty():
+		status = "UNMAPPED_DIAGNOSTICS"
+	return {
+		"recovery_used":used,
+		"status":status,
+		"source":"STRUCTURED_PARSER" if has_structured_flag else ("MAPPED_DIAGNOSTIC" if not detected_categories.is_empty() else "NONE"),
+		"parser_diagnostic_codes":parser_codes,
+		"detected_error_categories":detected_categories,
+		"expected_error_categories":expected_categories,
+		"diagnostic_coverage":coverage,
+		"unmapped_parser_diagnostics":unmapped
+	}
+
+func _detected_error_categories(parser_codes: Array) -> Array[String]:
+	var categories: Array[String] = []
+	for category in RECOVERY_ERROR_MAP:
+		var parser_mapping: Dictionary = RECOVERY_ERROR_MAP[category]
+		for code in parser_codes:
+			if code in parser_mapping.parser_codes and category not in categories:
+				categories.append(category)
+	categories.sort()
+	return categories
+
+func _canonical_error_categories(codes: Array) -> Array[String]:
+	var categories: Array[String] = []
+	for category in RECOVERY_ERROR_MAP:
+		var oracle_mapping: Dictionary = RECOVERY_ERROR_MAP[category]
+		for code in codes:
+			if str(code) in oracle_mapping.oracle_codes and category not in categories:
+				categories.append(category)
+	categories.sort()
+	return categories
+
+func _has_parser_diagnostic_mapping(code: String) -> bool:
+	for mapping in RECOVERY_ERROR_MAP.values():
+		if code in mapping.parser_codes: return true
+	return false
+
 func _evaluate(item: Dictionary) -> Dictionary:
 	var context := Session.initial_context()
 	context.merge(item.get("context", {}), true)
@@ -214,16 +354,12 @@ func _evaluate(item: Dictionary) -> Dictionary:
 		if not bool(before_objectives.get(objective_id, false)) and bool(context.objective_progress.get(objective_id, false)):
 			objectives_advanced.append(str(objective_id))
 	var expected: Dictionary = item.expected
-	var diagnostics := _diagnostic_codes(parsed.get("diagnostics", []))
-	var recovery := false
-	for code in diagnostics:
-		if code in RECOVERY_CODES:
-			recovery = true
 	var frame: Dictionary = parsed.get("frame", {})
 	var decision := str(parsed.get("status", "UNKNOWN"))
 	var intent := str(parsed.get("semantic", parsed.get("intent", "")))
 	if decision == "RECOGNIZED" and intent.is_empty():
 		intent = str(parsed.get("intent", ""))
+	var recovery_assessment := _assess_recovery(parsed, expected.get("diagnostic_codes", []), decision, reaction)
 	var actual := {
 		"decision": decision,
 		"intent": intent,
@@ -238,8 +374,13 @@ func _evaluate(item: Dictionary) -> Dictionary:
 		"semantic_role_reporting": {"grammatical_subject":"FRAME_SUBJECT", "experiencer":"PROVIDED" if parsed.has("experiencer") else "NOT_EXPOSED", "helper":"PROVIDED" if parsed.has("helper") else "NOT_EXPOSED", "help_recipient":"PROVIDED" if parsed.has("help_recipient") else "NOT_EXPOSED", "semantic_frames":"PROVIDED" if parsed.has("semantic_frames") else "NOT_EXPOSED"},
 		"polarity": str(frame.get("polarity", "unresolved")),
 		"speech_act": str(frame.get("speech_act", "unresolved")),
-		"recovery_used": recovery,
-		"diagnostic_codes": diagnostics,
+		"recovery_used": recovery_assessment.recovery_used,
+		"recovery_status": recovery_assessment.status,
+		"recovery_source": recovery_assessment.source,
+		"detected_error_categories": recovery_assessment.detected_error_categories,
+		"recovery_diagnostic_coverage": recovery_assessment.diagnostic_coverage,
+		"unmapped_parser_diagnostics": recovery_assessment.unmapped_parser_diagnostics,
+		"parser_diagnostic_codes": recovery_assessment.parser_diagnostic_codes,
 		"may_advance_objective": objective_changed,
 		"objectives_advanced": objectives_advanced,
 		"reason": _first(parsed.get("ambiguity", [])),
@@ -260,9 +401,13 @@ func _evaluate(item: Dictionary) -> Dictionary:
 		"world_context_after": context.duplicate(true)
 	}
 	var mismatch: Array[String] = []
-	for key in ["decision", "intent", "actor", "recipient", "grammatical_subject", "experiencer", "helper", "help_recipient", "semantic_frames", "polarity", "speech_act", "recovery_used", "diagnostic_codes", "may_advance_objective", "referent", "intents"]:
+	for key in ["decision", "intent", "actor", "recipient", "grammatical_subject", "experiencer", "helper", "help_recipient", "semantic_frames", "polarity", "speech_act", "recovery_used", "may_advance_objective", "referent", "intents"]:
 		if expected.has(key) and expected[key] != actual[key]:
 			mismatch.append(key)
+	if not recovery_assessment.expected_error_categories.is_empty() and recovery_assessment.diagnostic_coverage != "FULL":
+		mismatch.append("recovery_diagnostic_coverage")
+	if not recovery_assessment.unmapped_parser_diagnostics.is_empty():
+		mismatch.append("unmapped_parser_diagnostics")
 	var candidate_status := "NOT_APPLICABLE"
 	if expected.get("decision", "") == "NEEDS_CLARIFICATION":
 		if actual.candidate_reporting == "NOT_EXPOSED":
@@ -328,11 +473,44 @@ func _sorted_strings(values: Array) -> Array[String]:
 func _normalize_role(role: String) -> String:
 	return "astera" if role == "anna" else role
 
+func _new_recovery_metrics() -> Dictionary:
+	return {"total":0,"expected_true":0,"actual_true":0,"true_positive":0,"false_positive":0,"false_negative":0,"true_negative":0,"status_counts":{},"diagnostic_coverage":{},"unmapped_parser_diagnostics":{}}
+
+func _update_recovery_metrics(metrics: Dictionary, result: Dictionary) -> void:
+	var expected_used := bool(result.expected.get("recovery_used", false))
+	var actual_used := bool(result.actual.get("recovery_used", false))
+	metrics.total += 1
+	if expected_used: metrics.expected_true += 1
+	if actual_used: metrics.actual_true += 1
+	if expected_used and actual_used: metrics.true_positive += 1
+	elif expected_used: metrics.false_negative += 1
+	elif actual_used: metrics.false_positive += 1
+	else: metrics.true_negative += 1
+	var status := str(result.actual.get("recovery_status", "NOT_REPORTED"))
+	metrics.status_counts[status] = int(metrics.status_counts.get(status, 0)) + 1
+	var coverage := str(result.actual.get("recovery_diagnostic_coverage", "NOT_REPORTED"))
+	metrics.diagnostic_coverage[coverage] = int(metrics.diagnostic_coverage.get(coverage, 0)) + 1
+	for code in result.actual.get("unmapped_parser_diagnostics", []):
+		metrics.unmapped_parser_diagnostics[code] = int(metrics.unmapped_parser_diagnostics.get(code, 0)) + 1
+
+func _phenomenon_family(phenomenon: String) -> String:
+	var code := phenomenon.to_upper()
+	if code.contains("MULTIPLE_INTENTS"): return "UNSUPPORTED_MULTI_INTENT"
+	if code in ["VERB_AGREEMENT", "AGREEMENT_MISMATCH", "OMITTED_COPULA", "MISSING_FINITE_VERB", "INFINITIVE_FOR_FINITE", "MISSING_MODAL", "OMITTED_MODAL", "OMITTED_SUBJECT", "OMITTED_PRONOUN", "MISSING_SUBJECT", "OMITTED_SUBJECT_OR_VERB", "WORD_ORDER", "PRONOUN_CASE", "TYPO_OR_NEAR_FORM", "FINITE_VERB_AFTER_MODAL", "OMITTED_ARTICLE", "ARTICLE_MISMATCH", "MULTIPLE_RECOVERABLE_ERRORS", "RECOVERABLE_WORD_ORDER", "ELLIPTICAL_COORDINATION", "REDUNDANT_INFINITIVE", "LEXICAL_CALQUE"]:
+		return "GRAMMATICAL_ERROR"
+	if code.contains("AMBIGUOUS") or code.contains("CONFLICTING") or code.contains("UNCLEAR") or code in ["QUESTION_OR_STATEMENT", "CONTRADICTORY_CLAUSES", "MISSING_CONTEXT"]:
+		return "SEMANTIC_AMBIGUITY"
+	if code in ["CONTEXT_DEPENDENT", "WHY_CONTEXT", "UND_DU_CONTEXT", "NAME_OR_STATE", "NPC_BUSY_MODE"] or code.ends_with("CONTEXT") or code.begins_with("E-"):
+		return "CONTEXT_DEPENDENT"
+	if code in ["UNKNOWN_CONTENT_WORD", "UNSUPPORTED_DOMAIN", "UNSUPPORTED_LONG_CHAIN"]:
+		return "UNKNOWN_OR_UNSUPPORTED"
+	return "OTHER"
+
 func _summarize(results: Array[Dictionary]) -> Dictionary:
 	var summary := {"total":results.size(), "by_group":{}, "by_split":{
-		"dev":{"total":0,"decision_match":0,"intent_match":0,"full_semantic_frame_match":0,"confusion_matrix":{},"false_accept":0,"false_reject":0,"missed_clarification":0,"insufficient_clarification":0,"incorrect_clarification":0,"objective_advancement_mismatch":0},
-		"validation":{"total":0,"decision_match":0,"intent_match":0,"full_semantic_frame_match":0,"confusion_matrix":{},"false_accept":0,"false_reject":0,"missed_clarification":0,"insufficient_clarification":0,"incorrect_clarification":0,"objective_advancement_mismatch":0}
-	}, "by_intent":{}, "by_phenomenon":{}, "confusion_matrix":{}, "decision_match":0,"intent_match":0,"full_semantic_frame_match":0,"candidate_interpretations_not_exposed":0,"candidate_interpretation_mismatch":0,"false_accept":0, "false_reject":0, "role_mismatch":0, "role_swap":0, "false_offer_acceptance":0, "negative_help_as_offer":0, "polarity_mismatch":0, "negation_lost":0, "missed_clarification":0, "wrong_clarification_reason":0,"insufficient_clarification":0,"incorrect_clarification":0, "unknown_vs_unsupported":0, "objective_advancement_mismatch":0, "representative_errors":[]}
+		"dev":{"total":0,"decision_match":0,"intent_match":0,"full_semantic_frame_match":0,"confusion_matrix":{},"false_accept":0,"false_reject":0,"missed_clarification":0,"insufficient_clarification":0,"incorrect_clarification":0,"objective_advancement_mismatch":0,"recovery":_new_recovery_metrics()},
+		"validation":{"total":0,"decision_match":0,"intent_match":0,"full_semantic_frame_match":0,"confusion_matrix":{},"false_accept":0,"false_reject":0,"missed_clarification":0,"insufficient_clarification":0,"incorrect_clarification":0,"objective_advancement_mismatch":0,"recovery":_new_recovery_metrics()}
+	}, "by_oracle_decision":{}, "by_phenomenon_family":{}, "by_intent":{}, "by_phenomenon":{}, "confusion_matrix":{}, "recovery":_new_recovery_metrics(), "unmapped_parser_diagnostics":{}, "decision_match":0,"intent_match":0,"full_semantic_frame_match":0,"candidate_interpretations_not_exposed":0,"candidate_interpretation_mismatch":0,"false_accept":0, "false_reject":0, "role_mismatch":0, "role_swap":0, "false_offer_acceptance":0, "negative_help_as_offer":0, "polarity_mismatch":0, "negation_lost":0, "missed_clarification":0, "wrong_clarification_reason":0,"insufficient_clarification":0,"incorrect_clarification":0, "unknown_vs_unsupported":0, "objective_advancement_mismatch":0, "representative_errors":[]}
 	for result in results:
 		var expected: Dictionary = result.expected
 		var actual: Dictionary = result.actual
@@ -345,6 +523,21 @@ func _summarize(results: Array[Dictionary]) -> Dictionary:
 		var ad := str(actual.get("decision", ""))
 		var split_summary: Dictionary = summary.by_split[str(result.split)]
 		split_summary.total += 1
+		_update_recovery_metrics(summary.recovery, result)
+		_update_recovery_metrics(split_summary.recovery, result)
+		for diagnostic_code in actual.get("unmapped_parser_diagnostics", []):
+			summary.unmapped_parser_diagnostics[diagnostic_code] = int(summary.unmapped_parser_diagnostics.get(diagnostic_code, 0)) + 1
+		var decision_key := ed
+		if not summary.by_oracle_decision.has(decision_key):
+			summary.by_oracle_decision[decision_key] = {"total":0,"decision_match":0,"expected_recovery":0,"actual_recovery":0,"observed_parser_decisions":{},"by_split":{}}
+		var oracle_decision_summary: Dictionary = summary.by_oracle_decision[decision_key]
+		oracle_decision_summary.total += 1
+		if ed == ad: oracle_decision_summary.decision_match += 1
+		if bool(expected.get("recovery_used", false)): oracle_decision_summary.expected_recovery += 1
+		if bool(actual.get("recovery_used", false)): oracle_decision_summary.actual_recovery += 1
+		oracle_decision_summary.observed_parser_decisions[ad] = int(oracle_decision_summary.observed_parser_decisions.get(ad, 0)) + 1
+		if not oracle_decision_summary.by_split.has(result.split): oracle_decision_summary.by_split[result.split] = 0
+		oracle_decision_summary.by_split[result.split] += 1
 		if ed == ad:
 			split_summary.decision_match += 1
 			summary.decision_match += 1
@@ -392,11 +585,26 @@ func _summarize(results: Array[Dictionary]) -> Dictionary:
 		for phenomenon in result.phenomena:
 			var phenomenon_key := str(phenomenon)
 			if not summary.by_phenomenon.has(phenomenon_key):
-				summary.by_phenomenon[phenomenon_key] = {"total":0, "decision_match":0}
+				summary.by_phenomenon[phenomenon_key] = {"total":0, "decision_match":0,"oracle_decisions":{},"parser_decisions":{},"expected_recovery":0,"actual_recovery":0,"recovery_coverage":{}}
 			var phenomenon_summary: Dictionary = summary.by_phenomenon[phenomenon_key]
 			phenomenon_summary.total += 1
+			phenomenon_summary.oracle_decisions[ed] = int(phenomenon_summary.oracle_decisions.get(ed, 0)) + 1
+			phenomenon_summary.parser_decisions[ad] = int(phenomenon_summary.parser_decisions.get(ad, 0)) + 1
+			if bool(expected.get("recovery_used", false)): phenomenon_summary.expected_recovery += 1
+			if bool(actual.get("recovery_used", false)): phenomenon_summary.actual_recovery += 1
+			var coverage := str(actual.get("recovery_diagnostic_coverage", "NOT_REPORTED"))
+			phenomenon_summary.recovery_coverage[coverage] = int(phenomenon_summary.recovery_coverage.get(coverage, 0)) + 1
 			if ed == ad:
 				phenomenon_summary.decision_match += 1
+			var family := _phenomenon_family(phenomenon_key)
+			if not summary.by_phenomenon_family.has(family):
+				summary.by_phenomenon_family[family] = {"total":0,"oracle_decisions":{},"parser_decisions":{},"expected_recovery":0,"actual_recovery":0}
+			var family_summary: Dictionary = summary.by_phenomenon_family[family]
+			family_summary.total += 1
+			family_summary.oracle_decisions[ed] = int(family_summary.oracle_decisions.get(ed, 0)) + 1
+			family_summary.parser_decisions[ad] = int(family_summary.parser_decisions.get(ad, 0)) + 1
+			if bool(expected.get("recovery_used", false)): family_summary.expected_recovery += 1
+			if bool(actual.get("recovery_used", false)): family_summary.actual_recovery += 1
 		if ed == ad:
 			group_summary.decision_match += 1
 		if ed == "RECOGNIZED" or ad == "RECOGNIZED":
@@ -470,3 +678,4 @@ func _write_outputs(results: Array[Dictionary], summary: Dictionary) -> void:
 		_fail("cannot write summary to " + output_path)
 		return
 	summary_file.store_string(JSON.stringify(summary, "\t"))
+
