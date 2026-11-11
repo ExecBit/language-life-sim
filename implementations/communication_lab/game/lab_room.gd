@@ -174,11 +174,14 @@ func _build_ui() -> void:
 		var group: String = entry.pos if groups.has(entry.pos) else "other"
 		if not groups[group].has(entry.surface): groups[group].append(entry.surface)
 	var group_titles := {"pronoun":"Местоимения", "verb":"Глаголы и формы", "noun":"Предметы и имена", "adjective":"Признаки", "other":"Другие слова"}
+	var translations := {"lamp":"лампа", "player":"я / мне", "addressee":"ты / тебе", "anna":"Анна (в каталоге)", "want":"хотеть", "need":"нуждаться", "can":"мочь", "have":"иметь", "be":"быть", "open":"открывать", "give":"давать", "help":"помогать", "know":"знать", "key":"ключ", "door":"дверь", "room":"комната", "article":"артикль", "no":"никакой / не", "reference":"это", "not":"не", "where":"где", "why":"почему", "what":"что", "please":"пожалуйста", "closed":"закрыт", "accept":"да", "refuse":"нет", "thanks":"спасибо", "greeting":"приветствие", "subordinate":"что / потому что", "here":"здесь", "later":"позже", "lena":"Лена", "farewell":"пока", "apology":"извинение", "understand":"понимать", "again":"ещё раз", "once":"один раз", "approach":"подойти", "take":"взять", "water":"вода", "cup":"чашка", "bag":"сумка", "bread":"хлеб", "bell":"колокольчик", "market":"супермаркет", "possessive":"мой / моя"}
 	for group in ["pronoun", "verb", "noun", "adjective", "other"]:
 		if groups[group].is_empty(): continue
 		_label(vocab_list, group_titles[group], 16).modulate = Color("85c9c4")
-		var words := _label(vocab_list, "   ·   ".join(groups[group]), 16)
-		words.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		for entry in WordCatalog.ENTRIES:
+			if entry.availability != "available" or (entry.pos if groups.has(entry.pos) else "other") != group: continue
+			var translation: String = translations.get(entry.semantic_id, "перевод не указан")
+			_label(vocab_list, "%s  —  %s" % [entry.surface, translation], 16)
 	dev_panel = PanelContainer.new(); canvas.add_child(dev_panel)
 	dev_panel.anchor_left = 0.56; dev_panel.anchor_right = 1.0; dev_panel.anchor_bottom = 1.0
 	dev_panel.offset_left = 0; dev_panel.offset_top = 18; dev_panel.offset_right = -18; dev_panel.offset_bottom = -18
