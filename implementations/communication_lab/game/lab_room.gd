@@ -479,7 +479,9 @@ func _update_diagnostics(record: Dictionary) -> void:
 	var parsed: Dictionary = record.parse
 	inspection_label.text = "Попытка %02d  ·  %s / %s" % [attempts.find(record) + 1, parsed.status, parsed.intent]
 	inspection_label.modulate = Color("85d9ba") if parsed.status == "RECOGNIZED" else Color("edc488")
-	parse_view.text = "ВВОД\n%s\n\nТОКЕНЫ\n%s\n\nСЕМАНТИЧЕСКИЙ FRAME\n%s\n\nAMBIGUITY\n%s\n\nUNSUPPORTED FEATURES\n%s\n\nDIAGNOSTICS\n%s" % [record.input, JSON.stringify(parsed.normalized_tokens), JSON.stringify(parsed.frame, "  "), JSON.stringify(parsed.ambiguity, "  "), JSON.stringify(parsed.unsupported_features, "  "), JSON.stringify(parsed.diagnostics, "  ")]
+	var recovery: Dictionary = parsed.get("recovery", {})
+	var semantic_frames: Array = parsed.get("semantic_frames", [])
+	parse_view.text = "ВВОД\n%s\n\nТОКЕНЫ\n%s\n\nСЕМАНТИЧЕСКИЙ FRAME\n%s\n\nСОСТАВНЫЕ FRAME\n%s\n\nВОССТАНОВЛЕНИЕ СМЫСЛА\nПолнота: %s  ·  грамматическая ошибка: %s  ·  восстановление использовано: %s\nДоказательства: %s\nВыведено из грамматики/контекста: %s\n\nAMBIGUITY\n%s\n\nUNSUPPORTED FEATURES\n%s\n\nDIAGNOSTICS\n%s" % [record.input, JSON.stringify(parsed.normalized_tokens), JSON.stringify(parsed.frame, "  "), JSON.stringify(semantic_frames, "  "), str(parsed.get("semantic_recovery_status", "NONE")), "да" if parsed.get("grammatical_error_detected", false) else "нет", "да" if parsed.get("recovery_used", false) else "нет", JSON.stringify(recovery.get("explicit_evidence", [])), JSON.stringify(recovery.get("inferred_fields", [])), JSON.stringify(parsed.get("ambiguity", []), "  "), JSON.stringify(parsed.get("unsupported_features", []), "  "), JSON.stringify(parsed.get("diagnostics", []), "  ")]
 	diagnostic.text = "ОТВЕТ NPC\n%s\n\nВЫБРАННАЯ РЕАКЦИЯ\n%s\n\nТЕМА\n%s\n\nФАКТИЧЕСКИЕ ЭФФЕКТЫ\n%s\n\nЭМОЦИЯ\n%s\n\nANIMATION ID\n%s" % [record.answer, record.get("reaction", ""), record.get("topic", ""), JSON.stringify(record.effects, "  "), record.get("emotion_state", "neutral"), record.get("animation_id", "standing")]
 	context_view.text += "\n\nКОНТЕКСТ РАЗГОВОРА\n%s" % JSON.stringify(record.get("conversation_context", {}), "  ")
 	context_view.text += "\n\nВЫБРАННАЯ ПОПЫТКА / до\n%s\n\nпосле\n%s" % [JSON.stringify(record.before, "  "), JSON.stringify(record.after, "  ")]
@@ -505,3 +507,4 @@ func _reset() -> void:
 	dialogue_silence_seconds = 0.0; silence_tease_shown = false
 	astera_visual.set_emotion("neutral")
 	astera_visual.return_to_idle()
+
