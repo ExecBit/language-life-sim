@@ -5,7 +5,7 @@ const OBJECTIVE_TITLES := {"introduce":"Представиться", "ask_mood":
 
 static func initial_context() -> Dictionary:
 	return {"busy": false, "pending": "", "player_name":"", "topic":"introduction", "last_npc_line":"",
-		"pending_question":"player_name", "offered_help":false, "player_mood":"", "astera_mood":"tired", "player_plan":"",
+		"pending_question":"", "offered_help":false, "player_mood":"", "astera_mood":"tired", "player_plan":"",
 		"slow_speech":false, "activity":"working", "objective_progress":_initial_objectives(), "objective_evidence":{}}
 
 static func _initial_objectives() -> Dictionary:
@@ -55,6 +55,21 @@ static func submit(text: String, context: Dictionary) -> Dictionary:
 	return result
 
 static func _resolve_dialogue(parsed: Dictionary, context: Dictionary) -> Dictionary:
+	if parsed.get("status", "") != "RECOGNIZED":
+		var reason := str(parsed.get("reason", ""))
+		var response := "Was meinst du?"
+		if parsed.get("status", "") == "UNSUPPORTED" and "MULTIPLE_INTENTS" in parsed.get("unsupported_features", []):
+			response = "Bitte eins nach dem anderen."
+		elif parsed.get("status", "") == "UNKNOWN":
+			response = "Ich verstehe das Wort nicht."
+		elif reason == "AMBIGUOUS_ROLES":
+			response = "Möchtest du mir helfen oder brauchst du Hilfe?"
+		elif reason == "QUESTION_OR_STATEMENT":
+			response = "Möchtest du, dass ich dir helfe?"
+		elif reason in ["ELLIPTIC_YES_NO", "MISSING_CONTEXT", "UND_DU_CONTEXT"]:
+			response = "Was möchtest du wissen?"
+		return {"answer":response,"reaction":"clarify_%s" % reason.to_lower() if not reason.is_empty() else "clarify",
+			"emotion_state":"curious","animation_id":"curious_head_tilt"}
 	var intent := str(parsed.semantic)
 	var answer := "Ich verstehe nicht."
 	var reaction := "clarify"
@@ -143,6 +158,34 @@ static func _resolve_dialogue(parsed: Dictionary, context: Dictionary) -> Dictio
 			context.offered_help = true; context.pending_question = "help_offer"; context.topic = "help"
 			answer = "Oh! Danke! Vielleicht später." if context.busy else "Oh! Danke! Das ist nett!"
 			reaction = "accept_help_offer"; emotion = "grateful"; animation = "surprised_delighted"
+		"PLAYER_CANNOT_HELP":
+			context.topic = "help"; context.pending_question = ""
+			answer = "Oh, okay. Danke, dass du es sagst."
+			reaction = "acknowledge_cannot_help"; emotion = "concerned"; animation = "soft_concern"
+		"REQUEST_HELP":
+			context.topic = "help"; context.pending_question = "help_target"
+			answer = "Ja, gern. Was brauchst du?"
+			reaction = "respond_to_help_request"; emotion = "friendly"; animation = "open_palm_offer"
+		"REQUEST_SLOW_SPEECH":
+			context.slow_speech = true; context.topic = "slow_speech"; context.pending_question = ""
+			answer = "Ja. Ich spreche langsam."
+			reaction = "speak_slowly"; emotion = "friendly"; animation = "gentle_nod"
+		"REQUEST_REPEAT":
+			context.topic = "repeat"; context.pending_question = ""
+			if context.last_npc_line.is_empty():
+				answer = "Was soll ich wiederholen?"
+				reaction = "ask_what_to_repeat"; emotion = "curious"; animation = "curious_head_tilt"
+			else:
+				answer = "Ja, gern. Ich wiederhole es."
+				reaction = "repeat_line"; emotion = "friendly"; animation = "gentle_nod"
+		"REPORT_NONUNDERSTANDING":
+			context.topic = "understanding"; context.pending_question = ""
+			answer = "Oh! Was verstehst du nicht?"
+			reaction = "ask_what_is_unclear"; emotion = "curious"; animation = "curious_head_tilt"
+		"PLAYER_SPEECH_RATE":
+			context.topic = "slow_speech"; context.pending_question = ""
+			answer = "Oh, okay!"
+			reaction = "acknowledge_speech_preference"; emotion = "friendly"; animation = "gentle_nod"
 		"ACCEPT_HELP":
 			context.pending_question = ""; context.topic = "help"
 			answer = "Danke!"
@@ -256,3 +299,4 @@ static func _append_journal(record: Dictionary) -> void:
 	file.seek_end()
 	file.store_line(JSON.stringify(record))
 	file.close()
+
