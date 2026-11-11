@@ -24,21 +24,21 @@ const EXPECTED_SPLITS := {
 const RECOVERY_ERROR_MAP := {
 	"VERB_AGREEMENT":{"parser_codes":["AGREEMENT_MISMATCH"],"oracle_codes":["AGREEMENT_MISMATCH","VERB_AGREEMENT"]},
 	"MISSING_FINITE_VERB":{"parser_codes":["OMITTED_COPULA"],"oracle_codes":["OMITTED_COPULA","MISSING_FINITE_VERB"]},
-	"OMITTED_SUBJECT":{"parser_codes":["OMITTED_SUBJECT"],"oracle_codes":["OMITTED_SUBJECT","MISSING_SUBJECT","OMITTED_PRONOUN"]},
+	"OMITTED_SUBJECT":{"parser_codes":["OMITTED_SUBJECT","OMITTED_PRONOUN"],"oracle_codes":["OMITTED_SUBJECT","MISSING_SUBJECT","OMITTED_PRONOUN","OMITTED_SUBJECT_OR_VERB"]},
 	"OMITTED_ARTICLE":{"parser_codes":["OMITTED_ARTICLE"],"oracle_codes":["OMITTED_ARTICLE"]},
 	"ARTICLE_MISMATCH":{"parser_codes":["ARTICLE_MISMATCH"],"oracle_codes":["ARTICLE_MISMATCH"]},
-	"WORD_ORDER":{"parser_codes":[],"oracle_codes":["WORD_ORDER"]},
-	"PRONOUN_CASE":{"parser_codes":[],"oracle_codes":["PRONOUN_CASE"]},
-	"MISSING_MODAL":{"parser_codes":[],"oracle_codes":["MISSING_MODAL"]},
-	"INFINITIVE_FOR_FINITE":{"parser_codes":[],"oracle_codes":["INFINITIVE_FOR_FINITE"]},
-	"TYPO_OR_NEAR_FORM":{"parser_codes":[],"oracle_codes":["TYPO_OR_NEAR_FORM"]},
+	"WORD_ORDER":{"parser_codes":["WORD_ORDER"],"oracle_codes":["WORD_ORDER"]},
+	"PRONOUN_CASE":{"parser_codes":["PRONOUN_CASE"],"oracle_codes":["PRONOUN_CASE"]},
+	"MISSING_MODAL":{"parser_codes":["MISSING_MODAL"],"oracle_codes":["MISSING_MODAL"]},
+	"INFINITIVE_FOR_FINITE":{"parser_codes":["INFINITIVE_FOR_FINITE"],"oracle_codes":["INFINITIVE_FOR_FINITE"]},
+	"TYPO_OR_NEAR_FORM":{"parser_codes":["TYPO_OR_NEAR_FORM"],"oracle_codes":["TYPO_OR_NEAR_FORM"]},
 	"OMITTED_MODAL":{"parser_codes":[],"oracle_codes":["OMITTED_MODAL"]},
 	"FINITE_VERB_AFTER_MODAL":{"parser_codes":[],"oracle_codes":["FINITE_VERB_AFTER_MODAL"]},
 	"OMITTED_SUBJECT_OR_VERB":{"parser_codes":[],"oracle_codes":["OMITTED_SUBJECT_OR_VERB"]},
 	"MULTIPLE_RECOVERABLE_ERRORS":{"parser_codes":[],"oracle_codes":["MULTIPLE_RECOVERABLE_ERRORS"]},
-	"REDUNDANT_INFINITIVE":{"parser_codes":[],"oracle_codes":["REDUNDANT_INFINITIVE"]},
-	"MISSING_OBJECT":{"parser_codes":[],"oracle_codes":["MISSING_OBJECT"]},
-	"LEXICAL_CALQUE":{"parser_codes":[],"oracle_codes":["LEXICAL_CALQUE"]}
+	"REDUNDANT_INFINITIVE":{"parser_codes":["REDUNDANT_INFINITIVE"],"oracle_codes":["REDUNDANT_INFINITIVE"]},
+	"MISSING_OBJECT":{"parser_codes":["MISSING_OBJECT"],"oracle_codes":["MISSING_OBJECT"]},
+	"LEXICAL_CALQUE":{"parser_codes":["LEXICAL_CALQUE"],"oracle_codes":["LEXICAL_CALQUE"]}
 }
 ## These are valid oracle annotations, but they are not grammatical-error
 ## categories and must never count as grammatical recovery evidence.
@@ -76,12 +76,14 @@ func _fail(message: String) -> void:
 	push_error("CORPUS FAIL: " + message)
 
 func run() -> void:
+	var dev_only := OS.get_cmdline_user_args().has("--dev-only")
 	_test_recovery_contract()
 	var counts := {"dev": {}, "validation": {}}
 	for corpus_path in CORPUS_FILES:
+		if dev_only and corpus_path.ends_with("validation.jsonl"): continue
 		_load_split(corpus_path, counts)
-	_validate_distribution(counts)
-	_test_fixture_recovery_contract()
+	_validate_distribution(counts, dev_only)
+	_test_fixture_recovery_contract(dev_only)
 	_validate_required_probes()
 	var summary := _summarize(all_results)
 	_write_outputs(all_results, summary)
@@ -229,13 +231,16 @@ func _is_complete_semantic_frame(value: Variant) -> bool:
 		return false
 	return true
 
-func _validate_distribution(counts: Dictionary) -> void:
-	for split in ["dev", "validation"]:
+func _validate_distribution(counts: Dictionary, dev_only: bool = false) -> void:
+	var splits := ["dev"] if dev_only else ["dev", "validation"]
+	for split in splits:
 		for group in EXPECTED_SPLITS:
 			if int(counts[split].get(group, 0)) != int(EXPECTED_SPLITS[group][split]):
 				_fail("%s/%s expected %d rows, found %d" % [split, group, EXPECTED_SPLITS[group][split], counts[split].get(group, 0)])
-	if all_results.size() != 250:
-		_fail("expected 250 cases, found %d" % all_results.size())
+	var expected_count := 200 if dev_only else 250
+	if all_results.size() != expected_count:
+		_fail("expected %d cases, found %d" % [expected_count, all_results.size()])
+	if dev_only: return
 	var pairs: Dictionary = {}
 	for result in all_results:
 		if result.pair_id.is_empty():
@@ -284,7 +289,8 @@ func _check_expected(input_text: String, decision: String, intent: String) -> vo
 	if item.is_empty() or item.expected.get("decision", "") != decision or item.expected.get("intent", "") != intent:
 		_fail("required oracle probe missing or mislabeled: %s → %s/%s" % [input_text, decision, intent])
 
-func _test_fixture_recovery_contract() -> void:
+func _test_fixture_recovery_contract(dev_only: bool = false) -> void:
+	if dev_only: return
 	for case_id in ["B-007", "B-060", "B-073", "B-076", "B-080"]:
 		var item := _find_case_id(case_id)
 		var expected: Dictionary = item.get("expected", {})
@@ -351,7 +357,7 @@ func _assess_recovery(parsed: Dictionary, expected_diagnostic_codes: Array, reso
 	var grammatical_error_detected := not detected_categories.is_empty()
 	var unmapped: Array[String] = []
 	for code in parser_codes:
-		if not _has_parser_diagnostic_mapping(code) and code not in NON_RECOVERY_DIAGNOSTICS:
+		if not _has_parser_diagnostic_mapping(code) and not _is_non_recovery_diagnostic(code):
 			unmapped.append(code if not code.is_empty() else "<empty>")
 	var expected_categories := _canonical_error_categories(expected_diagnostic_codes)
 	var unclassified: Array[String] = []
@@ -460,6 +466,9 @@ func _has_parser_diagnostic_mapping(code: String) -> bool:
 		if code in mapping.parser_codes: return true
 	return false
 
+func _is_non_recovery_diagnostic(code: String) -> bool:
+	return code in NON_RECOVERY_DIAGNOSTICS or code.begins_with("CLARIFY_") or code == "MULTIPLE_INTENTS"
+
 func _evaluate(item: Dictionary) -> Dictionary:
 	var context := Session.initial_context()
 	context.merge(item.get("context", {}), true)
@@ -503,9 +512,9 @@ func _evaluate(item: Dictionary) -> Dictionary:
 		"decision": decision,
 		"intent": intent,
 		"intents": parsed.get("intents", [intent] if not intent.is_empty() else []),
-		"actor": _normalize_role(str(frame.get("subject", ""))),
+		"actor": _normalize_role(str(frame.get("actor", frame.get("subject", "")))),
 		"recipient": _normalize_role(str(frame.get("recipient", frame.get("addressee", "")))),
-		"grammatical_subject": _normalize_role(str(frame.get("subject", ""))),
+		"grammatical_subject": _normalize_role(str(frame.get("grammatical_subject", frame.get("subject", "")))),
 		"experiencer": parsed.get("experiencer", null),
 		"helper": parsed.get("helper", null),
 		"help_recipient": parsed.get("help_recipient", null),
@@ -809,8 +818,9 @@ func _error_risk(result: Dictionary) -> int:
 func _write_outputs(results: Array[Dictionary], summary: Dictionary) -> void:
 	var output_path := ProjectSettings.globalize_path(OUTPUT_DIR)
 	DirAccess.make_dir_recursive_absolute(output_path)
-	var basename := "issue64-baseline"
-	for split in ["dev", "validation"]:
+	var basename := "issue65-dev" if OS.get_cmdline_user_args().has("--dev-only") else "issue65-final"
+	var splits := ["dev"] if OS.get_cmdline_user_args().has("--dev-only") else ["dev", "validation"]
+	for split in splits:
 		var file := FileAccess.open(output_path.path_join("%s-%s.jsonl" % [basename, split]), FileAccess.WRITE)
 		if file == null:
 			_fail("cannot write baseline results to " + output_path)
