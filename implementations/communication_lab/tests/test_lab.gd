@@ -63,6 +63,17 @@ func run() -> void:
 	Session.opening_line(conversation)
 	var named := Session.submit("Ich heiße Alex", conversation)
 	check(named.parse.intent == "PLAYER_NAME" and conversation.player_name == "Alex" and named.answer.contains("Alex"), "player name is remembered and used in a response")
+	for greeting_name in ["Hallo ich bin alex", "Hallo! Ich heiße Alex.", "Hi, ich bin Alex"]:
+		var greeting_context := Session.initial_context()
+		var greeting_result := Session.submit(greeting_name, greeting_context)
+		check(greeting_context.player_name == "Alex" and greeting_result.parse.intent == "PLAYER_NAME" and greeting_result.objective_progress.introduce and greeting_result.answer == "Hallo, Alex! Schön!", "greeting plus introduction resolves once: " + greeting_name)
+		check(greeting_result.parse.normalized_tokens[0] in ["hallo", "hi"] and greeting_result.parse.lexical_readings.back().readings[0].semantic_id == "player_name", "combined introduction keeps full tokens and name reading")
+	for invalid_intro in ["Hallo ich bin Alex und ich fliege zum Mond", "Hallo ich bin nicht Alex", "Hallo ich bin müde und ich arbeite"]:
+		var invalid_context := Session.initial_context()
+		var invalid_result := Session.submit(invalid_intro, invalid_context)
+		check(invalid_result.parse.status == "UNSUPPORTED" and invalid_context.player_name.is_empty() and not invalid_result.objective_progress.introduce and invalid_result.effects.is_empty(), "unsupported combined input cannot partially apply: " + invalid_intro)
+	var greeted_tired := Session.submit("Hallo, ich bin müde", Session.initial_context())
+	check(greeted_tired.parse.intent == "PLAYER_MOOD_LOW" and not greeted_tired.objective_progress.introduce, "greeting plus tiredness remains a mood statement")
 	var activity_first := Session.submit("Was machst du?", Session.initial_context())
 	check(activity_first.answer.contains("Ich arbeite.") and activity_first.animation_id == "point_at_object", "activity question works before the mood topic and reuses the player-directed gesture")
 	var why_context := Session.initial_context(); why_context.topic = "astera_mood"; why_context.last_npc_line = "Ich bin müde."
@@ -335,6 +346,10 @@ func run() -> void:
 	room.call("_process", room.get("SILENCE_TEASE_DELAY"))
 	check(room.get("conversation_lines").back().text == "Du bist sehr still!" and room.get("astera_visual").get("active_animation_id") == "playful_shrug", "long conversational silence triggers the playful A0 nudge and motion")
 	check(not room.get("context").objective_progress.ask_activity and room.get("objective_labels").ask_activity.text.begins_with("○"), "reset clears and visually refreshes objective progress")
+	room.call("_reset")
+	room.get("composer").phrase.text = "Hallo ich bin alex"
+	room.get("composer").send()
+	check(room.get("context").player_name == "Alex" and room.get("conversation_lines").size() == 2 and room.get("conversation_lines").back().text == "Hallo, Alex! Schön!", "actual composer accepts greeting plus name with one NPC reply")
 	room.queue_free()
 	await process_frame
 	print("COMMUNICATION_LAB_TESTS: %d failure(s)" % failures)

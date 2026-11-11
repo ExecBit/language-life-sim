@@ -54,6 +54,26 @@ static func words(text: String) -> Array[String]:
 	return result
 
 static func parse(text: String, context: Dictionary) -> Dictionary:
+	var original_tokens := words(text)
+	if original_tokens.size() > 1 and original_tokens[0] in ["hallo", "hi"]:
+		var clause_tokens: Array[String] = []
+		clause_tokens.assign(original_tokens.slice(1))
+		var result := _parse_clause(" ".join(clause_tokens), context)
+		# A greeting decorates one complete social clause. It never executes
+		# separately, nor permits dropping an unsupported continuation.
+		var complete_mood := " ".join(clause_tokens) in ["ich bin müde", "ich bin mude", "nicht gut", "nicht so gut", "sehr gut", "gut danke", "mir gehts gut", "mir geht es gut"]
+		var accepted: bool = not result.is_empty() and (result.intent == "PLAYER_NAME" or (complete_mood and result.intent in ["PLAYER_MOOD_LOW", "PLAYER_MOOD_GOOD"]))
+		if not accepted:
+			result = {"status":"UNSUPPORTED", "intent":"", "semantic":"", "name":"", "ambiguity":[],
+				"unsupported_features":["GREETING_COMBINATION"], "frame":{}}
+		result.normalized_tokens = original_tokens
+		result.lexical_readings = _readings(original_tokens, 3 if accepted and result.intent == "PLAYER_NAME" and clause_tokens.size() == 3 else (1 if accepted and result.intent == "PLAYER_NAME" else -1))
+		result.diagnostics = [{"code":"SOCIAL_PREFIX", "greeting":original_tokens[0], "main_intent":result.intent,
+			"unparsed_tokens":[] if accepted else clause_tokens}]
+		return result
+	return _parse_clause(text, context)
+
+static func _parse_clause(text: String, context: Dictionary) -> Dictionary:
 	var tokens := words(text)
 	if tokens.is_empty(): return {}
 	var semantic := ""
@@ -105,9 +125,9 @@ static func parse(text: String, context: Dictionary) -> Dictionary:
 	if semantic == "PLAYER_MOOD_LOW" and tokens.has("nicht"): frame.polarity = "negative"
 	return {"status":status, "intent":semantic, "semantic":semantic, "name":name,
 		"ambiguity":[], "unsupported_features":[], "diagnostics":["LAB_DIALOGUE_GRAMMAR"],
-		"normalized_tokens":tokens, "lexical_readings":_readings(tokens, name_slot or standalone_name), "frame":frame}
+		"normalized_tokens":tokens, "lexical_readings":_readings(tokens, 2 if name_slot else (0 if standalone_name else -1)), "frame":frame}
 
-static func _readings(tokens: Array[String], has_name: bool) -> Array:
+static func _readings(tokens: Array[String], name_index: int) -> Array:
 	var result: Array = []
 	for index in tokens.size():
 		var token := tokens[index]
@@ -115,7 +135,7 @@ static func _readings(tokens: Array[String], has_name: bool) -> Array:
 		if LEXICON.has(token):
 			var data: Array = LEXICON[token]
 			reading = {"lemma_id":token, "surface":token, "pos":data[0], "features":{}, "semantic_id":token, "availability":"available", "translation":data[1]}
-		elif has_name and index == 2:
+		elif index == name_index:
 			reading = {"lemma_id":"player_name", "surface":token, "pos":"proper_noun", "features":{"person":3}, "semantic_id":"player_name", "availability":"available", "translation":"имя"}
 		else:
 			continue
