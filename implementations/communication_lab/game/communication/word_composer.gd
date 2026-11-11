@@ -13,17 +13,22 @@ var opener_key := 0
 
 func _ready() -> void:
 	add_theme_constant_override("separation",5)
+	var phrase_row := HBoxContainer.new()
+	add_child(phrase_row)
 	phrase = LineEdit.new()
+	phrase.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	phrase.placeholder_text = "Напишите реплику по-немецки…"
 	phrase.keep_editing_on_text_submit = true
-	add_child(phrase)
+	phrase_row.add_child(phrase)
+	add_button(phrase_row,"Отправить · Enter",send)
+	add_button(phrase_row,"Очистить",clear)
 	prefix = LineEdit.new()
 	prefix.placeholder_text = "Найти слово в каталоге…"
 	prefix.keep_editing_on_text_submit = true
 	add_child(prefix)
 	matches = ItemList.new()
-	matches.custom_minimum_size.y = 76
-	matches.max_columns = 3
+	matches.custom_minimum_size.y = 48
+	matches.max_columns = 8
 	matches.same_column_width = true
 	add_child(matches)
 	prefix.text_changed.connect(update_matches)
@@ -33,16 +38,11 @@ func _ready() -> void:
 	for field in [phrase,prefix]:
 		field.focus_entered.connect(func(): focus_changed.emit())
 		field.focus_exited.connect(func(): focus_changed.emit.call_deferred())
-	var row := HFlowContainer.new()
-	add_child(row)
-	add_button(row,"Отправить",send)
-
 	var hint := Label.new()
-	hint.text = "Enter · отправить   /   Tab · добавить слово   /   ↑↓ · выбор"
+	hint.text = "Tab · следующий вариант   /   Пробел · добавить выбранное слово   /   Enter · отправить реплику"
 	hint.add_theme_font_size_override("font_size", 14)
 	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	add_child(hint)
-	add_button(row,"Очистить",clear)
 	update_matches("")
 
 func add_button(row: Control, text: String, action: Callable) -> Button:
@@ -114,9 +114,19 @@ func route_key(event: InputEvent) -> bool:
 		get_viewport().set_input_as_handled()
 		if not event.echo: send()
 		return true
-	if event.keycode == KEY_TAB and not event.shift_pressed:
+	if event.keycode == KEY_TAB and (editing() or matches.has_focus()):
 		get_viewport().set_input_as_handled()
-		if not event.echo and (not prefix.text.strip_edges().is_empty() or matches.has_focus()): choose_word()
+		if not event.echo and matches.item_count > 0:
+			var selected := matches.get_selected_items()
+			var index := int(selected[0]) if not selected.is_empty() else -1
+			index = posmod(index + (-1 if event.shift_pressed else 1), matches.item_count)
+			matches.select(index)
+			matches.ensure_current_is_visible()
+			prefix.grab_focus()
+		return true
+	if event.keycode == KEY_SPACE and (prefix.has_focus() or matches.has_focus()):
+		get_viewport().set_input_as_handled()
+		if not event.echo: choose_word()
 		return true
 	if event.keycode in [KEY_UP,KEY_DOWN] and matches.item_count > 0 and (prefix.has_focus() or matches.has_focus()):
 		var selected := matches.get_selected_items()

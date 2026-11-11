@@ -4,7 +4,7 @@ Independent F6 sandbox for inspecting the German parser, word catalog and compos
 
 ## Run
 
-Open `res://implementations/communication_lab/communication_lab.tscn` in the same Godot project and press **F6**. F5 remains the dormitory. Walk near Astera and press **E** to open the composer in the bottom-left HUD position. Enter any German text; use the lower word field and **Tab** to append catalog suggestions. Close with Esc or the close button. **F2** toggles diagnostics. Context controls set Astera busy, her knowledge of the key, key ownership, and a pending offer or clarification. “Reset context” resets the experiment. Attempts are appended to `user://communication_lab_attempts.jsonl`.
+Open `res://implementations/communication_lab/communication_lab.tscn` in the same Godot project and press **F6**. F5 remains the dormitory. Walk near Astera and press **E** to start a smooth waist-up camera close-up and open the full-width dialogue panel at the bottom. Enter any German text; use the lower word field, **Tab** to cycle suggestions and **Space** to insert the selected word. Close with Esc or the close button. **F2** toggles diagnostics. Context controls set Astera busy, her knowledge of the key, key ownership, and a pending offer or clarification. “Reset context” resets the experiment. Attempts are appended to `user://communication_lab_attempts.jsonl`.
 
 The supported resolver is intentionally bounded. It handles the original lab cases (social replies, key location/identification, safe key transfer, opening the door) plus dialogue about a player name, good/low/tired moods, Astera's tiredness and tidying, the unowned cup, offering/declining help, free/work/learning plans, slow speech and farewell. `dialogue_resolver.gd` reports only these known lexical constructions; arbitrary German remains `UNKNOWN`/`UNSUPPORTED` and has no world effect. Questions such as `Warum?` and `Und du?` use the last topic or ask for clarification. The attempt journal stores context before/after, parse result, reply, topic, reaction, emotion and animation ID. Conversation memory is limited to the active lab session.
 
@@ -35,14 +35,14 @@ The test covers the copied parser regression matrix, context-dependent legacy re
 - [ ] Compose, edit and send both catalog text and a word absent from the catalog.
 - [ ] Inspect raw input, tokens, parser status/intent/frame, ambiguity, unsupported features, diagnostics, NPC answer and actual effects.
 - [ ] Change context, retry a phrase, reset, and confirm play can continue.
-- [ ] Standard Cogito HUD is hidden and the Communication panel appears in its bottom-left position when talking.
+- [ ] Standard Cogito HUD is hidden and the Communication panel spans the bottom screen width while a close-up camera frames Astera above the waist.
 - [ ] F5 still launches the dormitory.
 
 This lab does not imply understanding of unrestricted German. `Ja/Nein` use only explicit pending context, and item/door effects are a two-object demonstrator, not a quest. Parser gaps are recorded by the regression case and should be fixed separately. Exported candidate launch and in-editor F6/F5 manual checks are reported in the PR according to what was actually run.
 
 ## Conversation and laboratory UI
 
-Conversation starts with E near Astera; Esc closes it and restores movement. F2 opens the laboratory from anywhere and pauses movement while editing. The player panel contains the NPC response, editable phrase, catalog search, suggestions, Send, Clear and an F1 word memo grouped by part of speech. H remains available for normal text entry. Enter sends the complete phrase including an unconfirmed search token; Tab appends a selected catalog word. Arrow keys navigate suggestions only while catalog search/list has focus.
+Conversation starts with E near Astera; Esc closes it and restores movement. F2 opens the laboratory from anywhere and pauses movement while editing. The player panel contains the NPC response, editable phrase, catalog search, suggestions, Send, Clear and an F1 word memo grouped by part of speech. H remains available for normal text entry. Enter sends the complete phrase including an unconfirmed search token; Tab cycles catalog suggestions (Shift+Tab cycles backwards); Space inserts the selected word from the search field/list. In the main phrase field, Space stays ordinary text input. Arrow keys navigate suggestions only while catalog search/list has focus.
 
 The separate laboratory panel is hidden by default. Context controls apply to the next attempt. Four inspector tabs separate parsing (raw input, tokens, full frame, ambiguity, unsupported features and diagnostics), NPC response/effects, live and recorded before/after state, and session history. Select a historical attempt to inspect it without restoring the world. Recall loads its text for editing and an explicit resubmission under the current context. Reset restores context while retaining history for comparison. Inspector text can be selected and copied.
 
@@ -58,3 +58,5 @@ Automated visual/workflow verification: run `Godot_v4.7.1-stable_win64_console.e
 - Unknown constructions stay typeable and are reported honestly. This grammar is a deliberate phrase/intent subset, not unrestricted German comprehension; no LLM or hidden effect is used.
 
 Latest targeted verification: `tests/test_lab.gd` prints `COMMUNICATION_LAB_TESTS: 0 failure(s)`. `tests/capture_ui.gd` prints `UI_WORKFLOW: PASS` and writes opening, conversation, memo, parse and response/effect captures to `.local/`. The Cogito startup emits missing prologue InputMap names and null shared audio/slide-audio errors in headless/CLI runs; these pre-existing shared-addon issues are outside this variant and remain visible in the log.
+
+The conversation camera moves to its close-up over 0.6 seconds; closing restores the original player camera and movement. The obstructing table is removed; the key and cup rest on the floor beside Astera.

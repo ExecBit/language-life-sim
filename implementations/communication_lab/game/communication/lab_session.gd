@@ -174,7 +174,7 @@ static func _resolve_legacy(parsed: Dictionary, context: Dictionary, effects: Ar
 		"REQUEST_REPEAT": return "Bitte frag noch einmal."
 		"ACCEPT": context.pending = ""; return "Ja, gern."
 		"REFUSE": context.pending = ""; return "In Ordnung."
-		"ASK_LOCATION": return "Der Schlüssel liegt auf dem Tisch." if target == "key" and context.knows_key else "Das weiß ich nicht."
+		"ASK_LOCATION": return "Der Schlüssel liegt dort auf dem Boden." if target == "key" and context.knows_key else "Das weiß ich nicht."
 		"IDENTIFY": return "Das ist der Schlüssel." if target == "key" and context.knows_key else "Das weiß ich nicht."
 		"REQUEST_ITEM":
 			if context.busy: return "Einen Moment bitte."

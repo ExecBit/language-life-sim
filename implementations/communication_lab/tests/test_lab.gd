@@ -104,7 +104,7 @@ func run() -> void:
 	check(Parser.parse("Nein", "", {"active":true,"pending":""}).status == "NEEDS_CLARIFICATION", "Nein outside pending offer")
 	var fragment := Parser.parse("Schlüssel?", "", {"active":true,"pending":""})
 	var location := Session.submit("Wo ist der Schlüssel?", c)
-	check(fragment.status == "NEEDS_CLARIFICATION" and location.answer.contains("Tisch"), "key fragment asks clarification; full location question resolves")
+	check(fragment.status == "NEEDS_CLARIFICATION" and location.answer.contains("Boden"), "key fragment asks clarification; full location question resolves")
 	var before_door: bool = c.door_open
 	var negative := Session.submit("Öffne die Tür nicht.", c)
 	check(negative.parse.status == "RECOGNIZED" and negative.parse.intent == "PROHIBIT_ACTION" and c.door_open == before_door and negative.effects.is_empty(), "negative command does not change world")
@@ -126,7 +126,8 @@ func run() -> void:
 	var hud: Control = player.get("player_hud")
 	var communication_panel: Control = room.get("dialog")
 	check(not hud.visible, "standard Cogito HUD is hidden in the lab")
-	check(communication_panel.name == "CommunicationPanel" and communication_panel.anchor_left == 0.0 and communication_panel.anchor_bottom == 1.0 and communication_panel.offset_left == 18.0, "communication panel occupies the bottom-left HUD position")
+	check(communication_panel.anchor_left == 0.0 and communication_panel.anchor_right == 1.0 and communication_panel.anchor_bottom == 1.0 and communication_panel.offset_left == 0.0 and communication_panel.offset_right == 0.0, "conversation panel spans the bottom screen width")
+	check(room.get_node_or_null("Table") == null, "obstructing table is removed")
 	var astera: Node = room.get_node("Astera")
 	var expected_avatar := "res://assets/characters/private/astera.vrm" if ResourceLoader.exists("res://assets/characters/private/astera.vrm") else "res://assets/characters/anna.vrm"
 	check(astera.get("avatar_path_in_use") == expected_avatar, "Astera is selected when available with redistributable fallback")
@@ -156,10 +157,26 @@ func run() -> void:
 	check(room.get("vocabulary_card").visible, "F1 opens the word memo while the phrase field is active")
 	room.call("_input", memo_event)
 	check(not room.get("vocabulary_card").visible, "F1 closes the word memo without closing the conversation")
+	var editor = room.get("composer")
+	editor.phrase.clear(); editor.prefix.text = "wi"; editor.update_matches("wi"); editor.prefix.grab_focus()
+	var tab_event := InputEventKey.new(); tab_event.keycode = KEY_TAB; tab_event.pressed = true
+	editor.route_key(tab_event)
+	check(editor.matches.get_selected_items()[0] == 1 and editor.phrase.text == "", "Tab cycles suggestions without inserting a word")
+	var chosen_word: String = editor.matches.get_item_text(1)
+	var space_event := InputEventKey.new(); space_event.keycode = KEY_SPACE; space_event.pressed = true
+	editor.route_key(space_event)
+	check(editor.phrase.text == chosen_word and editor.prefix.text == "", "Space inserts the selected suggestion into the main phrase")
+	editor.phrase.grab_focus()
+	check(not editor.route_key(space_event), "Space remains normal text input in the main phrase")
+	await create_timer(0.7).timeout
+	check(root.get_camera_3d() == room.get("conversation_camera") and is_equal_approx(room.get("conversation_camera").fov, 40.0), "dialogue camera completes its smooth close-up")
 	room.call("_on_submitted", "Was machst du?")
 	check(astera.get("active_animation_id") == "point_at_object" and room.get("last_record").get("reaction") == "explain_activity_and_point_out_cup", "conversation response triggers selected generated motion")
 	await create_timer(4.25).timeout
 	check(astera.get("active_animation_id") == "standing", "conversation gesture returns to idle")
+	var original_camera: Camera3D = room.get("exploration_camera")
+	room.call("_close_dialog")
+	check(root.get_camera_3d() == original_camera and not player.get("is_movement_paused"), "closing dialogue restores exploration camera and movement")
 	room.queue_free()
 	await process_frame
 	print("COMMUNICATION_LAB_TESTS: %d failure(s)" % failures)

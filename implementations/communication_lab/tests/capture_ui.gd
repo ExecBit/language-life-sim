@@ -8,7 +8,7 @@ func capture() -> void:
 	root.size = Vector2i(1280, 720)
 	room.player.position = Vector3(0, 0, 0.5)
 	room._open_dialog()
-	for i in 30: await process_frame
+	await create_timer(0.75).timeout
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://.local/commlab-opening.png")
 	room.astera_visual.set_emotion("happy")
@@ -41,6 +41,7 @@ func capture() -> void:
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png("res://.local/commlab-tab-%d.png" % index)
 	assert(room.dialog.get_global_rect().end.y <= root.get_visible_rect().size.y)
+	assert(room.dialog.get_global_rect().size.x == root.get_visible_rect().size.x)
 	assert(room.player.is_movement_paused)
 	assert(room.attempts.size() == 2)
 	room.history_list.select(0)

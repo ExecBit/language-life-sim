@@ -30,6 +30,10 @@ var busy_toggle: CheckBox
 var knowledge_toggle: CheckBox
 var greeted := false
 var motion_paths: Dictionary = {}
+var conversation_camera: Camera3D
+var exploration_camera: Camera3D
+var camera_tween: Tween
+var heading_card: PanelContainer
 
 func _ready() -> void:
 	_load_motion_manifest()
@@ -71,14 +75,12 @@ func _build_room() -> void:
 	astera_visual.rotation.y = PI
 	astera_visual.scale = Vector3.ONE * 0.9
 	add_child(astera_visual)
-	var table := MeshInstance3D.new(); table.name = "Table"
-	var table_mesh := BoxMesh.new(); table_mesh.size = Vector3(1.5, .12, .8); table.mesh = table_mesh; table.position = Vector3(-.5, .75, -1.6)
-	var table_mat := StandardMaterial3D.new(); table_mat.albedo_color = Color("795944"); table.material_override = table_mat; add_child(table)
+	conversation_camera = Camera3D.new(); conversation_camera.name = "ConversationCamera"; add_child(conversation_camera)
 	key_visual = MeshInstance3D.new(); key_visual.name = "Key"
-	var key_mesh := SphereMesh.new(); key_mesh.radius = .12; key_mesh.height = .24; key_visual.mesh = key_mesh; key_visual.position = Vector3(-.15, .95, -1.6)
+	var key_mesh := SphereMesh.new(); key_mesh.radius = .12; key_mesh.height = .24; key_visual.mesh = key_mesh; key_visual.position = Vector3(-.9, .12, -1.6)
 	var key_mat := StandardMaterial3D.new(); key_mat.albedo_color = Color("dfb967"); key_visual.material_override = key_mat; add_child(key_visual)
 	var cup := MeshInstance3D.new(); cup.name = "Cup"
-	var cup_mesh := CylinderMesh.new(); cup_mesh.top_radius = .11; cup_mesh.bottom_radius = .09; cup_mesh.height = .22; cup.mesh = cup_mesh; cup.position = Vector3(-.75, .95, -1.6)
+	var cup_mesh := CylinderMesh.new(); cup_mesh.top_radius = .11; cup_mesh.bottom_radius = .09; cup_mesh.height = .22; cup.mesh = cup_mesh; cup.position = Vector3(-1.3, .11, -1.6)
 	var cup_mat := StandardMaterial3D.new(); cup_mat.albedo_color = Color("77c9bc"); cup.material_override = cup_mat; add_child(cup)
 	door_visual = MeshInstance3D.new(); door_visual.name = "Door"
 	var door_mesh := BoxMesh.new(); door_mesh.size = Vector3(1.2, 2.2, .12); door_visual.mesh = door_mesh; door_visual.position = Vector3(-2, 1.1, -5.85)
@@ -142,27 +144,28 @@ func _build_ui() -> void:
 		theme.set_stylebox("focus", kind, _style(Color(0,0,0,0), Color("68d7c5")))
 		theme.set_stylebox("hover", kind, _style(Color("2b4354"), Color("68d7c5")))
 	canvas.theme = theme
-	var heading_card := PanelContainer.new(); canvas.add_child(heading_card)
+	heading_card = PanelContainer.new(); canvas.add_child(heading_card)
 	heading_card.position = Vector2(18, 18); heading_card.size.x = 640
 	var heading := VBoxContainer.new(); heading_card.add_child(heading)
 	_label(heading, "COMMUNICATION / LAB", 16).modulate = Color("85c9c4")
 	_label(heading, "WASD · движение   /   E · разговор   /   F2 · лаборатория", 16)
 	dialog = PanelContainer.new(); dialog.name = "CommunicationPanel"; canvas.add_child(dialog)
 	dialog.anchor_top = 1.0; dialog.anchor_bottom = 1.0
+	dialog.anchor_right = 1.0
 	dialog.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	dialog.offset_left = 18; dialog.offset_top = -410; dialog.offset_right = 658; dialog.offset_bottom = -18
+	dialog.offset_left = 0; dialog.offset_top = -310; dialog.offset_right = 0; dialog.offset_bottom = 0
 	dialog.hide()
 	var column := VBoxContainer.new(); column.add_theme_constant_override("separation", 10); dialog.add_child(column)
 	var header := HBoxContainer.new(); column.add_child(header)
 	var title := _label(header, "Астера", 24); title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_button(header, "Памятка · F1", _toggle_vocabulary)
 	_button(header, "Лаборатория · F2", func(): _toggle_dev(not show_diagnostics))
 	_button(header, "Закрыть · Esc", _close_dialog)
 	reply_label = _label(column, "Готова слушать. Составьте реплику по-немецки.", 20)
-	reply_label.custom_minimum_size.y = 54
+	reply_label.custom_minimum_size.y = 30
 	composer = Composer.new(); column.add_child(composer)
 	composer.submitted.connect(_on_submitted); composer.cancelled.connect(_close_dialog)
 	composer.help_requested.connect(_toggle_vocabulary)
-	_button(column, "Памятка по словам · F1", _toggle_vocabulary)
 	vocabulary_card = PanelContainer.new(); canvas.add_child(vocabulary_card)
 	vocabulary_card.anchor_left = 0.5; vocabulary_card.anchor_top = 0.5
 	vocabulary_card.anchor_right = 0.5; vocabulary_card.anchor_bottom = 0.5
@@ -173,7 +176,7 @@ func _build_ui() -> void:
 	var vocab_header := HBoxContainer.new(); vocab_content.add_child(vocab_header)
 	var vocab_title := _label(vocab_header, "Памятка по словам", 22); vocab_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_button(vocab_header, "Закрыть · F1", _toggle_vocabulary)
-	_label(vocab_content, "Формы из каталога · выбирайте слово и добавляйте Tab. Свободный ввод тоже доступен.", 15)
+	_label(vocab_content, "Tab переключает варианты; пробел добавляет выбранное слово. Свободный ввод тоже доступен.", 15)
 	var vocab_scroll := ScrollContainer.new(); vocab_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL; vocab_content.add_child(vocab_scroll)
 	var vocab_list := VBoxContainer.new(); vocab_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL; vocab_scroll.add_child(vocab_list)
 	var memo_entries: Array = WordCatalog.ENTRIES.duplicate(true)
@@ -203,7 +206,7 @@ func _build_ui() -> void:
 			_label(vocab_list, "%s  —  %s" % [entry.surface, translation], 16)
 	dev_panel = PanelContainer.new(); canvas.add_child(dev_panel)
 	dev_panel.anchor_left = 0.56; dev_panel.anchor_right = 1.0; dev_panel.anchor_bottom = 1.0
-	dev_panel.offset_left = 0; dev_panel.offset_top = 18; dev_panel.offset_right = -18; dev_panel.offset_bottom = -18
+	dev_panel.offset_left = 0; dev_panel.offset_top = 18; dev_panel.offset_right = -18; dev_panel.offset_bottom = -360
 	dev_panel.hide()
 	var tools := VBoxContainer.new(); tools.add_theme_constant_override("separation", 12); dev_panel.add_child(tools)
 	var bar := HBoxContainer.new(); tools.add_child(bar)
@@ -279,7 +282,9 @@ func _input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 
 func _open_dialog() -> void:
+	if not dialog.visible: _start_conversation_camera()
 	dialog.show(); player.is_movement_paused = true; player.is_showing_ui = true; Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	heading_card.hide()
 	if not greeted:
 		var opening: Dictionary = Session.opening_line(context)
 		reply_label.text = "Астера: %s" % opening.answer
@@ -293,6 +298,23 @@ func _can_interact() -> bool:
 
 func _close_dialog() -> void:
 	dialog.hide(); _toggle_dev(false); composer.release(); player.is_movement_paused = false; player.is_showing_ui = false; Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	vocabulary_card.hide()
+	heading_card.show()
+	if is_instance_valid(camera_tween): camera_tween.kill()
+	if is_instance_valid(exploration_camera): exploration_camera.make_current()
+
+func _start_conversation_camera() -> void:
+	exploration_camera = get_viewport().get_camera_3d()
+	if is_instance_valid(camera_tween): camera_tween.kill()
+	if is_instance_valid(exploration_camera):
+		conversation_camera.global_transform = exploration_camera.global_transform
+		conversation_camera.fov = exploration_camera.fov
+	conversation_camera.make_current()
+	var focus: Vector3 = astera_visual.global_position + Vector3(0, 1.23, 0)
+	var shot := Transform3D(Basis.IDENTITY, focus + Vector3(0, 0, 1.7)).looking_at(focus, Vector3.UP)
+	camera_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	camera_tween.tween_property(conversation_camera, "global_transform", shot, 0.6)
+	camera_tween.tween_property(conversation_camera, "fov", 40.0, 0.6)
 
 func _on_submitted(text: String) -> void:
 	last_record = Session.submit(text, context)
