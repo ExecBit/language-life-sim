@@ -277,6 +277,14 @@ func run() -> void:
 	room.call("_input", open_event)
 	check(astera.get("active_animation_id") == "greeting_wave" and room.get("transcript").get_parsed_text().contains("Hallo"), "opening encounter plays a greeting motion and line")
 	check(room.get("dialog").visible and player.get("is_movement_paused"), "E interaction opens the conversation and pauses player movement")
+	var history_before_expand: String = room.get("transcript").get_parsed_text()
+	room.call("_toggle_history_expanded")
+	await process_frame
+	check(room.get("history_expanded") and not room.get("composer").visible and room.get("dialog").get_global_rect() == root.get_visible_rect(), "history button expands transcript over the full viewport")
+	check(room.get("transcript").get_parsed_text() == history_before_expand, "full-screen history keeps conversation text intact")
+	room.call("_toggle_history_expanded")
+	await process_frame
+	check(not room.get("history_expanded") and room.get("composer").visible and room.get("dialog").anchor_bottom == 1.0, "history button restores dialogue and composer layout")
 	var h_event := InputEventKey.new(); h_event.keycode = KEY_H; h_event.pressed = true
 	check(not room.get("composer").route_key(h_event), "H is not consumed as a word-memo shortcut while typing")
 	var memo_event := InputEventKey.new(); memo_event.keycode = KEY_F1; memo_event.pressed = true

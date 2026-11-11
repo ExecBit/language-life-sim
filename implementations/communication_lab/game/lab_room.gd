@@ -42,6 +42,8 @@ var conversation_camera: Camera3D
 var exploration_camera: Camera3D
 var camera_tween: Tween
 var heading_card: PanelContainer
+var history_expand_button: Button
+var history_expanded := false
 var dialogue_silence_seconds := 0.0
 var silence_tease_shown := false
 const SILENCE_TEASE_DELAY := 24.0
@@ -173,6 +175,7 @@ func _build_ui() -> void:
 	var column := VBoxContainer.new(); column.add_theme_constant_override("separation", 10); dialog.add_child(column)
 	var header := HBoxContainer.new(); column.add_child(header)
 	var title := _label(header, "Астера", 24); title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	history_expand_button = _button(header, "История на весь экран", _toggle_history_expanded)
 	_button(header, "Памятка · F1", _toggle_vocabulary)
 	_button(header, "Лаборатория · F2", func(): _toggle_dev(not show_diagnostics))
 	_button(header, "Закрыть · Esc", _close_dialog)
@@ -333,6 +336,26 @@ func _toggle_vocabulary() -> void:
 	if vocabulary_card.visible: composer.release()
 	else: composer.phrase.grab_focus()
 
+func _toggle_history_expanded() -> void:
+	history_expanded = not history_expanded
+	if history_expanded:
+		dialog.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		dialog.offset_left = 0; dialog.offset_top = 0; dialog.offset_right = 0; dialog.offset_bottom = 0
+		transcript.custom_minimum_size.y = 0
+		transcript.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		composer.hide()
+		heading_card.hide(); objective_panel.hide(); dev_panel.hide(); vocabulary_card.hide()
+		history_expand_button.text = "Вернуться к разговору"
+	else:
+		dialog.anchor_left = 0.0; dialog.anchor_top = 1.0; dialog.anchor_right = 1.0; dialog.anchor_bottom = 1.0
+		dialog.offset_left = 0; dialog.offset_top = -390; dialog.offset_right = 0; dialog.offset_bottom = 0
+		transcript.custom_minimum_size.y = 110
+		transcript.size_flags_vertical = Control.SIZE_FILL
+		composer.show()
+		heading_card.show(); objective_panel.show()
+		history_expand_button.text = "История на весь экран"
+		composer.phrase.grab_focus()
+
 func _show_live_context() -> void:
 	if is_instance_valid(context_view):
 		context_view.text = "СОСТОЯНИЕ РАЗГОВОРА / следующая попытка\n" + JSON.stringify(Session._conversation_snapshot(context), "  ")
@@ -374,6 +397,7 @@ func _can_interact() -> bool:
 	return is_instance_valid(player) and is_instance_valid(astera_visual) and player.global_position.distance_to(astera_visual.global_position) <= 5.0
 
 func _close_dialog() -> void:
+	if history_expanded: _toggle_history_expanded()
 	_finish_reply_reveal()
 	dialog.hide(); _toggle_dev(false); composer.release(); player.is_movement_paused = false; player.is_showing_ui = false; Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	vocabulary_card.hide()
