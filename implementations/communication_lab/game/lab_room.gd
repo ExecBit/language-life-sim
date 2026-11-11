@@ -5,6 +5,10 @@ const WordCatalog = preload("res://implementations/communication_lab/game/commun
 const DialogueGrammar = preload("res://implementations/communication_lab/game/communication/dialogue_resolver.gd")
 const AsteraVisual = preload("res://implementations/communication_lab/game/characters/lab_npc_visual.gd")
 const PLAYER_SCENE = preload("res://addons/cogito/PackedScenes/cogito_player_simple.tscn")
+const CONVERSATION_FOCUS_HEIGHT := 1.02
+const CONVERSATION_CAMERA_HEIGHT := 1.38
+const CONVERSATION_DISTANCE := 1.35
+const CONVERSATION_FOV := 36.0
 @export_file("*.vrm") var npc_avatar_path := AsteraVisual.SAMPLE_B_AVATAR_PATH
 
 var context := Session.initial_context()
@@ -412,11 +416,11 @@ func _start_conversation_camera() -> void:
 		conversation_camera.global_transform = exploration_camera.global_transform
 		conversation_camera.fov = exploration_camera.fov
 	conversation_camera.make_current()
-	var focus: Vector3 = astera_visual.global_position + Vector3(0, 0.95, 0)
-	var shot := Transform3D(Basis.IDENTITY, focus + Vector3(0, 0, 1.7)).looking_at(focus, Vector3.UP)
+	var focus: Vector3 = astera_visual.global_position + Vector3(0, CONVERSATION_FOCUS_HEIGHT, 0)
+	var shot := Transform3D(Basis.IDENTITY, focus + Vector3(0, CONVERSATION_CAMERA_HEIGHT - CONVERSATION_FOCUS_HEIGHT, CONVERSATION_DISTANCE)).looking_at(focus, Vector3.UP)
 	camera_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 	camera_tween.tween_property(conversation_camera, "global_transform", shot, 0.6)
-	camera_tween.tween_property(conversation_camera, "fov", 40.0, 0.6)
+	camera_tween.tween_property(conversation_camera, "fov", CONVERSATION_FOV, 0.6)
 
 func _on_submitted(text: String) -> void:
 	dialogue_silence_seconds = 0.0

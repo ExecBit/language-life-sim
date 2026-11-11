@@ -315,7 +315,8 @@ func run() -> void:
 	editor.phrase.grab_focus()
 	check(not editor.route_key(space_event), "Space remains normal text input in the main phrase")
 	await create_timer(0.7).timeout
-	check(root.get_camera_3d() == room.get("conversation_camera") and is_equal_approx(room.get("conversation_camera").fov, 40.0), "dialogue camera completes its smooth close-up")
+	check(root.get_camera_3d() == room.get("conversation_camera") and is_equal_approx(room.get("conversation_camera").fov, 36.0), "dialogue camera completes its eye-level close-up")
+	check(is_equal_approx(room.get("conversation_camera").global_position.y, astera.global_position.y + 1.38), "dialogue camera stays at eye level rather than looking up from below")
 	room.call("_on_submitted", "Was machst du?")
 	check(astera.get("active_animation_id") == "point_at_object" and room.get("last_record").get("reaction") == "explain_activity_and_invite_player", "conversation response triggers the compatible gesture toward the player")
 	check(room.get("context").objective_progress.ask_activity and room.get("context").objective_evidence.ask_activity.input == "Was machst du?", "handled dialogue action updates the visible objective and records its basis")
