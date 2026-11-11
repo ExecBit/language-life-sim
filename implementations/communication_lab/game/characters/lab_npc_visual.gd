@@ -104,6 +104,17 @@ func set_emotion(state: String) -> void:
 		if expression_channels.has(channel): expression_target[channel] = float(preset[emotion])
 	expression_tween = 0.0
 
+## Keep the reaction visible while Astera speaks, then ease the face back to rest.
+## The semantic emotion remains available for diagnostics and the next response.
+func fade_expression_to_rest() -> void:
+	if not is_instance_valid(face_mesh): return
+	expression_from.clear()
+	expression_target.clear()
+	for channel in expression_channels:
+		expression_from[channel] = face_mesh.get_blend_shape_value(expression_channels[channel])
+		expression_target[channel] = 0.0
+	expression_tween = 0.0
+
 func _process(delta: float) -> void:
 	if not is_instance_valid(face_mesh) or expression_tween >= 1.0: return
 	expression_tween = minf(1.0, expression_tween + delta * 3.0)
@@ -144,3 +155,4 @@ func return_to_idle() -> void:
 	if not is_instance_valid(animation_player) or not library.has_animation("standing"): return
 	active_animation_id = "standing"
 	animation_player.play("lab/standing", 0.3)
+
