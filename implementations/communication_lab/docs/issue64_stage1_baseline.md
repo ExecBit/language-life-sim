@@ -251,3 +251,34 @@ The regression suite logs existing shared Cogito/Quick Audio errors (Audio.gd at
 
 
 
+## Final Stage 1 recovery-contract correction (2026-11-12)
+
+This section supersedes earlier recovery-contract wording and metrics in this document. The parser/resolver/session are unchanged. The corrected gold contract treats `recovery_used` as true only when a grammatical correction was actually used and the complete intended meaning was recovered; the runner reports grammatical-error detection and semantic completeness separately. Complete clause frames can be reported for unsupported multi-intent utterances. Unresolved meaning such as B-038 is partial and cannot set `recovery_used`.
+
+### Gold changes
+
+- B-007, B-060, B-073, B-076 and B-080 retain `recovery_used: true`, now explicitly declare `semantic_recovery_status: COMPLETE`, and give every semantic frame positive polarity. Their complete frames recover each clause's intent, grammatical subject, actor, recipient, polarity and speech act (plus help roles or experiencer where applicable); the overall decision remains `UNSUPPORTED/MULTIPLE_INTENTS` because the one-intent runtime cannot safely execute both acts.
+- B-038 changes `recovery_used: true` to `false` and records `semantic_recovery_status: PARTIAL`: Astera/helper and player/beneficiary are clear, but REQUEST_HELP versus DESCRIBE_HELP remains unresolved. Its `MISSING_FINITE_VERB` diagnostic remains grammatical-error evidence.
+- Expected grammatical diagnostics total 80; the expected complete grammatical recoveries total 79. The difference is B-038. This separates error existence from semantic recovery without changing other gold labels.
+
+### Diagnostic category integrity
+
+`REDUNDANT_INFINITIVE` (B-004), `MISSING_OBJECT` (B-036) and `LEXICAL_CALQUE` (B-068) are registered grammatical categories with explicit empty `parser_codes`. Their expected labels remain intact, so their parser coverage is `MISSING`, not `NO_GOLD_ERROR_EXPECTED`. Ambiguity, unknown vocabulary and unsupported-feature diagnostics are explicitly classified separately. Any unclassified oracle diagnostic is listed as `UNCLASSIFIED_ORACLE_DIAGNOSTICS` and causes structural validation to fail.
+
+### Unchanged-parser baseline
+
+- Cases: 250; split/group distribution: dev 200 (A40/B64/C48/D32/E16), validation 50 (A10/B16/C12/D8/E4).
+- Decision agreement: 93/250 (37.2%); false acceptances 28; false rejections 81; missed clarifications 45; role swaps 3; lost-negation cases 6. These are parser baseline findings, not improvements. Production parser behavior was not changed.
+- Recovery diagnostics: expected grammatical error 80; actual mapped grammatical-error detection 1; expected complete recovery 79; actual complete `recovery_used` 0. Diagnostic coverage: MISSING 80, NO_GOLD_ERROR_EXPECTED 169, UNEXPECTED_DETECTION 1. Semantic parser output: PARTIAL 247, NONE 3. The parser exposes no complete multi-frame representation in these baseline results.
+- Baseline runner passed twice with identical result hashes; Communication Lab regression suite: 106 PASS, 0 assertion failures (Godot emits existing addon null-node and resource/ObjectDB cleanup errors/warnings at exit).
+
+### Current SHA-256
+
+- `dev.jsonl`: `9a004125f84c9e51f22dc98725e4f2e8ae1f5403b70fb2dcd4f5d592f6ea2044`
+- `validation.jsonl`: `4f4154f86cae665d2f6bdff73bd5ef7dc76238565804be1ad6dd8999d14a2fd1`
+- baseline dev results: `8fd22629fe15f86725ab508803882ea3b96f06e828e8888d081fe4ecf9f7a382`
+- baseline validation results: `359ca9cb7674bf03fa267717ff5a1b5749515ebf5c0d55c15679c21b91d48432`
+- baseline summary: `a0c965e990ac7a43850b9cc28870e69c6be6dfe2fdc8b7e95d3a78570f71cb2`
+
+The full result JSONL and summary are generated under ignored `.local/issue64/` and are not committed. Reproduction commands above remain valid.
+
