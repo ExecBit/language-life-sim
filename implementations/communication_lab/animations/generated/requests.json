@@ -1,0 +1,210 @@
+[
+  {
+    "key": "greeting_wave",
+    "prompt": "A friendly young woman standing in relaxed conversation notices a visitor in front, turns her head and upper torso toward them, gives one small friendly right-hand wave at shoulder height. Subtle expressive natural timing. Feet planted throughout, no walking, no stepping, no root translation, hands empty. Begin in a relaxed neutral standing pose and return both arms and head smoothly to the same neutral pose at the end. One clear restrained gesture, no repeated cycles.",
+    "frames": 120,
+    "steps": 100,
+    "seed": 42,
+    "model": "soma-rp-v1.1",
+    "text_quantization": "q8_0",
+    "transition_frames": 5
+  },
+  {
+    "key": "self_introduction",
+    "prompt": "A friendly young woman standing in relaxed conversation briefly gestures toward her own chest with one hand, then lowers it, introducing herself to the visitor. Subtle expressive natural timing. Feet planted throughout, no walking, no stepping, no root translation, hands empty. Begin in a relaxed neutral standing pose and return both arms and head smoothly to the same neutral pose at the end. One clear restrained gesture, no repeated cycles.",
+    "frames": 120,
+    "steps": 100,
+    "seed": 42,
+    "model": "soma-rp-v1.1",
+    "text_quantization": "q8_0",
+    "transition_frames": 5
+  },
+  {
+    "key": "curious_head_tilt",
+    "prompt": "A friendly young woman standing in relaxed conversation listens attentively to the visitor, tilts her head slightly to one side, then straightens her head. Subtle expressive natural timing. Feet planted throughout, no walking, no stepping, no root translation, hands empty. Begin in a relaxed neutral standing pose and return both arms and head smoothly to the same neutral pose at the end. One clear restrained gesture, no repeated cycles.",
+    "frames": 120,
+    "steps": 100,
+    "seed": 42,
+    "model": "soma-rp-v1.1",
+    "text_quantization": "q8_0",
+    "transition_frames": 5
+  },
+  {
+    "key": "small_happy_reaction",
+    "prompt": "A friendly young woman standing in relaxed conversation reacts with quiet delight, lifting her shoulders slightly and making a small happy open-hand gesture near her chest. Subtle expressive natural timing. Feet planted throughout, no walking, no stepping, no root translation, hands empty. Begin in a relaxed neutral standing pose and return both arms and head smoothly to the same neutral pose at the end. One clear restrained gesture, no repeated cycles.",
+    "frames": 120,
+    "steps": 100,
+    "seed": 42,
+    "model": "soma-rp-v1.1",
+    "text_quantization": "q8_0",
+    "transition_frames": 5
+  },
+  {
+    "key": "tired_sigh",
+    "prompt": "A friendly young woman standing in relaxed conversation gives a tired sigh, lowers her shoulders and head gently, then breathes in and straightens slowly. Subtle expressive natural timing. Feet planted throughout, no walking, no stepping, no root translation, hands empty. Begin in a relaxed neutral standing pose and return both arms and head smoothly to the same neutral pose at the end. One clear restrained gesture, no repeated cycles.",
+    "frames": 120,
+    "steps": 100,
+    "seed": 42,
+    "model": "soma-rp-v1.1",
+    "text_quantization": "q8_0",
+    "transition_frames": 5
+  },
+  {
+    "key": "playful_shrug",
+    "prompt": "A friendly young woman standing in relaxed conversation gives a light amused shrug, opens both palms near waist height and briefly tilts her head. Subtle expressive natural timing. Feet planted throughout, no walking, no stepping, no root translation, hands empty. Begin in a relaxed neutral standing pose and return both arms and head smoothly to the same neutral pose at the end. One clear restrained gesture, no repeated cycles.",
+    "frames": 120,
+    "steps": 100,
+    "seed": 42,
+    "model": "soma-rp-v1.1",
+    "text_quantization": "q8_0",
+    "transition_frames": 5
+  },
+  {
+    "key": "gentle_nod",
+    "prompt": "A friendly young woman standing in relaxed conversation gives one gentle acknowledging nod while listening to the visitor in front. Subtle expressive natural timing. Feet planted throughout, no walking, no stepping, no root translation, hands empty. Begin in a relaxed neutral standing pose and return both arms and head smoothly to the same neutral pose at the end. One clear restrained gesture, no repeated cycles.",
+    "frames": 120,
+    "steps": 100,
+    "seed": 42,
+    "model": "soma-rp-v1.1",
+    "text_quantization": "q8_0",
+    "transition_frames": 5
+  },
+  {
+    "key": "farewell_wave",
+    "prompt": "A friendly young woman standing in relaxed conversation gives one gentle right-hand farewell wave to the visitor, then lowers her hand calmly. Subtle expressive natural timing. Feet planted throughout, no walking, no stepping, no root translation, hands empty. Begin in a relaxed neutral standing pose and return both arms and head smoothly to the same neutral pose at the end. One clear restrained gesture, no repeated cycles.",
+    "frames": 120,
+    "steps": 100,
+    "seed": 42,
+    "model": "soma-rp-v1.1",
+    "text_quantization": "q8_0",
+    "transition_frames": 5
+  },
+  {
+    "key": "open_palm_offer",
+    "prompt": "A friendly young woman standing in relaxed conversation leans forward slightly and extends her right hand palm-up in a kind offering gesture toward the visitor. Subtle expressive natural timing. Feet planted throughout, no walking, no stepping, no root translation, hands empty. Begin in a relaxed neutral standing pose and return both arms and head smoothly to the same neutral pose at the end. One clear restrained gesture, no repeated cycles.",
+    "frames": 120,
+    "steps": 100,
+    "seed": 42,
+    "model": "soma-rp-v1.1",
+    "text_quantization": "q8_0",
+    "transition_frames": 5
+  },
+  {
+    "key": "surprised_delighted",
+    "prompt": "A friendly young woman standing in relaxed conversation reacts to a kind offer with a small surprised lift of her head, briefly brings both hands close to her chest, then relaxes. Subtle expressive natural timing. Feet planted throughout, no walking, no stepping, no root translation, hands empty. Begin in a relaxed neutral standing pose and return both arms and head smoothly to the same neutral pose at the end. One clear restrained gesture, no repeated cycles.",
+    "frames": 120,
+    "steps": 100,
+    "seed": 42,
+    "model": "soma-rp-v1.1",
+    "text_quantization": "q8_0",
+    "transition_frames": 5
+  },
+  {
+    "key": "point_at_object",
+    "prompt": "A friendly young woman standing in relaxed conversation glances toward a nearby cup on a waist-height table to her right, gently indicates it with an open right hand, then looks back toward the visitor. Subtle expressive natural timing. Feet planted throughout, no walking, no stepping, no root translation, hands empty. Begin in a relaxed neutral standing pose and return both arms and head smoothly to the same neutral pose at the end. One clear restrained gesture, no repeated cycles.",
+    "frames": 120,
+    "steps": 100,
+    "seed": 42,
+    "model": "soma-rp-v1.1",
+    "text_quantization": "q8_0",
+    "transition_frames": 5
+  },
+  {
+    "key": "soft_concern",
+    "prompt": "A friendly young woman standing in relaxed conversation listens to bad news from the visitor, leans forward slightly with a gentle concerned head tilt and a small reassuring open-hand gesture. Subtle expressive natural timing. Feet planted throughout, no walking, no stepping, no root translation, hands empty. Begin in a relaxed neutral standing pose and return both arms and head smoothly to the same neutral pose at the end. One clear restrained gesture, no repeated cycles.",
+    "frames": 120,
+    "steps": 100,
+    "seed": 42,
+    "model": "soma-rp-v1.1",
+    "text_quantization": "q8_0",
+    "transition_frames": 5
+  },
+  {
+    "attempt": 2,
+    "prompt": "A person standing still points their right hand downward to a tabletop to their right, briefly looks down at the indicated spot, then lowers their arm and looks forward again. Feet planted.",
+    "job_id": "fdc190e6c300cd0b",
+    "seed": 101,
+    "steps": 100,
+    "frames": 120,
+    "text_quantization": "q8_0",
+    "key": "point_at_object",
+    "model": "soma-rp-v1.1"
+  },
+  {
+    "attempt": 2,
+    "prompt": "A person stands still with both arms relaxed at their sides and tilts their head to the left while listening, then slowly straightens the head. Small subtle movement, feet remain planted.",
+    "job_id": "d8019b55baa460e5",
+    "seed": 102,
+    "steps": 100,
+    "frames": 120,
+    "text_quantization": "q8_0",
+    "key": "curious_head_tilt",
+    "model": "soma-rp-v1.1"
+  },
+  {
+    "attempt": 2,
+    "prompt": "A person standing still extends their right forearm forward at waist level with palm facing upward, holds this offering gesture, then lowers the hand back to their side. Left arm relaxed, feet planted.",
+    "job_id": "58853520790d71c2",
+    "seed": 103,
+    "steps": 100,
+    "frames": 120,
+    "text_quantization": "q8_0",
+    "key": "open_palm_offer",
+    "model": "soma-rp-v1.1"
+  },
+  {
+    "attempt": 2,
+    "prompt": "A person standing still with arms at their sides gently nods their head once in agreement, then looks forward again. Only head and neck move, feet remain planted.",
+    "job_id": "d98569f2017afb90",
+    "seed": 104,
+    "steps": 100,
+    "frames": 120,
+    "text_quantization": "q8_0",
+    "key": "gentle_nod",
+    "model": "soma-rp-v1.1"
+  },
+  {
+    "attempt": 2,
+    "prompt": "A person standing still places their right palm flat against their own upper chest, holds the hand there briefly, then lowers the arm to their side. Both feet remain planted.",
+    "job_id": "d15da65a4945f688",
+    "seed": 105,
+    "steps": 100,
+    "frames": 120,
+    "text_quantization": "q8_0",
+    "key": "self_introduction",
+    "model": "soma-rp-v1.1"
+  },
+  {
+    "attempt": 2,
+    "prompt": "A person standing still shrugs both shoulders upward, bends both elbows and turns both palms upward to say they do not know, then drops the shoulders and lowers both arms. Feet planted.",
+    "job_id": "8c58e3f56061a737",
+    "seed": 106,
+    "steps": 100,
+    "frames": 120,
+    "text_quantization": "q8_0",
+    "key": "playful_shrug",
+    "model": "soma-rp-v1.1"
+  },
+  {
+    "attempt": 2,
+    "prompt": "A tired person standing still exhales deeply, bows their head forward and lets both shoulders slump, with both arms hanging loosely by their sides, then slowly straightens up. No hand gestures, feet planted.",
+    "job_id": "93ccc2221f43e6fd",
+    "seed": 107,
+    "steps": 100,
+    "frames": 120,
+    "text_quantization": "q8_0",
+    "key": "tired_sigh",
+    "model": "soma-rp-v1.1"
+  },
+  {
+    "attempt": 2,
+    "prompt": "A person standing still listens sympathetically, leans their upper body forward a little and tilts their head slightly, keeping both hands relaxed and low, then straightens up slowly. Feet planted.",
+    "job_id": "ff6f0f95de9d2063",
+    "seed": 108,
+    "steps": 100,
+    "frames": 120,
+    "text_quantization": "q8_0",
+    "key": "soft_concern",
+    "model": "soma-rp-v1.1"
+  }
+]

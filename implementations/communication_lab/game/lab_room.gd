@@ -7,6 +7,7 @@ const PLAYER_SCENE = preload("res://addons/cogito/PackedScenes/cogito_player_sim
 
 var context := Session.initial_context()
 var player: CogitoPlayerSimple
+var astera_visual
 var composer: VBoxContainer
 var dialog: PanelContainer
 var diagnostic: RichTextLabel
@@ -60,12 +61,12 @@ func _build_room() -> void:
 	player.position = Vector3(0, 0, 2.5)
 	add_child(player)
 	player.player_hud.hide()
-	var astera := AsteraVisual.new()
-	astera.name = "Astera"
-	astera.position = Vector3(0, 0, -2)
-	astera.rotation.y = PI
-	astera.scale = Vector3.ONE * 0.9
-	add_child(astera)
+	astera_visual = AsteraVisual.new()
+	astera_visual.name = "Astera"
+	astera_visual.position = Vector3(0, 0, -2)
+	astera_visual.rotation.y = PI
+	astera_visual.scale = Vector3.ONE * 0.9
+	add_child(astera_visual)
 	var table := MeshInstance3D.new(); table.name = "Table"
 	var table_mesh := BoxMesh.new(); table_mesh.size = Vector3(1.5, .12, .8); table.mesh = table_mesh; table.position = Vector3(1, .75, -1.6)
 	var table_mat := StandardMaterial3D.new(); table_mat.albedo_color = Color("795944"); table.material_override = table_mat; add_child(table)
@@ -259,6 +260,9 @@ func _close_dialog() -> void:
 
 func _on_submitted(text: String) -> void:
 	last_record = Session.submit(text, context)
+	last_record.emotion_state = _emotion_for(last_record.parse.intent)
+	last_record.animation_id = "standing"
+	astera_visual.set_emotion(last_record.emotion_state)
 	owner_option.select(["anna", "world", "player"].find(context.key_owner))
 	pending_option.select(["", "offer", "help_target"].find(context.pending))
 	attempts.append(last_record.duplicate(true))
@@ -268,6 +272,14 @@ func _on_submitted(text: String) -> void:
 
 	_update_diagnostics(last_record)
 	_refresh_objects()
+
+func _emotion_for(intent: String) -> String:
+	return {
+		"GREETING": "surprised_soft", "THANKS": "grateful", "FAREWELL": "farewell",
+		"POLITENESS": "friendly", "APOLOGY": "concerned", "REQUEST_REPEAT": "curious",
+		"REPORT_PROBLEM": "concerned", "REQUEST_HELP": "friendly", "ACCEPT": "happy",
+		"REFUSE": "neutral", "UNKNOWN": "curious", "UNSUPPORTED": "curious",
+	}.get(intent, "neutral")
 
 func _update_diagnostics(record: Dictionary) -> void:
 	_show_live_context()
@@ -280,7 +292,7 @@ func _update_diagnostics(record: Dictionary) -> void:
 	inspection_label.text = "Попытка %02d  ·  %s / %s" % [attempts.find(record) + 1, parsed.status, parsed.intent]
 	inspection_label.modulate = Color("85d9ba") if parsed.status == "RECOGNIZED" else Color("edc488")
 	parse_view.text = "ВВОД\n%s\n\nТОКЕНЫ\n%s\n\nСЕМАНТИЧЕСКИЙ FRAME\n%s\n\nAMBIGUITY\n%s\n\nUNSUPPORTED FEATURES\n%s\n\nDIAGNOSTICS\n%s" % [record.input, JSON.stringify(parsed.normalized_tokens), JSON.stringify(parsed.frame, "  "), JSON.stringify(parsed.ambiguity, "  "), JSON.stringify(parsed.unsupported_features, "  "), JSON.stringify(parsed.diagnostics, "  ")]
-	diagnostic.text = "ОТВЕТ NPC\n%s\n\nФАКТИЧЕСКИЕ ЭФФЕКТЫ\n%s" % [record.answer, JSON.stringify(record.effects, "  ")]
+	diagnostic.text = "ОТВЕТ NPC\n%s\n\nФАКТИЧЕСКИЕ ЭФФЕКТЫ\n%s\n\nЭМОЦИЯ\n%s\n\nANIMATION ID\n%s" % [record.answer, JSON.stringify(record.effects, "  "), record.get("emotion_state", "neutral"), record.get("animation_id", "standing")]
 	context_view.text += "\n\nВЫБРАННАЯ ПОПЫТКА / до\n%s\n\nпосле\n%s" % [JSON.stringify(record.before, "  "), JSON.stringify(record.after, "  ")]
 
 func _toggle_dev(value: bool) -> void:
