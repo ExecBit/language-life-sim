@@ -17,7 +17,7 @@ const EXPECTED_SPLITS := {
 	"D": {"dev": 32, "validation": 8},
 	"E": {"dev": 16, "validation": 4}
 }
-const RECOVERY_CODES := ["AGREEMENT_MISMATCH", "OMITTED_COPULA", "OMITTED_SUBJECT", "OMITTED_ARTICLE", "ARTICLE_MISMATCH"]
+const RECOVERY_CODES := ["AGREEMENT_MISMATCH", "OMITTED_COPULA", "OMITTED_SUBJECT", "OMITTED_ARTICLE", "ARTICLE_MISMATCH", "MISSING_FINITE_VERB"]
 
 var structural_failures: Array[String] = []
 var all_results: Array[Dictionary] = []
@@ -103,6 +103,22 @@ func _validate_oracle_shape(item: Dictionary) -> void:
 		_fail("%s UNKNOWN case needs unknown_tokens" % item.get("id", ""))
 	if expected.get("decision", "") == "UNSUPPORTED" and expected.get("unsupported_features", expected.get("unsupported_domain", "")).is_empty():
 		_fail("%s UNSUPPORTED case needs an unsupported feature or domain" % item.get("id", ""))
+	if expected.has("semantic_frames") and not expected.semantic_frames is Array:
+		_fail("%s expected.semantic_frames must be an array" % item.get("id", ""))
+	if str(expected.get("intent", "")) in ["OFFER_HELP", "REQUEST_HELP", "PLAYER_CANNOT_HELP", "DESCRIBE_HELP"]:
+		if not expected.has("helper") or not expected.has("help_recipient"):
+			_fail("%s help intent needs explicit helper and help_recipient roles" % item.get("id", ""))
+		elif expected.get("helper", "") != expected.get("actor", "") or expected.get("help_recipient", "") != expected.get("recipient", ""):
+			_fail("%s help roles must agree with actor/recipient action roles" % item.get("id", ""))
+	for frame in expected.get("semantic_frames", []):
+		if str(frame.get("intent", "")) in ["OFFER_HELP", "REQUEST_HELP", "PLAYER_CANNOT_HELP", "DESCRIBE_HELP"]:
+			if not frame.has("helper") or not frame.has("help_recipient"):
+				_fail("%s help semantic frame needs helper and help_recipient roles" % item.get("id", ""))
+			elif frame.get("helper", "") != frame.get("actor", "") or frame.get("help_recipient", "") != frame.get("recipient", ""):
+				_fail("%s help frame roles disagree with actor/recipient" % item.get("id", ""))
+	if "MULTIPLE_INTENTS" in expected.get("unsupported_features", []):
+		if expected.get("decision", "") != "UNSUPPORTED" or expected.get("intents", []).size() < 2 or expected.get("semantic_frames", []).size() < 2:
+			_fail("%s MULTIPLE_INTENTS must preserve at least two component intents and semantic frames" % item.get("id", ""))
 
 func _validate_distribution(counts: Dictionary) -> void:
 	for split in ["dev", "validation"]:
@@ -214,6 +230,12 @@ func _evaluate(item: Dictionary) -> Dictionary:
 		"intents": parsed.get("intents", [intent] if not intent.is_empty() else []),
 		"actor": _normalize_role(str(frame.get("subject", ""))),
 		"recipient": _normalize_role(str(frame.get("recipient", frame.get("addressee", "")))),
+		"grammatical_subject": _normalize_role(str(frame.get("subject", ""))),
+		"experiencer": parsed.get("experiencer", null),
+		"helper": parsed.get("helper", null),
+		"help_recipient": parsed.get("help_recipient", null),
+		"semantic_frames": parsed.get("semantic_frames", null),
+		"semantic_role_reporting": {"grammatical_subject":"FRAME_SUBJECT", "experiencer":"PROVIDED" if parsed.has("experiencer") else "NOT_EXPOSED", "helper":"PROVIDED" if parsed.has("helper") else "NOT_EXPOSED", "help_recipient":"PROVIDED" if parsed.has("help_recipient") else "NOT_EXPOSED", "semantic_frames":"PROVIDED" if parsed.has("semantic_frames") else "NOT_EXPOSED"},
 		"polarity": str(frame.get("polarity", "unresolved")),
 		"speech_act": str(frame.get("speech_act", "unresolved")),
 		"recovery_used": recovery,
@@ -238,7 +260,7 @@ func _evaluate(item: Dictionary) -> Dictionary:
 		"world_context_after": context.duplicate(true)
 	}
 	var mismatch: Array[String] = []
-	for key in ["decision", "intent", "actor", "recipient", "polarity", "speech_act", "recovery_used", "diagnostic_codes", "may_advance_objective", "referent", "intents"]:
+	for key in ["decision", "intent", "actor", "recipient", "grammatical_subject", "experiencer", "helper", "help_recipient", "semantic_frames", "polarity", "speech_act", "recovery_used", "diagnostic_codes", "may_advance_objective", "referent", "intents"]:
 		if expected.has(key) and expected[key] != actual[key]:
 			mismatch.append(key)
 	var candidate_status := "NOT_APPLICABLE"
@@ -428,3 +450,23 @@ func _error_risk(result: Dictionary) -> int:
 	if "role_swap" in result.mismatches or "recipient" in result.mismatches: score += 10
 	if "polarity" in result.mismatches: score += 10
 	if result.expected.get("decision", "") == "NEEDS_CLARIFICATION" and result.actual.get("decision", "") == "RECOGNIZED": score += 8
+	if "decision" in result.mismatches: score += 4
+	return score
+
+func _write_outputs(results: Array[Dictionary], summary: Dictionary) -> void:
+	var output_path := ProjectSettings.globalize_path(OUTPUT_DIR)
+	DirAccess.make_dir_recursive_absolute(output_path)
+	var basename := "issue64-baseline"
+	for split in ["dev", "validation"]:
+		var file := FileAccess.open(output_path.path_join("%s-%s.jsonl" % [basename, split]), FileAccess.WRITE)
+		if file == null:
+			_fail("cannot write baseline results to " + output_path)
+			return
+		for result in results:
+			if result.split == split:
+				file.store_line(JSON.stringify(result))
+	var summary_file := FileAccess.open(output_path.path_join("%s-summary.json" % basename), FileAccess.WRITE)
+	if summary_file == null:
+		_fail("cannot write summary to " + output_path)
+		return
+	summary_file.store_string(JSON.stringify(summary, "\t"))
