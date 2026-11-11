@@ -39,7 +39,7 @@ func _ready() -> void:
 		field.focus_entered.connect(func(): focus_changed.emit())
 		field.focus_exited.connect(func(): focus_changed.emit.call_deferred())
 	var hint := Label.new()
-	hint.text = "Tab · следующий вариант   /   Пробел · добавить выбранное слово   /   Enter · отправить реплику"
+	hint.text = "Ctrl+Tab · переключить строку   /   ↓/↑ · перейти к поиску/реплике   /   Tab · вариант   /   Пробел · добавить слово   /   Enter · отправить"
 	hint.add_theme_font_size_override("font_size", 14)
 	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	add_child(hint)
@@ -113,6 +113,20 @@ func route_key(event: InputEvent) -> bool:
 	if event.keycode in [KEY_ENTER,KEY_KP_ENTER] and (editing() or matches.has_focus()):
 		get_viewport().set_input_as_handled()
 		if not event.echo: send()
+		return true
+	if event.keycode == KEY_TAB and event.ctrl_pressed and (editing() or matches.has_focus()):
+		get_viewport().set_input_as_handled()
+		if not event.echo:
+			if phrase.has_focus(): prefix.grab_focus()
+			else: phrase.grab_focus()
+		return true
+	if event.keycode == KEY_DOWN and phrase.has_focus():
+		prefix.grab_focus()
+		get_viewport().set_input_as_handled()
+		return true
+	if event.keycode == KEY_UP and prefix.has_focus():
+		phrase.grab_focus()
+		get_viewport().set_input_as_handled()
 		return true
 	if event.keycode == KEY_TAB and (editing() or matches.has_focus()):
 		get_viewport().set_input_as_handled()
