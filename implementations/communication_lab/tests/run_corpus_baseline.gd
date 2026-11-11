@@ -78,6 +78,17 @@ func _load_split(corpus_path: String, counts: Dictionary) -> void:
 
 func _validate_oracle_shape(item: Dictionary) -> void:
 	var expected: Dictionary = item.get("expected", {})
+	for key in ["id", "group", "input", "context", "phenomena", "expected", "rationale"]:
+		if not item.has(key):
+			_fail("%s is missing required case field %s" % [item.get("id", "<no id>"), key])
+	if str(item.get("rationale", "")).strip_edges().is_empty():
+		_fail("%s needs a non-empty human-oracle rationale" % item.get("id", ""))
+	if not item.get("context", {}) is Dictionary:
+		_fail("%s context must be a dictionary" % item.get("id", ""))
+	if str(item.get("group", "")) not in ["A", "B", "C", "D", "E"]:
+		_fail("%s has invalid group %s" % [item.get("id", ""), item.get("group", "")])
+	if str(expected.get("decision", "")) not in ["RECOGNIZED", "NEEDS_CLARIFICATION", "UNKNOWN", "UNSUPPORTED"]:
+		_fail("%s has invalid expected decision %s" % [item.get("id", ""), expected.get("decision", "")])
 	for key in ["decision", "intent", "actor", "recipient", "polarity", "speech_act", "recovery_used", "diagnostic_codes", "may_advance_objective"]:
 		if not expected.has(key):
 			_fail("%s missing expected.%s" % [item.get("id", ""), key])
