@@ -403,6 +403,7 @@ func _can_interact() -> bool:
 func _close_dialog() -> void:
 	if history_expanded: _toggle_history_expanded()
 	_finish_reply_reveal()
+	astera_visual.fade_expression_to_rest()
 	dialog.hide(); _toggle_dev(false); composer.release(); player.is_movement_paused = false; player.is_showing_ui = false; Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	vocabulary_card.hide()
 	heading_card.show()
@@ -446,7 +447,6 @@ func _on_submitted(text: String) -> void:
 func _finish_reply_reveal() -> void:
 	if is_instance_valid(reveal_tween): reveal_tween.kill()
 	if is_instance_valid(transcript): transcript.visible_characters = -1
-	if is_instance_valid(astera_visual): astera_visual.fade_expression_to_rest()
 
 func _append_conversation_line(speaker: String, text: String, animate := false) -> void:
 	_finish_reply_reveal()
