@@ -336,7 +336,14 @@ func run() -> void:
 	check(room.get("transcript").visible_characters == -1, "reply reveal can be completed immediately")
 	editor.phrase.text = "Ich brauche den Schlüssel"; editor.send()
 	check(astera.get("active_animation_id") == "open_palm_offer" and editor.phrase.text.is_empty(), "actual composer submission triggers a legacy reply gesture and clears the sent draft")
-	await create_timer(0.4).timeout
+	await create_timer(0.15).timeout
+	var face_mesh: MeshInstance3D = astera.get("face_mesh")
+	var expression_channels: Dictionary = astera.get("expression_channels")
+	var expression_visible := false
+	for channel in expression_channels:
+		if face_mesh.get_blend_shape_value(expression_channels[channel]) > 0.05: expression_visible = true
+	check(expression_visible, "NPC reaction expression remains visible while her reply is being revealed")
+	await create_timer(0.25).timeout
 	idle_player.seek(1.5, true)
 	await process_frame
 	var rig: Skeleton3D = astera.get("rig_skeleton")
@@ -351,8 +358,6 @@ func run() -> void:
 	check(changed_bone, "restarted gesture actually changes skeletal pose")
 	await create_timer(4.25).timeout
 	check(astera.get("active_animation_id") == "standing", "conversation gesture returns to idle")
-	var face_mesh: MeshInstance3D = astera.get("face_mesh")
-	var expression_channels: Dictionary = astera.get("expression_channels")
 	var face_at_rest := true
 	for channel in expression_channels:
 		if face_mesh.get_blend_shape_value(expression_channels[channel]) > 0.01: face_at_rest = false
