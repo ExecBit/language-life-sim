@@ -8,9 +8,9 @@ Open `res://implementations/communication_lab/communication_lab.tscn` in the sam
 
 The supported resolver is intentionally bounded. It handles the original lab cases (social replies, key location/identification, safe key transfer, opening the door) plus dialogue about a player name, good/low/tired moods, Astera's tiredness and tidying, the unowned cup, offering/declining help, free/work/learning plans, slow speech and farewell. `dialogue_resolver.gd` reports only these known lexical constructions; arbitrary German remains `UNKNOWN`/`UNSUPPORTED` and has no world effect. Questions such as `Warum?` and `Und du?` use the last topic or ask for clarification. The attempt journal stores context before/after, parse result, reply, topic, reaction, emotion and animation ID. Conversation memory is limited to the active lab session.
 
-The lab uses the locally available private Astera VRM when present and falls back to the redistributable Anna VRM on clean checkouts. The closed Astera model is intentionally not included in this PR. A local adapter retargets the Motifect `idle_neutral` clip and the new, lab-owned generated conversation motions to the avatar; generated asset provenance/license and IDs are recorded in [the motion manifest](animations/generated/manifest.json). Anna's redistribution permissions are recorded in [assets/characters/ANNA_LICENSE.md](../../assets/characters/ANNA_LICENSE.md); Motifect attribution/license is in `assets/animations/motifect/README.txt`.
+The lab currently uses **AvatarSample_B**, the standard VRoid sample copied without modification into this variant. See [its attribution and conditions](assets/characters/AVATAR_SAMPLE_B_LICENSE.md). The character name/dialogue remains Astera. The scene root's **NPC Avatar Path** selects the appearance; the previous private Astera path can be selected locally (`res://assets/characters/private/astera.vrm`), and an unavailable selection falls back to the licensed Anna model. The private Astera binary remains uncommitted. A local adapter retargets the existing Motifect idle and lab-generated conversation motions; [the motion manifest](animations/generated/manifest.json) retains their provenance. Shared addons/assets are untouched.
 
-The VRM0 metadata of both available avatar files maps the expression presets to morph indices: `neutral=0`, `angry=1`, `fun=2`, `joy=3`, `sorrow=4`, `surprised=5`, vowels `A–O=39–43`, and blink variants `13–15`. Godot imports these as `morph_N`; the adapter maps the five emotional channels by index and blends them independently from the skeleton motions. The lab uses `fun`, `joy`, `sorrow`, and `surprised` combinations for its named reactions. Eye blink and vowel/mouth movement are available but are not currently driven. `tests/test_lab.gd` checks that a happy state writes the `joy` morph on the loaded avatar.
+The VRM0 metadata of AvatarSample_B, local Astera and Anna maps the expression presets to morph indices: `neutral=0`, `angry=1`, `fun=2`, `joy=3`, `sorrow=4`, `surprised=5`, vowels `A–O=39–43`, and blink variants `13–15`. Godot imports these as `morph_N`; the adapter maps the five emotional channels by index and blends them independently from the skeleton motions. The lab uses `fun`, `joy`, `sorrow`, and `surprised` combinations for its named reactions. Eye blink and vowel/mouth movement are available but are not currently driven. `tests/test_lab.gd` checks that a happy state writes the `joy` morph on the loaded avatar.
 
 ## Targeted verification
 
@@ -30,7 +30,7 @@ The test covers the copied parser regression matrix, context-dependent legacy re
 
 ## Manual check and limitations
 
-- [ ] F6 launches the one-room scene and Astera is visible (Anna fallback if the private local model is absent).
+- [ ] F6 launches the one-room scene and the NPC using AvatarSample_B is visible.
 - [ ] E opens/closes the dialog; input blocks movement while open and movement resumes after closing.
 - [ ] Compose, edit and send both catalog text and a word absent from the catalog.
 - [ ] Inspect raw input, tokens, parser status/intent/frame, ambiguity, unsupported features, diagnostics, NPC answer and actual effects.

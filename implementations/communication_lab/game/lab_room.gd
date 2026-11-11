@@ -5,6 +5,7 @@ const WordCatalog = preload("res://implementations/communication_lab/game/commun
 const DialogueGrammar = preload("res://implementations/communication_lab/game/communication/dialogue_resolver.gd")
 const AsteraVisual = preload("res://implementations/communication_lab/game/characters/lab_npc_visual.gd")
 const PLAYER_SCENE = preload("res://addons/cogito/PackedScenes/cogito_player_simple.tscn")
+@export_file("*.vrm") var npc_avatar_path := AsteraVisual.SAMPLE_B_AVATAR_PATH
 
 var context := Session.initial_context()
 var player: CogitoPlayerSimple
@@ -72,6 +73,7 @@ func _build_room() -> void:
 	add_child(player)
 	player.player_hud.hide()
 	astera_visual = AsteraVisual.new()
+	astera_visual.avatar_path = npc_avatar_path
 	astera_visual.name = "Astera"
 	astera_visual.position = Vector3(0, 0, -2)
 	astera_visual.rotation.y = PI

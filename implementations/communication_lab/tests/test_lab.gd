@@ -129,8 +129,8 @@ func run() -> void:
 	check(communication_panel.anchor_left == 0.0 and communication_panel.anchor_right == 1.0 and communication_panel.anchor_bottom == 1.0 and communication_panel.offset_left == 0.0 and communication_panel.offset_right == 0.0, "conversation panel spans the bottom screen width")
 	check(room.get_node_or_null("Table") == null, "obstructing table is removed")
 	var astera: Node = room.get_node("Astera")
-	var expected_avatar := "res://assets/characters/private/astera.vrm" if ResourceLoader.exists("res://assets/characters/private/astera.vrm") else "res://assets/characters/anna.vrm"
-	check(astera.get("avatar_path_in_use") == expected_avatar, "Astera is selected when available with redistributable fallback")
+	var expected_avatar := "res://implementations/communication_lab/assets/characters/avatar_sample_b.vrm"
+	check(astera.get("avatar_path_in_use") == expected_avatar, "AvatarSample_B is the selected conversation avatar")
 	check(room.call("_can_interact"), "spawn position is inside Astera conversation range")
 	var idle_player: AnimationPlayer = astera.get("animation_player")
 	check(idle_player.is_playing() and idle_player.current_animation == "lab/standing", "NPC plays the retargeted idle animation")
@@ -143,7 +143,7 @@ func run() -> void:
 	var joyful_channel_used := false
 	for channel in face_channels:
 		if str(channel) == "morph_3" and face_mesh.get_blend_shape_value(face_channels[channel]) > 0.1: joyful_channel_used = true
-	check(joyful_channel_used, "happy emotion smoothly drives the Astera VRM joy blendshape")
+	check(joyful_channel_used, "happy emotion smoothly drives the selected VRM joy blendshape")
 	var suggestions: Array = Parser.suggestions("mü")
 	check(suggestions.has("müde"), "new dialogue vocabulary is included in composer suggestions")
 	var open_event := InputEventKey.new(); open_event.keycode = KEY_E; open_event.pressed = true

@@ -5,6 +5,8 @@ const IDLE_CLIP: PackedScene = preload("res://assets/animations/motifect/Locomot
 const RIG_SCENE: PackedScene = preload("res://assets/animations/motifect/drink_from_cup.fbx")
 const ASTERA_AVATAR_PATH := "res://assets/characters/private/astera.vrm"
 const FALLBACK_AVATAR_PATH := "res://assets/characters/anna.vrm"
+const SAMPLE_B_AVATAR_PATH := "res://implementations/communication_lab/assets/characters/avatar_sample_b.vrm"
+@export_file("*.vrm") var avatar_path := SAMPLE_B_AVATAR_PATH
 const MAP := {"Hips":"J_Bip_C_Hips", "Spine1":"J_Bip_C_Spine", "Spine2":"J_Bip_C_Chest", "Chest":"J_Bip_C_UpperChest", "Neck2":"J_Bip_C_Neck", "Head":"J_Bip_C_Head", "LeftShoulder":"J_Bip_L_Shoulder", "LeftArm":"J_Bip_L_UpperArm", "LeftForeArm":"J_Bip_L_LowerArm", "LeftHand":"J_Bip_L_Hand", "RightShoulder":"J_Bip_R_Shoulder", "RightArm":"J_Bip_R_UpperArm", "RightForeArm":"J_Bip_R_LowerArm", "RightHand":"J_Bip_R_Hand", "LeftLeg":"J_Bip_L_UpperLeg", "LeftShin":"J_Bip_L_LowerLeg", "LeftFoot":"J_Bip_L_Foot", "LeftToeBase":"J_Bip_L_ToeBase", "RightLeg":"J_Bip_R_UpperLeg", "RightShin":"J_Bip_R_LowerLeg", "RightFoot":"J_Bip_R_Foot", "RightToeBase":"J_Bip_R_ToeBase"}
 var rig_skeleton: Skeleton3D
 var target_skeleton: Skeleton3D
@@ -17,7 +19,7 @@ var emotion_state := "neutral"
 var active_animation_id := "standing"
 var expression_channels: Dictionary = {}
 ## VRM 0 expression preset bindings verified in both the private Astera VRM
-## and redistributable Anna fallback. Godot imports the morphs as morph_N.
+## Anna fallback and AvatarSample_B. Godot imports the morphs as morph_N.
 var expression_presets := {"angry":"morph_1", "fun":"morph_2", "joy":"morph_3", "sorrow":"morph_4", "surprised":"morph_5"}
 var expression_from: Dictionary = {}
 var expression_target: Dictionary = {}
@@ -34,9 +36,9 @@ func _ready() -> void:
 		if MAP.has(original): rig_skeleton.set_bone_name(i, MAP[original])
 	animation_player.remove_animation_library("")
 	animation_player.add_animation_library("lab", library)
-	avatar_path_in_use = ASTERA_AVATAR_PATH if ResourceLoader.exists(ASTERA_AVATAR_PATH) else FALLBACK_AVATAR_PATH
+	avatar_path_in_use = avatar_path if ResourceLoader.exists(avatar_path) else FALLBACK_AVATAR_PATH
 	if avatar_path_in_use == FALLBACK_AVATAR_PATH:
-		push_warning("Local Astera asset is unavailable; Communication Lab is showing the redistributable Anna fallback.")
+		push_warning("Selected avatar is unavailable; Communication Lab is showing the redistributable Anna fallback.")
 	var avatar := (load(avatar_path_in_use) as PackedScene).instantiate()
 	target_skeleton = avatar.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
 	var face_meshes := avatar.find_children("*", "MeshInstance3D", true, false)
