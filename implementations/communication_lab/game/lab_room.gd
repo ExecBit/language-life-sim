@@ -10,11 +10,14 @@ var composer: VBoxContainer
 var dialog: PanelContainer
 var diagnostic: RichTextLabel
 var reply_label: Label
-var effects_label: Label
-var raw_label: Label
-var dev_panel: VBoxContainer
-var show_diagnostics := true
+var dev_panel: PanelContainer
+var show_diagnostics := false
 var last_record: Dictionary = {}
+var attempts: Array[Dictionary] = []
+var history_list: ItemList
+var parse_view: RichTextLabel
+var context_view: RichTextLabel
+var inspection_label: Label
 var key_visual: MeshInstance3D
 var door_visual: MeshInstance3D
 var pending_option: OptionButton
@@ -79,33 +82,117 @@ func _add_wall(at: Vector3, size: Vector3) -> void:
 	var mat := StandardMaterial3D.new(); mat.albedo_color = Color("d9d8cf"); mesh.material_override = mat; wall.add_child(mesh)
 	var collider := CollisionShape3D.new(); var shape := BoxShape3D.new(); shape.size = size; collider.shape = shape; collider.position = at; wall.add_child(collider); add_child(wall)
 
+func _style(bg: Color, border: Color) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = bg
+	style.border_color = border
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(10)
+	style.content_margin_left = 18; style.content_margin_right = 18
+	style.content_margin_top = 14; style.content_margin_bottom = 14
+	return style
+
+func _label(parent: Node, text: String, font_size: int = 18) -> Label:
+	var label := Label.new()
+	label.text = text
+	label.add_theme_font_size_override("font_size", font_size)
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	parent.add_child(label)
+	return label
+
+func _button(parent: Node, text: String, action: Callable) -> Button:
+	var button := Button.new()
+	button.text = text
+	button.custom_minimum_size.y = 38
+	button.pressed.connect(action)
+	parent.add_child(button)
+	return button
+
+func _inspector(tabs: TabContainer, title: String) -> RichTextLabel:
+	var text := RichTextLabel.new()
+	text.name = title
+	text.selection_enabled = true
+	text.add_theme_constant_override("line_separation", 3)
+	text.add_theme_font_size_override("normal_font_size", 16)
+	var mono := SystemFont.new(); mono.font_names = PackedStringArray(["Consolas", "monospace"])
+	text.add_theme_font_override("normal_font", mono)
+	tabs.add_child(text)
+	return text
+
 func _build_ui() -> void:
 	var layer := CanvasLayer.new(); layer.name = "LabUI"; add_child(layer)
-	var hint := Label.new(); hint.text = "WASD + мышь · E рядом с Астерой — разговор · F2 — диагностика"; hint.position = Vector2(18, 12); layer.add_child(hint)
-	dialog = PanelContainer.new()
-	dialog.name = "CommunicationPanel"
-	dialog.anchor_left = 0.0; dialog.anchor_top = 1.0; dialog.anchor_right = 0.0; dialog.anchor_bottom = 1.0
-	dialog.offset_left = 18; dialog.offset_top = -510; dialog.offset_right = 738; dialog.offset_bottom = -18
-	var panel_style := StyleBoxFlat.new(); panel_style.bg_color = Color(0.055, 0.07, 0.085, 0.94); panel_style.border_color = Color("84a8b2"); panel_style.set_border_width_all(1); panel_style.set_corner_radius_all(8); panel_style.content_margin_left = 14; panel_style.content_margin_right = 14; panel_style.content_margin_top = 10; panel_style.content_margin_bottom = 10
-	dialog.add_theme_stylebox_override("panel", panel_style)
-	dialog.hide(); layer.add_child(dialog)
-	var column := VBoxContainer.new(); dialog.add_child(column)
-	var title := Label.new(); title.text = "Language Communication Lab — Astera"; column.add_child(title)
-	composer = Composer.new(); column.add_child(composer); composer.submitted.connect(_on_submitted); composer.cancelled.connect(_close_dialog)
-	reply_label = Label.new(); reply_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; reply_label.text = "Астера ждёт реплику."; column.add_child(reply_label)
-	effects_label = Label.new(); effects_label.text = "Эффекты: —"; column.add_child(effects_label)
-	var buttons := HFlowContainer.new(); column.add_child(buttons)
-	var dev_toggle := CheckBox.new(); dev_toggle.text = "Показать диагностику (F2)"; dev_toggle.button_pressed = true; dev_toggle.toggled.connect(_toggle_dev); buttons.add_child(dev_toggle)
-	var reset_button := Button.new(); reset_button.text = "Сбросить контекст"; reset_button.pressed.connect(_reset); buttons.add_child(reset_button)
-	dev_panel = VBoxContainer.new(); column.add_child(dev_panel)
-	var settings := HFlowContainer.new(); dev_panel.add_child(settings)
-	busy_toggle = CheckBox.new(); busy_toggle.text = "Астера занята"; busy_toggle.toggled.connect(func(v): context.busy = v); settings.add_child(busy_toggle)
-	knowledge_toggle = CheckBox.new(); knowledge_toggle.text = "Знает, где ключ"; knowledge_toggle.button_pressed = true; knowledge_toggle.toggled.connect(func(v): context.knows_key = v); settings.add_child(knowledge_toggle)
-	owner_option = OptionButton.new(); owner_option.add_item("Ключ у Астеры", 0); owner_option.add_item("Ключ в мире", 1); owner_option.add_item("Ключ у игрока", 2); owner_option.item_selected.connect(_set_owner); settings.add_child(owner_option)
-	pending_option = OptionButton.new(); pending_option.add_item("Нет предложения", 0); pending_option.add_item("Ожидает Ja/Nein", 1); pending_option.add_item("Ожидает уточнение", 2); pending_option.item_selected.connect(_set_pending); settings.add_child(pending_option)
-	raw_label = Label.new(); raw_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; dev_panel.add_child(raw_label)
-	diagnostic = RichTextLabel.new(); diagnostic.fit_content = true; diagnostic.scroll_active = true; diagnostic.custom_minimum_size.y = 180; dev_panel.add_child(diagnostic)
+	var canvas := Control.new(); layer.add_child(canvas)
+	canvas.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	canvas.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var theme := Theme.new(); theme.default_font_size = 18
+	for kind in ["PanelContainer", "TabContainer"]:
+		theme.set_stylebox("panel", kind, _style(Color("111b26"), Color("344553")))
+	for kind in ["Button", "OptionButton", "LineEdit", "ItemList"]:
+		theme.set_stylebox("normal", kind, _style(Color("1d2c3a"), Color("3b5060")))
+		theme.set_stylebox("focus", kind, _style(Color(0,0,0,0), Color("68d7c5")))
+		theme.set_stylebox("hover", kind, _style(Color("2b4354"), Color("68d7c5")))
+	canvas.theme = theme
+	var heading_card := PanelContainer.new(); canvas.add_child(heading_card)
+	heading_card.position = Vector2(18, 18); heading_card.size.x = 640
+	var heading := VBoxContainer.new(); heading_card.add_child(heading)
+	_label(heading, "COMMUNICATION / LAB", 16).modulate = Color("85c9c4")
+	_label(heading, "WASD · движение   /   E · разговор   /   F2 · лаборатория", 16)
+	dialog = PanelContainer.new(); dialog.name = "CommunicationPanel"; canvas.add_child(dialog)
+	dialog.anchor_top = 1.0; dialog.anchor_bottom = 1.0
+	dialog.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	dialog.offset_left = 18; dialog.offset_top = -410; dialog.offset_right = 658; dialog.offset_bottom = -18
+	dialog.hide()
+	var column := VBoxContainer.new(); column.add_theme_constant_override("separation", 10); dialog.add_child(column)
+	var header := HBoxContainer.new(); column.add_child(header)
+	var title := _label(header, "Астера", 24); title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_button(header, "Лаборатория · F2", func(): _toggle_dev(not show_diagnostics))
+	_button(header, "Закрыть · Esc", _close_dialog)
+	reply_label = _label(column, "Готова слушать. Составьте реплику по-немецки.", 20)
+	reply_label.custom_minimum_size.y = 54
+	composer = Composer.new(); column.add_child(composer)
+	composer.submitted.connect(_on_submitted); composer.cancelled.connect(_close_dialog)
+	dev_panel = PanelContainer.new(); canvas.add_child(dev_panel)
+	dev_panel.anchor_left = 0.56; dev_panel.anchor_right = 1.0; dev_panel.anchor_bottom = 1.0
+	dev_panel.offset_left = 0; dev_panel.offset_top = 18; dev_panel.offset_right = -18; dev_panel.offset_bottom = -18
+	dev_panel.hide()
+	var tools := VBoxContainer.new(); tools.add_theme_constant_override("separation", 12); dev_panel.add_child(tools)
+	var bar := HBoxContainer.new(); tools.add_child(bar)
+	var tool_title := _label(bar, "Лаборатория общения", 24); tool_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_button(bar, "Скрыть · F2", func(): _toggle_dev(false))
+	_label(tools, "КОНТЕКСТ СЛЕДУЮЩЕЙ ПОПЫТКИ", 14).modulate = Color("85c9c4")
+	var settings := HFlowContainer.new(); tools.add_child(settings)
+	busy_toggle = CheckBox.new(); busy_toggle.text = "NPC занят"; busy_toggle.toggled.connect(func(v): context.busy = v; _show_live_context()); settings.add_child(busy_toggle)
+	knowledge_toggle = CheckBox.new(); knowledge_toggle.text = "Знает, где ключ"; knowledge_toggle.button_pressed = true; knowledge_toggle.toggled.connect(func(v): context.knows_key = v; _show_live_context()); settings.add_child(knowledge_toggle)
+	owner_option = OptionButton.new()
+	for title_text in ["Ключ: у NPC", "Ключ: в мире", "Ключ: у игрока"]: owner_option.add_item(title_text)
+	owner_option.item_selected.connect(_set_owner); settings.add_child(owner_option)
+	pending_option = OptionButton.new()
+	for title_text in ["Pending: нет", "Pending: предложение", "Pending: уточнение"]: pending_option.add_item(title_text)
+	pending_option.item_selected.connect(_set_pending); settings.add_child(pending_option)
+	_button(settings, "Сбросить контекст", _reset)
+	inspection_label = _label(tools, "Отправьте реплику, чтобы увидеть результат.", 16)
+	var tabs := TabContainer.new(); tabs.size_flags_vertical = Control.SIZE_EXPAND_FILL; tools.add_child(tabs)
+	parse_view = _inspector(tabs, "Разбор")
+	diagnostic = _inspector(tabs, "Ответ и эффекты")
+	context_view = _inspector(tabs, "Состояние")
+	var history := VBoxContainer.new(); history.name = "История"; tabs.add_child(history)
+	_label(history, "Выберите попытку для инспекции. Контекст мира не изменится.", 16)
+	history_list = ItemList.new(); history_list.size_flags_vertical = Control.SIZE_EXPAND_FILL; history.add_child(history_list)
+	history_list.item_selected.connect(func(index): _update_diagnostics(attempts[index]))
+	_button(history, "Вернуть выбранный текст в редактор", _recall_attempt)
+	_label(tools, "История — текущая сессия. Полный журнал сохраняется в JSONL.", 14).modulate = Color("9aafbd")
 	_update_diagnostics({})
+
+func _recall_attempt() -> void:
+	var selected := history_list.get_selected_items()
+	if selected.is_empty(): return
+	composer.phrase.text = attempts[selected[0]].input
+	composer.prefix.clear()
+	composer.phrase.grab_focus()
+
+func _show_live_context() -> void:
+	if is_instance_valid(context_view):
+		context_view.text = "ТЕКУЩИЙ МИР / следующая попытка\n" + JSON.stringify(context, "  ")
 
 func _input(event: InputEvent) -> void:
 	if dialog.visible and composer.route_key(event):
@@ -113,45 +200,58 @@ func _input(event: InputEvent) -> void:
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_F2:
-			show_diagnostics = not show_diagnostics; dev_panel.visible = show_diagnostics
+			if not dialog.visible: _open_dialog()
+			_toggle_dev(not show_diagnostics)
+			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_E and not dialog.visible and player.global_position.distance_to(Vector3(0, 0, -2)) < 3.0:
+			composer.suppress_opener(event)
 			_open_dialog()
+			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_ESCAPE and dialog.visible:
 			_close_dialog()
+			get_viewport().set_input_as_handled()
 
 func _open_dialog() -> void:
 	dialog.show(); player.is_movement_paused = true; player.is_showing_ui = true; Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	composer.phrase.grab_focus()
 
 func _close_dialog() -> void:
-	dialog.hide(); player.is_movement_paused = false; player.is_showing_ui = false; Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	dialog.hide(); _toggle_dev(false); composer.release(); player.is_movement_paused = false; player.is_showing_ui = false; Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_submitted(text: String) -> void:
 	last_record = Session.submit(text, context)
+	owner_option.select(["anna", "world", "player"].find(context.key_owner))
+	pending_option.select(["", "offer", "help_target"].find(context.pending))
+	attempts.append(last_record.duplicate(true))
+	history_list.add_item("%02d  %s  ·  %s" % [attempts.size(), text, last_record.parse.status])
+	history_list.select(attempts.size() - 1)
 	reply_label.text = "Астера: %s" % last_record.answer
-	effects_label.text = "Эффекты: %s" % (", ".join(last_record.effects) if not last_record.effects.is_empty() else "—")
+
 	_update_diagnostics(last_record)
 	_refresh_objects()
 
 func _update_diagnostics(record: Dictionary) -> void:
-	if not is_instance_valid(diagnostic): return
+	_show_live_context()
 	if record.is_empty():
-		raw_label.text = "Ввод: —"
-		diagnostic.text = "Контекст: %s\nГоворите свободно; автоматические подсказки доступны в поле слов." % JSON.stringify(context)
+		inspection_label.text = "Нет выбранной попытки · контекст готов"
+		parse_view.text = "Разбор появится после отправки реплики.\n\nМожно вводить любые слова; распознаются только поддерживаемые конструкции."
+		diagnostic.text = "Здесь будут ответ NPC и фактически применённые эффекты."
 		return
 	var parsed: Dictionary = record.parse
-	var frame: Dictionary = parsed.frame
-	raw_label.text = "Ввод: %s" % record.input
-	diagnostic.text = "Токены: %s\nСтатус: %s · намерение: %s\nFrame: subject=%s, addressee=%s, action=%s, object=%s, polarity=%s, speech_act=%s, target=%s\nНеоднозначность: %s\nНеподдерживаемое: %s\nДиагностика: %s\nОтвет: %s\nФактические эффекты: %s\nКонтекст после: %s" % [JSON.stringify(parsed.normalized_tokens), parsed.status, parsed.intent, frame.get("subject"), frame.get("addressee"), frame.get("action"), frame.get("object_id"), frame.get("polarity"), frame.get("speech_act"), frame.get("target_id"), JSON.stringify(parsed.ambiguity), JSON.stringify(parsed.unsupported_features), JSON.stringify(parsed.diagnostics), record.answer, JSON.stringify(record.effects), JSON.stringify(record.after)]
+	inspection_label.text = "Попытка %02d  ·  %s / %s" % [attempts.find(record) + 1, parsed.status, parsed.intent]
+	inspection_label.modulate = Color("85d9ba") if parsed.status == "RECOGNIZED" else Color("edc488")
+	parse_view.text = "ВВОД\n%s\n\nТОКЕНЫ\n%s\n\nСЕМАНТИЧЕСКИЙ FRAME\n%s\n\nAMBIGUITY\n%s\n\nUNSUPPORTED FEATURES\n%s\n\nDIAGNOSTICS\n%s" % [record.input, JSON.stringify(parsed.normalized_tokens), JSON.stringify(parsed.frame, "  "), JSON.stringify(parsed.ambiguity, "  "), JSON.stringify(parsed.unsupported_features, "  "), JSON.stringify(parsed.diagnostics, "  ")]
+	diagnostic.text = "ОТВЕТ NPC\n%s\n\nФАКТИЧЕСКИЕ ЭФФЕКТЫ\n%s" % [record.answer, JSON.stringify(record.effects, "  ")]
+	context_view.text += "\n\nВЫБРАННАЯ ПОПЫТКА / до\n%s\n\nпосле\n%s" % [JSON.stringify(record.before, "  "), JSON.stringify(record.after, "  ")]
 
 func _toggle_dev(value: bool) -> void:
 	show_diagnostics = value; dev_panel.visible = value
 
 func _set_owner(index: int) -> void:
-	context.key_owner = ["anna", "world", "player"][index]; _refresh_objects()
+	context.key_owner = ["anna", "world", "player"][index]; _refresh_objects(); _show_live_context()
 
 func _set_pending(index: int) -> void:
-	context.pending = ["", "offer", "help_target"][index]
+	context.pending = ["", "offer", "help_target"][index]; _show_live_context()
 
 func _refresh_objects() -> void:
 	if not is_instance_valid(key_visual): return
@@ -160,5 +260,5 @@ func _refresh_objects() -> void:
 
 func _reset() -> void:
 	Session.reset(context); busy_toggle.button_pressed = false; knowledge_toggle.button_pressed = true
-	owner_option.select(0); pending_option.select(0); reply_label.text = "Астера ждёт реплику."; effects_label.text = "Эффекты: —"; raw_label.text = "Ввод: —"
+	owner_option.select(0); pending_option.select(0); reply_label.text = "Астера ждёт реплику."; last_record = {}
 	_update_diagnostics({}); _refresh_objects()

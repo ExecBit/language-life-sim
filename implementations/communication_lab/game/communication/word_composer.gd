@@ -14,15 +14,17 @@ var opener_key := 0
 func _ready() -> void:
 	add_theme_constant_override("separation",5)
 	phrase = LineEdit.new()
-	phrase.placeholder_text = "Ваша реплика — слова можно исправить"
+	phrase.placeholder_text = "Напишите реплику по-немецки…"
 	phrase.keep_editing_on_text_submit = true
 	add_child(phrase)
 	prefix = LineEdit.new()
-	prefix.placeholder_text = "↑/↓ — выбрать · Tab — добавить слово · Enter — отправить"
+	prefix.placeholder_text = "Найти слово в каталоге…"
 	prefix.keep_editing_on_text_submit = true
 	add_child(prefix)
 	matches = ItemList.new()
-	matches.custom_minimum_size.y = 70
+	matches.custom_minimum_size.y = 76
+	matches.max_columns = 3
+	matches.same_column_width = true
 	add_child(matches)
 	prefix.text_changed.connect(update_matches)
 	prefix.text_submitted.connect(func(_text): prefix_enter())
@@ -34,14 +36,19 @@ func _ready() -> void:
 	var row := HFlowContainer.new()
 	add_child(row)
 	add_button(row,"Отправить",send)
-	add_button(row,"Указать предмет",func(): point_requested.emit())
-	help_button = add_button(row,"Помощь",func(): help_requested.emit())
-	add_button(row,"Закрыть / отменить",func(): cancelled.emit())
+
+	var hint := Label.new()
+	hint.text = "Enter · отправить   /   Tab · добавить слово   /   ↑↓ · выбор"
+	hint.add_theme_font_size_override("font_size", 14)
+	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	add_child(hint)
+	add_button(row,"Очистить",clear)
 	update_matches("")
 
 func add_button(row: Control, text: String, action: Callable) -> Button:
 	var button := Button.new()
 	button.text = text
+	button.custom_minimum_size.y = 38
 	button.pressed.connect(action)
 	row.add_child(button)
 	return button
@@ -99,7 +106,7 @@ func clear() -> void:
 func route_key(event: InputEvent) -> bool:
 	if consume_opener(event): return true
 	if not is_visible_in_tree() or not event is InputEventKey or not event.pressed: return false
-	if event.keycode in [KEY_ENTER,KEY_KP_ENTER]:
+	if event.keycode in [KEY_ENTER,KEY_KP_ENTER] and (editing() or matches.has_focus()):
 		get_viewport().set_input_as_handled()
 		if not event.echo: send()
 		return true
@@ -107,7 +114,7 @@ func route_key(event: InputEvent) -> bool:
 		get_viewport().set_input_as_handled()
 		if not event.echo and (not prefix.text.strip_edges().is_empty() or matches.has_focus()): choose_word()
 		return true
-	if event.keycode in [KEY_UP,KEY_DOWN] and matches.item_count > 0:
+	if event.keycode in [KEY_UP,KEY_DOWN] and matches.item_count > 0 and (prefix.has_focus() or matches.has_focus()):
 		var selected := matches.get_selected_items()
 		var index := int(selected[0]) if not selected.is_empty() else 0
 		index = clampi(index+(-1 if event.keycode == KEY_UP else 1),0,matches.item_count-1)

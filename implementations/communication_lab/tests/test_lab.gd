@@ -1,7 +1,6 @@
 extends SceneTree
 const Parser = preload("res://implementations/communication_lab/game/communication/parser.gd")
 const Session = preload("res://implementations/communication_lab/game/communication/lab_session.gd")
-const LabScene = preload("res://implementations/communication_lab/communication_lab.tscn")
 var failures := 0
 
 func _initialize() -> void:
@@ -83,7 +82,7 @@ func run() -> void:
 	c.pending = "offer"; c.door_open = true
 	Session.reset(c)
 	check(c.pending == "" and c.door_open == false and c.key_owner == "anna", "reset restores initial context and clears pending")
-	var room := LabScene.instantiate()
+	var room := (load("res://implementations/communication_lab/communication_lab.tscn") as PackedScene).instantiate()
 	root.add_child(room)
 	await process_frame
 	var player: Node = room.get("player")

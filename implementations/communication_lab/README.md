@@ -1,6 +1,6 @@
 # Communication Lab
 
-Independent F6 sandbox for inspecting the existing German parser, word catalog and composer. The implementation is copied from dormitory `game/communication/parser.gd`, `word_catalog.gd` and `word_composer.gd` at main revision `c2b2b8e` (2026-11-11); only its internal script paths point to this variant. Grammar changes belong in a separate issue.
+Independent F6 sandbox for inspecting the existing German parser, word catalog and composer. The implementation is copied from dormitory `game/communication/parser.gd`, `word_catalog.gd` and `word_composer.gd` at main revision `c2b2b8e` (2026-11-11); parser/catalog semantics are unchanged; the local composer presentation and keyboard routing are adapted to the lab. Grammar changes belong in a separate issue.
 
 ## Run
 
@@ -37,3 +37,11 @@ The test covers R01–R15 and W01–W07 parser/context cases from the existing s
 - [ ] F5 still launches the dormitory.
 
 This lab does not imply understanding of unrestricted German. `Ja/Nein` use only explicit pending context, and item/door effects are a two-object demonstrator, not a quest. Parser gaps are recorded by the regression case and should be fixed separately. Exported candidate launch and in-editor F6/F5 manual checks are reported in the PR according to what was actually run.
+
+## Conversation and laboratory UI
+
+Conversation starts with E near Astera; Esc closes it and restores movement. F2 opens the laboratory from anywhere and pauses movement while editing. The player panel contains the NPC response, editable phrase, catalog search, suggestions, Send and Clear. Enter sends the complete phrase including an unconfirmed search token; Tab appends a selected catalog word. Arrow keys navigate suggestions only while catalog search/list has focus.
+
+The separate laboratory panel is hidden by default. Context controls apply to the next attempt. Four inspector tabs separate parsing (raw input, tokens, full frame, ambiguity, unsupported features and diagnostics), NPC response/effects, live and recorded before/after state, and session history. Select a historical attempt to inspect it without restoring the world. Recall loads its text for editing and an explicit resubmission under the current context. Reset restores context while retaining history for comparison. Inspector text can be selected and copied.
+
+Automated visual/workflow verification: run `Godot_v4.7.1-stable_win64_console.exe --path . --rendering-method gl_compatibility --script res://implementations/communication_lab/tests/capture_ui.gd`. Captures go to ignored `.local/commlab-*.png`; assertions cover composer submission, history recall, reset and movement restoration. See the verification report for observed shared-addon warnings.

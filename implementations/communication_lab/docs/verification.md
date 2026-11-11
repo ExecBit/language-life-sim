@@ -1,28 +1,26 @@
-# Issue #62 verification report
+# Issue #62 verification
 
-## Targeted automated checks
+Run with Godot 4.7.1 console executable from the project root. In this environment the restricted sandbox crashes the engine before startup; the authorized runs outside that sandbox complete.
 
-| Check | Result | Reproduction |
+| Check | Result | Evidence |
 | --- | --- | --- |
-| Headless Godot import | PASS | Godot 4.7.1: `--headless --path . --editor --quit` exited 0 after filesystem scan/import. The restricted host profile caused a safe-save warning; assets and scripts completed scanning. |
-| Parser/resolver and scene-state cases | NOT_TESTED | Attempted `--headless --path . --script res://implementations/communication_lab/tests/test_lab.gd`; the installed Godot 4.7.1 process crashed with signal 11 before test output. A plain `--headless --path . --quit-after 5` launch crashed the same way, indicating an engine/runtime failure rather than a test assertion result. The suite now contains the additional HUD/panel/avatar/idle assertions for rerun in a working Godot runtime. |
-| Variant isolation scan | PASS | No `res://implementations/dormitory/` references in lab scripts, tests or scene. F5's `project.godot` entry remains the dormitory scene. |
-| F6 scene startup after Astera/HUD update | NOT_TESTED | Current Godot CLI launch is blocked by the same signal 11 crash; no startup result is claimed for this follow-up. |
-| Updated visual composition and real input | NOT_TESTED | Headless checks confirm Astera is selected when the local private VRM exists, the retargeted idle animation is active, Cogito HUD is hidden, and the Communication panel is anchored bottom-left. No screenshot or GUI interaction was run for this follow-up, so appearance, dialog input, movement lock, diagnostics and reset were not visually rechecked. On clean checkouts, the private Astera VRM is absent and the redistributable Anna fallback is selected. |
-| F5 default startup | PASS (headless) | `--headless --path . --quit-after 120`; default dormitory started and its Motifect actors initialized. |
-| Export and candidate launch | NOT_TESTED (attempt blocked) | `--export-debug "Windows Desktop" .local/communication_lab_candidate.exe` found no root `export_presets.cfg`; Godot also reported the VRM extension DLL unavailable. No candidate was produced. |
+| Parser/resolver and scene regression | PASS | `--headless --path . --script res://implementations/communication_lab/tests/test_lab.gd --quit-after 120`: 36 PASS lines, zero assertion failures. Scene resource is loaded after autoload initialization. |
+| Actual rendered normal/debug UI | PASS | `--path . --rendering-method gl_compatibility --script res://implementations/communication_lab/tests/capture_ui.gd --quit-after 180`. Inspected actual viewport captures of normal conversation and all four debug tabs. Iterated after finding bottom clipping; final panel bounds assertion passes. |
+| Composer/history/reset workflow | PASS | Same capture runner submits via composer, including an unconfirmed prefix token; verifies history recall does not restore world state, reset preserves attempts, and closing restores movement and hides tools. |
+| Isolation / F5 entry | PASS | No cross-variant resource dependencies added; project.godot remains unchanged. Parser/catalog/resolver semantics unchanged. |
+| Shared Cogito audio initialization | FAIL | CLI test launches report existing `Audio._play_sound` null stream and `CogitoPlayerSimple.slide_audio_init` reparent errors, plus resource cleanup warnings. Lab UI/scene assertions still complete. Shared addons are outside this UI change. |
+| Real mouse/keyboard exploratory session | NOT_TESTED | Verification used rendered engine frames and automated UI method calls, not human input. |
+| Exported build / audio | NOT_TESTED | No candidate export or audio behavior validated in this follow-up. |
 
-## Reproducible phrase fixtures
+Screenshots and raw logs are in ignored `.local/`. Captures reflect the actual imported local Astera model; the closed model remains uncommitted and clean checkouts use Anna fallback.
 
-- `Hallo` with Anna free and busy: compare contextual response.
-- `Ja` with and without a pending offer: only pending state recognizes it as an answer.
-- `Schlüssel?`, then `Wo ist der Schlüssel?`: fragment needs clarification; complete question resolves its location.
-- `Öffne die Tür nicht.`: no door effect.
-- `Ich brauche den Schlüssel` with the key at Anna, elsewhere, and Anna busy: only the available/free context transfers it.
-- `Ich brauche den Schlüssel` twice: transfer occurs once.
-- `Kannst du die Tür öffnen?` with Anna free and busy: only the free context opens the door.
-- `Ich will Flöte.`: free text is accepted by input and reports an unknown token.
+## Reproduction
 
-## Limitations
+1. F6 the lab scene, approach Astera and press E. Enter `Hallo`; Enter sends. Use catalog search + Tab to append a word. Unknown words remain accepted as input.
+2. F2 opens the laboratory. Set NPC busy and repeat `Hallo`; compare the response in History. Select either attempt, then inspect Parse / Response and effects / State.
+3. Reset context, submit `Ich brauche den Schlüssel`, then submit again: only the first transfer changes ownership. Inspect live controls and before/after state.
+4. Recall an earlier attempt, edit and explicitly submit it under current context. Reset preserves this history while clearing pending conversation state.
+5. Test `Ja` / `Nein` inside and outside pending offer, `Schlüssel?`, `Wo ist der Schlüssel?`, `Öffne die Tür nicht.`, and `Ich will Flöte.`. Inspect unsupported/unknown results without world effects.
+6. Hide tools with F2; close conversation with Esc and continue moving.
 
-The parser is copied without grammar changes; its internal proper-noun vocabulary and addressee ID remain Anna. The room resolver supports only explicit social responses, key location/transfer, door opening, and safe acknowledgements. It does not promise free-form German comprehension. The earlier headless runs emitted Cogito warnings about rendering-device-dependent input icons and resource cleanup but exited 0; the current follow-up rerun crashes as noted above. No interactive movement, dialog, export or exported-build result is claimed.
+The parser keeps its original internal Anna vocabulary/addressee; the visible avatar is Astera. Recognition does not imply unrestricted German comprehension.
