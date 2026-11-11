@@ -35,7 +35,32 @@ const RECOVERY_ERROR_MAP := {
 	"OMITTED_MODAL":{"parser_codes":[],"oracle_codes":["OMITTED_MODAL"]},
 	"FINITE_VERB_AFTER_MODAL":{"parser_codes":[],"oracle_codes":["FINITE_VERB_AFTER_MODAL"]},
 	"OMITTED_SUBJECT_OR_VERB":{"parser_codes":[],"oracle_codes":["OMITTED_SUBJECT_OR_VERB"]},
-	"MULTIPLE_RECOVERABLE_ERRORS":{"parser_codes":[],"oracle_codes":["MULTIPLE_RECOVERABLE_ERRORS"]}
+	"MULTIPLE_RECOVERABLE_ERRORS":{"parser_codes":[],"oracle_codes":["MULTIPLE_RECOVERABLE_ERRORS"]},
+	"REDUNDANT_INFINITIVE":{"parser_codes":[],"oracle_codes":["REDUNDANT_INFINITIVE"]},
+	"MISSING_OBJECT":{"parser_codes":[],"oracle_codes":["MISSING_OBJECT"]},
+	"LEXICAL_CALQUE":{"parser_codes":[],"oracle_codes":["LEXICAL_CALQUE"]}
+}
+## These are valid oracle annotations, but they are not grammatical-error
+## categories and must never count as grammatical recovery evidence.
+const NON_GRAMMATICAL_ORACLE_DIAGNOSTICS := {
+	"AMBIGUOUS_REFERENCE":"SEMANTIC_AMBIGUITY",
+	"AMBIGUOUS_SPEECH_ACT":"SEMANTIC_AMBIGUITY",
+	"CLARIFY_AMBIGUOUS_HELP_ROLES":"SEMANTIC_AMBIGUITY",
+	"CLARIFY_AMBIGUOUS_ROLES":"SEMANTIC_AMBIGUITY",
+	"CLARIFY_CONFLICTING_PRONOUNS":"SEMANTIC_AMBIGUITY",
+	"CLARIFY_ELLIPTIC_YES_NO":"SEMANTIC_AMBIGUITY",
+	"CLARIFY_MISSING_SUBJECT":"SEMANTIC_AMBIGUITY",
+	"CLARIFY_MULTIPLE_INTENTS":"SEMANTIC_AMBIGUITY",
+	"CLARIFY_NAME_OR_STATE":"SEMANTIC_AMBIGUITY",
+	"CLARIFY_QUESTION_OR_STATEMENT":"SEMANTIC_AMBIGUITY",
+	"CLARIFY_UNCLEAR_NEGATION_SCOPE":"SEMANTIC_AMBIGUITY",
+	"CLARIFY_UND_DU_CONTEXT":"SEMANTIC_AMBIGUITY",
+	"CLARIFY_WHY_CONTEXT":"SEMANTIC_AMBIGUITY",
+	"CONTRADICTORY_CLAUSES":"SEMANTIC_AMBIGUITY",
+	"MISSING_CONTEXT":"SEMANTIC_AMBIGUITY",
+	"UNKNOWN_TOKEN":"UNKNOWN_VOCABULARY",
+	"UNSUPPORTED_DOMAIN":"UNSUPPORTED_FEATURE",
+	"MULTIPLE_INTENTS":"UNSUPPORTED_FEATURE"
 }
 const NON_RECOVERY_DIAGNOSTICS := ["UNKNOWN_TOKEN", "SOCIAL_PREFIX", "CONTEXTUAL_TARGET"]
 
@@ -56,6 +81,7 @@ func run() -> void:
 	for corpus_path in CORPUS_FILES:
 		_load_split(corpus_path, counts)
 	_validate_distribution(counts)
+	_test_fixture_recovery_contract()
 	_validate_required_probes()
 	var summary := _summarize(all_results)
 	_write_outputs(all_results, summary)
@@ -113,6 +139,13 @@ func _validate_oracle_shape(item: Dictionary) -> void:
 	for key in ["decision", "intent", "actor", "recipient", "polarity", "speech_act", "recovery_used", "diagnostic_codes", "may_advance_objective", "expected_objectives"]:
 		if not expected.has(key):
 			_fail("%s missing expected.%s" % [item.get("id", ""), key])
+	if not expected.get("diagnostic_codes", []) is Array:
+		_fail("%s expected.diagnostic_codes must be an array" % item.get("id", ""))
+	else:
+		for diagnostic_code in expected.diagnostic_codes:
+			if _oracle_diagnostic_class(str(diagnostic_code)) == "UNCLASSIFIED":
+				_fail("%s has unclassified expected diagnostic code %s" % [item.get("id", ""), diagnostic_code])
+	_validate_expected_recovery_contract(item)
 	if not expected.get("expected_objectives", []) is Array:
 		_fail("%s expected_objectives must be an array" % item.get("id", ""))
 	if bool(expected.get("may_advance_objective", false)) != (not expected.get("expected_objectives", []).is_empty()):
@@ -140,6 +173,61 @@ func _validate_oracle_shape(item: Dictionary) -> void:
 	if "MULTIPLE_INTENTS" in expected.get("unsupported_features", []):
 		if expected.get("decision", "") != "UNSUPPORTED" or expected.get("intents", []).size() < 2 or expected.get("semantic_frames", []).size() < 2:
 			_fail("%s MULTIPLE_INTENTS must preserve at least two component intents and semantic frames" % item.get("id", ""))
+
+func _validate_expected_recovery_contract(item: Dictionary) -> void:
+	var expected: Dictionary = item.get("expected", {})
+	var decision := str(expected.get("decision", ""))
+	var recovery_used := bool(expected.get("recovery_used", false))
+	if expected.has("semantic_recovery_status"):
+		var recovery_status := str(expected.semantic_recovery_status)
+		if recovery_status not in ["COMPLETE", "PARTIAL", "NONE"]:
+			_fail("%s has invalid semantic_recovery_status %s" % [item.get("id", ""), recovery_status])
+		elif recovery_used != (recovery_status == "COMPLETE"):
+			_fail("%s recovery_used must mean complete semantic recovery" % item.get("id", ""))
+	if recovery_used and decision == "NEEDS_CLARIFICATION":
+		_fail("%s cannot mark unresolved meaning as complete semantic recovery" % item.get("id", ""))
+	if recovery_used and decision == "UNKNOWN":
+		_fail("%s cannot mark unknown vocabulary as complete semantic recovery" % item.get("id", ""))
+	if recovery_used and decision == "UNSUPPORTED":
+		var frames: Array = expected.get("semantic_frames", [])
+		var intents: Array = expected.get("intents", [])
+		if "MULTIPLE_INTENTS" not in expected.get("unsupported_features", []) or expected.get("semantic_recovery_status", "") != "COMPLETE":
+			_fail("%s can retain complete recovery while unsupported only for fully resolved MULTIPLE_INTENTS" % item.get("id", ""))
+		if intents.size() < 2 or frames.size() != intents.size():
+			_fail("%s complete multi-intent recovery needs one frame per intent" % item.get("id", ""))
+		for frame in frames:
+			if not _is_complete_semantic_frame(frame):
+				_fail("%s complete multi-intent recovery frame lacks a semantic role, polarity or speech act" % item.get("id", ""))
+
+func _oracle_diagnostic_class(code: String) -> String:
+	for category in RECOVERY_ERROR_MAP:
+		var mapping: Dictionary = RECOVERY_ERROR_MAP[category]
+		if code in mapping.oracle_codes:
+			return "GRAMMATICAL_ERROR"
+	return str(NON_GRAMMATICAL_ORACLE_DIAGNOSTICS.get(code, "UNCLASSIFIED"))
+
+func _is_complete_semantic_frame(value: Variant) -> bool:
+	if not value is Dictionary:
+		return false
+	var frame: Dictionary = value
+	for key in ["intent", "grammatical_subject", "actor", "recipient", "polarity", "speech_act"]:
+		if not frame.has(key): return false
+	if str(frame.intent).is_empty() or str(frame.grammatical_subject).is_empty() or str(frame.actor).is_empty():
+		return false
+	if str(frame.polarity) not in ["positive", "negative"]:
+		return false
+	if str(frame.speech_act) not in ["statement", "question", "offer", "request", "farewell"]:
+		return false
+	if str(frame.get("action", "")).to_lower() == "help" and str(frame.intent) not in ["OFFER_HELP", "REQUEST_HELP", "PLAYER_CANNOT_HELP", "DESCRIBE_HELP"]:
+		return false
+	if str(frame.intent) in ["OFFER_HELP", "REQUEST_HELP", "PLAYER_CANNOT_HELP", "DESCRIBE_HELP"]:
+		if not frame.has("helper") or not frame.has("help_recipient"):
+			return false
+		if str(frame.helper).is_empty() or str(frame.help_recipient).is_empty():
+			return false
+	if str(frame.intent) in ["PLAYER_MOOD_GOOD", "PLAYER_MOOD_LOW", "ASTERA_MOOD_LOW"] and not frame.has("experiencer"):
+		return false
+	return true
 
 func _validate_distribution(counts: Dictionary) -> void:
 	for split in ["dev", "validation"]:
@@ -196,6 +284,31 @@ func _check_expected(input_text: String, decision: String, intent: String) -> vo
 	if item.is_empty() or item.expected.get("decision", "") != decision or item.expected.get("intent", "") != intent:
 		_fail("required oracle probe missing or mislabeled: %s → %s/%s" % [input_text, decision, intent])
 
+func _test_fixture_recovery_contract() -> void:
+	for case_id in ["B-007", "B-060", "B-073", "B-076", "B-080"]:
+		var item := _find_case_id(case_id)
+		var expected: Dictionary = item.get("expected", {})
+		if item.is_empty() or expected.get("decision", "") != "UNSUPPORTED" or expected.get("recovery_used", false) != true or expected.get("semantic_recovery_status", "") != "COMPLETE":
+			_fail("%s must retain complete semantic recovery for unsupported multi-intent" % case_id)
+		if expected.get("semantic_frames", []).size() < 2:
+			_fail("%s must carry all component semantic frames" % case_id)
+		for frame in expected.get("semantic_frames", []):
+			if not _is_complete_semantic_frame(frame):
+				_fail("%s has an incomplete recovered semantic frame" % case_id)
+	var clarification := _find_case_id("B-038")
+	if clarification.is_empty() or clarification.expected.get("decision", "") != "NEEDS_CLARIFICATION" or clarification.expected.get("recovery_used", true) != false or clarification.expected.get("semantic_recovery_status", "") != "PARTIAL":
+		_fail("B-038 must be partial recovery because speech act remains unresolved")
+	for probe in [{"id":"B-004","code":"REDUNDANT_INFINITIVE"},{"id":"B-036","code":"MISSING_OBJECT"},{"id":"B-068","code":"LEXICAL_CALQUE"}]:
+		var item := _find_case_id(probe.id)
+		if item.is_empty() or probe.code not in item.get("expected", {}).get("diagnostic_codes", []):
+			_fail("%s must retain the legitimate %s oracle error category" % [probe.id, probe.code])
+
+func _find_case_id(case_id: String) -> Dictionary:
+	for item in all_results:
+		if str(item.get("id", "")) == case_id:
+			return item
+	return {}
+
 func _find_case(input_text: String) -> Dictionary:
 	for result in all_results:
 		if str(result.input).to_lower() == input_text.to_lower():
@@ -204,39 +317,47 @@ func _find_case(input_text: String) -> Dictionary:
 
 func _test_recovery_contract() -> void:
 	var cases := [
-		{"name":"correct German has no recovery", "parsed":{"status":"RECOGNIZED","intent":"GREETING","diagnostics":[]}, "expected_codes":[], "used":false, "status":"NOT_REPORTED", "coverage":"NO_GOLD_ERROR_EXPECTED"},
-		{"name":"mapped error plus recognized intent infers recovery", "parsed":{"status":"RECOGNIZED","intent":"PLAYER_PLAN","diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":true, "status":"INFERRED_FROM_DIAGNOSTIC", "coverage":"FULL"},
-		{"name":"resolver clarification does not count recovery", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["AGREEMENT_MISMATCH"]}, "resolved_decision":"RECOGNIZED", "resolver_reaction":"clarify_missing_beneficiary", "expected_codes":["VERB_AGREEMENT"], "used":false, "status":"BLOCKED_AMBIGUITY", "coverage":"FULL"},
-		{"name":"unknown token does not count recovery", "parsed":{"status":"RECOGNIZED","intent":"PLAYER_PLAN","diagnostics":[{"code":"UNKNOWN_TOKEN","token":"wombat"},"AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":false, "status":"BLOCKED_UNKNOWN_TOKEN", "coverage":"FULL"},
-		{"name":"unsupported compound error is detected but not recovered", "parsed":{"status":"UNSUPPORTED","intent":"","unsupported_features":["MULTIPLE_INTENTS"],"diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":false, "status":"BLOCKED_UNSUPPORTED", "coverage":"FULL"},
-		{"name":"all reported combined errors have full diagnostic coverage", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["AGREEMENT_MISMATCH","OMITTED_COPULA"]}, "expected_codes":["VERB_AGREEMENT","MISSING_FINITE_VERB"], "used":true, "status":"INFERRED_FROM_DIAGNOSTIC", "coverage":"FULL"},
-		{"name":"one of multiple errors is partial, not full coverage", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT","MISSING_FINITE_VERB"], "used":true, "status":"INFERRED_FROM_DIAGNOSTIC", "coverage":"PARTIAL"},
-		{"name":"aggregate multiple-error oracle needs multiple parser diagnostics", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["AGREEMENT_MISMATCH","OMITTED_COPULA"]}, "expected_codes":["MULTIPLE_RECOVERABLE_ERRORS"], "used":true, "status":"INFERRED_FROM_DIAGNOSTIC", "coverage":"FULL"},
-		{"name":"one parser diagnostic cannot satisfy aggregate multiple-error coverage", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["MULTIPLE_RECOVERABLE_ERRORS"], "used":true, "status":"INFERRED_FROM_DIAGNOSTIC", "coverage":"PARTIAL"},
-		{"name":"expected gold error alone does not infer recovery", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":[]}, "expected_codes":["WORD_ORDER"], "used":false, "status":"NOT_REPORTED", "coverage":"MISSING"},
-		{"name":"oracle category absent from parser mapping stays visible", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["WORD_ORDER"]}, "expected_codes":["WORD_ORDER"], "used":false, "status":"UNMAPPED_DIAGNOSTICS", "coverage":"MISSING", "unmapped":["WORD_ORDER"]},
-		{"name":"unrecognized parser diagnostic is surfaced", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":["FUTURE_PARSER_FLAG"]}, "expected_codes":[], "used":false, "status":"UNMAPPED_DIAGNOSTICS", "coverage":"NO_GOLD_ERROR_EXPECTED", "unmapped":["FUTURE_PARSER_FLAG"]},
-		{"name":"explicit parser recovery flag takes precedence", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","recovery_used":false,"diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":false, "status":"PARSER_REPORTED_NO_RECOVERY", "coverage":"FULL"}
+		{"name":"clean recognized utterance has no recovery", "parsed":{"status":"RECOGNIZED","intent":"GREETING","semantic_recovery_status":"COMPLETE","frame":{"intent":"GREETING","grammatical_subject":"player","actor":"player","recipient":"astera","polarity":"positive","speech_act":"statement"},"diagnostics":[]}, "expected_codes":[], "used":false, "semantic_status":"COMPLETE","grammar_error":false,"coverage":"NO_GOLD_ERROR_EXPECTED"},
+		{"name":"verified semantic roles plus grammatical evidence recover", "parsed":{"status":"RECOGNIZED","intent":"PLAYER_PLAN","semantic_recovery_status":"COMPLETE","frame":{"intent":"PLAYER_PLAN","grammatical_subject":"player","actor":"player","recipient":"astera","polarity":"positive","speech_act":"statement"},"diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":true, "semantic_status":"COMPLETE","grammar_error":true,"coverage":"FULL"},
+		{"name":"grammatical error with ambiguous meaning is partial", "parsed":{"status":"NEEDS_CLARIFICATION","intent":"ASK_ACTIVITY","frame":{"intent":"ASK_ACTIVITY","subject":"player"},"ambiguity":["AMBIGUOUS_ROLES"],"diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":false, "semantic_status":"PARTIAL","grammar_error":true,"coverage":"FULL"},
+		{"name":"grammar in fully reconstructed unsupported compound is complete", "parsed":{"status":"UNSUPPORTED","unsupported_features":["MULTIPLE_INTENTS"],"semantic_frame_coverage":"COMPLETE","intents":["PLAYER_NAME","ASK_BACK"],"semantic_frames":[{"intent":"PLAYER_NAME","grammatical_subject":"player","actor":"player","recipient":"","polarity":"positive","speech_act":"statement"},{"intent":"ASK_BACK","grammatical_subject":"player","actor":"player","recipient":"astera","polarity":"positive","speech_act":"question"}],"diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":true,"semantic_status":"COMPLETE","grammar_error":true,"coverage":"FULL"},
+		{"name":"incomplete unsupported compound remains partial", "parsed":{"status":"UNSUPPORTED","unsupported_features":["MULTIPLE_INTENTS"],"intents":["PLAYER_NAME","ASK_BACK"],"semantic_frames":[{"intent":"PLAYER_NAME"}],"diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":false,"semantic_status":"PARTIAL","grammar_error":true,"coverage":"FULL"},
+		{"name":"partial recognized frame does not imply recovery", "parsed":{"status":"RECOGNIZED","intent":"OFFER_HELP","frame":{"intent":"OFFER_HELP","subject":"player","action":"REPORT_STATE"},"diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":false,"semantic_status":"PARTIAL","grammar_error":true,"coverage":"FULL"},
+		{"name":"known but unsupported parser mapping yields missing coverage", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":[]}, "expected_codes":["WORD_ORDER"], "used":false,"semantic_status":"PARTIAL","grammar_error":false,"coverage":"MISSING"},
+		{"name":"new grammatical categories remain explicit and unmapped", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":[]}, "expected_codes":["REDUNDANT_INFINITIVE","MISSING_OBJECT","LEXICAL_CALQUE"], "used":false,"semantic_status":"PARTIAL","grammar_error":false,"coverage":"MISSING"},
+		{"name":"unknown oracle category is explicit", "parsed":{"status":"RECOGNIZED","intent":"ASK_ACTIVITY","diagnostics":[]}, "expected_codes":["FUTURE_ORACLE_FLAG"], "used":false,"semantic_status":"PARTIAL","grammar_error":false,"coverage":"UNCLASSIFIED_ORACLE_DIAGNOSTICS","unclassified":["FUTURE_ORACLE_FLAG"]},
+		{"name":"grammatical evidence is independent of semantic recovery", "parsed":{"status":"UNKNOWN","diagnostics":["AGREEMENT_MISMATCH"]}, "expected_codes":["VERB_AGREEMENT"], "used":false,"semantic_status":"NONE","grammar_error":true,"coverage":"FULL"}
 	]
 	for test_case in cases:
-		var assessment := _assess_recovery(test_case.parsed, test_case.expected_codes, str(test_case.get("resolved_decision", "")), str(test_case.get("resolver_reaction", "")))
-		var passed: bool = bool(assessment.recovery_used) == bool(test_case.used) and str(assessment.status) == str(test_case.status) and str(assessment.diagnostic_coverage) == str(test_case.coverage)
+		var assessment := _assess_recovery(test_case.parsed, test_case.expected_codes)
+		var passed: bool = bool(assessment.recovery_used) == bool(test_case.used) and str(assessment.semantic_recovery_status) == str(test_case.semantic_status) and bool(assessment.grammatical_error_detected) == bool(test_case.grammar_error) and str(assessment.diagnostic_coverage) == str(test_case.coverage)
 		if test_case.has("unmapped"):
 			passed = passed and _sorted_strings(assessment.unmapped_parser_diagnostics) == _sorted_strings(test_case.unmapped)
+		if test_case.has("unclassified"):
+			passed = passed and _sorted_strings(assessment.unclassified_oracle_diagnostics) == _sorted_strings(test_case.unclassified)
 		if passed:
 			print("PASS recovery contract: ", test_case.name)
 		else:
 			_fail("recovery contract test failed: %s → %s" % [test_case.name, JSON.stringify(assessment)])
+	for code in ["REDUNDANT_INFINITIVE", "MISSING_OBJECT", "LEXICAL_CALQUE"]:
+		if _oracle_diagnostic_class(code) != "GRAMMATICAL_ERROR" or _canonical_error_categories([code]).is_empty():
+			_fail("missing explicit grammatical diagnostic registration: " + code)
+	if not _is_complete_semantic_frame({"intent":"PLAYER_PLAN","grammatical_subject":"player","actor":"player","recipient":"astera","polarity":"positive","speech_act":"statement"}):
+		_fail("a complete semantic frame with verified roles must pass completeness validation")
 
 func _assess_recovery(parsed: Dictionary, expected_diagnostic_codes: Array, resolved_decision: String = "", resolver_reaction: String = "") -> Dictionary:
 	var parser_codes := _diagnostic_codes(parsed.get("diagnostics", []))
 	var detected_categories := _detected_error_categories(parser_codes)
+	var grammatical_error_detected := not detected_categories.is_empty()
 	var unmapped: Array[String] = []
 	for code in parser_codes:
 		if not _has_parser_diagnostic_mapping(code) and code not in NON_RECOVERY_DIAGNOSTICS:
 			unmapped.append(code if not code.is_empty() else "<empty>")
 	var expected_categories := _canonical_error_categories(expected_diagnostic_codes)
-	var coverage := "NO_GOLD_ERROR_EXPECTED"
+	var unclassified: Array[String] = []
+	for code in expected_diagnostic_codes:
+		if _oracle_diagnostic_class(str(code)) == "UNCLASSIFIED": unclassified.append(str(code))
+	var coverage := "UNCLASSIFIED_ORACLE_DIAGNOSTICS" if not unclassified.is_empty() else "NO_GOLD_ERROR_EXPECTED"
 	if not expected_categories.is_empty():
 		var detected_set := {}
 		for category in detected_categories: detected_set[category] = true
@@ -256,44 +377,62 @@ func _assess_recovery(parsed: Dictionary, expected_diagnostic_codes: Array, reso
 		if matched == expected_categories.size() and not aggregate_partial: coverage = "FULL"
 		elif matched > 0 or aggregate_partial: coverage = "PARTIAL"
 		else: coverage = "MISSING"
-	elif not detected_categories.is_empty():
+	elif unclassified.is_empty() and not detected_categories.is_empty():
 		coverage = "UNEXPECTED_DETECTION"
-	var status := "NOT_REPORTED"
-	var used := false
-	var has_structured_flag := parsed.has("recovery_used")
-	if not has_structured_flag and parsed.get("recovery", null) is Dictionary and parsed.recovery.has("used"):
-		has_structured_flag = true
-	var structured_used: Variant = parsed.get("recovery_used", parsed.get("recovery", {}).get("used", false))
+	var semantic_status := "NONE"
 	var effective_decision := resolved_decision if not resolved_decision.is_empty() else str(parsed.get("status", "UNKNOWN"))
-	if has_structured_flag and not structured_used is bool:
-		status = "INVALID_STRUCTURED_RECOVERY_FLAG"
-	elif effective_decision == "UNSUPPORTED" or not parsed.get("unsupported_features", []).is_empty() or not str(parsed.get("unsupported_domain", "")).is_empty():
-		status = "BLOCKED_UNSUPPORTED"
+	if str(parsed.get("semantic_recovery_status", "")) in ["COMPLETE", "PARTIAL", "NONE"]:
+		semantic_status = str(parsed.semantic_recovery_status)
+		if semantic_status == "COMPLETE":
+			if effective_decision == "RECOGNIZED":
+				if not _is_complete_semantic_frame(parsed.get("frame", {})): semantic_status = "PARTIAL"
+			elif effective_decision == "UNSUPPORTED" and "MULTIPLE_INTENTS" in parsed.get("unsupported_features", []):
+				var explicit_frames: Array = parsed.get("semantic_frames", [])
+				var explicit_intents: Array = parsed.get("intents", [])
+				var explicit_complete := explicit_frames.size() >= 2 and explicit_frames.size() == explicit_intents.size() and str(parsed.get("semantic_frame_coverage", "")) == "COMPLETE"
+				for explicit_frame in explicit_frames:
+					explicit_complete = explicit_complete and _is_complete_semantic_frame(explicit_frame)
+				if not explicit_complete: semantic_status = "PARTIAL"
+			elif effective_decision != "UNSUPPORTED":
+				semantic_status = "PARTIAL"
+	elif effective_decision == "UNSUPPORTED" and "MULTIPLE_INTENTS" in parsed.get("unsupported_features", []):
+		var frames: Array = parsed.get("semantic_frames", [])
+		var intents: Array = parsed.get("intents", [])
+		var all_frames_complete := frames.size() >= 2 and frames.size() == intents.size() and str(parsed.get("semantic_frame_coverage", "")) == "COMPLETE"
+		for frame in frames:
+			all_frames_complete = all_frames_complete and _is_complete_semantic_frame(frame)
+		semantic_status = "COMPLETE" if all_frames_complete else ("PARTIAL" if not frames.is_empty() or not intents.is_empty() else "NONE")
+	elif effective_decision == "RECOGNIZED" and _is_complete_semantic_frame(parsed.get("frame", {})):
+		semantic_status = "COMPLETE"
 	elif effective_decision == "NEEDS_CLARIFICATION" or not parsed.get("ambiguity", []).is_empty() or resolver_reaction.begins_with("clarify") or resolver_reaction == "ask_why_clarification":
-		status = "BLOCKED_AMBIGUITY"
-	elif resolver_reaction == "unrecognized":
-		status = "BLOCKED_NO_RECOGNIZED_INTENT"
-	elif not _unknown_tokens(parsed).is_empty():
-		status = "BLOCKED_UNKNOWN_TOKEN"
-	elif effective_decision != "RECOGNIZED" or str(parsed.get("semantic", parsed.get("intent", ""))).is_empty() and str(parsed.get("intent", "")).is_empty():
-		status = "BLOCKED_NO_RECOGNIZED_INTENT"
-	elif has_structured_flag:
-		used = bool(structured_used)
-		status = "PARSER_REPORTED_RECOVERY" if used else "PARSER_REPORTED_NO_RECOVERY"
-	elif not detected_categories.is_empty():
-		used = true
-		status = "INFERRED_FROM_DIAGNOSTIC"
-	elif not unmapped.is_empty():
-		status = "UNMAPPED_DIAGNOSTICS"
+		semantic_status = "PARTIAL" if not str(parsed.get("semantic", parsed.get("intent", ""))).is_empty() or not parsed.get("frame", {}).is_empty() else "NONE"
+	elif not str(parsed.get("semantic", parsed.get("intent", ""))).is_empty() or not parsed.get("frame", {}).is_empty():
+		semantic_status = "PARTIAL"
+	if not _unknown_tokens(parsed).is_empty() and semantic_status == "COMPLETE":
+		semantic_status = "PARTIAL"
+	var has_structured_flag: bool = parsed.has("recovery_used") or (parsed.get("recovery", null) is Dictionary and parsed.recovery.has("used"))
+	var structured_used: Variant = parsed.get("recovery_used", parsed.get("recovery", {}).get("used", false))
+	var used := semantic_status == "COMPLETE" and grammatical_error_detected
+	var status := semantic_status
+	if has_structured_flag:
+		if not structured_used is bool:
+			status = "INVALID_STRUCTURED_RECOVERY_FLAG"
+			used = false
+		else:
+			used = semantic_status == "COMPLETE" and bool(structured_used) and grammatical_error_detected
+	if semantic_status != "COMPLETE": used = false
 	return {
 		"recovery_used":used,
 		"status":status,
-		"source":"STRUCTURED_PARSER" if has_structured_flag else ("MAPPED_DIAGNOSTIC" if not detected_categories.is_empty() else "NONE"),
+		"semantic_recovery_status":semantic_status,
+		"grammatical_error_detected":grammatical_error_detected,
+		"source":"STRUCTURED_PARSER" if has_structured_flag else ("MAPPED_DIAGNOSTIC" if grammatical_error_detected else "NONE"),
 		"parser_diagnostic_codes":parser_codes,
 		"detected_error_categories":detected_categories,
 		"expected_error_categories":expected_categories,
 		"diagnostic_coverage":coverage,
-		"unmapped_parser_diagnostics":unmapped
+		"unmapped_parser_diagnostics":unmapped,
+		"unclassified_oracle_diagnostics":unclassified
 	}
 
 func _detected_error_categories(parser_codes: Array) -> Array[String]:
@@ -375,6 +514,8 @@ func _evaluate(item: Dictionary) -> Dictionary:
 		"polarity": str(frame.get("polarity", "unresolved")),
 		"speech_act": str(frame.get("speech_act", "unresolved")),
 		"recovery_used": recovery_assessment.recovery_used,
+		"semantic_recovery_status": recovery_assessment.semantic_recovery_status,
+		"grammatical_error_detected": recovery_assessment.grammatical_error_detected,
 		"recovery_status": recovery_assessment.status,
 		"recovery_source": recovery_assessment.source,
 		"detected_error_categories": recovery_assessment.detected_error_categories,
@@ -474,12 +615,14 @@ func _normalize_role(role: String) -> String:
 	return "astera" if role == "anna" else role
 
 func _new_recovery_metrics() -> Dictionary:
-	return {"total":0,"expected_true":0,"actual_true":0,"true_positive":0,"false_positive":0,"false_negative":0,"true_negative":0,"status_counts":{},"diagnostic_coverage":{},"unmapped_parser_diagnostics":{}}
+	return {"total":0,"expected_true":0,"actual_true":0,"true_positive":0,"false_positive":0,"false_negative":0,"true_negative":0,"expected_grammatical_error":0,"actual_grammatical_error":0,"semantic_recovery_status":{},"status_counts":{},"diagnostic_coverage":{},"unmapped_parser_diagnostics":{}}
 
 func _update_recovery_metrics(metrics: Dictionary, result: Dictionary) -> void:
 	var expected_used := bool(result.expected.get("recovery_used", false))
 	var actual_used := bool(result.actual.get("recovery_used", false))
 	metrics.total += 1
+	if not _canonical_error_categories(result.expected.get("diagnostic_codes", [])).is_empty(): metrics.expected_grammatical_error += 1
+	if bool(result.actual.get("grammatical_error_detected", false)): metrics.actual_grammatical_error += 1
 	if expected_used: metrics.expected_true += 1
 	if actual_used: metrics.actual_true += 1
 	if expected_used and actual_used: metrics.true_positive += 1
@@ -488,6 +631,8 @@ func _update_recovery_metrics(metrics: Dictionary, result: Dictionary) -> void:
 	else: metrics.true_negative += 1
 	var status := str(result.actual.get("recovery_status", "NOT_REPORTED"))
 	metrics.status_counts[status] = int(metrics.status_counts.get(status, 0)) + 1
+	var semantic_status := str(result.actual.get("semantic_recovery_status", "NONE"))
+	metrics.semantic_recovery_status[semantic_status] = int(metrics.semantic_recovery_status.get(semantic_status, 0)) + 1
 	var coverage := str(result.actual.get("recovery_diagnostic_coverage", "NOT_REPORTED"))
 	metrics.diagnostic_coverage[coverage] = int(metrics.diagnostic_coverage.get(coverage, 0)) + 1
 	for code in result.actual.get("unmapped_parser_diagnostics", []):
