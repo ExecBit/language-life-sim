@@ -236,8 +236,8 @@ func _build_ui() -> void:
 		vocabulary_rows.append({"label":group_label,"group":group,"header":true,"search":""})
 		for entry in memo_entries:
 			if entry.availability != "available" or (entry.pos if groups.has(entry.pos) else "other") != group: continue
-			var translation: String = DialogueGrammar.translation_for(entry.surface)
-			if translation == "": translation = DialogueLanguage.translation_for(entry.surface)
+			var translation: String = DialogueLanguage.translation_for(entry.surface)
+			if translation == "": translation = DialogueGrammar.translation_for(entry.surface)
 			if translation == "": translation = translations.get(entry.semantic_id, "перевод не указан")
 			var entry_label := _label(vocab_list, "%s  —  %s" % [entry.surface, translation], 16)
 			vocabulary_rows.append({"label":entry_label,"group":group,"header":false,"search":("%s %s" % [entry.surface, translation]).to_lower()})

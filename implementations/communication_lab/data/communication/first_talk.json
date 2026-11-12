@@ -2287,7 +2287,7 @@
       "semantic_id": "entschuldigung",
       "surface": "entschuldigung",
       "translation": "извините",
-      "pos": "phrase"
+      "pos": "interjection"
     },
     {
       "semantic_id": "tut",
@@ -2431,7 +2431,7 @@
       "semantic_id": "danke",
       "surface": "danke",
       "translation": "спасибо",
-      "pos": "phrase"
+      "pos": "interjection"
     },
     {
       "semantic_id": "vergiss",
@@ -2725,7 +2725,7 @@
       "semantic_id": "sorry",
       "surface": "sorry",
       "translation": "извини",
-      "pos": "phrase"
+      "pos": "interjection"
     },
     {
       "semantic_id": "mochte",
@@ -2774,6 +2774,432 @@
       "surface": "vielleicht",
       "translation": "возможно",
       "pos": "adverb"
+    },
+    {
+      "semantic_id": "aber",
+      "surface": "aber",
+      "translation": "но",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "dein",
+      "surface": "dein",
+      "translation": "твой / твоя",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "steht",
+      "surface": "steht",
+      "translation": "стоит / значится",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "los",
+      "surface": "los",
+      "translation": "происходит (Was ist los? — что случилось?)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "astera",
+      "surface": "Astera",
+      "translation": "Астера (имя)",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "braucht",
+      "surface": "braucht",
+      "translation": "нуждается / требуется",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "okay",
+      "surface": "okay",
+      "translation": "ладно / хорошо",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "dann",
+      "surface": "dann",
+      "translation": "тогда",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "lasse",
+      "surface": "lasse",
+      "translation": "пускаю / позволяю",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "dich",
+      "surface": "dich",
+      "translation": "тебя",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "gilt",
+      "surface": "gilt",
+      "translation": "действует / действителен",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "weiterhin",
+      "surface": "weiterhin",
+      "translation": "по-прежнему",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "hallo",
+      "surface": "hallo",
+      "translation": "привет",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "denk",
+      "surface": "denk",
+      "translation": "помни / подумай",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "an",
+      "surface": "an",
+      "translation": "о / на / к (зависит от сочетания)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "die",
+      "surface": "die",
+      "translation": "определённый артикль die",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "mich",
+      "surface": "mich",
+      "translation": "меня",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "belogen",
+      "surface": "belogen",
+      "translation": "обманул / солгал (причастие)",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "bekommst",
+      "surface": "bekommst",
+      "translation": "получаешь",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "wieder",
+      "surface": "wieder",
+      "translation": "снова",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "da",
+      "surface": "da",
+      "translation": "здесь / тут",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "möchtest",
+      "surface": "möchtest",
+      "translation": "хочешь / хотел бы",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "tun",
+      "surface": "tun",
+      "translation": "делать",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "wissen",
+      "surface": "wissen",
+      "translation": "знать",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "hineinkommst",
+      "surface": "hineinkommst",
+      "translation": "проходишь внутрь / попадаешь внутрь",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "offiziell",
+      "surface": "offiziell",
+      "translation": "официально",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "versuchen",
+      "surface": "versuchen",
+      "translation": "пытаться / пробовать",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "bestätigst",
+      "surface": "bestätigst",
+      "translation": "подтверждаешь",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "das",
+      "surface": "das",
+      "translation": "это / определённый артикль das",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "verneinst",
+      "surface": "verneinst",
+      "translation": "отрицаешь / отвечаешь «нет»",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "entschuldigen",
+      "surface": "entschuldigen",
+      "translation": "извинять; sich entschuldigen — извиняться",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "mehr",
+      "surface": "mehr",
+      "translation": "больше / подробнее",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "gibst",
+      "surface": "gibst",
+      "translation": "даёшь / передаёшь",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "überbringen",
+      "surface": "überbringen",
+      "translation": "передавать / доставлять",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "deinen",
+      "surface": "deinen",
+      "translation": "твой (форма винительного падежа)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "zugang",
+      "surface": "Zugang",
+      "translation": "доступ / вход",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "bestätigen",
+      "surface": "bestätigen",
+      "translation": "подтверждать",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "gehe",
+      "surface": "gehe",
+      "translation": "иду / ухожу",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "alles",
+      "surface": "alles",
+      "translation": "всё",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "am",
+      "surface": "am",
+      "translation": "у / на (сокращение an dem)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "anders",
+      "surface": "anders",
+      "translation": "иначе / по-другому",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "antwort",
+      "surface": "Antwort",
+      "translation": "ответ",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "aussage",
+      "surface": "Aussage",
+      "translation": "утверждение / высказывание",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "beim",
+      "surface": "beim",
+      "translation": "при / у (сокращение bei dem)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "bezieht",
+      "surface": "bezieht",
+      "translation": "относит; sich beziehen — относиться",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "bleiben",
+      "surface": "bleiben",
+      "translation": "оставаться",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "damit",
+      "surface": "damit",
+      "translation": "этим / с этим",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "dem",
+      "surface": "dem",
+      "translation": "определённый артикль dem",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "diese",
+      "surface": "diese",
+      "translation": "эта / эти",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "eins",
+      "surface": "eins",
+      "translation": "одно / один",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "genau",
+      "surface": "genau",
+      "translation": "точно / именно",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "gerade",
+      "surface": "gerade",
+      "translation": "сейчас / как раз",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "im",
+      "surface": "im",
+      "translation": "в (сокращение in dem)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "klar",
+      "surface": "klar",
+      "translation": "ясно / понятно",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "klare",
+      "surface": "klare",
+      "translation": "ясный / понятный (форма прилагательного)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "meinst",
+      "surface": "meinst",
+      "translation": "имеешь в виду",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "nach",
+      "surface": "nach",
+      "translation": "после / вслед за",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "oder",
+      "surface": "oder",
+      "translation": "или",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "ort",
+      "surface": "Ort",
+      "translation": "место",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "passt",
+      "surface": "passt",
+      "translation": "подходит / соответствует",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "register",
+      "surface": "Register",
+      "translation": "реестр / список",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "richtigen",
+      "surface": "richtigen",
+      "translation": "правильный / подходящий (форма прилагательного)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "sehe",
+      "surface": "sehe",
+      "translation": "вижу",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "selben",
+      "surface": "selben",
+      "translation": "тот же / том же (форма)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "sich",
+      "surface": "sich",
+      "translation": "себя / себе (возвратное местоимение)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "thema",
+      "surface": "Thema",
+      "translation": "тема",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "um",
+      "surface": "um",
+      "translation": "о / вокруг (зависит от сочетания)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "wiederholung",
+      "surface": "Wiederholung",
+      "translation": "повторение",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "wir",
+      "surface": "wir",
+      "translation": "мы",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "worauf",
+      "surface": "worauf",
+      "translation": "к чему / на что",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "zur",
+      "surface": "zur",
+      "translation": "к / о (сокращение zu der)",
+      "pos": "other"
     }
   ],
   "constructions": [

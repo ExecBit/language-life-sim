@@ -1,5 +1,5 @@
 extends VBoxContainer
-const Parser = preload("res://implementations/communication_lab/game/communication/parser.gd")
+const Vocabulary = preload("res://implementations/communication_lab/game/communication/dialogue_language.gd")
 signal submitted(text: String)
 signal cancelled
 signal help_requested
@@ -55,7 +55,7 @@ func add_button(row: Control, text: String, action: Callable) -> Button:
 
 func update_matches(value: String) -> void:
 	matches.clear()
-	for word in Parser.suggestions(value): matches.add_item(word)
+	for word in Vocabulary.suggestions(value): matches.add_item(word)
 	if matches.item_count > 0: matches.select(0)
 
 func choose_word() -> void:
