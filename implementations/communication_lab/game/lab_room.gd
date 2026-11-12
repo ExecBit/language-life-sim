@@ -208,39 +208,26 @@ func _build_ui() -> void:
 	var vocab_header := HBoxContainer.new(); vocab_content.add_child(vocab_header)
 	var vocab_title := _label(vocab_header, "Памятка по словам", 22); vocab_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_button(vocab_header, "Закрыть · F1", _toggle_vocabulary)
-	_label(vocab_content, "Tab переключает варианты; пробел добавляет выбранное слово. Свободный ввод тоже доступен.", 15)
-	vocabulary_search = LineEdit.new(); vocabulary_search.placeholder_text = "Найти немецкое слово или перевод…"; vocabulary_search.clear_button_enabled = true
+	_label(vocab_content, "Ищите немецкое слово, перевод или цель реплики. Полные фразы находятся внизу.", 15)
+	vocabulary_search = LineEdit.new(); vocabulary_search.placeholder_text = "Найти слово, перевод или цель реплики…"; vocabulary_search.clear_button_enabled = true
 	vocabulary_search.text_changed.connect(_filter_vocabulary); vocab_content.add_child(vocabulary_search)
 	var vocab_scroll := ScrollContainer.new(); vocab_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL; vocab_content.add_child(vocab_scroll)
 	var vocab_list := VBoxContainer.new(); vocab_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL; vocab_scroll.add_child(vocab_list)
-	var memo_entries: Array = DialogueLanguage.vocabulary_entries()
-	var unique_entries: Array = []
-	var seen_surfaces := {}
+	var memo_entries: Array = DialogueLanguage.memo_entries()
+	var previous_group := ""
 	for entry in memo_entries:
-		var normalized_surface: String = str(entry.surface).to_lower()
-		if seen_surfaces.has(normalized_surface): continue
-		seen_surfaces[normalized_surface] = true
-		unique_entries.append(entry)
-	memo_entries = unique_entries
-	var groups := {"phrase": [], "pronoun": [], "verb": [], "noun": [], "adjective": [], "other": []}
-	for entry in memo_entries:
-		if entry.availability != "available": continue
-		var group: String = entry.pos if groups.has(entry.pos) else "other"
-		if not groups[group].has(entry.surface): groups[group].append(entry.surface)
-	var group_titles := {"phrase":"Фразы целиком", "pronoun":"Местоимения", "verb":"Глаголы и формы", "noun":"Существительные и имена", "adjective":"Признаки", "other":"Другие слова"}
-	var translations := {"lamp":"лампа", "player":"я / мне", "addressee":"ты / тебе", "anna":"Анна (в каталоге)", "want":"хотеть", "need":"нуждаться", "can":"мочь", "have":"иметь", "be":"быть", "open":"открывать", "give":"давать", "help":"помогать", "know":"знать", "key":"ключ", "door":"дверь", "room":"комната", "article":"артикль", "no":"никакой / не", "reference":"это", "not":"не", "where":"где", "why":"почему", "what":"что", "please":"пожалуйста", "closed":"закрыт", "accept":"да", "refuse":"нет", "thanks":"спасибо", "greeting":"приветствие", "subordinate":"что / потому что", "here":"здесь", "later":"позже", "lena":"Лена", "farewell":"пока", "apology":"извинение", "understand":"понимать", "again":"ещё раз", "once":"один раз", "approach":"подойти", "take":"взять", "water":"вода", "cup":"чашка", "bag":"сумка", "bread":"хлеб", "bell":"колокольчик", "market":"супермаркет", "possessive":"мой / моя"}
-	for group in ["phrase", "pronoun", "verb", "noun", "adjective", "other"]:
-		if groups[group].is_empty(): continue
-		var group_label := _label(vocab_list, group_titles[group], 16)
-		group_label.modulate = Color("85c9c4")
-		vocabulary_rows.append({"label":group_label,"group":group,"header":true,"search":""})
-		for entry in memo_entries:
-			if entry.availability != "available" or (entry.pos if groups.has(entry.pos) else "other") != group: continue
-			var translation: String = DialogueLanguage.translation_for(entry.surface)
-			if translation == "": translation = DialogueGrammar.translation_for(entry.surface)
-			if translation == "": translation = translations.get(entry.semantic_id, "перевод не указан")
-			var entry_label := _label(vocab_list, "%s  —  %s" % [entry.surface, translation], 16)
-			vocabulary_rows.append({"label":entry_label,"group":group,"header":false,"search":("%s %s" % [entry.surface, translation]).to_lower()})
+		var group := "phrase" if entry.pos == "phrase" else "words"
+		if group != previous_group:
+			var group_title := "Фразы целиком" if group == "phrase" else "Слова · частые в этом разговоре — выше"
+			var group_label := _label(vocab_list, group_title, 16)
+			group_label.modulate = Color("85c9c4")
+			vocabulary_rows.append({"label":group_label,"group":group,"header":true,"search":""})
+			previous_group = group
+		var translation := DialogueLanguage.translation_for(str(entry.surface))
+		var entry_label := _label(vocab_list, "%s  —  %s" % [entry.surface, translation], 16)
+		vocabulary_rows.append({"label":entry_label,"surface":str(entry.surface),"frequency":int(entry.frequency),
+			"group":group,"header":false,
+			"search":("%s %s %s" % [entry.surface, translation, str(entry.get("search_terms", ""))]).to_lower()})
 	_filter_vocabulary("")
 	dev_panel = PanelContainer.new(); canvas.add_child(dev_panel)
 	dev_panel.anchor_left = 0.035; dev_panel.anchor_top = 0.035; dev_panel.anchor_right = 0.965; dev_panel.anchor_bottom = 0.965

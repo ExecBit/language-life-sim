@@ -10,56 +10,127 @@
         "short_label": "нет карты",
         "semantic_action": "REPORT_NO_CARD",
         "confirm_question": "Du hast keine Karte?",
-        "type": "REPORT_NO_CARD"
+        "type": "REPORT_NO_CARD",
+        "vocabulary": [
+          "ich",
+          "habe",
+          "keine",
+          "karte"
+        ],
+        "search_words": [
+          "karte",
+          "keine"
+        ]
       },
       "ask_rules": {
         "label": "Узнать правила входа",
         "short_label": "правила",
         "semantic_action": "ASK_RULES",
         "confirm_question": "Du möchtest wissen, wie du hineinkommst?",
-        "type": "ASK_RULES"
+        "type": "ASK_RULES",
+        "vocabulary": [
+          "wie",
+          "komme",
+          "ich",
+          "hinein"
+        ],
+        "search_words": [
+          "hinein",
+          "komme"
+        ]
       },
       "claim_technician": {
         "label": "Назваться техником",
         "short_label": "техник",
         "semantic_action": "CLAIM_TECHNICIAN",
         "confirm_question": "Du bist Techniker?",
-        "type": "CLAIM_TECHNICIAN"
+        "type": "CLAIM_TECHNICIAN",
+        "vocabulary": [
+          "ich",
+          "bin",
+          "techniker"
+        ],
+        "search_words": [
+          "techniker"
+        ]
       },
       "farewell": {
         "label": "Уйти от прохода",
         "short_label": "уйти",
         "semantic_action": "FAREWELL",
         "confirm_question": "Du möchtest gehen?",
-        "type": "FAREWELL"
+        "type": "FAREWELL",
+        "vocabulary": [
+          "ich",
+          "gehe"
+        ],
+        "search_words": [
+          "gehe"
+        ]
       },
       "report_newcomer": {
         "label": "Подтвердить, что я новенький",
         "short_label": "я новенький",
         "semantic_action": "REPORT_NEWCOMER",
         "confirm_question": "Du bist neu?",
-        "type": "REPORT_NEWCOMER"
+        "type": "REPORT_NEWCOMER",
+        "vocabulary": [
+          "ich",
+          "bin",
+          "neu"
+        ],
+        "search_words": [
+          "neu"
+        ]
       },
       "ask_alternative": {
         "label": "Попросить другой путь",
         "short_label": "другой путь",
         "semantic_action": "ASK_ALTERNATIVE",
         "confirm_question": "Du möchtest einen anderen Weg?",
-        "type": "ASK_ALTERNATIVE"
+        "type": "ASK_ALTERNATIVE",
+        "vocabulary": [
+          "gibt",
+          "es",
+          "einen",
+          "anderen",
+          "weg"
+        ],
+        "search_words": [
+          "anderen",
+          "weg"
+        ]
       },
       "introduce": {
         "label": "Назвать своё имя",
         "short_label": "имя",
         "semantic_action": "PLAYER_NAME",
         "confirm_question": "Du heißt {name}?",
-        "type": "PLAYER_NAME"
+        "type": "PLAYER_NAME",
+        "vocabulary": [
+          "ich",
+          "heiße"
+        ],
+        "search_words": [
+          "heiße",
+          "name"
+        ]
       },
       "ask_repeat": {
         "label": "Попросить повторить",
         "short_label": "повторить",
         "semantic_action": "ASK_REPEAT",
         "confirm_question": "Soll ich es noch einmal sagen?",
-        "type": "ASK_REPEAT"
+        "type": "ASK_REPEAT",
+        "vocabulary": [
+          "kannst",
+          "du",
+          "das",
+          "wiederholen"
+        ],
+        "search_words": [
+          "wiederholen"
+        ]
       },
       "ask_official_path": {
         "label": "Вернуться к официальному пути",
@@ -80,7 +151,16 @@
               "value": true
             }
           ]
-        }
+        },
+        "vocabulary": [
+          "bin",
+          "ich",
+          "registriert"
+        ],
+        "search_words": [
+          "registriert",
+          "offiziell"
+        ]
       },
       "request_pass": {
         "label": "Попросить временный пропуск",
@@ -111,63 +191,152 @@
               "value": true
             }
           ]
-        }
+        },
+        "vocabulary": [
+          "ich",
+          "möchte",
+          "einen",
+          "vorläufigen",
+          "pass",
+          "bekommen"
+        ],
+        "search_words": [
+          "pass",
+          "vorläufig",
+          "vorläufigen",
+          "möchte",
+          "bekommen"
+        ]
       },
       "confirm_proposition": {
         "label": "Подтвердить текущий вопрос",
         "short_label": "да",
         "semantic_action": "SHORT_YES",
         "confirm_question": "Du bestätigst das?",
-        "type": "SHORT_YES"
+        "type": "SHORT_YES",
+        "vocabulary": [
+          "ja"
+        ],
+        "search_words": [
+          "ja"
+        ]
       },
       "reject_proposition": {
         "label": "Ответить «нет» на текущий вопрос",
         "short_label": "нет",
         "semantic_action": "SHORT_NO",
         "confirm_question": "Du verneinst das?",
-        "type": "SHORT_NO"
+        "type": "SHORT_NO",
+        "vocabulary": [
+          "nein"
+        ],
+        "search_words": [
+          "nein"
+        ]
       },
       "deny_technician": {
         "label": "Признаться, что я не техник",
         "short_label": "не техник",
         "semantic_action": "DENY_TECHNICIAN",
         "confirm_question": "Du bist kein Techniker?",
-        "type": "DENY_TECHNICIAN"
+        "type": "DENY_TECHNICIAN",
+        "vocabulary": [
+          "ich",
+          "bin",
+          "kein",
+          "techniker"
+        ],
+        "search_words": [
+          "kein",
+          "techniker"
+        ]
       },
       "apologize": {
         "label": "Извиниться и вернуться к честному разговору",
         "short_label": "извиниться",
         "semantic_action": "APOLOGIZE",
         "confirm_question": "Du möchtest dich entschuldigen?",
-        "type": "APOLOGIZE"
+        "type": "APOLOGIZE",
+        "vocabulary": [
+          "es",
+          "tut",
+          "mir",
+          "leid"
+        ],
+        "search_words": [
+          "leid",
+          "entschuldigung"
+        ]
       },
       "ask_details": {
         "label": "Узнать подробности поручения",
         "short_label": "подробности",
         "semantic_action": "ASK_DETAILS",
         "confirm_question": "Du möchtest mehr wissen?",
-        "type": "ASK_DETAILS"
+        "type": "ASK_DETAILS",
+        "vocabulary": [
+          "was",
+          "soll",
+          "ich",
+          "mit",
+          "der",
+          "nachricht",
+          "machen"
+        ],
+        "search_words": [
+          "nachricht",
+          "machen"
+        ]
       },
       "accept_message": {
         "label": "Согласиться передать сообщение Тому",
         "short_label": "передать сообщение",
         "semantic_action": "ACCEPT_MESSAGE",
         "confirm_question": "Du gibst Tom die Nachricht?",
-        "type": "ACCEPT_MESSAGE"
+        "type": "ACCEPT_MESSAGE",
+        "vocabulary": [
+          "ich",
+          "gebe",
+          "tom",
+          "die",
+          "nachricht"
+        ],
+        "search_words": [
+          "gebe",
+          "tom",
+          "nachricht"
+        ]
       },
       "refuse_deal": {
         "label": "Отказаться от поручения",
         "short_label": "отказ",
         "semantic_action": "REFUSE_DEAL",
         "confirm_question": "Du möchtest die Nachricht nicht überbringen?",
-        "type": "REFUSE_DEAL"
+        "type": "REFUSE_DEAL",
+        "vocabulary": [
+          "ich",
+          "mache",
+          "das",
+          "nicht"
+        ],
+        "search_words": [
+          "nicht",
+          "mache"
+        ]
       },
       "request_slower": {
         "label": "Попросить говорить медленнее",
         "short_label": "медленнее",
         "semantic_action": "REQUEST_SLOWER",
         "confirm_question": "Soll ich langsamer sprechen?",
-        "type": "REQUEST_SLOWER"
+        "type": "REQUEST_SLOWER",
+        "vocabulary": [
+          "bitte",
+          "langsamer"
+        ],
+        "search_words": [
+          "langsamer"
+        ]
       },
       "request_access": {
         "label": "Попросить подтвердить доступ",
@@ -186,7 +355,17 @@
           ]
         },
         "confirm_question": "Du möchtest deinen Zugang noch einmal bestätigen?",
-        "type": "REQUEST_ACCESS"
+        "type": "REQUEST_ACCESS",
+        "vocabulary": [
+          "zugang",
+          "bestätigen",
+          "pass"
+        ],
+        "search_words": [
+          "zugang",
+          "bestätigen",
+          "pass"
+        ]
       },
       "reopen_dialog": {
         "label": "Открыть разговор повторно",
@@ -3199,6 +3378,30 @@
       "semantic_id": "zur",
       "surface": "zur",
       "translation": "к / о (сокращение zu der)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "vorläufig",
+      "surface": "vorläufig",
+      "translation": "временный / предварительный",
+      "pos": "adjective"
+    },
+    {
+      "semantic_id": "vorläufigen",
+      "surface": "vorläufigen",
+      "translation": "временный (форма: einen vorläufigen Pass — временный пропуск)",
+      "pos": "adjective"
+    },
+    {
+      "semantic_id": "mit",
+      "surface": "mit",
+      "translation": "с / вместе с",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "der",
+      "surface": "der",
+      "translation": "определённый артикль der (также форма дательного падежа женского рода)",
       "pos": "other"
     }
   ],

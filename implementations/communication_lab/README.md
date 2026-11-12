@@ -29,6 +29,8 @@ The same suite checks productive German intent families, positive/negative posse
 
 `tests/test_vocabulary_sync.gd` checks that the actual Composer and F1 use the same scenario words and translations, including `Techniker`, and that all authored dialogue/confirmation/fallback words are covered. Full constructions appear in F1; individual words appear in both interfaces.
 
+F1 and completion prioritize frequent words in this scenario, counted across authored dialogue, confirmations, constructions and each player's action vocabulary. Full constructions are always below individual words. F1 also searches Russian action labels: for example, `времен` finds words for requesting a temporary pass, including `Pass` and `vorläufigen`. Each non-system action declares its required `vocabulary` and relevant `search_words` in the scenario data; the coverage test checks all 19 actions.
+
 Run the source-project suites with the installed Godot console executable (do not export this lab):
 
 ```powershell

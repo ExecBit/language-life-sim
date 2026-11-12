@@ -737,22 +737,26 @@ static func text_ends_with_question(text: String) -> bool:
 
 static func suggestions(prefix: String) -> Array[String]:
 	var result: Array[String] = []
-	var normalized := prefix.to_lower()
-	for entry in vocabulary_entries():
+	var normalized := prefix.strip_edges().to_lower()
+	for entry in memo_entries():
 		if entry.pos == "phrase":
 			continue
 		var surface := str(entry.surface)
 		if surface.to_lower().begins_with(normalized) and surface not in result:
 			result.append(surface)
-	result.sort()
 	return result
 
 static func vocabulary_entries() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for entry in data().get("vocabulary",[]):
+		var aliases: Array[String] = []
+		for action in data().get("dialogue", {}).get("actions", {}).values():
+			if str(entry.surface).to_lower() in action.get("search_words", []):
+				aliases.append(str(action.get("label", "")))
+				aliases.append(str(action.get("short_label", "")))
 		result.append({"lemma_id":str(entry.get("semantic_id",entry.surface)),"surface":str(entry.surface),
 			"pos":str(entry.pos),"features":{},"semantic_id":str(entry.get("semantic_id",entry.surface)),
-			"availability":"available"})
+			"availability":"available", "search_terms":" ".join(aliases)})
 	if str(data().get("dialogue", {}).get("progression", "")) != "guarded_rpg_conversation":
 		for state_id in data().get("states",{}):
 			var state: Dictionary = data().states[state_id]
@@ -763,6 +767,41 @@ static func vocabulary_entries() -> Array[Dictionary]:
 		result.append({"lemma_id":"construction","surface":str(construction.surface),"pos":"phrase","features":{},
 			"semantic_id":"construction","availability":"available"})
 	return result
+
+## Frequency in authored NPC lines, confirmations, constructions and player action
+## vocabulary. This is scenario usage, not a claimed general German frequency rank.
+static func memo_entries() -> Array[Dictionary]:
+	var texts: Array[String] = []
+	for node in data().get("dialogue", {}).get("nodes", {}).values():
+		texts.append(str(node.get("npc_line", "")))
+		for line in node.get("npc_line_by_access", {}).values(): texts.append(str(line))
+	for action in data().get("dialogue", {}).get("actions", {}).values():
+		texts.append(str(action.get("confirm_question", "")))
+		texts.append(" ".join(action.get("vocabulary", [])))
+	for construction in data().get("constructions", []): texts.append(str(construction.surface))
+	var placeholders := RegEx.new()
+	placeholders.compile("\\{[^}]+\\}")
+	var words := RegEx.new()
+	words.compile("[\\p{L}]+")
+	var counts := {}
+	for text in texts:
+		for match in words.search_all(placeholders.sub(text, "", true).to_lower()):
+			var word: String = match.get_string()
+			counts[word] = int(counts.get(word, 0)) + 1
+	var entries: Array[Dictionary] = []
+	var seen := {}
+	for entry in vocabulary_entries():
+		var key := str(entry.surface).to_lower()
+		if entry.availability != "available" or seen.has(key): continue
+		seen[key] = true
+		var row: Dictionary = entry.duplicate(true)
+		row["frequency"] = int(counts.get(key, 0))
+		entries.append(row)
+	entries.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		if (a.pos == "phrase") != (b.pos == "phrase"): return a.pos != "phrase"
+		if a.frequency != b.frequency: return a.frequency > b.frequency
+		return str(a.surface).to_lower() < str(b.surface).to_lower())
+	return entries
 
 static func translation_for(surface: String) -> String:
 	var normalized := surface.strip_edges().to_lower()
