@@ -622,13 +622,13 @@ func _toggle_dev(value: bool) -> void:
 	show_diagnostics = value; dev_panel.visible = value
 	if value and is_instance_valid(dev_tabs):
 		var graph_page: Control = dev_tabs.get_node("Граф диалога")
-		var graph_tab: int = dev_tabs.get_tab_idx(graph_page)
+		var graph_tab: int = dev_tabs.get_tab_idx_from_control(graph_page)
 		dev_tabs.current_tab = graph_tab
 
 func _on_dev_tab_changed(tab_index: int) -> void:
 	if not is_instance_valid(dev_tabs): return
 	var graph_page: Control = dev_tabs.get_node("Граф диалога")
-	var graph_tab: int = dev_tabs.get_tab_idx(graph_page)
+	var graph_tab: int = dev_tabs.get_tab_idx_from_control(graph_page)
 	var show_inspector_heading: bool = tab_index != graph_tab
 	if is_instance_valid(dev_section_label): dev_section_label.visible = show_inspector_heading
 	if is_instance_valid(inspection_label): inspection_label.visible = show_inspector_heading
@@ -645,4 +645,3 @@ func _reset() -> void:
 	greeted = false
 	astera_visual.set_emotion("neutral")
 	astera_visual.return_to_idle()
-
