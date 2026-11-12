@@ -41,7 +41,7 @@ var name_toggle: CheckBox
 var topic_option: OptionButton
 var objective_panel: PanelContainer
 var objective_labels: Dictionary = {}
-var topic_menu: HBoxContainer
+var topic_menu: VBoxContainer
 var topic_buttons: Dictionary = {}
 var notice_label: Label
 var greeted := false
@@ -175,6 +175,7 @@ func _build_ui() -> void:
 	_label(heading, "WASD · движение   /   E · разговор   /   F2 · лаборатория", 16)
 	_build_objective_tracker(canvas)
 	dialog = PanelContainer.new(); dialog.name = "CommunicationPanel"; canvas.add_child(dialog)
+	dialog.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	dialog.anchor_top = 1.0; dialog.anchor_bottom = 1.0
 	dialog.anchor_right = 1.0
 	dialog.grow_vertical = Control.GROW_DIRECTION_BEGIN
@@ -308,24 +309,10 @@ func _build_objective_tracker(parent: Control) -> void:
 	objective_panel.hide()
 
 func _build_topic_menu(parent: VBoxContainer) -> void:
-	topic_menu = HBoxContainer.new()
-	topic_menu.name = "DialogueTopics"
-	topic_menu.add_theme_constant_override("separation", 8)
+	topic_menu = VBoxContainer.new()
+	topic_menu.name = "DialogueActions"
+	topic_menu.add_theme_constant_override("separation", 4)
 	parent.add_child(topic_menu)
-	var group := ButtonGroup.new()
-	group.allow_unpress = false
-	for topic in DialogueLanguage.data().get("topics", []):
-		var topic_id := str(topic.get("id", ""))
-		var button := Button.new()
-		button.name = "Topic_%s" % topic_id
-		button.text = str(topic.get("label", topic_id))
-		button.toggle_mode = true
-		button.button_group = group
-		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		button.custom_minimum_size.y = 38
-		button.pressed.connect(_select_dialogue_topic.bind(topic_id))
-		topic_menu.add_child(button)
-		topic_buttons[topic_id] = button
 	notice_label = Label.new()
 	notice_label.name = "ConversationNotice"
 	notice_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -337,10 +324,35 @@ func _build_topic_menu(parent: VBoxContainer) -> void:
 	_update_topic_menu()
 
 func _update_topic_menu() -> void:
-	var selected := str(context.get("selected_topic", "introduction"))
-	for topic_id in topic_buttons:
-		var button: Button = topic_buttons[topic_id]
-		button.button_pressed = str(topic_id) == selected
+	for child in topic_menu.get_children():
+		topic_menu.remove_child(child)
+		child.queue_free()
+	topic_buttons.clear()
+	var group := ButtonGroup.new()
+	group.allow_unpress = false
+	for action in Session.available_actions(context):
+		var action_id := str(action.id)
+		var button := Button.new()
+		button.name = "Action_%s" % action_id
+		button.text = str(action.label)
+		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		button.toggle_mode = not bool(action.get("navigation", false))
+		if button.toggle_mode:
+			button.button_group = group
+			button.button_pressed = action_id == str(context.get("selected_action", ""))
+		button.custom_minimum_size.y = 32
+		button.pressed.connect(_select_dialogue_action.bind(action_id))
+		topic_menu.add_child(button)
+		topic_buttons[action_id] = button
+
+func _select_dialogue_action(action_id: String) -> void:
+	var result: Dictionary = Session.select_action(action_id, context)
+	if not result.get("accepted", false):
+		return
+	_set_notice("Уточнение закрыто при смене темы. Выберите продолжение." if result.get("closed_clarification", false) else "")
+	_update_topic_menu()
+	_show_live_context()
+	composer.phrase.grab_focus()
 
 func _set_notice(text: String) -> void:
 	if not is_instance_valid(notice_label): return
@@ -485,7 +497,7 @@ func _start_conversation_camera() -> void:
 func _on_submitted(text: String) -> void:
 	dialogue_silence_seconds = 0.0
 	_append_conversation_line("Вы", text)
-	last_record = Session.submit(text, context, str(context.get("selected_topic", "")))
+	last_record = Session.submit(text, context)
 	_set_notice(str(last_record.get("notification", "")))
 	_update_topic_menu()
 	astera_visual.set_emotion(last_record.emotion_state)

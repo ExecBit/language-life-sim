@@ -369,10 +369,10 @@ func run() -> void:
 		if face_mesh.get_blend_shape_value(expression_channels[channel]) > 0.01: face_at_rest = false
 	check(face_at_rest, "NPC expression fades to a closed-mouth resting face after the reply reveal")
 	var topic_buttons: Dictionary = room.get("topic_buttons")
-	topic_buttons["help"].emit_signal("pressed")
+	topic_buttons["offer_help"].emit_signal("pressed")
 	editor.phrase.text = "ich helfen"; editor.send()
 	check(room.get("last_record").answer == "Du möchtest mir helfen?" and room.get("notice_label").visible and room.get("notice_label").text.contains("кому"), "composer and help menu ask one role clarification and explain the missing recipient")
-	topic_buttons["player_mood"].emit_signal("pressed")
+	room.get("topic_buttons")["back"].emit_signal("pressed")
 	check(room.get("context").pending_clarification.is_empty() and room.get("notice_label").text.contains("смене темы"), "choosing a new topic cancels the pending question with a notice")
 	editor.phrase.text = "Ja"; editor.send()
 	check(not room.get("context").offered_help and room.get("last_record").parse.reason == "NO_OPEN_YES_NO_TARGET", "yes after changing topic cannot apply the old offer")

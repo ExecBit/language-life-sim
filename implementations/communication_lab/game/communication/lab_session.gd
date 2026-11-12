@@ -3,10 +3,11 @@ extends RefCounted
 const Parser = preload("res://implementations/communication_lab/game/communication/parser.gd")
 const DialogueGrammar = preload("res://implementations/communication_lab/game/communication/dialogue_resolver.gd")
 const DialogueLanguage = preload("res://implementations/communication_lab/game/communication/dialogue_language.gd")
+const DialogueGraph = preload("res://implementations/communication_lab/game/communication/dialogue_graph.gd")
 const OBJECTIVE_TITLES := {"introduce":"Представиться", "ask_mood":"Узнать, как у неё дела", "ask_activity":"Спросить о её занятиях", "share_self":"Рассказать о себе", "offer_help":"Предложить помощь", "farewell":"Попрощаться"}
 
 static func initial_context() -> Dictionary:
-	return {"busy":false,"pending":"","player_name":"","topic":"introduction","selected_topic":"introduction","last_npc_line":"",
+	return {"busy":false,"pending":"","player_name":"","topic":"introduction","selected_topic":"introduction","selected_action":"introduce","dialogue_node":"opening","last_npc_line":"",
 		"pending_question":"player_name","awaiting_name":true,"introduction_completed":false,"pending_clarification":{},
 		"offered_help":false,"help_requested":false,"player_mood":"","astera_mood":"tired","last_player_state":{},"last_astera_state":{},
 		"player_plan":"","slow_speech":false,"activity":"working","objective_progress":_initial_objectives(),"objective_evidence":{}}
@@ -18,31 +19,47 @@ static func _initial_objectives() -> Dictionary:
 
 static func opening_line(context: Dictionary) -> Dictionary:
 	context.topic = "introduction"
-	context.selected_topic = "introduction"
 	context.awaiting_name = str(context.get("player_name","")).is_empty() and not bool(context.get("introduction_completed",false))
 	context.pending_question = "player_name" if context.awaiting_name else ""
 	context.last_npc_line = "Oh! Hallo! Ich bin Astera. Und du?" if context.awaiting_name else "Schön, dich wiederzusehen, %s! Was möchtest du besprechen?" % context.player_name
+	DialogueGraph.sync_selection(context)
 	return {"answer":context.last_npc_line,"topic":context.topic,"reaction":"player_arrived",
 		"emotion_state":"surprised_soft","animation_id":"greeting_wave"}
 
+static func available_actions(context: Dictionary) -> Array[Dictionary]:
+	return DialogueGraph.available_actions(context)
+
+static func select_action(action_id: String, context: Dictionary) -> Dictionary:
+	for action in available_actions(context):
+		if str(action.id) != action_id:
+			continue
+		if bool(action.get("navigation", false)):
+			context.pending_clarification = {}
+			context.selected_action = ""
+			DialogueGraph.sync_selection(context)
+			return {"accepted":true, "closed_clarification":true}
+		context.selected_action = action_id
+		context.selected_topic = str(action.get("topic", ""))
+		return {"accepted":true, "closed_clarification":false}
+	return {"accepted":false, "closed_clarification":false}
+
 static func select_topic(topic_id: String, context: Dictionary) -> Dictionary:
-	var valid := false
-	for topic in DialogueLanguage.data().get("topics", []):
-		if str(topic.id) == topic_id:
-			valid = true
-			break
-	if not valid:
-		return {"selected_topic":str(context.get("selected_topic","introduction")),"closed_clarification":false}
-	var changed := str(context.get("selected_topic","introduction")) != topic_id
-	var pending: Dictionary = context.get("pending_clarification",{})
-	var closed := changed and not pending.is_empty()
-	if changed and str(context.get("pending_question","")) in ["help_offer","slow_speech"]:
-		context.pending_question = ""
-	if closed:
-		context.pending_clarification = {}
-	context.selected_topic = topic_id
-	context.topic = topic_id
-	return {"selected_topic":topic_id,"closed_clarification":closed}
+	# Compatibility for existing callers. The player UI selects authored actions.
+	var probe := context.duplicate(true)
+	probe.pending_clarification = {}
+	for action in available_actions(probe):
+		if str(action.get("topic", "")) != topic_id:
+			continue
+		var changed := str(context.get("selected_topic", "")) != topic_id
+		var closed: bool = changed and not context.get("pending_clarification", {}).is_empty()
+		if changed:
+			context.pending_clarification = {}
+			if str(context.get("pending_question", "")) in ["help_offer", "slow_speech"]:
+				context.pending_question = ""
+		context.selected_action = str(action.id)
+		context.selected_topic = topic_id
+		return {"selected_topic":topic_id, "closed_clarification":closed}
+	return {"selected_topic":str(context.get("selected_topic", "")), "closed_clarification":false}
 
 static func close_dialog(context: Dictionary) -> bool:
 	var pending: Dictionary = context.get("pending_clarification", {})
@@ -50,6 +67,7 @@ static func close_dialog(context: Dictionary) -> bool:
 	context.pending_clarification = {}
 	if str(context.get("pending_question","")) in ["help_offer","slow_speech"]:
 		context.pending_question = ""
+	DialogueGraph.sync_selection(context)
 	return had_pending
 
 static func submit(text: String, context: Dictionary, selected_topic: String = "") -> Dictionary:
@@ -125,9 +143,12 @@ static func submit(text: String, context: Dictionary, selected_topic: String = "
 			notification = _legacy_notification(parsed)
 	_update_objectives(parsed, context, reaction, text)
 	context.last_npc_line = answer
+	DialogueGraph.advance(context, reaction)
 	var result := {"input":text,"before":before,"parse":parsed,"answer":answer,"notification":notification,
 		"effects":effects,"after":context.duplicate(true),"topic":str(context.get("topic","")),
 		"selected_topic":str(context.get("selected_topic","introduction")),
+		"dialogue_node":str(context.get("dialogue_node", "opening")),
+		"selected_action":str(context.get("selected_action", "")),
 		"conversation_context":_conversation_snapshot(context),"reaction":reaction,
 		"emotion_state":emotion,"animation_id":animation,
 		"objective_progress":context.objective_progress.duplicate(true),"objective_evidence":context.objective_evidence.duplicate(true)}
@@ -501,7 +522,7 @@ static func _legacy_visuals(intent: String, status: String) -> Dictionary:
 
 static func _conversation_snapshot(context: Dictionary) -> Dictionary:
 	var keys := ["busy","player_name","topic","selected_topic","awaiting_name","introduction_completed",
-		"pending_question","pending_clarification","offered_help","help_requested","player_mood","astera_mood",
+		"dialogue_node","selected_action","pending_question","pending_clarification","offered_help","help_requested","player_mood","astera_mood",
 		"last_player_state","last_astera_state","player_plan","slow_speech","objective_progress","objective_evidence"]
 	var snapshot := {}
 	for key in keys: snapshot[key] = context.get(key, null)

@@ -1,10 +1,134 @@
 {
   "schema_version": 1,
-  "topics": [
-    {"id": "introduction", "label": "Знакомство"},
-    {"id": "player_mood", "label": "Самочувствие"},
-    {"id": "help", "label": "Помощь"}
-  ],
+  "dialogue": {
+    "actions": {
+      "introduce": {
+        "label": "Представиться",
+        "topic": "introduction",
+        "requires": {
+          "awaiting_name": true
+        }
+      },
+      "share_state": {
+        "label": "Рассказать о самочувствии",
+        "topic": "player_mood"
+      },
+      "update_state": {
+        "label": "Рассказать, как чувствуешь себя сейчас",
+        "topic": "player_mood"
+      },
+      "offer_help": {
+        "label": "Предложить помощь",
+        "topic": "help",
+        "requires": {
+          "offered_help": false
+        }
+      },
+      "request_help": {
+        "label": "Попросить помощи",
+        "topic": "help",
+        "requires": {
+          "help_requested": false
+        }
+      },
+      "confirm": {
+        "label": "Подтвердить",
+        "topic": "short_answer"
+      },
+      "reject": {
+        "label": "Отрицать",
+        "topic": "short_answer"
+      },
+      "back": {
+        "label": "Сменить тему",
+        "navigation": true
+      }
+    },
+    "nodes": {
+      "opening": {
+        "actions": [
+          "introduce",
+          "share_state",
+          "offer_help"
+        ]
+      },
+      "conversation": {
+        "actions": [
+          "introduce",
+          "share_state",
+          "offer_help",
+          "request_help"
+        ]
+      },
+      "after_tired": {
+        "actions": [
+          "introduce",
+          "update_state",
+          "request_help",
+          "offer_help"
+        ]
+      },
+      "after_state": {
+        "actions": [
+          "introduce",
+          "update_state",
+          "offer_help",
+          "request_help"
+        ]
+      },
+      "after_offer": {
+        "actions": [
+          "introduce",
+          "share_state",
+          "request_help"
+        ]
+      },
+      "after_request": {
+        "actions": [
+          "introduce",
+          "share_state",
+          "offer_help"
+        ]
+      },
+      "clarification": {
+        "actions": [
+          "confirm",
+          "reject",
+          "back"
+        ]
+      }
+    },
+    "transitions": [
+      {
+        "reaction": "welcome_player_by_name",
+        "to": "conversation"
+      },
+      {
+        "reaction": "respond_to_player_state_tired",
+        "to": "after_tired"
+      },
+      {
+        "reaction": "respond_to_player_state_*",
+        "to": "after_state"
+      },
+      {
+        "reaction": "acknowledge_negated_player_state",
+        "to": "after_state"
+      },
+      {
+        "reaction": "accept_help_offer",
+        "to": "after_offer"
+      },
+      {
+        "reaction": "respond_to_help_request",
+        "to": "after_request"
+      },
+      {
+        "reaction": "acknowledge_cannot_help",
+        "to": "conversation"
+      }
+    ]
+  },
   "states": {
     "tired": {"forms": ["müde", "mude"], "translation": "уставший", "reply": "Oh… Das tut mir leid. Ruh dich aus!", "negative_reply": "Verstehe. Danke, dass du es sagst.", "emotion": "concerned", "animation": "soft_concern", "npc_ack": "Ja, ich bin müde."},
     "happy": {"forms": ["glücklich", "glucklich", "froh"], "translation": "радостный, счастливый", "reply": "Oh, wie schön! Das freut mich!", "negative_reply": "Verstehe. Danke, dass du es sagst.", "emotion": "happy", "animation": "small_happy_reaction", "npc_ack": "Ja, ich bin glücklich."},

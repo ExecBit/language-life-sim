@@ -18,7 +18,15 @@ func capture() -> void:
 	assert(not room.objective_panel.visible)
 	assert(room.transcript.get_parsed_text().contains("Und du?"))
 
-	room._select_dialogue_topic("player_mood")
+	room.composer.phrase.text = "Ich bin Neral"
+	room.composer.send()
+	await process_frame
+	room._finish_reply_reveal()
+	await RenderingServer.frame_post_draw
+	assert(not room.topic_buttons.has("introduce"))
+	assert(room.composer.get_global_rect().end.y <= root.get_visible_rect().end.y)
+	root.get_texture().get_image().save_png("res://.local/p67-after-name.png")
+	room._select_dialogue_action("share_state")
 	room.composer.phrase.text = "Ich bin glücklich"
 	room.composer.send()
 	for i in 30: await process_frame
@@ -28,21 +36,25 @@ func capture() -> void:
 	assert(room.context.player_mood == "happy")
 	root.get_texture().get_image().save_png("res://.local/p67-state.png")
 
-	room._select_dialogue_topic("help")
+	room._select_dialogue_action("offer_help")
 	room.composer.phrase.text = "ich helfen"
 	room.composer.send()
 	for i in 30: await process_frame
 	room._finish_reply_reveal()
 	await RenderingServer.frame_post_draw
 	assert(room.context.pending_clarification.size() > 0)
+	assert(room.topic_buttons.keys() == ["confirm", "reject", "back"])
 	assert(room.notice_label.visible and room.notice_label.text.contains("кому"))
+	assert(room.composer.get_global_rect().end.y <= root.get_visible_rect().end.y)
 	root.get_texture().get_image().save_png("res://.local/p67-notice.png")
 
+	room._select_dialogue_action("confirm")
 	room.composer.phrase.text = "Ja"
 	room.composer.send()
 	for i in 30: await process_frame
 	await RenderingServer.frame_post_draw
 	assert(room.context.offered_help)
+	assert(not room.topic_buttons.has("confirm") and not room.topic_buttons.has("offer_help"))
 	assert(room.last_record.parse.intent == "CONFIRM_CLARIFICATION")
 	root.get_texture().get_image().save_png("res://.local/p67-help.png")
 
