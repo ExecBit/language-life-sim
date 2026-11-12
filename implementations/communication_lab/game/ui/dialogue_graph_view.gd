@@ -1,134 +1,315 @@
-extends Control
-## Live view of authored conversation nodes and the route taken by recorded attempts.
-const Language = preload("res://implementations/communication_lab/game/communication/dialogue_language.gd")
+extends VBoxContainer
+## GraphEdit rendering of the exact graph data used by DialogueGraph and LabSession.
+signal current_requested
 const DialogueGraph = preload("res://implementations/communication_lab/game/communication/dialogue_graph.gd")
 
-var current_node_id := "opening"
-var node_history: Array = ["opening"]
+var current_node_id := "G00_GATE"
+var node_history: Array = ["G00_GATE"]
 var dialogue_history: Array[Dictionary] = []
 var selected_attempt := -1
-
-const NODE_POSITIONS := {
-	"opening": Vector2i(0, 0),
-	"conversation": Vector2i(1, 0),
-	"after_tired": Vector2i(2, 0),
-	"after_request": Vector2i(0, 1),
-	"after_offer": Vector2i(1, 1),
-	"after_state": Vector2i(2, 1),
-	"farewell": Vector2i(0, 2),
-	"after_activity": Vector2i(1, 2),
-	"clarification": Vector2i(2, 2)
-}
+var graph_edit: GraphEdit
+var status_label: Label
+var node_diagnostic: RichTextLabel
+var error_label: Label
+var current_button: Button
+var center_button: Button
+var zoom_label: Label
+var _live_snapshot: Dictionary = {}
+var _node_cards: Dictionary = {}
+var _port_by_edge: Dictionary = {}
 
 func _ready() -> void:
-	custom_minimum_size = Vector2(450, 300)
-	queue_redraw()
+	custom_minimum_size = Vector2(560, 270)
+	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	size_flags_vertical = Control.SIZE_EXPAND_FILL
+	var toolbar := HBoxContainer.new()
+	status_label = Label.new()
+	status_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	status_label.add_theme_font_size_override("font_size", 13)
+	status_label.add_theme_color_override("font_color", Color("a9d5d0"))
+	toolbar.add_child(status_label)
+	var zoom_out_button := Button.new()
+	zoom_out_button.text = "−"
+	zoom_out_button.tooltip_text = "Уменьшить граф"
+	zoom_out_button.custom_minimum_size.x = 34
+	zoom_out_button.pressed.connect(func(): _change_zoom(-0.08))
+	toolbar.add_child(zoom_out_button)
+	zoom_label = Label.new()
+	zoom_label.custom_minimum_size.x = 48
+	zoom_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	zoom_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	zoom_label.add_theme_color_override("font_color", Color("c8d7dd"))
+	toolbar.add_child(zoom_label)
+	var zoom_in_button := Button.new()
+	zoom_in_button.text = "+"
+	zoom_in_button.tooltip_text = "Увеличить граф"
+	zoom_in_button.custom_minimum_size.x = 34
+	zoom_in_button.pressed.connect(func(): _change_zoom(0.08))
+	toolbar.add_child(zoom_in_button)
+	center_button = Button.new()
+	center_button.text = "К текущему"
+	center_button.tooltip_text = "Показать текущий узел"
+	center_button.pressed.connect(center_on_current)
+	toolbar.add_child(center_button)
+	current_button = Button.new()
+	current_button.text = "Текущее состояние"
+	current_button.visible = false
+	current_button.pressed.connect(_return_to_live)
+	toolbar.add_child(current_button)
+	add_child(toolbar)
+	error_label = Label.new()
+	error_label.add_theme_color_override("font_color", Color("ffb49d"))
+	error_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	add_child(error_label)
+	graph_edit = GraphEdit.new()
+	graph_edit.name = "RuntimeDialogueGraph"
+	graph_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	graph_edit.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	graph_edit.show_zoom_buttons = false
+	graph_edit.minimap_enabled = false
+	graph_edit.show_minimap_button = false
+	graph_edit.show_arrange_button = false
+	graph_edit.show_grid_buttons = false
+	graph_edit.show_menu = false
+	graph_edit.show_zoom_label = false
+	graph_edit.show_zoom_buttons = true
+	graph_edit.grid_pattern = GraphEdit.GRID_PATTERN_DOTS
+	graph_edit.add_theme_color_override("grid_minor", Color("263540", 0.62))
+	graph_edit.add_theme_color_override("grid_major", Color("334653", 0.62))
+	graph_edit.add_theme_color_override("connection_lines", Color("69818c", 0.34))
+	graph_edit.add_theme_color_override("activity", Color("f0c982"))
+	graph_edit.add_theme_color_override("connection_rim_color", Color("101920", 0.9))
+	graph_edit.zoom = 0.48
+	graph_edit.zoom_min = 0.34
+	graph_edit.zoom_max = 0.82
+	graph_edit.connection_lines_curvature = 0.42
+	graph_edit.connection_lines_thickness = 2.4
+	graph_edit.connection_lines_antialiased = true
+	graph_edit.node_selected.connect(_on_node_selected)
+	add_child(graph_edit)
+	var legend := Label.new()
+	legend.text = "Текущий узел — светлый · посещённые — зелёная рамка · золотая линия — последний переход · выберите узел для условий и действий"
+	legend.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	legend.add_theme_font_size_override("font_size", 11)
+	add_child(legend)
+	node_diagnostic = RichTextLabel.new()
+	node_diagnostic.custom_minimum_size.y = 54
+	node_diagnostic.fit_content = false
+	node_diagnostic.bbcode_enabled = false
+	node_diagnostic.visible = false
+	add_child(node_diagnostic)
+	_build_graph()
+	set_snapshot({"current_node":"G00_GATE", "node_history":["G00_GATE"], "dialogue_history":[]}, -1)
+	_update_zoom_label()
+	call_deferred("center_on_current")
+
+func _build_graph() -> void:
+	var errors := DialogueGraph.validate()
+	if not errors.is_empty():
+		error_label.text = "Ошибка графа диалога: " + "; ".join(errors)
+		return
+	error_label.text = ""
+	var graph := DialogueGraph.data()
+	var nodes: Dictionary = graph.get("nodes", {})
+	var edges: Array = graph.get("transitions", [])
+	var incoming: Dictionary = {}
+	var outgoing: Dictionary = {}
+	for edge in edges:
+		var from_id := str(edge.get("from", ""))
+		var to_id := str(edge.get("to", ""))
+		if not outgoing.has(from_id): outgoing[from_id] = []
+		if not incoming.has(to_id): incoming[to_id] = []
+		outgoing[from_id].append(edge)
+		incoming[to_id].append(edge)
+	_node_cards.clear()
+	_port_by_edge.clear()
+	for node_id_variant in nodes:
+		var node_id := str(node_id_variant)
+		var node_data: Dictionary = nodes[node_id]
+		var card := GraphNode.new()
+		card.name = node_id
+		card.title = str(node_data.get("label", node_id))
+		card.resizable = false
+		card.draggable = false
+		card.set("position_offset", _position_for(node_data, node_id))
+		card.custom_minimum_size = Vector2(290, 0)
+		var id_label := Label.new()
+		id_label.text = _node_badge(node_id, node_data, false, 0)
+		id_label.add_theme_font_size_override("font_size", 11)
+		id_label.add_theme_color_override("font_color", Color("9fd0d1"))
+		card.add_child(id_label)
+		card.set_slot(0, false, 0, Color.WHITE, false, 0, Color.WHITE)
+		var npc_label := Label.new()
+		npc_label.text = _short(str(node_data.get("npc_line", "")), 72)
+		npc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		npc_label.add_theme_font_size_override("font_size", 12)
+		npc_label.add_theme_color_override("font_color", Color("edf2f4"))
+		npc_label.custom_minimum_size.y = 28
+		card.add_child(npc_label)
+		card.set_slot(1, false, 0, Color.WHITE, false, 0, Color.WHITE)
+		var out_edges: Array = outgoing.get(node_id, [])
+		var in_edges: Array = incoming.get(node_id, [])
+		var input_row := Label.new()
+		input_row.text = "ВХОД · %d связей" % in_edges.size()
+		input_row.tooltip_text = _incoming_tooltip(in_edges, graph.get("actions", {}))
+		input_row.add_theme_font_size_override("font_size", 10)
+		input_row.add_theme_color_override("font_color", Color("829aa5"))
+		card.add_child(input_row)
+		var input_slot := card.get_child_count() - 1
+		card.set_slot(input_slot, true, 0, Color("78929d"), false, 0, Color.WHITE)
+		var out_ports := {}
+		for index in out_edges.size():
+			var edge: Dictionary = out_edges[index]
+			var action: Dictionary = graph.get("actions", {}).get(str(edge.get("action", "")), {})
+			var row := Label.new()
+			row.text = "%s · %s" % [str(action.get("short_label", edge.get("action", ""))), _short(str(edge.get("guard_label", "")), 34)]
+			row.tooltip_text = "%s · %s · %s" % [str(edge.get("id", "")), str(action.get("label", edge.get("action", ""))), str(edge.get("guard_label", "без условия"))]
+			row.autowrap_mode = TextServer.AUTOWRAP_OFF
+			row.add_theme_font_size_override("font_size", 11)
+			row.add_theme_color_override("font_color", Color("b5cbd2"))
+			card.add_child(row)
+			var slot := card.get_child_count() - 1
+			card.set_slot(slot, false, 0, Color.WHITE, true, 0, Color("78929d"))
+			out_ports[str(edge.get("id", ""))] = index
+		var in_ports := {}
+		for index in in_edges.size():
+			in_ports[str(in_edges[index].get("id", ""))] = 0
+		_apply_card_style(card, false, 0)
+		graph_edit.add_child(card)
+		_node_cards[node_id] = card
+		_port_by_edge[node_id] = {"out":out_ports, "in":in_ports}
+	for edge in edges:
+		var edge_id := str(edge.get("id", ""))
+		var from_id := str(edge.get("from", ""))
+		var to_id := str(edge.get("to", ""))
+		var ports_from: Dictionary = _port_by_edge.get(from_id, {}).get("out", {})
+		var ports_to: Dictionary = _port_by_edge.get(to_id, {}).get("in", {})
+		var error := graph_edit.connect_node(from_id, int(ports_from.get(edge_id, 0)), to_id, int(ports_to.get(edge_id, 0)))
+		if error != OK:
+			error_label.text = "Не удалось показать переход %s (%s → %s)." % [edge_id, from_id, to_id]
+			return
 
 func set_snapshot(context: Dictionary, attempt_index := -1) -> void:
-	current_node_id = DialogueGraph.current_node(context)
-	node_history = context.get("dialogue_node_history", ["opening"]).duplicate()
+	if not is_instance_valid(graph_edit): return
+	if attempt_index < 0:
+		_live_snapshot = context.duplicate(true)
+	current_node_id = str(context.get("current_node", DialogueGraph.data().get("initial_node", "G00_GATE")))
+	node_history = context.get("node_history", ["G00_GATE"]).duplicate()
+	if node_history.is_empty(): node_history = [current_node_id]
 	dialogue_history.clear()
 	for event in context.get("dialogue_history", []):
-		if event is Dictionary:
-			dialogue_history.append(event.duplicate(true))
+		if event is Dictionary: dialogue_history.append(event.duplicate(true))
 	selected_attempt = attempt_index
-	queue_redraw()
+	current_button.visible = selected_attempt >= 0
+	var current_node: Dictionary = DialogueGraph.data().get("nodes", {}).get(current_node_id, {})
+	status_label.text = ("ПОПЫТКА %02d" % (attempt_index + 1) if attempt_index >= 0 else "ТЕКУЩАЯ СЕССИЯ") + " · %s · %d событий" % [str(current_node.get("label", current_node_id)), dialogue_history.size()]
+	_refresh_highlights()
 
-func _draw() -> void:
-	var graph: Dictionary = Language.data().get("dialogue", {})
-	var nodes: Dictionary = graph.get("nodes", {})
-	var cards := _card_rects(nodes)
-	_draw_history_edges(cards)
-	_draw_live_edges(cards, graph.get("transitions", []))
-	for node_id in NODE_POSITIONS:
-		if not nodes.has(node_id) or not cards.has(node_id):
-			continue
-		_draw_node(str(node_id), nodes[node_id], cards[node_id], graph.get("actions", {}))
-
-func _card_rects(nodes: Dictionary) -> Dictionary:
-	var result := {}
-	var column_width := size.x / 3.0
-	var card_width := maxf(132.0, minf(220.0, column_width - 12.0))
-	var card_height := 76.0
-	var row_gap := 18.0
-	var top := 8.0
-	for node_id in NODE_POSITIONS:
-		if not nodes.has(node_id):
-			continue
-		var grid: Vector2i = NODE_POSITIONS[node_id]
-		var left := column_width * float(grid.x) + (column_width - card_width) * 0.5
-		var y := top + float(grid.y) * (card_height + row_gap)
-		result[node_id] = Rect2(Vector2(left, y), Vector2(card_width, card_height))
-	return result
-
-func _draw_node(node_id: String, node: Dictionary, rect: Rect2, actions: Dictionary) -> void:
-	var visited := node_history.has(node_id)
-	var current := node_id == current_node_id
-	var fill := Color("24505a") if current else (Color("293b4a") if visited else Color("182633"))
-	var outline := Color("a8e3c3") if current else (Color("649d91") if visited else Color("435568"))
-	draw_rect(rect, fill, true)
-	draw_rect(rect, outline, false, 2.0 if current else 1.0)
-	var font: Font = ThemeDB.fallback_font
-	var title := str(node.get("label", node_id))
-	draw_string(font, rect.position + Vector2(8, 19), title, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 16, 13, Color("f0f4f7"))
-	var action_labels: Array[String] = []
-	for action_id in node.get("actions", []):
-		var action: Dictionary = actions.get(action_id, {})
-		if not action.is_empty():
-			action_labels.append(str(action.get("short_label", action.get("label", action_id))))
-	var action_line := ", ".join(action_labels)
-	if action_line.length() > 38:
-		action_line = action_line.substr(0, 35) + "…"
-	draw_string(font, rect.position + Vector2(8, 39), action_line, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 16, 10, Color("bad0d9"))
-	var visits := _visit_count(node_id)
-	var suffix := "СЕЙЧАС" if current else ("×%d" % visits if visits > 0 else "")
-	if not suffix.is_empty():
-		draw_string(font, rect.position + Vector2(8, rect.size.y - 8), suffix, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 16, 10, Color("a8e3c3") if current else Color("82b7ac"))
-
-func _draw_live_edges(cards: Dictionary, transitions: Array) -> void:
-	if not cards.has(current_node_id):
-		return
-	var source_rect: Rect2 = cards[current_node_id]
-	for transition in transitions:
-		var from_value: Variant = transition.get("from", "*")
-		var applies: bool = from_value == "*" or (from_value is Array and from_value.has(current_node_id)) or str(from_value) == current_node_id
-		if not applies:
-			continue
-		var destination := str(transition.get("to", ""))
-		if destination == current_node_id or not cards.has(destination):
-			continue
-		_draw_arrow(source_rect, cards[destination], Color("82b8b4", 0.82), 1.5)
-
-func _draw_history_edges(cards: Dictionary) -> void:
+func _refresh_highlights() -> void:
+	for node_id in _node_cards:
+		var card: GraphNode = _node_cards[node_id]
+		var current := str(node_id) == current_node_id
+		var visits := node_history.count(node_id)
+		var node_data: Dictionary = DialogueGraph.data().get("nodes", {}).get(node_id, {})
+		var badge: Label = card.get_child(0) as Label
+		badge.text = _node_badge(str(node_id), node_data, current, visits)
+		_apply_card_style(card, current, visits)
+	var visited_edges := {}
+	var last_edge := ""
 	for event in dialogue_history:
-		var source := str(event.get("from", ""))
-		var destination := str(event.get("to", ""))
-		if source == destination or not cards.has(source) or not cards.has(destination):
-			continue
-		_draw_arrow(cards[source], cards[destination], Color("e8c783", 0.86), 2.5)
+		var edge_id := str(event.get("transition_id", ""))
+		if not edge_id.is_empty():
+			visited_edges[edge_id] = true
+			last_edge = edge_id
+	var graph_edges: Array = DialogueGraph.data().get("transitions", [])
+	for edge in graph_edges:
+		var edge_id := str(edge.get("id", ""))
+		var from_id := str(edge.get("from", ""))
+		var to_id := str(edge.get("to", ""))
+		var from_ports: Dictionary = _port_by_edge.get(from_id, {}).get("out", {})
+		var to_ports: Dictionary = _port_by_edge.get(to_id, {}).get("in", {})
+		var output_port := int(from_ports.get(edge_id, 0))
+		var input_port := int(to_ports.get(edge_id, 0))
+		var activity := 1.0 if edge_id == last_edge else (0.32 if visited_edges.has(edge_id) else 0.0)
+		graph_edit.set_connection_activity(from_id, output_port, to_id, input_port, activity)
 
-func _draw_arrow(source: Rect2, destination: Rect2, color: Color, width: float) -> void:
-	var start_point := source.get_center()
-	var end_point := destination.get_center()
-	var direction := (end_point - start_point).normalized()
-	if direction == Vector2.ZERO:
-		return
-	var start := _rect_edge(source, direction) + direction * 2.0
-	var end := _rect_edge(destination, -direction) - direction * 4.0
-	draw_line(start, end, color, width, true)
-	var perpendicular := Vector2(-direction.y, direction.x)
-	var arrow_size := 6.0
-	draw_colored_polygon(PackedVector2Array([end, end - direction * arrow_size + perpendicular * arrow_size * 0.55,
-		end - direction * arrow_size - perpendicular * arrow_size * 0.55]), color)
+func _apply_card_style(card: GraphNode, current: bool, visits: int) -> void:
+	var panel := StyleBoxFlat.new()
+	var terminal := bool(DialogueGraph.data().get("nodes", {}).get(card.name, {}).get("terminal", false))
+	panel.bg_color = Color("244548") if current else (Color("263c45") if visits > 0 else (Color("2d2a37") if terminal else Color("1a2832")))
+	panel.border_color = Color("d4efc2") if current else (Color("78b9a2") if visits > 0 else (Color("756789") if terminal else Color("425965")))
+	panel.set_border_width_all(3 if current else (2 if visits > 0 else 1))
+	panel.set_corner_radius_all(8)
+	panel.content_margin_left = 11
+	panel.content_margin_right = 11
+	panel.content_margin_top = 8
+	panel.content_margin_bottom = 7
+	card.add_theme_stylebox_override("panel", panel)
+	card.add_theme_stylebox_override("panel_focus", panel)
+	for title_style in ["titlebar", "titlebar_selected"]:
+		var title := StyleBoxFlat.new()
+		title.bg_color = Color("356a68") if current else (Color("354d58") if visits > 0 else (Color("443c51") if terminal else Color("293b47")))
+		title.set_corner_radius_all(7)
+		title.content_margin_left = 10
+		title.content_margin_top = 5
+		title.content_margin_bottom = 5
+		card.add_theme_stylebox_override(title_style, title)
+	var selected: StyleBoxFlat = panel.duplicate()
+	selected.border_color = Color("f0c982")
+	card.add_theme_stylebox_override("panel_selected", selected)
 
-func _rect_edge(rect: Rect2, direction: Vector2) -> Vector2:
-	var x_distance := (rect.size.x * 0.5) / maxf(absf(direction.x), 0.001)
-	var y_distance := (rect.size.y * 0.5) / maxf(absf(direction.y), 0.001)
-	return rect.get_center() + direction * minf(x_distance, y_distance)
+func center_on_current() -> void:
+	if not is_instance_valid(graph_edit) or not _node_cards.has(current_node_id): return
+	var card: GraphNode = _node_cards[current_node_id]
+	graph_edit.scroll_offset = card.position_offset + card.size * 0.5 - graph_edit.size * 0.5 / graph_edit.zoom
 
-func _visit_count(node_id: String) -> int:
-	var count := 0
-	for visit in node_history:
-		if str(visit) == node_id:
-			count += 1
-	return count
+func _change_zoom(delta: float) -> void:
+	if not is_instance_valid(graph_edit): return
+	var logical_center := graph_edit.scroll_offset + graph_edit.size * 0.5 / graph_edit.zoom
+	graph_edit.zoom = clampf(graph_edit.zoom + delta, graph_edit.zoom_min, graph_edit.zoom_max)
+	graph_edit.scroll_offset = logical_center - graph_edit.size * 0.5 / graph_edit.zoom
+	_update_zoom_label()
+
+func _update_zoom_label() -> void:
+	if is_instance_valid(zoom_label) and is_instance_valid(graph_edit):
+		zoom_label.text = "%d%%" % roundi(graph_edit.zoom * 100.0)
+
+func _node_badge(node_id: String, node_data: Dictionary, current: bool, visits: int) -> String:
+	var badge := " · ИСХОД" if bool(node_data.get("terminal", false)) else ""
+	if current:
+		badge += " · СЕЙЧАС"
+	elif visits > 0:
+		badge += " · ×%d" % visits
+	return node_id + badge
+
+func _incoming_tooltip(in_edges: Array, actions: Dictionary) -> String:
+	var lines: PackedStringArray = ["Входящие переходы:"]
+	for edge in in_edges:
+		var action: Dictionary = actions.get(str(edge.get("action", "")), {})
+		lines.append("%s · %s · %s" % [str(edge.get("from", "")), str(action.get("short_label", edge.get("action", ""))), str(edge.get("guard_label", "без условия"))])
+	return "\n".join(lines)
+
+func _return_to_live() -> void:
+	set_snapshot(_live_snapshot, -1)
+	center_on_current()
+	current_requested.emit()
+
+func _on_node_selected(node: Node) -> void:
+	var node_id := str(node.name)
+	var node_data: Dictionary = DialogueGraph.data().get("nodes", {}).get(node_id, {})
+	var edges: Array[String] = []
+	for edge in DialogueGraph.data().get("transitions", []):
+		if str(edge.get("from", "")) == node_id:
+			edges.append("%s → %s · %s" % [str(edge.get("id", "")), str(edge.get("to", "")), str(edge.get("guard_label", ""))])
+	node_diagnostic.text = "%s · %s\n%s\nУсловия: %s\n%s" % [node_id, str(node_data.get("label", "")), str(node_data.get("description", "")), str(node_data.get("open_proposition", {}).get("id", "нет открытой пропозиции")), "\n".join(edges)]
+	node_diagnostic.visible = true
+
+func _position_for(node_data: Dictionary, node_id: String) -> Vector2:
+	var position: Array = node_data.get("debug_position", [0, 0])
+	if position.size() < 2:
+		return Vector2.ZERO
+	return Vector2(72.0 + float(position[0]) * 335.0, 72.0 + float(position[1]) * 255.0)
+
+func _short(value: String, limit: int) -> String:
+	var single := value.replace("\n", " ")
+	return single if single.length() <= limit else single.substr(0, limit - 1) + "…"

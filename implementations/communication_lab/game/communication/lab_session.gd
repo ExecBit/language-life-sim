@@ -1,572 +1,271 @@
 extends RefCounted
-
-const Parser = preload("res://implementations/communication_lab/game/communication/parser.gd")
-const DialogueGrammar = preload("res://implementations/communication_lab/game/communication/dialogue_resolver.gd")
+## The one place where a validated authored edge changes RPG state.
 const DialogueLanguage = preload("res://implementations/communication_lab/game/communication/dialogue_language.gd")
 const DialogueGraph = preload("res://implementations/communication_lab/game/communication/dialogue_graph.gd")
-const OBJECTIVE_TITLES := {"introduce":"Представиться", "ask_mood":"Узнать, как у неё дела", "ask_activity":"Спросить о её занятиях", "share_self":"Рассказать о себе", "offer_help":"Предложить помощь", "farewell":"Попрощаться"}
 
 static func initial_context() -> Dictionary:
-	return {"busy":false,"pending":"","player_name":"","topic":"introduction","selected_topic":"introduction","selected_action":"introduce","dialogue_node":"opening","last_npc_line":"",
-		"pending_question":"player_name","awaiting_name":true,"introduction_completed":false,"pending_clarification":{},
-		"offered_help":false,"help_requested":false,"player_mood":"","astera_mood":"tired","last_player_state":{},"last_astera_state":{},
-		"player_plan":"","slow_speech":false,"activity":"working","objective_progress":_initial_objectives(),"objective_evidence":{},
-		"dialogue_history":[],"dialogue_node_history":["opening"]}
-
-static func _initial_objectives() -> Dictionary:
-	var progress := {}
-	for key in OBJECTIVE_TITLES: progress[key] = false
-	return progress
+	return {
+		"roster_has_player":true, "is_technician":false, "has_pass":false,
+		"access_status":"none", "player_name":"", "trust":"neutral", "message_promise":false,
+		"technician_claimed":false, "current_node":"G00_GATE", "selected_action":"",
+		"pending_proposition":{}, "pending_resolution":{}, "pending_clarification":{},
+		"node_history":["G00_GATE"], "visited_nodes":["G00_GATE"], "dialogue_history":[],
+		"dialog_opened_once":false, "last_npc_line":"", "last_event":{}
+	}
 
 static func opening_line(context: Dictionary) -> Dictionary:
-	context.topic = "introduction"
-	context.awaiting_name = str(context.get("player_name","")).is_empty() and not bool(context.get("introduction_completed",false))
-	context.pending_question = "player_name" if context.awaiting_name else ""
-	context.last_npc_line = "Oh! Hallo! Ich bin Astera. Und du?" if context.awaiting_name else "Schön, dich wiederzusehen, %s! Was möchtest du besprechen?" % context.player_name
-	DialogueGraph.sync_selection(context)
-	return {"answer":context.last_npc_line,"topic":context.topic,"reaction":"player_arrived",
-		"emotion_state":"surprised_soft","animation_id":"greeting_wave"}
+	if bool(context.get("dialog_opened_once", false)) and _is_terminal(DialogueGraph.node_id(context)):
+		var resolved := DialogueGraph.resolve_system(context, "reopen")
+		var edge: Dictionary = resolved.get("edge", {})
+		if not edge.is_empty():
+			_apply_edge(edge, "REOPEN_DIALOG", {"system_event":"reopen"}, "", context, "")
+	context.dialog_opened_once = true
+	_ensure_open_proposition(context)
+	var node_data := DialogueGraph.node(context)
+	var line := DialogueGraph.display_line(context)
+	context.last_npc_line = line
+	return {"answer":line, "emotion_state":str(node_data.get("emotion_state", "neutral")),
+		"animation_id":str(node_data.get("animation_id", "standing")), "node_id":DialogueGraph.node_id(context)}
 
 static func available_actions(context: Dictionary) -> Array[Dictionary]:
-	return DialogueGraph.available_actions(context)
+	if not context.get("pending_resolution", {}).is_empty():
+		var all_actions: Dictionary = DialogueGraph.data().get("actions", {})
+		var choices: Array[Dictionary] = []
+		for id in ["confirm_proposition", "reject_proposition"]:
+			if all_actions.has(id):
+				var item: Dictionary = all_actions[id].duplicate(true)
+				item["id"] = id
+				item["label"] = "Подтвердить понятный смысл" if id == "confirm_proposition" else "Отклонить и остаться здесь"
+				choices.append(item)
+		return choices
+	return DialogueGraph.actions_for(context)
 
 static func select_action(action_id: String, context: Dictionary) -> Dictionary:
 	for action in available_actions(context):
-		if str(action.id) != action_id:
-			continue
-		if bool(action.get("navigation", false)):
-			DialogueGraph.record_navigation(context, "cancel_clarification")
-			context.selected_action = ""
-			DialogueGraph.sync_selection(context)
-			return {"accepted":true, "closed_clarification":true}
-		context.selected_action = action_id
-		context.selected_topic = str(action.get("topic", ""))
-		return {"accepted":true, "closed_clarification":false}
-	return {"accepted":false, "closed_clarification":false}
+		if str(action.get("id", "")) == action_id:
+			context.selected_action = action_id
+			return {"accepted":true, "action":action.duplicate(true)}
+	return {"accepted":false}
 
 static func select_topic(topic_id: String, context: Dictionary) -> Dictionary:
-	# Compatibility for existing callers. The player UI selects authored actions.
-	var probe := context.duplicate(true)
-	probe.pending_clarification = {}
-	for action in available_actions(probe):
-		if str(action.get("topic", "")) != topic_id:
-			continue
-		var changed := str(context.get("selected_topic", "")) != topic_id
-		var closed: bool = changed and not context.get("pending_clarification", {}).is_empty()
-		if changed:
-			if closed:
-				DialogueGraph.record_navigation(context, "cancel_clarification")
-			if str(context.get("pending_question", "")) in ["help_offer", "slow_speech"]:
-				context.pending_question = ""
-		context.selected_action = str(action.id)
-		context.selected_topic = topic_id
-		return {"selected_topic":topic_id, "closed_clarification":closed}
-	return {"selected_topic":str(context.get("selected_topic", "")), "closed_clarification":false}
+	# Kept for older UI callers; topic names are now stable action ids only.
+	var result := select_action(topic_id, context)
+	return {"selected_topic":str(context.get("selected_action", "")), "closed_clarification":false, "accepted":result.get("accepted", false)}
 
 static func close_dialog(context: Dictionary) -> bool:
-	var pending: Dictionary = context.get("pending_clarification", {})
-	var had_pending := not pending.is_empty()
-	if had_pending:
-		DialogueGraph.record_navigation(context, "close_dialog")
-	if str(context.get("pending_question","")) in ["help_offer","slow_speech"]:
-		context.pending_question = ""
-	DialogueGraph.sync_selection(context)
-	return had_pending
+	# Closing the UI is not an in-world farewell and keeps every proposition/fact intact.
+	context.selected_action = ""
+	return false
 
-static func submit(text: String, context: Dictionary, selected_topic: String = "") -> Dictionary:
-	var before := context.duplicate(true)
-	if not selected_topic.is_empty():
-		select_topic(selected_topic, context)
-	var parsed: Dictionary = DialogueLanguage.analyze(text, context)
+static func submit(text: String, context: Dictionary, selected_action: String = "") -> Dictionary:
+	if not selected_action.is_empty(): context.selected_action = selected_action
+	var before: Dictionary = context.duplicate(true)
+	var action_before := str(context.get("selected_action", ""))
+	var parsed: Dictionary = DialogueLanguage.analyze_rpg(text, context)
+	var effects: Array[Dictionary] = []
 	var answer := ""
-	var notification := ""
-	var effects: Array[String] = []
-	var reaction := "unrecognized"
-	var emotion := "curious"
-	var animation := "curious_head_tilt"
-	var pending: Dictionary = context.get("pending_clarification", {}).duplicate(true)
-	if not pending.is_empty() and str(parsed.get("intent","")) in ["SHORT_YES","SHORT_NO"]:
-		var confirmed := str(parsed.intent) == "SHORT_YES"
-		var outcome := _resolve_pending_clarification(parsed, pending, confirmed, context, effects)
-		answer = str(outcome.answer)
-		notification = str(outcome.get("notification",""))
-		reaction = str(outcome.reaction)
-		emotion = str(outcome.emotion_state)
-		animation = str(outcome.animation_id)
-	elif str(parsed.get("intent","")) in ["SHORT_YES","SHORT_NO"] and str(context.get("pending_question","")) in ["help_offer","slow_speech"]:
-		parsed = DialogueGrammar.parse(text, context)
-		var legacy_pending := _resolve_dialogue(parsed, context)
-		answer = str(legacy_pending.answer)
-		notification = _legacy_notification(parsed)
-		reaction = str(legacy_pending.reaction)
-		emotion = str(legacy_pending.emotion_state)
-		animation = str(legacy_pending.animation_id)
-	elif str(parsed.get("intent","")) in ["SHORT_YES","SHORT_NO"]:
-		parsed.status = "NEEDS_CLARIFICATION"
-		parsed.reason = "NO_OPEN_YES_NO_TARGET"
-		parsed.notification = "Астера не поняла, к чему относится ответ «%s»." % ("Ja" if parsed.intent == "SHORT_YES" else "Nein")
-		answer = "Was meinst du damit?"
-		notification = str(parsed.notification)
-		reaction = "clarify_no_open_question"
-		emotion = "curious"
-		animation = "curious_head_tilt"
-	else:
-		if not pending.is_empty():
-			context.pending_clarification = {}
-		if bool(parsed.get("handled",false)):
-			if str(parsed.get("reason", "")) == "MULTIPLE_INTENTS":
-				# Preserve richer component frames from the legacy grammar without applying its effects.
-				var legacy_multi: Dictionary = DialogueGrammar.parse(text, context)
-				var legacy_frames: Array = legacy_multi.get("semantic_frames", [])
-				if legacy_frames.size() > parsed.get("semantic_frames", []).size():
-					parsed.semantic_frames = legacy_frames.duplicate(true)
-			var outcome := _resolve_p67(parsed, text, context, effects)
-			answer = str(outcome.answer)
-			notification = str(outcome.get("notification",parsed.get("notification","")))
-			reaction = str(outcome.reaction)
-			emotion = str(outcome.emotion_state)
-			animation = str(outcome.animation_id)
-		else:
-			var extension_parse: Dictionary = DialogueGrammar.parse(text, context)
-			if not extension_parse.is_empty():
-				parsed = extension_parse
-				var legacy := _resolve_dialogue(parsed, context)
-				answer = str(legacy.answer)
-				reaction = str(legacy.reaction)
-				emotion = str(legacy.emotion_state)
-				animation = str(legacy.animation_id)
+	var notification := str(parsed.get("notification", ""))
+	var transition: Dictionary = {}
+	var transition_error := ""
+	var applied_event: Dictionary = {}
+	var intent := str(parsed.get("intent", ""))
+	var frame: Dictionary = parsed.get("frame", {}).duplicate(true)
+	var edge_intent := intent
+	var edge_frame: Dictionary = frame.duplicate(true)
+	var pending_resolution: Dictionary = context.get("pending_resolution", {}).duplicate(true)
+
+	if not pending_resolution.is_empty() and intent in ["SHORT_YES", "SHORT_NO"]:
+		var confirmed := intent == "SHORT_YES"
+		if confirmed:
+			var delayed := _edge_by_id(str(pending_resolution.get("edge_id", "")))
+			if str(delayed.get("from", "")) == DialogueGraph.node_id(context) and DialogueGraph.guard_matches(delayed.get("guard", {}), context):
+				transition = delayed
+				edge_frame = pending_resolution.get("frame", frame).duplicate(true)
+				edge_intent = str(pending_resolution.get("actual_intent", intent))
+				context.pending_resolution = {}
+				context.pending_proposition = pending_resolution.get("previous_proposition", {}).duplicate(true)
 			else:
-				var parse_context := {"active":true,"pending":str(context.get("pending","")),"addressee":"anna","pointed_object_id":""}
-				parsed = Parser.parse(text, "", parse_context)
-				answer = _resolve_legacy(parsed, context, effects)
-				reaction = "legacy_%s" % str(parsed.get("intent","unrecognized")).to_lower()
-				var visual := _legacy_visuals(str(parsed.get("intent","")), str(parsed.get("status","")))
-				emotion = str(visual.emotion_state)
-				animation = str(visual.animation_id)
-			notification = _legacy_notification(parsed)
-	_update_objectives(parsed, context, reaction, text)
-	context.last_npc_line = answer
-	var graph_event := DialogueGraph.advance(context, reaction, parsed, text, before)
-	var result := {"input":text,"before":before,"parse":parsed,"answer":answer,"notification":notification,
-		"effects":effects,"after":context.duplicate(true),"topic":str(context.get("topic","")),
-		"selected_topic":str(context.get("selected_topic","introduction")),
-		"dialogue_node":str(context.get("dialogue_node", "opening")),
-		"graph_event":graph_event,"dialogue_history":context.dialogue_history.duplicate(true),
-		"dialogue_node_history":context.dialogue_node_history.duplicate(true),
-		"selected_action":str(context.get("selected_action", "")),
-		"conversation_context":_conversation_snapshot(context),"reaction":reaction,
-		"emotion_state":emotion,"animation_id":animation,
-		"objective_progress":context.objective_progress.duplicate(true),"objective_evidence":context.objective_evidence.duplicate(true)}
+				transition_error = "PENDING_EDGE_NO_LONGER_VALID"
+		else:
+			context.pending_resolution = {}
+			context.pending_proposition = pending_resolution.get("previous_proposition", {}).duplicate(true)
+			answer = "Alles klar. Wir bleiben beim selben Thema."
+			context.selected_action = ""
+	elif str(parsed.get("status", "")) == "RECOGNIZED":
+		var resolved := DialogueGraph.resolve(context, intent, frame)
+		transition = resolved.get("edge", {})
+		transition_error = str(resolved.get("error", ""))
+		if not transition.is_empty() and action_before != str(transition.get("action", "")):
+			var previous_proposition: Dictionary = context.get("pending_proposition", {}).duplicate(true)
+			var target_action: Dictionary = DialogueGraph.data().get("actions", {}).get(str(transition.action), {})
+			context.pending_resolution = {"edge_id":str(transition.id), "frame":frame.duplicate(true),
+				"actual_intent":intent, "selected_action":action_before, "previous_proposition":previous_proposition}
+			context.pending_proposition = {"id":"confirm_intended_action", "kind":"intent_mismatch",
+				"edge_id":str(transition.id), "value":str(transition.get("semantic_action", ""))}
+			answer = str(target_action.get("confirm_question", "Meinst du das?"))
+			context.selected_action = ""
+			transition = {}
+			transition_error = "SELECTED_ACTION_MISMATCH"
+		elif transition.is_empty():
+			answer = _no_branch_reply(intent, frame, context)
+			context.selected_action = ""
+	else:
+		answer = _failure_reply(parsed)
+		if str(parsed.get("status", "")) == "RECOGNIZED": context.selected_action = ""
+
+	if not transition.is_empty():
+		var applied := _apply_edge(transition, edge_intent, edge_frame, text, context, action_before)
+		effects = applied.effects
+		answer = str(applied.answer)
+		applied_event = applied.event
+		if edge_intent != intent:
+			applied_event["actual_intent"] = intent
+			applied_event["frame"] = frame.duplicate(true)
+			applied_event["resolved_intent"] = edge_intent
+			applied_event["resolved_frame"] = edge_frame.duplicate(true)
+			var stored: Array = context.dialogue_history.duplicate(true)
+			stored[stored.size() - 1] = applied_event.duplicate(true)
+			context.dialogue_history = stored
+			context.last_event = applied_event.duplicate(true)
+	elif answer.is_empty():
+		if transition_error == "SELECTED_ACTION_MISMATCH":
+			notification = "Выбранная цель и смысл фразы различаются. Подтверди вопрос NPC, чтобы выполнить понятное действие."
+		elif transition_error == "AMBIGUOUS_AUTHORED_EDGE":
+			notification = "Для этой фразы доступно несколько веток; состояние не изменено."
+			answer = "Was meinst du genau?"
+		else:
+			answer = _no_branch_reply(intent, frame, context)
+
+	var event: Dictionary = applied_event if not applied_event.is_empty() else {
+		"transition_id":str(transition.get("id", "")),
+		"node_before":str(before.get("current_node", "G00_GATE")),
+		"node_after":str(context.get("current_node", "G00_GATE")),
+		"selected_action":action_before,
+		"actual_intent":intent,
+		"input":text,
+		"frame":frame.duplicate(true),
+		"effects":effects.duplicate(true),
+		"active_conditions":_condition_history(transition, before) if not transition.is_empty() else _outgoing_conditions(before),
+		"status":str(parsed.get("status", "")),
+		"changed":str(before.get("current_node", "")) != str(context.get("current_node", "")),
+		"reason":transition_error
+	}
+	if applied_event.is_empty(): _append_event(context, event)
+	var node_data := DialogueGraph.node(context)
+	var result := {
+		"input":text, "before":before, "parse":parsed, "answer":answer, "notification":notification,
+		"effects":effects, "after":context.duplicate(true), "current_node":DialogueGraph.node_id(context),
+		"dialogue_node":DialogueGraph.node_id(context), "transition_id":str(event.transition_id),
+		"graph_event":event.duplicate(true), "dialogue_history":context.dialogue_history.duplicate(true),
+		"node_history":context.node_history.duplicate(true), "selected_action":action_before,
+		"conversation_context":_conversation_snapshot(context),
+		"emotion_state":str(node_data.get("emotion_state", "neutral")),
+		"animation_id":str(node_data.get("animation_id", "standing")),
+		"reaction":str(intent).to_lower(), "topic":str(intent), "objective_progress":{}, "objective_evidence":{}
+	}
 	_append_journal(result)
 	return result
 
-static func _resolve_p67(parsed: Dictionary, text: String, context: Dictionary, effects: Array[String]) -> Dictionary:
-	var reaction := "clarify"
-	var emotion := "curious"
-	var animation := "curious_head_tilt"
-	var candidate: Dictionary = parsed.get("clarification_candidate", {})
-	if str(parsed.get("status", "")) == "RECOGNIZED":
-		for action in available_actions(context):
-			if str(action.id) != str(context.get("selected_action", "")):
-				continue
-			if str(parsed.get("intent", "")) in action.get("confirm_alternatives", []):
-				# Preserve the understood German meaning; clarify its conflict with the UI choice.
-				candidate = parsed.frame.duplicate(true)
-				candidate.intent = str(parsed.intent)
-				parsed.action_match = "MISMATCH"
-				parsed.reason = "SELECTED_ACTION_MISMATCH"
-				parsed.notification = str(action.get("mismatch_notice", ""))
-			break
-	if not candidate.is_empty() and str(candidate.get("question_kind", "yes_no")) == "yes_no":
-		var question := _question_for_candidate(candidate)
-		context.pending_clarification = {
-			"expected_response":"yes_no", "question":question, "proposition":candidate.duplicate(true),
-			"original_input":text, "source_frame":parsed.get("frame", {}).duplicate(true),
-			"topic":str(context.get("selected_topic", "introduction"))
-		}
-		return {"answer":question, "notification":str(parsed.get("notification", "")),
-			"reaction":"ask_one_clarification", "emotion_state":"curious", "animation_id":"curious_head_tilt"}
-	if str(parsed.get("status", "")) != "RECOGNIZED":
-		var response := "Was meinst du?"
-		if parsed.get("reason","") == "MULTIPLE_INTENTS":
-			response = "Bitte eins nach dem anderen."
-		elif parsed.get("status","") == "UNKNOWN":
-			response = "Ich habe das Wort nicht verstanden. Kannst du es anders sagen?"
-		elif parsed.get("reason","") == "NAME_CONTINUATION":
-			response = "Wie heißt du?"
-		elif parsed.get("reason","") == "NEGATED_NAME":
-			response = "Wie heißt du?"
-		elif parsed.get("reason","") == "NO_BRANCH":
-			response = str(DialogueLanguage.data().help_replies.no_branch)
-		return {"answer":response,"notification":str(parsed.get("notification","")),
-			"reaction":"clarify_%s" % str(parsed.get("reason","unknown")).to_lower(),
-			"emotion_state":"curious","animation_id":"curious_head_tilt"}
-	match str(parsed.get("intent","")):
-		"PLAYER_NAME":
-			var name := str(parsed.get("name","")).strip_edges()
-			if name.is_empty() or not bool(context.get("awaiting_name",false)):
-				return {"answer":"Ich kenne deinen Namen schon. Was möchtest du besprechen?",
-					"notification":"Астера не открыла состояние знакомства для нового имени.",
-					"reaction":"name_slot_closed","emotion_state":"friendly","animation_id":"gentle_nod"}
-			if str(context.get("player_name","")) != name:
-				context.player_name = name
-				effects.append("player_name_set")
-			context.awaiting_name = false
-			context.introduction_completed = true
-			context.pending_question = ""
-			context.topic = "introduction"
-			return {"answer":"Hallo, %s! Schön!" % name,"notification":"",
-				"reaction":"welcome_player_by_name","emotion_state":"happy","animation_id":"small_happy_reaction"}
-		"REPORT_STATE":
-			return _apply_state_report(parsed, context, effects, true)
-		"REPORT_ASTERA_STATE":
-			return _apply_state_report(parsed, context, effects, false)
-		"OFFER_HELP":
-			return _apply_help_offer(context, effects)
-		"REQUEST_HELP":
-			context.topic = "help"
-			if not bool(context.get("help_requested",false)):
-				context.help_requested = true
-				effects.append("request_help_from_astera")
-			return {"answer":str(DialogueLanguage.data().help_replies.request),"notification":"",
-				"reaction":"respond_to_help_request","emotion_state":"friendly","animation_id":"open_palm_offer"}
-		"PLAYER_CANNOT_HELP":
-			context.topic = "help"
-			return {"answer":str(DialogueLanguage.data().help_replies.refusal),"notification":"",
-				"reaction":"acknowledge_cannot_help","emotion_state":"concerned","animation_id":"soft_concern"}
-	return {"answer":"Was meinst du?","notification":"","reaction":reaction,"emotion_state":emotion,"animation_id":animation}
-
-static func _resolve_pending_clarification(parsed: Dictionary, pending: Dictionary, confirmed: bool, context: Dictionary, effects: Array[String]) -> Dictionary:
+static func _apply_edge(edge: Dictionary, intent: String, frame: Dictionary, input_text: String, context: Dictionary, selected_action: String) -> Dictionary:
+	var from_node := DialogueGraph.node_id(context)
+	var guard_snapshot := DialogueGraph.active_conditions(edge, context)
+	var effects_applied: Array[Dictionary] = []
+	for effect_data in edge.get("effects", []):
+		var changes: Dictionary = {}
+		for key in effect_data.get("fields", {}):
+			var raw: Variant = effect_data.fields[key]
+			var value: Variant = raw
+			if raw is String and str(raw).begins_with("$frame."):
+				value = frame.get(str(raw).trim_prefix("$frame."), "")
+			if context.get(str(key)) != value:
+				changes[str(key)] = value
+		for key in changes: context[str(key)] = changes[key]
+		if not changes.is_empty():
+			effects_applied.append({"id":str(effect_data.get("id", "")), "changes":changes,
+				"reason":str(effect_data.get("reason", ""))})
+	context.current_node = str(edge.get("to", from_node))
+	context.pending_resolution = {}
 	context.pending_clarification = {}
-	var proposition: Dictionary = pending.get("proposition",{}).duplicate(true)
-	parsed.confirmed_proposition = proposition.duplicate(true)
-	parsed.intent = "CONFIRM_CLARIFICATION" if confirmed else "REJECT_CLARIFICATION"
-	parsed.semantic = parsed.intent
-	parsed.frame = proposition.duplicate(true)
-	parsed.frame.speaker = "player"
-	parsed.frame.confirmation = "yes" if confirmed else "no"
-	parsed.status = "RECOGNIZED"
-	if not confirmed:
-		return {"answer":"Alles klar. Was möchtest du besprechen?","notification":"",
-			"reaction":"reject_clarification","emotion_state":"friendly","animation_id":"gentle_nod"}
-	match str(proposition.get("intent","")):
-		"OFFER_HELP":
-			return _apply_help_offer(context, effects)
-		"REQUEST_HELP":
-			context.topic = "help"
-			if not bool(context.get("help_requested",false)):
-				context.help_requested = true
-				effects.append("request_help_from_astera")
-			return {"answer":str(DialogueLanguage.data().help_replies.request),"notification":"",
-				"reaction":"respond_to_help_request","emotion_state":"friendly","animation_id":"open_palm_offer"}
-		"REPORT_STATE":
-			var synthetic := {"intent":"REPORT_STATE","state_id":proposition.get("state_id",""),
-				"polarity":proposition.get("polarity","positive"),"frame":{"experiencer":proposition.get("experiencer","player")}}
-			return _apply_state_report(synthetic, context, effects, true)
-	parsed.status = "NEEDS_CLARIFICATION"
-	parsed.reason = "UNSUPPORTED_CONFIRMATION_TARGET"
-	return {"answer":"Was meinst du?","notification":"","reaction":"clarify_confirmation_target",
-		"emotion_state":"curious","animation_id":"curious_head_tilt"}
+	context.selected_action = ""
+	if not edge.get("to", "").is_empty() and DialogueGraph.data().get("nodes", {}).has(str(edge.to)):
+		context.pending_proposition = _proposition_for(str(edge.to), context)
+	var history: Array = context.get("node_history", [from_node]).duplicate()
+	history.append(str(context.current_node))
+	context.node_history = history
+	var visited: Array = context.get("visited_nodes", []).duplicate()
+	if not visited.has(str(context.current_node)): visited.append(str(context.current_node))
+	context.visited_nodes = visited
+	var event := {"transition_id":str(edge.get("id", "")), "node_before":from_node,
+		"node_after":str(context.current_node), "selected_action":selected_action, "actual_intent":intent,
+		"input":input_text, "frame":frame.duplicate(true), "effects":effects_applied.duplicate(true),
+		"active_conditions":guard_snapshot, "status":"RECOGNIZED", "changed":from_node != str(context.current_node),
+		"reason":str(edge.get("reason", ""))}
+	_append_event(context, event)
+	var answer := DialogueGraph.display_line(context)
+	context.last_npc_line = answer
+	return {"answer":answer, "effects":effects_applied, "event":event}
 
-static func _question_for_candidate(candidate: Dictionary) -> String:
-	match str(candidate.get("intent","")):
-		"OFFER_HELP":
-			return str(DialogueLanguage.data().help_replies.clarify_offer)
-		"REQUEST_HELP":
-			return str(DialogueLanguage.data().help_replies.clarify_request)
-		"REPORT_STATE":
-			var state_id := str(candidate.get("state_id",""))
-			var forms: Array = DialogueLanguage.data().get("states",{}).get(state_id,{}).get("forms",[])
-			var state_word := str(forms[0]) if not forms.is_empty() else state_id
-			var negative := "nicht " if str(candidate.get("polarity","positive")) == "negative" else ""
-			return "Du bist %s%s?" % [negative,state_word]
-	return "Meinst du das?"
+static func _proposition_for(node_id: String, context: Dictionary) -> Dictionary:
+	var node_data: Dictionary = DialogueGraph.data().get("nodes", {}).get(node_id, {})
+	var authored: Dictionary = node_data.get("open_proposition", {}).duplicate(true)
+	if authored.is_empty(): return {}
+	if authored.has("value_field"):
+		authored.value = context.get(str(authored.value_field), "")
+	authored.node_id = node_id
+	return authored
 
-static func _apply_help_offer(context: Dictionary, effects: Array[String]) -> Dictionary:
-	context.topic = "help"
-	if not bool(context.get("offered_help",false)):
-		context.offered_help = true
-		effects.append("offer_help_to_astera")
-	return {"answer":str(DialogueLanguage.data().help_replies.offer),"notification":"",
-		"reaction":"accept_help_offer","emotion_state":"grateful","animation_id":"surprised_delighted"}
+static func _ensure_open_proposition(context: Dictionary) -> void:
+	if context.get("pending_resolution", {}).is_empty() and context.get("pending_proposition", {}).is_empty():
+		context.pending_proposition = _proposition_for(DialogueGraph.node_id(context), context)
 
-static func _apply_state_report(parsed: Dictionary, context: Dictionary, effects: Array[String], player_state: bool) -> Dictionary:
-	var state_id := str(parsed.get("state_id",""))
-	var polarity := str(parsed.get("polarity",parsed.get("frame",{}).get("polarity","positive")))
-	var state: Dictionary = DialogueLanguage.data().get("states",{}).get(state_id,{})
-	context.topic = "player_mood" if player_state else "astera_mood"
-	if player_state:
-		var previous: Dictionary = context.get("last_player_state",{})
-		var current := {"state_id":state_id,"polarity":polarity}
-		if previous != current:
-			effects.append("player_state:%s:%s" % [state_id,polarity])
-		context.last_player_state = current
-		if polarity == "positive":
-			context.player_mood = state_id
-			return {"answer":str(state.get("reply","Danke, dass du es sagst.")),"notification":"",
-				"reaction":"respond_to_player_state_%s" % state_id,
-				"emotion_state":str(state.get("emotion","friendly")),"animation_id":str(state.get("animation","gentle_nod"))}
-		context.player_mood = ""
-		return {"answer":str(state.get("negative_reply","Verstehe. Danke, dass du es sagst.")),"notification":"",
-			"reaction":"acknowledge_negated_player_state","emotion_state":"friendly","animation_id":"gentle_nod"}
-	var previous_astera: Dictionary = context.get("last_astera_state",{})
-	var current_astera := {"state_id":state_id,"polarity":polarity}
-	if previous_astera != current_astera:
-		effects.append("astera_state:%s:%s" % [state_id,polarity])
-	context.last_astera_state = current_astera
-	if polarity == "positive":
-		context.astera_mood = state_id
-		return {"answer":str(state.get("npc_ack","Ja, das stimmt.")),"notification":"",
-			"reaction":"acknowledge_astera_state_%s" % state_id,
-			"emotion_state":str(state.get("emotion","friendly")),"animation_id":str(state.get("animation","gentle_nod"))}
-	context.astera_mood = ""
-	return {"answer":str(state.get("negative_reply","Verstehe. Danke, dass du es sagst.")),"notification":"",
-		"reaction":"acknowledge_negated_astera_state","emotion_state":"friendly","animation_id":"gentle_nod"}
+static func _is_terminal(node_id: String) -> bool:
+	return str(node_id) in DialogueGraph.data().get("terminal_nodes", [])
 
-static func _legacy_notification(parsed: Dictionary) -> String:
-	var unknown: Array = parsed.get("unknown_tokens",[])
-	if unknown.is_empty():
-		for diagnostic in parsed.get("diagnostics",[]):
-			if diagnostic is Dictionary and diagnostic.get("code","") in ["UNKNOWN_TOKEN","UNSUPPORTED_TOKEN"]:
-				unknown.append(str(diagnostic.get("token","")))
-	if not unknown.is_empty():
-		return "Астера не поняла слово „%s“. Попробуйте выразиться иначе." % str(unknown[0])
-	if parsed.get("status","") in ["UNKNOWN","UNSUPPORTED","NEEDS_CLARIFICATION"]:
-		return "Астера не поняла, что вы хотите сказать. Выберите тему в меню или попробуйте другую формулировку."
-	return ""
-static func _resolve_dialogue(parsed: Dictionary, context: Dictionary) -> Dictionary:
-	if parsed.get("status", "") != "RECOGNIZED":
-		var reason := str(parsed.get("reason", ""))
-		var response := "Was meinst du?"
-		if parsed.get("status", "") == "UNSUPPORTED" and "MULTIPLE_INTENTS" in parsed.get("unsupported_features", []):
-			response = "Bitte eins nach dem anderen."
-		elif parsed.get("status", "") == "UNKNOWN":
-			response = "Ich verstehe das Wort nicht."
-		elif reason == "AMBIGUOUS_ROLES":
-			response = "Möchtest du mir helfen oder brauchst du Hilfe?"
-		elif reason == "QUESTION_OR_STATEMENT":
-			response = "Möchtest du, dass ich dir helfe?"
-		elif reason in ["ELLIPTIC_YES_NO", "MISSING_CONTEXT", "UND_DU_CONTEXT"]:
-			response = "Was möchtest du wissen?"
-		return {"answer":response,"reaction":"clarify_%s" % reason.to_lower() if not reason.is_empty() else "clarify",
-			"emotion_state":"curious","animation_id":"curious_head_tilt"}
-	var intent := str(parsed.semantic)
-	var answer := "Ich verstehe nicht."
-	var reaction := "clarify"
-	var emotion := "curious"
-	var animation := "curious_head_tilt"
-	match intent:
-		"GREETING":
-			if context.busy:
-				context.topic = "introduction"; context.pending_question = "player_name"
-				answer = "Hallo! Einen Moment, bitte."
-				reaction = "greet_while_busy"; emotion = "concerned"; animation = "soft_concern"
-			else:
-				var opening := opening_line(context)
-				answer = opening.answer; reaction = opening.reaction; emotion = opening.emotion_state; animation = opening.animation_id
-		"PLAYER_NAME":
-			context.player_name = parsed.name
-			context.topic = "introduction"
-			context.pending_question = "player_mood"
-			answer = "Hallo, %s! Schön!" % context.player_name
-			reaction = "welcome_player_by_name"; emotion = "happy"; animation = "small_happy_reaction"
-		"ASK_MOOD":
-			context.topic = "astera_mood"; context.pending_question = "player_mood"
-			if context.astera_mood == "good":
-				answer = "Mir geht's gut, danke! Und du? Was machst du heute?"
-				reaction = "share_good_mood"; emotion = "happy"; animation = "small_happy_reaction"
-			elif context.astera_mood == "neutral":
-				answer = "Gut, danke!"
-				reaction = "share_neutral_mood"; emotion = "friendly"; animation = "gentle_nod"
-			else:
-				answer = "Puh… Ich bin müde. Ich arbeite heute viel."
-				reaction = "share_tired_mood"; emotion = "tired"; animation = "tired_sigh"
-		"ASK_ASTERA_MOOD":
-			if context.topic == "player_mood":
-				context.topic = "astera_mood"; context.pending_question = "player_plan"
-				answer = "Mir geht's gut, danke! Und du? Was machst du heute?"
-				reaction = "answer_reciprocal_mood"; emotion = "friendly"; animation = "gentle_nod"
-			elif context.topic == "astera_mood":
-				context.pending_question = "player_mood"
-				answer = "Danke! Ich bin müde."
-				reaction = "answer_reciprocal_mood"; emotion = "tired"; animation = "tired_sigh"
-			else:
-				context.pending_question = "astera_mood"
-				answer = "Wie geht's mir? Gute Frage!"
-				reaction = "clarify_reciprocal_question"; emotion = "curious"; animation = "curious_head_tilt"
-		"ASK_BACK":
-			if context.topic == "player_mood":
-				context.topic = "astera_mood"; context.pending_question = "player_plan"
-				answer = "Mir geht's gut, danke! Was machst du heute?"
-				reaction = "answer_reciprocal_mood"; emotion = "friendly"; animation = "point_at_object"
-			else:
-				context.pending_question = ""
-				answer = "Was möchtest du wissen?"
-				reaction = "clarify_reciprocal_question"; emotion = "curious"; animation = "curious_head_tilt"
-		"PLAYER_MOOD_GOOD":
-			context.player_mood = "good"; context.topic = "player_mood"
-			context.pending_question = "player_plan"
-			answer = "Oh, schön! Mir geht's auch gut. Was machst du heute?"
-			reaction = "affirm_good_mood_and_invite_topic"; emotion = "happy"; animation = "gentle_nod"
-		"PLAYER_MOOD_LOW":
-			var is_tired: bool = parsed.normalized_tokens.has("müde") or parsed.normalized_tokens.has("mude")
-			context.player_mood = "tired" if is_tired else "low"
-			context.topic = "player_mood"; context.pending_question = "player_reason"
-			answer = "Oh… warum?"
-			reaction = "respond_with_concern"; emotion = "concerned"; animation = "soft_concern"
-		"PLAYER_QUIET_ACK":
-			context.topic = "player_mood"; context.pending_question = "player_plan"
-			answer = "Oh! Okay!"
-			reaction = "respond_to_quiet_player"; emotion = "playful"; animation = "playful_shrug"
-		"WHY":
-			if context.topic == "player_mood" and context.get("player_mood", "") in ["low", "tired"]:
-				context.topic = "player_mood"; context.pending_question = "player_plan"
-				answer = "Ich bin auch müde." if context.player_mood == "tired" else "Oh."
-				reaction = "relate_to_player_reason"; emotion = "concerned"; animation = "soft_concern"
-			elif context.topic in ["astera_mood", "activity"] or context.last_npc_line.to_lower().contains("müde"):
-				context.topic = "work"; context.pending_question = ""
-				answer = "Ich arbeite."
-				reaction = "explain_tiredness"; emotion = "tired"; animation = "tired_sigh"
-			else:
-				answer = "Warum? Was meinst du?"
-				reaction = "ask_why_clarification"; emotion = "curious"; animation = "curious_head_tilt"
-		"ASK_ACTIVITY":
-			context.topic = "activity"; context.activity = "working"; context.pending_question = "player_plan"
-			answer = "Ich arbeite. Und du?"
-			reaction = "explain_activity_and_invite_player"; emotion = "playful"; animation = "point_at_object"
-		"OFFER_HELP":
-			context.offered_help = true; context.pending_question = "help_offer"; context.topic = "help"
-			answer = "Oh! Danke! Vielleicht später." if context.busy else "Oh! Danke! Das ist nett!"
-			reaction = "accept_help_offer"; emotion = "grateful"; animation = "surprised_delighted"
-		"PLAYER_CANNOT_HELP":
-			context.topic = "help"; context.pending_question = ""
-			answer = "Oh, okay. Danke, dass du es sagst."
-			reaction = "acknowledge_cannot_help"; emotion = "concerned"; animation = "soft_concern"
-		"REQUEST_HELP":
-			context.topic = "help"; context.pending_question = "help_target"
-			answer = "Ja, gern. Was brauchst du?"
-			reaction = "respond_to_help_request"; emotion = "friendly"; animation = "open_palm_offer"
-		"REQUEST_SLOW_SPEECH":
-			context.slow_speech = true; context.topic = "slow_speech"; context.pending_question = ""
-			answer = "Ja. Ich spreche langsam."
-			reaction = "speak_slowly"; emotion = "friendly"; animation = "gentle_nod"
-		"REQUEST_REPEAT":
-			context.topic = "repeat"; context.pending_question = ""
-			if context.last_npc_line.is_empty():
-				answer = "Was soll ich wiederholen?"
-				reaction = "ask_what_to_repeat"; emotion = "curious"; animation = "curious_head_tilt"
-			else:
-				answer = "Ja, gern. Ich wiederhole es."
-				reaction = "repeat_line"; emotion = "friendly"; animation = "gentle_nod"
-		"REPORT_NONUNDERSTANDING":
-			context.topic = "understanding"; context.pending_question = ""
-			answer = "Oh! Was verstehst du nicht?"
-			reaction = "ask_what_is_unclear"; emotion = "curious"; animation = "curious_head_tilt"
-		"PLAYER_SPEECH_RATE":
-			context.topic = "slow_speech"; context.pending_question = ""
-			answer = "Oh, okay!"
-			reaction = "acknowledge_speech_preference"; emotion = "friendly"; animation = "gentle_nod"
-		"ACCEPT_HELP":
-			context.pending_question = ""; context.topic = "help"
-			answer = "Danke!"
-			reaction = "thank_player_for_help"; emotion = "grateful"; animation = "open_palm_offer"
-		"DECLINE_HELP":
-			context.pending_question = ""; context.topic = "help"
-			answer = "Okay. Danke!"
-			reaction = "accept_declined_help"; emotion = "friendly"; animation = "gentle_nod"
-		"PLAYER_PLAN":
-			if parsed.normalized_tokens.has("frei"):
-				context.player_plan = "free"; context.topic = "player_plan"
-				answer = "Oh, schön!"
-				reaction = "respond_to_free_day"; emotion = "happy"; animation = "small_happy_reaction"
-			elif parsed.normalized_tokens.has("lerne"):
-				context.player_plan = "learning_german"; context.topic = "player_plan"
-				context.pending_question = "slow_speech"
-				answer = "Ah, Deutsch! Schön! Ich spreche langsam. Okay?"
-				reaction = "offer_slow_speech"; emotion = "friendly"; animation = "gentle_nod"
-			else:
-				context.player_plan = "work"; context.topic = "player_plan"
-				answer = "Oh! Viel Arbeit heute?"
-				reaction = "respond_to_work_plan"; emotion = "friendly"; animation = "gentle_nod"
-		"ACCEPT_SLOW":
-			context.slow_speech = true; context.pending_question = ""; context.topic = "slow_speech"
-			answer = "Gut! Ich spreche langsam."
-			reaction = "enable_slow_speech"; emotion = "grateful"; animation = "gentle_nod"
-		"DECLINE_SLOW":
-			context.slow_speech = false; context.pending_question = ""; context.topic = "slow_speech"
-			answer = "Okay!"
-			reaction = "decline_slow_speech"; emotion = "friendly"; animation = "gentle_nod"
-		"FAREWELL":
-			context.topic = "farewell"; context.pending_question = ""
-			answer = "Tschüss, %s!" % context.player_name if not str(context.player_name).is_empty() else "Tschüss! Bis später!"
-			reaction = "say_goodbye"; emotion = "farewell"; animation = "farewell_wave"
-	return {"answer":answer,"reaction":reaction,"emotion_state":emotion,"animation_id":animation}
+static func _edge_by_id(edge_id: String) -> Dictionary:
+	for edge in DialogueGraph.data().get("transitions", []):
+		if str(edge.get("id", "")) == edge_id: return edge
+	return {}
 
-static func _resolve_legacy(parsed: Dictionary, context: Dictionary, effects: Array[String]) -> String:
-	if parsed.status != "RECOGNIZED": return "Was meinst du?" if parsed.status == "NEEDS_CLARIFICATION" else "Ich verstehe nicht."
-	match parsed.intent:
-		"GREETING": return "Hallo!"
-		"THANKS": return "Gern!"
-		"FAREWELL": return "Tschüss!"
-		"POLITENESS": return "Bitte!"
-		"APOLOGY": return "Okay!"
-		"REQUEST_REPEAT": return "Bitte noch einmal."
-		"ACCEPT": context.pending = ""; return "Ja!"
-		"REFUSE": context.pending = ""; return "Okay."
-		"ASK_LOCATION", "IDENTIFY": return "Ich weiß es nicht."
-		"REQUEST_ITEM":
-			return "Das geht nicht."
-		"REQUEST_ACTION":
-			return "Das geht nicht."
-		"REQUEST_HELP": context.pending = "help_target"; return "Was brauchst du?"
-		"PROHIBIT_ACTION": return "Okay. Ich mache das nicht."
-		"REPORT_NONUNDERSTANDING": return "Was möchtest du wissen?"
-		"REPORT_PROBLEM": return "Das tut mir leid."
-		"ASK_PERMISSION": return "Das geht nicht."
-		"REPORT_STATE", "EXPRESS_DESIRE": return "Okay!"
-	return "Was meinst du?"
+static func _failure_reply(parsed: Dictionary) -> String:
+	if str(parsed.get("reason", "")) == "MULTIPLE_INTENTS": return "Bitte eins nach dem anderen."
+	if str(parsed.get("reason", "")) == "NO_OPEN_YES_NO_TARGET": return "Worauf bezieht sich dein Ja oder Nein?"
+	return "Wie bitte? Sag es bitte anders oder bitte mich um Wiederholung."
 
-static func _legacy_visuals(intent: String, status: String) -> Dictionary:
-	var visuals := {
-		"GREETING":["surprised_soft","greeting_wave"], "THANKS":["grateful","gentle_nod"],
-		"FAREWELL":["farewell","farewell_wave"], "REQUEST_HELP":["friendly","open_palm_offer"],
-		"REQUEST_ITEM":["friendly","open_palm_offer"], "REQUEST_ACTION":["friendly","gentle_nod"],
-		"ASK_LOCATION":["friendly","point_at_object"], "IDENTIFY":["curious","curious_head_tilt"],
-		"ACCEPT":["happy","gentle_nod"], "REFUSE":["friendly","gentle_nod"],
-		"REQUEST_REPEAT":["curious","curious_head_tilt"], "REPORT_PROBLEM":["concerned","soft_concern"]}
-	var chosen: Array = visuals.get(intent, ["curious","curious_head_tilt"] if status != "RECOGNIZED" else ["friendly","gentle_nod"])
-	return {"emotion_state":chosen[0],"animation_id":chosen[1]}
+static func _no_branch_reply(intent: String, frame: Dictionary, context: Dictionary) -> String:
+	if intent in ["REQUEST_HELP", "OFFER_HELP"]:
+		return "Ich brauche eine klare Antwort zur Karte oder zur Nachricht für Tom."
+	if intent == "REPORT_HAS_CARD": return "Du hast eine Karte? Ich sehe dich nicht im Register."
+	if intent == "CLAIM_TECHNICIAN" and str(context.get("current_node", "")) not in ["G00_GATE", "G70_EXPOSED", "G80_WARNING"]:
+		return "Du bist gerade nicht am richtigen Ort für diese Aussage."
+	if intent == "SHORT_YES" or intent == "SHORT_NO": return "Was meinst du damit?"
+	return "Das passt gerade nicht. Was möchtest du tun?"
+
+static func _condition_history(edge: Dictionary, context: Dictionary) -> Array[Dictionary]:
+	return [{"edge_id":str(edge.get("id", "")), "label":str(edge.get("guard_label", "")),
+		"conditions":DialogueGraph.active_conditions(edge, context), "reason":str(edge.get("reason", ""))}]
+
+static func _outgoing_conditions(context: Dictionary) -> Array[Dictionary]:
+	var rows: Array[Dictionary] = []
+	for edge in DialogueGraph.outgoing(context):
+		rows.append({"edge_id":str(edge.get("id", "")), "label":str(edge.get("guard_label", "")),
+			"active":DialogueGraph.guard_matches(edge.get("guard", {}), context),
+			"conditions":DialogueGraph.active_conditions(edge, context)})
+	return rows
+
+static func _append_event(context: Dictionary, event: Dictionary) -> void:
+	var history: Array = context.get("dialogue_history", []).duplicate(true)
+	history.append(event.duplicate(true))
+	context.dialogue_history = history
+	context.last_event = event.duplicate(true)
 
 static func _conversation_snapshot(context: Dictionary) -> Dictionary:
-	var keys := ["busy","player_name","topic","selected_topic","awaiting_name","introduction_completed",
-		"dialogue_node","selected_action","pending_question","pending_clarification","offered_help","help_requested","player_mood","astera_mood",
-		"last_player_state","last_astera_state","player_plan","slow_speech","objective_progress","objective_evidence",
-		"dialogue_history","dialogue_node_history"]
-	var snapshot := {}
-	for key in keys: snapshot[key] = context.get(key, null)
-	return snapshot
-
-static func _update_objectives(parsed: Dictionary, context: Dictionary, reaction: String, input_text: String) -> void:
-	if parsed.get("status", "") != "RECOGNIZED": return
-	if reaction.begins_with("clarify") or reaction in ["ask_one_clarification", "ask_why_clarification", "unrecognized"]: return
-	var intent := str(parsed.get("intent", ""))
-	var completed: Array[String] = []
-	match intent:
-		"PLAYER_NAME":
-			if not str(parsed.get("name", "")).is_empty(): completed.append("introduce")
-		"ASK_MOOD", "ASK_ASTERA_MOOD", "ASK_BACK": completed.append("ask_mood")
-		"ASK_ACTIVITY": completed.append("ask_activity")
-		"PLAYER_MOOD_GOOD", "PLAYER_MOOD_LOW", "PLAYER_PLAN": completed.append("share_self")
-		"OFFER_HELP": completed.append("offer_help")
-		"FAREWELL": completed.append("farewell")
-	var progress: Dictionary = context.get("objective_progress", {})
-	var evidence: Dictionary = context.get("objective_evidence", {})
-	for key in completed:
-		if not progress.get(key, false):
-			progress[key] = true
-			evidence[key] = {"intent":intent, "input":input_text}
-	context.objective_progress = progress
-	context.objective_evidence = evidence
+	return {"roster_has_player":context.get("roster_has_player"), "is_technician":context.get("is_technician"),
+		"has_pass":context.get("has_pass"), "access_status":context.get("access_status"),
+		"player_name":context.get("player_name"), "trust":context.get("trust"),
+		"message_promise":context.get("message_promise"), "current_node":context.get("current_node"),
+		"selected_action":context.get("selected_action"), "pending_proposition":context.get("pending_proposition"),
+		"pending_resolution":context.get("pending_resolution"), "node_history":context.get("node_history"),
+		"visited_nodes":context.get("visited_nodes"), "dialogue_history":context.get("dialogue_history")}
 
 static func reset(context: Dictionary) -> Dictionary:
 	context.clear()
@@ -577,9 +276,8 @@ static func _append_journal(record: Dictionary) -> void:
 	var file := FileAccess.open("user://communication_lab_attempts.jsonl", FileAccess.READ_WRITE)
 	if file == null: file = FileAccess.open("user://communication_lab_attempts.jsonl", FileAccess.WRITE)
 	if file == null:
-		push_warning("Could not open communication lab attempt journal: %s" % FileAccess.get_open_error())
+		push_warning("Could not open Communication Lab attempt journal: %s" % FileAccess.get_open_error())
 		return
 	file.seek_end()
 	file.store_line(JSON.stringify(record))
 	file.close()
-

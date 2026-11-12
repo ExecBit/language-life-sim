@@ -4,113 +4,64 @@ const Language = preload("res://implementations/communication_lab/game/communica
 const Session = preload("res://implementations/communication_lab/game/communication/lab_session.gd")
 
 var failures := 0
-var assertions := 0
 
 func _initialize() -> void:
 	call_deferred("run")
 
-func check(ok: bool, label: String) -> void:
-	assertions += 1
-	if ok:
+func check(condition: bool, label: String) -> void:
+	if condition:
 		print("PASS ", label)
 	else:
 		failures += 1
 		push_error("FAIL " + label)
 
 func run() -> void:
-	var data := Language.data()
-	var graph: Dictionary = data.get("dialogue", {})
-	check(graph.get("assessment", "") == "none" and graph.get("progression", "") == "open_conversation_no_pass_fail", "authored dialogue is open-ended and has no pass/fail assessment")
-	for node_id in graph.get("nodes", {}):
-		for action_id in graph.nodes[node_id].get("actions", []):
-			check(graph.get("actions", {}).has(action_id), "%s references authored action %s" % [node_id, action_id])
-	for transition in graph.get("transitions", []):
-		var source: Variant = transition.get("from", "")
-		var sources: Array = source if source is Array else [source]
-		check(graph.get("nodes", {}).has(transition.get("to", "")), "transition target %s is authored" % transition.get("to", ""))
-		check(sources.has("*") or sources.all(func(id): return graph.nodes.has(id)), "transition source is authored")
+	var initial := Session.initial_context()
+	var no_card_forms := ["Ich habe keine Karte.", "Ich hab keine Karte.", "Ich habe keinen Pass."]
+	for phrase in no_card_forms:
+		var parsed := Language.analyze_rpg(phrase, initial)
+		check(parsed.status == "RECOGNIZED" and parsed.intent == "REPORT_NO_CARD" and parsed.frame.polarity == "negative",
+			"productive first-person negation reports a missing pass: " + phrase)
+	var positive := Language.analyze_rpg("Ich habe einen Pass.", initial)
+	check(positive.intent == "REPORT_HAS_CARD" and positive.frame.polarity == "positive",
+		"positive possession remains distinct from negation")
+	var other_subject := Language.analyze_rpg("Du hast keine Karte.", initial)
+	check(other_subject.intent != "REPORT_NO_CARD", "second-person possession cannot be read as the player's loss")
 
-	var subjects := [
-		{"prefix":"Ich bin", "inverted":"Heute bin ich", "actor":"player", "intent":"REPORT_STATE"},
-		{"prefix":"Du bist", "inverted":"Heute bist du", "actor":"astera", "intent":"REPORT_ASTERA_STATE"}
-	]
-	for state_id in data.get("states", {}):
-		var forms: Array = data.states[state_id].get("forms", [])
-		if forms.is_empty():
-			check(false, "state %s has at least one surface form" % state_id)
-			continue
-		var state_form := str(forms[0])
-		for subject in subjects:
-			var actor := str(subject.actor)
-			var expected_intent := str(subject.intent)
-			var phrases := [
-				"%s %s" % [subject.prefix, state_form],
-				"%s sehr %s" % [subject.prefix, state_form],
-				"%s ein bisschen %s" % [subject.prefix, state_form],
-				"%s nicht %s" % [subject.prefix, state_form],
-				"%s %s" % [subject.inverted, state_form]
-			]
-			for phrase in phrases:
-				var parsed: Dictionary = Language.analyze(phrase, Session.initial_context())
-				check(parsed.get("status", "") == "RECOGNIZED" and parsed.get("intent", "") == expected_intent,
-					"productive state template preserves %s subject for %s" % [actor, state_id])
-				check(parsed.get("frame", {}).get("state_id", "") == state_id and parsed.get("frame", {}).get("experiencer", "") == actor,
-					"productive state template preserves lexical state and experiencer")
-			var negative_phrase := "%s nicht %s" % [subject.prefix, state_form]
-			var negative: Dictionary = Language.analyze(negative_phrase, Session.initial_context())
-			check(negative.get("status", "") == "RECOGNIZED" and negative.get("frame", {}).get("polarity", "") == "negative",
-				"negation remains explicit for %s" % state_id)
-	for modifier in ["sehr", "auch", "heute", "jetzt", "ein", "bisschen"]:
-		check(not Language.translation_for(modifier).is_empty(), "new productive modifier %s has an F1 translation" % modifier)
-	check(not Language.translation_for("ein bisschen …").is_empty(), "the productive degree phrase has a whole-unit F1 translation")
+	var claim := Language.analyze_rpg("Ich bin ein Techniker.", initial)
+	var denial := Language.analyze_rpg("Ich bin kein Techniker.", initial)
+	check(claim.intent == "CLAIM_TECHNICIAN" and claim.frame.polarity == "positive"
+		and denial.intent == "DENY_TECHNICIAN" and denial.frame.polarity == "negative",
+		"role and negation keep their semantic contrast")
+	var other_role := Language.analyze_rpg("Du bist Techniker.", initial)
+	check(other_role.intent != "CLAIM_TECHNICIAN", "another participant's role is not attributed to the player")
 
-	for sample in [
-		{"text":"Kann ich dir helfen?", "intent":"OFFER_HELP", "actor":"player", "recipient":"astera"},
-		{"text":"Ich helfe dir", "intent":"OFFER_HELP", "actor":"player", "recipient":"astera"},
-		{"text":"Kannst du mir helfen?", "intent":"REQUEST_HELP", "actor":"astera", "recipient":"player"},
-		{"text":"Du hilfst mir", "intent":"REQUEST_HELP", "actor":"astera", "recipient":"player"}
-	]:
-		var parsed: Dictionary = Language.analyze(str(sample.text), Session.initial_context())
-		check(parsed.get("status", "") == "RECOGNIZED" and parsed.get("intent", "") == sample.intent
-			and parsed.get("frame", {}).get("actor", "") == sample.actor and parsed.get("frame", {}).get("recipient", "") == sample.recipient,
-			"productive help wording preserves helper and recipient roles: %s" % sample.text)
+	var offer := Language.analyze_rpg("Kann ich dir helfen?", initial)
+	var request := Language.analyze_rpg("Kannst du mir helfen?", initial)
+	check(offer.intent == "OFFER_HELP" and offer.frame.actor == "player" and offer.frame.recipient == "astera"
+		and request.intent == "REQUEST_HELP" and request.frame.actor == "astera" and request.frame.recipient == "player",
+		"help wording preserves the helper and recipient when roles reverse")
 
-	for sample in [{"text":"Hallo, ich bin Alex", "name":"Alex"}, {"text":"Hi! Ich heiße Mira", "name":"Mira"}, {"text":"Ich heiße Neral", "name":"Neral"}]:
-		var context := Session.initial_context()
-		var named: Dictionary = Session.submit(str(sample.text), context)
-		check(named.parse.get("intent", "") == "PLAYER_NAME" and context.get("player_name", "") == sample.name,
-			"open name slot accepts productive introduction form: %s" % sample.text)
-		check(named.effects.has("player_name_set") and context.dialogue_node == "conversation", "accepted name is recorded once and reaches conversation")
+	var alternative := Language.analyze_rpg("Gibt es eine andere Möglichkeit?", initial)
+	var rules := Language.analyze_rpg("Wie komme ich rein?", initial)
+	check(alternative.intent == "ASK_ALTERNATIVE" and rules.intent == "ASK_RULES",
+		"open alternatives and rules requests map to separate semantic families")
+	var open_question := initial.duplicate(true)
+	open_question.pending_proposition = {"id":"confirm_player_name", "value":"Neral"}
+	var yes := Language.analyze_rpg("Ja, danke.", open_question)
+	var no := Language.analyze_rpg("Nein, danke.", open_question)
+	check(yes.intent == "SHORT_YES" and no.intent == "SHORT_NO"
+		and yes.frame.proposition_id == "confirm_player_name" and no.frame.confirmation == "no",
+		"short answers preserve polarity and bind to the current concrete proposition")
+	var unbound_yes := Language.analyze_rpg("Ja", initial)
+	check(unbound_yes.status == "NEEDS_CLARIFICATION" and unbound_yes.reason == "NO_OPEN_YES_NO_TARGET",
+		"a bare yes without an open proposition cannot select an outcome")
 
-	var free_order := Session.initial_context()
-	var activity: Dictionary = Session.submit("Was machst du?", free_order)
-	check(activity.parse.get("status", "") == "RECOGNIZED" and activity.parse.get("intent", "") == "ASK_ACTIVITY" and free_order.dialogue_node == "after_activity",
-		"player can ask about Astera's activity before giving a name or mood report")
-	var no_pass_actions: Array = Session.available_actions(free_order).map(func(action): return action.id)
-	check(no_pass_actions.has("introduce") and no_pass_actions.has("ask_mood") and no_pass_actions.has("farewell"), "nonlinear topics remain available after an initiative question")
-
-	var no_pass := Session.initial_context()
-	var unsupported: Dictionary = Session.submit("Ich bin blorple müde", no_pass)
-	check(unsupported.parse.get("status", "") == "UNKNOWN" and unsupported.effects.is_empty() and no_pass.player_mood.is_empty(),
-		"unknown vocabulary is honestly rejected without a state effect")
-	check(no_pass.dialogue_node == "opening" and no_pass.dialogue_history.back().get("changed", true) == false,
-		"unknown phrase leaves the RPG graph at its current node")
-	var word_order: Dictionary = Session.submit("Heute ich bin müde", no_pass)
-	check(word_order.parse.get("status", "") == "UNKNOWN" and no_pass.player_mood.is_empty(),
-		"unsupported word order does not become a positive state report")
-	var negation_order: Dictionary = Session.submit("Ich bin sehr nicht müde", no_pass)
-	check(negation_order.parse.get("status", "") == "UNKNOWN" and no_pass.player_mood.is_empty(),
-		"invalid negation order does not become a positive or negative state report")
-	var mixed: Dictionary = Session.submit("Ich bin müde und glücklich", no_pass)
-	check(mixed.parse.get("status", "") == "UNSUPPORTED" and mixed.effects.is_empty() and no_pass.dialogue_node == "opening",
-		"two state meanings do not partially apply or advance the dialogue")
-
-	var tired_context := Session.initial_context()
-	var tired: Dictionary = Session.submit("Ich bin sehr müde", tired_context)
-	var happy_context := Session.initial_context()
-	var happy: Dictionary = Session.submit("Ich bin sehr glücklich", happy_context)
-	check(tired.answer != happy.answer and tired.emotion_state != happy.emotion_state,
-		"the same productive grammar template selects distinct authored reactions by meaning")
-
-	print("PRODUCTIVE_INTENT_TESTS: %d assertions, %d failure(s)" % [assertions, failures])
+	var compound := Language.analyze_rpg("Ich habe keine Karte. Ich bin neu.", initial)
+	var unknown := Language.analyze_rpg("Ich habe keine Karte, blorple", initial)
+	check(compound.status == "UNSUPPORTED" and compound.reason == "MULTIPLE_INTENTS",
+		"compound utterances are rejected as a whole")
+	check(unknown.status == "UNKNOWN" and unknown.reason == "UNKNOWN_TOKEN",
+		"an unknown continuation cannot partially consume a known prefix")
+	print("PRODUCTIVE_RPG_INTENTS: %d failure(s)" % failures)
 	quit(1 if failures > 0 else 0)

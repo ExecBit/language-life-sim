@@ -1,7 +1,6 @@
 extends Node3D
 const Composer = preload("res://implementations/communication_lab/game/communication/word_composer.gd")
 const Session = preload("res://implementations/communication_lab/game/communication/lab_session.gd")
-const WordCatalog = preload("res://implementations/communication_lab/game/communication/word_catalog.gd")
 const DialogueGrammar = preload("res://implementations/communication_lab/game/communication/dialogue_resolver.gd")
 const DialogueLanguage = preload("res://implementations/communication_lab/game/communication/dialogue_language.gd")
 const DialogueGraphView = preload("res://implementations/communication_lab/game/ui/dialogue_graph_view.gd")
@@ -28,9 +27,9 @@ var last_record: Dictionary = {}
 var attempts: Array[Dictionary] = []
 var history_list: ItemList
 var graph_view: Control
-var graph_status_label: Label
 var graph_history_view: RichTextLabel
 var dev_tabs: TabContainer
+var dev_section_label: Label
 var selected_attempt_index := -1
 var parse_view: RichTextLabel
 var context_view: RichTextLabel
@@ -38,15 +37,6 @@ var inspection_label: Label
 var vocabulary_card: PanelContainer
 var vocabulary_search: LineEdit
 var vocabulary_rows: Array[Dictionary] = []
-var pending_option: OptionButton
-var busy_toggle: CheckBox
-var mood_option: OptionButton
-var astera_mood_option: OptionButton
-var offered_help_toggle: CheckBox
-var name_toggle: CheckBox
-var topic_option: OptionButton
-var objective_panel: PanelContainer
-var objective_labels: Dictionary = {}
 var topic_menu: VBoxContainer
 var topic_buttons: Dictionary = {}
 var notice_label: Label
@@ -63,21 +53,9 @@ var camera_tween: Tween
 var heading_card: PanelContainer
 var history_expand_button: Button
 var history_expanded := false
-var dialogue_silence_seconds := 0.0
-var silence_tease_shown := false
-const SILENCE_TEASE_DELAY := 24.0
-
 func _process(delta: float) -> void:
-	if not dialog.visible or silence_tease_shown or vocabulary_card.visible: return
-	if not composer.phrase.text.strip_edges().is_empty():
-		dialogue_silence_seconds = 0.0
-		return
-	dialogue_silence_seconds += delta
-	if dialogue_silence_seconds >= SILENCE_TEASE_DELAY:
-		silence_tease_shown = true
-		_append_conversation_line("Астера", "Du bist sehr still!", true)
-		astera_visual.set_emotion("playful")
-		_play_reaction_motion("playful_shrug")
+	# Silence and failed attempts do not alter the authored RPG conversation.
+	pass
 
 func _ready() -> void:
 	_load_motion_manifest()
@@ -183,8 +161,7 @@ func _build_ui() -> void:
 	heading_card.position = Vector2(18, 18); heading_card.size.x = 640
 	var heading := VBoxContainer.new(); heading_card.add_child(heading)
 	_label(heading, "COMMUNICATION / LAB", 16).modulate = Color("85c9c4")
-	_label(heading, "WASD · движение   /   E · разговор   /   F2 · лаборатория", 16)
-	_build_objective_tracker(canvas)
+	_label(heading, "WASD · движение   /   E · проход   /   F2 · лаборатория", 16)
 	dialog = PanelContainer.new(); dialog.name = "CommunicationPanel"; canvas.add_child(dialog)
 	dialog.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	dialog.anchor_top = 1.0; dialog.anchor_bottom = 1.0
@@ -236,9 +213,7 @@ func _build_ui() -> void:
 	vocabulary_search.text_changed.connect(_filter_vocabulary); vocab_content.add_child(vocabulary_search)
 	var vocab_scroll := ScrollContainer.new(); vocab_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL; vocab_content.add_child(vocab_scroll)
 	var vocab_list := VBoxContainer.new(); vocab_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL; vocab_scroll.add_child(vocab_list)
-	var memo_entries: Array = WordCatalog.ENTRIES.duplicate(true)
-	memo_entries.append_array(DialogueGrammar.vocabulary_entries())
-	memo_entries.append_array(DialogueLanguage.vocabulary_entries())
+	var memo_entries: Array = DialogueLanguage.vocabulary_entries()
 	var unique_entries: Array = []
 	var seen_surfaces := {}
 	for entry in memo_entries:
@@ -268,31 +243,15 @@ func _build_ui() -> void:
 			vocabulary_rows.append({"label":entry_label,"group":group,"header":false,"search":("%s %s" % [entry.surface, translation]).to_lower()})
 	_filter_vocabulary("")
 	dev_panel = PanelContainer.new(); canvas.add_child(dev_panel)
-	dev_panel.anchor_left = 0.56; dev_panel.anchor_right = 1.0; dev_panel.anchor_bottom = 1.0
-	dev_panel.offset_left = 0; dev_panel.offset_top = 18; dev_panel.offset_right = -18; dev_panel.offset_bottom = -440
+	dev_panel.anchor_left = 0.035; dev_panel.anchor_top = 0.035; dev_panel.anchor_right = 0.965; dev_panel.anchor_bottom = 0.965
+	dev_panel.offset_left = 0; dev_panel.offset_top = 0; dev_panel.offset_right = 0; dev_panel.offset_bottom = 0
 	dev_panel.hide()
 	var tools := VBoxContainer.new(); tools.add_theme_constant_override("separation", 12); dev_panel.add_child(tools)
 	var bar := HBoxContainer.new(); tools.add_child(bar)
 	var tool_title := _label(bar, "Лаборатория общения", 24); tool_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_button(bar, "Скрыть · F2", func(): _toggle_dev(false))
-	_label(tools, "КОНТЕКСТ СЛЕДУЮЩЕЙ ПОПЫТКИ", 14).modulate = Color("85c9c4")
-	var settings := HFlowContainer.new(); tools.add_child(settings)
-	busy_toggle = CheckBox.new(); busy_toggle.text = "Астера занята"; busy_toggle.toggled.connect(func(v): context.busy = v; _show_live_context()); settings.add_child(busy_toggle)
-	name_toggle = CheckBox.new(); name_toggle.text = "Знает имя"; name_toggle.toggled.connect(func(v): context.player_name = "Alex" if v else ""; _show_live_context()); settings.add_child(name_toggle)
-	mood_option = OptionButton.new()
-	for title_text in ["Настроение: нет", "Хорошее", "Плохое", "Усталость"]: mood_option.add_item(title_text)
-	mood_option.item_selected.connect(_set_player_mood); settings.add_child(mood_option)
-	astera_mood_option = OptionButton.new()
-	for title_text in ["Астера: устала", "Астера: обычно", "Астера: хорошо"]: astera_mood_option.add_item(title_text)
-	astera_mood_option.item_selected.connect(func(index): context.astera_mood = ["tired", "neutral", "good"][index]; _show_live_context()); settings.add_child(astera_mood_option)
-	offered_help_toggle = CheckBox.new(); offered_help_toggle.text = "Помощь предложена"; offered_help_toggle.toggled.connect(func(value): context.offered_help = value; _show_live_context()); settings.add_child(offered_help_toggle)
-	topic_option = OptionButton.new()
-	for title_text in ["Тема: знакомство", "Самочувствие игрока", "Самочувствие Астеры", "Занятия", "Помощь", "Медленная речь", "Прощание"]: topic_option.add_item(title_text)
-	topic_option.item_selected.connect(_set_topic); settings.add_child(topic_option)
-	pending_option = OptionButton.new()
-	for title_text in ["Ожидание: имя", "Ожидание: самочувствие", "Ожидание: занятие", "Ожидание: помощь", "Ожидание: медленная речь", "Ожидание: нет"]: pending_option.add_item(title_text)
-	pending_option.item_selected.connect(_set_pending); settings.add_child(pending_option)
-	_button(settings, "Сбросить контекст", _reset)
+	dev_section_label = _label(tools, "СЮЖЕТНЫЕ ФАКТЫ И ПОСЛЕДСТВИЯ", 14)
+	dev_section_label.modulate = Color("85c9c4")
 	inspection_label = _label(tools, "Отправьте реплику, чтобы увидеть результат.", 16)
 	dev_tabs = TabContainer.new(); dev_tabs.size_flags_vertical = Control.SIZE_EXPAND_FILL; tools.add_child(dev_tabs)
 	var tabs := dev_tabs
@@ -304,49 +263,29 @@ func _build_ui() -> void:
 	history_list = ItemList.new(); history_list.size_flags_vertical = Control.SIZE_EXPAND_FILL; history.add_child(history_list)
 	history_list.item_selected.connect(_on_attempt_selected)
 	_button(history, "Вернуть выбранный текст в редактор", _recall_attempt)
-	var graph_page := VBoxContainer.new(); graph_page.name = "Граф и маршрут"
-	graph_status_label = _label(graph_page, "ТЕКУЩИЙ УЗЕЛ · Первая встреча · проход не оценивается", 14)
-	graph_status_label.modulate = Color("a8e3c3")
+	var graph_page := VBoxContainer.new(); graph_page.name = "Граф диалога"
 	graph_view = DialogueGraphView.new()
 	graph_view.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	graph_view.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	graph_view.current_requested.connect(_show_current_graph)
 	graph_page.add_child(graph_view)
 	var graph_history_title := _label(graph_page, "ИСТОРИЯ ДИАЛОГА · выбранная попытка", 13)
 	graph_history_title.modulate = Color("85c9c4")
 	graph_history_view = RichTextLabel.new()
 	graph_history_view.name = "DialogueGraphHistory"
 	graph_history_view.custom_minimum_size.y = 78
-	graph_history_view.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	graph_history_view.size_flags_vertical = Control.SIZE_FILL
 	graph_history_view.fit_content = false
 	graph_history_view.scroll_following = true
 	graph_page.add_child(graph_history_view)
 	tabs.add_child(graph_page)
+	dev_tabs.tab_changed.connect(_on_dev_tab_changed)
+	_on_dev_tab_changed(dev_tabs.current_tab)
 	_label(tools, "История — текущая сессия. Полный журнал сохраняется в JSONL.", 14).modulate = Color("9aafbd")
 	_build_notice(canvas)
 	_update_reply_view()
 	_update_diagnostics({})
-	_update_objective_tracker()
-
-func _build_objective_tracker(parent: Control) -> void:
-	objective_panel = PanelContainer.new()
-	objective_panel.name = "ConversationObjectives"
-	parent.add_child(objective_panel)
-	objective_panel.position = Vector2(18, 112)
-	objective_panel.custom_minimum_size = Vector2(280, 0)
-	var content := VBoxContainer.new()
-	content.add_theme_constant_override("separation", 5)
-	objective_panel.add_child(content)
-	_label(content, "ЗНАКОМСТВО С АСТЕРОЙ", 14).modulate = Color("85c9c4")
-	var objectives := {
-		"introduce":"Представиться", "ask_mood":"Узнать, как у неё дела", "ask_activity":"Спросить о её занятиях",
-		"share_self":"Рассказать о себе", "offer_help":"Предложить помощь", "farewell":"Попрощаться"}
-	for key in objectives:
-		var item := _label(content, "○  " + str(objectives[key]), 16)
-		item.name = "Objective_%s" % key
-		item.custom_minimum_size.x = 250
-		objective_labels[key] = item
-	objective_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	objective_panel.hide()
+	_show_live_context()
 
 func _build_topic_menu(parent: VBoxContainer) -> void:
 	topic_menu = VBoxContainer.new()
@@ -405,7 +344,7 @@ func _update_topic_menu() -> void:
 		button.name = "Action_%s" % action_id
 		button.text = str(action.label)
 		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		button.toggle_mode = not bool(action.get("navigation", false))
+		button.toggle_mode = true
 		if button.toggle_mode:
 			button.button_group = group
 			button.button_pressed = action_id == str(context.get("selected_action", ""))
@@ -417,22 +356,17 @@ func _update_topic_menu() -> void:
 
 func _select_dialogue_action(action_id: String) -> void:
 	var label := ""
-	var navigation := false
 	for action in Session.available_actions(context):
 		if str(action.id) == action_id:
 			label = str(action.label)
-			navigation = bool(action.get("navigation", false))
 	var result: Dictionary = Session.select_action(action_id, context)
 	if not result.get("accepted", false):
 		return
-	editing_action = "" if navigation else action_id
+	editing_action = action_id
 	selected_reply_label.text = label
-	if result.get("closed_clarification", false):
-		_set_notice("Уточнение закрыто при смене темы. Выберите продолжение.")
 	_update_topic_menu()
 	_show_live_context()
-	if not navigation:
-		composer.phrase.grab_focus()
+	composer.phrase.grab_focus()
 
 func _set_notice(text: String) -> void:
 	if not is_instance_valid(notice_label): return
@@ -450,16 +384,6 @@ func _select_dialogue_topic(topic_id: String) -> void:
 	else:
 		_set_notice("")
 	_update_topic_menu()
-
-func _update_objective_tracker() -> void:
-	if not is_instance_valid(objective_panel): return
-	var progress: Dictionary = context.get("objective_progress", {})
-	for key in objective_labels:
-		var label: Label = objective_labels[key]
-		var done: bool = progress.get(key, false)
-		var title: String = Session.OBJECTIVE_TITLES.get(key, key)
-		label.text = ("✓  " if done else "○  ") + title
-		label.modulate = Color("85d9ba") if done else Color("e0e8ef")
 
 func _filter_vocabulary(query: String) -> void:
 	var normalized := query.strip_edges().to_lower()
@@ -503,7 +427,7 @@ func _toggle_history_expanded() -> void:
 		transcript.custom_minimum_size.y = 0
 		transcript.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		_update_reply_view()
-		heading_card.hide(); objective_panel.hide(); dev_panel.hide(); vocabulary_card.hide()
+		heading_card.hide(); dev_panel.hide(); vocabulary_card.hide()
 		history_expand_button.text = "Вернуться к разговору"
 	else:
 		dialog.anchor_left = 0.0; dialog.anchor_top = 1.0; dialog.anchor_right = 1.0; dialog.anchor_bottom = 1.0
@@ -511,7 +435,7 @@ func _toggle_history_expanded() -> void:
 		transcript.custom_minimum_size.y = 110
 		transcript.size_flags_vertical = Control.SIZE_FILL
 		_update_reply_view()
-		heading_card.show(); objective_panel.hide()
+		heading_card.show()
 		history_expand_button.text = "История на весь экран"
 		if composer.visible: composer.phrase.grab_focus()
 
@@ -547,15 +471,13 @@ func _input(event: InputEvent) -> void:
 func _open_dialog() -> void:
 	if not dialog.visible: _start_conversation_camera()
 	dialog.show(); player.is_movement_paused = true; player.is_showing_ui = true; Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	dialogue_silence_seconds = 0.0
 	heading_card.hide()
 	_update_topic_menu()
-	if not greeted:
-		var opening: Dictionary = Session.opening_line(context)
-		_append_conversation_line("Астера", opening.answer, true)
-		astera_visual.set_emotion(opening.emotion_state)
-		_play_reaction_motion(opening.animation_id)
-		greeted = true
+	var opening: Dictionary = Session.opening_line(context)
+	_append_conversation_line("Астера", opening.answer, true)
+	astera_visual.set_emotion(opening.emotion_state)
+	_play_reaction_motion(opening.animation_id)
+	greeted = true
 	_back_to_choices()
 
 func _can_interact() -> bool:
@@ -589,28 +511,21 @@ func _start_conversation_camera() -> void:
 func _on_submitted(text: String) -> void:
 	if editing_action.is_empty():
 		return
-	dialogue_silence_seconds = 0.0
 	_append_conversation_line("Вы", text)
 	last_record = Session.submit(text, context)
 	_set_notice(str(last_record.get("notification", "")))
-	var completed: bool = str(last_record.parse.get("status", "")) == "RECOGNIZED" and context.pending_clarification.is_empty()
-	if completed or not context.pending_clarification.is_empty():
+	var completed: bool = not str(last_record.get("transition_id", "")).is_empty()
+	var awaiting_action_confirmation: bool = not context.get("pending_resolution", {}).is_empty()
+	if completed or awaiting_action_confirmation or str(last_record.parse.get("status", "")) == "RECOGNIZED":
 		editing_action = ""
 		composer.clear()
 	_update_topic_menu()
 	astera_visual.set_emotion(last_record.emotion_state)
 	_play_reaction_motion(last_record.animation_id)
-	_update_objective_tracker()
-	name_toggle.button_pressed = not context.player_name.is_empty()
-	mood_option.select(["", "good", "low", "tired"].find(context.player_mood))
-	astera_mood_option.select(["tired", "neutral", "good"].find(context.astera_mood))
-	offered_help_toggle.button_pressed = context.offered_help
-	topic_option.select(["introduction", "player_mood", "astera_mood", "activity", "help", "slow_speech", "farewell"].find(context.topic))
-	pending_option.select(["player_name", "player_mood", "player_plan", "help_offer", "slow_speech", ""].find(context.pending_question))
 	attempts.append(last_record.duplicate(true))
-	selected_attempt_index = attempts.size() - 1
+	selected_attempt_index = -1
 	history_list.add_item("%02d  %s  ·  %s" % [attempts.size(), text, last_record.parse.status])
-	history_list.select(attempts.size() - 1)
+	history_list.deselect_all()
 	_append_conversation_line("Астера", last_record.answer, true)
 
 	_update_diagnostics(last_record)
@@ -672,15 +587,16 @@ func _on_attempt_selected(index: int) -> void:
 	selected_attempt_index = index
 	_update_diagnostics(attempts[index])
 
+func _show_current_graph() -> void:
+	selected_attempt_index = -1
+	if is_instance_valid(history_list): history_list.deselect_all()
+	_show_live_context()
+	_update_graph_view(context, -1)
+
 func _update_graph_view(graph_context: Dictionary, attempt_index: int) -> void:
 	if not is_instance_valid(graph_view): return
 	graph_view.call("set_snapshot", graph_context, attempt_index)
-	var nodes: Dictionary = DialogueLanguage.data().get("dialogue", {}).get("nodes", {})
-	var node_id := str(graph_view.get("current_node_id"))
-	var node: Dictionary = nodes.get(node_id, {})
 	var route: Array = graph_context.get("dialogue_history", [])
-	var mode := "ТЕКУЩАЯ СЕССИЯ" if attempt_index < 0 else "ПОПЫТКА %02d" % (attempt_index + 1)
-	graph_status_label.text = "%s · %s · %d событий истории · без оценки прохождения" % [mode, str(node.get("label", node_id)), route.size()]
 	graph_history_view.text = _format_graph_history(route)
 
 func _format_graph_history(events: Array) -> String:
@@ -691,40 +607,42 @@ func _format_graph_history(events: Array) -> String:
 	var lines: Array[String] = []
 	for index in range(start, events.size()):
 		var event: Dictionary = events[index]
-		var from_id := str(event.get("from", "opening"))
-		var to_id := str(event.get("to", from_id))
+		var from_id := str(event.get("node_before", "G00_GATE"))
+		var to_id := str(event.get("node_after", from_id))
 		var from_label := str(nodes.get(from_id, {}).get("label", from_id))
 		var to_label := str(nodes.get(to_id, {}).get("label", to_id))
 		var input_text := str(event.get("input", ""))
-		var movement := "%s → %s" % [from_label, to_label] if bool(event.get("changed", false)) else "%s · без перехода" % from_label
-		lines.append("%02d  %s  ·  %s / %s%s" % [index + 1, movement, str(event.get("intent", "")),
+		var edge_id := str(event.get("transition_id", ""))
+		var movement := "%s → %s · %s" % [from_label, to_label, edge_id] if not edge_id.is_empty() else "%s · без перехода" % from_label
+		lines.append("%02d  %s  ·  %s / %s%s" % [index + 1, movement, str(event.get("actual_intent", "")),
 			str(event.get("status", "")), "  ·  «%s»" % input_text if not input_text.is_empty() else ""])
 	return "\n".join(lines)
 
 func _toggle_dev(value: bool) -> void:
 	show_diagnostics = value; dev_panel.visible = value
+	if value and is_instance_valid(dev_tabs):
+		var graph_page: Control = dev_tabs.get_node("Граф диалога")
+		var graph_tab: int = dev_tabs.get_tab_idx(graph_page)
+		dev_tabs.current_tab = graph_tab
 
-func _set_pending(index: int) -> void:
-	context.pending_question = ["player_name", "player_mood", "player_plan", "help_offer", "slow_speech", ""][index]; _show_live_context()
-
-func _set_player_mood(index: int) -> void:
-	context.player_mood = ["", "good", "low", "tired"][index]; _show_live_context()
-
-func _set_topic(index: int) -> void:
-	context.topic = ["introduction", "player_mood", "astera_mood", "activity", "help", "slow_speech", "farewell"][index]; _show_live_context()
+func _on_dev_tab_changed(tab_index: int) -> void:
+	if not is_instance_valid(dev_tabs): return
+	var graph_page: Control = dev_tabs.get_node("Граф диалога")
+	var graph_tab: int = dev_tabs.get_tab_idx(graph_page)
+	var show_inspector_heading: bool = tab_index != graph_tab
+	if is_instance_valid(dev_section_label): dev_section_label.visible = show_inspector_heading
+	if is_instance_valid(inspection_label): inspection_label.visible = show_inspector_heading
 
 func _reset() -> void:
 	editing_action = ""
 	selected_attempt_index = -1
 	if is_instance_valid(history_list): history_list.deselect_all()
 	composer.clear()
-	Session.reset(context); busy_toggle.button_pressed = false; name_toggle.button_pressed = false; offered_help_toggle.button_pressed = false
-	mood_option.select(0); astera_mood_option.select(0); topic_option.select(0); pending_option.select(0); last_record = {}
+	Session.reset(context); last_record = {}
 	_finish_reply_reveal(); transcript.clear(); conversation_lines.clear()
-	_update_diagnostics({}); _update_objective_tracker()
+	_update_diagnostics({})
 	_update_topic_menu(); _set_notice("")
 	greeted = false
-	dialogue_silence_seconds = 0.0; silence_tease_shown = false
 	astera_visual.set_emotion("neutral")
 	astera_visual.return_to_idle()
 
