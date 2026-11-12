@@ -19,6 +19,8 @@
       },
       "offer_help": {
         "label": "Предложить помощь",
+        "confirm_alternatives": ["REQUEST_HELP"],
+        "mismatch_notice": "Вы выбрали предложение помощи, но попросили помочь вам. Астера уточняет ваше намерение.",
         "topic": "help",
         "requires": {
           "offered_help": false
@@ -26,6 +28,8 @@
       },
       "request_help": {
         "label": "Попросить помощи",
+        "confirm_alternatives": ["OFFER_HELP"],
+        "mismatch_notice": "Вы выбрали просьбу о помощи, но предложили помочь Астере. Она уточняет ваше намерение.",
         "topic": "help",
         "requires": {
           "help_requested": false

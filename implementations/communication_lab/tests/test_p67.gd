@@ -14,6 +14,23 @@ func check(ok: bool, label: String) -> void:
 		push_error("FAIL " + label)
 
 func run() -> void:
+	for choice in ["request_help", "offer_help"]:
+		for confirm in [true, false]:
+			var conflict_context := Session.initial_context()
+			Session.submit("Ich bin Neral", conflict_context)
+			Session.select_action(choice, conflict_context)
+			var utterance := "ich helfe dir" if choice == "request_help" else "Kannst du mir helfen?"
+			var actual_intent := "OFFER_HELP" if choice == "request_help" else "REQUEST_HELP"
+			var conflict := Session.submit(utterance, conflict_context)
+			check(conflict.parse.intent == actual_intent and conflict.parse.reason == "SELECTED_ACTION_MISMATCH" and conflict.effects.is_empty() and not conflict_context.offered_help and not conflict_context.help_requested and not conflict_context.objective_progress.offer_help, "opposite menu direction preserves meaning and waits for confirmation: " + choice)
+			check(conflict.notification.contains("выбрали") and conflict_context.pending_clarification.proposition.intent == actual_intent, "notice explains the mismatch and pending question stores actual meaning")
+			var answer := Session.submit("Ja" if confirm else "Nein", conflict_context)
+			var expected_effect := "offer_help_to_astera" if actual_intent == "OFFER_HELP" else "request_help_from_astera"
+			check(answer.effects == ([expected_effect] if confirm else []) and conflict_context.pending_clarification.is_empty(), "confirmation or denial controls the actual proposition")
+	var matching_choice := Session.initial_context()
+	Session.submit("Ich bin Neral", matching_choice)
+	Session.select_action("request_help", matching_choice)
+	check(Session.submit("Kannst du mir helfen?", matching_choice).effects == ["request_help_from_astera"], "matching request proceeds directly")
 	var menu_context := Session.initial_context()
 	check(Session.available_actions(menu_context).map(func(a): return a.id) == ["introduce", "share_state", "offer_help"], "opening exposes authored actions rather than grammar profiles")
 	Session.submit("Ich bin Neral", menu_context)

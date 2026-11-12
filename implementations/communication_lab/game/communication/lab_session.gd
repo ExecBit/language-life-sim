@@ -159,17 +159,29 @@ static func _resolve_p67(parsed: Dictionary, text: String, context: Dictionary, 
 	var reaction := "clarify"
 	var emotion := "curious"
 	var animation := "curious_head_tilt"
-	if str(parsed.get("status","")) != "RECOGNIZED":
-		var candidate: Dictionary = parsed.get("clarification_candidate",{})
-		if not candidate.is_empty() and str(candidate.get("question_kind","yes_no")) == "yes_no":
-			var question := _question_for_candidate(candidate)
-			context.pending_clarification = {
-				"expected_response":"yes_no","question":question,"proposition":candidate.duplicate(true),
-				"original_input":text,"source_frame":parsed.get("frame",{}).duplicate(true),
-				"topic":str(context.get("selected_topic","introduction"))
-			}
-			return {"answer":question,"notification":str(parsed.get("notification","")),
-				"reaction":"ask_one_clarification","emotion_state":"curious","animation_id":"curious_head_tilt"}
+	var candidate: Dictionary = parsed.get("clarification_candidate", {})
+	if str(parsed.get("status", "")) == "RECOGNIZED":
+		for action in available_actions(context):
+			if str(action.id) != str(context.get("selected_action", "")):
+				continue
+			if str(parsed.get("intent", "")) in action.get("confirm_alternatives", []):
+				# Preserve the understood German meaning; clarify its conflict with the UI choice.
+				candidate = parsed.frame.duplicate(true)
+				candidate.intent = str(parsed.intent)
+				parsed.action_match = "MISMATCH"
+				parsed.reason = "SELECTED_ACTION_MISMATCH"
+				parsed.notification = str(action.get("mismatch_notice", ""))
+			break
+	if not candidate.is_empty() and str(candidate.get("question_kind", "yes_no")) == "yes_no":
+		var question := _question_for_candidate(candidate)
+		context.pending_clarification = {
+			"expected_response":"yes_no", "question":question, "proposition":candidate.duplicate(true),
+			"original_input":text, "source_frame":parsed.get("frame", {}).duplicate(true),
+			"topic":str(context.get("selected_topic", "introduction"))
+		}
+		return {"answer":question, "notification":str(parsed.get("notification", "")),
+			"reaction":"ask_one_clarification", "emotion_state":"curious", "animation_id":"curious_head_tilt"}
+	if str(parsed.get("status", "")) != "RECOGNIZED":
 		var response := "Was meinst du?"
 		if parsed.get("reason","") == "MULTIPLE_INTENTS":
 			response = "Bitte eins nach dem anderen."
@@ -530,7 +542,7 @@ static func _conversation_snapshot(context: Dictionary) -> Dictionary:
 
 static func _update_objectives(parsed: Dictionary, context: Dictionary, reaction: String, input_text: String) -> void:
 	if parsed.get("status", "") != "RECOGNIZED": return
-	if reaction.begins_with("clarify") or reaction in ["ask_why_clarification", "unrecognized"]: return
+	if reaction.begins_with("clarify") or reaction in ["ask_one_clarification", "ask_why_clarification", "unrecognized"]: return
 	var intent := str(parsed.get("intent", ""))
 	var completed: Array[String] = []
 	match intent:

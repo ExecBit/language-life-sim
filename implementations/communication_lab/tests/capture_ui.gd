@@ -36,6 +36,19 @@ func capture() -> void:
 	assert(room.context.player_mood == "happy")
 	root.get_texture().get_image().save_png("res://.local/p67-state.png")
 
+	room._select_dialogue_action("request_help")
+	room.composer.phrase.text = "ich helfe dir"
+	room.composer.send()
+	await process_frame
+	room._finish_reply_reveal()
+	await RenderingServer.frame_post_draw
+	assert(not room.context.offered_help and not room.context.help_requested)
+	assert(room.last_record.parse.reason == "SELECTED_ACTION_MISMATCH")
+	assert(room.notice_label.text.contains("выбрали") and room.topic_buttons.has("confirm"))
+	root.get_texture().get_image().save_png("res://.local/p67-choice-conflict.png")
+	room.composer.phrase.text = "Nein"
+	room.composer.send()
+	assert(not room.context.offered_help and not room.context.help_requested)
 	room._select_dialogue_action("offer_help")
 	room.composer.phrase.text = "ich helfen"
 	room.composer.send()
