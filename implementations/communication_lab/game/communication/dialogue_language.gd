@@ -6,6 +6,7 @@ const DATA_PATH := "res://implementations/communication_lab/data/communication/f
 const SUBJECTS := ["ich", "du"]
 const COPULAS := ["bin", "bist", "ist"]
 const HELP_WORDS := ["helfen", "helfe", "hilfst", "hilft"]
+const STATE_MODIFIERS := ["sehr", "auch", "heute", "jetzt", "ein", "bisschen"]
 const HELP_ALLOWED := ["ich", "du", "mir", "dir", "kann", "kannst", "können", "kannst", "helfen", "helfe", "hilfst", "hilft", "nicht", "bitte", "heute", "hallo", "hi"]
 static var _cached_data: Dictionary = {}
 
@@ -127,15 +128,11 @@ static func _analyze_state(result: Dictionary, tokens: Array[String], context: D
 		result.notification = "Попробуйте сказать по одной мысли."
 		return result
 	var state_item: Dictionary = found[0]
-	var state_index := int(state_item.index)
 	var state_id := str(state_item.id)
-	var allowed := ["ich","du","bin","bist","ist","nicht",state_item.token,"hallo","hi"]
+	var allowed := ["ich","du","bin","bist","ist","nicht",state_item.token,"hallo","hi"] + STATE_MODIFIERS
 	var unsupported := _unsupported_tokens(tokens, allowed)
 	if not unsupported.is_empty():
 		return _mark_unsupported_tokens(result, unsupported)
-	result.frame.state_id = state_id
-	result.frame.polarity = "positive"
-	result.frame.speech_act = "statement"
 	var actor_tokens: Array[String] = []
 	for token in tokens:
 		if token in SUBJECTS:
@@ -146,16 +143,25 @@ static func _analyze_state(result: Dictionary, tokens: Array[String], context: D
 		result.unsupported_features.append("MULTIPLE_INTENTS")
 		result.notification = "Попробуйте сказать по одной мысли."
 		return result
+	var body: Array[String] = tokens.duplicate()
+	while not body.is_empty() and body[0] in ["hallo", "hi"]:
+		body.pop_front()
+	var leading_time := ""
+	if not body.is_empty() and body[0] in ["heute", "jetzt"]:
+		leading_time = body.pop_front()
+	var state_tail: Dictionary = {}
+	result.frame.state_id = state_id
+	result.frame.speech_act = "statement"
 	if actor_tokens.is_empty():
-		var subjectless_shape_valid := (
-			tokens == [state_item.token]
-			or tokens == ["nicht",state_item.token]
-			or tokens == ["bin",state_item.token]
-			or tokens == ["bin","nicht",state_item.token]
-		)
-		if not subjectless_shape_valid:
-			return _mark_unsupported_tokens(result, tokens)
-		var subjectless_polarity := "negative" if tokens.has("nicht") else "positive"
+		var subjectless_tail := body
+		if not subjectless_tail.is_empty() and subjectless_tail[0] in COPULAS:
+			subjectless_tail = subjectless_tail.slice(1)
+		state_tail = _state_tail(subjectless_tail, str(state_item.token), leading_time)
+		if not bool(state_tail.get("valid", false)):
+			var subjectless_unknown: Array[String] = []
+			for token in state_tail.get("unknown", []): subjectless_unknown.append(str(token))
+			return _mark_unsupported_tokens(result, subjectless_unknown)
+		var subjectless_polarity := "negative" if bool(state_tail.get("negative", false)) else "positive"
 		result.status = "NEEDS_CLARIFICATION"
 		result.reason = "MISSING_EXPERIENCER"
 		result.ambiguity.append("MISSING_EXPERIENCER")
@@ -165,32 +171,46 @@ static func _analyze_state(result: Dictionary, tokens: Array[String], context: D
 		result.notification = "Астера не поняла, о ком вы говорите."
 		return result
 	var actor := actor_tokens[0]
-	var actor_index := 0
-	while actor_index < tokens.size() and tokens[actor_index] in ["hallo","hi"]:
-		actor_index += 1
+	var subject_index := body.find(actor)
+	var copula := ""
+	var inverted := not leading_time.is_empty()
+	if inverted:
+		if body.size() < 3 or body[0] not in COPULAS or body[1] != actor:
+			return _mark_unsupported_tokens(result, [])
+		copula = body[0]
+		subject_index = 1
+	else:
+		if subject_index != 0:
+			return _mark_unsupported_tokens(result, [])
+		if body.size() > 1 and body[1] in COPULAS:
+			copula = body[1]
+	var expected_copula := "bin" if actor == "ich" else "bist"
+	if not copula.is_empty():
+		var actual_copula_index := 0 if inverted else 1
+		if not inverted and (body.size() <= 1 or body[1] not in COPULAS):
+			actual_copula_index = -1
+		if actual_copula_index < 0:
+			copula = ""
+	elif inverted:
+		return _mark_unsupported_tokens(result, [])
+	var tail_start := subject_index + 1
+	if not copula.is_empty() and not inverted:
+		tail_start += 1
+	state_tail = _state_tail(body.slice(tail_start), str(state_item.token), leading_time)
+	if not bool(state_tail.get("valid", false)):
+		var state_unknown: Array[String] = []
+		for token in state_tail.get("unknown", []): state_unknown.append(str(token))
+		return _mark_unsupported_tokens(result, state_unknown)
+	var negative := bool(state_tail.get("negative", false))
 	var experiencer := "player" if actor == "ich" else "astera"
 	result.frame.subject = experiencer
 	result.frame.actor = experiencer
 	result.frame.experiencer = experiencer
 	result.intent = "REPORT_STATE" if experiencer == "player" else "REPORT_ASTERA_STATE"
 	result.semantic = result.intent
-	if state_index != tokens.size() - 1 or actor_index >= tokens.size() or tokens[actor_index] != actor:
-		return _mark_unsupported_tokens(result, _tokens_outside(tokens, allowed))
-	var cursor := actor_index + 1
-	var copula := ""
-	if cursor < state_index and tokens[cursor] in COPULAS:
-		copula = tokens[cursor]
-		cursor += 1
-	var negative := false
-	if cursor < state_index and tokens[cursor] == "nicht":
-		negative = true
-		cursor += 1
-	if cursor != state_index:
-		return _mark_unsupported_tokens(result, _tokens_outside(tokens, allowed))
 	if not copula.is_empty():
-		var expected := "bin" if actor == "ich" else "bist"
-		if copula != expected:
-			result.diagnostics.append({"code":"AGREEMENT_MISMATCH","token":copula,"expected":expected,"field":"finite_verb"})
+		if copula != expected_copula:
+			result.diagnostics.append({"code":"AGREEMENT_MISMATCH","token":copula,"expected":expected_copula,"field":"finite_verb"})
 	elif not negative:
 		result.diagnostics.append({"code":"OMITTED_COPULA","field":"finite_verb"})
 	result.frame.polarity = "negative" if negative else "positive"
@@ -202,6 +222,50 @@ static func _analyze_state(result: Dictionary, tokens: Array[String], context: D
 	result.state_id = state_id
 	result.polarity = result.frame.polarity
 	return result
+
+static func _state_tail(tokens: Array[String], state_form: String, leading_time: String = "") -> Dictionary:
+	var state_index := tokens.find(state_form)
+	if state_index < 0 or tokens.find(state_form, state_index + 1) >= 0:
+		return {"valid":false,"unknown":[]}
+	var negative := false
+	var seen_modifiers := {}
+	var modifier_phase := 1 if not leading_time.is_empty() else 0
+	var time_seen := not leading_time.is_empty()
+	if time_seen: seen_modifiers[leading_time] = true
+	var index := 0
+	while index < state_index:
+		var token := tokens[index]
+		if token == "nicht":
+			if negative or modifier_phase > 1: return {"valid":false,"unknown":[]}
+			negative = true
+			modifier_phase = 2
+		elif token in ["sehr", "auch", "heute", "jetzt"]:
+			if seen_modifiers.has(token): return {"valid":false,"unknown":[]}
+			if token in ["heute", "jetzt"]:
+				if time_seen or modifier_phase > 1: return {"valid":false,"unknown":[]}
+				modifier_phase = 1
+				time_seen = true
+			else:
+				if modifier_phase >= 3: return {"valid":false,"unknown":[]}
+				modifier_phase = 3
+			seen_modifiers[token] = true
+		elif token == "ein":
+			if modifier_phase >= 3 or index + 1 >= state_index or tokens[index + 1] != "bisschen" or seen_modifiers.has("ein_bisschen"):
+				return {"valid":false,"unknown":[]}
+			seen_modifiers["ein_bisschen"] = true
+			modifier_phase = 3
+			index += 1
+		elif token in ["bisschen", "ich", "du", "bin", "bist", "ist"]:
+			return {"valid":false,"unknown":[]}
+		else:
+			return {"valid":false,"unknown":[token]}
+		index += 1
+	var trailing_time := ""
+	for token in tokens.slice(state_index + 1):
+		if token not in ["heute", "jetzt"] or time_seen or not trailing_time.is_empty():
+			return {"valid":false,"unknown":[]}
+		trailing_time = token
+	return {"valid":true,"negative":negative}
 
 static func _analyze_help(result: Dictionary, tokens: Array[String], context: Dictionary) -> Dictionary:
 	var has_help := false
@@ -296,8 +360,12 @@ static func _analyze_help(result: Dictionary, tokens: Array[String], context: Di
 	return result
 
 static func _analyze_name(result: Dictionary, tokens: Array[String], rows: Array) -> Dictionary:
-	if tokens.size() == 4 and tokens[0] == "ich" and tokens[1] in ["bin","heiße","heisse"] and tokens[2] == "nicht":
-		var rejected := str(tokens[3])
+	var offset := 0
+	while offset < tokens.size() and tokens[offset] in ["hallo", "hi"]:
+		offset += 1
+	var body: Array[String] = tokens.slice(offset)
+	if body.size() == 4 and body[0] == "ich" and body[1] in ["bin","heiße","heisse"] and body[2] == "nicht":
+		var rejected := str(body[3])
 		if _state_for(rejected).is_empty():
 			result.handled = true
 			result.status = "NEEDS_CLARIFICATION"
@@ -312,11 +380,11 @@ static func _analyze_name(result: Dictionary, tokens: Array[String], rows: Array
 			result.notification = "Астера не записала имя по отрицательной фразе. Назовите имя без nicht."
 			return result
 	var name_index := -1
-	if tokens.size() == 1:
-		name_index = 0
-	elif tokens.size() == 3 and tokens[0] == "ich" and tokens[1] in ["bin","heiße","heisse"]:
-		name_index = 2
-	if tokens.size() == 1 and text_ends_with_question(result.raw_input):
+	if body.size() == 1:
+		name_index = offset
+	elif body.size() == 3 and body[0] == "ich" and body[1] in ["bin","heiße","heisse"]:
+		name_index = offset + 2
+	if body.size() == 1 and text_ends_with_question(result.raw_input):
 		return {}
 	if name_index < 0:
 		return {}
@@ -340,6 +408,13 @@ static func _analyze_name(result: Dictionary, tokens: Array[String], rows: Array
 	result.semantic = "PLAYER_NAME"
 	result.name = display_name
 	result.name_source = "open_name_slot"
+	var lexical_readings: Array = result.get("lexical_readings", [])
+	if name_index < lexical_readings.size():
+		var name_evidence: Dictionary = lexical_readings[name_index].duplicate(true)
+		name_evidence.readings = [{"lemma_id":"player_name","surface":str(rows[name_index].surface),
+			"pos":"proper_noun","features":{"slot":"open_player_name"},"semantic_id":"player_name","availability":"available"}]
+		lexical_readings[name_index] = name_evidence
+		result.lexical_readings = lexical_readings
 	result.frame.subject = "player"
 	result.frame.actor = "player"
 	result.frame.predicate = "name"
@@ -350,20 +425,24 @@ static func _analyze_name(result: Dictionary, tokens: Array[String], rows: Array
 	return result
 
 static func _looks_like_name_input(tokens: Array[String]) -> bool:
-	return tokens.size() >= 3 and tokens[0] == "ich" and tokens[1] in ["bin","heiße","heisse"]
+	var offset := 0
+	while offset < tokens.size() and tokens[offset] in ["hallo", "hi"]:
+		offset += 1
+	var body: Array[String] = tokens.slice(offset)
+	return body.size() >= 3 and body[0] == "ich" and body[1] in ["bin","heiße","heisse"]
 
 static func _looks_like_closed_name(tokens: Array[String]) -> bool:
+	var offset := 0
+	while offset < tokens.size() and tokens[offset] in ["hallo", "hi"]:
+		offset += 1
+	var body: Array[String] = tokens.slice(offset)
 	var candidate := ""
-	if tokens.size() == 1:
-		candidate = tokens[0]
-	elif tokens.size() == 3 and tokens[0] == "ich" and tokens[1] in ["bin","heiße","heisse"]:
-		candidate = tokens[2]
-	elif tokens.size() == 4 and tokens[0] == "ich" and tokens[1] in ["bin","heiße","heisse"] and tokens[2] == "nicht":
-		candidate = tokens[3]
-	elif tokens.size() == 4 and tokens[0] in ["hallo","hi"] and tokens[1] == "ich" and tokens[2] in ["bin","heiße","heisse"]:
-		candidate = tokens[3]
-	elif tokens.size() == 5 and tokens[0] in ["hallo","hi"] and tokens[1] == "ich" and tokens[2] in ["bin","heiße","heisse"] and tokens[3] == "nicht":
-		candidate = tokens[4]
+	if body.size() == 1:
+		candidate = body[0]
+	elif body.size() == 3 and body[0] == "ich" and body[1] in ["bin","heiße","heisse"]:
+		candidate = body[2]
+	elif body.size() == 4 and body[0] == "ich" and body[1] in ["bin","heiße","heisse"] and body[2] == "nicht":
+		candidate = body[3]
 	else:
 		return false
 	if not _state_for(candidate).is_empty() or candidate in CONTROL_WORDS:
@@ -532,5 +611,5 @@ const CONTROL_WORDS := {
 	"ich":true,"du":true,"mir":true,"dir":true,"bin":true,"bist":true,"ist":true,
 	"heisse":true,"heiße":true,"kann":true,"kannst":true,"können":true,"helfen":true,
 	"helfe":true,"hilfst":true,"hilft":true,"nicht":true,"ja":true,"nein":true,
-	"und":true,"bitte":true,"heute":true,"sehr":true,"ein":true,"bisschen":true
+	"und":true,"bitte":true,"heute":true,"jetzt":true,"sehr":true,"auch":true,"ein":true,"bisschen":true
 }

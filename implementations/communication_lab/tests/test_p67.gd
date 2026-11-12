@@ -35,9 +35,10 @@ func run() -> void:
 	Session.select_action("request_help", matching_choice)
 	check(Session.submit("Kannst du mir helfen?", matching_choice).effects == ["request_help_from_astera"], "matching request proceeds directly")
 	var menu_context := Session.initial_context()
-	check(Session.available_actions(menu_context).map(func(a): return a.id) == ["introduce", "share_state", "offer_help"], "opening exposes authored actions rather than grammar profiles")
+	var opening_actions: Array = Session.available_actions(menu_context).map(func(a): return a.id)
+	check(["introduce", "share_state", "ask_mood", "ask_activity", "share_plan", "offer_help", "request_help", "farewell"].all(func(id): return opening_actions.has(id)), "opening offers the authored social topics in any order without a pass gate")
 	Session.submit("Ich bin Neral", menu_context)
-	check(menu_context.dialogue_node == "conversation" and not Session.available_actions(menu_context).any(func(a): return a.id == "introduce"), "introduction moves the graph and removes the completed name action")
+	check(menu_context.dialogue_node == "conversation" and not Session.available_actions(menu_context).any(func(a): return a.id == "introduce") and menu_context.dialogue_node_history == ["opening", "conversation"], "introduction moves the authored graph and records its route")
 	var unavailable_before := menu_context.duplicate(true)
 	check(not Session.select_action("introduce", menu_context).accepted and menu_context == unavailable_before, "unavailable action cannot be selected or mutate context")
 	Session.submit("Ich bin müde", menu_context)
@@ -58,6 +59,7 @@ func run() -> void:
 	check(menu_context.dialogue_node == "after_request" and not Session.available_actions(menu_context).any(func(a): return a.id == "introduce"), "reopening keeps the conversation node and completed name slot")
 	Session.reset(menu_context)
 	check(menu_context.dialogue_node == "opening" and Session.available_actions(menu_context)[0].id == "introduce", "reset restores the opening node")
+	check(menu_context.dialogue_history.is_empty() and menu_context.dialogue_node_history == ["opening"], "reset clears graph history without scoring the conversation")
 	var name_context := Session.initial_context()
 	check(name_context.awaiting_name and name_context.pending_question == "player_name", "opening context asks for a name")
 	var tired_before_name := Session.submit("Ich bin müde", name_context)
@@ -102,10 +104,14 @@ func run() -> void:
 	var new_state := Session.submit("Ich bin nervös", Session.initial_context())
 	check(new_state.parse.intent == "REPORT_STATE" and new_state.answer == "Das kenne ich. Wir können langsam sprechen.", "adding a compatible state in data requires no parser branch")
 
-	for utterance in ["jetzt ich bin müde", "ich bin sehr müde", "ich bin blorple müde", "ich bin müde jetzt", "ich müde bin"]:
+	for utterance in ["jetzt ich bin müde", "ich bin blorple müde", "ich müde bin"]:
 		var context := Session.initial_context()
 		var result := Session.submit(utterance, context)
 		check(result.parse.status in ["UNKNOWN", "UNSUPPORTED"] and result.effects.is_empty() and context.player_mood.is_empty(), "unsupported state continuation has no effect: " + utterance)
+	for utterance in ["ich bin sehr müde", "ich bin müde heute", "heute bin ich müde"]:
+		var context := Session.initial_context()
+		var result := Session.submit(utterance, context)
+		check(result.parse.status == "RECOGNIZED" and result.parse.intent == "REPORT_STATE" and context.player_mood == "tired", "productive state wording keeps a supported intent: " + utterance)
 	var multi_state_context := Session.initial_context()
 	var multi_state := Session.submit("Ich bin müde und glücklich", multi_state_context)
 	check(multi_state.parse.status == "UNSUPPORTED" and multi_state.effects.is_empty() and multi_state_context.player_mood.is_empty(), "two state values do not partially apply")

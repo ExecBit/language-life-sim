@@ -4,6 +4,7 @@ const Session = preload("res://implementations/communication_lab/game/communicat
 const WordCatalog = preload("res://implementations/communication_lab/game/communication/word_catalog.gd")
 const DialogueGrammar = preload("res://implementations/communication_lab/game/communication/dialogue_resolver.gd")
 const DialogueLanguage = preload("res://implementations/communication_lab/game/communication/dialogue_language.gd")
+const DialogueGraphView = preload("res://implementations/communication_lab/game/ui/dialogue_graph_view.gd")
 const AsteraVisual = preload("res://implementations/communication_lab/game/characters/lab_npc_visual.gd")
 const PLAYER_SCENE = preload("res://addons/cogito/PackedScenes/cogito_player_simple.tscn")
 const CONVERSATION_FOCUS_HEIGHT := 1.02
@@ -26,6 +27,11 @@ var show_diagnostics := false
 var last_record: Dictionary = {}
 var attempts: Array[Dictionary] = []
 var history_list: ItemList
+var graph_view: Control
+var graph_status_label: Label
+var graph_history_view: RichTextLabel
+var dev_tabs: TabContainer
+var selected_attempt_index := -1
 var parse_view: RichTextLabel
 var context_view: RichTextLabel
 var inspection_label: Label
@@ -288,15 +294,33 @@ func _build_ui() -> void:
 	pending_option.item_selected.connect(_set_pending); settings.add_child(pending_option)
 	_button(settings, "Сбросить контекст", _reset)
 	inspection_label = _label(tools, "Отправьте реплику, чтобы увидеть результат.", 16)
-	var tabs := TabContainer.new(); tabs.size_flags_vertical = Control.SIZE_EXPAND_FILL; tools.add_child(tabs)
+	dev_tabs = TabContainer.new(); dev_tabs.size_flags_vertical = Control.SIZE_EXPAND_FILL; tools.add_child(dev_tabs)
+	var tabs := dev_tabs
 	parse_view = _inspector(tabs, "Разбор")
 	diagnostic = _inspector(tabs, "Ответ и эффекты")
 	context_view = _inspector(tabs, "Состояние")
 	var history := VBoxContainer.new(); history.name = "История"; tabs.add_child(history)
 	_label(history, "Выберите попытку для инспекции. Контекст мира не изменится.", 16)
 	history_list = ItemList.new(); history_list.size_flags_vertical = Control.SIZE_EXPAND_FILL; history.add_child(history_list)
-	history_list.item_selected.connect(func(index): _update_diagnostics(attempts[index]))
+	history_list.item_selected.connect(_on_attempt_selected)
 	_button(history, "Вернуть выбранный текст в редактор", _recall_attempt)
+	var graph_page := VBoxContainer.new(); graph_page.name = "Граф и маршрут"
+	graph_status_label = _label(graph_page, "ТЕКУЩИЙ УЗЕЛ · Первая встреча · проход не оценивается", 14)
+	graph_status_label.modulate = Color("a8e3c3")
+	graph_view = DialogueGraphView.new()
+	graph_view.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	graph_view.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	graph_page.add_child(graph_view)
+	var graph_history_title := _label(graph_page, "ИСТОРИЯ ДИАЛОГА · выбранная попытка", 13)
+	graph_history_title.modulate = Color("85c9c4")
+	graph_history_view = RichTextLabel.new()
+	graph_history_view.name = "DialogueGraphHistory"
+	graph_history_view.custom_minimum_size.y = 78
+	graph_history_view.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	graph_history_view.fit_content = false
+	graph_history_view.scroll_following = true
+	graph_page.add_child(graph_history_view)
+	tabs.add_child(graph_page)
 	_label(tools, "История — текущая сессия. Полный журнал сохраняется в JSONL.", 14).modulate = Color("9aafbd")
 	_build_notice(canvas)
 	_update_reply_view()
@@ -459,6 +483,7 @@ func _load_motion_manifest() -> void:
 func _recall_attempt() -> void:
 	var selected := history_list.get_selected_items()
 	if selected.is_empty(): return
+	selected_attempt_index = selected[0]
 	var action_id := str(context.get("selected_action", ""))
 	_select_dialogue_action(action_id)
 	composer.phrase.text = attempts[selected[0]].input
@@ -493,6 +518,8 @@ func _toggle_history_expanded() -> void:
 func _show_live_context() -> void:
 	if is_instance_valid(context_view):
 		context_view.text = "СОСТОЯНИЕ РАЗГОВОРА / следующая попытка\n" + JSON.stringify(Session._conversation_snapshot(context), "  ")
+	if is_instance_valid(graph_view) and selected_attempt_index < 0:
+		_update_graph_view(context, -1)
 
 func _input(event: InputEvent) -> void:
 	if dialog.visible and composer.visible and composer.route_key(event):
@@ -581,6 +608,7 @@ func _on_submitted(text: String) -> void:
 	topic_option.select(["introduction", "player_mood", "astera_mood", "activity", "help", "slow_speech", "farewell"].find(context.topic))
 	pending_option.select(["player_name", "player_mood", "player_plan", "help_offer", "slow_speech", ""].find(context.pending_question))
 	attempts.append(last_record.duplicate(true))
+	selected_attempt_index = attempts.size() - 1
 	history_list.add_item("%02d  %s  ·  %s" % [attempts.size(), text, last_record.parse.status])
 	history_list.select(attempts.size() - 1)
 	_append_conversation_line("Астера", last_record.answer, true)
@@ -625,6 +653,8 @@ func _update_diagnostics(record: Dictionary) -> void:
 		inspection_label.text = "Нет выбранной попытки · контекст готов"
 		parse_view.text = "Разбор появится после отправки реплики.\n\nМожно вводить любые слова; распознаются только поддерживаемые конструкции."
 		diagnostic.text = "Здесь будут ответ NPC и фактически применённые эффекты."
+		selected_attempt_index = -1
+		_update_graph_view(context, -1)
 		return
 	var parsed: Dictionary = record.parse
 	inspection_label.text = "Попытка %02d  ·  %s / %s" % [attempts.find(record) + 1, parsed.status, parsed.intent]
@@ -635,6 +665,41 @@ func _update_diagnostics(record: Dictionary) -> void:
 	diagnostic.text = "ОТВЕТ NPC\n%s\n\nВЫБРАННАЯ РЕАКЦИЯ\n%s\n\nТЕМА\n%s\n\nФАКТИЧЕСКИЕ ЭФФЕКТЫ\n%s\n\nЭМОЦИЯ\n%s\n\nANIMATION ID\n%s" % [record.answer, record.get("reaction", ""), record.get("topic", ""), JSON.stringify(record.effects, "  "), record.get("emotion_state", "neutral"), record.get("animation_id", "standing")]
 	context_view.text += "\n\nКОНТЕКСТ РАЗГОВОРА\n%s" % JSON.stringify(record.get("conversation_context", {}), "  ")
 	context_view.text += "\n\nВЫБРАННАЯ ПОПЫТКА / до\n%s\n\nпосле\n%s" % [JSON.stringify(record.before, "  "), JSON.stringify(record.after, "  ")]
+	_update_graph_view(record.get("conversation_context", record.get("after", {})), selected_attempt_index)
+
+func _on_attempt_selected(index: int) -> void:
+	if index < 0 or index >= attempts.size(): return
+	selected_attempt_index = index
+	_update_diagnostics(attempts[index])
+
+func _update_graph_view(graph_context: Dictionary, attempt_index: int) -> void:
+	if not is_instance_valid(graph_view): return
+	graph_view.call("set_snapshot", graph_context, attempt_index)
+	var nodes: Dictionary = DialogueLanguage.data().get("dialogue", {}).get("nodes", {})
+	var node_id := str(graph_view.get("current_node_id"))
+	var node: Dictionary = nodes.get(node_id, {})
+	var route: Array = graph_context.get("dialogue_history", [])
+	var mode := "ТЕКУЩАЯ СЕССИЯ" if attempt_index < 0 else "ПОПЫТКА %02d" % (attempt_index + 1)
+	graph_status_label.text = "%s · %s · %d событий истории · без оценки прохождения" % [mode, str(node.get("label", node_id)), route.size()]
+	graph_history_view.text = _format_graph_history(route)
+
+func _format_graph_history(events: Array) -> String:
+	if events.is_empty():
+		return "Пока нет отправленных реплик. Неподдерживаемый текст остаётся на текущем узле."
+	var nodes: Dictionary = DialogueLanguage.data().get("dialogue", {}).get("nodes", {})
+	var start := maxi(0, events.size() - 8)
+	var lines: Array[String] = []
+	for index in range(start, events.size()):
+		var event: Dictionary = events[index]
+		var from_id := str(event.get("from", "opening"))
+		var to_id := str(event.get("to", from_id))
+		var from_label := str(nodes.get(from_id, {}).get("label", from_id))
+		var to_label := str(nodes.get(to_id, {}).get("label", to_id))
+		var input_text := str(event.get("input", ""))
+		var movement := "%s → %s" % [from_label, to_label] if bool(event.get("changed", false)) else "%s · без перехода" % from_label
+		lines.append("%02d  %s  ·  %s / %s%s" % [index + 1, movement, str(event.get("intent", "")),
+			str(event.get("status", "")), "  ·  «%s»" % input_text if not input_text.is_empty() else ""])
+	return "\n".join(lines)
 
 func _toggle_dev(value: bool) -> void:
 	show_diagnostics = value; dev_panel.visible = value
@@ -650,6 +715,8 @@ func _set_topic(index: int) -> void:
 
 func _reset() -> void:
 	editing_action = ""
+	selected_attempt_index = -1
+	if is_instance_valid(history_list): history_list.deselect_all()
 	composer.clear()
 	Session.reset(context); busy_toggle.button_pressed = false; name_toggle.button_pressed = false; offered_help_toggle.button_pressed = false
 	mood_option.select(0); astera_mood_option.select(0); topic_option.select(0); pending_option.select(0); last_record = {}

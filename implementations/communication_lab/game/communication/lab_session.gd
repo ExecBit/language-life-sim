@@ -10,7 +10,8 @@ static func initial_context() -> Dictionary:
 	return {"busy":false,"pending":"","player_name":"","topic":"introduction","selected_topic":"introduction","selected_action":"introduce","dialogue_node":"opening","last_npc_line":"",
 		"pending_question":"player_name","awaiting_name":true,"introduction_completed":false,"pending_clarification":{},
 		"offered_help":false,"help_requested":false,"player_mood":"","astera_mood":"tired","last_player_state":{},"last_astera_state":{},
-		"player_plan":"","slow_speech":false,"activity":"working","objective_progress":_initial_objectives(),"objective_evidence":{}}
+		"player_plan":"","slow_speech":false,"activity":"working","objective_progress":_initial_objectives(),"objective_evidence":{},
+		"dialogue_history":[],"dialogue_node_history":["opening"]}
 
 static func _initial_objectives() -> Dictionary:
 	var progress := {}
@@ -34,7 +35,7 @@ static func select_action(action_id: String, context: Dictionary) -> Dictionary:
 		if str(action.id) != action_id:
 			continue
 		if bool(action.get("navigation", false)):
-			context.pending_clarification = {}
+			DialogueGraph.record_navigation(context, "cancel_clarification")
 			context.selected_action = ""
 			DialogueGraph.sync_selection(context)
 			return {"accepted":true, "closed_clarification":true}
@@ -53,7 +54,8 @@ static func select_topic(topic_id: String, context: Dictionary) -> Dictionary:
 		var changed := str(context.get("selected_topic", "")) != topic_id
 		var closed: bool = changed and not context.get("pending_clarification", {}).is_empty()
 		if changed:
-			context.pending_clarification = {}
+			if closed:
+				DialogueGraph.record_navigation(context, "cancel_clarification")
 			if str(context.get("pending_question", "")) in ["help_offer", "slow_speech"]:
 				context.pending_question = ""
 		context.selected_action = str(action.id)
@@ -64,7 +66,8 @@ static func select_topic(topic_id: String, context: Dictionary) -> Dictionary:
 static func close_dialog(context: Dictionary) -> bool:
 	var pending: Dictionary = context.get("pending_clarification", {})
 	var had_pending := not pending.is_empty()
-	context.pending_clarification = {}
+	if had_pending:
+		DialogueGraph.record_navigation(context, "close_dialog")
 	if str(context.get("pending_question","")) in ["help_offer","slow_speech"]:
 		context.pending_question = ""
 	DialogueGraph.sync_selection(context)
@@ -143,11 +146,13 @@ static func submit(text: String, context: Dictionary, selected_topic: String = "
 			notification = _legacy_notification(parsed)
 	_update_objectives(parsed, context, reaction, text)
 	context.last_npc_line = answer
-	DialogueGraph.advance(context, reaction)
+	var graph_event := DialogueGraph.advance(context, reaction, parsed, text, before)
 	var result := {"input":text,"before":before,"parse":parsed,"answer":answer,"notification":notification,
 		"effects":effects,"after":context.duplicate(true),"topic":str(context.get("topic","")),
 		"selected_topic":str(context.get("selected_topic","introduction")),
 		"dialogue_node":str(context.get("dialogue_node", "opening")),
+		"graph_event":graph_event,"dialogue_history":context.dialogue_history.duplicate(true),
+		"dialogue_node_history":context.dialogue_node_history.duplicate(true),
 		"selected_action":str(context.get("selected_action", "")),
 		"conversation_context":_conversation_snapshot(context),"reaction":reaction,
 		"emotion_state":emotion,"animation_id":animation,
@@ -535,7 +540,8 @@ static func _legacy_visuals(intent: String, status: String) -> Dictionary:
 static func _conversation_snapshot(context: Dictionary) -> Dictionary:
 	var keys := ["busy","player_name","topic","selected_topic","awaiting_name","introduction_completed",
 		"dialogue_node","selected_action","pending_question","pending_clarification","offered_help","help_requested","player_mood","astera_mood",
-		"last_player_state","last_astera_state","player_plan","slow_speech","objective_progress","objective_evidence"]
+		"last_player_state","last_astera_state","player_plan","slow_speech","objective_progress","objective_evidence",
+		"dialogue_history","dialogue_node_history"]
 	var snapshot := {}
 	for key in keys: snapshot[key] = context.get(key, null)
 	return snapshot

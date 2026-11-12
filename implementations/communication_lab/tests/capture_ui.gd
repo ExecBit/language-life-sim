@@ -14,9 +14,19 @@ func capture() -> void:
 	await create_timer(0.75).timeout
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://.local/p67-opening.png")
-	assert(room.topic_buttons.size() == 3)
+	assert(room.topic_buttons.has("ask_mood") and room.topic_buttons.has("ask_activity") and room.topic_buttons.has("farewell"))
 	assert(not room.objective_panel.visible)
 	assert(room.transcript.get_parsed_text().contains("Und du?"))
+	var f2_event := InputEventKey.new()
+	f2_event.keycode = KEY_F2
+	f2_event.pressed = true
+	room._input(f2_event)
+	room.dev_tabs.current_tab = room.dev_tabs.get_child_count() - 1
+	await process_frame
+	await RenderingServer.frame_post_draw
+	assert(room.dev_panel.visible and room.graph_view.current_node_id == "opening")
+	root.get_texture().get_image().save_png("res://.local/p67-f2-graph-opening.png")
+	room._input(f2_event)
 
 	assert(room.topic_menu.visible and not room.composer.visible)
 	var attempt_count: int = room.attempts.size()
@@ -44,6 +54,14 @@ func capture() -> void:
 	room._finish_reply_reveal()
 	await RenderingServer.frame_post_draw
 	assert(not room.topic_buttons.has("introduce"))
+	room._input(f2_event)
+	room.dev_tabs.current_tab = room.dev_tabs.get_child_count() - 1
+	await process_frame
+	await RenderingServer.frame_post_draw
+	assert(room.graph_view.current_node_id == "conversation" and room.graph_view.dialogue_history.size() == 1)
+	assert(room.graph_history_view.text.contains("Разговор"))
+	root.get_texture().get_image().save_png("res://.local/p67-f2-graph-history.png")
+	room._input(f2_event)
 	assert(room.composer.get_global_rect().end.y <= root.get_visible_rect().end.y)
 	root.get_texture().get_image().save_png("res://.local/p67-after-name.png")
 	room._select_dialogue_action("share_state")

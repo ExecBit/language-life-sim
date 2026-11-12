@@ -1,9 +1,12 @@
 {
   "schema_version": 1,
   "dialogue": {
+    "assessment": "none",
+    "progression": "open_conversation_no_pass_fail",
     "actions": {
       "introduce": {
         "label": "Представиться",
+        "short_label": "имя",
         "topic": "introduction",
         "requires": {
           "awaiting_name": true
@@ -11,14 +14,32 @@
       },
       "share_state": {
         "label": "Рассказать о самочувствии",
+        "short_label": "о себе",
         "topic": "player_mood"
+      },
+      "ask_mood": {
+        "label": "Спросить, как она себя чувствует",
+        "short_label": "о ней",
+        "topic": "astera_mood"
+      },
+      "ask_activity": {
+        "label": "Спросить, чем она занимается",
+        "short_label": "занятия",
+        "topic": "activity"
+      },
+      "share_plan": {
+        "label": "Рассказать о своих планах",
+        "short_label": "планы",
+        "topic": "player_plan"
       },
       "update_state": {
         "label": "Рассказать, как чувствуешь себя сейчас",
+        "short_label": "о себе сейчас",
         "topic": "player_mood"
       },
       "offer_help": {
         "label": "Предложить помощь",
+        "short_label": "помочь ей",
         "confirm_alternatives": ["REQUEST_HELP"],
         "mismatch_notice": "Вы выбрали предложение помощи, но попросили помочь вам. Астера уточняет ваше намерение.",
         "topic": "help",
@@ -28,6 +49,7 @@
       },
       "request_help": {
         "label": "Попросить помощи",
+        "short_label": "помощи",
         "confirm_alternatives": ["OFFER_HELP"],
         "mismatch_notice": "Вы выбрали просьбу о помощи, но предложили помочь Астере. Она уточняет ваше намерение.",
         "topic": "help",
@@ -35,18 +57,26 @@
           "help_requested": false
         }
       },
+      "farewell": {
+        "label": "Попрощаться",
+        "short_label": "прощание",
+        "topic": "farewell"
+      },
       "confirm": {
         "label": "Подтвердить",
+        "short_label": "подтвердить",
         "label_template": "Подтвердить, что {meaning}",
         "topic": "short_answer"
       },
       "reject": {
         "label": "Отрицать",
+        "short_label": "отрицать",
         "label_template": "Отрицать, что {meaning}",
         "topic": "short_answer"
       },
       "back": {
         "label": "Сменить тему",
+        "short_label": "сменить тему",
         "navigation": true
       }
     },
@@ -57,51 +87,117 @@
     },
     "nodes": {
       "opening": {
+        "label": "Первая встреча",
+        "description": "Все темы разговора доступны сразу; знакомство не является проверкой.",
         "actions": [
           "introduce",
           "share_state",
-          "offer_help"
+          "ask_mood",
+          "ask_activity",
+          "share_plan",
+          "offer_help",
+          "request_help",
+          "farewell"
         ]
       },
       "conversation": {
+        "label": "Разговор",
+        "description": "Можно свободно менять тему или закончить беседу.",
         "actions": [
           "introduce",
           "share_state",
+          "ask_mood",
+          "ask_activity",
+          "share_plan",
           "offer_help",
-          "request_help"
+          "request_help",
+          "farewell"
         ]
       },
       "after_tired": {
+        "label": "Астера устала",
+        "description": "Её усталость открывает уместные ответы и помощь, но не задаёт порядок.",
         "actions": [
           "introduce",
           "update_state",
+          "ask_mood",
+          "ask_activity",
+          "share_plan",
           "request_help",
-          "offer_help"
+          "offer_help",
+          "farewell"
         ]
       },
       "after_state": {
+        "label": "После ответа о самочувствии",
+        "description": "Состояния игрока и Астеры сохраняют свои роли и полярность.",
         "actions": [
           "introduce",
           "update_state",
+          "ask_mood",
+          "ask_activity",
+          "share_plan",
           "offer_help",
-          "request_help"
+          "request_help",
+          "farewell"
         ]
       },
       "after_offer": {
+        "label": "После предложения помощи",
+        "description": "Принятая забота не назначает предметное поручение.",
         "actions": [
           "introduce",
           "share_state",
-          "request_help"
+          "ask_mood",
+          "ask_activity",
+          "share_plan",
+          "request_help",
+          "farewell"
         ]
       },
       "after_request": {
+        "label": "После просьбы о помощи",
+        "description": "Ответ Астеры не блокирует остальные темы.",
         "actions": [
           "introduce",
           "share_state",
-          "offer_help"
+          "ask_mood",
+          "ask_activity",
+          "share_plan",
+          "offer_help",
+          "farewell"
+        ]
+      },
+      "farewell": {
+        "label": "Прощание",
+        "description": "Прощание завершает сцену беседы без оценки ответа.",
+        "actions": [
+          "share_state",
+          "ask_mood",
+          "ask_activity",
+          "share_plan",
+          "offer_help",
+          "request_help",
+          "farewell"
+        ]
+      },
+      "after_activity": {
+        "label": "Обмен о занятиях",
+        "description": "Игрок и Астера могут свободно рассказать о своих делах.",
+        "actions": [
+          "introduce",
+          "share_state",
+          "ask_mood",
+          "ask_activity",
+          "share_plan",
+          "offer_help",
+          "request_help",
+          "farewell"
         ]
       },
       "clarification": {
+        "label": "Уточнение смысла",
+        "description": "Подтвердите, отклоните смысл или смените тему.",
         "actions": [
           "confirm",
           "reject",
@@ -111,32 +207,79 @@
     },
     "transitions": [
       {
+        "from": "*",
         "reaction": "welcome_player_by_name",
         "to": "conversation"
       },
       {
+        "from": "*",
         "reaction": "respond_to_player_state_tired",
         "to": "after_tired"
       },
       {
+        "from": "*",
         "reaction": "respond_to_player_state_*",
         "to": "after_state"
       },
       {
+        "from": "*",
         "reaction": "acknowledge_negated_player_state",
         "to": "after_state"
       },
       {
+        "from": "*",
+        "reaction": "acknowledge_astera_state_*",
+        "to": "after_state"
+      },
+      {
+        "from": "*",
+        "reaction": "share_*_mood",
+        "to": "after_state"
+      },
+      {
+        "from": "*",
+        "reaction": "answer_reciprocal_mood",
+        "to": "after_state"
+      },
+      {
+        "from": "*",
+        "reaction": "explain_activity_and_invite_player",
+        "to": "after_activity"
+      },
+      {
+        "from": "*",
+        "reaction": "respond_to_*_plan",
+        "to": "after_activity"
+      },
+      {
+        "from": "*",
+        "reaction": "respond_to_free_day",
+        "to": "after_activity"
+      },
+      {
+        "from": "*",
+        "reaction": "offer_slow_speech",
+        "to": "after_activity"
+      },
+      {
+        "from": "*",
         "reaction": "accept_help_offer",
         "to": "after_offer"
       },
       {
+        "from": "*",
         "reaction": "respond_to_help_request",
         "to": "after_request"
       },
       {
+        "from": "*",
         "reaction": "acknowledge_cannot_help",
         "to": "conversation"
+      },
+      {
+        "from": "*",
+        "reaction": "say_goodbye",
+        "to": "farewell"
       }
     ]
   },
@@ -158,6 +301,12 @@
     {"surface": "kannst", "translation": "можешь; форма с du", "pos": "verb", "semantic_id": "can"},
     {"surface": "helfen", "translation": "помогать", "pos": "verb", "semantic_id": "help"},
     {"surface": "nicht", "translation": "не", "pos": "other", "semantic_id": "not"},
+    {"surface": "sehr", "translation": "очень", "pos": "other", "semantic_id": "intensifier"},
+    {"surface": "auch", "translation": "тоже", "pos": "other", "semantic_id": "also"},
+    {"surface": "heute", "translation": "сегодня", "pos": "other", "semantic_id": "today"},
+    {"surface": "jetzt", "translation": "сейчас", "pos": "other", "semantic_id": "now"},
+    {"surface": "ein", "translation": "часть выражения «ein bisschen»", "pos": "other", "semantic_id": "a_little"},
+    {"surface": "bisschen", "translation": "немного (в выражении «ein bisschen»)", "pos": "other", "semantic_id": "a_little"},
     {"surface": "ja", "translation": "да (ответ на уточнение)", "pos": "other", "semantic_id": "yes"},
     {"surface": "nein", "translation": "нет (ответ на уточнение)", "pos": "other", "semantic_id": "no"},
     {"surface": "und", "translation": "и", "pos": "other", "semantic_id": "and"},
@@ -176,6 +325,7 @@
     {"surface": "Ich bin …", "translation": "Я … (сообщить о себе)"},
     {"surface": "Ich heiße …", "translation": "Меня зовут …"},
     {"surface": "Ich bin nicht …", "translation": "Я не …"},
+    {"surface": "ein bisschen …", "translation": "немного … (например, немного усталый)"},
     {"surface": "Kann ich dir helfen?", "translation": "Я могу тебе помочь? (предложение помощи собеседнику)"},
     {"surface": "Kannst du mir helfen?", "translation": "Ты можешь мне помочь? (просьба о помощи)"},
     {"surface": "Ich kann dir nicht helfen.", "translation": "Я не могу тебе помочь."},

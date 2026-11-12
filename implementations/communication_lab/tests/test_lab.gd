@@ -72,7 +72,8 @@ func run() -> void:
 	for invalid_intro in ["Hallo ich bin Alex und ich fliege zum Mond", "Hallo ich bin nicht Alex", "Hallo ich bin müde und ich arbeite"]:
 		var invalid_context := Session.initial_context()
 		var invalid_result := Session.submit(invalid_intro, invalid_context)
-		check(invalid_result.parse.status == "UNSUPPORTED" and invalid_context.player_name.is_empty() and not invalid_result.objective_progress.introduce and invalid_result.effects.is_empty(), "unsupported combined input cannot partially apply: " + invalid_intro)
+		var rejected_status: bool = invalid_result.parse.status == "NEEDS_CLARIFICATION" if invalid_intro == "Hallo ich bin nicht Alex" else invalid_result.parse.status == "UNSUPPORTED"
+		check(rejected_status and invalid_context.player_name.is_empty() and not invalid_result.objective_progress.introduce and invalid_result.effects.is_empty(), "unsupported or negated combined input cannot partially apply: " + invalid_intro)
 	var greeted_tired := Session.submit("Hallo, ich bin müde", Session.initial_context())
 	check(greeted_tired.parse.intent == "REPORT_STATE" and not greeted_tired.objective_progress.introduce, "greeting plus tiredness remains a mood statement")
 	var activity_first := Session.submit("Was machst du?", Session.initial_context())
@@ -250,7 +251,8 @@ func run() -> void:
 	check(room.get_node_or_null("Table") == null, "obstructing table is removed")
 	check(room.get_node_or_null("Cup") == null and room.get_node_or_null("Key") == null and room.get_node_or_null("Door") == null, "social-only scene contains no object props or interactions")
 	check(room.get("objective_labels").size() == 6 and not room.get("objective_panel").visible, "duplicate top-left social objective tracker is hidden")
-	check(room.get("topic_buttons").size() == 3 and room.get("notice_label") != null, "normal conversation menu exposes the three broad P67 topics and a notice area")
+	check(room.get("topic_buttons").has("ask_mood") and room.get("topic_buttons").has("ask_activity") and room.get("topic_buttons").has("farewell") and room.get("notice_label") != null, "normal conversation menu exposes open-ended authored social actions and a notice area")
+	check(room.get("graph_view") != null and room.get("graph_view").get("current_node_id") == "opening" and room.get("graph_history_view") != null, "F2 contains a live authored dialogue graph and route history")
 	check(not Session.initial_context().has("key_owner") and not Session.initial_context().has("door_open"), "object state is absent from the live communication context")
 	var preserved_motions := ["greeting_wave", "self_introduction", "curious_head_tilt", "small_happy_reaction", "tired_sigh", "playful_shrug", "gentle_nod", "farewell_wave", "open_palm_offer", "surprised_delighted", "point_at_object", "soft_concern"]
 	var missing_motions: Array[String] = []
@@ -339,6 +341,10 @@ func run() -> void:
 	check(is_equal_approx(room.get("conversation_camera").global_position.y, astera.global_position.y + 1.38), "dialogue camera stays at eye level rather than looking up from below")
 	room.call("_on_submitted", "Was machst du?")
 	check(astera.get("active_animation_id") == "point_at_object" and room.get("last_record").get("reaction") == "explain_activity_and_invite_player", "conversation response triggers the compatible gesture toward the player")
+	check(room.get("graph_view").get("current_node_id") == "after_activity" and room.get("graph_view").get("dialogue_history").size() > 0, "live F2 graph follows the authored activity route and stores its history")
+	room.call("_on_attempt_selected", 0)
+	check(room.get("graph_status_label").text.contains("ПОПЫТКА 01") and room.get("graph_history_view").text.contains("Was machst du?"), "selecting a prior F2 attempt restores its graph snapshot and transition text")
+	room.call("_on_attempt_selected", room.get("attempts").size() - 1)
 	check(room.get("context").objective_progress.ask_activity and room.get("context").objective_evidence.ask_activity.input == "Was machst du?", "handled dialogue action updates session progress and records its basis")
 	check(room.get("objective_labels").ask_activity.text.begins_with("✓") and room.get("context_view").text.contains("objective_evidence"), "F2 shows objective status and its diagnostic evidence")
 	check(room.get("conversation_lines").size() == 3 and room.get("transcript").get_parsed_text().contains("Вы  Was machst du?"), "player-visible transcript retains greeting, player message and NPC response")
@@ -393,6 +399,7 @@ func run() -> void:
 	check(room.get("context").objective_progress.ask_activity, "objective progress survives closing and returning to the conversation")
 	room.call("_reset")
 	check(room.get("conversation_lines").is_empty() and room.get("transcript").get_parsed_text().is_empty(), "reset clears player-visible conversation while diagnostic attempt history remains")
+	check(room.get("graph_view").get("current_node_id") == "opening" and room.get("graph_view").get("dialogue_history").is_empty(), "reset returns the live graph to opening while past attempts remain inspectable")
 	room.call("_open_dialog")
 	room.call("_process", room.get("SILENCE_TEASE_DELAY"))
 	check(room.get("conversation_lines").back().text == "Du bist sehr still!" and room.get("astera_visual").get("active_animation_id") == "playful_shrug", "long conversational silence triggers the playful A0 nudge and motion")
