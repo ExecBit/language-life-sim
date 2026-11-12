@@ -1,5 +1,9 @@
 # Issue #68 verification
 
+Latest F2 layout check: **PASS** — rendered source capture `tests/capture_issue68_graph.gd` completed with `ISSUE68_GRAPH_CAPTURE: 0 failure(s)`. All 18 native GraphNode rectangles were checked pairwise: zero intersections; all 61 runtime connections remain. The actual official route and history were visible in `.local/issue68-f2-graph.png`, which was visually inspected. Cards use measured container sizes with 200-unit column gutters and 150-unit row gutters; initial zoom is 100%, with enlargement up to 160%. This supersedes the older F2 NOT_TESTED row below. Godot's [GraphNode container contract](https://docs.godotengine.org/en/stable/classes/class_graphnode.html) is used to measure settled child layout.
+
+The capture uses `Ich möchte einen Pass.`. The alternative `Kann ich einen Pass bekommen?` was found to resolve incorrectly to REPORT_HAS_CARD; that language regression remains unresolved and is not counted as passing. Existing shared quick_audio/Cogito null-node errors and shutdown resource warnings remain in the capture log.
+
 Run checks from the repository root with the Godot 4.7.1 console executable. This task uses the source project only. It does not build an EXE or PCK and does not use export templates.
 
 | Check | Result | Evidence |

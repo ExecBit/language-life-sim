@@ -31,21 +31,32 @@ func capture() -> void:
 	send(context, "report_no_card", "Ich habe keine Karte.")
 	send(context, "report_newcomer", "Ich bin neu.")
 	send(context, "introduce", "Ich heiße Neral.")
-	send(context, "request_pass", "Kann ich einen Pass bekommen?")
+	send(context, "request_pass", "Ich möchte einen Pass.")
 	send(context, "confirm_proposition", "Ja")
 	room.context = context
 	room.call("_toggle_dev", true)
 	room.call("_show_current_graph")
 	await process_frame
 	await process_frame
+	for frame in 10: await process_frame
+	room.graph_view.center_on_current()
 	await RenderingServer.frame_post_draw
 	var edit: GraphEdit = room.graph_view.graph_edit
 	var node_count := 0
 	for child in edit.get_children():
 		if child is GraphNode: node_count += 1
 	var graph_page: Control = room.dev_tabs.get_node("Граф диалога")
-	check(room.dev_panel.visible and room.dev_tabs.current_tab == room.dev_tabs.get_tab_idx(graph_page), "F2 opens the live dialogue graph tab")
+	check(room.dev_panel.visible and room.dev_tabs.current_tab == room.dev_tabs.get_tab_idx_from_control(graph_page), "F2 opens the live dialogue graph tab")
 	check(node_count == 18 and edit.get_connection_list().size() == 61, "viewport contains the 18 authored nodes and all 61 runtime edges")
+	var cards: Array[GraphNode] = []
+	for child in edit.get_children():
+		if child is GraphNode: cards.append(child)
+	var overlaps := 0
+	for left in cards.size():
+		for right in range(left + 1, cards.size()):
+			if Rect2(cards[left].position_offset, cards[left].size).intersects(Rect2(cards[right].position_offset, cards[right].size)):
+				overlaps += 1
+	check(overlaps == 0, "all 18 actual GraphNode rectangles are separated after layout")
 	check(room.graph_view.current_node_id == "E_OFFICIAL" and room.graph_history_view.text.contains("Официальный доступ"), "viewport shows the actual official route and event history")
 	check(edit.size.x >= 700 and edit.size.y >= 300, "expanded graph viewport has room for inspection")
 	var output_dir := ProjectSettings.globalize_path("res://.local")

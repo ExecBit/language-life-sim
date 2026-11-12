@@ -72,16 +72,16 @@ func _ready() -> void:
 	graph_edit.show_grid_buttons = false
 	graph_edit.show_menu = false
 	graph_edit.show_zoom_label = false
-	graph_edit.show_zoom_buttons = true
+	graph_edit.show_zoom_buttons = false
 	graph_edit.grid_pattern = GraphEdit.GRID_PATTERN_DOTS
 	graph_edit.add_theme_color_override("grid_minor", Color("263540", 0.62))
 	graph_edit.add_theme_color_override("grid_major", Color("334653", 0.62))
 	graph_edit.add_theme_color_override("connection_lines", Color("69818c", 0.34))
 	graph_edit.add_theme_color_override("activity", Color("f0c982"))
 	graph_edit.add_theme_color_override("connection_rim_color", Color("101920", 0.9))
-	graph_edit.zoom = 0.48
+	graph_edit.zoom = 1.0
 	graph_edit.zoom_min = 0.34
-	graph_edit.zoom_max = 0.82
+	graph_edit.zoom_max = 1.6
 	graph_edit.connection_lines_curvature = 0.42
 	graph_edit.connection_lines_thickness = 2.4
 	graph_edit.connection_lines_antialiased = true
@@ -101,7 +101,7 @@ func _ready() -> void:
 	_build_graph()
 	set_snapshot({"current_node":"G00_GATE", "node_history":["G00_GATE"], "dialogue_history":[]}, -1)
 	_update_zoom_label()
-	call_deferred("center_on_current")
+	call_deferred("_layout_cards")
 
 func _build_graph() -> void:
 	var errors := DialogueGraph.validate()
@@ -129,20 +129,21 @@ func _build_graph() -> void:
 		var card := GraphNode.new()
 		card.name = node_id
 		card.title = str(node_data.get("label", node_id))
+		card.add_theme_font_size_override("title_font_size", 19)
 		card.resizable = false
 		card.draggable = false
 		card.set("position_offset", _position_for(node_data, node_id))
-		card.custom_minimum_size = Vector2(290, 0)
+		card.custom_minimum_size = Vector2(420, 0)
 		var id_label := Label.new()
 		id_label.text = _node_badge(node_id, node_data, false, 0)
-		id_label.add_theme_font_size_override("font_size", 11)
+		id_label.add_theme_font_size_override("font_size", 14)
 		id_label.add_theme_color_override("font_color", Color("9fd0d1"))
 		card.add_child(id_label)
 		card.set_slot(0, false, 0, Color.WHITE, false, 0, Color.WHITE)
 		var npc_label := Label.new()
 		npc_label.text = _short(str(node_data.get("npc_line", "")), 72)
 		npc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		npc_label.add_theme_font_size_override("font_size", 12)
+		npc_label.add_theme_font_size_override("font_size", 18)
 		npc_label.add_theme_color_override("font_color", Color("edf2f4"))
 		npc_label.custom_minimum_size.y = 28
 		card.add_child(npc_label)
@@ -152,11 +153,11 @@ func _build_graph() -> void:
 		var input_row := Label.new()
 		input_row.text = "ВХОД · %d связей" % in_edges.size()
 		input_row.tooltip_text = _incoming_tooltip(in_edges, graph.get("actions", {}))
-		input_row.add_theme_font_size_override("font_size", 10)
+		input_row.add_theme_font_size_override("font_size", 13)
 		input_row.add_theme_color_override("font_color", Color("829aa5"))
 		card.add_child(input_row)
 		var input_slot := card.get_child_count() - 1
-		card.set_slot(input_slot, true, 0, Color("78929d"), false, 0, Color.WHITE)
+		card.set_slot(input_slot, true, 0, Color("78929d", 0.28), false, 0, Color.WHITE)
 		var out_ports := {}
 		for index in out_edges.size():
 			var edge: Dictionary = out_edges[index]
@@ -164,12 +165,13 @@ func _build_graph() -> void:
 			var row := Label.new()
 			row.text = "%s · %s" % [str(action.get("short_label", edge.get("action", ""))), _short(str(edge.get("guard_label", "")), 34)]
 			row.tooltip_text = "%s · %s · %s" % [str(edge.get("id", "")), str(action.get("label", edge.get("action", ""))), str(edge.get("guard_label", "без условия"))]
-			row.autowrap_mode = TextServer.AUTOWRAP_OFF
-			row.add_theme_font_size_override("font_size", 11)
+			row.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			row.custom_minimum_size.x = 390
+			row.add_theme_font_size_override("font_size", 16)
 			row.add_theme_color_override("font_color", Color("b5cbd2"))
 			card.add_child(row)
 			var slot := card.get_child_count() - 1
-			card.set_slot(slot, false, 0, Color.WHITE, true, 0, Color("78929d"))
+			card.set_slot(slot, false, 0, Color.WHITE, true, 0, Color("78929d", 0.28))
 			out_ports[str(edge.get("id", ""))] = index
 		var in_ports := {}
 		for index in in_edges.size():
@@ -261,13 +263,13 @@ func _apply_card_style(card: GraphNode, current: bool, visits: int) -> void:
 func center_on_current() -> void:
 	if not is_instance_valid(graph_edit) or not _node_cards.has(current_node_id): return
 	var card: GraphNode = _node_cards[current_node_id]
-	graph_edit.scroll_offset = card.position_offset + card.size * 0.5 - graph_edit.size * 0.5 / graph_edit.zoom
+	graph_edit.scroll_offset = (card.position_offset + card.size * 0.5) * graph_edit.zoom - graph_edit.size * 0.5
 
 func _change_zoom(delta: float) -> void:
 	if not is_instance_valid(graph_edit): return
-	var logical_center := graph_edit.scroll_offset + graph_edit.size * 0.5 / graph_edit.zoom
+	var logical_center := (graph_edit.scroll_offset + graph_edit.size * 0.5) / graph_edit.zoom
 	graph_edit.zoom = clampf(graph_edit.zoom + delta, graph_edit.zoom_min, graph_edit.zoom_max)
-	graph_edit.scroll_offset = logical_center - graph_edit.size * 0.5 / graph_edit.zoom
+	graph_edit.scroll_offset = logical_center * graph_edit.zoom - graph_edit.size * 0.5
 	_update_zoom_label()
 
 func _update_zoom_label() -> void:
@@ -309,6 +311,30 @@ func _position_for(node_data: Dictionary, node_id: String) -> Vector2:
 	if position.size() < 2:
 		return Vector2.ZERO
 	return Vector2(72.0 + float(position[0]) * 335.0, 72.0 + float(position[1]) * 255.0)
+
+func _layout_cards() -> void:
+	# Container minimum sizes settle only after wrapped labels have a width.
+	# Recompute row/column extents from real cards instead of a fixed pitch.
+	for pass_index in 3:
+		await get_tree().process_frame
+		for card in _node_cards.values():
+			card.reset_size()
+	await get_tree().process_frame
+	var widths := {}
+	var heights := {}
+	var nodes: Dictionary = DialogueGraph.data().get("nodes", {})
+	for node_id in _node_cards:
+		var cell: Array = nodes[node_id].get("debug_position", [0, 0])
+		var card: GraphNode = _node_cards[node_id]
+		widths[int(cell[0])] = maxf(float(widths.get(int(cell[0]), 0)), card.size.x)
+		heights[int(cell[1])] = maxf(float(heights.get(int(cell[1]), 0)), card.size.y)
+	for node_id in _node_cards:
+		var cell: Array = nodes[node_id].get("debug_position", [0, 0])
+		var position := Vector2(100, 100)
+		for column in int(cell[0]): position.x += float(widths.get(column, 0)) + 200.0
+		for row in int(cell[1]): position.y += float(heights.get(row, 0)) + 150.0
+		_node_cards[node_id].position_offset = position
+	center_on_current()
 
 func _short(value: String, limit: int) -> String:
 	var single := value.replace("\n", " ")
