@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b7yt3c735jl52"
-path="res://.godot/imported/fallback_vendor.vrm-9fba98321ecc9c26bde4bc5091be3483.scn"
+path="res://.godot/imported/fallback_vendor.vrm-fa80ff71436c83dcc70ce12683fcc44e.scn"
 
 [deps]
 
 source_file="res://implementations/dormitory/game/shop/Assets/fallback_vendor.vrm"
-dest_files=["res://.godot/imported/fallback_vendor.vrm-9fba98321ecc9c26bde4bc5091be3483.scn"]
+dest_files=["res://.godot/imported/fallback_vendor.vrm-fa80ff71436c83dcc70ce12683fcc44e.scn"]
 
 [params]
 

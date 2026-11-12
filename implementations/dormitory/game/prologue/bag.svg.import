@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://o5akgoyvm2ht"
-path="res://.godot/imported/bag.svg-25e453dd3797f79bd7a178a5a9791e6c.ctex"
+path="res://.godot/imported/bag.svg-61bfef16ad0553725793b1dd1d6b1617.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://implementations/dormitory/game/prologue/bag.svg"
-dest_files=["res://.godot/imported/bag.svg-25e453dd3797f79bd7a178a5a9791e6c.ctex"]
+dest_files=["res://.godot/imported/bag.svg-61bfef16ad0553725793b1dd1d6b1617.ctex"]
 
 [params]
 
