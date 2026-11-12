@@ -4,14 +4,19 @@ const DialogueLanguage = preload("res://implementations/communication_lab/game/c
 const DialogueGraph = preload("res://implementations/communication_lab/game/communication/dialogue_graph.gd")
 
 static func initial_context() -> Dictionary:
-	return {
-		"roster_has_player":true, "is_technician":false, "has_pass":false,
-		"access_status":"none", "player_name":"", "trust":"neutral", "message_promise":false,
-		"technician_claimed":false, "current_node":"G00_GATE", "selected_action":"",
+	var context := {
+		"current_node":"", "selected_action":"",
 		"pending_proposition":{}, "pending_resolution":{}, "pending_clarification":{},
 		"node_history":["G00_GATE"], "visited_nodes":["G00_GATE"], "dialogue_history":[],
 		"dialog_opened_once":false, "last_npc_line":"", "last_event":{}
 	}
+	var graph := DialogueGraph.data()
+	context.merge(graph.get("initial_facts", {}), true)
+	var start := str(graph.get("initial_node", "G00_GATE"))
+	context.current_node = start
+	context.node_history = [start]
+	context.visited_nodes = [start]
+	return context
 
 static func opening_line(context: Dictionary) -> Dictionary:
 	if bool(context.get("dialog_opened_once", false)) and _is_terminal(DialogueGraph.node_id(context)):
@@ -53,9 +58,23 @@ static func select_topic(topic_id: String, context: Dictionary) -> Dictionary:
 	return {"selected_topic":str(context.get("selected_action", "")), "closed_clarification":false, "accepted":result.get("accepted", false)}
 
 static func close_dialog(context: Dictionary) -> bool:
-	# Closing the UI is not an in-world farewell and keeps every proposition/fact intact.
+	_cancel_clarification(context)
 	context.selected_action = ""
 	return false
+
+static func _cancel_clarification(context: Dictionary) -> void:
+	context.pending_resolution = {}
+	context.pending_clarification = {}
+	context.pending_proposition = _proposition_for(DialogueGraph.node_id(context), context)
+
+static func _hold_meaning(context: Dictionary, edge: Dictionary, candidate: Dictionary, parsed: Dictionary) -> void:
+	context.pending_resolution = {"edge_id":str(edge.id), "frame":candidate.frame.duplicate(true),
+		"actual_intent":str(candidate.intent), "node_id":DialogueGraph.node_id(context),
+		"source_turn":context.get("dialogue_history", []).size(), "evidence":parsed.duplicate(true),
+		"previous_proposition":_proposition_for(DialogueGraph.node_id(context), context)}
+	context.pending_proposition = {"id":"confirm_recovered_meaning", "kind":"semantic_confirmation",
+		"node_id":DialogueGraph.node_id(context), "edge_id":str(edge.id)}
+	context.selected_action = ""
 
 static func submit(text: String, context: Dictionary, selected_action: String = "") -> Dictionary:
 	if not selected_action.is_empty(): context.selected_action = selected_action
@@ -73,12 +92,15 @@ static func submit(text: String, context: Dictionary, selected_action: String = 
 	var edge_intent := intent
 	var edge_frame: Dictionary = frame.duplicate(true)
 	var pending_resolution: Dictionary = context.get("pending_resolution", {}).duplicate(true)
+	# A new assertion replaces a transient question; only an immediate answer can commit it.
+	if intent not in ["SHORT_YES", "SHORT_NO"]:
+		_cancel_clarification(context)
 
 	if not pending_resolution.is_empty() and intent in ["SHORT_YES", "SHORT_NO"]:
 		var confirmed := intent == "SHORT_YES"
 		if confirmed:
 			var delayed := _edge_by_id(str(pending_resolution.get("edge_id", "")))
-			if str(delayed.get("from", "")) == DialogueGraph.node_id(context) and DialogueGraph.guard_matches(delayed.get("guard", {}), context):
+			if str(pending_resolution.get("node_id", "")) == DialogueGraph.node_id(context) and int(pending_resolution.get("source_turn", -2)) == context.dialogue_history.size() - 1 and str(delayed.get("from", "")) == DialogueGraph.node_id(context) and DialogueGraph.guard_matches(delayed.get("guard", {}), context):
 				transition = delayed
 				edge_frame = pending_resolution.get("frame", frame).duplicate(true)
 				edge_intent = str(pending_resolution.get("actual_intent", intent))
@@ -86,6 +108,7 @@ static func submit(text: String, context: Dictionary, selected_action: String = 
 				context.pending_proposition = pending_resolution.get("previous_proposition", {}).duplicate(true)
 			else:
 				transition_error = "PENDING_EDGE_NO_LONGER_VALID"
+				_cancel_clarification(context)
 		else:
 			context.pending_resolution = {}
 			context.pending_proposition = pending_resolution.get("previous_proposition", {}).duplicate(true)
@@ -95,13 +118,9 @@ static func submit(text: String, context: Dictionary, selected_action: String = 
 		var resolved := DialogueGraph.resolve(context, intent, frame)
 		transition = resolved.get("edge", {})
 		transition_error = str(resolved.get("error", ""))
-		if not transition.is_empty() and action_before != str(transition.get("action", "")):
-			var previous_proposition: Dictionary = context.get("pending_proposition", {}).duplicate(true)
+		if not transition.is_empty() and not action_before.is_empty() and action_before != str(transition.get("action", "")) and intent not in ["SHORT_YES", "SHORT_NO"]:
 			var target_action: Dictionary = DialogueGraph.data().get("actions", {}).get(str(transition.action), {})
-			context.pending_resolution = {"edge_id":str(transition.id), "frame":frame.duplicate(true),
-				"actual_intent":intent, "selected_action":action_before, "previous_proposition":previous_proposition}
-			context.pending_proposition = {"id":"confirm_intended_action", "kind":"intent_mismatch",
-				"edge_id":str(transition.id), "value":str(transition.get("semantic_action", ""))}
+			_hold_meaning(context, transition, {"intent":intent,"frame":frame}, parsed)
 			answer = str(target_action.get("confirm_question", "Meinst du das?"))
 			context.selected_action = ""
 			transition = {}
@@ -111,6 +130,19 @@ static func submit(text: String, context: Dictionary, selected_action: String = 
 			context.selected_action = ""
 	else:
 		answer = _failure_reply(parsed)
+		var candidates: Array = parsed.get("candidates", [])
+		context.pending_clarification = {"kind":"unresolved","node_id":DialogueGraph.node_id(context)}
+		context.pending_proposition = {}
+		if str(parsed.get("status", "")) == "NEEDS_CLARIFICATION" and candidates.size() == 1:
+			var candidate: Dictionary = candidates[0]
+			var resolved := DialogueGraph.resolve(context, str(candidate.intent), candidate.frame)
+			if not resolved.get("edge", {}).is_empty():
+				_hold_meaning(context, resolved.edge, candidate, parsed)
+			else:
+				answer = _no_branch_reply(str(candidate.intent), candidate.frame, context)
+		elif candidates.size() > 1:
+			context.pending_clarification = {"kind":"choice","node_id":DialogueGraph.node_id(context),"source_turn":context.dialogue_history.size(),"candidates":candidates.duplicate(true)}
+			context.pending_proposition = {}
 		if str(parsed.get("status", "")) == "RECOGNIZED": context.selected_action = ""
 
 	if not transition.is_empty():
@@ -118,15 +150,17 @@ static func submit(text: String, context: Dictionary, selected_action: String = 
 		effects = applied.effects
 		answer = str(applied.answer)
 		applied_event = applied.event
+		applied_event["semantic_evidence"] = parsed.duplicate(true)
+		if not pending_resolution.is_empty(): applied_event["confirmation_source"] = pending_resolution.duplicate(true)
 		if edge_intent != intent:
 			applied_event["actual_intent"] = intent
 			applied_event["frame"] = frame.duplicate(true)
 			applied_event["resolved_intent"] = edge_intent
 			applied_event["resolved_frame"] = edge_frame.duplicate(true)
-			var stored: Array = context.dialogue_history.duplicate(true)
-			stored[stored.size() - 1] = applied_event.duplicate(true)
-			context.dialogue_history = stored
-			context.last_event = applied_event.duplicate(true)
+		var stored: Array = context.dialogue_history.duplicate(true)
+		stored[stored.size() - 1] = applied_event.duplicate(true)
+		context.dialogue_history = stored
+		context.last_event = applied_event.duplicate(true)
 	elif answer.is_empty():
 		if transition_error == "SELECTED_ACTION_MISMATCH":
 			notification = "Выбранная цель и смысл фразы различаются. Подтверди вопрос NPC, чтобы выполнить понятное действие."
@@ -144,6 +178,7 @@ static func submit(text: String, context: Dictionary, selected_action: String = 
 		"actual_intent":intent,
 		"input":text,
 		"frame":frame.duplicate(true),
+		"semantic_evidence":parsed.duplicate(true),
 		"effects":effects.duplicate(true),
 		"active_conditions":_condition_history(transition, before) if not transition.is_empty() else _outgoing_conditions(before),
 		"status":str(parsed.get("status", "")),
@@ -227,18 +262,13 @@ static func _edge_by_id(edge_id: String) -> Dictionary:
 	return {}
 
 static func _failure_reply(parsed: Dictionary) -> String:
+	if not str(parsed.get("clarification", "")).is_empty(): return str(parsed.clarification)
 	if str(parsed.get("reason", "")) == "MULTIPLE_INTENTS": return "Bitte eins nach dem anderen."
 	if str(parsed.get("reason", "")) == "NO_OPEN_YES_NO_TARGET": return "Worauf bezieht sich dein Ja oder Nein?"
 	return "Wie bitte? Sag es bitte anders oder bitte mich um Wiederholung."
 
 static func _no_branch_reply(intent: String, frame: Dictionary, context: Dictionary) -> String:
-	if intent in ["REQUEST_HELP", "OFFER_HELP"]:
-		return "Ich brauche eine klare Antwort zur Karte oder zur Nachricht für Tom."
-	if intent == "REPORT_HAS_CARD": return "Du hast eine Karte? Ich sehe dich nicht im Register."
-	if intent == "CLAIM_TECHNICIAN" and str(context.get("current_node", "")) not in ["G00_GATE", "G70_EXPOSED", "G80_WARNING"]:
-		return "Du bist gerade nicht am richtigen Ort für diese Aussage."
-	if intent == "SHORT_YES" or intent == "SHORT_NO": return "Was meinst du damit?"
-	return "Das passt gerade nicht. Was möchtest du tun?"
+	return str(DialogueGraph.data().get("unavailable_replies", {}).get(intent, "Das passt gerade nicht. Was möchtest du tun?"))
 
 static func _condition_history(edge: Dictionary, context: Dictionary) -> Array[Dictionary]:
 	return [{"edge_id":str(edge.get("id", "")), "label":str(edge.get("guard_label", "")),
@@ -259,13 +289,7 @@ static func _append_event(context: Dictionary, event: Dictionary) -> void:
 	context.last_event = event.duplicate(true)
 
 static func _conversation_snapshot(context: Dictionary) -> Dictionary:
-	return {"roster_has_player":context.get("roster_has_player"), "is_technician":context.get("is_technician"),
-		"has_pass":context.get("has_pass"), "access_status":context.get("access_status"),
-		"player_name":context.get("player_name"), "trust":context.get("trust"),
-		"message_promise":context.get("message_promise"), "current_node":context.get("current_node"),
-		"selected_action":context.get("selected_action"), "pending_proposition":context.get("pending_proposition"),
-		"pending_resolution":context.get("pending_resolution"), "node_history":context.get("node_history"),
-		"visited_nodes":context.get("visited_nodes"), "dialogue_history":context.get("dialogue_history")}
+	return context.duplicate(true)
 
 static func reset(context: Dictionary) -> Dictionary:
 	context.clear()

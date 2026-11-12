@@ -53,6 +53,11 @@ func run() -> void:
 		lines.append(Session._no_branch_reply(intent, {}, context))
 	lines.append("Alles klar. Wir bleiben beim selben Thema.")
 	lines.append("Was meinst du genau?")
+	# Production-generated clarification templates are also learning material.
+	for line in ["Ja oder nein?", "Wer soll das machen? Ich oder du?", "Welche Rolle meinst du?", "Wem? Mir oder dir?", "Was meinst du genau?", "Du bist also kein Techniker?", "Du möchtest mir helfen?", "Soll ich dir helfen?", "Du kannst mir nicht helfen?", "Ich kann dir nicht helfen?", "Soll ich das wiederholen?", "Meinst du das?", "Ja oder nein? Sag es bitte anders."]:
+		lines.append(line)
+	for phrase in ["Ich möchte vorläufigen", "Ich möchte keinen vorläufigen", "Ich bin Techniker nein"]:
+		lines.append(Language.analyze_rpg(phrase, Session.initial_context()).clarification)
 	var placeholders := RegEx.new()
 	placeholders.compile("\\{[^}]+\\}")
 	var tokens := RegEx.new()

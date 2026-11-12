@@ -371,7 +371,8 @@
         "label": "Открыть разговор повторно",
         "short_label": "повторная встреча",
         "semantic_action": "REOPEN_DIALOG",
-        "system": true
+        "system": true,
+        "system_event": "reopen"
       }
     },
     "nodes": {
@@ -388,7 +389,13 @@
         "debug_position": [
           0,
           1
-        ]
+        ],
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access"
+        }
       },
       "G10_NO_CARD": {
         "label": "Пропуска нет",
@@ -403,7 +410,13 @@
         "debug_position": [
           1,
           0
-        ]
+        ],
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access"
+        }
       },
       "G20_RULES": {
         "label": "Правила входа",
@@ -418,7 +431,14 @@
         "debug_position": [
           2,
           0
-        ]
+        ],
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access",
+          "name_slot": true
+        }
       },
       "G30_NAME": {
         "label": "Имя новичка",
@@ -433,7 +453,14 @@
         "debug_position": [
           2,
           1
-        ]
+        ],
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access",
+          "name_slot": true
+        }
       },
       "G40_REGISTERED": {
         "label": "Запись найдена",
@@ -447,7 +474,13 @@
         "debug_position": [
           3,
           0
-        ]
+        ],
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access"
+        }
       },
       "G50_CONFIRM": {
         "label": "Подтверждение имени",
@@ -466,6 +499,12 @@
           "id": "confirm_player_name",
           "kind": "identity",
           "value_field": "player_name"
+        },
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access"
         }
       },
       "G60_TECHNICIAN": {
@@ -480,7 +519,17 @@
         "debug_position": [
           1,
           2
-        ]
+        ],
+        "language_context": {
+          "challenge": {
+            "family": "role",
+            "actor": "player",
+            "role_id": "technician",
+            "polarity": "positive",
+            "mode": "assert"
+          },
+          "name_slot": true
+        }
       },
       "G70_EXPOSED": {
         "label": "Проверка заявления",
@@ -494,7 +543,16 @@
         "debug_position": [
           2,
           2
-        ]
+        ],
+        "language_context": {
+          "challenge": {
+            "family": "role",
+            "actor": "player",
+            "role_id": "technician",
+            "polarity": "positive",
+            "mode": "assert"
+          }
+        }
       },
       "G80_WARNING": {
         "label": "Предупреждение",
@@ -508,7 +566,16 @@
         "debug_position": [
           3,
           3
-        ]
+        ],
+        "language_context": {
+          "challenge": {
+            "family": "role",
+            "actor": "player",
+            "role_id": "technician",
+            "polarity": "positive",
+            "mode": "assert"
+          }
+        }
       },
       "G90_DEAL": {
         "label": "Предложение сделки",
@@ -530,6 +597,14 @@
           "id": "deliver_message_to_tom",
           "kind": "offer",
           "value": "Tom soll eine Nachricht bekommen."
+        },
+        "language_context": {
+          "referents": [
+            "message",
+            "pass"
+          ],
+          "topic": "message",
+          "recipient_id": "tom"
         }
       },
       "G100_INSTRUCTION": {
@@ -550,6 +625,14 @@
           "id": "understands_message_for_tom",
           "kind": "instruction",
           "value": "Tom soll hören: Astera braucht Hilfe."
+        },
+        "language_context": {
+          "referents": [
+            "message",
+            "pass"
+          ],
+          "topic": "message",
+          "recipient_id": "tom"
         }
       },
       "G110_REPEAT": {
@@ -570,6 +653,14 @@
           "id": "understands_message_for_tom",
           "kind": "instruction",
           "value": "Tom soll hören: Astera braucht Hilfe."
+        },
+        "language_context": {
+          "referents": [
+            "message",
+            "pass"
+          ],
+          "topic": "message",
+          "recipient_id": "tom"
         }
       },
       "G120_REFUSED_DEAL": {
@@ -583,7 +674,15 @@
         "debug_position": [
           4,
           4
-        ]
+        ],
+        "language_context": {
+          "referents": [
+            "message",
+            "pass"
+          ],
+          "topic": "message",
+          "recipient_id": "tom"
+        }
       },
       "E_OFFICIAL": {
         "label": "Официальный доступ",
@@ -596,7 +695,8 @@
         ],
         "terminal": true,
         "emotion_state": "happy",
-        "animation_id": "small_happy_reaction"
+        "animation_id": "small_happy_reaction",
+        "language_context": {}
       },
       "E_FAVOR": {
         "label": "Условный доступ",
@@ -609,7 +709,8 @@
         ],
         "terminal": true,
         "emotion_state": "grateful",
-        "animation_id": "gentle_nod"
+        "animation_id": "gentle_nod",
+        "language_context": {}
       },
       "E_LEAVE": {
         "label": "Уход без доступа",
@@ -622,7 +723,8 @@
         ],
         "terminal": true,
         "emotion_state": "farewell",
-        "animation_id": "farewell_wave"
+        "animation_id": "farewell_wave",
+        "language_context": {}
       },
       "E_CAUGHT": {
         "label": "Обман разоблачён",
@@ -635,7 +737,8 @@
         ],
         "terminal": true,
         "emotion_state": "concerned",
-        "animation_id": "soft_concern"
+        "animation_id": "soft_concern",
+        "language_context": {}
       },
       "G130_RETURN": {
         "label": "Повторная встреча",
@@ -654,6 +757,13 @@
           "conditional": "Hallo {player_name}. Du darfst rein. Denk an die Nachricht für Tom.",
           "denied": "Du hast mich belogen. Du bekommst keinen Zutritt.",
           "none": "Du bist wieder da. Was möchtest du tun?"
+        },
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access",
+          "entry_family": "access"
         }
       }
     },
@@ -2264,7 +2374,26 @@
       "E_FAVOR",
       "E_LEAVE",
       "E_CAUGHT"
-    ]
+    ],
+    "expected_node_count": 18,
+    "initial_facts": {
+      "roster_has_player": true,
+      "is_technician": false,
+      "has_pass": false,
+      "access_status": "none",
+      "player_name": "",
+      "trust": "neutral",
+      "message_promise": false,
+      "technician_claimed": false
+    },
+    "unavailable_replies": {
+      "REQUEST_HELP": "Ich brauche eine klare Antwort zur Karte oder zur Nachricht für Tom.",
+      "OFFER_HELP": "Ich brauche eine klare Antwort zur Karte oder zur Nachricht für Tom.",
+      "REPORT_HAS_CARD": "Du hast eine Karte? Ich sehe dich nicht im Register.",
+      "CLAIM_TECHNICIAN": "Du bist gerade nicht am richtigen Ort für diese Aussage.",
+      "SHORT_YES": "Was meinst du damit?",
+      "SHORT_NO": "Was meinst du damit?"
+    }
   },
   "states": {
     "tired": {
@@ -2310,43 +2439,80 @@
       "semantic_id": "karte",
       "surface": "karte",
       "translation": "карта",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "access_document",
+        "entity_id": "card",
+        "gender": "f",
+        "label": "Karte",
+        "accusative": "Karte"
+      }
     },
     {
       "semantic_id": "pass",
       "surface": "pass",
       "translation": "пропуск",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "access_document",
+        "entity_id": "pass",
+        "gender": "m",
+        "label": "Pass",
+        "accusative": "Pass"
+      }
     },
     {
       "semantic_id": "kein",
       "surface": "kein",
       "translation": "никакой / нет",
-      "pos": "determiner"
+      "pos": "determiner",
+      "syntax": {
+        "kind": "negation"
+      }
     },
     {
       "semantic_id": "keine",
       "surface": "keine",
       "translation": "никакая / нет",
-      "pos": "determiner"
+      "pos": "determiner",
+      "syntax": {
+        "kind": "negation"
+      }
     },
     {
       "semantic_id": "keinen",
       "surface": "keinen",
       "translation": "никакой / нет",
-      "pos": "determiner"
+      "pos": "determiner",
+      "syntax": {
+        "kind": "negation"
+      }
     },
     {
       "semantic_id": "habe",
       "surface": "habe",
       "translation": "имею",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "possess",
+        "person": 1,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "hast",
       "surface": "hast",
       "translation": "имеешь",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "possess",
+        "person": 2,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "halt",
@@ -2358,7 +2524,10 @@
       "semantic_id": "bitte",
       "surface": "bitte",
       "translation": "пожалуйста",
-      "pos": "particle"
+      "pos": "particle",
+      "syntax": {
+        "kind": "polite"
+      }
     },
     {
       "semantic_id": "ohne",
@@ -2370,79 +2539,142 @@
       "semantic_id": "zutritt",
       "surface": "zutritt",
       "translation": "вход",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
     },
     {
       "semantic_id": "neu",
       "surface": "neu",
       "translation": "новый",
-      "pos": "adjective"
+      "pos": "adjective",
+      "syntax": {
+        "kind": "property",
+        "property": "newcomer"
+      }
     },
     {
       "semantic_id": "wie",
       "surface": "wie",
       "translation": "как",
-      "pos": "question_word"
+      "pos": "question_word",
+      "syntax": {
+        "kind": "interrogative"
+      }
     },
     {
       "semantic_id": "heißt",
       "surface": "heißt",
       "translation": "зовут",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "name",
+        "person": 2,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "heiße",
       "surface": "heiße",
       "translation": "меня зовут",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "name",
+        "person": 1,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "heisse",
       "surface": "heisse",
       "translation": "меня зовут",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "name",
+        "person": 1,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "bin",
       "surface": "bin",
       "translation": "есть / являюсь",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "be",
+        "person": 1,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "bist",
       "surface": "bist",
       "translation": "ты есть",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "be",
+        "person": 2,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "name",
       "surface": "name",
       "translation": "имя",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "name_marker"
+      }
     },
     {
       "semantic_id": "registriert",
       "surface": "registriert",
       "translation": "зарегистрирован",
-      "pos": "adjective"
+      "pos": "adjective",
+      "syntax": {
+        "kind": "property",
+        "property": "registered"
+      }
     },
     {
       "semantic_id": "liste",
       "surface": "liste",
       "translation": "список",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "topic",
+        "topic": "registration"
+      }
     },
     {
       "semantic_id": "techniker",
       "surface": "techniker",
       "translation": "техник",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "role",
+        "entity_id": "technician",
+        "gender": "m",
+        "label": "Techniker",
+        "accusative": "Techniker"
+      }
     },
     {
       "semantic_id": "nicht",
       "surface": "nicht",
       "translation": "не",
-      "pos": "negation"
+      "pos": "negation",
+      "syntax": {
+        "kind": "negation"
+      }
     },
     {
       "semantic_id": "glaube",
@@ -2454,91 +2686,173 @@
       "semantic_id": "geh",
       "surface": "geh",
       "translation": "иди",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "leave",
+        "person": 1,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "gehen",
       "surface": "gehen",
       "translation": "идти",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "leave",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "entschuldigung",
       "surface": "entschuldigung",
       "translation": "извините",
-      "pos": "interjection"
+      "pos": "interjection",
+      "syntax": {
+        "kind": "act",
+        "family": "apology"
+      }
     },
     {
       "semantic_id": "tut",
       "surface": "tut",
       "translation": "делает",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "apologize",
+        "person": 3,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "leid",
       "surface": "leid",
       "translation": "жаль",
-      "pos": "adjective"
+      "pos": "adjective",
+      "syntax": {
+        "kind": "act",
+        "family": "apology"
+      }
     },
     {
       "semantic_id": "hilfe",
       "surface": "hilfe",
       "translation": "помощь",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "help_topic",
+        "entity_id": "help",
+        "gender": "f",
+        "label": "Hilfe",
+        "accusative": "Hilfe"
+      }
     },
     {
       "semantic_id": "brauche",
       "surface": "brauche",
       "translation": "нуждаюсь",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "need"
+      }
     },
     {
       "semantic_id": "brauchst",
       "surface": "brauchst",
       "translation": "нуждаешься",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "need"
+      }
     },
     {
       "semantic_id": "kannst",
       "surface": "kannst",
       "translation": "можешь",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "ability"
+      }
     },
     {
       "semantic_id": "kann",
       "surface": "kann",
       "translation": "могу",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "ability"
+      }
     },
     {
       "semantic_id": "mir",
       "surface": "mir",
       "translation": "мне",
-      "pos": "pronoun"
+      "pos": "pronoun",
+      "syntax": {
+        "kind": "pronoun",
+        "participant": "speaker",
+        "case": "oblique"
+      }
     },
     {
       "semantic_id": "dir",
       "surface": "dir",
       "translation": "тебе",
-      "pos": "pronoun"
+      "pos": "pronoun",
+      "syntax": {
+        "kind": "pronoun",
+        "participant": "addressee",
+        "case": "oblique"
+      }
     },
     {
       "semantic_id": "tom",
       "surface": "tom",
       "translation": "Том",
-      "pos": "proper_noun"
+      "pos": "proper_noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "person",
+        "entity_id": "tom",
+        "gender": "m",
+        "label": "Tom",
+        "accusative": "Tom"
+      }
     },
     {
       "semantic_id": "nachricht",
       "surface": "nachricht",
       "translation": "сообщение",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "message",
+        "entity_id": "message",
+        "gender": "f",
+        "label": "Nachricht",
+        "accusative": "Nachricht"
+      }
     },
     {
       "semantic_id": "geben",
       "surface": "geben",
       "translation": "дать",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "gib",
@@ -2550,7 +2864,13 @@
       "semantic_id": "sagen",
       "surface": "sagen",
       "translation": "сказать",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "sag",
@@ -2562,55 +2882,97 @@
       "semantic_id": "verstehst",
       "surface": "verstehst",
       "translation": "понимаешь",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "understand",
+        "person": 2,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "verstehe",
       "surface": "verstehe",
       "translation": "понимаю",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "understand",
+        "person": 1,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "langsam",
       "surface": "langsam",
       "translation": "медленно",
-      "pos": "adverb"
+      "pos": "adverb",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "slow",
+        "entity_types": [
+          "speech"
+        ]
+      }
     },
     {
       "semantic_id": "noch",
       "surface": "noch",
       "translation": "ещё",
-      "pos": "adverb"
+      "pos": "adverb",
+      "syntax": {
+        "kind": "repeat_marker"
+      }
     },
     {
       "semantic_id": "einmal",
       "surface": "einmal",
       "translation": "один раз",
-      "pos": "adverb"
+      "pos": "adverb",
+      "syntax": {
+        "kind": "repeat_marker"
+      }
     },
     {
       "semantic_id": "wiederholen",
       "surface": "wiederholen",
       "translation": "повторить",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "repeat",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "ja",
       "surface": "ja",
       "translation": "да",
-      "pos": "particle"
+      "pos": "particle",
+      "syntax": {
+        "kind": "response",
+        "answer": "yes"
+      }
     },
     {
       "semantic_id": "nein",
       "surface": "nein",
       "translation": "нет",
-      "pos": "particle"
+      "pos": "particle",
+      "syntax": {
+        "kind": "response",
+        "answer": "no"
+      }
     },
     {
       "semantic_id": "danke",
       "surface": "danke",
       "translation": "спасибо",
-      "pos": "interjection"
+      "pos": "interjection",
+      "syntax": {
+        "kind": "polite"
+      }
     },
     {
       "semantic_id": "vergiss",
@@ -2622,97 +2984,171 @@
       "semantic_id": "später",
       "surface": "später",
       "translation": "позже",
-      "pos": "adverb"
+      "pos": "adverb",
+      "syntax": {
+        "kind": "time",
+        "reference": "future"
+      }
     },
     {
       "semantic_id": "darfst",
       "surface": "darfst",
       "translation": "можешь / разрешено",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "permission"
+      }
     },
     {
       "semantic_id": "rein",
       "surface": "rein",
       "translation": "внутрь",
-      "pos": "adverb"
+      "pos": "adverb",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
     },
     {
       "semantic_id": "will",
       "surface": "will",
       "translation": "хочу",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire"
+      }
     },
     {
       "semantic_id": "möchte",
       "surface": "möchte",
       "translation": "хотел бы",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire"
+      }
     },
     {
       "semantic_id": "anderer",
       "surface": "anderer",
       "translation": "другой",
-      "pos": "adjective"
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "alternative",
+        "entity_types": [
+          "path"
+        ]
+      }
     },
     {
       "semantic_id": "andere",
       "surface": "andere",
       "translation": "другая",
-      "pos": "adjective"
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "alternative",
+        "entity_types": [
+          "path"
+        ]
+      }
     },
     {
       "semantic_id": "weg",
       "surface": "weg",
       "translation": "путь",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "topic",
+        "topic": "alternative"
+      }
     },
     {
       "semantic_id": "möglichkeit",
       "surface": "möglichkeit",
       "translation": "возможность",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "topic",
+        "topic": "alternative"
+      }
     },
     {
       "semantic_id": "tschüss",
       "surface": "tschüss",
       "translation": "пока",
-      "pos": "interjection"
+      "pos": "interjection",
+      "syntax": {
+        "kind": "act",
+        "family": "farewell"
+      }
     },
     {
       "semantic_id": "auf",
       "surface": "auf",
       "translation": "до",
-      "pos": "preposition"
+      "pos": "preposition",
+      "syntax": {
+        "kind": "preposition"
+      }
     },
     {
       "semantic_id": "wiedersehen",
       "surface": "wiedersehen",
       "translation": "свидания",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "act",
+        "family": "farewell"
+      }
     },
     {
       "semantic_id": "warum",
       "surface": "warum",
       "translation": "почему",
-      "pos": "question_word"
+      "pos": "question_word",
+      "syntax": {
+        "kind": "interrogative"
+      }
     },
     {
       "semantic_id": "ist",
       "surface": "ist",
       "translation": "есть",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "be",
+        "person": 3,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "du",
       "surface": "du",
       "translation": "ты",
-      "pos": "pronoun"
+      "pos": "pronoun",
+      "syntax": {
+        "kind": "pronoun",
+        "participant": "addressee",
+        "case": "nom",
+        "person": 2
+      }
     },
     {
       "semantic_id": "ich",
       "surface": "ich",
       "translation": "я",
-      "pos": "pronoun"
+      "pos": "pronoun",
+      "syntax": {
+        "kind": "pronoun",
+        "participant": "speaker",
+        "case": "nom",
+        "person": 1
+      }
     },
     {
       "semantic_id": "hier",
@@ -2742,91 +3178,162 @@
       "semantic_id": "gibt",
       "surface": "gibt",
       "translation": "есть",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "exist",
+        "person": 3,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "es",
       "surface": "es",
       "translation": "это",
-      "pos": "pronoun"
+      "pos": "pronoun",
+      "syntax": {
+        "kind": "expletive"
+      }
     },
     {
       "semantic_id": "einen",
       "surface": "einen",
       "translation": "один",
-      "pos": "determiner"
+      "pos": "determiner",
+      "syntax": {
+        "kind": "article"
+      }
     },
     {
       "semantic_id": "anderes",
       "surface": "anderes",
       "translation": "другой",
-      "pos": "adjective"
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "alternative",
+        "entity_types": [
+          "path"
+        ]
+      }
     },
     {
       "semantic_id": "für",
       "surface": "für",
       "translation": "для",
-      "pos": "preposition"
+      "pos": "preposition",
+      "syntax": {
+        "kind": "preposition"
+      }
     },
     {
       "semantic_id": "heute",
       "surface": "heute",
       "translation": "сегодня",
-      "pos": "adverb"
+      "pos": "adverb",
+      "syntax": {
+        "kind": "time"
+      }
     },
     {
       "semantic_id": "komme",
       "surface": "komme",
       "translation": "прихожу",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "move",
+        "person": 1,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "hinein",
       "surface": "hinein",
       "translation": "внутрь",
-      "pos": "adverb"
+      "pos": "adverb",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
     },
     {
       "semantic_id": "anderen",
       "surface": "anderen",
       "translation": "другой",
-      "pos": "adjective"
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "alternative",
+        "entity_types": [
+          "path"
+        ]
+      }
     },
     {
       "semantic_id": "anderem",
       "surface": "anderem",
       "translation": "другому",
-      "pos": "adjective"
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "alternative",
+        "entity_types": [
+          "path"
+        ]
+      }
     },
     {
       "semantic_id": "eine",
       "surface": "eine",
       "translation": "один / одна",
-      "pos": "determiner"
+      "pos": "determiner",
+      "syntax": {
+        "kind": "article"
+      }
     },
     {
       "semantic_id": "mache",
       "surface": "mache",
       "translation": "делаю",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "do",
+        "person": 1,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "machen",
       "surface": "machen",
       "translation": "делать",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "do",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "soll",
       "surface": "soll",
       "translation": "должен",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "obligation"
+      }
     },
     {
       "semantic_id": "was",
       "surface": "was",
       "translation": "что",
-      "pos": "question_word"
+      "pos": "question_word",
+      "syntax": {
+        "kind": "interrogative"
+      }
     },
     {
       "semantic_id": "frage",
@@ -2838,115 +3345,213 @@
       "semantic_id": "sprechen",
       "surface": "sprechen",
       "translation": "говорить",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "speak",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "sprich",
       "surface": "sprich",
       "translation": "говори",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "speak",
+        "person": 2,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "langsamer",
       "surface": "langsamer",
       "translation": "медленнее",
-      "pos": "adverb"
+      "pos": "adverb",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "slow",
+        "entity_types": [
+          "speech"
+        ]
+      }
     },
     {
       "semantic_id": "wiederholst",
       "surface": "wiederholst",
       "translation": "повторяешь",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "repeat",
+        "person": 2,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "muss",
       "surface": "muss",
       "translation": "должен",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "obligation"
+      }
     },
     {
       "semantic_id": "bis",
       "surface": "bis",
       "translation": "до",
-      "pos": "preposition"
+      "pos": "preposition",
+      "syntax": {
+        "kind": "until"
+      }
     },
     {
       "semantic_id": "einer",
       "surface": "einer",
       "translation": "один",
-      "pos": "determiner"
+      "pos": "determiner",
+      "syntax": {
+        "kind": "article"
+      }
     },
     {
       "semantic_id": "bringe",
       "surface": "bringe",
       "translation": "несу",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 1,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "bringen",
       "surface": "bringen",
       "translation": "нести",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "gebe",
       "surface": "gebe",
       "translation": "даю",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 1,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "sage",
       "surface": "sage",
       "translation": "говорю",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 1,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "sorry",
       "surface": "sorry",
       "translation": "извини",
-      "pos": "interjection"
+      "pos": "interjection",
+      "syntax": {
+        "kind": "act",
+        "family": "apology"
+      }
     },
     {
       "semantic_id": "mochte",
       "surface": "mochte",
       "translation": "хотел бы",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire",
+        "normalizes_to": "möchte",
+        "ambiguous_normalization": true
+      }
     },
     {
       "semantic_id": "kriegen",
       "surface": "kriegen",
       "translation": "получить",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "acquire",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "bekommen",
       "surface": "bekommen",
       "translation": "получить",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "acquire",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "ein",
       "surface": "ein",
       "translation": "один",
-      "pos": "determiner"
+      "pos": "determiner",
+      "syntax": {
+        "kind": "article"
+      }
     },
     {
       "semantic_id": "bei",
       "surface": "bei",
       "translation": "у",
-      "pos": "preposition"
+      "pos": "preposition",
+      "syntax": {
+        "kind": "preposition"
+      }
     },
     {
       "semantic_id": "den",
       "surface": "den",
       "translation": "определённый артикль",
-      "pos": "determiner"
+      "pos": "determiner",
+      "syntax": {
+        "kind": "article"
+      }
     },
     {
       "semantic_id": "technikern",
       "surface": "technikern",
       "translation": "техникам",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "role",
+        "entity_id": "technician",
+        "gender": "m",
+        "label": "Techniker",
+        "accusative": "Techniker"
+      }
     },
     {
       "semantic_id": "vielleicht",
@@ -2958,13 +3563,19 @@
       "semantic_id": "aber",
       "surface": "aber",
       "translation": "но",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "conjunction"
+      }
     },
     {
       "semantic_id": "dein",
       "surface": "dein",
       "translation": "твой / твоя",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "possessive"
+      }
     },
     {
       "semantic_id": "steht",
@@ -3012,7 +3623,12 @@
       "semantic_id": "dich",
       "surface": "dich",
       "translation": "тебя",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "pronoun",
+        "participant": "addressee",
+        "case": "oblique"
+      }
     },
     {
       "semantic_id": "gilt",
@@ -3030,7 +3646,10 @@
       "semantic_id": "hallo",
       "surface": "hallo",
       "translation": "привет",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "greeting"
+      }
     },
     {
       "semantic_id": "denk",
@@ -3042,19 +3661,30 @@
       "semantic_id": "an",
       "surface": "an",
       "translation": "о / на / к (зависит от сочетания)",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
     },
     {
       "semantic_id": "die",
       "surface": "die",
       "translation": "определённый артикль die",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "article"
+      }
     },
     {
       "semantic_id": "mich",
       "surface": "mich",
       "translation": "меня",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "pronoun",
+        "participant": "speaker",
+        "case": "oblique"
+      }
     },
     {
       "semantic_id": "belogen",
@@ -3084,31 +3714,57 @@
       "semantic_id": "möchtest",
       "surface": "möchtest",
       "translation": "хочешь / хотел бы",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire"
+      }
     },
     {
       "semantic_id": "tun",
       "surface": "tun",
       "translation": "делать",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "do",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "wissen",
       "surface": "wissen",
       "translation": "знать",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "know",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "hineinkommst",
       "surface": "hineinkommst",
       "translation": "проходишь внутрь / попадаешь внутрь",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "move",
+        "person": 2,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "offiziell",
       "surface": "offiziell",
       "translation": "официально",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "topic",
+        "topic": "registration"
+      }
     },
     {
       "semantic_id": "versuchen",
@@ -3126,7 +3782,11 @@
       "semantic_id": "das",
       "surface": "das",
       "translation": "это / определённый артикль das",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "reference",
+        "reference": "current"
+      }
     },
     {
       "semantic_id": "verneinst",
@@ -3138,7 +3798,13 @@
       "semantic_id": "entschuldigen",
       "surface": "entschuldigen",
       "translation": "извинять; sich entschuldigen — извиняться",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "apologize",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "mehr",
@@ -3150,37 +3816,68 @@
       "semantic_id": "gibst",
       "surface": "gibst",
       "translation": "даёшь / передаёшь",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 2,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "überbringen",
       "surface": "überbringen",
       "translation": "передавать / доставлять",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "deinen",
       "surface": "deinen",
       "translation": "твой (форма винительного падежа)",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "possessive"
+      }
     },
     {
       "semantic_id": "zugang",
       "surface": "Zugang",
       "translation": "доступ / вход",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
     },
     {
       "semantic_id": "bestätigen",
       "surface": "bestätigen",
       "translation": "подтверждать",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "confirm",
+        "person": 0,
+        "form": "infinitive"
+      }
     },
     {
       "semantic_id": "gehe",
       "surface": "gehe",
       "translation": "иду / ухожу",
-      "pos": "verb"
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "leave",
+        "person": 1,
+        "form": "finite"
+      }
     },
     {
       "semantic_id": "alles",
@@ -3192,7 +3889,10 @@
       "semantic_id": "am",
       "surface": "am",
       "translation": "у / на (сокращение an dem)",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
     },
     {
       "semantic_id": "anders",
@@ -3240,7 +3940,10 @@
       "semantic_id": "dem",
       "surface": "dem",
       "translation": "определённый артикль dem",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "article"
+      }
     },
     {
       "semantic_id": "diese",
@@ -3270,7 +3973,10 @@
       "semantic_id": "im",
       "surface": "im",
       "translation": "в (сокращение in dem)",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
     },
     {
       "semantic_id": "klar",
@@ -3300,7 +4006,10 @@
       "semantic_id": "oder",
       "surface": "oder",
       "translation": "или",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "conjunction"
+      }
     },
     {
       "semantic_id": "ort",
@@ -3318,7 +4027,11 @@
       "semantic_id": "register",
       "surface": "Register",
       "translation": "реестр / список",
-      "pos": "noun"
+      "pos": "noun",
+      "syntax": {
+        "kind": "topic",
+        "topic": "registration"
+      }
     },
     {
       "semantic_id": "richtigen",
@@ -3354,7 +4067,10 @@
       "semantic_id": "um",
       "surface": "um",
       "translation": "о / вокруг (зависит от сочетания)",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
     },
     {
       "semantic_id": "wiederholung",
@@ -3372,37 +4088,759 @@
       "semantic_id": "worauf",
       "surface": "worauf",
       "translation": "к чему / на что",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "interrogative"
+      }
     },
     {
       "semantic_id": "zur",
       "surface": "zur",
       "translation": "к / о (сокращение zu der)",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
     },
     {
       "semantic_id": "vorläufig",
       "surface": "vorläufig",
       "translation": "временный / предварительный",
-      "pos": "adjective"
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "temporary",
+        "entity_types": [
+          "access_document"
+        ],
+        "acc_forms": {
+          "m": "vorläufigen",
+          "f": "vorläufige",
+          "n": "vorläufiges"
+        }
+      }
     },
     {
       "semantic_id": "vorläufigen",
       "surface": "vorläufigen",
       "translation": "временный (форма: einen vorläufigen Pass — временный пропуск)",
-      "pos": "adjective"
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "temporary",
+        "entity_types": [
+          "access_document"
+        ],
+        "acc_forms": {
+          "m": "vorläufigen",
+          "f": "vorläufige",
+          "n": "vorläufiges"
+        }
+      }
     },
     {
       "semantic_id": "mit",
       "surface": "mit",
       "translation": "с / вместе с",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
     },
     {
       "semantic_id": "der",
       "surface": "der",
       "translation": "определённый артикль der (также форма дательного падежа женского рода)",
-      "pos": "other"
+      "pos": "other",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "surface": "hab",
+      "semantic_id": "hab",
+      "translation": "у меня есть (разговорная форма habe)",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "possess",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "hat",
+      "semantic_id": "hat",
+      "translation": "имеет; у него/неё есть",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "possess",
+        "person": 3,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "heisst",
+      "semantic_id": "heisst",
+      "translation": "зовут (написание heißt через ss)",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "name",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "helfe",
+      "semantic_id": "helfe",
+      "translation": "помогаю",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "help",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "hilfst",
+      "semantic_id": "hilfst",
+      "translation": "помогаешь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "help",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "bringst",
+      "semantic_id": "bringst",
+      "translation": "приносишь / передаёшь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "sagst",
+      "semantic_id": "sagst",
+      "translation": "говоришь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "gehst",
+      "semantic_id": "gehst",
+      "translation": "идёшь / уходишь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "leave",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "kommst",
+      "semantic_id": "kommst",
+      "translation": "приходишь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "move",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "machst",
+      "semantic_id": "machst",
+      "translation": "делаешь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "do",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "spreche",
+      "semantic_id": "spreche",
+      "translation": "говорю",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "speak",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "sprichst",
+      "semantic_id": "sprichst",
+      "translation": "говоришь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "speak",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "wiederhole",
+      "semantic_id": "wiederhole",
+      "translation": "повторяю",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "repeat",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "sein",
+      "semantic_id": "sein",
+      "translation": "быть",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "be",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "surface": "haben",
+      "semantic_id": "haben",
+      "translation": "иметь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "possess",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "surface": "helfen",
+      "semantic_id": "helfen",
+      "translation": "помогать",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "help",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "surface": "möchten",
+      "semantic_id": "möchten",
+      "translation": "хотеть / хотел бы",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire"
+      }
+    },
+    {
+      "surface": "mochtest",
+      "semantic_id": "mochtest",
+      "translation": "хотеть / хотел бы",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire",
+        "normalizes_to": "möchtest",
+        "ambiguous_normalization": true
+      }
+    },
+    {
+      "surface": "willst",
+      "semantic_id": "willst",
+      "translation": "хотеть",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire"
+      }
+    },
+    {
+      "surface": "wollen",
+      "semantic_id": "wollen",
+      "translation": "хотеть",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire"
+      }
+    },
+    {
+      "surface": "brauchen",
+      "semantic_id": "brauchen",
+      "translation": "нуждаться",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "need"
+      }
+    },
+    {
+      "surface": "können",
+      "semantic_id": "können",
+      "translation": "мочь",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "ability"
+      }
+    },
+    {
+      "surface": "darf",
+      "semantic_id": "darf",
+      "translation": "можно / иметь разрешение",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "permission"
+      }
+    },
+    {
+      "surface": "dürfen",
+      "semantic_id": "dürfen",
+      "translation": "можно / иметь разрешение",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "permission"
+      }
+    },
+    {
+      "surface": "sollst",
+      "semantic_id": "sollst",
+      "translation": "должен / нужно",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "obligation"
+      }
+    },
+    {
+      "surface": "müssen",
+      "semantic_id": "müssen",
+      "translation": "должен / нужно",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "obligation"
+      }
+    },
+    {
+      "surface": "keinem",
+      "semantic_id": "keinem",
+      "translation": "не / никакой",
+      "pos": "other",
+      "syntax": {
+        "kind": "negation"
+      }
+    },
+    {
+      "surface": "keiner",
+      "semantic_id": "keiner",
+      "translation": "не / никакой",
+      "pos": "other",
+      "syntax": {
+        "kind": "negation"
+      }
+    },
+    {
+      "surface": "keines",
+      "semantic_id": "keines",
+      "translation": "не / никакой",
+      "pos": "other",
+      "syntax": {
+        "kind": "negation"
+      }
+    },
+    {
+      "surface": "doch",
+      "semantic_id": "doch",
+      "translation": "наоборот / всё-таки да",
+      "pos": "other",
+      "syntax": {
+        "kind": "response",
+        "answer": "contradict"
+      }
+    },
+    {
+      "surface": "einem",
+      "semantic_id": "einem",
+      "translation": "одному / неопределённый артикль, дательный падеж",
+      "pos": "other",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "surface": "eines",
+      "semantic_id": "eines",
+      "translation": "одного / неопределённый артикль, родительный падеж",
+      "pos": "other",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "surface": "des",
+      "semantic_id": "des",
+      "translation": "определённый артикль, родительный падеж",
+      "pos": "other",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "surface": "mein",
+      "semantic_id": "mein",
+      "translation": "мой",
+      "pos": "other",
+      "syntax": {
+        "kind": "possessive"
+      }
+    },
+    {
+      "surface": "meine",
+      "semantic_id": "meine",
+      "translation": "моя / мои",
+      "pos": "other",
+      "syntax": {
+        "kind": "possessive"
+      }
+    },
+    {
+      "surface": "meinen",
+      "semantic_id": "meinen",
+      "translation": "моего / моих",
+      "pos": "other",
+      "syntax": {
+        "kind": "possessive"
+      }
+    },
+    {
+      "surface": "deine",
+      "semantic_id": "deine",
+      "translation": "твоя / твои",
+      "pos": "other",
+      "syntax": {
+        "kind": "possessive"
+      }
+    },
+    {
+      "surface": "hi",
+      "semantic_id": "hi",
+      "translation": "привет",
+      "pos": "other",
+      "syntax": {
+        "kind": "greeting"
+      }
+    },
+    {
+      "surface": "wo",
+      "semantic_id": "wo",
+      "translation": "где",
+      "pos": "other",
+      "syntax": {
+        "kind": "interrogative"
+      }
+    },
+    {
+      "surface": "wieso",
+      "semantic_id": "wieso",
+      "translation": "почему",
+      "pos": "other",
+      "syntax": {
+        "kind": "interrogative"
+      }
+    },
+    {
+      "surface": "wobei",
+      "semantic_id": "wobei",
+      "translation": "в чём / при чём",
+      "pos": "other",
+      "syntax": {
+        "kind": "interrogative"
+      }
+    },
+    {
+      "surface": "wem",
+      "semantic_id": "wem",
+      "translation": "кому",
+      "pos": "other",
+      "syntax": {
+        "kind": "interrogative"
+      }
+    },
+    {
+      "surface": "und",
+      "semantic_id": "und",
+      "translation": "и",
+      "pos": "other",
+      "syntax": {
+        "kind": "conjunction"
+      }
+    },
+    {
+      "surface": "weil",
+      "semantic_id": "weil",
+      "translation": "потому что",
+      "pos": "other",
+      "syntax": {
+        "kind": "conjunction"
+      }
+    },
+    {
+      "surface": "wenn",
+      "semantic_id": "wenn",
+      "translation": "если",
+      "pos": "other",
+      "syntax": {
+        "kind": "conjunction"
+      }
+    },
+    {
+      "surface": "zu",
+      "semantic_id": "zu",
+      "translation": "к / для",
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
+    },
+    {
+      "surface": "in",
+      "semantic_id": "in",
+      "translation": "в",
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
+    },
+    {
+      "surface": "jetzt",
+      "semantic_id": "jetzt",
+      "translation": "сейчас",
+      "pos": "other",
+      "syntax": {
+        "kind": "time"
+      }
+    },
+    {
+      "surface": "morgen",
+      "semantic_id": "morgen",
+      "translation": "завтра",
+      "pos": "other",
+      "syntax": {
+        "kind": "time",
+        "reference": "future"
+      }
+    },
+    {
+      "surface": "auch",
+      "semantic_id": "auch",
+      "translation": "тоже",
+      "pos": "other",
+      "syntax": {
+        "kind": "degree"
+      }
+    },
+    {
+      "surface": "sehr",
+      "semantic_id": "sehr",
+      "translation": "очень",
+      "pos": "other",
+      "syntax": {
+        "kind": "degree"
+      }
+    },
+    {
+      "surface": "bisschen",
+      "semantic_id": "bisschen",
+      "translation": "немного",
+      "pos": "other",
+      "syntax": {
+        "kind": "degree"
+      }
+    },
+    {
+      "surface": "also",
+      "semantic_id": "also",
+      "translation": "значит / итак",
+      "pos": "other",
+      "syntax": {
+        "kind": "discourse"
+      }
+    },
+    {
+      "surface": "tschuss",
+      "semantic_id": "tschuss",
+      "translation": "до свидания / пока",
+      "pos": "other",
+      "syntax": {
+        "kind": "act",
+        "family": "farewell"
+      }
+    },
+    {
+      "surface": "vorläufige",
+      "semantic_id": "vorläufige",
+      "translation": "временный (форма прилагательного)",
+      "pos": "other",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "temporary",
+        "entity_types": [
+          "access_document"
+        ],
+        "acc_forms": {
+          "m": "vorläufigen",
+          "f": "vorläufige",
+          "n": "vorläufiges"
+        }
+      }
+    },
+    {
+      "surface": "vorläufiges",
+      "semantic_id": "vorläufiges",
+      "translation": "временный (форма прилагательного)",
+      "pos": "other",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "temporary",
+        "entity_types": [
+          "access_document"
+        ],
+        "acc_forms": {
+          "m": "vorläufigen",
+          "f": "vorläufige",
+          "n": "vorläufiges"
+        }
+      }
+    },
+    {
+      "surface": "neuling",
+      "semantic_id": "neuling",
+      "translation": "новенький / новичок",
+      "pos": "other",
+      "syntax": {
+        "kind": "property",
+        "property": "newcomer"
+      }
+    },
+    {
+      "surface": "regel",
+      "semantic_id": "regel",
+      "translation": "правило / вход / внутрь / доступ",
+      "pos": "other",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
+    },
+    {
+      "surface": "regeln",
+      "semantic_id": "regeln",
+      "translation": "правило / вход / внутрь / доступ",
+      "pos": "other",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
+    },
+    {
+      "surface": "durch",
+      "semantic_id": "durch",
+      "translation": "правило / вход / внутрь / доступ",
+      "pos": "other",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
+    },
+    {
+      "surface": "alternative",
+      "semantic_id": "alternative",
+      "translation": "альтернатива / возможность / путь",
+      "pos": "other",
+      "syntax": {
+        "kind": "topic",
+        "topic": "alternative"
+      }
+    },
+    {
+      "surface": "details",
+      "semantic_id": "details",
+      "translation": "подробности",
+      "pos": "other",
+      "syntax": {
+        "kind": "topic",
+        "topic": "details"
+      }
+    },
+    {
+      "surface": "technikerin",
+      "semantic_id": "technikerin",
+      "translation": "женщина-техник",
+      "pos": "other",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "role",
+        "entity_id": "technician",
+        "gender": "f",
+        "label": "Technikerin",
+        "accusative": "Technikerin"
+      }
+    },
+    {
+      "surface": "Welche",
+      "translation": "какую / какие",
+      "semantic_id": "welche",
+      "pos": "other",
+      "syntax": {
+        "kind": "discourse"
+      }
+    },
+    {
+      "surface": "Rolle",
+      "translation": "роль",
+      "semantic_id": "rolle",
+      "pos": "other",
+      "syntax": {
+        "kind": "discourse"
+      }
+    },
+    {
+      "surface": "Wer",
+      "translation": "кто",
+      "semantic_id": "wer",
+      "pos": "other",
+      "syntax": {
+        "kind": "discourse"
+      }
     }
   ],
   "constructions": [
@@ -3447,8 +4885,8 @@
       "intent": "попросить альтернативу"
     },
     {
-      "surface": "Kannst du Tom eine Nachricht geben?",
-      "translation": "Можешь передать Тому сообщение?",
+      "surface": "Ich gebe Tom die Nachricht.",
+      "translation": "Я передам Тому сообщение.",
       "intent": "согласиться передать сообщение"
     },
     {
@@ -3480,6 +4918,11 @@
       "surface": "Auf Wiedersehen.",
       "translation": "До свидания.",
       "intent": "попрощаться"
+    },
+    {
+      "surface": "Ich möchte einen vorläufigen Pass.",
+      "translation": "Я хотел бы временный пропуск.",
+      "intent": "попросить временный пропуск"
     }
   ],
   "help_replies": {
@@ -3493,5 +4936,290 @@
     "clarify_roles_notice": "Астера не поняла участников помощи.",
     "clarify_speech_act_notice": "Астера не поняла, предлагаете вы помощь или просите её.",
     "no_branch": "Hier kann ich das gerade nicht tun. Möchtest du über dein Befinden sprechen oder mir helfen?"
+  },
+  "language": {
+    "version": 1,
+    "participants": {
+      "speaker": "player",
+      "addressee": "astera"
+    },
+    "bindings": [
+      {
+        "family": "possession",
+        "intent": "REPORT_NO_CARD",
+        "requires": {
+          "actor": "player",
+          "object_type": "access_document",
+          "polarity": "negative",
+          "speech_act": "statement"
+        },
+        "frame": {
+          "object_id": "card"
+        }
+      },
+      {
+        "family": "possession",
+        "intent": "REPORT_HAS_CARD",
+        "requires": {
+          "actor": "player",
+          "object_type": "access_document",
+          "polarity": "positive",
+          "speech_act": "statement"
+        },
+        "frame": {}
+      },
+      {
+        "family": "acquisition",
+        "intent": "REQUEST_PASS",
+        "requires": {
+          "actor": "player",
+          "object_type": "access_document",
+          "polarity": "positive"
+        },
+        "frame": {
+          "object_id": "pass"
+        }
+      },
+      {
+        "family": "acquisition",
+        "intent": "REFUSE_ACCESS",
+        "requires": {
+          "actor": "player",
+          "object_type": "access_document",
+          "polarity": "negative"
+        },
+        "frame": {}
+      },
+      {
+        "family": "role",
+        "intent": "CLAIM_TECHNICIAN",
+        "requires": {
+          "actor": "player",
+          "role_id": "technician",
+          "polarity": "positive",
+          "mode": "assert",
+          "speech_act": [
+            "statement",
+            "answer"
+          ]
+        },
+        "frame": {}
+      },
+      {
+        "family": "role",
+        "intent": "DENY_TECHNICIAN",
+        "requires": {
+          "actor": "player",
+          "role_id": "technician",
+          "polarity": "negative",
+          "mode": "assert",
+          "speech_act": [
+            "statement",
+            "answer"
+          ]
+        },
+        "frame": {}
+      },
+      {
+        "family": "property",
+        "intent": "REPORT_NEWCOMER",
+        "requires": {
+          "actor": "player",
+          "property": "newcomer",
+          "polarity": "positive",
+          "mode": "assert",
+          "speech_act": "statement"
+        },
+        "frame": {}
+      },
+      {
+        "family": "registration",
+        "intent": "ASK_OFFICIAL_PATH",
+        "requires": {
+          "actor": "player",
+          "speech_act": "question"
+        },
+        "frame": {}
+      },
+      {
+        "family": "registration",
+        "intent": "REPORT_REGISTRATION",
+        "requires": {
+          "actor": "player",
+          "speech_act": "statement",
+          "polarity": "positive"
+        },
+        "frame": {}
+      },
+      {
+        "family": "name",
+        "intent": "PLAYER_NAME",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "action": "introduce"
+        }
+      },
+      {
+        "family": "rules",
+        "intent": "ASK_RULES",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "speech_act": "question"
+        }
+      },
+      {
+        "family": "alternative",
+        "intent": "ASK_ALTERNATIVE",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "speech_act": "question"
+        }
+      },
+      {
+        "family": "repeat",
+        "intent": "ASK_REPEAT",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "speech_act": "request_repeat"
+        }
+      },
+      {
+        "family": "slower",
+        "intent": "REQUEST_SLOWER",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "speech_act": "request_slower"
+        }
+      },
+      {
+        "family": "apology",
+        "intent": "APOLOGIZE",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "speech_act": "apology"
+        }
+      },
+      {
+        "family": "farewell",
+        "intent": "FAREWELL",
+        "requires": {
+          "actor": "player",
+          "polarity": "positive"
+        },
+        "frame": {
+          "speech_act": "farewell"
+        }
+      },
+      {
+        "family": "help",
+        "intent": "OFFER_HELP",
+        "requires": {
+          "actor": "player",
+          "recipient": "astera",
+          "polarity": "positive",
+          "mode": "offer"
+        },
+        "frame": {}
+      },
+      {
+        "family": "help",
+        "intent": "REQUEST_HELP",
+        "requires": {
+          "actor": "astera",
+          "recipient": "player",
+          "polarity": "positive",
+          "mode": "request"
+        },
+        "frame": {}
+      },
+      {
+        "family": "help",
+        "intent": "PLAYER_CANNOT_HELP",
+        "requires": {
+          "actor": "player",
+          "polarity": "negative"
+        },
+        "frame": {}
+      },
+      {
+        "family": "help",
+        "intent": "NPC_CANNOT_HELP",
+        "requires": {
+          "actor": "astera",
+          "polarity": "negative"
+        },
+        "frame": {}
+      },
+      {
+        "family": "delivery",
+        "intent": "ACCEPT_MESSAGE",
+        "requires": {
+          "actor": "player",
+          "recipient_id": "tom",
+          "object_type": "message",
+          "polarity": "positive",
+          "mode": "commit"
+        },
+        "frame": {
+          "action": "deliver_message"
+        }
+      },
+      {
+        "family": "delivery",
+        "intent": "REFUSE_DEAL",
+        "requires": {
+          "actor": "player",
+          "object_type": "message",
+          "polarity": "negative"
+        },
+        "frame": {
+          "action": "deliver_message"
+        }
+      },
+      {
+        "family": "details",
+        "intent": "ASK_DETAILS",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "speech_act": "question"
+        }
+      },
+      {
+        "family": "access",
+        "intent": "REQUEST_ACCESS",
+        "requires": {
+          "actor": "player",
+          "object_type": "access_document"
+        },
+        "frame": {
+          "speech_act": "question",
+          "object_id": "pass"
+        }
+      }
+    ],
+    "articles_acc": {
+      "m": "einen",
+      "f": "eine",
+      "n": "ein"
+    },
+    "negative_articles": {
+      "m": "kein",
+      "f": "keine",
+      "n": "kein"
+    }
   }
 }

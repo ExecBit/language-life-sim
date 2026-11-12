@@ -48,7 +48,10 @@ static func resolve(context: Dictionary, actual_intent: String, frame: Dictionar
 	return {"edge":{}, "error":"NO_AUTHORED_EDGE"}
 
 static func resolve_system(context: Dictionary, system_event: String) -> Dictionary:
-	return resolve(context, system_event, {"system_event":system_event})
+	for action in data().get("actions", {}).values():
+		if action.get("system_event", "") == system_event:
+			return resolve(context, str(action.get("semantic_action", "")), {"system_event":system_event})
+	return {"edge":{}, "error":"UNKNOWN_SYSTEM_EVENT"}
 
 static func frame_matches(required: Dictionary, frame: Dictionary) -> bool:
 	for key in required:
@@ -139,7 +142,7 @@ static func validate() -> Array[String]:
 	var nodes: Dictionary = graph.get("nodes", {})
 	var actions: Dictionary = graph.get("actions", {})
 	var transitions: Array = graph.get("transitions", [])
-	if nodes.size() != 18: errors.append("Expected 18 authored nodes, found %d" % nodes.size())
+	if nodes.size() != int(graph.get("expected_node_count", nodes.size())): errors.append("Authored node count mismatch")
 	var edge_ids := {}
 	var reachable := {str(graph.get("initial_node", "")):true}
 	var changed := true

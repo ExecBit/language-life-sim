@@ -150,7 +150,8 @@ func run() -> void:
 	var view := GraphView.new()
 	root.add_child(view)
 	await process_frame
-	view.set_snapshot(p1, -1)
+	view.set_snapshot(p2, -1)
+	for frame in 8: await process_frame
 	var edit: GraphEdit = view.graph_edit
 	var rendered_nodes := 0
 	for child in edit.get_children():
@@ -170,11 +171,11 @@ func run() -> void:
 	check(compact_ports, "F2 uses one compact incoming and outgoing port per authored transition")
 	var expected_zoom_text := "%d%%" % roundi(edit.zoom * 100.0)
 	check(not edit.show_zoom_buttons and view.zoom_label.text == expected_zoom_text, "F2 keeps graph controls outside the canvas and reports its actual zoom")
-	var before_history: int = p1.dialogue_history.size()
-	view.set_snapshot(p1.duplicate(true), 0)
-	check(view.selected_attempt == 0 and p1.dialogue_history.size() == before_history and p1.current_node == "E_OFFICIAL", "historical graph snapshot is read-only")
-	view.set_snapshot(p1, -1)
-	check(view.current_node_id == "E_OFFICIAL" and view.node_history.size() == p1.node_history.size(), "live graph can return to current runtime state")
+	var before_history: int = p2.dialogue_history.size()
+	view.set_snapshot(p2.duplicate(true), 0)
+	check(view.selected_attempt == 0 and p2.dialogue_history.size() == before_history and p2.current_node == "E_OFFICIAL", "historical graph snapshot is read-only")
+	view.set_snapshot(p2, -1)
+	check(view.current_node_id == "E_OFFICIAL" and view.node_history.size() == p2.node_history.size(), "live graph can return to current runtime state")
 	view.queue_free()
 
 	print("ISSUE68_TESTS: %d failure(s)" % failures)

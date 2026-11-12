@@ -27,6 +27,7 @@ func run() -> void:
 	var graph_view := GraphView.new()
 	root.add_child(graph_view)
 	await process_frame
+	for frame in 8: await process_frame
 	var rendered_nodes := 0
 	for child in graph_view.graph_edit.get_children():
 		if child is GraphNode: rendered_nodes += 1
@@ -41,7 +42,7 @@ func run() -> void:
 	await process_frame
 	room.call("_toggle_dev", true)
 	var graph_page: Control = room.dev_tabs.get_node("Граф диалога")
-	check(room.dev_panel.visible and room.dev_tabs.current_tab == room.dev_tabs.get_tab_idx(graph_page),
+	check(room.dev_panel.visible and room.dev_tabs.current_tab == room.dev_tabs.get_tab_idx_from_control(graph_page),
 		"F2 opens the No Pass graph inspector")
 	check(room.topic_buttons.has("report_no_card") and room.topic_buttons.has("ask_rules")
 		and not room.topic_buttons.has("ask_mood") and not room.topic_buttons.has("share_state"),

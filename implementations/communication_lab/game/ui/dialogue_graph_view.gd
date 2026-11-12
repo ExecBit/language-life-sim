@@ -112,6 +112,7 @@ func _ready() -> void:
 	graph_edit.connection_lines_thickness = 1.4
 	graph_edit.connection_lines_antialiased = true
 	graph_edit.node_selected.connect(_on_node_selected)
+	graph_edit.visibility_changed.connect(_center_after_show)
 	var body := HSplitContainer.new()
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -305,6 +306,13 @@ func center_on_current() -> void:
 	var card: GraphNode = _node_cards[current_node_id]
 	graph_edit.scroll_offset = (card.position_offset + card.size * 0.5) * graph_edit.zoom - graph_edit.size * Vector2(0.25, 0.5)
 	_on_node_selected(card)
+
+func _center_after_show() -> void:
+	if not graph_edit.is_visible_in_tree(): return
+	# The inspector is laid out while hidden. Its real canvas extent settles on show.
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if is_inside_tree() and graph_edit.is_visible_in_tree(): center_on_current()
 
 func _change_zoom(delta: float) -> void:
 	if not is_instance_valid(graph_edit): return
