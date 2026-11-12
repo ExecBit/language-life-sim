@@ -2,6 +2,7 @@ extends SceneTree
 const Parser = preload("res://implementations/communication_lab/game/communication/parser.gd")
 const Session = preload("res://implementations/communication_lab/game/communication/lab_session.gd")
 const DialogueGrammar = preload("res://implementations/communication_lab/game/communication/dialogue_resolver.gd")
+const DialogueLanguage = preload("res://implementations/communication_lab/game/communication/dialogue_language.gd")
 var failures := 0
 
 func _initialize() -> void:
@@ -73,7 +74,7 @@ func run() -> void:
 		var invalid_result := Session.submit(invalid_intro, invalid_context)
 		check(invalid_result.parse.status == "UNSUPPORTED" and invalid_context.player_name.is_empty() and not invalid_result.objective_progress.introduce and invalid_result.effects.is_empty(), "unsupported combined input cannot partially apply: " + invalid_intro)
 	var greeted_tired := Session.submit("Hallo, ich bin müde", Session.initial_context())
-	check(greeted_tired.parse.intent == "PLAYER_MOOD_LOW" and not greeted_tired.objective_progress.introduce, "greeting plus tiredness remains a mood statement")
+	check(greeted_tired.parse.intent == "REPORT_STATE" and not greeted_tired.objective_progress.introduce, "greeting plus tiredness remains a mood statement")
 	var activity_first := Session.submit("Was machst du?", Session.initial_context())
 	check(activity_first.answer.contains("Ich arbeite.") and activity_first.animation_id == "point_at_object", "activity question works before the mood topic and reuses the player-directed gesture")
 	var why_context := Session.initial_context(); why_context.topic = "astera_mood"; why_context.last_npc_line = "Ich bin müde."
@@ -85,7 +86,7 @@ func run() -> void:
 	var low_mood := Session.submit("Nicht gut.", Session.initial_context())
 	check(good_mood.answer != low_mood.answer and good_mood.emotion_state == "happy" and low_mood.emotion_state == "concerned", "good and low moods produce distinct responses and emotions")
 	var tired_input := Session.submit("Ich bin müde.", Session.initial_context())
-	check(tired_input.parse.intent == "PLAYER_MOOD_LOW" and tired_input.parse.name.is_empty(), "I am tired is not mistaken for a player name")
+	check(tired_input.parse.intent == "REPORT_STATE" and not tired_input.parse.has("name"), "I am tired is not mistaken for a player name")
 	var quiet_response := Session.submit("Ja, ein bisschen.", Session.initial_context())
 	check(quiet_response.parse.intent == "PLAYER_QUIET_ACK" and quiet_response.answer == "Oh! Okay!", "A0 quiet acknowledgment receives a playful contextual reply")
 	check(Session.submit("Hilfe?", Session.initial_context()).parse.intent == "OFFER_HELP", "single-word A0 help offer is recognized")
@@ -102,7 +103,7 @@ func run() -> void:
 	var help_context := Session.initial_context()
 	var help_offer := Session.submit("Kann ich helfen?", help_context)
 	var help_accept := Session.submit("Ja, bitte!", help_context)
-	check(help_offer.parse.intent == "OFFER_HELP" and help_accept.parse.intent == "ACCEPT_HELP" and help_context.offered_help and help_context.pending_question == "", "help offer and acceptance are remembered without pretending an object moved")
+	check(help_offer.parse.reason == "MISSING_RECIPIENT" and help_accept.parse.intent == "CONFIRM_CLARIFICATION" and help_context.offered_help, "one pending help clarification is confirmed without pretending an object moved")
 	var help_decline_context := Session.initial_context(); help_decline_context.pending_question = "help_offer"
 	var help_decline := Session.submit("Nein, danke.", help_decline_context)
 	check(help_decline.parse.intent == "DECLINE_HELP" and help_decline.effects.is_empty(), "declining help is distinct from accepting it")
@@ -181,7 +182,7 @@ func run() -> void:
 	var uncovered_forms: Array[String] = []
 	for npc_line in a0_lines:
 		for token in DialogueGrammar.words(npc_line):
-			if (not DialogueGrammar.LEXICON.has(token) or DialogueGrammar.translation_for(token).is_empty()) and token not in ["alex", "astera"] and not uncovered_forms.has(token):
+			if (not DialogueGrammar.LEXICON.has(token) or DialogueGrammar.translation_for(token).is_empty()) and DialogueLanguage.translation_for(token).is_empty() and token not in ["alex", "astera"] and not uncovered_forms.has(token):
 				uncovered_forms.append(token)
 	check(uncovered_forms.is_empty(), "A0 NPC utterance forms all have F1 entries: %s" % ", ".join(uncovered_forms))
 	var player_variants := ["Ich bin Alex.", "Alex.", "Gut, danke.", "Sehr gut!", "Nicht gut.", "Ich bin müde.",
@@ -190,7 +191,7 @@ func run() -> void:
 	var uncovered_player_forms: Array[String] = []
 	for player_line in player_variants:
 		for token in DialogueGrammar.words(player_line):
-			if (not DialogueGrammar.LEXICON.has(token) or DialogueGrammar.translation_for(token).is_empty()) and token != "alex" and not uncovered_player_forms.has(token):
+			if (not DialogueGrammar.LEXICON.has(token) or DialogueGrammar.translation_for(token).is_empty()) and DialogueLanguage.translation_for(token).is_empty() and token != "alex" and not uncovered_player_forms.has(token):
 				uncovered_player_forms.append(token)
 	check(uncovered_player_forms.is_empty(), "A0 player-response forms also appear in F1: %s" % ", ".join(uncovered_player_forms))
 	var phrase_entries: Array[Dictionary] = DialogueGrammar.vocabulary_entries().filter(func(entry): return entry.pos == "phrase")
@@ -248,7 +249,8 @@ func run() -> void:
 	check(communication_panel.anchor_left == 0.0 and communication_panel.anchor_right == 1.0 and communication_panel.anchor_bottom == 1.0 and communication_panel.offset_left == 0.0 and communication_panel.offset_right == 0.0, "conversation panel spans the bottom screen width")
 	check(room.get_node_or_null("Table") == null, "obstructing table is removed")
 	check(room.get_node_or_null("Cup") == null and room.get_node_or_null("Key") == null and room.get_node_or_null("Door") == null, "social-only scene contains no object props or interactions")
-	check(room.get("objective_labels").size() == 6 and room.get("objective_panel").visible, "six unobtrusive social objectives are visible from the start")
+	check(room.get("objective_labels").size() == 6 and not room.get("objective_panel").visible, "duplicate top-left social objective tracker is hidden")
+	check(room.get("topic_buttons").size() == 3 and room.get("notice_label") != null, "normal conversation menu exposes the three broad P67 topics and a notice area")
 	check(not Session.initial_context().has("key_owner") and not Session.initial_context().has("door_open"), "object state is absent from the live communication context")
 	var preserved_motions := ["greeting_wave", "self_introduction", "curious_head_tilt", "small_happy_reaction", "tired_sigh", "playful_shrug", "gentle_nod", "farewell_wave", "open_palm_offer", "surprised_delighted", "point_at_object", "soft_concern"]
 	var missing_motions: Array[String] = []
@@ -299,6 +301,10 @@ func run() -> void:
 	for row in room.get("vocabulary_rows"):
 		if not row.header and row.label.visible: visible_helper_matches += 1
 	check(phrase_helper_found and visible_helper_matches == 1, "F1 search narrows to a single contextual phrase translation")
+	var p67_construction_found := false
+	for row in room.get("vocabulary_rows"):
+		if not row.header and row.search.contains("kann ich dir helfen"): p67_construction_found = true
+	check(p67_construction_found and DialogueLanguage.translation_for("Kann ich dir helfen?") == "Я могу тебе помочь? (предложение помощи собеседнику)" and DialogueLanguage.translation_for("Oh… Das tut mir leid. Ruh dich aus!").is_empty(), "F1 exposes reusable P67 help construction without translating a full NPC response")
 	room.get("vocabulary_search").clear()
 	room.call("_filter_vocabulary", "")
 	room.call("_input", memo_event)
@@ -328,7 +334,7 @@ func run() -> void:
 	check(is_equal_approx(room.get("conversation_camera").global_position.y, astera.global_position.y + 1.38), "dialogue camera stays at eye level rather than looking up from below")
 	room.call("_on_submitted", "Was machst du?")
 	check(astera.get("active_animation_id") == "point_at_object" and room.get("last_record").get("reaction") == "explain_activity_and_invite_player", "conversation response triggers the compatible gesture toward the player")
-	check(room.get("context").objective_progress.ask_activity and room.get("context").objective_evidence.ask_activity.input == "Was machst du?", "handled dialogue action updates the visible objective and records its basis")
+	check(room.get("context").objective_progress.ask_activity and room.get("context").objective_evidence.ask_activity.input == "Was machst du?", "handled dialogue action updates session progress and records its basis")
 	check(room.get("objective_labels").ask_activity.text.begins_with("✓") and room.get("context_view").text.contains("objective_evidence"), "F2 shows objective status and its diagnostic evidence")
 	check(room.get("conversation_lines").size() == 3 and room.get("transcript").get_parsed_text().contains("Вы  Was machst du?"), "player-visible transcript retains greeting, player message and NPC response")
 	check(room.get("transcript").visible_characters < room.get("transcript").get_total_character_count(), "new NPC response starts a text reveal animation")
@@ -337,11 +343,11 @@ func run() -> void:
 	editor.phrase.text = "Ich brauche den Schlüssel"; editor.send()
 	check(astera.get("active_animation_id") == "open_palm_offer" and editor.phrase.text.is_empty(), "actual composer submission triggers a legacy reply gesture and clears the sent draft")
 	await create_timer(0.15).timeout
-	var face_mesh: MeshInstance3D = astera.get("face_mesh")
+	var revealing_face_mesh: MeshInstance3D = astera.get("face_mesh")
 	var expression_channels: Dictionary = astera.get("expression_channels")
 	var expression_visible := false
 	for channel in expression_channels:
-		if face_mesh.get_blend_shape_value(expression_channels[channel]) > 0.05: expression_visible = true
+		if revealing_face_mesh.get_blend_shape_value(expression_channels[channel]) > 0.05: expression_visible = true
 	check(expression_visible, "NPC reaction expression remains visible while her reply is being revealed")
 	await create_timer(0.25).timeout
 	idle_player.seek(1.5, true)
@@ -362,6 +368,14 @@ func run() -> void:
 	for channel in expression_channels:
 		if face_mesh.get_blend_shape_value(expression_channels[channel]) > 0.01: face_at_rest = false
 	check(face_at_rest, "NPC expression fades to a closed-mouth resting face after the reply reveal")
+	var topic_buttons: Dictionary = room.get("topic_buttons")
+	topic_buttons["help"].emit_signal("pressed")
+	editor.phrase.text = "ich helfen"; editor.send()
+	check(room.get("last_record").answer == "Du möchtest mir helfen?" and room.get("notice_label").visible and room.get("notice_label").text.contains("кому"), "composer and help menu ask one role clarification and explain the missing recipient")
+	topic_buttons["player_mood"].emit_signal("pressed")
+	check(room.get("context").pending_clarification.is_empty() and room.get("notice_label").text.contains("смене темы"), "choosing a new topic cancels the pending question with a notice")
+	editor.phrase.text = "Ja"; editor.send()
+	check(not room.get("context").offered_help and room.get("last_record").parse.reason == "NO_OPEN_YES_NO_TARGET", "yes after changing topic cannot apply the old offer")
 	var original_camera: Camera3D = room.get("exploration_camera")
 	room.call("_close_dialog")
 	check(root.get_camera_3d() == original_camera and not player.get("is_movement_paused"), "closing dialogue restores exploration camera and movement")

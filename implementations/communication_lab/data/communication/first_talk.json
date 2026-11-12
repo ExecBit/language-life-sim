@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "topics": [
+    {"id": "introduction", "label": "Знакомство"},
+    {"id": "player_mood", "label": "Самочувствие"},
+    {"id": "help", "label": "Помощь"}
+  ],
+  "states": {
+    "tired": {"forms": ["müde", "mude"], "translation": "уставший", "reply": "Oh… Das tut mir leid. Ruh dich aus!", "negative_reply": "Verstehe. Danke, dass du es sagst.", "emotion": "concerned", "animation": "soft_concern", "npc_ack": "Ja, ich bin müde."},
+    "happy": {"forms": ["glücklich", "glucklich", "froh"], "translation": "радостный, счастливый", "reply": "Oh, wie schön! Das freut mich!", "negative_reply": "Verstehe. Danke, dass du es sagst.", "emotion": "happy", "animation": "small_happy_reaction", "npc_ack": "Ja, ich bin glücklich."},
+    "nervous": {"forms": ["nervös", "nervoes"], "translation": "нервничающий", "reply": "Das kenne ich. Wir können langsam sprechen.", "negative_reply": "Verstehe. Danke, dass du es sagst.", "emotion": "friendly", "animation": "gentle_nod", "npc_ack": "Ja, ich bin nervös."}
+  },
+  "vocabulary": [
+    {"surface": "ich", "translation": "я", "pos": "pronoun", "semantic_id": "player"},
+    {"surface": "du", "translation": "ты (обращение к Астере)", "pos": "pronoun", "semantic_id": "addressee"},
+    {"surface": "mir", "translation": "мне", "pos": "pronoun", "semantic_id": "player"},
+    {"surface": "dir", "translation": "тебе", "pos": "pronoun", "semantic_id": "addressee"},
+    {"surface": "bin", "translation": "быть; форма с ich", "pos": "verb", "semantic_id": "be"},
+    {"surface": "bist", "translation": "быть; форма с du", "pos": "verb", "semantic_id": "be"},
+    {"surface": "heiße", "translation": "зовут; форма ich heiße", "pos": "verb", "semantic_id": "name"},
+    {"surface": "heisse", "translation": "зовут; написание без ß", "pos": "verb", "semantic_id": "name"},
+    {"surface": "kann", "translation": "могу; форма с ich", "pos": "verb", "semantic_id": "can"},
+    {"surface": "kannst", "translation": "можешь; форма с du", "pos": "verb", "semantic_id": "can"},
+    {"surface": "helfen", "translation": "помогать", "pos": "verb", "semantic_id": "help"},
+    {"surface": "nicht", "translation": "не", "pos": "other", "semantic_id": "not"},
+    {"surface": "ja", "translation": "да (ответ на уточнение)", "pos": "other", "semantic_id": "yes"},
+    {"surface": "nein", "translation": "нет (ответ на уточнение)", "pos": "other", "semantic_id": "no"},
+    {"surface": "und", "translation": "и", "pos": "other", "semantic_id": "and"},
+    {"surface": "ruh", "translation": "отдыхать; повелительная форма", "pos": "verb", "semantic_id": "rest"},
+    {"surface": "dich", "translation": "себя (винительный падеж)", "pos": "pronoun", "semantic_id": "reflexive_accusative"},
+    {"surface": "aus", "translation": "отделяемая приставка из ausruhen", "pos": "other", "semantic_id": "separable_prefix"},
+    {"surface": "eins", "translation": "один", "pos": "other", "semantic_id": "one"},
+    {"surface": "nach", "translation": "после", "pos": "other", "semantic_id": "after"},
+    {"surface": "dem", "translation": "артикль в дательном падеже", "pos": "other", "semantic_id": "dative_article"},
+    {"surface": "anderen", "translation": "другой; в выражении «друг за другом»", "pos": "adjective", "semantic_id": "other"},
+    {"surface": "Gespräch", "translation": "разговор", "pos": "noun", "semantic_id": "conversation"},
+    {"surface": "mit", "translation": "с", "pos": "other", "semantic_id": "with"},
+    {"surface": "hilft", "translation": "помогает; форма helfen", "pos": "verb", "semantic_id": "help"}
+  ],
+  "constructions": [
+    {"surface": "Ich bin …", "translation": "Я … (сообщить о себе)"},
+    {"surface": "Ich heiße …", "translation": "Меня зовут …"},
+    {"surface": "Ich bin nicht …", "translation": "Я не …"},
+    {"surface": "Kann ich dir helfen?", "translation": "Я могу тебе помочь? (предложение помощи собеседнику)"},
+    {"surface": "Kannst du mir helfen?", "translation": "Ты можешь мне помочь? (просьба о помощи)"},
+    {"surface": "Ich kann dir nicht helfen.", "translation": "Я не могу тебе помочь."},
+    {"surface": "Ja / Nein", "translation": "да / нет (ответ на один заданный вопрос)"}
+  ],
+  "help_replies": {
+    "offer": "Danke! Das Gespräch mit dir hilft mir schon.",
+    "request": "Ja, gern. Erzähl mir, worum es geht.",
+    "refusal": "Verstehe. Danke, dass du es sagst.",
+    "clarify_offer": "Du möchtest mir helfen?",
+    "clarify_request": "Du möchtest, dass ich dir helfe?",
+    "clarify_recipient_notice": "Астера не поняла, кому вы хотите помочь.",
+    "clarify_helper_notice": "Астера не поняла, кто должен помочь.",
+    "clarify_roles_notice": "Астера не поняла участников помощи.",
+    "clarify_speech_act_notice": "Астера не поняла, предлагаете вы помощь или просите её.",
+    "no_branch": "Hier kann ich das gerade nicht tun. Möchtest du über dein Befinden sprechen oder mir helfen?"
+  }
+}

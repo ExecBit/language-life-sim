@@ -3,6 +3,7 @@ const Composer = preload("res://implementations/communication_lab/game/communica
 const Session = preload("res://implementations/communication_lab/game/communication/lab_session.gd")
 const WordCatalog = preload("res://implementations/communication_lab/game/communication/word_catalog.gd")
 const DialogueGrammar = preload("res://implementations/communication_lab/game/communication/dialogue_resolver.gd")
+const DialogueLanguage = preload("res://implementations/communication_lab/game/communication/dialogue_language.gd")
 const AsteraVisual = preload("res://implementations/communication_lab/game/characters/lab_npc_visual.gd")
 const PLAYER_SCENE = preload("res://addons/cogito/PackedScenes/cogito_player_simple.tscn")
 const CONVERSATION_FOCUS_HEIGHT := 1.02
@@ -40,6 +41,9 @@ var name_toggle: CheckBox
 var topic_option: OptionButton
 var objective_panel: PanelContainer
 var objective_labels: Dictionary = {}
+var topic_menu: HBoxContainer
+var topic_buttons: Dictionary = {}
+var notice_label: Label
 var greeted := false
 var motion_paths: Dictionary = {}
 var conversation_camera: Camera3D
@@ -174,7 +178,7 @@ func _build_ui() -> void:
 	dialog.anchor_top = 1.0; dialog.anchor_bottom = 1.0
 	dialog.anchor_right = 1.0
 	dialog.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	dialog.offset_left = 0; dialog.offset_top = -390; dialog.offset_right = 0; dialog.offset_bottom = 0
+	dialog.offset_left = 0; dialog.offset_top = -460; dialog.offset_right = 0; dialog.offset_bottom = 0
 	dialog.hide()
 	var column := VBoxContainer.new(); column.add_theme_constant_override("separation", 10); dialog.add_child(column)
 	var header := HBoxContainer.new(); column.add_child(header)
@@ -192,6 +196,7 @@ func _build_ui() -> void:
 	transcript.gui_input.connect(func(event):
 		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT: _finish_reply_reveal())
 	column.add_child(transcript)
+	_build_topic_menu(column)
 	composer = Composer.new(); column.add_child(composer)
 	composer.submitted.connect(_on_submitted); composer.cancelled.connect(_close_dialog)
 	composer.help_requested.connect(_toggle_vocabulary)
@@ -212,6 +217,7 @@ func _build_ui() -> void:
 	var vocab_list := VBoxContainer.new(); vocab_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL; vocab_scroll.add_child(vocab_list)
 	var memo_entries: Array = WordCatalog.ENTRIES.duplicate(true)
 	memo_entries.append_array(DialogueGrammar.vocabulary_entries())
+	memo_entries.append_array(DialogueLanguage.vocabulary_entries())
 	var unique_entries: Array = []
 	var seen_surfaces := {}
 	for entry in memo_entries:
@@ -235,6 +241,7 @@ func _build_ui() -> void:
 		for entry in memo_entries:
 			if entry.availability != "available" or (entry.pos if groups.has(entry.pos) else "other") != group: continue
 			var translation: String = DialogueGrammar.translation_for(entry.surface)
+			if translation == "": translation = DialogueLanguage.translation_for(entry.surface)
 			if translation == "": translation = translations.get(entry.semantic_id, "перевод не указан")
 			var entry_label := _label(vocab_list, "%s  —  %s" % [entry.surface, translation], 16)
 			vocabulary_rows.append({"label":entry_label,"group":group,"header":false,"search":("%s %s" % [entry.surface, translation]).to_lower()})
@@ -298,6 +305,55 @@ func _build_objective_tracker(parent: Control) -> void:
 		item.custom_minimum_size.x = 250
 		objective_labels[key] = item
 	objective_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	objective_panel.hide()
+
+func _build_topic_menu(parent: VBoxContainer) -> void:
+	topic_menu = HBoxContainer.new()
+	topic_menu.name = "DialogueTopics"
+	topic_menu.add_theme_constant_override("separation", 8)
+	parent.add_child(topic_menu)
+	var group := ButtonGroup.new()
+	group.allow_unpress = false
+	for topic in DialogueLanguage.data().get("topics", []):
+		var topic_id := str(topic.get("id", ""))
+		var button := Button.new()
+		button.name = "Topic_%s" % topic_id
+		button.text = str(topic.get("label", topic_id))
+		button.toggle_mode = true
+		button.button_group = group
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.custom_minimum_size.y = 38
+		button.pressed.connect(_select_dialogue_topic.bind(topic_id))
+		topic_menu.add_child(button)
+		topic_buttons[topic_id] = button
+	notice_label = Label.new()
+	notice_label.name = "ConversationNotice"
+	notice_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	notice_label.custom_minimum_size.y = 22
+	notice_label.add_theme_font_size_override("font_size", 15)
+	notice_label.modulate = Color("edc488")
+	parent.add_child(notice_label)
+	notice_label.hide()
+	_update_topic_menu()
+
+func _update_topic_menu() -> void:
+	var selected := str(context.get("selected_topic", "introduction"))
+	for topic_id in topic_buttons:
+		var button: Button = topic_buttons[topic_id]
+		button.button_pressed = str(topic_id) == selected
+
+func _set_notice(text: String) -> void:
+	if not is_instance_valid(notice_label): return
+	notice_label.text = text
+	notice_label.visible = not text.is_empty()
+
+func _select_dialogue_topic(topic_id: String) -> void:
+	var result: Dictionary = Session.select_topic(topic_id, context)
+	if result.get("closed_clarification", false):
+		_set_notice("Уточнение закрыто при смене темы. Задайте новый вопрос.")
+	else:
+		_set_notice("")
+	_update_topic_menu()
 
 func _update_objective_tracker() -> void:
 	if not is_instance_valid(objective_panel): return
@@ -352,11 +408,11 @@ func _toggle_history_expanded() -> void:
 		history_expand_button.text = "Вернуться к разговору"
 	else:
 		dialog.anchor_left = 0.0; dialog.anchor_top = 1.0; dialog.anchor_right = 1.0; dialog.anchor_bottom = 1.0
-		dialog.offset_left = 0; dialog.offset_top = -390; dialog.offset_right = 0; dialog.offset_bottom = 0
+		dialog.offset_left = 0; dialog.offset_top = -460; dialog.offset_right = 0; dialog.offset_bottom = 0
 		transcript.custom_minimum_size.y = 110
 		transcript.size_flags_vertical = Control.SIZE_FILL
 		composer.show()
-		heading_card.show(); objective_panel.show()
+		heading_card.show(); objective_panel.hide()
 		history_expand_button.text = "История на весь экран"
 		composer.phrase.grab_focus()
 
@@ -389,6 +445,7 @@ func _open_dialog() -> void:
 	dialog.show(); player.is_movement_paused = true; player.is_showing_ui = true; Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	dialogue_silence_seconds = 0.0
 	heading_card.hide()
+	_update_topic_menu()
 	if not greeted:
 		var opening: Dictionary = Session.opening_line(context)
 		_append_conversation_line("Астера", opening.answer, true)
@@ -402,6 +459,8 @@ func _can_interact() -> bool:
 
 func _close_dialog() -> void:
 	if history_expanded: _toggle_history_expanded()
+	Session.close_dialog(context)
+	_set_notice("")
 	_finish_reply_reveal()
 	astera_visual.fade_expression_to_rest()
 	dialog.hide(); _toggle_dev(false); composer.release(); player.is_movement_paused = false; player.is_showing_ui = false; Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -426,7 +485,9 @@ func _start_conversation_camera() -> void:
 func _on_submitted(text: String) -> void:
 	dialogue_silence_seconds = 0.0
 	_append_conversation_line("Вы", text)
-	last_record = Session.submit(text, context)
+	last_record = Session.submit(text, context, str(context.get("selected_topic", "")))
+	_set_notice(str(last_record.get("notification", "")))
+	_update_topic_menu()
 	astera_visual.set_emotion(last_record.emotion_state)
 	_play_reaction_motion(last_record.animation_id)
 	_update_objective_tracker()
@@ -508,6 +569,7 @@ func _reset() -> void:
 	mood_option.select(0); astera_mood_option.select(0); topic_option.select(0); pending_option.select(0); last_record = {}
 	_finish_reply_reveal(); transcript.clear(); conversation_lines.clear()
 	_update_diagnostics({}); _update_objective_tracker()
+	_update_topic_menu(); _set_notice("")
 	greeted = false
 	dialogue_silence_seconds = 0.0; silence_tease_shown = false
 	astera_visual.set_emotion("neutral")

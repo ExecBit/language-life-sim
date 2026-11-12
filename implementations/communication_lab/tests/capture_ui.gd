@@ -1,65 +1,64 @@
 extends SceneTree
+
 func _initialize() -> void:
 	call_deferred("capture")
+
 func capture() -> void:
 	var room = load("res://implementations/communication_lab/communication_lab.tscn").instantiate()
 	root.add_child(room)
 	root.content_scale_size = Vector2i(1920, 1080)
 	root.size = Vector2i(1280, 720)
 	room.player.position = Vector3(0, 0, 0.5)
+	await process_frame
 	room._open_dialog()
 	await create_timer(0.75).timeout
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("res://.local/commlab-opening.png")
-	room.astera_visual.set_emotion("happy")
+	root.get_texture().get_image().save_png("res://.local/p67-opening.png")
+	assert(room.topic_buttons.size() == 3)
+	assert(not room.objective_panel.visible)
+	assert(room.transcript.get_parsed_text().contains("Und du?"))
+
+	room._select_dialogue_topic("player_mood")
+	room.composer.phrase.text = "Ich bin glücklich"
+	room.composer.send()
+	for i in 30: await process_frame
+	room._finish_reply_reveal()
+	await RenderingServer.frame_post_draw
+	assert(room.last_record.parse.intent == "REPORT_STATE")
+	assert(room.context.player_mood == "happy")
+	root.get_texture().get_image().save_png("res://.local/p67-state.png")
+
+	room._select_dialogue_topic("help")
+	room.composer.phrase.text = "ich helfen"
+	room.composer.send()
+	for i in 30: await process_frame
+	room._finish_reply_reveal()
+	await RenderingServer.frame_post_draw
+	assert(room.context.pending_clarification.size() > 0)
+	assert(room.notice_label.visible and room.notice_label.text.contains("кому"))
+	root.get_texture().get_image().save_png("res://.local/p67-notice.png")
+
+	room.composer.phrase.text = "Ja"
+	room.composer.send()
 	for i in 30: await process_frame
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("res://.local/commlab-happy.png")
-	room.astera_visual.set_emotion("surprised_soft")
+	assert(room.context.offered_help)
+	assert(room.last_record.parse.intent == "CONFIRM_CLARIFICATION")
+	root.get_texture().get_image().save_png("res://.local/p67-help.png")
+
 	room._toggle_vocabulary()
-	assert(room.vocabulary_card.visible)
 	for i in 3: await process_frame
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("res://.local/commlab-vocabulary.png")
-	room._toggle_vocabulary()
-	room.composer.phrase.text = "Was machst du?"
-	room.composer.send()
-	for i in 34: await process_frame
-	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("res://.local/commlab-activity.png")
-	room._toggle_dev(true)
-	room.composer.phrase.text = "Kann ich helfen?"
-	room.composer.prefix.clear()
-	room.composer.send()
-	for i in 10: await process_frame
-	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("res://.local/commlab-response-start.png")
-	await create_timer(1.2).timeout
-	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("res://.local/commlab-debug.png")
-	assert(room.conversation_lines.size() == 5)
-	assert(room.transcript.get_parsed_text().contains("Вы  Was machst du?"))
-	assert(room.transcript.get_parsed_text().contains("Астера  Oh! Danke! Das ist nett!"))
-	var tabs: TabContainer = room.parse_view.get_parent()
-	for index in [1, 2, 3]:
-		tabs.current_tab = index
-		await process_frame
-		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("res://.local/commlab-tab-%d.png" % index)
-	assert(room.dialog.get_global_rect().end.y <= root.get_visible_rect().size.y)
-	assert(room.dialog.get_global_rect().size.x == root.get_visible_rect().size.x)
-	assert(room.player.is_movement_paused)
-	assert(room.attempts.size() == 2)
-	room.history_list.select(0)
-	room._recall_attempt()
-	assert(room.composer.phrase.text == "Was machst du?")
-	assert(room.context.offered_help and room.context.pending_question == "help_offer")
+	var has_help_construction := false
+	for row in room.vocabulary_rows:
+		if not row.header and row.search.contains("kann ich dir helfen"): has_help_construction = true
+	assert(has_help_construction)
+	root.get_texture().get_image().save_png("res://.local/p67-memo.png")
+
 	room._reset()
-	assert(not room.context.offered_help and not room.context.objective_progress.ask_activity)
-	assert(room.attempts.size() == 2)
+	assert(room.context.awaiting_name and room.context.player_name.is_empty())
 	assert(room.conversation_lines.is_empty())
 	room._close_dialog()
 	assert(not room.player.is_movement_paused)
-	assert(not room.dev_panel.visible)
-	print("UI_WORKFLOW: PASS conversation, debug, recall, reset, movement")
+	print("P67_UI_WORKFLOW: PASS menu, state response, help notice, confirmation, F1 memo, reset")
 	quit()
