@@ -161,11 +161,13 @@ func run() -> void:
 	for node_id in authored.nodes:
 		var card := edit.get_node(NodePath(str(node_id))) as GraphNode
 		var outgoing_count := 0
+		var incoming_count := 0
 		for edge in authored.transitions:
 			if str(edge.get("from", "")) == str(node_id): outgoing_count += 1
-		if card == null or card.get_input_port_count() != 1 or card.get_output_port_count() != outgoing_count:
+			if str(edge.get("to", "")) == str(node_id): incoming_count += 1
+		if card == null or card.get_input_port_count() != incoming_count or card.get_output_port_count() != outgoing_count:
 			compact_ports = false
-	check(compact_ports, "F2 uses one shared incoming port and one output per authored transition")
+	check(compact_ports, "F2 uses one compact incoming and outgoing port per authored transition")
 	var expected_zoom_text := "%d%%" % roundi(edit.zoom * 100.0)
 	check(not edit.show_zoom_buttons and view.zoom_label.text == expected_zoom_text, "F2 keeps graph controls outside the canvas and reports its actual zoom")
 	var before_history: int = p1.dialogue_history.size()

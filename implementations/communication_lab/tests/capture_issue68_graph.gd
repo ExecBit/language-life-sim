@@ -25,7 +25,7 @@ func capture() -> void:
 	var room := (load("res://implementations/communication_lab/communication_lab.tscn") as PackedScene).instantiate()
 	root.add_child(room)
 	root.content_scale_size = Vector2i(1920, 1080)
-	root.size = Vector2i(1280, 720)
+	root.size = Vector2i(1920, 1080)
 	var context := Session.initial_context()
 	Session.opening_line(context)
 	send(context, "report_no_card", "Ich habe keine Karte.")
@@ -40,6 +40,7 @@ func capture() -> void:
 	await process_frame
 	for frame in 10: await process_frame
 	room.graph_view.center_on_current()
+	room.graph_view._on_node_selected(room.graph_view._node_cards["E_OFFICIAL"])
 	await RenderingServer.frame_post_draw
 	var edit: GraphEdit = room.graph_view.graph_edit
 	var node_count := 0
@@ -57,6 +58,11 @@ func capture() -> void:
 			if Rect2(cards[left].position_offset, cards[left].size).intersects(Rect2(cards[right].position_offset, cards[right].size)):
 				overlaps += 1
 	check(overlaps == 0, "all 18 actual GraphNode rectangles are separated after layout")
+	var compact := true
+	for card in cards:
+		if card.size.y > 240: compact = false
+	check(compact, "diagram nodes stay compact while full details are in the side inspector")
+	check(room.graph_view.node_diagnostic.text.contains("E_OFFICIAL"), "selected runtime node details are available in the side inspector")
 	check(room.graph_view.current_node_id == "E_OFFICIAL" and room.graph_history_view.text.contains("Официальный доступ"), "viewport shows the actual official route and event history")
 	check(edit.size.x >= 700 and edit.size.y >= 300, "expanded graph viewport has room for inspection")
 	var output_dir := ProjectSettings.globalize_path("res://.local")
@@ -65,5 +71,18 @@ func capture() -> void:
 	var image := root.get_texture().get_image()
 	var save_error := image.save_png(output_path)
 	check(save_error == OK, "viewport screenshot saved to " + output_path)
+	room.graph_view._fit_graph()
+	await process_frame
+	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png(output_dir.path_join("issue68-f2-overview.png"))
+	room.context = Session.initial_context()
+	room.call("_show_current_graph")
+	room.graph_view._on_node_selected(room.graph_view._node_cards["G00_GATE"])
+	room.graph_view.graph_edit.zoom = 0.85
+	room.graph_view._update_zoom_label()
+	room.graph_view.center_on_current()
+	await process_frame
+	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png(output_dir.path_join("issue68-f2-opening.png"))
 	print("ISSUE68_GRAPH_CAPTURE: %d failure(s) · %s" % [failures, output_path])
 	quit(1 if failures > 0 else 0)

@@ -42,3 +42,5 @@ For a rendered capture, run `Godot_v4.7.1-stable_win64.exe --path . --script res
 The resolver is a bounded, explainable German subset and does not claim unrestricted comprehension. The graph JSON is the single scenario source; local gameplay code validates a sentence, chooses one guarded authored edge and applies only that edge's declared effects.
 
 The lab uses the licensed AvatarSample_B model; see [its attribution and conditions](assets/characters/AVATAR_SAMPLE_B_LICENSE.md). Generated animation provenance remains in [the motion manifest](animations/generated/manifest.json). Shared addons and other implementations are not part of this variant.
+
+F2 presents a compact left-to-right story diagram. Primary story arrows are prominent; repeat/return edges are faint and become prominent when their source is selected. All 61 transitions remain native GraphEdit connections. The side inspector contains full NPC lines, actions, guards and consequences; **Весь сюжет** fits all 18 nodes, and **К текущему** selects and centers the live node. Display-only `debug_position`/`overview` annotations live beside the runtime graph data.
