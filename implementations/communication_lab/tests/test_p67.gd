@@ -24,6 +24,9 @@ func run() -> void:
 			var conflict := Session.submit(utterance, conflict_context)
 			check(conflict.parse.intent == actual_intent and conflict.parse.reason == "SELECTED_ACTION_MISMATCH" and conflict.effects.is_empty() and not conflict_context.offered_help and not conflict_context.help_requested and not conflict_context.objective_progress.offer_help, "opposite menu direction preserves meaning and waits for confirmation: " + choice)
 			check(conflict.notification.contains("выбрали") and conflict_context.pending_clarification.proposition.intent == actual_intent, "notice explains the mismatch and pending question stores actual meaning")
+			var actions := Session.available_actions(conflict_context)
+			var meaning := "хотите помочь Астере" if actual_intent == "OFFER_HELP" else "просите помощи у Астеры"
+			check(actions[0].label == "Подтвердить, что " + meaning and actions[1].label == "Отрицать, что " + meaning, "clarification labels explain the actual help direction")
 			var answer := Session.submit("Ja" if confirm else "Nein", conflict_context)
 			var expected_effect := "offer_help_to_astera" if actual_intent == "OFFER_HELP" else "request_help_from_astera"
 			check(answer.effects == ([expected_effect] if confirm else []) and conflict_context.pending_clarification.is_empty(), "confirmation or denial controls the actual proposition")
@@ -93,6 +96,7 @@ func run() -> void:
 	var subjectless_negative_context := Session.initial_context()
 	var subjectless_negative := Session.submit("nicht müde", subjectless_negative_context)
 	check(subjectless_negative.parse.reason == "MISSING_EXPERIENCER" and subjectless_negative_context.pending_clarification.proposition.polarity == "negative", "subjectless negation keeps its polarity through clarification")
+	check(Session.available_actions(subjectless_negative_context)[0].label.contains("не уставший"), "negative state clarification label preserves negation")
 	var subjectless_negative_yes := Session.submit("Ja", subjectless_negative_context)
 	check(subjectless_negative_yes.effects == ["player_state:tired:negative"] and subjectless_negative_context.player_mood.is_empty(), "confirming a negative state does not become a positive state")
 	var new_state := Session.submit("Ich bin nervös", Session.initial_context())

@@ -37,16 +37,23 @@
       },
       "confirm": {
         "label": "Подтвердить",
+        "label_template": "Подтвердить, что {meaning}",
         "topic": "short_answer"
       },
       "reject": {
         "label": "Отрицать",
+        "label_template": "Отрицать, что {meaning}",
         "topic": "short_answer"
       },
       "back": {
         "label": "Сменить тему",
         "navigation": true
       }
+    },
+    "clarification_meanings": {
+      "OFFER_HELP": "хотите помочь Астере",
+      "REQUEST_HELP": "просите помощи у Астеры",
+      "REPORT_STATE": "описываете себя как «{state}»"
     },
     "nodes": {
       "opening": {

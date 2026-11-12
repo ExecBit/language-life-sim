@@ -118,7 +118,10 @@ func route_key(event: InputEvent) -> bool:
 		get_viewport().set_input_as_handled()
 		if not event.echo:
 			if phrase.has_focus(): prefix.grab_focus()
-			else: phrase.grab_focus()
+			else:
+				phrase.grab_focus()
+				phrase.caret_column = phrase.text.length()
+				phrase.deselect()
 		return true
 	if event.keycode == KEY_DOWN and phrase.has_focus():
 		prefix.grab_focus()
@@ -126,6 +129,8 @@ func route_key(event: InputEvent) -> bool:
 		return true
 	if event.keycode == KEY_UP and prefix.has_focus():
 		phrase.grab_focus()
+		phrase.caret_column = phrase.text.length()
+		phrase.deselect()
 		get_viewport().set_input_as_handled()
 		return true
 	if event.keycode == KEY_TAB and (editing() or matches.has_focus()):

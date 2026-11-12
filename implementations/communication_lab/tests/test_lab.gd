@@ -324,12 +324,16 @@ func run() -> void:
 	editor.phrase.text = "Hallo"; editor.prefix.text = "wi"; editor.update_matches("wi"); editor.phrase.grab_focus()
 	var ctrl_tab_event := InputEventKey.new(); ctrl_tab_event.keycode = KEY_TAB; ctrl_tab_event.ctrl_pressed = true; ctrl_tab_event.pressed = true
 	check(editor.route_key(ctrl_tab_event) and editor.prefix.has_focus(), "Ctrl+Tab switches from phrase to word search")
+	editor.phrase.caret_column = 0
 	var up_event := InputEventKey.new(); up_event.keycode = KEY_UP; up_event.pressed = true
 	check(editor.route_key(up_event) and editor.phrase.has_focus(), "Up switches from word search to phrase")
+	check(editor.phrase.caret_column == editor.phrase.text.length(), "Up places the caret at the end of the existing phrase")
 	var down_event := InputEventKey.new(); down_event.keycode = KEY_DOWN; down_event.pressed = true
 	check(editor.route_key(down_event) and editor.prefix.has_focus(), "Down switches from phrase to word search")
 	check(editor.phrase.text == "Hallo" and editor.prefix.text == "wi", "switching input rows preserves both drafts")
+	editor.phrase.caret_column = 0
 	check(editor.route_key(ctrl_tab_event) and editor.phrase.has_focus(), "Ctrl+Tab also switches back to the phrase")
+	check(editor.phrase.caret_column == editor.phrase.text.length(), "Ctrl+Tab return places the caret at the end of the existing phrase")
 	await create_timer(0.7).timeout
 	check(root.get_camera_3d() == room.get("conversation_camera") and is_equal_approx(room.get("conversation_camera").fov, 36.0), "dialogue camera completes its eye-level close-up")
 	check(is_equal_approx(room.get("conversation_camera").global_position.y, astera.global_position.y + 1.38), "dialogue camera stays at eye level rather than looking up from below")

@@ -18,6 +18,14 @@ static func available_actions(context: Dictionary) -> Array[Dictionary]:
 		if allowed and not action.is_empty():
 			var item := action.duplicate(true)
 			item["id"] = action_id
+			var proposition: Dictionary = context.get("pending_clarification", {}).get("proposition", {})
+			var meaning := str(graph.get("clarification_meanings", {}).get(str(proposition.get("intent", "")), ""))
+			if not meaning.is_empty() and action.has("label_template"):
+				var state_id := str(proposition.get("state_id", ""))
+				var state := str(Language.data().get("states", {}).get(state_id, {}).get("translation", state_id))
+				if str(proposition.get("polarity", "positive")) == "negative":
+					state = "не " + state
+				item.label = str(action.label_template).format({"meaning":meaning.format({"state":state})})
 			result.append(item)
 	return result
 

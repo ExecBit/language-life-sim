@@ -68,6 +68,8 @@ func capture() -> void:
 	assert(room.notice_card.visible and room.notice_card.position == Vector2(18, 18))
 	assert(room.notice_card.get_parent() != room.dialog and not room.dialog.is_ancestor_of(room.notice_card))
 	assert(room.topic_menu.visible and not room.composer.visible)
+	assert(room.topic_buttons["confirm"].text == "Подтвердить, что хотите помочь Астере")
+	assert(room.topic_buttons["reject"].text == "Отрицать, что хотите помочь Астере")
 	root.get_texture().get_image().save_png("res://.local/p67-choice-conflict.png")
 	room.topic_buttons["reject"].emit_signal("pressed")
 	room.composer.phrase.text = "Nein"
