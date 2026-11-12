@@ -31,7 +31,7 @@ func run() -> void:
 		root.get_texture().get_image().save_png(ProjectSettings.globalize_path("res://.local/semantic-clarification.png"))
 	send(room, "confirm_proposition", "Ja")
 	check(room.context.current_node == "G50_CONFIRM" and room.context.player_name == "Alex", "scene confirms exactly the inferred request")
-	send(room, "confirm_proposition", "Ja")
+	send(room, "confirm_proposition", "ja ich bin alex")
 	check(room.context.current_node == "E_OFFICIAL" and room.context.has_pass, "official path completes through real Composer input")
 	room._finish_reply_reveal()
 	room._toggle_dev(true)

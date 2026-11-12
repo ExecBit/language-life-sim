@@ -55,3 +55,5 @@ F2 presents a compact left-to-right story diagram. Primary story arrows are prom
 ## Typed language and NPC repair
 
 The RPG uses one typed semantic parser. `Ich möchte vorläufigen` can trigger `Einen vorläufigen Pass?`; an immediate yes confirms that meaning, and no/new content/closing cancels it. Bare `Nein` can deny the current technician challenge. Roles, polarity and modality are preserved. See [the language data contract and verification](docs/semantic_language.md) for word/scenario additions, extension examples, supported families and limits.
+
+Identity questions also accept full answers such as `ja ich bin Alex` and `Ich heiße Alex`. The answer is compared with the pending name; a different name returns to introduction, and contradictory answers repeat the question without issuing a pass. A failed wording preserves an authored question for a retry. Run `tests/test_proposition_answers.gd` through the same headless source-project command to verify this family.

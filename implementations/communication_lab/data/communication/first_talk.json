@@ -498,7 +498,14 @@
         "open_proposition": {
           "id": "confirm_player_name",
           "kind": "identity",
-          "value_field": "player_name"
+          "value_field": "player_name",
+          "answer_schema": {
+            "family": "name",
+            "requires": {
+              "actor": "player"
+            },
+            "value_slot": "name"
+          }
         },
         "language_context": {
           "referents": [

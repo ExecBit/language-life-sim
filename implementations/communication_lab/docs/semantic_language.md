@@ -41,6 +41,14 @@ A new kind of action, complex clause or relationship outside the supported famil
 
 ## Error families and contrasts
 
+### Full answers to an identity question
+
+Observed failure: after the authored identity question, `ja ich bin alex` becomes UNKNOWN, then a bare `ja` loses its target. Confirmed branches: the name parser only opens in a name-entry slot and excludes response particles; Session's failure branch clears the authored proposition along with temporary repair state. The general correction is a proposition answer schema that compares an asserted value/subject/polarity with the pending value, plus separate lifetime rules for authored questions and transient inferred actions. Contrasts added before implementation: matching versus different name, first versus second person, positive versus negative assertion, consistent versus conflicting response particle, extra known/unknown content, authored-question retry versus expired temporary request. Expected result: a matching full answer confirms once; disagreement uses the existing rejection edge; contradictions/unknown content have no effects; retry remains possible. No fixed name, node ID or complete utterance belongs in the runtime rule.
+
+The authored proposition now declares `answer_schema: {"family":"name","requires":{"actor":"player"},"value_slot":"name"}` alongside its existing `value_field`. The actual value comes from the session. An assertion with that family/subject is compared with the pending value and its polarity; a response particle must agree with the assertion. Conflicts repeat the authored question without changing facts. A leading response particle separated by a full stop is attached to the same assertion; other multiple clauses remain unsupported.
+
+Verification: initial `test_proposition_answers.gd` failed 19 of 69 assertions against the previous runtime. The expanded suite passes 83 assertions across two freely introduced names, full/short confirmations, disagreement, conflicting polarity/particles, other subjects, extra known/unknown content, retries and duplicate-effect prevention. The rendered source scene now submits `ja ich bin alex` through the actual Composer and reaches `E_OFFICIAL`; F2 shows `T_G50_CONFIRM` with that original input. The existing 94 semantic assertions, 19 extension assertions, all eight routes, language contract, productive intents and vocabulary checks also pass. These checks cover the reported error family, not every natural answer in German.
+
 The investigation baseline and confirmed old branches are documented in [parser_architecture_audit.md](parser_architecture_audit.md). Counterexamples were added before the replacement was connected. Additional contrast batches caught coverage/recovery defects during implementation.
 
 | Family / observed root cause | General mechanism and scope | Contrasts and remaining risk |

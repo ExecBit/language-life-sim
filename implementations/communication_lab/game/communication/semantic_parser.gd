@@ -40,6 +40,10 @@ static func analyze(text: String, context: Dictionary, scenario: Dictionary, dep
 	var clause_boundary := RegEx.new()
 	clause_boundary.compile("[.!?;:]+\\s*(?=[\\p{L}])|\\b(?:und|aber|weil|wenn)\\b")
 	var boundaries := clause_boundary.search_all(stripped)
+	# A leading response particle is discourse attached to one assertion, not a second act.
+	if boundaries.size() == 1:
+		var prefix := stripped.substr(0, boundaries[0].get_start()).strip_edges().to_lower()
+		if str(lexicon.get(prefix, {}).get("syntax", {}).get("kind", "")) == "response": boundaries.clear()
 	if not boundaries.is_empty() and depth == 0:
 		var start := 0
 		for boundary in boundaries:
@@ -106,6 +110,9 @@ static func analyze(text: String, context: Dictionary, scenario: Dictionary, dep
 			"time": time = true
 	if str(tokens[0].syntax.get("kind", "")) == "operator": question = true
 	var open_question: Dictionary = context.get("pending_proposition", {})
+	result["answer_particles"] = responses.duplicate()
+	var answer_schema: Dictionary = open_question.get("answer_schema", {})
+	var answering_name := str(answer_schema.get("family", "")) == "name" and str(open_question.get("node_id", "")) == str(context.get("current_node", ""))
 	var only_answer := not responses.is_empty()
 	for token in tokens:
 		if str(token.syntax.get("kind", "")) not in ["response", "polite"]: only_answer = false
@@ -127,20 +134,21 @@ static func analyze(text: String, context: Dictionary, scenario: Dictionary, dep
 			return _finish(result, [f], context, scenario, false, ["challenge_from_current_node"])
 		return _clarify(result, "NO_OPEN_YES_NO_TARGET", [], "Worauf bezieht sich dein Ja oder Nein?")
 	# Unknown names are allowed only in a declared name slot and name construction.
-	var name_slot := bool(discourse.get("name_slot", false))
+	var name_slot := bool(discourse.get("name_slot", false)) or answering_name
 	var selected: Dictionary = graph.get("actions", {}).get(str(context.get("selected_action", "")), {})
-	var name_shape := predicates.has("name") or (predicates == ["be"] and entities.is_empty() and properties.is_empty()) or (tokens.size() == 1 and str(selected.get("semantic_action", "")) == "PLAYER_NAME")
+	var name_shape := (predicates.is_empty() and answering_name) or predicates == ["name"] or (predicates == ["be"] and entities.is_empty() and properties.is_empty()) or (tokens.size() == 1 and (answering_name or str(selected.get("semantic_action", "")) == "PLAYER_NAME"))
 	var pure_name := not question and operators.is_empty() and entities.is_empty() and properties.is_empty()
 	for token in tokens:
+		if answering_name and str(token.syntax.get("kind", "")) in ["response", "negation"]: continue
 		if token.known and str(token.syntax.get("kind", "")) not in ["pronoun", "predicate", "name_marker", "article", "possessive", "polite", "greeting"]: pure_name = false
-	if name_slot and name_shape and pure_name and not negative:
+	if name_slot and name_shape and pure_name and negation_count <= 1 and (not negative or answering_name):
 		var names: Array[String] = []
 		for token in tokens:
 			if not token.known: names.append(str(token.surface))
 		if names.size() == 1 and result.unknown_tokens.size() == 1 and (subjects.is_empty() or subjects == [speaker]):
 			var name := names[0].substr(0, 1).to_upper() + names[0].substr(1).to_lower()
 			result.unknown_tokens.clear()
-			return _finish(result, [{"family":"name","actor":speaker,"name":name,"polarity":"positive","speech_act":"statement"}], context, scenario, false, ["name_slot"])
+			return _finish(result, [{"family":"name","actor":speaker,"name":name,"polarity":"negative" if negative else "positive","speech_act":"statement"}], context, scenario, false, ["name_slot"])
 	if not result.unknown_tokens.is_empty(): return _failure(result, "UNKNOWN", "UNKNOWN_TOKEN")
 	if negation_count > 1: return _clarify(result, "NEGATION_SCOPE", [], "Sag es bitte anders.")
 	if subjects.size() > 1: return _clarify(result, "AMBIGUOUS_ROLES", [], "Wer soll das machen? Ich oder du?")
@@ -319,6 +327,9 @@ static func _referents(discourse: Dictionary, lexicon: Dictionary, attributes: A
 	return found
 
 static func _finish(result: Dictionary, frames: Array, context: Dictionary, scenario: Dictionary, needs_confirmation: bool, inferred: Array) -> Dictionary:
+	if frames.size() == 1 and not needs_confirmation:
+		var answer := _answer_to_proposition(result, frames[0], context)
+		if not answer.is_empty(): return answer
 	var candidates: Array[Dictionary] = []
 	var seen := {}
 	for f in frames:
@@ -355,6 +366,29 @@ static func _finish(result: Dictionary, frames: Array, context: Dictionary, scen
 	if needs_confirmation:
 		return _clarify(result, "VERIFY_RECOVERED_MEANING", candidates, confirmation(candidates[0].frame, scenario))
 	return _complete(result, candidates[0], inferred)
+
+static func _answer_to_proposition(result: Dictionary, assertion: Dictionary, context: Dictionary) -> Dictionary:
+	var proposition: Dictionary = context.get("pending_proposition", {})
+	var schema: Dictionary = proposition.get("answer_schema", {})
+	if schema.is_empty() or str(proposition.get("node_id", "")) != str(context.get("current_node", "")): return {}
+	if assertion.get("family", "") != schema.get("family", ""): return {}
+	for field in schema.get("requires", {}):
+		if assertion.get(field) != schema.requires[field]: return {}
+	var value_slot := str(schema.get("value_slot", ""))
+	if value_slot.is_empty() or not assertion.has(value_slot) or not proposition.has("value"): return {}
+	var same := str(assertion[value_slot]).to_lower() == str(proposition.value).to_lower()
+	var negative := str(assertion.get("polarity", "")) == "negative"
+	var confirms := same and not negative
+	var particles: Array = result.get("answer_particles", [])
+	# Not being another person proves neither side of the actual identity question.
+	if (negative and not same) or particles.has("contradict") or (particles.has("yes") and not confirms) or (particles.has("no") and confirms):
+		result.semantic_frames = [{"family":assertion.family,"frame":assertion.duplicate(true)}]
+		result["repeat_proposition"] = true
+		return _clarify(result, "PROPOSITION_ANSWER_CONFLICT", [], "")
+	return _complete(result, {"family":"response","intent":"SHORT_YES" if confirms else "SHORT_NO","frame":{
+		"actor":assertion.actor,"speech_act":"answer","confirmation":"yes" if confirms else "no",
+		"proposition_id":str(proposition.get("id", "")),"polarity":"positive" if confirms else "negative",
+		"assertion":assertion.duplicate(true)}}, ["pending_proposition", "asserted_value_comparison"])
 
 static func _complete(result: Dictionary, candidate: Dictionary, inferred: Array) -> Dictionary:
 	result.status = "RECOGNIZED"; result.reason = "COMPOSITIONAL_MEANING"

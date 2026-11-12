@@ -133,6 +133,11 @@ static func submit(text: String, context: Dictionary, selected_action: String = 
 		var candidates: Array = parsed.get("candidates", [])
 		context.pending_clarification = {"kind":"unresolved","node_id":DialogueGraph.node_id(context)}
 		context.pending_proposition = {}
+		# Authored questions survive a failed wording. Only transient inferred actions expire.
+		if str(parsed.get("status", "")) in ["UNKNOWN", "UNSUPPORTED"] or parsed.get("repeat_proposition", false):
+			context.pending_proposition = _proposition_for(DialogueGraph.node_id(context), context)
+			if not context.pending_proposition.is_empty(): context.pending_clarification = {}
+		if parsed.get("repeat_proposition", false): answer = DialogueGraph.display_line(context)
 		if str(parsed.get("status", "")) == "NEEDS_CLARIFICATION" and candidates.size() == 1:
 			var candidate: Dictionary = candidates[0]
 			var resolved := DialogueGraph.resolve(context, str(candidate.intent), candidate.frame)

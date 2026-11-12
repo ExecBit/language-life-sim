@@ -31,6 +31,10 @@ func _initialize() -> void:
 		bound[str(binding.intent)] = true
 	for node in Graph.data().nodes.values():
 		for id in node.get("language_context", {}).get("referents", []): check(entities.has(str(id)), "context referent exists: " + str(id))
+		var proposition: Dictionary = node.get("open_proposition", {})
+		var schema: Dictionary = proposition.get("answer_schema", {})
+		if not schema.is_empty():
+			check(schema.has("family") and schema.has("requires") and not str(schema.get("value_slot", "")).is_empty() and proposition.has("value_field"), "value proposition declares its answer contract")
 	for id in Graph.data().actions:
 		var action: Dictionary = Graph.data().actions[id]
 		check(bound.has(str(action.semantic_action)), "action has semantic binding: " + str(id))
