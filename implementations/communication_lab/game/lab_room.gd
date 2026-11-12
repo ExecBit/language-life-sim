@@ -44,6 +44,11 @@ var objective_labels: Dictionary = {}
 var topic_menu: VBoxContainer
 var topic_buttons: Dictionary = {}
 var notice_label: Label
+var notice_card: PanelContainer
+var notice_timer: Timer
+var reply_editor: VBoxContainer
+var selected_reply_label: Label
+var editing_action := ""
 var greeted := false
 var motion_paths: Dictionary = {}
 var conversation_camera: Camera3D
@@ -198,8 +203,17 @@ func _build_ui() -> void:
 		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT: _finish_reply_reveal())
 	column.add_child(transcript)
 	_build_topic_menu(column)
-	composer = Composer.new(); column.add_child(composer)
-	composer.submitted.connect(_on_submitted); composer.cancelled.connect(_close_dialog)
+	reply_editor = VBoxContainer.new()
+	reply_editor.name = "ReplyEditor"
+	reply_editor.add_theme_constant_override("separation", 12)
+	column.add_child(reply_editor)
+	var reply_header := HBoxContainer.new()
+	reply_editor.add_child(reply_header)
+	selected_reply_label = _label(reply_header, "", 20)
+	selected_reply_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_button(reply_header, "К выбору реплики", _back_to_choices)
+	composer = Composer.new(); reply_editor.add_child(composer)
+	composer.submitted.connect(_on_submitted); composer.cancelled.connect(_back_to_choices)
 	composer.help_requested.connect(_toggle_vocabulary)
 	vocabulary_card = PanelContainer.new(); canvas.add_child(vocabulary_card)
 	vocabulary_card.anchor_left = 0.5; vocabulary_card.anchor_top = 0.5
@@ -284,6 +298,8 @@ func _build_ui() -> void:
 	history_list.item_selected.connect(func(index): _update_diagnostics(attempts[index]))
 	_button(history, "Вернуть выбранный текст в редактор", _recall_attempt)
 	_label(tools, "История — текущая сессия. Полный журнал сохраняется в JSONL.", 14).modulate = Color("9aafbd")
+	_build_notice(canvas)
+	_update_reply_view()
 	_update_diagnostics({})
 	_update_objective_tracker()
 
@@ -313,15 +329,44 @@ func _build_topic_menu(parent: VBoxContainer) -> void:
 	topic_menu.name = "DialogueActions"
 	topic_menu.add_theme_constant_override("separation", 4)
 	parent.add_child(topic_menu)
-	notice_label = Label.new()
-	notice_label.name = "ConversationNotice"
-	notice_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	notice_label.custom_minimum_size.y = 22
-	notice_label.add_theme_font_size_override("font_size", 15)
-	notice_label.modulate = Color("edc488")
-	parent.add_child(notice_label)
-	notice_label.hide()
 	_update_topic_menu()
+
+func _build_notice(canvas: Control) -> void:
+	notice_card = PanelContainer.new()
+	notice_card.name = "ConversationToast"
+	notice_card.position = Vector2(18, 18)
+	notice_card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	notice_card.add_theme_stylebox_override("panel", _style(Color("29251f"), Color("c29c56")))
+	canvas.add_child(notice_card)
+	notice_label = _label(notice_card, "", 18)
+	notice_label.name = "ConversationNotice"
+	notice_label.modulate = Color("f0d6a7")
+	notice_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var resize_notice := func():
+		notice_card.size.x = minf(560.0, get_viewport().get_visible_rect().size.x - 36.0)
+	get_viewport().size_changed.connect(resize_notice)
+	resize_notice.call()
+	notice_timer = Timer.new()
+	notice_timer.one_shot = true
+	notice_timer.wait_time = 10.0
+	notice_timer.timeout.connect(func(): _set_notice(""))
+	add_child(notice_timer)
+	_set_notice("")
+
+func _update_reply_view() -> void:
+	if not is_instance_valid(reply_editor):
+		return
+	var writing := not editing_action.is_empty() and not history_expanded
+	reply_editor.visible = writing
+	composer.visible = writing
+	topic_menu.visible = not writing and not history_expanded
+
+func _back_to_choices() -> void:
+	editing_action = ""
+	composer.release()
+	_update_reply_view()
+	if not topic_buttons.is_empty():
+		topic_buttons.values()[0].grab_focus()
 
 func _update_topic_menu() -> void:
 	for child in topic_menu.get_children():
@@ -344,20 +389,35 @@ func _update_topic_menu() -> void:
 		button.pressed.connect(_select_dialogue_action.bind(action_id))
 		topic_menu.add_child(button)
 		topic_buttons[action_id] = button
+	_update_reply_view()
 
 func _select_dialogue_action(action_id: String) -> void:
+	var label := ""
+	var navigation := false
+	for action in Session.available_actions(context):
+		if str(action.id) == action_id:
+			label = str(action.label)
+			navigation = bool(action.get("navigation", false))
 	var result: Dictionary = Session.select_action(action_id, context)
 	if not result.get("accepted", false):
 		return
-	_set_notice("Уточнение закрыто при смене темы. Выберите продолжение." if result.get("closed_clarification", false) else "")
+	editing_action = "" if navigation else action_id
+	selected_reply_label.text = label
+	if result.get("closed_clarification", false):
+		_set_notice("Уточнение закрыто при смене темы. Выберите продолжение.")
 	_update_topic_menu()
 	_show_live_context()
-	composer.phrase.grab_focus()
+	if not navigation:
+		composer.phrase.grab_focus()
 
 func _set_notice(text: String) -> void:
 	if not is_instance_valid(notice_label): return
 	notice_label.text = text
 	notice_label.visible = not text.is_empty()
+	notice_card.visible = not text.is_empty()
+	notice_timer.stop()
+	if not text.is_empty():
+		notice_timer.start()
 
 func _select_dialogue_topic(topic_id: String) -> void:
 	var result: Dictionary = Session.select_topic(topic_id, context)
@@ -399,6 +459,8 @@ func _load_motion_manifest() -> void:
 func _recall_attempt() -> void:
 	var selected := history_list.get_selected_items()
 	if selected.is_empty(): return
+	var action_id := str(context.get("selected_action", ""))
+	_select_dialogue_action(action_id)
 	composer.phrase.text = attempts[selected[0]].input
 	composer.prefix.clear()
 	composer.phrase.grab_focus()
@@ -406,7 +468,7 @@ func _recall_attempt() -> void:
 func _toggle_vocabulary() -> void:
 	vocabulary_card.visible = not vocabulary_card.visible
 	if vocabulary_card.visible: composer.release()
-	else: composer.phrase.grab_focus()
+	elif composer.visible: composer.phrase.grab_focus()
 
 func _toggle_history_expanded() -> void:
 	history_expanded = not history_expanded
@@ -415,7 +477,7 @@ func _toggle_history_expanded() -> void:
 		dialog.offset_left = 0; dialog.offset_top = 0; dialog.offset_right = 0; dialog.offset_bottom = 0
 		transcript.custom_minimum_size.y = 0
 		transcript.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		composer.hide()
+		_update_reply_view()
 		heading_card.hide(); objective_panel.hide(); dev_panel.hide(); vocabulary_card.hide()
 		history_expand_button.text = "Вернуться к разговору"
 	else:
@@ -423,21 +485,21 @@ func _toggle_history_expanded() -> void:
 		dialog.offset_left = 0; dialog.offset_top = -460; dialog.offset_right = 0; dialog.offset_bottom = 0
 		transcript.custom_minimum_size.y = 110
 		transcript.size_flags_vertical = Control.SIZE_FILL
-		composer.show()
+		_update_reply_view()
 		heading_card.show(); objective_panel.hide()
 		history_expand_button.text = "История на весь экран"
-		composer.phrase.grab_focus()
+		if composer.visible: composer.phrase.grab_focus()
 
 func _show_live_context() -> void:
 	if is_instance_valid(context_view):
 		context_view.text = "СОСТОЯНИЕ РАЗГОВОРА / следующая попытка\n" + JSON.stringify(Session._conversation_snapshot(context), "  ")
 
 func _input(event: InputEvent) -> void:
-	if dialog.visible and composer.route_key(event):
+	if dialog.visible and composer.visible and composer.route_key(event):
 		get_viewport().set_input_as_handled()
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_F1 and vocabulary_card.visible:
+		if event.keycode == KEY_F1 and dialog.visible:
 			_toggle_vocabulary()
 			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_F2:
@@ -449,7 +511,10 @@ func _input(event: InputEvent) -> void:
 			_open_dialog()
 			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_ESCAPE and dialog.visible:
-			_close_dialog()
+			if not editing_action.is_empty():
+				_back_to_choices()
+			else:
+				_close_dialog()
 			get_viewport().set_input_as_handled()
 
 func _open_dialog() -> void:
@@ -464,7 +529,7 @@ func _open_dialog() -> void:
 		astera_visual.set_emotion(opening.emotion_state)
 		_play_reaction_motion(opening.animation_id)
 		greeted = true
-	composer.phrase.grab_focus()
+	_back_to_choices()
 
 func _can_interact() -> bool:
 	return is_instance_valid(player) and is_instance_valid(astera_visual) and player.global_position.distance_to(astera_visual.global_position) <= 5.0
@@ -495,10 +560,16 @@ func _start_conversation_camera() -> void:
 	camera_tween.tween_property(conversation_camera, "fov", CONVERSATION_FOV, 0.6)
 
 func _on_submitted(text: String) -> void:
+	if editing_action.is_empty():
+		return
 	dialogue_silence_seconds = 0.0
 	_append_conversation_line("Вы", text)
 	last_record = Session.submit(text, context)
 	_set_notice(str(last_record.get("notification", "")))
+	var completed: bool = str(last_record.parse.get("status", "")) == "RECOGNIZED" and context.pending_clarification.is_empty()
+	if completed or not context.pending_clarification.is_empty():
+		editing_action = ""
+		composer.clear()
 	_update_topic_menu()
 	astera_visual.set_emotion(last_record.emotion_state)
 	_play_reaction_motion(last_record.animation_id)
@@ -513,9 +584,10 @@ func _on_submitted(text: String) -> void:
 	history_list.add_item("%02d  %s  ·  %s" % [attempts.size(), text, last_record.parse.status])
 	history_list.select(attempts.size() - 1)
 	_append_conversation_line("Астера", last_record.answer, true)
-	composer.clear()
 
 	_update_diagnostics(last_record)
+	if editing_action.is_empty():
+		_back_to_choices()
 
 func _finish_reply_reveal() -> void:
 	if is_instance_valid(reveal_tween): reveal_tween.kill()
@@ -577,6 +649,8 @@ func _set_topic(index: int) -> void:
 	context.topic = ["introduction", "player_mood", "astera_mood", "activity", "help", "slow_speech", "farewell"][index]; _show_live_context()
 
 func _reset() -> void:
+	editing_action = ""
+	composer.clear()
 	Session.reset(context); busy_toggle.button_pressed = false; name_toggle.button_pressed = false; offered_help_toggle.button_pressed = false
 	mood_option.select(0); astera_mood_option.select(0); topic_option.select(0); pending_option.select(0); last_record = {}
 	_finish_reply_reveal(); transcript.clear(); conversation_lines.clear()

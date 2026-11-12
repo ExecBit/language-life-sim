@@ -286,7 +286,8 @@ func run() -> void:
 	check(room.get("transcript").get_parsed_text() == history_before_expand, "full-screen history keeps conversation text intact")
 	room.call("_toggle_history_expanded")
 	await process_frame
-	check(not room.get("history_expanded") and room.get("composer").visible and room.get("dialog").anchor_bottom == 1.0, "history button restores dialogue and composer layout")
+	check(not room.get("history_expanded") and not room.get("composer").visible and room.get("dialog").anchor_bottom == 1.0, "history button restores choices without opening the editor")
+	room.call("_select_dialogue_action", "introduce")
 	var h_event := InputEventKey.new(); h_event.keycode = KEY_H; h_event.pressed = true
 	check(not room.get("composer").route_key(h_event), "H is not consumed as a word-memo shortcut while typing")
 	var memo_event := InputEventKey.new(); memo_event.keycode = KEY_F1; memo_event.pressed = true
@@ -340,6 +341,7 @@ func run() -> void:
 	check(room.get("transcript").visible_characters < room.get("transcript").get_total_character_count(), "new NPC response starts a text reveal animation")
 	room.call("_finish_reply_reveal")
 	check(room.get("transcript").visible_characters == -1, "reply reveal can be completed immediately")
+	room.call("_select_dialogue_action", "share_state")
 	editor.phrase.text = "Ich brauche den Schlüssel"; editor.send()
 	check(astera.get("active_animation_id") == "open_palm_offer" and editor.phrase.text.is_empty(), "actual composer submission triggers a legacy reply gesture and clears the sent draft")
 	await create_timer(0.15).timeout
@@ -355,6 +357,7 @@ func run() -> void:
 	var rig: Skeleton3D = astera.get("rig_skeleton")
 	var before_pose: Array[Quaternion] = []
 	for bone in rig.get_bone_count(): before_pose.append(rig.get_bone_pose_rotation(bone))
+	room.call("_select_dialogue_action", "share_state")
 	editor.phrase.text = "Ich brauche den Schlüssel"; editor.send()
 	check(idle_player.current_animation_position < 0.1 and astera.get("active_animation_id") == "open_palm_offer", "repeated submission restarts the same gesture at its beginning")
 	await create_timer(0.4).timeout
@@ -374,6 +377,7 @@ func run() -> void:
 	check(room.get("last_record").answer == "Du möchtest mir helfen?" and room.get("notice_label").visible and room.get("notice_label").text.contains("кому"), "composer and help menu ask one role clarification and explain the missing recipient")
 	room.get("topic_buttons")["back"].emit_signal("pressed")
 	check(room.get("context").pending_clarification.is_empty() and room.get("notice_label").text.contains("смене темы"), "choosing a new topic cancels the pending question with a notice")
+	room.call("_select_dialogue_action", "share_state")
 	editor.phrase.text = "Ja"; editor.send()
 	check(not room.get("context").offered_help and room.get("last_record").parse.reason == "NO_OPEN_YES_NO_TARGET", "yes after changing topic cannot apply the old offer")
 	var original_camera: Camera3D = room.get("exploration_camera")
@@ -390,6 +394,7 @@ func run() -> void:
 	check(room.get("conversation_lines").back().text == "Du bist sehr still!" and room.get("astera_visual").get("active_animation_id") == "playful_shrug", "long conversational silence triggers the playful A0 nudge and motion")
 	check(not room.get("context").objective_progress.ask_activity and room.get("objective_labels").ask_activity.text.begins_with("○"), "reset clears and visually refreshes objective progress")
 	room.call("_reset")
+	room.call("_select_dialogue_action", "introduce")
 	room.get("composer").phrase.text = "Hallo ich bin alex"
 	room.get("composer").send()
 	check(room.get("context").player_name == "Alex" and room.get("conversation_lines").size() == 2 and room.get("conversation_lines").back().text == "Hallo, Alex! Schön!", "actual composer accepts greeting plus name with one NPC reply")

@@ -18,7 +18,27 @@ func capture() -> void:
 	assert(not room.objective_panel.visible)
 	assert(room.transcript.get_parsed_text().contains("Und du?"))
 
+	assert(room.topic_menu.visible and not room.composer.visible)
+	var attempt_count: int = room.attempts.size()
+	room.composer.phrase.text = "unselected draft"
+	room.composer.send()
+	assert(room.attempts.size() == attempt_count)
+	room.composer.clear()
+	room.topic_buttons["introduce"].emit_signal("pressed")
+	assert(room.reply_editor.visible and room.composer.visible and not room.topic_menu.visible)
+	assert(room.selected_reply_label.text == "Представиться")
 	room.composer.phrase.text = "Ich bin Neral"
+	room._back_to_choices()
+	assert(room.topic_menu.visible and not room.composer.visible and room.composer.phrase.text == "Ich bin Neral")
+	room.topic_buttons["introduce"].emit_signal("pressed")
+	await process_frame
+	await RenderingServer.frame_post_draw
+	assert(room.composer.get_global_rect().end.y <= root.get_visible_rect().end.y)
+	root.get_texture().get_image().save_png("res://.local/p67-writing.png")
+	room._toggle_history_expanded()
+	assert(not room.composer.visible and not room.topic_menu.visible)
+	room._toggle_history_expanded()
+	assert(room.composer.visible and room.selected_reply_label.text == "Представиться" and room.composer.phrase.text == "Ich bin Neral")
 	room.composer.send()
 	await process_frame
 	room._finish_reply_reveal()
@@ -45,7 +65,11 @@ func capture() -> void:
 	assert(not room.context.offered_help and not room.context.help_requested)
 	assert(room.last_record.parse.reason == "SELECTED_ACTION_MISMATCH")
 	assert(room.notice_label.text.contains("выбрали") and room.topic_buttons.has("confirm"))
+	assert(room.notice_card.visible and room.notice_card.position == Vector2(18, 18))
+	assert(room.notice_card.get_parent() != room.dialog and not room.dialog.is_ancestor_of(room.notice_card))
+	assert(room.topic_menu.visible and not room.composer.visible)
 	root.get_texture().get_image().save_png("res://.local/p67-choice-conflict.png")
+	room.topic_buttons["reject"].emit_signal("pressed")
 	room.composer.phrase.text = "Nein"
 	room.composer.send()
 	assert(not room.context.offered_help and not room.context.help_requested)
@@ -71,6 +95,8 @@ func capture() -> void:
 	assert(room.last_record.parse.intent == "CONFIRM_CLARIFICATION")
 	root.get_texture().get_image().save_png("res://.local/p67-help.png")
 
+	room.notice_timer.timeout.emit()
+	assert(not room.notice_card.visible)
 	room._toggle_vocabulary()
 	for i in 3: await process_frame
 	await RenderingServer.frame_post_draw
@@ -82,7 +108,7 @@ func capture() -> void:
 
 	room._reset()
 	assert(room.context.awaiting_name and room.context.player_name.is_empty())
-	assert(room.conversation_lines.is_empty())
+	assert(room.conversation_lines.is_empty() and room.topic_menu.visible and not room.composer.visible)
 	room._close_dialog()
 	assert(not room.player.is_movement_paused)
 	print("P67_UI_WORKFLOW: PASS menu, state response, help notice, confirmation, F1 memo, reset")
