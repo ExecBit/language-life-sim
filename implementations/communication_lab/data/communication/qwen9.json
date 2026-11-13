@@ -1,0 +1,22 @@
+{
+  "enabled": false,
+  "host": "127.0.0.1",
+  "port": 38173,
+  "model_alias": "communication-lab-qwen9",
+  "executable": "res://.local/lfm3/llama/llama-server.exe",
+  "weights": "res://.local/lfm3/Qwen3.5-9B-Q4_K_M.gguf",
+  "context_tokens": 4096,
+  "max_output_tokens": 600,
+  "request_timeout_seconds": 60,
+  "startup_timeout_seconds": 90,
+  "auto_start": true,
+  "backend": "qwen9-q4_k_m",
+  "temperature": 0.7,
+  "top_p": 0.8,
+  "enable_thinking": false,
+  "low_effort": false,
+  "prompt_version": "context-v2",
+  "top_k": 20,
+  "min_p": 0.0,
+  "presence_penalty": 1.5
+}

@@ -194,7 +194,13 @@ static func submit_interpreted(text: String, context: Dictionary, parsed: Dictio
 		"changed":str(before.get("current_node", "")) != str(context.get("current_node", "")),
 		"reason":transition_error
 	}
-	if applied_event.is_empty(): _append_event(context, event)
+	event["npc_reply"] = answer
+	if applied_event.is_empty():
+		_append_event(context, event)
+	else:
+		# The applied transition was recorded before selecting the final reply.
+		context.dialogue_history[-1]["npc_reply"] = answer
+		context.last_event["npc_reply"] = answer
 	if not answer.is_empty(): context.last_npc_line = answer
 	var node_data := DialogueGraph.node(context)
 	var result := {

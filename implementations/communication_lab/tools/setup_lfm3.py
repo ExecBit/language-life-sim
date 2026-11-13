@@ -7,6 +7,7 @@ import json
 import os
 import time
 import urllib.request
+import urllib.error
 import zipfile
 
 VARIANT = Path(__file__).resolve().parents[1]
@@ -61,7 +62,7 @@ def install_model():
         for done, _ in enumerate(pool.map(fetch, range(count)), 1):
             if done % 16 == 0:
                 print(f'{done}/{count} chunks', flush=True)
-    temporary = DEST / 'verified-download.part'
+    temporary = DEST / ('verified-' + model['sha256'][:12] + '.part')
     with temporary.open('wb') as output:
         for index in range(count):
             output.write((chunks / str(index)).read_bytes())
@@ -87,7 +88,7 @@ def install_runtime():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', choices=['lfm3', 'granite'], default='lfm3')
+    parser.add_argument('--model', choices=['lfm3', *MANIFEST['comparison_models']], default='lfm3')
     args = parser.parse_args()
     if args.model != 'lfm3':
         MANIFEST['model'] = MANIFEST['comparison_models'][args.model]
@@ -101,5 +102,10 @@ if __name__ == '__main__':
         url = f"https://huggingface.co/{model['repository']}/resolve/{model['revision']}/{name}"
         license_dir = DEST / ('provenance-' + args.model)
         license_dir.mkdir(exist_ok=True)
-        (license_dir / name).write_bytes(read_url(url))
+        try:
+            content = read_url(url)
+        except urllib.error.HTTPError as error:
+            if error.code != 404 or name != 'LICENSE' or not model.get('source_repository'): raise
+            content = read_url(model.get('license_text_url') or f"https://huggingface.co/{model['source_repository']}/resolve/main/LICENSE")
+        (license_dir / name).write_bytes(content)
     print(MANIFEST['model']['name'] + ' assets verified. See docs/local_language_integration.md before enabling the experimental profile.')

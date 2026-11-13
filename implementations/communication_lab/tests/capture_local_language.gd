@@ -16,14 +16,14 @@ func run() -> void:
 	while room.language_busy: await process_frame
 	room._finish_reply_reveal()
 	var parsed: Dictionary = room.last_record.parse
-	var transport_ok := parsed.has("model_output") and str(parsed.get("backend", "")).begins_with("lfm3")
+	var transport_ok: bool = parsed.has("model_output") and str(parsed.get("backend", "")) == str(room.language_client.config.backend) and room.context.current_node == "G10_NO_CARD"
 	print("SOURCE_MODEL_RESPONSE: ", JSON.stringify(parsed))
 	room._toggle_dev(true)
 	room._show_current_graph()
 	for frame in 10: await process_frame
 	if DisplayServer.get_name() != "headless":
 		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png(ProjectSettings.globalize_path("res://.local/lfm3/source-model-graph.png"))
+		root.get_texture().get_image().save_png(ProjectSettings.globalize_path("res://.local/lfm3/%s-source-model-graph.png" % str(room.language_client.config.backend)))
 	print("LOCAL_LANGUAGE_SOURCE_TRANSPORT: %s (not a language quality PASS)" % ("PASS" if transport_ok else "FAIL"))
 	room.queue_free()
 	await process_frame

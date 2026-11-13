@@ -61,3 +61,5 @@ Identity questions also accept full answers such as `ja ich bin Alex` and `Ich h
 ## Experimental local models
 
 The source scene has an asynchronous llama.cpp integration for LFM3-1.7B and an authorized Granite 4.2-3B comparison. Both model profiles are **disabled by default because live language-quality checks failed**. Setup, explicit opt-in, pinned assets, source reproduction and observed failures are documented in [local language integration](docs/local_language_integration.md). Passing graph/transport checks must not be reported as successful model comprehension.
+
+The authorized larger-model experiment adds Qwen3.5-9B and Mistral NeMo 12B profiles. It separates model size from prompt/context quality and exposes the actual request in F2. See [model selection, exact payload and experiment method](docs/heavy_model_experiment.md). All profiles remain explicit opt-in; merely opening the default scene does not load a model.

@@ -23,8 +23,23 @@ func run() -> void:
 	check(Session.submit_interpreted("yes", context, unbound).effects.is_empty(), "model yes needs a real pending proposition")
 	var nameless := Client.validate_meaning("anything", {"intent":"PLAYER_NAME","name":"","needs_clarification":false,"clarification":""}, context)
 	check(nameless.status == "UNKNOWN", "model label cannot claim a complete name meaning without its value")
+	var departure := Session.initial_context()
+	var farewell := Client.validate_meaning("Tschüss.", {"intent":"FAREWELL","name":"","needs_clarification":false,"clarification":""}, departure)
+	var left := Session.submit_interpreted("Tschüss.", departure, farewell)
+	check(departure.current_node == "E_LEAVE" and left.effects.is_empty(), "a valid farewell keeps its actual speaker and follows the authored edge")
 	var client := Client.new()
 	root.add_child(client)
+	client.config.prompt_version = "context-v2"
+	var history_context := Session.initial_context()
+	Session.opening_line(history_context)
+	Session.submit("Ich habe keine Karte.", history_context)
+	check(history_context.dialogue_history.back().npc_reply == history_context.last_npc_line, "history stores the actual NPC reply for context")
+	history_context.selected_action = "claim_technician"
+	var body: Dictionary = client.build_request("Du hast keine Karte.", history_context)
+	var user: Dictionary = JSON.parse_string(body.messages[1].content)
+	check(user.player_utterance == "Du hast keine Karte." and user.reference_context.npc_last_reply == history_context.last_npc_line, "original utterance and current NPC wording remain distinct")
+	check(user.reference_context.recent_dialogue.back().npc == history_context.last_npc_line, "prompt history uses actual replies")
+	check(not user.reference_context.has("selected_action") and not body.messages[1].content.contains("semantic_evidence"), "menu goals and recursive old model requests are excluded")
 	client.config.port = 38179
 	client.config.auto_start = false
 	var unavailable: Dictionary = await client.interpret("test", context)

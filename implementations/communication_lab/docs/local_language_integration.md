@@ -1,5 +1,7 @@
 # Local language-model integration — experimental
 
+For the subsequently authorized 9–12B comparison and the audited dialogue-context request, see [the larger-model experiment](heavy_model_experiment.md). The observations below describe the initial compact-model runs with `baseline-v1`, not every later prompt/model combination.
+
 **Neither tested model is accepted as the primary recognizer. Both profiles are disabled by default.** The source scene keeps the existing offline recognizer unless a model profile is explicitly enabled. A successful HTTP request is not a successful language-understanding result.
 
 The user authorized LFM3 integration and then a comparison with another compact model. This supersedes the original Issue #68 exclusion of external LLMs for this change only. The existing branch/PR, source-only verification and no-merge/no-export constraints remain. Kimodo and its inference process are unrelated and were not changed.
