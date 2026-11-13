@@ -1,6 +1,7 @@
 extends Node3D
 const Composer = preload("res://implementations/communication_lab/game/communication/word_composer.gd")
 const Session = preload("res://implementations/communication_lab/game/communication/lab_session.gd")
+const LfmClient = preload("res://implementations/communication_lab/game/communication/lfm_client.gd")
 const DialogueGrammar = preload("res://implementations/communication_lab/game/communication/dialogue_resolver.gd")
 const DialogueLanguage = preload("res://implementations/communication_lab/game/communication/dialogue_language.gd")
 const DialogueGraphView = preload("res://implementations/communication_lab/game/ui/dialogue_graph_view.gd")
@@ -53,11 +54,16 @@ var camera_tween: Tween
 var heading_card: PanelContainer
 var history_expand_button: Button
 var history_expanded := false
+var language_client: Node
+var language_busy := false
+var language_epoch := 0
 func _process(delta: float) -> void:
 	# Silence and failed attempts do not alter the authored RPG conversation.
 	pass
 
 func _ready() -> void:
+	language_client = LfmClient.new()
+	add_child(language_client)
 	_load_motion_manifest()
 	_build_room()
 	_build_ui()
@@ -342,6 +348,7 @@ func _update_topic_menu() -> void:
 	_update_reply_view()
 
 func _select_dialogue_action(action_id: String) -> void:
+	if language_busy: return
 	var label := ""
 	for action in Session.available_actions(context):
 		if str(action.id) == action_id:
@@ -471,6 +478,9 @@ func _can_interact() -> bool:
 	return is_instance_valid(player) and is_instance_valid(astera_visual) and player.global_position.distance_to(astera_visual.global_position) <= 5.0
 
 func _close_dialog() -> void:
+	language_epoch += 1
+	language_busy = false
+	composer.set_busy(false)
 	if history_expanded: _toggle_history_expanded()
 	Session.close_dialog(context)
 	_set_notice("")
@@ -496,10 +506,25 @@ func _start_conversation_camera() -> void:
 	camera_tween.tween_property(conversation_camera, "fov", CONVERSATION_FOV, 0.6)
 
 func _on_submitted(text: String) -> void:
-	if editing_action.is_empty():
+	if editing_action.is_empty() or language_busy:
 		return
+	language_epoch += 1
+	var epoch := language_epoch
+	language_busy = true
+	composer.set_busy(true)
+	var snapshot := context.duplicate(true)
 	_append_conversation_line("Вы", text)
-	last_record = Session.submit(text, context)
+	_set_notice("Астера обдумывает ответ…")
+	var parsed: Dictionary
+	if bool(language_client.config.get("enabled", true)):
+		parsed = await language_client.interpret(text, snapshot)
+	else:
+		parsed = DialogueLanguage.analyze_rpg(text, snapshot)
+		parsed["backend"] = "offline-grammar"
+	if epoch != language_epoch: return
+	language_busy = false
+	composer.set_busy(false)
+	last_record = Session.submit_interpreted(text, context, parsed)
 	_set_notice(str(last_record.get("notification", "")))
 	var completed: bool = not str(last_record.get("transition_id", "")).is_empty()
 	var awaiting_action_confirmation: bool = not context.get("pending_resolution", {}).is_empty()
@@ -564,6 +589,7 @@ func _update_diagnostics(record: Dictionary) -> void:
 	var recovery: Dictionary = parsed.get("recovery", {})
 	var semantic_frames: Array = parsed.get("semantic_frames", [])
 	parse_view.text = "ВВОД\n%s\n\nТОКЕНЫ\n%s\n\nСЕМАНТИЧЕСКИЙ FRAME\n%s\n\nСОСТАВНЫЕ FRAME\n%s\n\nВОССТАНОВЛЕНИЕ СМЫСЛА\nПолнота: %s  ·  грамматическая ошибка: %s  ·  восстановление использовано: %s\nДоказательства: %s\nВыведено из грамматики/контекста: %s\n\nAMBIGUITY\n%s\n\nUNSUPPORTED FEATURES\n%s\n\nDIAGNOSTICS\n%s" % [record.input, JSON.stringify(parsed.normalized_tokens), JSON.stringify(parsed.frame, "  "), JSON.stringify(semantic_frames, "  "), str(parsed.get("semantic_recovery_status", "NONE")), "да" if parsed.get("grammatical_error_detected", false) else "нет", "да" if parsed.get("recovery_used", false) else "нет", JSON.stringify(parsed.get("explicit_evidence", recovery.get("explicit_evidence", []))), JSON.stringify(parsed.get("inferred_fields", recovery.get("inferred_fields", []))), JSON.stringify(parsed.get("candidates", parsed.get("ambiguity", [])), "  "), JSON.stringify(parsed.get("unsupported_features", []), "  "), JSON.stringify(parsed.get("diagnostics", []), "  ")]
+	parse_view.text += "\n\nЯЗЫКОВОЙ ДВИЖОК\n%s · %s мс\n%s" % [str(parsed.get("backend", "offline-grammar")), str(parsed.get("latency_ms", "—")), JSON.stringify(parsed.get("model_output", {}), "  ")]
 	diagnostic.text = "ОТВЕТ NPC\n%s\n\nВЫБРАННАЯ РЕАКЦИЯ\n%s\n\nТЕМА\n%s\n\nФАКТИЧЕСКИЕ ЭФФЕКТЫ\n%s\n\nЭМОЦИЯ\n%s\n\nANIMATION ID\n%s" % [record.answer, record.get("reaction", ""), record.get("topic", ""), JSON.stringify(record.effects, "  "), record.get("emotion_state", "neutral"), record.get("animation_id", "standing")]
 	context_view.text += "\n\nКОНТЕКСТ РАЗГОВОРА\n%s" % JSON.stringify(record.get("conversation_context", {}), "  ")
 	context_view.text += "\n\nВЫБРАННАЯ ПОПЫТКА / до\n%s\n\nпосле\n%s" % [JSON.stringify(record.before, "  "), JSON.stringify(record.after, "  ")]
@@ -621,6 +647,9 @@ func _on_dev_tab_changed(tab_index: int) -> void:
 	if is_instance_valid(inspection_label): inspection_label.visible = show_inspector_heading
 
 func _reset() -> void:
+	language_epoch += 1
+	language_busy = false
+	composer.set_busy(false)
 	editing_action = ""
 	selected_attempt_index = -1
 	if is_instance_valid(history_list): history_list.deselect_all()

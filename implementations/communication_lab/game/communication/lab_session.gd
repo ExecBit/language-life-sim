@@ -77,10 +77,14 @@ static func _hold_meaning(context: Dictionary, edge: Dictionary, candidate: Dict
 	context.selected_action = ""
 
 static func submit(text: String, context: Dictionary, selected_action: String = "") -> Dictionary:
+	# Explicit offline grammar entry point for historical regression tests.
+	if not selected_action.is_empty(): context.selected_action = selected_action
+	return submit_interpreted(text, context, DialogueLanguage.analyze_rpg(text, context), selected_action)
+
+static func submit_interpreted(text: String, context: Dictionary, parsed: Dictionary, selected_action: String = "") -> Dictionary:
 	if not selected_action.is_empty(): context.selected_action = selected_action
 	var before: Dictionary = context.duplicate(true)
 	var action_before := str(context.get("selected_action", ""))
-	var parsed: Dictionary = DialogueLanguage.analyze_rpg(text, context)
 	var effects: Array[Dictionary] = []
 	var answer := ""
 	var notification := str(parsed.get("notification", ""))
@@ -191,6 +195,7 @@ static func submit(text: String, context: Dictionary, selected_action: String = 
 		"reason":transition_error
 	}
 	if applied_event.is_empty(): _append_event(context, event)
+	if not answer.is_empty(): context.last_npc_line = answer
 	var node_data := DialogueGraph.node(context)
 	var result := {
 		"input":text, "before":before, "parse":parsed, "answer":answer, "notification":notification,

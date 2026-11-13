@@ -57,3 +57,7 @@ F2 presents a compact left-to-right story diagram. Primary story arrows are prom
 The RPG uses one typed semantic parser. `Ich möchte vorläufigen` can trigger `Einen vorläufigen Pass?`; an immediate yes confirms that meaning, and no/new content/closing cancels it. Bare `Nein` can deny the current technician challenge. Roles, polarity and modality are preserved. See [the language data contract and verification](docs/semantic_language.md) for word/scenario additions, extension examples, supported families and limits.
 
 Identity questions also accept full answers such as `ja ich bin Alex` and `Ich heiße Alex`. The answer is compared with the pending name; a different name returns to introduction, and contradictory answers repeat the question without issuing a pass. A failed wording preserves an authored question for a retry. Run `tests/test_proposition_answers.gd` through the same headless source-project command to verify this family.
+
+## Experimental local models
+
+The source scene has an asynchronous llama.cpp integration for LFM3-1.7B and an authorized Granite 4.2-3B comparison. Both model profiles are **disabled by default because live language-quality checks failed**. Setup, explicit opt-in, pinned assets, source reproduction and observed failures are documented in [local language integration](docs/local_language_integration.md). Passing graph/transport checks must not be reported as successful model comprehension.

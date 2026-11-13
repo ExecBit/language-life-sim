@@ -5065,7 +5065,9 @@
           "actor": "player"
         },
         "frame": {
-          "action": "introduce"
+          "action": "introduce",
+          "polarity": "positive",
+          "speech_act": "statement"
         }
       },
       {
@@ -5227,6 +5229,34 @@
       "m": "kein",
       "f": "keine",
       "n": "kein"
+    },
+    "intent_descriptions": {
+      "REPORT_NO_CARD": "The player states that they do not have a card or pass (negative possession).",
+      "REPORT_HAS_CARD": "The player states that they have a card or pass (positive possession).",
+      "REQUEST_PASS": "The player wants, needs or asks to receive a card or pass.",
+      "REFUSE_ACCESS": "The player does not want to receive a pass. This is a negative desire, not missing possession.",
+      "CLAIM_TECHNICIAN": "The player asserts that the player is a technician.",
+      "DENY_TECHNICIAN": "The player denies being a technician.",
+      "REPORT_NEWCOMER": "The player states that the player is new or a newcomer.",
+      "PLAYER_NAME": "The player states their personal name.",
+      "ASK_RULES": "The player asks how to enter or asks about entry rules.",
+      "ASK_ALTERNATIVE": "The player asks for another way or an alternative.",
+      "ASK_OFFICIAL_PATH": "The player asks about registration or the official entry procedure.",
+      "REPORT_REGISTRATION": "The player asserts that the player is registered.",
+      "ASK_REPEAT": "The player asks the NPC to repeat, or says they did not understand.",
+      "REQUEST_SLOWER": "The player asks the NPC to speak slower.",
+      "APOLOGIZE": "The player apologizes.",
+      "FAREWELL": "The player leaves or says goodbye.",
+      "OFFER_HELP": "The player offers to help the NPC, or asks whether the player can help the NPC. The PLAYER is the helper; the NPC receives help.",
+      "REQUEST_HELP": "The player asks the NPC to help the player. The NPC is the helper; the PLAYER receives help.",
+      "PLAYER_CANNOT_HELP": "The player states that the PLAYER cannot help the NPC.",
+      "NPC_CANNOT_HELP": "The player states that the NPC cannot help the PLAYER.",
+      "ACCEPT_MESSAGE": "The player agrees or promises to deliver a message to Tom.",
+      "REFUSE_DEAL": "The player refuses to deliver the message.",
+      "ASK_DETAILS": "The player asks what to do or asks for task details.",
+      "REQUEST_ACCESS": "The player asks to use access that has already been granted.",
+      "SHORT_YES": "The player affirms the current pending question.",
+      "SHORT_NO": "The player rejects the current pending question."
     }
   }
 }

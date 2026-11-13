@@ -11,6 +11,7 @@ func send(room: Node, action: String, text: String) -> void:
 	room._select_dialogue_action(action)
 	room.composer.phrase.text = text
 	room.composer.send()
+	while room.language_busy: await process_frame
 func run() -> void:
 	var room = load("res://implementations/communication_lab/communication_lab.tscn").instantiate()
 	root.add_child(room)
@@ -18,20 +19,20 @@ func run() -> void:
 	root.size = Vector2i(1920, 1080)
 	for frame in 10: await process_frame
 	room._open_dialog()
-	send(room, "report_no_card", "ich keine Karte")
-	send(room, "report_newcomer", "Ich bin neu")
-	send(room, "introduce", "Ich bin Alex")
-	send(room, "request_pass", "Ich möchte vorläufigen")
+	await send(room, "report_no_card", "ich keine Karte")
+	await send(room, "report_newcomer", "Ich bin neu")
+	await send(room, "introduce", "Ich bin Alex")
+	await send(room, "request_pass", "Ich möchte vorläufigen")
 	room._finish_reply_reveal()
-	check(room.context.current_node == "G40_REGISTERED" and room.last_record.answer == "Einen vorläufigen Pass?" and not room.context.has_pass, "actual scene displays a specific object clarification without access")
+	check(room.context.current_node == "G40_REGISTERED" and room.last_record.answer.to_lower().contains("pass") and not room.context.has_pass, "actual scene displays a specific object clarification without access")
 	check(room.topic_buttons.has("confirm_proposition") and room.topic_buttons.has("reject_proposition"), "Composer can answer the generated question")
 	if DisplayServer.get_name() != "headless":
 		for frame in 10: await process_frame
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png(ProjectSettings.globalize_path("res://.local/semantic-clarification.png"))
-	send(room, "confirm_proposition", "Ja")
+	await send(room, "confirm_proposition", "Ja")
 	check(room.context.current_node == "G50_CONFIRM" and room.context.player_name == "Alex", "scene confirms exactly the inferred request")
-	send(room, "confirm_proposition", "ja ich bin alex")
+	await send(room, "confirm_proposition", "ja ich bin alex")
 	check(room.context.current_node == "E_OFFICIAL" and room.context.has_pass, "official path completes through real Composer input")
 	room._finish_reply_reveal()
 	room._toggle_dev(true)

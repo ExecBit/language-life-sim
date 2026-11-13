@@ -10,6 +10,13 @@ var prefix: LineEdit
 var matches: ItemList
 var help_button: Button
 var opener_key := 0
+var busy := false
+
+func set_busy(value: bool) -> void:
+	busy = value
+	phrase.editable = not value
+	prefix.editable = not value
+	for button in find_children("*", "Button", true, false): button.disabled = value
 
 func _ready() -> void:
 	add_theme_constant_override("separation",5)
@@ -59,6 +66,7 @@ func update_matches(value: String) -> void:
 	if matches.item_count > 0: matches.select(0)
 
 func choose_word() -> void:
+	if busy: return
 	var chosen := matches.get_selected_items()
 	if chosen.is_empty(): return
 	phrase.text = (phrase.text+" "+matches.get_item_text(chosen[0])).strip_edges()
@@ -70,6 +78,7 @@ func prefix_enter() -> void:
 	send()
 
 func send() -> void:
+	if busy: return
 	# Never silently drop an unconfirmed token such as 'nicht', and never
 	# replace it with the first autocomplete suggestion on Enter.
 	var text := (phrase.text+" "+prefix.text).strip_edges()
