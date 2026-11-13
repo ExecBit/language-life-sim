@@ -1,0 +1,18 @@
+{
+  "enabled": false,
+  "host": "127.0.0.1",
+  "port": 38173,
+  "model_alias": "communication-lab-granite",
+  "executable": "res://.local/lfm3/llama/llama-server.exe",
+  "weights": "res://.local/lfm3/granite-4.2-3b-Q4_K_M.gguf",
+  "context_tokens": 4096,
+  "max_output_tokens": 2048,
+  "request_timeout_seconds": 25,
+  "startup_timeout_seconds": 45,
+  "auto_start": true,
+  "backend": "granite-4.2-3b-q4_k_m",
+  "temperature": 1.0,
+  "top_p": 0.95,
+  "enable_thinking": true,
+  "low_effort": true
+}

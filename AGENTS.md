@@ -10,6 +10,7 @@ Ship the smallest **playable language-learning experiment**. Judge progress by n
 - A task for one variant must not modify another variant's implementation. Godot `project.godot` remains the single project-wide technical entry point; it currently starts the dormitory.
 
 ## Task entry
+- Read `implementations/<variant>/AGENTS.md`, when present, before working on that variant; it contains local tool contracts and workflows.
 - Work **only** on a specific Issue explicitly authorized by the user. Read the full Issue and relevant repository files, then inspect Git status.
 - The Issue body is the functional contract. Project Status is the single task-state authority; do not create a local board, status log or handoff document.
 - Follow the existing GitHub Project associated with this repository, not the older tavern Project #2. Do not assume the new Project has the same number.
@@ -26,7 +27,9 @@ Ship the smallest **playable language-learning experiment**. Judge progress by n
 
 ## Verification proportional to risk
 - Documentation/data changes: structural check and simple data/links validation.
-- Gameplay change: launch the Godot scene, try the changed action, check important state and basic regression.
+- Gameplay change: launch the changed scene, exercise the changed action, and check important state and basic regression. Prefer Godot headless tests and CLI validation by default.
+- Do not use Computer Use merely to launch the game or inspect logs. Avoid redundant GUI runs when automated tests cover the changed behavior.
+- For visual verification, prefer automated rendered screenshots when practical. Use Computer Use only when acceptance criteria require real GUI interaction, visual judgment, or reproduction of a GUI-specific bug.
 - Before requesting merge of a **playable** slice, perform one export and launch of the candidate if the Issue requires it.
 - Run small, targeted checks first. Never claim a build, visual result or test PASS without having run it.
 - Report concise PASS / FAIL / NOT_TESTED, exact reproduction steps, limitations, and the visible player-facing result in the PR.

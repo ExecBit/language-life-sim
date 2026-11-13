@@ -1,0 +1,61 @@
+{
+  "model": {
+    "name": "Liquid AI LFM3-1.7B",
+    "repository": "LiquidAI/LFM3-1.7B-GGUF",
+    "revision": "cd0c74c575b5c416f3011b5b4c298077f26ca8c2",
+    "file": "LFM3-1.7B-QAD-Q4_0.gguf",
+    "bytes": 1049615680,
+    "sha256": "43a7d09a0e9cba91b63eb7052488b9564569bddfd65754d2e426465e572a7452",
+    "license": "LFM Open License v1.0",
+    "license_url": "https://huggingface.co/LiquidAI/LFM3-1.7B/blob/main/LICENSE",
+    "quantization": "QAD Q4_0"
+  },
+  "runtime": {
+    "name": "llama.cpp",
+    "version": "v0.9.0 / b12110",
+    "file": "llama-b12110-bin-win-vulkan-x64.zip",
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b12110/llama-b12110-bin-win-vulkan-x64.zip",
+    "bytes": 37661146,
+    "sha256": "9732a5e48887ca54d0bfe4af4324dc85fd56cd8cda19b52df3542fa6ebe6874f",
+    "license": "MIT",
+    "license_url": "https://github.com/ggml-org/llama.cpp/blob/b12110/LICENSE"
+  },
+  "comparison_models": {
+    "granite": {
+      "name": "IBM Granite 4.2-3B",
+      "repository": "ibm-granite/granite-4.2-3b-GGUF",
+      "revision": "c40945d71cd90f249a56985e8155551a9188dc30",
+      "file": "granite-4.2-3b-Q4_K_M.gguf",
+      "bytes": 2244011552,
+      "sha256": "e0406663965846ae22a403456eb826ccce5f450840491f71952f18a7cb78e7d5",
+      "quantization": "Q4_K_M",
+      "license": "Apache 2.0",
+      "license_url": "https://huggingface.co/ibm-granite/granite-4.2-3b/blob/main/LICENSE"
+    },
+    "qwen9": {
+      "name": "Qwen3.5-9B",
+      "repository": "unsloth/Qwen3.5-9B-GGUF",
+      "revision": "3885219b6810b007914f3a7950a8d1b469d598a5",
+      "file": "Qwen3.5-9B-Q4_K_M.gguf",
+      "bytes": 5680522464,
+      "sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8",
+      "quantization": "Q4_K_M",
+      "license": "Apache 2.0",
+      "license_url": "https://huggingface.co/Qwen/Qwen3.5-9B/blob/main/LICENSE",
+      "source_repository": "Qwen/Qwen3.5-9B"
+    },
+    "nemo12": {
+      "name": "Mistral NeMo Instruct 2407 12B",
+      "repository": "bartowski/Mistral-Nemo-Instruct-2407-GGUF",
+      "revision": "a2dd64a0a76ea1bdb2bb6ab6fa5496b003c7c908",
+      "file": "Mistral-Nemo-Instruct-2407-Q4_K_M.gguf",
+      "bytes": 7477208192,
+      "sha256": "7c1a10d202d8788dbe5628dc962254d10654c853cae6aaeca0618f05490d4a46",
+      "quantization": "Q4_K_M",
+      "license": "Apache 2.0",
+      "license_url": "https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407#key-features",
+      "source_repository": "mistralai/Mistral-Nemo-Instruct-2407",
+      "license_text_url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+    }
+  }
+}

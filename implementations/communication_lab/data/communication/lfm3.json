@@ -1,0 +1,16 @@
+{
+  "enabled": false,
+  "host": "127.0.0.1",
+  "port": 38173,
+  "model_alias": "communication-lab-lfm3",
+  "executable": "res://.local/lfm3/llama/llama-server.exe",
+  "weights": "res://.local/lfm3/LFM3-1.7B-QAD-Q4_0.gguf",
+  "context_tokens": 4096,
+  "max_output_tokens": 600,
+  "request_timeout_seconds": 25,
+  "startup_timeout_seconds": 45,
+  "auto_start": true,
+  "backend": "lfm3-1.7b-qad-q4_0",
+  "temperature": 0.1,
+  "top_p": 0.95
+}

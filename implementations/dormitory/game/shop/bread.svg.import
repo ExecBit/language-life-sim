@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cw57gb8ui77s1"
-path="res://.godot/imported/bread.svg-d2f0284d90f883664c542a5d98919ef8.ctex"
+path="res://.godot/imported/bread.svg-8a9b4fbe10cfbfe4b4e045fdef595d0e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://implementations/dormitory/game/shop/bread.svg"
-dest_files=["res://.godot/imported/bread.svg-d2f0284d90f883664c542a5d98919ef8.ctex"]
+dest_files=["res://.godot/imported/bread.svg-8a9b4fbe10cfbfe4b4e045fdef595d0e.ctex"]
 
 [params]
 

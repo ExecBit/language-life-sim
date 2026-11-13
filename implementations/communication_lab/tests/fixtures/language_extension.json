@@ -1,0 +1,151 @@
+{
+  "vocabulary": [
+    {
+      "surface": "Ausweis",
+      "translation": "удостоверение",
+      "pos": "noun",
+      "semantic_id": "pass",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "access_document",
+        "entity_id": "pass",
+        "gender": "m",
+        "label": "Ausweis",
+        "accusative": "Ausweis"
+      }
+    },
+    {
+      "surface": "Verband",
+      "translation": "бинт / повязка",
+      "pos": "noun",
+      "semantic_id": "bandage",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "healing_supply",
+        "entity_id": "bandage",
+        "gender": "m",
+        "label": "Verband",
+        "accusative": "Verband"
+      }
+    },
+    {
+      "surface": "Tupfer",
+      "translation": "тампон",
+      "pos": "noun",
+      "semantic_id": "swab",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "healing_supply",
+        "entity_id": "swab",
+        "gender": "m",
+        "label": "Tupfer",
+        "accusative": "Tupfer"
+      }
+    },
+    {
+      "surface": "Pfleger",
+      "translation": "медбрат",
+      "pos": "noun",
+      "semantic_id": "nurse",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "role",
+        "entity_id": "nurse",
+        "gender": "m",
+        "label": "Pfleger",
+        "accusative": "Pfleger"
+      }
+    },
+    {
+      "surface": "sterilen",
+      "translation": "стерильный",
+      "pos": "adjective",
+      "semantic_id": "sterile",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "sterile",
+        "entity_types": [
+          "healing_supply"
+        ],
+        "acc_forms": {
+          "m": "sterilen",
+          "f": "sterile",
+          "n": "steriles"
+        }
+      }
+    }
+  ],
+  "bindings": [
+    {
+      "family": "acquisition",
+      "intent": "REQUEST_SUPPLY",
+      "requires": {
+        "actor": "player",
+        "object_type": "healing_supply",
+        "polarity": "positive"
+      },
+      "frame": {}
+    }
+  ],
+  "dialogue": {
+    "initial_node": "G_MEDIC",
+    "initial_facts": {
+      "has_bandage": false
+    },
+    "nodes": {
+      "G_MEDIC": {
+        "label": "Медпункт",
+        "npc_line": "Was brauchst du?",
+        "actions": [
+          "request_supply"
+        ],
+        "language_context": {
+          "referents": [
+            "bandage",
+            "swab"
+          ],
+          "topic": "supplies"
+        }
+      },
+      "E_SUPPLY": {
+        "label": "Повязка получена",
+        "npc_line": "Hier ist ein Verband.",
+        "actions": [],
+        "terminal": true
+      }
+    },
+    "actions": {
+      "request_supply": {
+        "label": "Попросить повязку",
+        "semantic_action": "REQUEST_SUPPLY"
+      }
+    },
+    "terminal_nodes": [
+      "E_SUPPLY"
+    ],
+    "transitions": [
+      {
+        "id": "T_SUPPLY",
+        "from": "G_MEDIC",
+        "to": "E_SUPPLY",
+        "action": "request_supply",
+        "semantic_action": "REQUEST_SUPPLY",
+        "required_frame": {
+          "actor": "player",
+          "object_id": "bandage",
+          "polarity": "positive"
+        },
+        "guard": {},
+        "effects": [
+          {
+            "id": "give_bandage",
+            "reason": "Requested the bandage",
+            "fields": {
+              "has_bandage": true
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

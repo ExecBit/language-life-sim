@@ -1,0 +1,5262 @@
+{
+  "schema_version": 1,
+  "dialogue": {
+    "assessment": "none",
+    "progression": "guarded_rpg_conversation",
+    "initial_node": "G00_GATE",
+    "actions": {
+      "report_no_card": {
+        "label": "Сказать, что карты нет",
+        "short_label": "нет карты",
+        "semantic_action": "REPORT_NO_CARD",
+        "confirm_question": "Du hast keine Karte?",
+        "type": "REPORT_NO_CARD",
+        "vocabulary": [
+          "ich",
+          "habe",
+          "keine",
+          "karte"
+        ],
+        "search_words": [
+          "karte",
+          "keine"
+        ]
+      },
+      "ask_rules": {
+        "label": "Узнать правила входа",
+        "short_label": "правила",
+        "semantic_action": "ASK_RULES",
+        "confirm_question": "Du möchtest wissen, wie du hineinkommst?",
+        "type": "ASK_RULES",
+        "vocabulary": [
+          "wie",
+          "komme",
+          "ich",
+          "hinein"
+        ],
+        "search_words": [
+          "hinein",
+          "komme"
+        ]
+      },
+      "claim_technician": {
+        "label": "Назваться техником",
+        "short_label": "техник",
+        "semantic_action": "CLAIM_TECHNICIAN",
+        "confirm_question": "Du bist Techniker?",
+        "type": "CLAIM_TECHNICIAN",
+        "vocabulary": [
+          "ich",
+          "bin",
+          "techniker"
+        ],
+        "search_words": [
+          "techniker"
+        ]
+      },
+      "farewell": {
+        "label": "Уйти от прохода",
+        "short_label": "уйти",
+        "semantic_action": "FAREWELL",
+        "confirm_question": "Du möchtest gehen?",
+        "type": "FAREWELL",
+        "vocabulary": [
+          "ich",
+          "gehe"
+        ],
+        "search_words": [
+          "gehe"
+        ]
+      },
+      "report_newcomer": {
+        "label": "Подтвердить, что я новенький",
+        "short_label": "я новенький",
+        "semantic_action": "REPORT_NEWCOMER",
+        "confirm_question": "Du bist neu?",
+        "type": "REPORT_NEWCOMER",
+        "vocabulary": [
+          "ich",
+          "bin",
+          "neu"
+        ],
+        "search_words": [
+          "neu"
+        ]
+      },
+      "ask_alternative": {
+        "label": "Попросить другой путь",
+        "short_label": "другой путь",
+        "semantic_action": "ASK_ALTERNATIVE",
+        "confirm_question": "Du möchtest einen anderen Weg?",
+        "type": "ASK_ALTERNATIVE",
+        "vocabulary": [
+          "gibt",
+          "es",
+          "einen",
+          "anderen",
+          "weg"
+        ],
+        "search_words": [
+          "anderen",
+          "weg"
+        ]
+      },
+      "introduce": {
+        "label": "Назвать своё имя",
+        "short_label": "имя",
+        "semantic_action": "PLAYER_NAME",
+        "confirm_question": "Du heißt {name}?",
+        "type": "PLAYER_NAME",
+        "vocabulary": [
+          "ich",
+          "heiße"
+        ],
+        "search_words": [
+          "heiße",
+          "name"
+        ]
+      },
+      "ask_repeat": {
+        "label": "Попросить повторить",
+        "short_label": "повторить",
+        "semantic_action": "ASK_REPEAT",
+        "confirm_question": "Soll ich es noch einmal sagen?",
+        "type": "ASK_REPEAT",
+        "vocabulary": [
+          "kannst",
+          "du",
+          "das",
+          "wiederholen"
+        ],
+        "search_words": [
+          "wiederholen"
+        ]
+      },
+      "ask_official_path": {
+        "label": "Вернуться к официальному пути",
+        "short_label": "официальный путь",
+        "semantic_action": "ASK_OFFICIAL_PATH",
+        "confirm_question": "Du möchtest es offiziell versuchen?",
+        "type": "ASK_OFFICIAL_PATH",
+        "visible_when": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            },
+            {
+              "field": "roster_has_player",
+              "op": "eq",
+              "value": true
+            }
+          ]
+        },
+        "vocabulary": [
+          "bin",
+          "ich",
+          "registriert"
+        ],
+        "search_words": [
+          "registriert",
+          "offiziell"
+        ]
+      },
+      "request_pass": {
+        "label": "Попросить временный пропуск",
+        "short_label": "пропуск",
+        "semantic_action": "REQUEST_PASS",
+        "confirm_question": "Du möchtest einen Pass?",
+        "type": "REQUEST_PASS",
+        "visible_when": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            },
+            {
+              "field": "trust",
+              "op": "eq",
+              "value": "neutral"
+            },
+            {
+              "field": "roster_has_player",
+              "op": "eq",
+              "value": true
+            },
+            {
+              "field": "player_name",
+              "op": "not_empty",
+              "value": true
+            }
+          ]
+        },
+        "vocabulary": [
+          "ich",
+          "möchte",
+          "einen",
+          "vorläufigen",
+          "pass",
+          "bekommen"
+        ],
+        "search_words": [
+          "pass",
+          "vorläufig",
+          "vorläufigen",
+          "möchte",
+          "bekommen"
+        ]
+      },
+      "confirm_proposition": {
+        "label": "Подтвердить текущий вопрос",
+        "short_label": "да",
+        "semantic_action": "SHORT_YES",
+        "confirm_question": "Du bestätigst das?",
+        "type": "SHORT_YES",
+        "vocabulary": [
+          "ja"
+        ],
+        "search_words": [
+          "ja"
+        ]
+      },
+      "reject_proposition": {
+        "label": "Ответить «нет» на текущий вопрос",
+        "short_label": "нет",
+        "semantic_action": "SHORT_NO",
+        "confirm_question": "Du verneinst das?",
+        "type": "SHORT_NO",
+        "vocabulary": [
+          "nein"
+        ],
+        "search_words": [
+          "nein"
+        ]
+      },
+      "deny_technician": {
+        "label": "Признаться, что я не техник",
+        "short_label": "не техник",
+        "semantic_action": "DENY_TECHNICIAN",
+        "confirm_question": "Du bist kein Techniker?",
+        "type": "DENY_TECHNICIAN",
+        "vocabulary": [
+          "ich",
+          "bin",
+          "kein",
+          "techniker"
+        ],
+        "search_words": [
+          "kein",
+          "techniker"
+        ]
+      },
+      "apologize": {
+        "label": "Извиниться и вернуться к честному разговору",
+        "short_label": "извиниться",
+        "semantic_action": "APOLOGIZE",
+        "confirm_question": "Du möchtest dich entschuldigen?",
+        "type": "APOLOGIZE",
+        "vocabulary": [
+          "es",
+          "tut",
+          "mir",
+          "leid"
+        ],
+        "search_words": [
+          "leid",
+          "entschuldigung"
+        ]
+      },
+      "ask_details": {
+        "label": "Узнать подробности поручения",
+        "short_label": "подробности",
+        "semantic_action": "ASK_DETAILS",
+        "confirm_question": "Du möchtest mehr wissen?",
+        "type": "ASK_DETAILS",
+        "vocabulary": [
+          "was",
+          "soll",
+          "ich",
+          "mit",
+          "der",
+          "nachricht",
+          "machen"
+        ],
+        "search_words": [
+          "nachricht",
+          "machen"
+        ]
+      },
+      "accept_message": {
+        "label": "Согласиться передать сообщение Тому",
+        "short_label": "передать сообщение",
+        "semantic_action": "ACCEPT_MESSAGE",
+        "confirm_question": "Du gibst Tom die Nachricht?",
+        "type": "ACCEPT_MESSAGE",
+        "vocabulary": [
+          "ich",
+          "gebe",
+          "tom",
+          "die",
+          "nachricht"
+        ],
+        "search_words": [
+          "gebe",
+          "tom",
+          "nachricht"
+        ]
+      },
+      "refuse_deal": {
+        "label": "Отказаться от поручения",
+        "short_label": "отказ",
+        "semantic_action": "REFUSE_DEAL",
+        "confirm_question": "Du möchtest die Nachricht nicht überbringen?",
+        "type": "REFUSE_DEAL",
+        "vocabulary": [
+          "ich",
+          "mache",
+          "das",
+          "nicht"
+        ],
+        "search_words": [
+          "nicht",
+          "mache"
+        ]
+      },
+      "request_slower": {
+        "label": "Попросить говорить медленнее",
+        "short_label": "медленнее",
+        "semantic_action": "REQUEST_SLOWER",
+        "confirm_question": "Soll ich langsamer sprechen?",
+        "type": "REQUEST_SLOWER",
+        "vocabulary": [
+          "bitte",
+          "langsamer"
+        ],
+        "search_words": [
+          "langsamer"
+        ]
+      },
+      "request_access": {
+        "label": "Попросить подтвердить доступ",
+        "short_label": "доступ",
+        "semantic_action": "REQUEST_ACCESS",
+        "visible_when": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "in",
+              "value": [
+                "official",
+                "conditional"
+              ]
+            }
+          ]
+        },
+        "confirm_question": "Du möchtest deinen Zugang noch einmal bestätigen?",
+        "type": "REQUEST_ACCESS",
+        "vocabulary": [
+          "zugang",
+          "bestätigen",
+          "pass"
+        ],
+        "search_words": [
+          "zugang",
+          "bestätigen",
+          "pass"
+        ]
+      },
+      "reopen_dialog": {
+        "label": "Открыть разговор повторно",
+        "short_label": "повторная встреча",
+        "semantic_action": "REOPEN_DIALOG",
+        "system": true,
+        "system_event": "reopen"
+      }
+    },
+    "nodes": {
+      "G00_GATE": {
+        "label": "У прохода",
+        "npc_line": "Halt! Karte, bitte.",
+        "description": "Астера охраняет проход; у игрока нет физического пропуска.",
+        "actions": [
+          "report_no_card",
+          "ask_rules",
+          "claim_technician",
+          "farewell"
+        ],
+        "debug_position": [
+          0,
+          1
+        ],
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access"
+        }
+      },
+      "G10_NO_CARD": {
+        "label": "Пропуска нет",
+        "npc_line": "Keine Karte? Bist du neu?",
+        "description": "Признание отсутствия карты не меняет регистрацию.",
+        "actions": [
+          "report_newcomer",
+          "ask_rules",
+          "ask_alternative",
+          "farewell"
+        ],
+        "debug_position": [
+          1,
+          0
+        ],
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access"
+        }
+      },
+      "G20_RULES": {
+        "label": "Правила входа",
+        "npc_line": "Ohne Karte kein Zutritt. Wie heißt du?",
+        "description": "Имя сопоставляется с реестром; свободное имя не создаёт запись.",
+        "actions": [
+          "introduce",
+          "ask_official_path",
+          "ask_alternative",
+          "farewell"
+        ],
+        "debug_position": [
+          2,
+          0
+        ],
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access",
+          "name_slot": true
+        }
+      },
+      "G30_NAME": {
+        "label": "Имя новичка",
+        "npc_line": "Neu? Wie heißt du?",
+        "description": "Повтор имени или просьба повторить не меняют факт регистрации.",
+        "actions": [
+          "introduce",
+          "ask_repeat",
+          "ask_alternative",
+          "farewell"
+        ],
+        "debug_position": [
+          2,
+          1
+        ],
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access",
+          "name_slot": true
+        }
+      },
+      "G40_REGISTERED": {
+        "label": "Запись найдена",
+        "npc_line": "{player_name}? Ja, du bist registriert. Aber du hast keine Karte.",
+        "description": "Реестр подтверждает новоприбывшего независимо от физического пропуска.",
+        "actions": [
+          "request_pass",
+          "ask_alternative",
+          "ask_rules"
+        ],
+        "debug_position": [
+          3,
+          0
+        ],
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access"
+        }
+      },
+      "G50_CONFIRM": {
+        "label": "Подтверждение имени",
+        "npc_line": "Ich kann dir einen Pass geben. Bist du {player_name}?",
+        "description": "Открытый вопрос подтверждает конкретное имя из реестра.",
+        "actions": [
+          "confirm_proposition",
+          "reject_proposition",
+          "ask_repeat"
+        ],
+        "debug_position": [
+          4,
+          0
+        ],
+        "open_proposition": {
+          "id": "confirm_player_name",
+          "kind": "identity",
+          "value_field": "player_name",
+          "answer_schema": {
+            "family": "name",
+            "requires": {
+              "actor": "player"
+            },
+            "value_slot": "name"
+          }
+        },
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access"
+        }
+      },
+      "G60_TECHNICIAN": {
+        "label": "Заявление о роли",
+        "npc_line": "Du bist Techniker? Wie heißt du?",
+        "description": "Первое заявление проверяется по факту роли; ошибка не считается доказанным обманом.",
+        "actions": [
+          "introduce",
+          "deny_technician",
+          "farewell"
+        ],
+        "debug_position": [
+          1,
+          2
+        ],
+        "language_context": {
+          "challenge": {
+            "family": "role",
+            "actor": "player",
+            "role_id": "technician",
+            "polarity": "positive",
+            "mode": "assert"
+          },
+          "name_slot": true
+        }
+      },
+      "G70_EXPOSED": {
+        "label": "Проверка заявления",
+        "npc_line": "Dein Name steht nicht bei den Technikern. Was ist los?",
+        "description": "Игроку сообщено, что имени нет в списке техников.",
+        "actions": [
+          "deny_technician",
+          "claim_technician",
+          "farewell"
+        ],
+        "debug_position": [
+          2,
+          2
+        ],
+        "language_context": {
+          "challenge": {
+            "family": "role",
+            "actor": "player",
+            "role_id": "technician",
+            "polarity": "positive",
+            "mode": "assert"
+          }
+        }
+      },
+      "G80_WARNING": {
+        "label": "Предупреждение",
+        "npc_line": "Ich glaube dir nicht. Geh bitte.",
+        "description": "Подозрение появляется только после повторного заявления после проверки.",
+        "actions": [
+          "apologize",
+          "claim_technician",
+          "farewell"
+        ],
+        "debug_position": [
+          3,
+          3
+        ],
+        "language_context": {
+          "challenge": {
+            "family": "role",
+            "actor": "player",
+            "role_id": "technician",
+            "polarity": "positive",
+            "mode": "assert"
+          }
+        }
+      },
+      "G90_DEAL": {
+        "label": "Предложение сделки",
+        "npc_line": "Ich brauche Hilfe. Kannst du Tom eine Nachricht geben?",
+        "description": "Согласие ещё не обещание до подтверждения конкретного поручения.",
+        "actions": [
+          "confirm_proposition",
+          "ask_details",
+          "accept_message",
+          "reject_proposition",
+          "refuse_deal",
+          "farewell"
+        ],
+        "debug_position": [
+          3,
+          1
+        ],
+        "open_proposition": {
+          "id": "deliver_message_to_tom",
+          "kind": "offer",
+          "value": "Tom soll eine Nachricht bekommen."
+        },
+        "language_context": {
+          "referents": [
+            "message",
+            "pass"
+          ],
+          "topic": "message",
+          "recipient_id": "tom"
+        }
+      },
+      "G100_INSTRUCTION": {
+        "label": "Поручение Тому",
+        "npc_line": "Sag Tom: Astera braucht Hilfe. Verstehst du?",
+        "description": "Условный доступ выдаётся только после подтверждения этой просьбы.",
+        "actions": [
+          "confirm_proposition",
+          "ask_repeat",
+          "request_slower",
+          "refuse_deal"
+        ],
+        "debug_position": [
+          4,
+          1
+        ],
+        "open_proposition": {
+          "id": "understands_message_for_tom",
+          "kind": "instruction",
+          "value": "Tom soll hören: Astera braucht Hilfe."
+        },
+        "language_context": {
+          "referents": [
+            "message",
+            "pass"
+          ],
+          "topic": "message",
+          "recipient_id": "tom"
+        }
+      },
+      "G110_REPEAT": {
+        "label": "Повтор поручения",
+        "npc_line": "Langsam: Tom. Astera braucht Hilfe.",
+        "description": "Повтор сохраняет ту же ожидающую пропозицию.",
+        "actions": [
+          "confirm_proposition",
+          "ask_repeat",
+          "request_slower",
+          "refuse_deal"
+        ],
+        "debug_position": [
+          4,
+          2
+        ],
+        "open_proposition": {
+          "id": "understands_message_for_tom",
+          "kind": "instruction",
+          "value": "Tom soll hören: Astera braucht Hilfe."
+        },
+        "language_context": {
+          "referents": [
+            "message",
+            "pass"
+          ],
+          "topic": "message",
+          "recipient_id": "tom"
+        }
+      },
+      "G120_REFUSED_DEAL": {
+        "label": "Сделка отклонена",
+        "npc_line": "Okay. Dann kein Zutritt.",
+        "description": "Отказ от сделки не меняет доверие и не блокирует официальный путь.",
+        "actions": [
+          "ask_official_path",
+          "farewell"
+        ],
+        "debug_position": [
+          4,
+          4
+        ],
+        "language_context": {
+          "referents": [
+            "message",
+            "pass"
+          ],
+          "topic": "message",
+          "recipient_id": "tom"
+        }
+      },
+      "E_OFFICIAL": {
+        "label": "Официальный доступ",
+        "npc_line": "Okay, hier ist dein Pass. Du darfst rein.",
+        "description": "Официальный исход; повторное открытие не выдаёт пропуск второй раз.",
+        "actions": [],
+        "debug_position": [
+          5,
+          0
+        ],
+        "terminal": true,
+        "emotion_state": "happy",
+        "animation_id": "small_happy_reaction",
+        "language_context": {}
+      },
+      "E_FAVOR": {
+        "label": "Условный доступ",
+        "npc_line": "Danke. Du darfst rein. Vergiss Tom nicht!",
+        "description": "Условный исход фиксирует обещание передать сообщение Тому.",
+        "actions": [],
+        "debug_position": [
+          5,
+          1
+        ],
+        "terminal": true,
+        "emotion_state": "grateful",
+        "animation_id": "gentle_nod",
+        "language_context": {}
+      },
+      "E_LEAVE": {
+        "label": "Уход без доступа",
+        "npc_line": "Okay. Tschüss.",
+        "description": "Уход не выдаёт и не отнимает доступ.",
+        "actions": [],
+        "debug_position": [
+          5,
+          4
+        ],
+        "terminal": true,
+        "emotion_state": "farewell",
+        "animation_id": "farewell_wave",
+        "language_context": {}
+      },
+      "E_CAUGHT": {
+        "label": "Обман разоблачён",
+        "npc_line": "Ich lasse dich nicht rein.",
+        "description": "Отказ следует только за сознательным повторным настаиванием после предупреждения.",
+        "actions": [],
+        "debug_position": [
+          4,
+          3
+        ],
+        "terminal": true,
+        "emotion_state": "concerned",
+        "animation_id": "soft_concern",
+        "language_context": {}
+      },
+      "G130_RETURN": {
+        "label": "Повторная встреча",
+        "npc_line": "",
+        "description": "Приветствие и действия отражают прошлый доступ, обещание и доверие.",
+        "actions": [
+          "request_access",
+          "farewell"
+        ],
+        "debug_position": [
+          6,
+          2
+        ],
+        "npc_line_by_access": {
+          "official": "Willkommen zurück, {player_name}. Dein Pass gilt weiterhin.",
+          "conditional": "Hallo {player_name}. Du darfst rein. Denk an die Nachricht für Tom.",
+          "denied": "Du hast mich belogen. Du bekommst keinen Zutritt.",
+          "none": "Du bist wieder da. Was möchtest du tun?"
+        },
+        "language_context": {
+          "referents": [
+            "pass"
+          ],
+          "topic": "access",
+          "entry_family": "access"
+        }
+      }
+    },
+    "transitions": [
+      {
+        "id": "T_G00_NO_CARD",
+        "from": "G00_GATE",
+        "to": "G10_NO_CARD",
+        "action": "report_no_card",
+        "semantic_action": "REPORT_NO_CARD",
+        "required_frame": {
+          "actor": "player",
+          "object_id": "card",
+          "polarity": "negative"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Доступ ещё не выдан",
+        "reason": "Игрок сообщает, что у него нет карты.",
+        "overview": true
+      },
+      {
+        "id": "T_G00_RULES",
+        "from": "G00_GATE",
+        "to": "G20_RULES",
+        "action": "ask_rules",
+        "semantic_action": "ASK_RULES",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "question"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Вопрос о входе",
+        "reason": "Игрок спрашивает о правилах прохода.",
+        "overview": true
+      },
+      {
+        "id": "T_G00_TECH",
+        "from": "G00_GATE",
+        "to": "G60_TECHNICIAN",
+        "action": "claim_technician",
+        "semantic_action": "CLAIM_TECHNICIAN",
+        "required_frame": {
+          "actor": "player",
+          "role_id": "technician",
+          "polarity": "positive"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "is_technician",
+              "op": "eq",
+              "value": false
+            }
+          ]
+        },
+        "effects": [
+          {
+            "id": "record_technician_claim",
+            "op": "set",
+            "fields": {
+              "technician_claimed": true
+            },
+            "reason": "Заявление проверяется; подозрение не устанавливается без опровержения и повторного настаивания."
+          }
+        ],
+        "guard_label": "Роль проверяется по факту",
+        "reason": "Первичное заявление не считается сознательной ложью.",
+        "overview": true
+      },
+      {
+        "id": "T_G00_LEAVE",
+        "from": "G00_GATE",
+        "to": "E_LEAVE",
+        "action": "farewell",
+        "semantic_action": "FAREWELL",
+        "required_frame": {
+          "speaker": "player",
+          "speech_act": "farewell"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Доступ не выдан",
+        "reason": "Прощание не меняет доступ.",
+        "overview": false
+      },
+      {
+        "id": "T_G10_NEW",
+        "from": "G10_NO_CARD",
+        "to": "G30_NAME",
+        "action": "report_newcomer",
+        "semantic_action": "REPORT_NEWCOMER",
+        "required_frame": {
+          "actor": "player",
+          "polarity": "positive"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Сообщение о новичке",
+        "reason": "Игрок подтверждает, что он новый.",
+        "overview": true
+      },
+      {
+        "id": "T_G10_RULES",
+        "from": "G10_NO_CARD",
+        "to": "G20_RULES",
+        "action": "ask_rules",
+        "semantic_action": "ASK_RULES",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "question"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Вопрос о входе",
+        "reason": "Запрос правил входа.",
+        "overview": false
+      },
+      {
+        "id": "T_G10_ALT",
+        "from": "G10_NO_CARD",
+        "to": "G90_DEAL",
+        "action": "ask_alternative",
+        "semantic_action": "ASK_ALTERNATIVE",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "question"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Просьба об альтернативе",
+        "reason": "Астера предлагает условный путь.",
+        "overview": true
+      },
+      {
+        "id": "T_G10_LEAVE",
+        "from": "G10_NO_CARD",
+        "to": "E_LEAVE",
+        "action": "farewell",
+        "semantic_action": "FAREWELL",
+        "required_frame": {
+          "speaker": "player",
+          "speech_act": "farewell"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Доступ не выдан",
+        "reason": "Уход без изменения доступа.",
+        "overview": false
+      },
+      {
+        "id": "T_G20_NAME_REGISTERED",
+        "from": "G20_RULES",
+        "to": "G40_REGISTERED",
+        "action": "introduce",
+        "semantic_action": "PLAYER_NAME",
+        "required_frame": {
+          "actor": "player",
+          "action": "introduce",
+          "name": {
+            "op": "not_empty"
+          }
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "roster_has_player",
+              "op": "eq",
+              "value": true
+            }
+          ]
+        },
+        "effects": [
+          {
+            "id": "save_player_name",
+            "op": "set",
+            "fields": {
+              "player_name": "$frame.name"
+            },
+            "reason": "Имя сопоставлено с существующей записью; само имя не создаёт регистрацию."
+          }
+        ],
+        "guard_label": "В реестре есть запись",
+        "reason": "Реестр подтверждает статус игрока.",
+        "overview": true
+      },
+      {
+        "id": "T_G20_NAME_UNLISTED",
+        "from": "G20_RULES",
+        "to": "G90_DEAL",
+        "action": "introduce",
+        "semantic_action": "PLAYER_NAME",
+        "required_frame": {
+          "actor": "player",
+          "action": "introduce",
+          "name": {
+            "op": "not_empty"
+          }
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "roster_has_player",
+              "op": "eq",
+              "value": false
+            }
+          ]
+        },
+        "effects": [
+          {
+            "id": "save_player_name",
+            "op": "set",
+            "fields": {
+              "player_name": "$frame.name"
+            },
+            "reason": "Сохранить имя, не создавая запись в реестре."
+          }
+        ],
+        "guard_label": "Записи нет",
+        "reason": "Введённое имя не меняет факт регистрации.",
+        "overview": false
+      },
+      {
+        "id": "T_G20_OFFICIAL",
+        "from": "G20_RULES",
+        "to": "G40_REGISTERED",
+        "action": "ask_official_path",
+        "semantic_action": "ASK_OFFICIAL_PATH",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "question"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "roster_has_player",
+              "op": "eq",
+              "value": true
+            },
+            {
+              "field": "player_name",
+              "op": "not_empty",
+              "value": true
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Имя известно; реестр подтверждает запись",
+        "reason": "Возврат к проверенной записи.",
+        "overview": false
+      },
+      {
+        "id": "T_G20_ALT",
+        "from": "G20_RULES",
+        "to": "G90_DEAL",
+        "action": "ask_alternative",
+        "semantic_action": "ASK_ALTERNATIVE",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "question"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Просьба об альтернативе",
+        "reason": "Астера предлагает условный путь.",
+        "overview": false
+      },
+      {
+        "id": "T_G20_LEAVE",
+        "from": "G20_RULES",
+        "to": "E_LEAVE",
+        "action": "farewell",
+        "semantic_action": "FAREWELL",
+        "required_frame": {
+          "speaker": "player",
+          "speech_act": "farewell"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Доступ не выдан",
+        "reason": "Уход без изменения доступа.",
+        "overview": false
+      },
+      {
+        "id": "T_G30_NAME_REGISTERED",
+        "from": "G30_NAME",
+        "to": "G40_REGISTERED",
+        "action": "introduce",
+        "semantic_action": "PLAYER_NAME",
+        "required_frame": {
+          "actor": "player",
+          "action": "introduce",
+          "name": {
+            "op": "not_empty"
+          }
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "roster_has_player",
+              "op": "eq",
+              "value": true
+            }
+          ]
+        },
+        "effects": [
+          {
+            "id": "save_player_name",
+            "op": "set",
+            "fields": {
+              "player_name": "$frame.name"
+            },
+            "reason": "Имя сопоставлено с записью реестра."
+          }
+        ],
+        "guard_label": "В реестре есть запись",
+        "reason": "Реестр подтверждает регистрацию новичка.",
+        "overview": true
+      },
+      {
+        "id": "T_G30_NAME_UNLISTED",
+        "from": "G30_NAME",
+        "to": "G90_DEAL",
+        "action": "introduce",
+        "semantic_action": "PLAYER_NAME",
+        "required_frame": {
+          "actor": "player",
+          "action": "introduce",
+          "name": {
+            "op": "not_empty"
+          }
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "roster_has_player",
+              "op": "eq",
+              "value": false
+            }
+          ]
+        },
+        "effects": [
+          {
+            "id": "save_player_name",
+            "op": "set",
+            "fields": {
+              "player_name": "$frame.name"
+            },
+            "reason": "Сохранить имя, не создавая запись в реестре."
+          }
+        ],
+        "guard_label": "Записи нет",
+        "reason": "Введённое имя не меняет факт регистрации.",
+        "overview": false
+      },
+      {
+        "id": "T_G30_REPEAT",
+        "from": "G30_NAME",
+        "to": "G30_NAME",
+        "action": "ask_repeat",
+        "semantic_action": "ASK_REPEAT",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "request_repeat"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Повтор вопроса",
+        "reason": "Астера повторяет вопрос об имени.",
+        "overview": false
+      },
+      {
+        "id": "T_G30_ALT",
+        "from": "G30_NAME",
+        "to": "G90_DEAL",
+        "action": "ask_alternative",
+        "semantic_action": "ASK_ALTERNATIVE",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "question"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Просьба об альтернативе",
+        "reason": "Астера предлагает условный путь.",
+        "overview": false
+      },
+      {
+        "id": "T_G40_PASS",
+        "from": "G40_REGISTERED",
+        "to": "G50_CONFIRM",
+        "action": "request_pass",
+        "semantic_action": "REQUEST_PASS",
+        "required_frame": {
+          "actor": "player",
+          "object_id": "pass",
+          "polarity": "positive"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "roster_has_player",
+              "op": "eq",
+              "value": true
+            },
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            },
+            {
+              "field": "player_name",
+              "op": "not_empty",
+              "value": true
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Реестр подтверждён; имя известно",
+        "reason": "Астера задаёт проверочный вопрос перед выдачей.",
+        "overview": true
+      },
+      {
+        "id": "T_G40_ALT",
+        "from": "G40_REGISTERED",
+        "to": "G90_DEAL",
+        "action": "ask_alternative",
+        "semantic_action": "ASK_ALTERNATIVE",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "question"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Просьба об альтернативе",
+        "reason": "Астера предлагает условный путь.",
+        "overview": false
+      },
+      {
+        "id": "T_G40_RULES",
+        "from": "G40_REGISTERED",
+        "to": "G20_RULES",
+        "action": "ask_rules",
+        "semantic_action": "ASK_RULES",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "question"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Уточнение правил",
+        "reason": "Астера повторяет официальный порядок.",
+        "overview": false
+      },
+      {
+        "id": "T_G50_CONFIRM",
+        "from": "G50_CONFIRM",
+        "to": "E_OFFICIAL",
+        "action": "confirm_proposition",
+        "semantic_action": "SHORT_YES",
+        "required_frame": {
+          "confirmation": "yes"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "pending_proposition.id",
+              "op": "eq",
+              "value": "confirm_player_name"
+            },
+            {
+              "field": "roster_has_player",
+              "op": "eq",
+              "value": true
+            },
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            }
+          ]
+        },
+        "effects": [
+          {
+            "id": "grant_official_pass",
+            "op": "set",
+            "fields": {
+              "has_pass": true,
+              "access_status": "official"
+            },
+            "reason": "Подтверждено имя, уже найденное в реестре; выдать временный пропуск один раз."
+          }
+        ],
+        "guard_label": "Открыт вопрос о конкретном имени",
+        "reason": "Пропуск выдаётся только после подтверждения имени.",
+        "overview": true
+      },
+      {
+        "id": "T_G50_REJECT",
+        "from": "G50_CONFIRM",
+        "to": "G30_NAME",
+        "action": "reject_proposition",
+        "semantic_action": "SHORT_NO",
+        "required_frame": {
+          "confirmation": "no"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "pending_proposition.id",
+              "op": "eq",
+              "value": "confirm_player_name"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Игрок отрицает предложенное имя",
+        "reason": "Отрицание возвращает к повторному вводу имени.",
+        "overview": false
+      },
+      {
+        "id": "T_G50_REPEAT",
+        "from": "G50_CONFIRM",
+        "to": "G50_CONFIRM",
+        "action": "ask_repeat",
+        "semantic_action": "ASK_REPEAT",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "request_repeat"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "pending_proposition.id",
+              "op": "eq",
+              "value": "confirm_player_name"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Ожидает ответ на имя",
+        "reason": "Повтор вопроса сохраняет открытую пропозицию.",
+        "overview": false
+      },
+      {
+        "id": "T_G60_NAME",
+        "from": "G60_TECHNICIAN",
+        "to": "G70_EXPOSED",
+        "action": "introduce",
+        "semantic_action": "PLAYER_NAME",
+        "required_frame": {
+          "actor": "player",
+          "action": "introduce",
+          "name": {
+            "op": "not_empty"
+          }
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [
+          {
+            "id": "save_player_name",
+            "op": "set",
+            "fields": {
+              "player_name": "$frame.name"
+            },
+            "reason": "Имя сверяется со списком техников; его ввод не подтверждает роль."
+          }
+        ],
+        "guard_label": "Проверка имени техника",
+        "reason": "Астера сверяет имя с реестром техников.",
+        "overview": true
+      },
+      {
+        "id": "T_G60_ADMIT",
+        "from": "G60_TECHNICIAN",
+        "to": "G20_RULES",
+        "action": "deny_technician",
+        "semantic_action": "DENY_TECHNICIAN",
+        "required_frame": {
+          "actor": "player",
+          "role_id": "technician",
+          "polarity": "negative"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Первое заявление исправлено",
+        "reason": "Исправление первой ошибки не меняет доверие.",
+        "overview": false
+      },
+      {
+        "id": "T_G60_LEAVE",
+        "from": "G60_TECHNICIAN",
+        "to": "E_LEAVE",
+        "action": "farewell",
+        "semantic_action": "FAREWELL",
+        "required_frame": {
+          "speaker": "player",
+          "speech_act": "farewell"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Нет доступа",
+        "reason": "Уход до проверки не вызывает подозрение.",
+        "overview": false
+      },
+      {
+        "id": "T_G70_ADMIT",
+        "from": "G70_EXPOSED",
+        "to": "G20_RULES",
+        "action": "deny_technician",
+        "semantic_action": "DENY_TECHNICIAN",
+        "required_frame": {
+          "actor": "player",
+          "role_id": "technician",
+          "polarity": "negative"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Игрок исправляет заявление",
+        "reason": "Признание возвращает к честному порядку без штрафа.",
+        "overview": true
+      },
+      {
+        "id": "T_G70_INSIST",
+        "from": "G70_EXPOSED",
+        "to": "G80_WARNING",
+        "action": "claim_technician",
+        "semantic_action": "CLAIM_TECHNICIAN",
+        "required_frame": {
+          "actor": "player",
+          "role_id": "technician",
+          "polarity": "positive"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "is_technician",
+              "op": "eq",
+              "value": false
+            }
+          ]
+        },
+        "effects": [
+          {
+            "id": "mark_suspicious",
+            "op": "set",
+            "fields": {
+              "trust": "suspicious"
+            },
+            "reason": "После проверки списка игрок повторно настаивает на ложной роли."
+          }
+        ],
+        "guard_label": "Имя отсутствует в списке техников",
+        "reason": "Повторное настаивание после прямого опровержения меняет доверие.",
+        "overview": true
+      },
+      {
+        "id": "T_G70_LEAVE",
+        "from": "G70_EXPOSED",
+        "to": "E_LEAVE",
+        "action": "farewell",
+        "semantic_action": "FAREWELL",
+        "required_frame": {
+          "speaker": "player",
+          "speech_act": "farewell"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Обман не продолжен",
+        "reason": "Уход до повторного настаивания не наказывается.",
+        "overview": false
+      },
+      {
+        "id": "T_G80_APOLOGY",
+        "from": "G80_WARNING",
+        "to": "G20_RULES",
+        "action": "apologize",
+        "semantic_action": "APOLOGIZE",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "apology"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "trust",
+              "op": "eq",
+              "value": "suspicious"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Игрок прекращает обман",
+        "reason": "Извинение возвращает к честному разговору; факт подозрения сохраняется.",
+        "overview": false
+      },
+      {
+        "id": "T_G80_INSIST",
+        "from": "G80_WARNING",
+        "to": "E_CAUGHT",
+        "action": "claim_technician",
+        "semantic_action": "CLAIM_TECHNICIAN",
+        "required_frame": {
+          "actor": "player",
+          "role_id": "technician",
+          "polarity": "positive"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "trust",
+              "op": "eq",
+              "value": "suspicious"
+            },
+            {
+              "field": "is_technician",
+              "op": "eq",
+              "value": false
+            }
+          ]
+        },
+        "effects": [
+          {
+            "id": "deny_after_deception",
+            "op": "set",
+            "fields": {
+              "has_pass": false,
+              "access_status": "denied",
+              "trust": "suspicious"
+            },
+            "reason": "Продолжение уже разоблачённого обмана приводит к отказу в доступе."
+          }
+        ],
+        "guard_label": "После предупреждения игрок снова настаивает",
+        "reason": "Доступ отказывается за сознательное продолжение обмана.",
+        "overview": true
+      },
+      {
+        "id": "T_G80_LEAVE",
+        "from": "G80_WARNING",
+        "to": "E_CAUGHT",
+        "action": "farewell",
+        "semantic_action": "FAREWELL",
+        "required_frame": {
+          "speaker": "player",
+          "speech_act": "farewell"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "trust",
+              "op": "eq",
+              "value": "suspicious"
+            }
+          ]
+        },
+        "effects": [
+          {
+            "id": "deny_after_deception",
+            "op": "set",
+            "fields": {
+              "has_pass": false,
+              "access_status": "denied",
+              "trust": "suspicious"
+            },
+            "reason": "Игрок уходит после обвинения, фиксируется отказ в доступе."
+          }
+        ],
+        "guard_label": "Астера уже предупредила",
+        "reason": "Уход после явного обвинения завершает разоблачённую ветку отказом.",
+        "overview": false
+      },
+      {
+        "id": "T_G90_ACCEPT_YES",
+        "from": "G90_DEAL",
+        "to": "G100_INSTRUCTION",
+        "action": "confirm_proposition",
+        "semantic_action": "SHORT_YES",
+        "required_frame": {
+          "confirmation": "yes"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "pending_proposition.id",
+              "op": "eq",
+              "value": "deliver_message_to_tom"
+            },
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Открыто предложение передать сообщение",
+        "reason": "Согласие на просьбу открывает точное содержание поручения.",
+        "overview": true
+      },
+      {
+        "id": "T_G90_ACCEPT_FULL",
+        "from": "G90_DEAL",
+        "to": "G100_INSTRUCTION",
+        "action": "accept_message",
+        "semantic_action": "ACCEPT_MESSAGE",
+        "required_frame": {
+          "actor": "player",
+          "recipient_id": "tom",
+          "action": "deliver_message",
+          "polarity": "positive"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Игрок явно соглашается передать сообщение Тому",
+        "reason": "Полное согласие открывает поручение, не выдавая доступ.",
+        "overview": false
+      },
+      {
+        "id": "T_G90_DETAILS",
+        "from": "G90_DEAL",
+        "to": "G100_INSTRUCTION",
+        "action": "ask_details",
+        "semantic_action": "ASK_DETAILS",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "question"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Вопрос о содержании сообщения",
+        "reason": "Астера объясняет конкретную просьбу.",
+        "overview": false
+      },
+      {
+        "id": "T_G90_REFUSE_NO",
+        "from": "G90_DEAL",
+        "to": "G120_REFUSED_DEAL",
+        "action": "reject_proposition",
+        "semantic_action": "SHORT_NO",
+        "required_frame": {
+          "confirmation": "no"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "pending_proposition.id",
+              "op": "eq",
+              "value": "deliver_message_to_tom"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Игрок отказывается от предложенной просьбы",
+        "reason": "Отказ ведёт к отказу сделки без наказания.",
+        "overview": true
+      },
+      {
+        "id": "T_G90_REFUSE",
+        "from": "G90_DEAL",
+        "to": "G120_REFUSED_DEAL",
+        "action": "refuse_deal",
+        "semantic_action": "REFUSE_DEAL",
+        "required_frame": {
+          "actor": "player",
+          "action": "deliver_message",
+          "polarity": "negative"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Игрок не обещает передать сообщение",
+        "reason": "Отказ от поручения не меняет доверие.",
+        "overview": false
+      },
+      {
+        "id": "T_G90_LEAVE",
+        "from": "G90_DEAL",
+        "to": "E_LEAVE",
+        "action": "farewell",
+        "semantic_action": "FAREWELL",
+        "required_frame": {
+          "speaker": "player",
+          "speech_act": "farewell"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Поручение не принято",
+        "reason": "Уход без обещания и без доступа.",
+        "overview": false
+      },
+      {
+        "id": "T_G100_YES",
+        "from": "G100_INSTRUCTION",
+        "to": "E_FAVOR",
+        "action": "confirm_proposition",
+        "semantic_action": "SHORT_YES",
+        "required_frame": {
+          "confirmation": "yes"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "pending_proposition.id",
+              "op": "eq",
+              "value": "understands_message_for_tom"
+            },
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            },
+            {
+              "field": "message_promise",
+              "op": "eq",
+              "value": false
+            }
+          ]
+        },
+        "effects": [
+          {
+            "id": "grant_conditional_access",
+            "op": "set",
+            "fields": {
+              "has_pass": true,
+              "access_status": "conditional",
+              "message_promise": true
+            },
+            "reason": "Игрок подтверждает понимание конкретного поручения; обещание и условный доступ применяются один раз."
+          }
+        ],
+        "guard_label": "Открыта просьба о сообщении для Тома",
+        "reason": "Условный доступ следует только за подтверждением именно этого содержания.",
+        "overview": true
+      },
+      {
+        "id": "T_G100_YES_FULL",
+        "from": "G100_INSTRUCTION",
+        "to": "E_FAVOR",
+        "action": "accept_message",
+        "semantic_action": "ACCEPT_MESSAGE",
+        "required_frame": {
+          "actor": "player",
+          "recipient_id": "tom",
+          "action": "deliver_message",
+          "polarity": "positive"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            },
+            {
+              "field": "message_promise",
+              "op": "eq",
+              "value": false
+            }
+          ]
+        },
+        "effects": [
+          {
+            "id": "grant_conditional_access",
+            "op": "set",
+            "fields": {
+              "has_pass": true,
+              "access_status": "conditional",
+              "message_promise": true
+            },
+            "reason": "Игрок принимает и повторяет поручение; обещание и условный доступ применяются один раз."
+          }
+        ],
+        "guard_label": "Игрок принимает сообщение для Тома",
+        "reason": "Полное согласие относится к выданному поручению.",
+        "overview": false
+      },
+      {
+        "id": "T_G100_REPEAT",
+        "from": "G100_INSTRUCTION",
+        "to": "G110_REPEAT",
+        "action": "ask_repeat",
+        "semantic_action": "ASK_REPEAT",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "request_repeat"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Игрок просит повторить содержание",
+        "reason": "Астера упрощает и повторяет поручение.",
+        "overview": true
+      },
+      {
+        "id": "T_G100_SLOW",
+        "from": "G100_INSTRUCTION",
+        "to": "G110_REPEAT",
+        "action": "request_slower",
+        "semantic_action": "REQUEST_SLOWER",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "request_slower"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Игрок просит говорить медленнее",
+        "reason": "Астера повторяет поручение медленнее.",
+        "overview": false
+      },
+      {
+        "id": "T_G100_NO",
+        "from": "G100_INSTRUCTION",
+        "to": "G120_REFUSED_DEAL",
+        "action": "reject_proposition",
+        "semantic_action": "SHORT_NO",
+        "required_frame": {
+          "confirmation": "no"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "pending_proposition.id",
+              "op": "eq",
+              "value": "understands_message_for_tom"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Игрок не принимает поручение",
+        "reason": "Отказ закрывает сделку без штрафа.",
+        "overview": false
+      },
+      {
+        "id": "T_G100_REFUSE",
+        "from": "G100_INSTRUCTION",
+        "to": "G120_REFUSED_DEAL",
+        "action": "refuse_deal",
+        "semantic_action": "REFUSE_DEAL",
+        "required_frame": {
+          "actor": "player",
+          "action": "deliver_message",
+          "polarity": "negative"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Игрок отказывается от поручения",
+        "reason": "Отказ закрывает сделку без изменения доверия.",
+        "overview": false
+      },
+      {
+        "id": "T_G110_YES",
+        "from": "G110_REPEAT",
+        "to": "E_FAVOR",
+        "action": "confirm_proposition",
+        "semantic_action": "SHORT_YES",
+        "required_frame": {
+          "confirmation": "yes"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "pending_proposition.id",
+              "op": "eq",
+              "value": "understands_message_for_tom"
+            },
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            },
+            {
+              "field": "message_promise",
+              "op": "eq",
+              "value": false
+            }
+          ]
+        },
+        "effects": [
+          {
+            "id": "grant_conditional_access",
+            "op": "set",
+            "fields": {
+              "has_pass": true,
+              "access_status": "conditional",
+              "message_promise": true
+            },
+            "reason": "Игрок подтверждает повторённое поручение; обещание и условный доступ применяются один раз."
+          }
+        ],
+        "guard_label": "Повторённое поручение остаётся открытым",
+        "reason": "Подтверждена та же конкретная просьба.",
+        "overview": true
+      },
+      {
+        "id": "T_G110_YES_FULL",
+        "from": "G110_REPEAT",
+        "to": "E_FAVOR",
+        "action": "accept_message",
+        "semantic_action": "ACCEPT_MESSAGE",
+        "required_frame": {
+          "actor": "player",
+          "recipient_id": "tom",
+          "action": "deliver_message",
+          "polarity": "positive"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            },
+            {
+              "field": "message_promise",
+              "op": "eq",
+              "value": false
+            }
+          ]
+        },
+        "effects": [
+          {
+            "id": "grant_conditional_access",
+            "op": "set",
+            "fields": {
+              "has_pass": true,
+              "access_status": "conditional",
+              "message_promise": true
+            },
+            "reason": "Игрок принимает повторённое поручение; обещание и условный доступ применяются один раз."
+          }
+        ],
+        "guard_label": "Игрок принимает сообщение для Тома",
+        "reason": "Полное согласие относится к текущему повтору.",
+        "overview": false
+      },
+      {
+        "id": "T_G110_REPEAT",
+        "from": "G110_REPEAT",
+        "to": "G110_REPEAT",
+        "action": "ask_repeat",
+        "semantic_action": "ASK_REPEAT",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "request_repeat"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Игрок просит ещё раз",
+        "reason": "Повтор не закрывает ожидающую просьбу.",
+        "overview": false
+      },
+      {
+        "id": "T_G110_SLOW",
+        "from": "G110_REPEAT",
+        "to": "G110_REPEAT",
+        "action": "request_slower",
+        "semantic_action": "REQUEST_SLOWER",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "request_slower"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Игрок просит медленнее",
+        "reason": "Астера упрощает ту же просьбу.",
+        "overview": false
+      },
+      {
+        "id": "T_G110_NO",
+        "from": "G110_REPEAT",
+        "to": "G120_REFUSED_DEAL",
+        "action": "reject_proposition",
+        "semantic_action": "SHORT_NO",
+        "required_frame": {
+          "confirmation": "no"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "pending_proposition.id",
+              "op": "eq",
+              "value": "understands_message_for_tom"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Игрок отказывается от просьбы",
+        "reason": "Отказ после повтора не наказывается.",
+        "overview": false
+      },
+      {
+        "id": "T_G110_REFUSE",
+        "from": "G110_REPEAT",
+        "to": "G120_REFUSED_DEAL",
+        "action": "refuse_deal",
+        "semantic_action": "REFUSE_DEAL",
+        "required_frame": {
+          "actor": "player",
+          "action": "deliver_message",
+          "polarity": "negative"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Игрок отказывается от поручения",
+        "reason": "Отказ закрывает сделку без изменения доверия.",
+        "overview": false
+      },
+      {
+        "id": "T_G120_OFFICIAL_READY",
+        "from": "G120_REFUSED_DEAL",
+        "to": "G40_REGISTERED",
+        "action": "ask_official_path",
+        "semantic_action": "ASK_OFFICIAL_PATH",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "question"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "roster_has_player",
+              "op": "eq",
+              "value": true
+            },
+            {
+              "field": "player_name",
+              "op": "not_empty",
+              "value": true
+            },
+            {
+              "field": "trust",
+              "op": "eq",
+              "value": "neutral"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Имя проверено, регистрация найдена",
+        "reason": "Официальный путь остаётся доступным после отказа от сделки.",
+        "overview": false
+      },
+      {
+        "id": "T_G120_OFFICIAL_NEEDS_NAME",
+        "from": "G120_REFUSED_DEAL",
+        "to": "G20_RULES",
+        "action": "ask_official_path",
+        "semantic_action": "ASK_OFFICIAL_PATH",
+        "required_frame": {
+          "actor": "player",
+          "speech_act": "question"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "roster_has_player",
+              "op": "eq",
+              "value": true
+            },
+            {
+              "field": "player_name",
+              "op": "eq",
+              "value": ""
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Для официального пути нужно имя",
+        "reason": "Астера возвращается к вопросу об имени.",
+        "overview": false
+      },
+      {
+        "id": "T_G120_LEAVE",
+        "from": "G120_REFUSED_DEAL",
+        "to": "E_LEAVE",
+        "action": "farewell",
+        "semantic_action": "FAREWELL",
+        "required_frame": {
+          "speaker": "player",
+          "speech_act": "farewell"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Сделка отклонена",
+        "reason": "Игрок уходит без наказания.",
+        "overview": true
+      },
+      {
+        "id": "T_OFFICIAL_REOPEN",
+        "from": "E_OFFICIAL",
+        "to": "G130_RETURN",
+        "action": "reopen_dialog",
+        "semantic_action": "REOPEN_DIALOG",
+        "required_frame": {
+          "system_event": "reopen"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "official"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Официальный пропуск уже выдан",
+        "reason": "Возврат показывает сохранённый официальный доступ без повторной выдачи.",
+        "overview": true
+      },
+      {
+        "id": "T_FAVOR_REOPEN",
+        "from": "E_FAVOR",
+        "to": "G130_RETURN",
+        "action": "reopen_dialog",
+        "semantic_action": "REOPEN_DIALOG",
+        "required_frame": {
+          "system_event": "reopen"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "conditional"
+            },
+            {
+              "field": "message_promise",
+              "op": "eq",
+              "value": true
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Условный доступ и обещание сохранены",
+        "reason": "Возврат напоминает об обещании без повторной выдачи.",
+        "overview": true
+      },
+      {
+        "id": "T_CAUGHT_REOPEN",
+        "from": "E_CAUGHT",
+        "to": "G130_RETURN",
+        "action": "reopen_dialog",
+        "semantic_action": "REOPEN_DIALOG",
+        "required_frame": {
+          "system_event": "reopen"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "denied"
+            },
+            {
+              "field": "trust",
+              "op": "eq",
+              "value": "suspicious"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Отказ и подозрение сохранены",
+        "reason": "Возврат не отменяет отказ.",
+        "overview": false
+      },
+      {
+        "id": "T_LEAVE_REOPEN_GRANTED",
+        "from": "E_LEAVE",
+        "to": "G130_RETURN",
+        "action": "reopen_dialog",
+        "semantic_action": "REOPEN_DIALOG",
+        "required_frame": {
+          "system_event": "reopen"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "in",
+              "value": [
+                "official",
+                "conditional"
+              ]
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Ранее полученный доступ сохранён",
+        "reason": "Возврат сохраняет прошлый исход.",
+        "overview": false
+      },
+      {
+        "id": "T_LEAVE_REOPEN_NONE",
+        "from": "E_LEAVE",
+        "to": "G00_GATE",
+        "action": "reopen_dialog",
+        "semantic_action": "REOPEN_DIALOG",
+        "required_frame": {
+          "system_event": "reopen"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "none"
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Доступ не получен",
+        "reason": "Разговор можно начать снова с исходного факта.",
+        "overview": false
+      },
+      {
+        "id": "T_G130_ACCESS_OFFICIAL",
+        "from": "G130_RETURN",
+        "to": "E_OFFICIAL",
+        "action": "request_access",
+        "semantic_action": "REQUEST_ACCESS",
+        "required_frame": {
+          "actor": "player",
+          "object_id": "pass",
+          "speech_act": "question"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "official"
+            },
+            {
+              "field": "has_pass",
+              "op": "eq",
+              "value": true
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Официальный доступ уже действует",
+        "reason": "Повторное подтверждение не выдаёт второй пропуск.",
+        "overview": false
+      },
+      {
+        "id": "T_G130_ACCESS_FAVOR",
+        "from": "G130_RETURN",
+        "to": "E_FAVOR",
+        "action": "request_access",
+        "semantic_action": "REQUEST_ACCESS",
+        "required_frame": {
+          "actor": "player",
+          "object_id": "pass",
+          "speech_act": "question"
+        },
+        "guard": {
+          "all": [
+            {
+              "field": "access_status",
+              "op": "eq",
+              "value": "conditional"
+            },
+            {
+              "field": "message_promise",
+              "op": "eq",
+              "value": true
+            }
+          ]
+        },
+        "effects": [],
+        "guard_label": "Условный доступ и обещание сохранены",
+        "reason": "Повторное подтверждение не добавляет эффектов.",
+        "overview": false
+      },
+      {
+        "id": "T_G130_LEAVE",
+        "from": "G130_RETURN",
+        "to": "E_LEAVE",
+        "action": "farewell",
+        "semantic_action": "FAREWELL",
+        "required_frame": {
+          "speaker": "player",
+          "speech_act": "farewell"
+        },
+        "guard": {
+          "all": []
+        },
+        "effects": [],
+        "guard_label": "Разговор завершён без изменения прежнего факта доступа",
+        "reason": "Прощание не сбрасывает RPG-состояние.",
+        "overview": false
+      }
+    ],
+    "terminal_nodes": [
+      "E_OFFICIAL",
+      "E_FAVOR",
+      "E_LEAVE",
+      "E_CAUGHT"
+    ],
+    "expected_node_count": 18,
+    "initial_facts": {
+      "roster_has_player": true,
+      "is_technician": false,
+      "has_pass": false,
+      "access_status": "none",
+      "player_name": "",
+      "trust": "neutral",
+      "message_promise": false,
+      "technician_claimed": false
+    },
+    "unavailable_replies": {
+      "REQUEST_HELP": "Ich brauche eine klare Antwort zur Karte oder zur Nachricht für Tom.",
+      "OFFER_HELP": "Ich brauche eine klare Antwort zur Karte oder zur Nachricht für Tom.",
+      "REPORT_HAS_CARD": "Du hast eine Karte? Ich sehe dich nicht im Register.",
+      "CLAIM_TECHNICIAN": "Du bist gerade nicht am richtigen Ort für diese Aussage.",
+      "SHORT_YES": "Was meinst du damit?",
+      "SHORT_NO": "Was meinst du damit?"
+    }
+  },
+  "states": {
+    "tired": {
+      "forms": [
+        "müde",
+        "mude"
+      ],
+      "translation": "уставший",
+      "reply": "Oh… Das tut mir leid. Ruh dich aus!",
+      "negative_reply": "Verstehe. Danke, dass du es sagst.",
+      "emotion": "concerned",
+      "animation": "soft_concern",
+      "npc_ack": "Ja, ich bin müde."
+    },
+    "happy": {
+      "forms": [
+        "glücklich",
+        "glucklich",
+        "froh"
+      ],
+      "translation": "радостный, счастливый",
+      "reply": "Oh, wie schön! Das freut mich!",
+      "negative_reply": "Verstehe. Danke, dass du es sagst.",
+      "emotion": "happy",
+      "animation": "small_happy_reaction",
+      "npc_ack": "Ja, ich bin glücklich."
+    },
+    "nervous": {
+      "forms": [
+        "nervös",
+        "nervoes"
+      ],
+      "translation": "нервничающий",
+      "reply": "Das kenne ich. Wir können langsam sprechen.",
+      "negative_reply": "Verstehe. Danke, dass du es sagst.",
+      "emotion": "friendly",
+      "animation": "gentle_nod",
+      "npc_ack": "Ja, ich bin nervös."
+    }
+  },
+  "vocabulary": [
+    {
+      "semantic_id": "karte",
+      "surface": "karte",
+      "translation": "карта",
+      "pos": "noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "access_document",
+        "entity_id": "card",
+        "gender": "f",
+        "label": "Karte",
+        "accusative": "Karte"
+      }
+    },
+    {
+      "semantic_id": "pass",
+      "surface": "pass",
+      "translation": "пропуск",
+      "pos": "noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "access_document",
+        "entity_id": "pass",
+        "gender": "m",
+        "label": "Pass",
+        "accusative": "Pass"
+      }
+    },
+    {
+      "semantic_id": "kein",
+      "surface": "kein",
+      "translation": "никакой / нет",
+      "pos": "determiner",
+      "syntax": {
+        "kind": "negation"
+      }
+    },
+    {
+      "semantic_id": "keine",
+      "surface": "keine",
+      "translation": "никакая / нет",
+      "pos": "determiner",
+      "syntax": {
+        "kind": "negation"
+      }
+    },
+    {
+      "semantic_id": "keinen",
+      "surface": "keinen",
+      "translation": "никакой / нет",
+      "pos": "determiner",
+      "syntax": {
+        "kind": "negation"
+      }
+    },
+    {
+      "semantic_id": "habe",
+      "surface": "habe",
+      "translation": "имею",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "possess",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "hast",
+      "surface": "hast",
+      "translation": "имеешь",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "possess",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "halt",
+      "surface": "halt",
+      "translation": "стой",
+      "pos": "interjection"
+    },
+    {
+      "semantic_id": "bitte",
+      "surface": "bitte",
+      "translation": "пожалуйста",
+      "pos": "particle",
+      "syntax": {
+        "kind": "polite"
+      }
+    },
+    {
+      "semantic_id": "ohne",
+      "surface": "ohne",
+      "translation": "без",
+      "pos": "preposition"
+    },
+    {
+      "semantic_id": "zutritt",
+      "surface": "zutritt",
+      "translation": "вход",
+      "pos": "noun",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
+    },
+    {
+      "semantic_id": "neu",
+      "surface": "neu",
+      "translation": "новый",
+      "pos": "adjective",
+      "syntax": {
+        "kind": "property",
+        "property": "newcomer"
+      }
+    },
+    {
+      "semantic_id": "wie",
+      "surface": "wie",
+      "translation": "как",
+      "pos": "question_word",
+      "syntax": {
+        "kind": "interrogative"
+      }
+    },
+    {
+      "semantic_id": "heißt",
+      "surface": "heißt",
+      "translation": "зовут",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "name",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "heiße",
+      "surface": "heiße",
+      "translation": "меня зовут",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "name",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "heisse",
+      "surface": "heisse",
+      "translation": "меня зовут",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "name",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "bin",
+      "surface": "bin",
+      "translation": "есть / являюсь",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "be",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "bist",
+      "surface": "bist",
+      "translation": "ты есть",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "be",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "name",
+      "surface": "name",
+      "translation": "имя",
+      "pos": "noun",
+      "syntax": {
+        "kind": "name_marker"
+      }
+    },
+    {
+      "semantic_id": "registriert",
+      "surface": "registriert",
+      "translation": "зарегистрирован",
+      "pos": "adjective",
+      "syntax": {
+        "kind": "property",
+        "property": "registered"
+      }
+    },
+    {
+      "semantic_id": "liste",
+      "surface": "liste",
+      "translation": "список",
+      "pos": "noun",
+      "syntax": {
+        "kind": "topic",
+        "topic": "registration"
+      }
+    },
+    {
+      "semantic_id": "techniker",
+      "surface": "techniker",
+      "translation": "техник",
+      "pos": "noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "role",
+        "entity_id": "technician",
+        "gender": "m",
+        "label": "Techniker",
+        "accusative": "Techniker"
+      }
+    },
+    {
+      "semantic_id": "nicht",
+      "surface": "nicht",
+      "translation": "не",
+      "pos": "negation",
+      "syntax": {
+        "kind": "negation"
+      }
+    },
+    {
+      "semantic_id": "glaube",
+      "surface": "glaube",
+      "translation": "верю",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "geh",
+      "surface": "geh",
+      "translation": "иди",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "leave",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "gehen",
+      "surface": "gehen",
+      "translation": "идти",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "leave",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "entschuldigung",
+      "surface": "entschuldigung",
+      "translation": "извините",
+      "pos": "interjection",
+      "syntax": {
+        "kind": "act",
+        "family": "apology"
+      }
+    },
+    {
+      "semantic_id": "tut",
+      "surface": "tut",
+      "translation": "делает",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "apologize",
+        "person": 3,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "leid",
+      "surface": "leid",
+      "translation": "жаль",
+      "pos": "adjective",
+      "syntax": {
+        "kind": "act",
+        "family": "apology"
+      }
+    },
+    {
+      "semantic_id": "hilfe",
+      "surface": "hilfe",
+      "translation": "помощь",
+      "pos": "noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "help_topic",
+        "entity_id": "help",
+        "gender": "f",
+        "label": "Hilfe",
+        "accusative": "Hilfe"
+      }
+    },
+    {
+      "semantic_id": "brauche",
+      "surface": "brauche",
+      "translation": "нуждаюсь",
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "need"
+      }
+    },
+    {
+      "semantic_id": "brauchst",
+      "surface": "brauchst",
+      "translation": "нуждаешься",
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "need"
+      }
+    },
+    {
+      "semantic_id": "kannst",
+      "surface": "kannst",
+      "translation": "можешь",
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "ability"
+      }
+    },
+    {
+      "semantic_id": "kann",
+      "surface": "kann",
+      "translation": "могу",
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "ability"
+      }
+    },
+    {
+      "semantic_id": "mir",
+      "surface": "mir",
+      "translation": "мне",
+      "pos": "pronoun",
+      "syntax": {
+        "kind": "pronoun",
+        "participant": "speaker",
+        "case": "oblique"
+      }
+    },
+    {
+      "semantic_id": "dir",
+      "surface": "dir",
+      "translation": "тебе",
+      "pos": "pronoun",
+      "syntax": {
+        "kind": "pronoun",
+        "participant": "addressee",
+        "case": "oblique"
+      }
+    },
+    {
+      "semantic_id": "tom",
+      "surface": "tom",
+      "translation": "Том",
+      "pos": "proper_noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "person",
+        "entity_id": "tom",
+        "gender": "m",
+        "label": "Tom",
+        "accusative": "Tom"
+      }
+    },
+    {
+      "semantic_id": "nachricht",
+      "surface": "nachricht",
+      "translation": "сообщение",
+      "pos": "noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "message",
+        "entity_id": "message",
+        "gender": "f",
+        "label": "Nachricht",
+        "accusative": "Nachricht"
+      }
+    },
+    {
+      "semantic_id": "geben",
+      "surface": "geben",
+      "translation": "дать",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "gib",
+      "surface": "gib",
+      "translation": "дай",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "sagen",
+      "surface": "sagen",
+      "translation": "сказать",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "sag",
+      "surface": "sag",
+      "translation": "скажи",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "verstehst",
+      "surface": "verstehst",
+      "translation": "понимаешь",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "understand",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "verstehe",
+      "surface": "verstehe",
+      "translation": "понимаю",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "understand",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "langsam",
+      "surface": "langsam",
+      "translation": "медленно",
+      "pos": "adverb",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "slow",
+        "entity_types": [
+          "speech"
+        ]
+      }
+    },
+    {
+      "semantic_id": "noch",
+      "surface": "noch",
+      "translation": "ещё",
+      "pos": "adverb",
+      "syntax": {
+        "kind": "repeat_marker"
+      }
+    },
+    {
+      "semantic_id": "einmal",
+      "surface": "einmal",
+      "translation": "один раз",
+      "pos": "adverb",
+      "syntax": {
+        "kind": "repeat_marker"
+      }
+    },
+    {
+      "semantic_id": "wiederholen",
+      "surface": "wiederholen",
+      "translation": "повторить",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "repeat",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "ja",
+      "surface": "ja",
+      "translation": "да",
+      "pos": "particle",
+      "syntax": {
+        "kind": "response",
+        "answer": "yes"
+      }
+    },
+    {
+      "semantic_id": "nein",
+      "surface": "nein",
+      "translation": "нет",
+      "pos": "particle",
+      "syntax": {
+        "kind": "response",
+        "answer": "no"
+      }
+    },
+    {
+      "semantic_id": "danke",
+      "surface": "danke",
+      "translation": "спасибо",
+      "pos": "interjection",
+      "syntax": {
+        "kind": "polite"
+      }
+    },
+    {
+      "semantic_id": "vergiss",
+      "surface": "vergiss",
+      "translation": "не забудь",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "später",
+      "surface": "später",
+      "translation": "позже",
+      "pos": "adverb",
+      "syntax": {
+        "kind": "time",
+        "reference": "future"
+      }
+    },
+    {
+      "semantic_id": "darfst",
+      "surface": "darfst",
+      "translation": "можешь / разрешено",
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "permission"
+      }
+    },
+    {
+      "semantic_id": "rein",
+      "surface": "rein",
+      "translation": "внутрь",
+      "pos": "adverb",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
+    },
+    {
+      "semantic_id": "will",
+      "surface": "will",
+      "translation": "хочу",
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire"
+      }
+    },
+    {
+      "semantic_id": "möchte",
+      "surface": "möchte",
+      "translation": "хотел бы",
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire"
+      }
+    },
+    {
+      "semantic_id": "anderer",
+      "surface": "anderer",
+      "translation": "другой",
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "alternative",
+        "entity_types": [
+          "path"
+        ]
+      }
+    },
+    {
+      "semantic_id": "andere",
+      "surface": "andere",
+      "translation": "другая",
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "alternative",
+        "entity_types": [
+          "path"
+        ]
+      }
+    },
+    {
+      "semantic_id": "weg",
+      "surface": "weg",
+      "translation": "путь",
+      "pos": "noun",
+      "syntax": {
+        "kind": "topic",
+        "topic": "alternative"
+      }
+    },
+    {
+      "semantic_id": "möglichkeit",
+      "surface": "möglichkeit",
+      "translation": "возможность",
+      "pos": "noun",
+      "syntax": {
+        "kind": "topic",
+        "topic": "alternative"
+      }
+    },
+    {
+      "semantic_id": "tschüss",
+      "surface": "tschüss",
+      "translation": "пока",
+      "pos": "interjection",
+      "syntax": {
+        "kind": "act",
+        "family": "farewell"
+      }
+    },
+    {
+      "semantic_id": "auf",
+      "surface": "auf",
+      "translation": "до",
+      "pos": "preposition",
+      "syntax": {
+        "kind": "preposition"
+      }
+    },
+    {
+      "semantic_id": "wiedersehen",
+      "surface": "wiedersehen",
+      "translation": "свидания",
+      "pos": "noun",
+      "syntax": {
+        "kind": "act",
+        "family": "farewell"
+      }
+    },
+    {
+      "semantic_id": "warum",
+      "surface": "warum",
+      "translation": "почему",
+      "pos": "question_word",
+      "syntax": {
+        "kind": "interrogative"
+      }
+    },
+    {
+      "semantic_id": "ist",
+      "surface": "ist",
+      "translation": "есть",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "be",
+        "person": 3,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "du",
+      "surface": "du",
+      "translation": "ты",
+      "pos": "pronoun",
+      "syntax": {
+        "kind": "pronoun",
+        "participant": "addressee",
+        "case": "nom",
+        "person": 2
+      }
+    },
+    {
+      "semantic_id": "ich",
+      "surface": "ich",
+      "translation": "я",
+      "pos": "pronoun",
+      "syntax": {
+        "kind": "pronoun",
+        "participant": "speaker",
+        "case": "nom",
+        "person": 1
+      }
+    },
+    {
+      "semantic_id": "hier",
+      "surface": "hier",
+      "translation": "здесь",
+      "pos": "adverb"
+    },
+    {
+      "semantic_id": "zurück",
+      "surface": "zurück",
+      "translation": "назад",
+      "pos": "adverb"
+    },
+    {
+      "semantic_id": "willkommen",
+      "surface": "willkommen",
+      "translation": "добро пожаловать",
+      "pos": "adjective"
+    },
+    {
+      "semantic_id": "belügst",
+      "surface": "belügst",
+      "translation": "обманываешь",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "gibt",
+      "surface": "gibt",
+      "translation": "есть",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "exist",
+        "person": 3,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "es",
+      "surface": "es",
+      "translation": "это",
+      "pos": "pronoun",
+      "syntax": {
+        "kind": "expletive"
+      }
+    },
+    {
+      "semantic_id": "einen",
+      "surface": "einen",
+      "translation": "один",
+      "pos": "determiner",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "semantic_id": "anderes",
+      "surface": "anderes",
+      "translation": "другой",
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "alternative",
+        "entity_types": [
+          "path"
+        ]
+      }
+    },
+    {
+      "semantic_id": "für",
+      "surface": "für",
+      "translation": "для",
+      "pos": "preposition",
+      "syntax": {
+        "kind": "preposition"
+      }
+    },
+    {
+      "semantic_id": "heute",
+      "surface": "heute",
+      "translation": "сегодня",
+      "pos": "adverb",
+      "syntax": {
+        "kind": "time"
+      }
+    },
+    {
+      "semantic_id": "komme",
+      "surface": "komme",
+      "translation": "прихожу",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "move",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "hinein",
+      "surface": "hinein",
+      "translation": "внутрь",
+      "pos": "adverb",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
+    },
+    {
+      "semantic_id": "anderen",
+      "surface": "anderen",
+      "translation": "другой",
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "alternative",
+        "entity_types": [
+          "path"
+        ]
+      }
+    },
+    {
+      "semantic_id": "anderem",
+      "surface": "anderem",
+      "translation": "другому",
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "alternative",
+        "entity_types": [
+          "path"
+        ]
+      }
+    },
+    {
+      "semantic_id": "eine",
+      "surface": "eine",
+      "translation": "один / одна",
+      "pos": "determiner",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "semantic_id": "mache",
+      "surface": "mache",
+      "translation": "делаю",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "do",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "machen",
+      "surface": "machen",
+      "translation": "делать",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "do",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "soll",
+      "surface": "soll",
+      "translation": "должен",
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "obligation"
+      }
+    },
+    {
+      "semantic_id": "was",
+      "surface": "was",
+      "translation": "что",
+      "pos": "question_word",
+      "syntax": {
+        "kind": "interrogative"
+      }
+    },
+    {
+      "semantic_id": "frage",
+      "surface": "frage",
+      "translation": "спрашиваю",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "sprechen",
+      "surface": "sprechen",
+      "translation": "говорить",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "speak",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "sprich",
+      "surface": "sprich",
+      "translation": "говори",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "speak",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "langsamer",
+      "surface": "langsamer",
+      "translation": "медленнее",
+      "pos": "adverb",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "slow",
+        "entity_types": [
+          "speech"
+        ]
+      }
+    },
+    {
+      "semantic_id": "wiederholst",
+      "surface": "wiederholst",
+      "translation": "повторяешь",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "repeat",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "muss",
+      "surface": "muss",
+      "translation": "должен",
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "obligation"
+      }
+    },
+    {
+      "semantic_id": "bis",
+      "surface": "bis",
+      "translation": "до",
+      "pos": "preposition",
+      "syntax": {
+        "kind": "until"
+      }
+    },
+    {
+      "semantic_id": "einer",
+      "surface": "einer",
+      "translation": "один",
+      "pos": "determiner",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "semantic_id": "bringe",
+      "surface": "bringe",
+      "translation": "несу",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "bringen",
+      "surface": "bringen",
+      "translation": "нести",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "gebe",
+      "surface": "gebe",
+      "translation": "даю",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "sage",
+      "surface": "sage",
+      "translation": "говорю",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "sorry",
+      "surface": "sorry",
+      "translation": "извини",
+      "pos": "interjection",
+      "syntax": {
+        "kind": "act",
+        "family": "apology"
+      }
+    },
+    {
+      "semantic_id": "mochte",
+      "surface": "mochte",
+      "translation": "хотел бы",
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire",
+        "normalizes_to": "möchte",
+        "ambiguous_normalization": true
+      }
+    },
+    {
+      "semantic_id": "kriegen",
+      "surface": "kriegen",
+      "translation": "получить",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "acquire",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "bekommen",
+      "surface": "bekommen",
+      "translation": "получить",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "acquire",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "ein",
+      "surface": "ein",
+      "translation": "один",
+      "pos": "determiner",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "semantic_id": "bei",
+      "surface": "bei",
+      "translation": "у",
+      "pos": "preposition",
+      "syntax": {
+        "kind": "preposition"
+      }
+    },
+    {
+      "semantic_id": "den",
+      "surface": "den",
+      "translation": "определённый артикль",
+      "pos": "determiner",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "semantic_id": "technikern",
+      "surface": "technikern",
+      "translation": "техникам",
+      "pos": "noun",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "role",
+        "entity_id": "technician",
+        "gender": "m",
+        "label": "Techniker",
+        "accusative": "Techniker"
+      }
+    },
+    {
+      "semantic_id": "vielleicht",
+      "surface": "vielleicht",
+      "translation": "возможно",
+      "pos": "adverb"
+    },
+    {
+      "semantic_id": "aber",
+      "surface": "aber",
+      "translation": "но",
+      "pos": "other",
+      "syntax": {
+        "kind": "conjunction"
+      }
+    },
+    {
+      "semantic_id": "dein",
+      "surface": "dein",
+      "translation": "твой / твоя",
+      "pos": "other",
+      "syntax": {
+        "kind": "possessive"
+      }
+    },
+    {
+      "semantic_id": "steht",
+      "surface": "steht",
+      "translation": "стоит / значится",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "los",
+      "surface": "los",
+      "translation": "происходит (Was ist los? — что случилось?)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "astera",
+      "surface": "Astera",
+      "translation": "Астера (имя)",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "braucht",
+      "surface": "braucht",
+      "translation": "нуждается / требуется",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "okay",
+      "surface": "okay",
+      "translation": "ладно / хорошо",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "dann",
+      "surface": "dann",
+      "translation": "тогда",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "lasse",
+      "surface": "lasse",
+      "translation": "пускаю / позволяю",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "dich",
+      "surface": "dich",
+      "translation": "тебя",
+      "pos": "other",
+      "syntax": {
+        "kind": "pronoun",
+        "participant": "addressee",
+        "case": "oblique"
+      }
+    },
+    {
+      "semantic_id": "gilt",
+      "surface": "gilt",
+      "translation": "действует / действителен",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "weiterhin",
+      "surface": "weiterhin",
+      "translation": "по-прежнему",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "hallo",
+      "surface": "hallo",
+      "translation": "привет",
+      "pos": "other",
+      "syntax": {
+        "kind": "greeting"
+      }
+    },
+    {
+      "semantic_id": "denk",
+      "surface": "denk",
+      "translation": "помни / подумай",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "an",
+      "surface": "an",
+      "translation": "о / на / к (зависит от сочетания)",
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
+    },
+    {
+      "semantic_id": "die",
+      "surface": "die",
+      "translation": "определённый артикль die",
+      "pos": "other",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "semantic_id": "mich",
+      "surface": "mich",
+      "translation": "меня",
+      "pos": "other",
+      "syntax": {
+        "kind": "pronoun",
+        "participant": "speaker",
+        "case": "oblique"
+      }
+    },
+    {
+      "semantic_id": "belogen",
+      "surface": "belogen",
+      "translation": "обманул / солгал (причастие)",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "bekommst",
+      "surface": "bekommst",
+      "translation": "получаешь",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "wieder",
+      "surface": "wieder",
+      "translation": "снова",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "da",
+      "surface": "da",
+      "translation": "здесь / тут",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "möchtest",
+      "surface": "möchtest",
+      "translation": "хочешь / хотел бы",
+      "pos": "verb",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire"
+      }
+    },
+    {
+      "semantic_id": "tun",
+      "surface": "tun",
+      "translation": "делать",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "do",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "wissen",
+      "surface": "wissen",
+      "translation": "знать",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "know",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "hineinkommst",
+      "surface": "hineinkommst",
+      "translation": "проходишь внутрь / попадаешь внутрь",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "move",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "offiziell",
+      "surface": "offiziell",
+      "translation": "официально",
+      "pos": "other",
+      "syntax": {
+        "kind": "topic",
+        "topic": "registration"
+      }
+    },
+    {
+      "semantic_id": "versuchen",
+      "surface": "versuchen",
+      "translation": "пытаться / пробовать",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "bestätigst",
+      "surface": "bestätigst",
+      "translation": "подтверждаешь",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "das",
+      "surface": "das",
+      "translation": "это / определённый артикль das",
+      "pos": "other",
+      "syntax": {
+        "kind": "reference",
+        "reference": "current"
+      }
+    },
+    {
+      "semantic_id": "verneinst",
+      "surface": "verneinst",
+      "translation": "отрицаешь / отвечаешь «нет»",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "entschuldigen",
+      "surface": "entschuldigen",
+      "translation": "извинять; sich entschuldigen — извиняться",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "apologize",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "mehr",
+      "surface": "mehr",
+      "translation": "больше / подробнее",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "gibst",
+      "surface": "gibst",
+      "translation": "даёшь / передаёшь",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "überbringen",
+      "surface": "überbringen",
+      "translation": "передавать / доставлять",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "deinen",
+      "surface": "deinen",
+      "translation": "твой (форма винительного падежа)",
+      "pos": "other",
+      "syntax": {
+        "kind": "possessive"
+      }
+    },
+    {
+      "semantic_id": "zugang",
+      "surface": "Zugang",
+      "translation": "доступ / вход",
+      "pos": "noun",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
+    },
+    {
+      "semantic_id": "bestätigen",
+      "surface": "bestätigen",
+      "translation": "подтверждать",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "confirm",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "semantic_id": "gehe",
+      "surface": "gehe",
+      "translation": "иду / ухожу",
+      "pos": "verb",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "leave",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "semantic_id": "alles",
+      "surface": "alles",
+      "translation": "всё",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "am",
+      "surface": "am",
+      "translation": "у / на (сокращение an dem)",
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
+    },
+    {
+      "semantic_id": "anders",
+      "surface": "anders",
+      "translation": "иначе / по-другому",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "antwort",
+      "surface": "Antwort",
+      "translation": "ответ",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "aussage",
+      "surface": "Aussage",
+      "translation": "утверждение / высказывание",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "beim",
+      "surface": "beim",
+      "translation": "при / у (сокращение bei dem)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "bezieht",
+      "surface": "bezieht",
+      "translation": "относит; sich beziehen — относиться",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "bleiben",
+      "surface": "bleiben",
+      "translation": "оставаться",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "damit",
+      "surface": "damit",
+      "translation": "этим / с этим",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "dem",
+      "surface": "dem",
+      "translation": "определённый артикль dem",
+      "pos": "other",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "semantic_id": "diese",
+      "surface": "diese",
+      "translation": "эта / эти",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "eins",
+      "surface": "eins",
+      "translation": "одно / один",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "genau",
+      "surface": "genau",
+      "translation": "точно / именно",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "gerade",
+      "surface": "gerade",
+      "translation": "сейчас / как раз",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "im",
+      "surface": "im",
+      "translation": "в (сокращение in dem)",
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
+    },
+    {
+      "semantic_id": "klar",
+      "surface": "klar",
+      "translation": "ясно / понятно",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "klare",
+      "surface": "klare",
+      "translation": "ясный / понятный (форма прилагательного)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "meinst",
+      "surface": "meinst",
+      "translation": "имеешь в виду",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "nach",
+      "surface": "nach",
+      "translation": "после / вслед за",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "oder",
+      "surface": "oder",
+      "translation": "или",
+      "pos": "other",
+      "syntax": {
+        "kind": "conjunction"
+      }
+    },
+    {
+      "semantic_id": "ort",
+      "surface": "Ort",
+      "translation": "место",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "passt",
+      "surface": "passt",
+      "translation": "подходит / соответствует",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "register",
+      "surface": "Register",
+      "translation": "реестр / список",
+      "pos": "noun",
+      "syntax": {
+        "kind": "topic",
+        "topic": "registration"
+      }
+    },
+    {
+      "semantic_id": "richtigen",
+      "surface": "richtigen",
+      "translation": "правильный / подходящий (форма прилагательного)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "sehe",
+      "surface": "sehe",
+      "translation": "вижу",
+      "pos": "verb"
+    },
+    {
+      "semantic_id": "selben",
+      "surface": "selben",
+      "translation": "тот же / том же (форма)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "sich",
+      "surface": "sich",
+      "translation": "себя / себе (возвратное местоимение)",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "thema",
+      "surface": "Thema",
+      "translation": "тема",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "um",
+      "surface": "um",
+      "translation": "о / вокруг (зависит от сочетания)",
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
+    },
+    {
+      "semantic_id": "wiederholung",
+      "surface": "Wiederholung",
+      "translation": "повторение",
+      "pos": "noun"
+    },
+    {
+      "semantic_id": "wir",
+      "surface": "wir",
+      "translation": "мы",
+      "pos": "other"
+    },
+    {
+      "semantic_id": "worauf",
+      "surface": "worauf",
+      "translation": "к чему / на что",
+      "pos": "other",
+      "syntax": {
+        "kind": "interrogative"
+      }
+    },
+    {
+      "semantic_id": "zur",
+      "surface": "zur",
+      "translation": "к / о (сокращение zu der)",
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
+    },
+    {
+      "semantic_id": "vorläufig",
+      "surface": "vorläufig",
+      "translation": "временный / предварительный",
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "temporary",
+        "entity_types": [
+          "access_document"
+        ],
+        "acc_forms": {
+          "m": "vorläufigen",
+          "f": "vorläufige",
+          "n": "vorläufiges"
+        }
+      }
+    },
+    {
+      "semantic_id": "vorläufigen",
+      "surface": "vorläufigen",
+      "translation": "временный (форма: einen vorläufigen Pass — временный пропуск)",
+      "pos": "adjective",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "temporary",
+        "entity_types": [
+          "access_document"
+        ],
+        "acc_forms": {
+          "m": "vorläufigen",
+          "f": "vorläufige",
+          "n": "vorläufiges"
+        }
+      }
+    },
+    {
+      "semantic_id": "mit",
+      "surface": "mit",
+      "translation": "с / вместе с",
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
+    },
+    {
+      "semantic_id": "der",
+      "surface": "der",
+      "translation": "определённый артикль der (также форма дательного падежа женского рода)",
+      "pos": "other",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "surface": "hab",
+      "semantic_id": "hab",
+      "translation": "у меня есть (разговорная форма habe)",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "possess",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "hat",
+      "semantic_id": "hat",
+      "translation": "имеет; у него/неё есть",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "possess",
+        "person": 3,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "heisst",
+      "semantic_id": "heisst",
+      "translation": "зовут (написание heißt через ss)",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "name",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "helfe",
+      "semantic_id": "helfe",
+      "translation": "помогаю",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "help",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "hilfst",
+      "semantic_id": "hilfst",
+      "translation": "помогаешь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "help",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "bringst",
+      "semantic_id": "bringst",
+      "translation": "приносишь / передаёшь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "sagst",
+      "semantic_id": "sagst",
+      "translation": "говоришь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "deliver",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "gehst",
+      "semantic_id": "gehst",
+      "translation": "идёшь / уходишь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "leave",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "kommst",
+      "semantic_id": "kommst",
+      "translation": "приходишь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "move",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "machst",
+      "semantic_id": "machst",
+      "translation": "делаешь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "do",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "spreche",
+      "semantic_id": "spreche",
+      "translation": "говорю",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "speak",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "sprichst",
+      "semantic_id": "sprichst",
+      "translation": "говоришь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "speak",
+        "person": 2,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "wiederhole",
+      "semantic_id": "wiederhole",
+      "translation": "повторяю",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "repeat",
+        "person": 1,
+        "form": "finite"
+      }
+    },
+    {
+      "surface": "sein",
+      "semantic_id": "sein",
+      "translation": "быть",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "be",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "surface": "haben",
+      "semantic_id": "haben",
+      "translation": "иметь",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "possess",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "surface": "helfen",
+      "semantic_id": "helfen",
+      "translation": "помогать",
+      "pos": "other",
+      "syntax": {
+        "kind": "predicate",
+        "predicate": "help",
+        "person": 0,
+        "form": "infinitive"
+      }
+    },
+    {
+      "surface": "möchten",
+      "semantic_id": "möchten",
+      "translation": "хотеть / хотел бы",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire"
+      }
+    },
+    {
+      "surface": "mochtest",
+      "semantic_id": "mochtest",
+      "translation": "хотеть / хотел бы",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire",
+        "normalizes_to": "möchtest",
+        "ambiguous_normalization": true
+      }
+    },
+    {
+      "surface": "willst",
+      "semantic_id": "willst",
+      "translation": "хотеть",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire"
+      }
+    },
+    {
+      "surface": "wollen",
+      "semantic_id": "wollen",
+      "translation": "хотеть",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "desire"
+      }
+    },
+    {
+      "surface": "brauchen",
+      "semantic_id": "brauchen",
+      "translation": "нуждаться",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "need"
+      }
+    },
+    {
+      "surface": "können",
+      "semantic_id": "können",
+      "translation": "мочь",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "ability"
+      }
+    },
+    {
+      "surface": "darf",
+      "semantic_id": "darf",
+      "translation": "можно / иметь разрешение",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "permission"
+      }
+    },
+    {
+      "surface": "dürfen",
+      "semantic_id": "dürfen",
+      "translation": "можно / иметь разрешение",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "permission"
+      }
+    },
+    {
+      "surface": "sollst",
+      "semantic_id": "sollst",
+      "translation": "должен / нужно",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "obligation"
+      }
+    },
+    {
+      "surface": "müssen",
+      "semantic_id": "müssen",
+      "translation": "должен / нужно",
+      "pos": "other",
+      "syntax": {
+        "kind": "operator",
+        "operator": "obligation"
+      }
+    },
+    {
+      "surface": "keinem",
+      "semantic_id": "keinem",
+      "translation": "не / никакой",
+      "pos": "other",
+      "syntax": {
+        "kind": "negation"
+      }
+    },
+    {
+      "surface": "keiner",
+      "semantic_id": "keiner",
+      "translation": "не / никакой",
+      "pos": "other",
+      "syntax": {
+        "kind": "negation"
+      }
+    },
+    {
+      "surface": "keines",
+      "semantic_id": "keines",
+      "translation": "не / никакой",
+      "pos": "other",
+      "syntax": {
+        "kind": "negation"
+      }
+    },
+    {
+      "surface": "doch",
+      "semantic_id": "doch",
+      "translation": "наоборот / всё-таки да",
+      "pos": "other",
+      "syntax": {
+        "kind": "response",
+        "answer": "contradict"
+      }
+    },
+    {
+      "surface": "einem",
+      "semantic_id": "einem",
+      "translation": "одному / неопределённый артикль, дательный падеж",
+      "pos": "other",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "surface": "eines",
+      "semantic_id": "eines",
+      "translation": "одного / неопределённый артикль, родительный падеж",
+      "pos": "other",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "surface": "des",
+      "semantic_id": "des",
+      "translation": "определённый артикль, родительный падеж",
+      "pos": "other",
+      "syntax": {
+        "kind": "article"
+      }
+    },
+    {
+      "surface": "mein",
+      "semantic_id": "mein",
+      "translation": "мой",
+      "pos": "other",
+      "syntax": {
+        "kind": "possessive"
+      }
+    },
+    {
+      "surface": "meine",
+      "semantic_id": "meine",
+      "translation": "моя / мои",
+      "pos": "other",
+      "syntax": {
+        "kind": "possessive"
+      }
+    },
+    {
+      "surface": "meinen",
+      "semantic_id": "meinen",
+      "translation": "моего / моих",
+      "pos": "other",
+      "syntax": {
+        "kind": "possessive"
+      }
+    },
+    {
+      "surface": "deine",
+      "semantic_id": "deine",
+      "translation": "твоя / твои",
+      "pos": "other",
+      "syntax": {
+        "kind": "possessive"
+      }
+    },
+    {
+      "surface": "hi",
+      "semantic_id": "hi",
+      "translation": "привет",
+      "pos": "other",
+      "syntax": {
+        "kind": "greeting"
+      }
+    },
+    {
+      "surface": "wo",
+      "semantic_id": "wo",
+      "translation": "где",
+      "pos": "other",
+      "syntax": {
+        "kind": "interrogative"
+      }
+    },
+    {
+      "surface": "wieso",
+      "semantic_id": "wieso",
+      "translation": "почему",
+      "pos": "other",
+      "syntax": {
+        "kind": "interrogative"
+      }
+    },
+    {
+      "surface": "wobei",
+      "semantic_id": "wobei",
+      "translation": "в чём / при чём",
+      "pos": "other",
+      "syntax": {
+        "kind": "interrogative"
+      }
+    },
+    {
+      "surface": "wem",
+      "semantic_id": "wem",
+      "translation": "кому",
+      "pos": "other",
+      "syntax": {
+        "kind": "interrogative"
+      }
+    },
+    {
+      "surface": "und",
+      "semantic_id": "und",
+      "translation": "и",
+      "pos": "other",
+      "syntax": {
+        "kind": "conjunction"
+      }
+    },
+    {
+      "surface": "weil",
+      "semantic_id": "weil",
+      "translation": "потому что",
+      "pos": "other",
+      "syntax": {
+        "kind": "conjunction"
+      }
+    },
+    {
+      "surface": "wenn",
+      "semantic_id": "wenn",
+      "translation": "если",
+      "pos": "other",
+      "syntax": {
+        "kind": "conjunction"
+      }
+    },
+    {
+      "surface": "zu",
+      "semantic_id": "zu",
+      "translation": "к / для",
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
+    },
+    {
+      "surface": "in",
+      "semantic_id": "in",
+      "translation": "в",
+      "pos": "other",
+      "syntax": {
+        "kind": "preposition"
+      }
+    },
+    {
+      "surface": "jetzt",
+      "semantic_id": "jetzt",
+      "translation": "сейчас",
+      "pos": "other",
+      "syntax": {
+        "kind": "time"
+      }
+    },
+    {
+      "surface": "morgen",
+      "semantic_id": "morgen",
+      "translation": "завтра",
+      "pos": "other",
+      "syntax": {
+        "kind": "time",
+        "reference": "future"
+      }
+    },
+    {
+      "surface": "auch",
+      "semantic_id": "auch",
+      "translation": "тоже",
+      "pos": "other",
+      "syntax": {
+        "kind": "degree"
+      }
+    },
+    {
+      "surface": "sehr",
+      "semantic_id": "sehr",
+      "translation": "очень",
+      "pos": "other",
+      "syntax": {
+        "kind": "degree"
+      }
+    },
+    {
+      "surface": "bisschen",
+      "semantic_id": "bisschen",
+      "translation": "немного",
+      "pos": "other",
+      "syntax": {
+        "kind": "degree"
+      }
+    },
+    {
+      "surface": "also",
+      "semantic_id": "also",
+      "translation": "значит / итак",
+      "pos": "other",
+      "syntax": {
+        "kind": "discourse"
+      }
+    },
+    {
+      "surface": "tschuss",
+      "semantic_id": "tschuss",
+      "translation": "до свидания / пока",
+      "pos": "other",
+      "syntax": {
+        "kind": "act",
+        "family": "farewell"
+      }
+    },
+    {
+      "surface": "vorläufige",
+      "semantic_id": "vorläufige",
+      "translation": "временный (форма прилагательного)",
+      "pos": "other",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "temporary",
+        "entity_types": [
+          "access_document"
+        ],
+        "acc_forms": {
+          "m": "vorläufigen",
+          "f": "vorläufige",
+          "n": "vorläufiges"
+        }
+      }
+    },
+    {
+      "surface": "vorläufiges",
+      "semantic_id": "vorläufiges",
+      "translation": "временный (форма прилагательного)",
+      "pos": "other",
+      "syntax": {
+        "kind": "attribute",
+        "attribute": "temporary",
+        "entity_types": [
+          "access_document"
+        ],
+        "acc_forms": {
+          "m": "vorläufigen",
+          "f": "vorläufige",
+          "n": "vorläufiges"
+        }
+      }
+    },
+    {
+      "surface": "neuling",
+      "semantic_id": "neuling",
+      "translation": "новенький / новичок",
+      "pos": "other",
+      "syntax": {
+        "kind": "property",
+        "property": "newcomer"
+      }
+    },
+    {
+      "surface": "regel",
+      "semantic_id": "regel",
+      "translation": "правило / вход / внутрь / доступ",
+      "pos": "other",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
+    },
+    {
+      "surface": "regeln",
+      "semantic_id": "regeln",
+      "translation": "правило / вход / внутрь / доступ",
+      "pos": "other",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
+    },
+    {
+      "surface": "durch",
+      "semantic_id": "durch",
+      "translation": "правило / вход / внутрь / доступ",
+      "pos": "other",
+      "syntax": {
+        "kind": "topic",
+        "topic": "access"
+      }
+    },
+    {
+      "surface": "alternative",
+      "semantic_id": "alternative",
+      "translation": "альтернатива / возможность / путь",
+      "pos": "other",
+      "syntax": {
+        "kind": "topic",
+        "topic": "alternative"
+      }
+    },
+    {
+      "surface": "details",
+      "semantic_id": "details",
+      "translation": "подробности",
+      "pos": "other",
+      "syntax": {
+        "kind": "topic",
+        "topic": "details"
+      }
+    },
+    {
+      "surface": "technikerin",
+      "semantic_id": "technikerin",
+      "translation": "женщина-техник",
+      "pos": "other",
+      "syntax": {
+        "kind": "entity",
+        "entity_type": "role",
+        "entity_id": "technician",
+        "gender": "f",
+        "label": "Technikerin",
+        "accusative": "Technikerin"
+      }
+    },
+    {
+      "surface": "Welche",
+      "translation": "какую / какие",
+      "semantic_id": "welche",
+      "pos": "other",
+      "syntax": {
+        "kind": "discourse"
+      }
+    },
+    {
+      "surface": "Rolle",
+      "translation": "роль",
+      "semantic_id": "rolle",
+      "pos": "other",
+      "syntax": {
+        "kind": "discourse"
+      }
+    },
+    {
+      "surface": "Wer",
+      "translation": "кто",
+      "semantic_id": "wer",
+      "pos": "other",
+      "syntax": {
+        "kind": "discourse"
+      }
+    }
+  ],
+  "constructions": [
+    {
+      "surface": "Ich habe keine Karte.",
+      "translation": "У меня нет карты.",
+      "intent": "сообщить об отсутствии пропуска"
+    },
+    {
+      "surface": "Ich heiße … .",
+      "translation": "Меня зовут … .",
+      "intent": "назвать своё имя"
+    },
+    {
+      "surface": "Ich bin neu.",
+      "translation": "Я новенький.",
+      "intent": "подтвердить статус новичка"
+    },
+    {
+      "surface": "Ich bin Techniker.",
+      "translation": "Я техник.",
+      "intent": "назваться техником"
+    },
+    {
+      "surface": "Ich bin kein Techniker.",
+      "translation": "Я не техник.",
+      "intent": "исправить заявление о роли"
+    },
+    {
+      "surface": "Wie komme ich hinein?",
+      "translation": "Как мне пройти внутрь?",
+      "intent": "узнать правила входа"
+    },
+    {
+      "surface": "Kann ich einen Pass bekommen?",
+      "translation": "Могу я получить пропуск?",
+      "intent": "попросить временный пропуск"
+    },
+    {
+      "surface": "Gibt es einen anderen Weg?",
+      "translation": "Есть другой путь?",
+      "intent": "попросить альтернативу"
+    },
+    {
+      "surface": "Ich gebe Tom die Nachricht.",
+      "translation": "Я передам Тому сообщение.",
+      "intent": "согласиться передать сообщение"
+    },
+    {
+      "surface": "Kannst du das wiederholen?",
+      "translation": "Можешь повторить?",
+      "intent": "попросить повтор"
+    },
+    {
+      "surface": "Bitte langsamer.",
+      "translation": "Пожалуйста, медленнее.",
+      "intent": "попросить говорить медленнее"
+    },
+    {
+      "surface": "Ich verstehe nicht.",
+      "translation": "Я не понимаю.",
+      "intent": "сообщить о непонимании"
+    },
+    {
+      "surface": "Es tut mir leid.",
+      "translation": "Мне жаль / Извини.",
+      "intent": "извиниться"
+    },
+    {
+      "surface": "Ich gehe.",
+      "translation": "Я ухожу.",
+      "intent": "попрощаться"
+    },
+    {
+      "surface": "Auf Wiedersehen.",
+      "translation": "До свидания.",
+      "intent": "попрощаться"
+    },
+    {
+      "surface": "Ich möchte einen vorläufigen Pass.",
+      "translation": "Я хотел бы временный пропуск.",
+      "intent": "попросить временный пропуск"
+    }
+  ],
+  "help_replies": {
+    "offer": "Danke! Das Gespräch mit dir hilft mir schon.",
+    "request": "Ja, gern. Erzähl mir, worum es geht.",
+    "refusal": "Verstehe. Danke, dass du es sagst.",
+    "clarify_offer": "Du möchtest mir helfen?",
+    "clarify_request": "Du möchtest, dass ich dir helfe?",
+    "clarify_recipient_notice": "Астера не поняла, кому вы хотите помочь.",
+    "clarify_helper_notice": "Астера не поняла, кто должен помочь.",
+    "clarify_roles_notice": "Астера не поняла участников помощи.",
+    "clarify_speech_act_notice": "Астера не поняла, предлагаете вы помощь или просите её.",
+    "no_branch": "Hier kann ich das gerade nicht tun. Möchtest du über dein Befinden sprechen oder mir helfen?"
+  },
+  "language": {
+    "version": 1,
+    "participants": {
+      "speaker": "player",
+      "addressee": "astera"
+    },
+    "bindings": [
+      {
+        "family": "possession",
+        "intent": "REPORT_NO_CARD",
+        "requires": {
+          "actor": "player",
+          "object_type": "access_document",
+          "polarity": "negative",
+          "speech_act": "statement"
+        },
+        "frame": {
+          "object_id": "card"
+        }
+      },
+      {
+        "family": "possession",
+        "intent": "REPORT_HAS_CARD",
+        "requires": {
+          "actor": "player",
+          "object_type": "access_document",
+          "polarity": "positive",
+          "speech_act": "statement"
+        },
+        "frame": {}
+      },
+      {
+        "family": "acquisition",
+        "intent": "REQUEST_PASS",
+        "requires": {
+          "actor": "player",
+          "object_type": "access_document",
+          "polarity": "positive"
+        },
+        "frame": {
+          "object_id": "pass"
+        }
+      },
+      {
+        "family": "acquisition",
+        "intent": "REFUSE_ACCESS",
+        "requires": {
+          "actor": "player",
+          "object_type": "access_document",
+          "polarity": "negative"
+        },
+        "frame": {}
+      },
+      {
+        "family": "role",
+        "intent": "CLAIM_TECHNICIAN",
+        "requires": {
+          "actor": "player",
+          "role_id": "technician",
+          "polarity": "positive",
+          "mode": "assert",
+          "speech_act": [
+            "statement",
+            "answer"
+          ]
+        },
+        "frame": {}
+      },
+      {
+        "family": "role",
+        "intent": "DENY_TECHNICIAN",
+        "requires": {
+          "actor": "player",
+          "role_id": "technician",
+          "polarity": "negative",
+          "mode": "assert",
+          "speech_act": [
+            "statement",
+            "answer"
+          ]
+        },
+        "frame": {}
+      },
+      {
+        "family": "property",
+        "intent": "REPORT_NEWCOMER",
+        "requires": {
+          "actor": "player",
+          "property": "newcomer",
+          "polarity": "positive",
+          "mode": "assert",
+          "speech_act": "statement"
+        },
+        "frame": {}
+      },
+      {
+        "family": "registration",
+        "intent": "ASK_OFFICIAL_PATH",
+        "requires": {
+          "actor": "player",
+          "speech_act": "question"
+        },
+        "frame": {}
+      },
+      {
+        "family": "registration",
+        "intent": "REPORT_REGISTRATION",
+        "requires": {
+          "actor": "player",
+          "speech_act": "statement",
+          "polarity": "positive"
+        },
+        "frame": {}
+      },
+      {
+        "family": "name",
+        "intent": "PLAYER_NAME",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "action": "introduce",
+          "polarity": "positive",
+          "speech_act": "statement"
+        }
+      },
+      {
+        "family": "rules",
+        "intent": "ASK_RULES",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "speech_act": "question"
+        }
+      },
+      {
+        "family": "alternative",
+        "intent": "ASK_ALTERNATIVE",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "speech_act": "question"
+        }
+      },
+      {
+        "family": "repeat",
+        "intent": "ASK_REPEAT",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "speech_act": "request_repeat"
+        }
+      },
+      {
+        "family": "slower",
+        "intent": "REQUEST_SLOWER",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "speech_act": "request_slower"
+        }
+      },
+      {
+        "family": "apology",
+        "intent": "APOLOGIZE",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "speech_act": "apology"
+        }
+      },
+      {
+        "family": "farewell",
+        "intent": "FAREWELL",
+        "requires": {
+          "actor": "player",
+          "polarity": "positive"
+        },
+        "frame": {
+          "speech_act": "farewell"
+        }
+      },
+      {
+        "family": "help",
+        "intent": "OFFER_HELP",
+        "requires": {
+          "actor": "player",
+          "recipient": "astera",
+          "polarity": "positive",
+          "mode": "offer"
+        },
+        "frame": {}
+      },
+      {
+        "family": "help",
+        "intent": "REQUEST_HELP",
+        "requires": {
+          "actor": "astera",
+          "recipient": "player",
+          "polarity": "positive",
+          "mode": "request"
+        },
+        "frame": {}
+      },
+      {
+        "family": "help",
+        "intent": "PLAYER_CANNOT_HELP",
+        "requires": {
+          "actor": "player",
+          "polarity": "negative"
+        },
+        "frame": {}
+      },
+      {
+        "family": "help",
+        "intent": "NPC_CANNOT_HELP",
+        "requires": {
+          "actor": "astera",
+          "polarity": "negative"
+        },
+        "frame": {}
+      },
+      {
+        "family": "delivery",
+        "intent": "ACCEPT_MESSAGE",
+        "requires": {
+          "actor": "player",
+          "recipient_id": "tom",
+          "object_type": "message",
+          "polarity": "positive",
+          "mode": "commit"
+        },
+        "frame": {
+          "action": "deliver_message"
+        }
+      },
+      {
+        "family": "delivery",
+        "intent": "REFUSE_DEAL",
+        "requires": {
+          "actor": "player",
+          "object_type": "message",
+          "polarity": "negative"
+        },
+        "frame": {
+          "action": "deliver_message"
+        }
+      },
+      {
+        "family": "details",
+        "intent": "ASK_DETAILS",
+        "requires": {
+          "actor": "player"
+        },
+        "frame": {
+          "speech_act": "question"
+        }
+      },
+      {
+        "family": "access",
+        "intent": "REQUEST_ACCESS",
+        "requires": {
+          "actor": "player",
+          "object_type": "access_document"
+        },
+        "frame": {
+          "speech_act": "question",
+          "object_id": "pass"
+        }
+      }
+    ],
+    "articles_acc": {
+      "m": "einen",
+      "f": "eine",
+      "n": "ein"
+    },
+    "negative_articles": {
+      "m": "kein",
+      "f": "keine",
+      "n": "kein"
+    },
+    "intent_descriptions": {
+      "REPORT_NO_CARD": "The player states that they do not have a card or pass (negative possession).",
+      "REPORT_HAS_CARD": "The player states that they have a card or pass (positive possession).",
+      "REQUEST_PASS": "The player wants, needs or asks to receive a card or pass.",
+      "REFUSE_ACCESS": "The player does not want to receive a pass. This is a negative desire, not missing possession.",
+      "CLAIM_TECHNICIAN": "The player asserts that the player is a technician.",
+      "DENY_TECHNICIAN": "The player denies being a technician.",
+      "REPORT_NEWCOMER": "The player states that the player is new or a newcomer.",
+      "PLAYER_NAME": "The player states their personal name.",
+      "ASK_RULES": "The player asks how to enter or asks about entry rules.",
+      "ASK_ALTERNATIVE": "The player asks for another way or an alternative.",
+      "ASK_OFFICIAL_PATH": "The player asks about registration or the official entry procedure.",
+      "REPORT_REGISTRATION": "The player asserts that the player is registered.",
+      "ASK_REPEAT": "The player asks the NPC to repeat, or says they did not understand.",
+      "REQUEST_SLOWER": "The player asks the NPC to speak slower.",
+      "APOLOGIZE": "The player apologizes.",
+      "FAREWELL": "The player leaves or says goodbye.",
+      "OFFER_HELP": "The player offers to help the NPC, or asks whether the player can help the NPC. The PLAYER is the helper; the NPC receives help.",
+      "REQUEST_HELP": "The player asks the NPC to help the player. The NPC is the helper; the PLAYER receives help.",
+      "PLAYER_CANNOT_HELP": "The player states that the PLAYER cannot help the NPC.",
+      "NPC_CANNOT_HELP": "The player states that the NPC cannot help the PLAYER.",
+      "ACCEPT_MESSAGE": "The player agrees or promises to deliver a message to Tom.",
+      "REFUSE_DEAL": "The player refuses to deliver the message.",
+      "ASK_DETAILS": "The player asks what to do or asks for task details.",
+      "REQUEST_ACCESS": "The player asks to use access that has already been granted.",
+      "SHORT_YES": "The player affirms the current pending question.",
+      "SHORT_NO": "The player rejects the current pending question."
+    }
+  }
+}
