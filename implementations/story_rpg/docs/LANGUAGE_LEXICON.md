@@ -22,13 +22,13 @@
 |---|---|---|---|---|---|
 | 1 | **P0** | Начало общения | M01, M04, M05, M06, M39 | `Hallo`, `Tschüss`, `ja`, `nein`, `bitte`, `danke`, `Entschuldigung`, `noch einmal`, `ich verstehe nicht` | `Guten Tag`, `Auf Wiedersehen`, `Guten Morgen`, `Gute Nacht` |
 | 2 | **P0** | Предмет и короткое действие | M09, M40 | `das Buch`, `die Tasse`, `der Schlüssel`, `hier`, `nehmen`, `geben`, `kommen`, `zeigen` | `nimm`, `gib`, `komm`, `das` |
-| 3 | **P1** | Человек и знакомство | M02, M03, M08 | `ich`, `du`, `er`, `sie`, `wir`, `sein`, `haben`, `heißen`, `der Name`, `wer` | `Sie (вежливо)`, `ihr`, `es`, `die Person`, `das Alter` |
+| 3 | **P1** | Человек и знакомство | M02, M03, M08 | `ich`, `du`, `er`, `sie`, `wir`, `sein`, `haben`, `heißen`, `der Name`, `wer` | `ihr`, `es`, `die Person`, `das Alter` |
 | 4 | **P1** | Вопросы и смысл | M05, M07, M47 | `was`, `wo`, `wie`, `welcher`, `fragen`, `antworten`, `wissen`, `nicht wissen` | `wann`, `woher`, `warum`, `was bedeutet …?` |
 | 5 | **P1** | Базовые действия | M06, M12, M15 | `machen`, `gehen`, `bringen`, `brauchen`, `helfen`, `finden`, `suchen`, `öffnen`, `schließen`, `lesen`, `schreiben`, `arbeiten` | `warten`, `holen`, `bleiben`, `anrufen`, `sprechen` |
 | 6 | **P1** | Состояние и отрицание | M10, M11, M15, M54 | `ist`, `hat`, `kein`, `nicht`, `gut`, `schlecht`, `neu`, `alt`, `groß`, `klein`, `offen`, `zu`, `fertig`, `kaputt` | `leer`, `voll`, `sauber`, `schmutzig`, `falsch`, `leicht`, `schwer` |
 | 7 | **P1** | Самочувствие | M29, M35 | `müde`, `krank`, `gesund`, `Hunger haben`, `Durst haben`, `weh tun`, `die Hilfe`, `der Arzt`, `die Ärztin` | `die Schmerzen`, `das Fieber`, `die Medizin`, `der Termin`, `das Krankenhaus` |
 | 8 | **P1** | Еда и потребности | M30, M32 | `essen`, `trinken`, `das Wasser`, `das Brot`, `der Tee`, `der Kaffee`, `der Apfel`, `die Milch`, `das Essen`, `hungrig`, `durstig` | `das Gemüse`, `das Fleisch`, `die Suppe`, `das Frühstück`, `das Mittagessen`, `das Abendessen` |
-| 9 | **P2** | Люди, принадлежность и адресат | M03, M13, M14, M53 | `mein`, `dein`, `sein (притяж.)`, `ihr (притяж.)`, `mir`, `dir`, `mit`, `zusammen`, `allein` | `unser`, `ihm`, `ihnen`, `dieser`, `diese`, `dieses`, `der Besitzer` |
+| 9 | **P2** | Люди, принадлежность и адресат | M03, M13, M14, M53 | `mein`, `dein`, `sein (притяж.)`, `ihr (притяж.)`, `mir`, `dir`, `mit`, `zusammen`, `allein` | `unser`, `ihm`, `ihnen`, `dieser`, `diese`, `dieses`, `der Besitzer`, `Sie (вежливо)` |
 | 10 | **P2** | Место, дом и предметы | M09, M20, M21, M22 | `das Zimmer`, `die Küche`, `das Bad`, `der Tisch`, `die Tür`, `das Fenster`, `die Wohnung`, `in`, `auf`, `unter`, `neben`, `vor`, `hinter`, `drinnen` | `draußen`, `zwischen`, `an`, `über`, `der Flur`, `die Treppe`, `die Möbel` |
 | 11 | **P2** | Направление и движение | M20, M21, M22 | `links`, `rechts`, `geradeaus`, `zu`, `nach`, `aus`, `von`, `der Weg`, `der Eingang`, `der Ausgang` | `die Straße`, `die Kreuzung`, `die Ecke`, `in der Nähe`, `gegenüber`, `entlang` |
 | 12 | **P2** | Количество и идентификаторы | M17, M42 | `eins`, `zwei`, `drei`, `vier`, `fünf`, `zehn`, `zwanzig`, `hundert`, `viel`, `wenig`, `wie viel` | `wie viele`, `die Nummer`, `die Zahl`, `das Stück`, `das Kilo`, `die Hälfte` |
@@ -46,11 +46,11 @@
 | 24 | **P4** | Признаки, одежда и сравнение | M10, M16, M28, M38 | `rot`, `blau`, `grün`, `schwarz`, `weiß`, `kalt`, `warm`, `größer`, `kleiner`, `besser`, `schlechter`, `passen` | `die Jacke`, `die Hose`, `das Hemd`, `die Schuhe`, `die Größe`, `die Farbe`, `das Kleid`, `die Kleidung` |
 | 25 | **P4** | Погода и окружение | M10, M15, M41 | `das Wetter`, `die Sonne`, `der Regen`, `regnen`, `der Schnee`, `der Winter`, `der Sommer`, `der Frühling`, `der Herbst` | `die Wolke`, `windig`, `sonnig`, `der Baum`, `die Pflanze`, `das Tier`, `der Park` |
 | 26 | **P4** | Учёба и информация | M41, M43, M45, M47 | `die Schule`, `der Kurs`, `die Sprache`, `Deutsch`, `verstehen`, `erklären`, `das Wort`, `der Text` | `die Universität`, `die Stunde`, `die Prüfung`, `die Hausaufgabe`, `die Lektion`, `die Bibliothek` |
-| 27 | **P4** | Сопоставление и связность | M16, M26, M28, M38, M53 | `und`, `aber`, `dann`, `danach`, `zuerst`, `gleich`, `anders`, `richtig` | `ähnlich`, `der Unterschied`, `der Vergleich`, `zuerst … dann …` |
+| 27 | **P4** | Сопоставление и временные отношения | M16, M26, M27, M28, M38, M53 | `und`, `aber`, `dann`, `danach`, `zuerst`, `gleich`, `anders`, `richtig` | `ähnlich`, `der Unterschied`, `der Vergleich`, `zuerst … dann …`, `wie lange`, `seit`, `bis wann` |
 | 28 | **P5** | Простой прошлый опыт | M49, M50, M51 | `war`, `hatte`, `habe gemacht`, `habe gefunden`, `habe gesehen`, `habe gelernt`, `ist gekommen`, `ist gegangen` | `die Vergangenheit`, `früher`, `letzte Woche`, `schon`, `noch nicht`, `das Ergebnis` |
 | 29 | **P5** | Будущее и изменение планов | M24, M26, M52 | `nächste Woche`, `wieder`, `planen`, `hoffen`, `warten auf` | `der Plan`, `der nächste Termin`, `später am Tag`, `in zwei Tagen` |
 
-**Проверка состава каталога:** 29 тематических групп; 284 перечислений в колонках P и 177 в R (с повторениями, формами и фразами). **Это счёт элементов таблицы, не норма словарного запаса.** При разработке конкретного текста выбирать только нужные элементы и уже знакомые опоры.
+**Проверка состава каталога:** 29 тематических групп; 284 перечисления в колонках P и 180 в R (с повторениями, формами и фразами). **Это счёт элементов таблицы, не норма словарного запаса.** При разработке конкретного текста выбирать только нужные элементы и уже знакомые опоры.
 
 Для удобства сопоставления **не создаём отдельные грамматические M## для каждой бытовой темы**: например, вопрос о цене использует M07/M17/M30, покупка — M12/M30/M31, разговор о погоде — M10/M15, сведения о поезде — M21/M23/M42.
 
