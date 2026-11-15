@@ -123,7 +123,9 @@ def parse_curve(source: str, count: int) -> list[float]:
     points = [float(value.strip()) for value in match.group(1).split(",")]
     if len(points) != count:
         raise ValueError("Complexity curve length does not match days")
-    return points
+    # JSON-compatible numeric formatting: integer points are serialized as 1,
+    # not 1.0. The checked-in HTML also uses JavaScript number formatting.
+    return [int(value) if value.is_integer() else value for value in points]
 
 def apply_reuse(source: str, days: list[dict], first: dict[str, str]) -> None:
     section = between(source, "## 5. Тепловая матрица возвращений",
