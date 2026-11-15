@@ -167,7 +167,8 @@ def build(html: str, source: str, matrix: str, language: str) -> str:
         {
             "day": day["day"], "focus": day["title"],
             "P": contracts[day["day"]]["P"], "R": contracts[day["day"]]["R"],
-            "reuse": day["effect"], "risk": contracts[day["day"]]["risk"],
+            "reuse": ", ".join(day["reuse"]) or "Нет запланированных возвращений",
+            "risk": contracts[day["day"]]["risk"],
         }
         for day in days
     ]
