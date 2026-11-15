@@ -32,12 +32,12 @@ def render(original, source, matrix):
     previous = json.loads(match.group(2))
     names = {}
     for line in matrix.splitlines():
-        if re.match(r"^\\| M\\d\\d \\|", line):
+        if re.match(r"^\| M\d\d \|", line):
             c = cells(line)
             names[c[0]] = c[1].replace("**", "").replace(chr(96), "")[:88]
     days, count = [], 0
     for line in source.splitlines():
-        found = re.match(r"^\\| \\*\\*D(\\d+)\\*\\* \\|", line)
+        found = re.match(r"^\| \*\*D(\d+)\*\* \|", line)
         if not found:
             continue
         c = cells(line)
@@ -56,7 +56,7 @@ def render(original, source, matrix):
     section = source.split("## 7. Ожидаемая кривая сложности языка", 1)
     if len(section) != 2:
         raise ValueError("Difficulty section absent from markdown")
-    found = re.search(r"line\\s*\\[([0-9.,\\s]+)\\]", section[1])
+    found = re.search(r"line\s*\[([0-9.,\s]+)\]", section[1])
     if not found:
         raise ValueError("Cannot find difficulty series")
     points = [float(v.strip()) for v in found.group(1).split(",")]
@@ -64,7 +64,7 @@ def render(original, source, matrix):
         raise ValueError("Difficulty series/day count mismatch")
     for day, difficulty in zip(days, points):
         day["complexity"] = difficulty
-    rows = [cells(s) for s in source.splitlines() if re.match(r"^\\| \\*\\*P[0-5]\\*\\* \\|", s)]
+    rows = [cells(s) for s in source.splitlines() if re.match(r"^\| \*\*P[0-5]\*\* \|", s)]
     if len(rows) != 6:
         raise ValueError("Expected 6 language reuse groups")
     introduced = set()
