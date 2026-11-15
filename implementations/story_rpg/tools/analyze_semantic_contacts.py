@@ -97,8 +97,10 @@ def semantic_data() -> dict:
             elif entry["assessment"] == "needs_validation":
                 by_day[day - 1]["P_needs_validation"] += 1
         concept_contacts[entry["concept"]][mode].add(day)
-        scene_key = "p_scenes" if mode == "needed_P" else "r_scenes"
-        concept_contacts[entry["concept"]][scene_key].add(event["scene_id"])
+        if mode == "needed_P":
+            concept_contacts[entry["concept"]]["p_scenes"].add(event["scene_id"])
+        elif mode == "needed_R":
+            concept_contacts[entry["concept"]]["r_scenes"].add(event["scene_id"])
         for lemma in entry["anchors"]:
             k = {
                 "needed_R": "needed_R_days", "context_R": "context_R_days",
