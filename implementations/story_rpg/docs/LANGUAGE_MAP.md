@@ -1,5 +1,7 @@
 # Карта языковой прогрессии A0 → письменный A1
 
+**Сводка всех направлений и оставшихся работ:** [LANGUAGE_PROGRAM_ROADMAP.md](LANGUAGE_PROGRAM_ROADMAP.md). Нынешняя карта R/P/↻ продолжает быть самостоятельным источником прогрессии.  
+
 **Статус: v0.4 — визуальная карта связана с [переносимым лексическим каталогом](LANGUAGE_LEXICON.md) и [проверяемыми результатами](LEARNING_OUTCOMES.md); проектный черновик, не утверждённый стандарт.**  
 **Принцип:** **одна** сеттинг-независимая программа. Эта карта визуализирует [LANGUAGE_DESIGN.md](LANGUAGE_DESIGN.md), [LANGUAGE_PROGRESSION.md](LANGUAGE_PROGRESSION.md), [LEARNING_OUTCOMES.md](LEARNING_OUTCOMES.md) и [LANGUAGE_LEXICON.md](LANGUAGE_LEXICON.md). Результат ревью — [LANGUAGE_REVIEW.md](LANGUAGE_REVIEW.md); состояние — [PROJECT_STATUS.md](PROJECT_STATUS.md).
 
