@@ -47,7 +47,8 @@ def render(original, source, matrix):
             raise ValueError("Days must be consecutive, starting with D01")
         count += len(ids)
         days.append({"day": day, "phase": c[1], "title": c[2], "new": ids,
-                     "reuse": [], "complexity": 0, "cumulative": count, "existing": day <= 6})
+                     "reuse": [], "complexity": 0, "cumulative": count,
+                     "existing": "Есть сюжетная основа" in c[4]})
     if not days or count != 55:
         raise ValueError("Exactly 55 M## must be assigned to days")
     ids = [x for d in days for x in d["new"]]
