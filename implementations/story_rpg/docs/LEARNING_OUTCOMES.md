@@ -1,5 +1,7 @@
 # Story RPG — Learning Outcomes: результаты первого акта и рамки проверки
 
+**Roadmap языковой программы:** [LANGUAGE_PROGRAM_ROADMAP.md](LANGUAGE_PROGRAM_ROADMAP.md). LO-R/W и независимая оценка остаются отдельной линией работ, не подменяются статистикой слов.  
+
 **Статус: v0.4 — результаты согласованы структурно с [лексическим минимумом](LANGUAGE_LEXICON.md), но не утверждены пользователем как окончательный экзамен.**  
 **Дата:** 2026-11-15. Навигация: [PROJECT_STATUS.md](PROJECT_STATUS.md) · [LANGUAGE_DESIGN.md](LANGUAGE_DESIGN.md) (M01–M55/G01–G34) · [LANGUAGE_PROGRESSION.md](LANGUAGE_PROGRESSION.md) (P0–P6) · [LANGUAGE_LEXICON.md](LANGUAGE_LEXICON.md) (сферный словарный минимум).
 
