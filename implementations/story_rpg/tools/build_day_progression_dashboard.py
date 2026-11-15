@@ -8,6 +8,8 @@ Run from the repository root:
 All daily story goals, first M## contacts, R/P contracts, meanings, heatmap
 repetitions and the complexity curve come from ACT_DAY_PROGRESSION_MAP.md.
 M## names come from LANGUAGE_DESIGN.md and skill categories from LANGUAGE_MAP.md.
+Vocabulary growth comes from the tagged pilot corpus and the reviewed normalization
+map. D22 exam never contributes to the cumulative vocabulary.
 Only Python's standard library is needed; no LLM, browser or network.
 """
 from __future__ import annotations
@@ -23,6 +25,9 @@ DAY_MAP = DOCS / "ACT_DAY_PROGRESSION_MAP.md"
 LANGUAGE_DESIGN = DOCS / "LANGUAGE_DESIGN.md"
 LANGUAGE_MAP = DOCS / "LANGUAGE_MAP.md"
 DASHBOARD = DOCS / "ACT_DAY_PROGRESSION_DASHBOARD.html"
+CORPUS = DOCS / "ACT_DIALOGUE_REFERENCE_CORPUS.json"
+NORMALIZATION = DOCS / "ACT_VOCAB_NORMALIZATION.json"
+WORD_PATTERN = re.compile(r"[^\\W_]+", re.UNICODE)
 
 DATA_SCRIPT = re.compile(r'(<script id="progression-data">const DATA=)(.*?)(;</script>)', re.DOTALL)
 GROUPS = {
@@ -153,6 +158,89 @@ def apply_reuse(source: str, days: list[dict], first: dict[str, str]) -> None:
                 raise ValueError(f"Reuse of {group} before introduction")
         introduced.update(first[id] for id in day["new"])
 
+
+def vocab_data() -> dict:
+    """Calculate cumulative R vocabulary and the R+P-sample vocabulary by day.
+
+    R = German actually present in authored NPC/document samples.
+    P = the author's example wording for required FREE-TEXT responses, not actual
+    player input. Forms are normalized against a reviewed, exhaustive mapping.
+    Proper names and sensor identifiers are excluded from vocabulary only;
+    they still count in raw text volume. D22 is an exam and is not counted.
+    """
+    corpus = json.loads(CORPUS.read_text(encoding="utf-8"))
+    norm = json.loads(NORMALIZATION.read_text(encoding="utf-8"))
+    mapping = norm["form_to_lexeme"]
+    excluded = set(norm["excluded"])
+    seen_r_lexemes: set[str] = set()
+    seen_r_forms: set[str] = set()
+    seen_all_lexemes: set[str] = set()
+    series: list[dict] = []
+
+    def lexemes(text: str) -> tuple[list[str], list[str], int]:
+        forms = [word.lower() for word in WORD_PATTERN.findall(text)]
+        unknown = set(forms).difference(mapping, excluded)
+        if unknown:
+            raise ValueError(
+                "Unreviewed German word forms in dialogue corpus; update "
+                "ACT_VOCAB_NORMALIZATION.json: " + ", ".join(sorted(unknown))
+            )
+        useful = [form for form in forms if form not in excluded]
+        return useful, [mapping[form] for form in useful], len(forms)
+
+    for day in corpus["days"]:
+        number = day["day"]
+        if number != len(series) + 1:
+            raise ValueError("Corpus days must be consecutive.")
+        if number >= corpus["exam_day"]:
+            raise ValueError("Exam day must not contribute to practice vocabulary.")
+        r_forms: list[str] = []
+        r_lemmas: list[str] = []
+        r_words = 0
+        for event in day["r"]:
+            forms, lemmas, words = lexemes(event["de"])
+            r_forms.extend(forms)
+            r_lemmas.extend(lemmas)
+            r_words += words
+
+        # Vocabulary 'new today' means first appearance across any earlier day;
+        # duplicate uses in the same day count as repeated tokens, not new types.
+        new_r_lemmas = set(r_lemmas) - seen_r_lexemes
+        new_r_forms = set(r_forms) - seen_r_forms
+        seen_r_lexemes.update(r_lemmas)
+        seen_r_forms.update(r_forms)
+        new_all = set(r_lemmas) - seen_all_lexemes
+        seen_all_lexemes.update(r_lemmas)
+        p_words = 0
+        p_lemmas: list[str] = []
+        for event in day["p"]:
+            if event["required"] and event["kind"] == "dialog":
+                _, lemmas, count = lexemes(event["example"])
+                p_words += count
+                p_lemmas.extend(lemmas)
+        p_only_new = set(p_lemmas) - seen_all_lexemes
+        seen_all_lexemes.update(p_lemmas)
+        series.append({
+            "day": number,
+            "r_words": r_words,
+            "p_example_words": p_words,
+            "r_lexical_words": len(r_lemmas),
+            "r_repeated_words": len(r_lemmas) - len(new_r_lemmas),
+            "r_new_lexemes": len(new_r_lemmas),
+            "r_cumulative_lexemes": len(seen_r_lexemes),
+            "r_new_forms": len(new_r_forms),
+            "r_cumulative_forms": len(seen_r_forms),
+            "p_only_new_lexemes": len(p_only_new),
+            "sample_cumulative_lexemes": len(seen_all_lexemes),
+        })
+    return {
+        "status": "authored_reference_only",
+        "exam_day": corpus["exam_day"],
+        "days": series,
+        "excluded": sorted(excluded),
+    }
+
+
 def build(html: str, source: str, matrix: str, language: str) -> str:
     embedded = DATA_SCRIPT.search(html)
     if embedded is None:
@@ -176,7 +264,7 @@ def build(html: str, source: str, matrix: str, language: str) -> str:
     ]
     payload = {
         "days": days, "groups": GROUPS, "skillNames": names,
-        "audit": audit, "first": first,
+        "audit": audit, "first": first, "vocab": vocab_data(),
     }
     encoded = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("<", r"\u003c")
     return html[:embedded.start(2)] + encoded + html[embedded.end(2):]
