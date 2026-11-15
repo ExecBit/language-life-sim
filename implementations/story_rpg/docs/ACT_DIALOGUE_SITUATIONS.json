@@ -538,7 +538,7 @@
             {
               "id": "D04-S1-R6",
               "speaker": "Советник",
-              "de": "Ist die Lampe hier?",
+              "de": "Ist die Lampe da?",
               "required": true
             }
           ],
@@ -1781,7 +1781,7 @@
             {
               "id": "D11-S2-R4",
               "speaker": "Снабженец",
-              "de": "Der Arzt braucht den roten Schlüssel.",
+              "de": "Der rote Schlüssel ist für den Arzt.",
               "required": true
             },
             {
@@ -2376,7 +2376,7 @@
             {
               "id": "D15-S1-R5",
               "speaker": "Навигатор",
-              "de": "Wann wurde Sensor B geprüft?",
+              "de": "Sensor B: welche Zeit?",
               "required": true
             },
             {
