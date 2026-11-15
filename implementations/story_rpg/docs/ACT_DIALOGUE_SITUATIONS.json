@@ -1,0 +1,3582 @@
+{
+  "version": "0.2",
+  "status": "expanded_authored_situation_contracts_not_production_dialogues",
+  "exam_day": 22,
+  "day_boundaries": "candidate only",
+  "counting": "main_path=required scenes/turns; optional separately; unmodelled dialogue branches are not included",
+  "days": [
+    {
+      "day": 1,
+      "phase": "P0",
+      "scenes": [
+        {
+          "id": "D01-S1",
+          "title": "Пробуждение",
+          "location": "криосектор",
+          "actors": "Лена",
+          "trigger": "Герой приходит в себя; Лена пытается вывести его из опасной зоны",
+          "consequence": "Герой понимает безопасный выход и получает помощь",
+          "evidence": "Видны дверь и два разных предмета. Немецкая инструкция различает, что брать.",
+          "required": true,
+          "r": [
+            {
+              "id": "D01-S1-R1",
+              "speaker": "Лена",
+              "de": "Hallo. Ich bin Lena.",
+              "required": true
+            },
+            {
+              "id": "D01-S1-R2",
+              "speaker": "Лена",
+              "de": "Komm bitte. Hier.",
+              "required": true
+            },
+            {
+              "id": "D01-S1-R3",
+              "speaker": "Лена",
+              "de": "Die Tür ist offen.",
+              "required": true
+            },
+            {
+              "id": "D01-S1-R4",
+              "speaker": "Лена",
+              "de": "Nimm den Schlüssel. Bitte.",
+              "required": true
+            },
+            {
+              "id": "D01-S1-R5",
+              "speaker": "Лена",
+              "de": "Du verstehst nicht? Noch einmal?",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D01-S1-P1",
+              "example": "Noch einmal, bitte.",
+              "goal": "Попросить повторить непонятную инструкцию",
+              "contrast": "Просьба о повторе вместо случайного согласия",
+              "slots": [
+                {
+                  "group": "01",
+                  "meaning": "Попросить повторить непонятную инструкцию"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D01-S1-P2",
+              "example": "Der Schlüssel, bitte.",
+              "goal": "Попросить нужный предмет перед выходом",
+              "contrast": "Ключ вместо лампы или другой вещи",
+              "slots": [
+                {
+                  "group": "02",
+                  "meaning": "Попросить нужный предмет перед выходом"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        },
+        {
+          "id": "D01-S2",
+          "title": "После выхода",
+          "location": "безопасный коридор",
+          "actors": "Лена",
+          "trigger": "Безопасный коридор и табличка с указателем",
+          "consequence": "Герой достигает безопасного участка и получает возможность связаться с медиком",
+          "evidence": "Невыходящий переводчик: F1, жест, мимика и видимые объекты, без подсветки единственно верного действия.",
+          "required": true,
+          "r": [
+            {
+              "id": "D01-S2-R1",
+              "speaker": "Лена",
+              "de": "Hier ist gut. Dort ist schlecht.",
+              "required": true
+            },
+            {
+              "id": "D01-S2-R2",
+              "speaker": "Лена",
+              "de": "Nein, nicht dort. Komm hier.",
+              "required": true
+            },
+            {
+              "id": "D01-S2-R3",
+              "speaker": "Табличка",
+              "de": "Arzt: hier.",
+              "required": true
+            },
+            {
+              "id": "D01-S2-R4",
+              "speaker": "Лена",
+              "de": "Brauchst du Hilfe?",
+              "required": true
+            },
+            {
+              "id": "D01-S2-R5",
+              "speaker": "Лена",
+              "de": "Ja? Nein?",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D01-S2-P1",
+              "example": "Ich brauche Hilfe.",
+              "goal": "Сказать Лене, что нужна помощь",
+              "contrast": "Потребность в помощи нельзя заменить согласием",
+              "slots": [
+                {
+                  "group": "05",
+                  "meaning": "Сказать Лене, что нужна помощь"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D01-S2-P2",
+              "example": "Wo ist der Arzt?",
+              "goal": "Уточнить, где медик",
+              "contrast": "Врач не находится автоматически рядом с Леной",
+              "slots": [
+                {
+                  "group": "07",
+                  "meaning": "Уточнить, где медик"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "phase": "P1",
+      "scenes": [
+        {
+          "id": "D02-S1",
+          "title": "Осмотр",
+          "location": "медицинский отсек",
+          "actors": "Медик",
+          "trigger": "Медик проверяет последствия пробуждения и ограничивает нагрузку",
+          "consequence": "Известно состояние героя и доступен отдых",
+          "evidence": "Осмотр и состояние видимы; выбор ответа по немецкому, а не по русской подсказке.",
+          "required": true,
+          "r": [
+            {
+              "id": "D02-S1-R1",
+              "speaker": "Медик",
+              "de": "Hallo. Wie heißt du?",
+              "required": true
+            },
+            {
+              "id": "D02-S1-R2",
+              "speaker": "Медик",
+              "de": "Ich bin der Arzt.",
+              "required": true
+            },
+            {
+              "id": "D02-S1-R3",
+              "speaker": "Медик",
+              "de": "Bist du müde?",
+              "required": true
+            },
+            {
+              "id": "D02-S1-R4",
+              "speaker": "Медик",
+              "de": "Hast du Schmerzen?",
+              "required": true
+            },
+            {
+              "id": "D02-S1-R5",
+              "speaker": "Медик",
+              "de": "Du brauchst Ruhe. Bitte.",
+              "required": true
+            },
+            {
+              "id": "D02-S1-R6",
+              "speaker": "Медик",
+              "de": "Komm morgen noch einmal.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D02-S1-P1",
+              "example": "Ich bin müde.",
+              "goal": "Назвать собственное состояние",
+              "contrast": "Усталость не равна боли",
+              "slots": [
+                {
+                  "group": "07",
+                  "meaning": "Назвать собственное состояние"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D02-S1-P2",
+              "example": "Ich habe keine Schmerzen.",
+              "goal": "Отрицать болезненный симптом",
+              "contrast": "Нет боли не значит нет усталости",
+              "slots": [
+                {
+                  "group": "06",
+                  "meaning": "Отрицать болезненный симптом"
+                },
+                {
+                  "group": "07",
+                  "meaning": "Отрицать болезненный симптом"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D02-S2",
+          "title": "Непринуждённый разговор",
+          "location": "жилой коридор",
+          "actors": "Лена",
+          "trigger": "Лена показывает личное место и делится собственным состоянием",
+          "consequence": "Герой знает, где отдыхать; личный контакт не зависит от успеха ремонта",
+          "evidence": "Лена не превращается в учителя, разговор может закончиться сном.",
+          "required": true,
+          "r": [
+            {
+              "id": "D02-S2-R1",
+              "speaker": "Лена",
+              "de": "Das ist dein Zimmer.",
+              "required": true
+            },
+            {
+              "id": "D02-S2-R2",
+              "speaker": "Лена",
+              "de": "Mein Zimmer ist dort.",
+              "required": true
+            },
+            {
+              "id": "D02-S2-R3",
+              "speaker": "Лена",
+              "de": "Ich bin auch müde.",
+              "required": true
+            },
+            {
+              "id": "D02-S2-R4",
+              "speaker": "Лена",
+              "de": "Du kannst hier schlafen.",
+              "required": true
+            },
+            {
+              "id": "D02-S2-R5",
+              "speaker": "Лена",
+              "de": "Gute Nacht. Bis morgen.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D02-S2-P1",
+              "example": "Danke, Lena.",
+              "goal": "Поблагодарить за помощь",
+              "contrast": "Благодарность отличается от просьбы",
+              "slots": [
+                {
+                  "group": "01",
+                  "meaning": "Поблагодарить за помощь"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D02-S2-P2",
+              "example": "Ich brauche Wasser.",
+              "goal": "При желании попросить воды перед отдыхом",
+              "contrast": "Собственная потребность, необязательный разговор",
+              "slots": [
+                {
+                  "group": "08",
+                  "meaning": "При желании попросить воды перед отдыхом"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "phase": "P1",
+      "scenes": [
+        {
+          "id": "D03-S1",
+          "title": "Питание и снабжение",
+          "location": "пункт выдачи",
+          "actors": "Снабженец",
+          "trigger": "Герою необходимы питьё и рабочая лампа; снабженец управляет остатками",
+          "consequence": "Получены нужные предметы без права распоряжаться запасами",
+          "evidence": "Предметы лежат на разных полках; ярлыки не показывают готовую фразу.",
+          "required": true,
+          "r": [
+            {
+              "id": "D03-S1-R1",
+              "speaker": "Снабженец",
+              "de": "Hallo. Was brauchst du?",
+              "required": true
+            },
+            {
+              "id": "D03-S1-R2",
+              "speaker": "Снабженец",
+              "de": "Wasser ist hier.",
+              "required": true
+            },
+            {
+              "id": "D03-S1-R3",
+              "speaker": "Снабженец",
+              "de": "Brot ist dort.",
+              "required": true
+            },
+            {
+              "id": "D03-S1-R4",
+              "speaker": "Снабженец",
+              "de": "Eine Lampe? Bitte.",
+              "required": true
+            },
+            {
+              "id": "D03-S1-R5",
+              "speaker": "Снабженец",
+              "de": "Der Schlüssel ist nicht hier.",
+              "required": true
+            },
+            {
+              "id": "D03-S1-R6",
+              "speaker": "Снабженец",
+              "de": "Danke. Bis morgen.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D03-S1-P1",
+              "example": "Wasser, bitte.",
+              "goal": "Попросить питьевую воду",
+              "contrast": "Вода не равна хлебу",
+              "slots": [
+                {
+                  "group": "08",
+                  "meaning": "Попросить питьевую воду"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D03-S1-P2",
+              "example": "Ich brauche eine Lampe.",
+              "goal": "Запросить нужный для работы светильник",
+              "contrast": "Запрос ресурса без приказа",
+              "slots": [
+                {
+                  "group": "02",
+                  "meaning": "Запросить нужный для работы светильник"
+                },
+                {
+                  "group": "05",
+                  "meaning": "Запросить нужный для работы светильник"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D03-S2",
+          "title": "Перерыв у стола",
+          "location": "столовая",
+          "actors": "Медик",
+          "trigger": "Герой может есть; медик напоминает об отдыхе",
+          "consequence": "Личные потребности не связаны с выдачей запчастей",
+          "evidence": "Перерыв можно пропустить без потери обязательного навыка: этот разговор факультативен, основная выдача остаётся обязательной.",
+          "required": false,
+          "r": [
+            {
+              "id": "D03-S2-R1",
+              "speaker": "Медик",
+              "de": "Du kannst essen.",
+              "required": false
+            },
+            {
+              "id": "D03-S2-R2",
+              "speaker": "Медик",
+              "de": "Hier ist Tee. Hier ist Wasser.",
+              "required": false
+            },
+            {
+              "id": "D03-S2-R3",
+              "speaker": "Медик",
+              "de": "Möchtest du Brot?",
+              "required": false
+            },
+            {
+              "id": "D03-S2-R4",
+              "speaker": "Медик",
+              "de": "Ich arbeite heute.",
+              "required": false
+            },
+            {
+              "id": "D03-S2-R5",
+              "speaker": "Медик",
+              "de": "Du brauchst noch Ruhe.",
+              "required": false
+            }
+          ],
+          "p": [
+            {
+              "id": "D03-S2-P1",
+              "example": "Ich möchte Tee.",
+              "goal": "Выбрать напиток для себя",
+              "contrast": "Чай не заменяется водой",
+              "slots": [
+                {
+                  "group": "08",
+                  "meaning": "Выбрать напиток для себя"
+                },
+                {
+                  "group": "17",
+                  "meaning": "Выбрать напиток для себя"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D03-S2-P2",
+              "example": "Nein, danke.",
+              "goal": "Вежливо отказаться от предлагаемого хлеба",
+              "contrast": "Отказ не равен запрету",
+              "slots": [
+                {
+                  "group": "01",
+                  "meaning": "Вежливо отказаться от предлагаемого хлеба"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "phase": "P1",
+      "scenes": [
+        {
+          "id": "D04-S1",
+          "title": "Диагностика контура",
+          "location": "инженерный отсек",
+          "actors": "Научный советник",
+          "trigger": "После аварии панель и физическое состояние узла дают разные свидетельства",
+          "consequence": "Отклонение зарегистрировано без утверждения о причине аварии",
+          "evidence": "Игрок видит светящуюся лампу, советник её не видит; панель ошибочна или причина неочевидна.",
+          "required": true,
+          "r": [
+            {
+              "id": "D04-S1-R1",
+              "speaker": "Советник",
+              "de": "Hier ist die Liste.",
+              "required": true
+            },
+            {
+              "id": "D04-S1-R2",
+              "speaker": "Советник",
+              "de": "Prüfe die Tür und die Lampe.",
+              "required": true
+            },
+            {
+              "id": "D04-S1-R3",
+              "speaker": "Советник",
+              "de": "Die Lampe ist kaputt. So steht es hier.",
+              "required": true
+            },
+            {
+              "id": "D04-S1-R4",
+              "speaker": "Панель",
+              "de": "Lampe: kaputt.",
+              "required": true
+            },
+            {
+              "id": "D04-S1-R5",
+              "speaker": "Советник",
+              "de": "Was siehst du?",
+              "required": true
+            },
+            {
+              "id": "D04-S1-R6",
+              "speaker": "Советник",
+              "de": "Ist die Lampe hier?",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D04-S1-P1",
+              "example": "Die Lampe ist hier.",
+              "goal": "Сообщить, какой предмет обнаружен при осмотре",
+              "contrast": "Отсутствие предмета не равно неисправности",
+              "slots": [
+                {
+                  "group": "02",
+                  "meaning": "Сообщить, какой предмет обнаружен при осмотре"
+                },
+                {
+                  "group": "06",
+                  "meaning": "Сообщить, какой предмет обнаружен при осмотре"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D04-S1-P2",
+              "example": "Die Lampe ist nicht kaputt.",
+              "goal": "Сообщить физическое наблюдение, которое отличается от панели",
+              "contrast": "Герой сообщает собственный факт, не угадывает мнение советника",
+              "slots": [
+                {
+                  "group": "06",
+                  "meaning": "Сообщить физическое наблюдение, которое отличается от панели"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D04-S2",
+          "title": "Ответ медику",
+          "location": "медицинский отсек",
+          "actors": "Медик",
+          "trigger": "После работы медик оценивает признаки усталости",
+          "consequence": "Рабочая диагностика не исключает необходимости отдыха",
+          "evidence": "Отчёт короткий: не требуется объяснять на немецком сложный технический вывод.",
+          "required": true,
+          "r": [
+            {
+              "id": "D04-S2-R1",
+              "speaker": "Медик",
+              "de": "Du bist wieder hier.",
+              "required": true
+            },
+            {
+              "id": "D04-S2-R2",
+              "speaker": "Медик",
+              "de": "Die Arbeit ist fertig?",
+              "required": true
+            },
+            {
+              "id": "D04-S2-R3",
+              "speaker": "Медик",
+              "de": "Bist du müde?",
+              "required": true
+            },
+            {
+              "id": "D04-S2-R4",
+              "speaker": "Медик",
+              "de": "Bitte, nicht zu lange arbeiten.",
+              "required": true
+            },
+            {
+              "id": "D04-S2-R5",
+              "speaker": "Медик",
+              "de": "Morgen sehen wir uns.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D04-S2-P1",
+              "example": "Die Arbeit ist fertig.",
+              "goal": "Передать простой результат работы",
+              "contrast": "Завершено ≠ всё исправно",
+              "slots": [
+                {
+                  "group": "06",
+                  "meaning": "Передать простой результат работы"
+                },
+                {
+                  "group": "14",
+                  "meaning": "Передать простой результат работы"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D04-S2-P2",
+              "example": "Ich bin müde.",
+              "goal": "Назвать состояние и уйти на отдых",
+              "contrast": "Действие не выдаётся за язык",
+              "slots": [
+                {
+                  "group": "07",
+                  "meaning": "Назвать состояние и уйти на отдых"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "phase": "P1",
+      "scenes": [
+        {
+          "id": "D05-S1",
+          "title": "Уточнение приоритетов",
+          "location": "общая рабочая зона",
+          "actors": "Советник",
+          "trigger": "Для безопасной работы надо получить недостающую вещь и уточнить место",
+          "consequence": "Техник самостоятельно ориентируется в задачах",
+          "evidence": "Если игрок не понял слов, F1 даёт словарь без готового предложения.",
+          "required": true,
+          "r": [
+            {
+              "id": "D05-S1-R1",
+              "speaker": "Советник",
+              "de": "Die Tür ist zu.",
+              "required": true
+            },
+            {
+              "id": "D05-S1-R2",
+              "speaker": "Советник",
+              "de": "Wir brauchen Licht.",
+              "required": true
+            },
+            {
+              "id": "D05-S1-R3",
+              "speaker": "Советник",
+              "de": "Die Lampe ist im Zimmer.",
+              "required": true
+            },
+            {
+              "id": "D05-S1-R4",
+              "speaker": "Советник",
+              "de": "Wo ist der Schlüssel?",
+              "required": true
+            },
+            {
+              "id": "D05-S1-R5",
+              "speaker": "Советник",
+              "de": "Die Arbeit kann warten.",
+              "required": true
+            },
+            {
+              "id": "D05-S1-R6",
+              "speaker": "Советник",
+              "de": "Danke für deine Hilfe.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D05-S1-P1",
+              "example": "Wo ist die Lampe?",
+              "goal": "Уточнить местоположение недостающего света",
+              "contrast": "Предмет запроса должен быть назван",
+              "slots": [
+                {
+                  "group": "04",
+                  "meaning": "Уточнить местоположение недостающего света"
+                },
+                {
+                  "group": "02",
+                  "meaning": "Уточнить местоположение недостающего света"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D05-S1-P2",
+              "example": "Ich brauche den Schlüssel.",
+              "goal": "Самостоятельно попросить доступ",
+              "contrast": "Это просьба, а не приказ снабженцу",
+              "slots": [
+                {
+                  "group": "02",
+                  "meaning": "Самостоятельно попросить доступ"
+                },
+                {
+                  "group": "05",
+                  "meaning": "Самостоятельно попросить доступ"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D05-S2",
+          "title": "Разговор после смены",
+          "location": "общая зона",
+          "actors": "Лена",
+          "trigger": "После работы Лена объясняет, почему ей важно восстановить дальнюю связь",
+          "consequence": "Личная мотивация Лены становится заметной, но игрок не обязан её расспрашивать",
+          "evidence": "Лена не раскрывает будущий квест заранее в деталях; содержание можно читать, но продуктивная сложность не обязательна.",
+          "required": false,
+          "r": [
+            {
+              "id": "D05-S2-R1",
+              "speaker": "Лена",
+              "de": "Die Arbeit ist schwer.",
+              "required": false
+            },
+            {
+              "id": "D05-S2-R2",
+              "speaker": "Лена",
+              "de": "Ich arbeite an der Verbindung.",
+              "required": false
+            },
+            {
+              "id": "D05-S2-R3",
+              "speaker": "Лена",
+              "de": "Heute geht es nicht.",
+              "required": false
+            },
+            {
+              "id": "D05-S2-R4",
+              "speaker": "Лена",
+              "de": "Morgen versuche ich es wieder.",
+              "required": false
+            },
+            {
+              "id": "D05-S2-R5",
+              "speaker": "Лена",
+              "de": "Ich möchte eine Nachricht senden.",
+              "required": false
+            }
+          ],
+          "p": [
+            {
+              "id": "D05-S2-P1",
+              "example": "Brauchst du Hilfe?",
+              "goal": "Предложить помощь без обязательства",
+              "contrast": "Предложение ≠ назначенный ремонт",
+              "slots": [
+                {
+                  "group": "05",
+                  "meaning": "Предложить помощь без обязательства"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "phase": "P2",
+      "scenes": [
+        {
+          "id": "D06-S1",
+          "title": "Найти безопасный маршрут",
+          "location": "жилой сектор",
+          "actors": "Лена",
+          "trigger": "Нужно перенести журнал в безопасное помещение через нужный проход",
+          "consequence": "Открывается независимый маршрут к жилой зоне",
+          "evidence": "Маршруты действительно различаются; текст стрелки важен при выборе.",
+          "required": true,
+          "r": [
+            {
+              "id": "D06-S1-R1",
+              "speaker": "Лена",
+              "de": "Der Weg ist hier.",
+              "required": true
+            },
+            {
+              "id": "D06-S1-R2",
+              "speaker": "Лена",
+              "de": "Geh nach links.",
+              "required": true
+            },
+            {
+              "id": "D06-S1-R3",
+              "speaker": "Указатель",
+              "de": "Wohnbereich: rechts.",
+              "required": true
+            },
+            {
+              "id": "D06-S1-R4",
+              "speaker": "Лена",
+              "de": "Die Tür rechts ist zu.",
+              "required": true
+            },
+            {
+              "id": "D06-S1-R5",
+              "speaker": "Лена",
+              "de": "Die andere Tür ist offen.",
+              "required": true
+            },
+            {
+              "id": "D06-S1-R6",
+              "speaker": "Лена",
+              "de": "Bring die Liste ins Zimmer.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D06-S1-P1",
+              "example": "Wo ist der Ausgang?",
+              "goal": "Спросить путь, если нужный выход не виден",
+              "contrast": "Выход ≠ вход",
+              "slots": [
+                {
+                  "group": "11",
+                  "meaning": "Спросить путь, если нужный выход не виден"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D06-S1-P2",
+              "example": "Die Liste ist im Zimmer.",
+              "goal": "Передать местоположение документа человеку в другом отсеке",
+              "contrast": "В комнате ≠ в комнату",
+              "slots": [
+                {
+                  "group": "10",
+                  "meaning": "Передать местоположение документа человеку в другом отсеке"
+                },
+                {
+                  "group": "23",
+                  "meaning": "Передать местоположение документа человеку в другом отсеке"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D06-S2",
+          "title": "Передача вещи",
+          "location": "общая кухня",
+          "actors": "Сотрудник быта",
+          "trigger": "Необходимо найти место для общего предмета",
+          "consequence": "Общее пространство становится пригодным для экипажа",
+          "evidence": "Игрок видит несколько столов; положение предмета задаётся действием, а не меню.",
+          "required": true,
+          "r": [
+            {
+              "id": "D06-S2-R1",
+              "speaker": "Сотрудник быта",
+              "de": "Hallo. Das ist die Küche.",
+              "required": true
+            },
+            {
+              "id": "D06-S2-R2",
+              "speaker": "Сотрудник быта",
+              "de": "Der Tisch ist hier.",
+              "required": true
+            },
+            {
+              "id": "D06-S2-R3",
+              "speaker": "Сотрудник быта",
+              "de": "Die Tasse ist auf dem Tisch.",
+              "required": true
+            },
+            {
+              "id": "D06-S2-R4",
+              "speaker": "Сотрудник быта",
+              "de": "Bitte bring die Tasse in die Küche.",
+              "required": true
+            },
+            {
+              "id": "D06-S2-R5",
+              "speaker": "Сотрудник быта",
+              "de": "Danke! Alles ist gut.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D06-S2-P1",
+              "example": "Die Tasse ist dort.",
+              "goal": "Сообщить местоположение чашки после переноса",
+              "contrast": "Где находится ≠ куда нести",
+              "slots": [
+                {
+                  "group": "10",
+                  "meaning": "Сообщить местоположение чашки после переноса"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D06-S2-P2",
+              "example": "Kann ich helfen?",
+              "goal": "Предложить дополнительную помощь",
+              "contrast": "Непринудительный разговор",
+              "slots": [
+                {
+                  "group": "05",
+                  "meaning": "Предложить дополнительную помощь"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 7,
+      "phase": "P2",
+      "scenes": [
+        {
+          "id": "D07-S1",
+          "title": "Ответственные за оборудование",
+          "location": "жилой коридор",
+          "actors": "Лена",
+          "trigger": "Нужно узнать, кому принадлежит ключ и кому доступна рабочая зона",
+          "consequence": "Чужие вещи остаются чужими, появляются адресаты просьб",
+          "evidence": "Слова о ролях появляются при реальной нужде обращаться.",
+          "required": true,
+          "r": [
+            {
+              "id": "D07-S1-R1",
+              "speaker": "Лена",
+              "de": "Das ist mein Schlüssel.",
+              "required": true
+            },
+            {
+              "id": "D07-S1-R2",
+              "speaker": "Лена",
+              "de": "Das ist dein Zimmer.",
+              "required": true
+            },
+            {
+              "id": "D07-S1-R3",
+              "speaker": "Лена",
+              "de": "Der Arzt arbeitet heute.",
+              "required": true
+            },
+            {
+              "id": "D07-S1-R4",
+              "speaker": "Лена",
+              "de": "Der Kapitän ist nicht hier.",
+              "required": true
+            },
+            {
+              "id": "D07-S1-R5",
+              "speaker": "Лена",
+              "de": "Frag den Lagerverwalter.",
+              "required": true
+            },
+            {
+              "id": "D07-S1-R6",
+              "speaker": "Лена",
+              "de": "Er ist im Lager.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D07-S1-P1",
+              "example": "Ist das dein Schlüssel?",
+              "goal": "Уточнить принадлежность другого ключа",
+              "contrast": "Мой ≠ твой",
+              "slots": [
+                {
+                  "group": "09",
+                  "meaning": "Уточнить принадлежность другого ключа"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D07-S1-P2",
+              "example": "Wo ist der Lagerverwalter?",
+              "goal": "Найти нужного ответственного",
+              "contrast": "Ответственный за склад не равен врачу",
+              "slots": [
+                {
+                  "group": "14",
+                  "meaning": "Найти нужного ответственного"
+                },
+                {
+                  "group": "04",
+                  "meaning": "Найти нужного ответственного"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D07-S2",
+          "title": "Согласовать принадлежность",
+          "location": "склад",
+          "actors": "Снабженец",
+          "trigger": "В журнале ключ подписан не тем человеком",
+          "consequence": "Исправлено назначение предмета без передачи собственности автоматически",
+          "evidence": "Отрицание принадлежности меняет запись, а не требует идеального падежа.",
+          "required": true,
+          "r": [
+            {
+              "id": "D07-S2-R1",
+              "speaker": "Снабженец",
+              "de": "Hier ist ein Schlüssel.",
+              "required": true
+            },
+            {
+              "id": "D07-S2-R2",
+              "speaker": "Снабженец",
+              "de": "Ist das dein Schlüssel?",
+              "required": true
+            },
+            {
+              "id": "D07-S2-R3",
+              "speaker": "Снабженец",
+              "de": "Die Liste sagt: Lena.",
+              "required": true
+            },
+            {
+              "id": "D07-S2-R4",
+              "speaker": "Снабженец",
+              "de": "Du kannst ihn nicht nehmen.",
+              "required": true
+            },
+            {
+              "id": "D07-S2-R5",
+              "speaker": "Снабженец",
+              "de": "Ich brauche den Namen.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D07-S2-P1",
+              "example": "Der Schlüssel ist von Lena.",
+              "goal": "Сообщить владельца, которого игрок знает",
+              "contrast": "Владелец не совпадает с получателем",
+              "slots": [
+                {
+                  "group": "09",
+                  "meaning": "Сообщить владельца, которого игрок знает"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D07-S2-P2",
+              "example": "Das ist nicht mein Schlüssel.",
+              "goal": "Отрицать свою принадлежность",
+              "contrast": "Нет ≠ мой",
+              "slots": [
+                {
+                  "group": "09",
+                  "meaning": "Отрицать свою принадлежность"
+                },
+                {
+                  "group": "06",
+                  "meaning": "Отрицать свою принадлежность"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 8,
+      "phase": "P2",
+      "scenes": [
+        {
+          "id": "D08-S1",
+          "title": "Связь с удалённым пультом",
+          "location": "отсек передатчика",
+          "actors": "Лена по коммуникатору",
+          "trigger": "Лена видит показания пульта; герой видит местный блок питания",
+          "consequence": "Появилась возможность совместного теста без телепатии NPC",
+          "evidence": "Индикатор у героя зелёный, у Лены красный; видимость разделена.",
+          "required": true,
+          "r": [
+            {
+              "id": "D08-S1-R1",
+              "speaker": "Лена",
+              "de": "Hallo. Hörst du mich?",
+              "required": true
+            },
+            {
+              "id": "D08-S1-R2",
+              "speaker": "Лена",
+              "de": "Ich bin am Pult.",
+              "required": true
+            },
+            {
+              "id": "D08-S1-R3",
+              "speaker": "Лена",
+              "de": "Du bist am Gerät?",
+              "required": true
+            },
+            {
+              "id": "D08-S1-R4",
+              "speaker": "Лена",
+              "de": "Mein Licht ist rot.",
+              "required": true
+            },
+            {
+              "id": "D08-S1-R5",
+              "speaker": "Лена",
+              "de": "Was zeigt die Lampe bei dir?",
+              "required": true
+            },
+            {
+              "id": "D08-S1-R6",
+              "speaker": "Лена",
+              "de": "Bitte sag mir die Farbe.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D08-S1-P1",
+              "example": "Die Lampe ist grün.",
+              "goal": "Сообщить наблюдение с локального устройства",
+              "contrast": "Лена не видит цвет местной лампы",
+              "slots": [
+                {
+                  "group": "24",
+                  "meaning": "Сообщить наблюдение с локального устройства"
+                },
+                {
+                  "group": "06",
+                  "meaning": "Сообщить наблюдение с локального устройства"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D08-S1-P2",
+              "example": "Ich bin am Gerät.",
+              "goal": "Подтвердить своё место независимо от видимости",
+              "contrast": "Пульт ≠ устройство",
+              "slots": [
+                {
+                  "group": "10",
+                  "meaning": "Подтвердить своё место независимо от видимости"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D08-S2",
+          "title": "Обоюдный тест",
+          "location": "отсек передатчика",
+          "actors": "Лена по коммуникатору",
+          "trigger": "Два человека должны согласовать проверку питания дальнего передатчика",
+          "consequence": "Исправлен локальный блок, Лена проводит удалённую проверку",
+          "evidence": "Дальняя связь тестируется не мгновенной беседой с Землёй; ответы приходят через несколько дней.",
+          "required": true,
+          "r": [
+            {
+              "id": "D08-S2-R1",
+              "speaker": "Лена",
+              "de": "Ich starte den Test.",
+              "required": true
+            },
+            {
+              "id": "D08-S2-R2",
+              "speaker": "Лена",
+              "de": "Mein Pult zeigt kein Signal.",
+              "required": true
+            },
+            {
+              "id": "D08-S2-R3",
+              "speaker": "Лена",
+              "de": "Prüfe die Verbindung bei dir.",
+              "required": true
+            },
+            {
+              "id": "D08-S2-R4",
+              "speaker": "Лена",
+              "de": "Jetzt ist mein Licht grün.",
+              "required": true
+            },
+            {
+              "id": "D08-S2-R5",
+              "speaker": "Лена",
+              "de": "Ist dein Licht auch grün?",
+              "required": true
+            },
+            {
+              "id": "D08-S2-R6",
+              "speaker": "Лена",
+              "de": "Wir können eine Nachricht senden.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D08-S2-P1",
+              "example": "Die Verbindung ist jetzt gut.",
+              "goal": "Сообщить после локальной проверки состояние",
+              "contrast": "Удалённый пульт не знает локальный результат",
+              "slots": [
+                {
+                  "group": "06",
+                  "meaning": "Сообщить после локальной проверки состояние"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D08-S2-P2",
+              "example": "Ja, meine Lampe ist grün.",
+              "goal": "Сообщить существенный признак, а не случайное да",
+              "contrast": "Зелёный ≠ красный",
+              "slots": [
+                {
+                  "group": "24",
+                  "meaning": "Сообщить существенный признак, а не случайное да"
+                },
+                {
+                  "group": "06",
+                  "meaning": "Сообщить существенный признак, а не случайное да"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 9,
+      "phase": "P2",
+      "scenes": [
+        {
+          "id": "D09-S1",
+          "title": "Состояние запасов",
+          "location": "склад",
+          "actors": "Снабженец",
+          "trigger": "Нужно узнать доступные и зарезервированные ресурсы",
+          "consequence": "Снабженец распределяет ресурсы по известным потребностям",
+          "evidence": "В списке устаревшая цифра; физически видимые экземпляры отличаются.",
+          "required": true,
+          "r": [
+            {
+              "id": "D09-S1-R1",
+              "speaker": "Снабженец",
+              "de": "Wir haben drei Lampen.",
+              "required": true
+            },
+            {
+              "id": "D09-S1-R2",
+              "speaker": "Снабженец",
+              "de": "Eine Lampe ist kaputt.",
+              "required": true
+            },
+            {
+              "id": "D09-S1-R3",
+              "speaker": "Снабженец",
+              "de": "Zwei Lampen sind gut.",
+              "required": true
+            },
+            {
+              "id": "D09-S1-R4",
+              "speaker": "Снабженец",
+              "de": "Die Liste ist alt.",
+              "required": true
+            },
+            {
+              "id": "D09-S1-R5",
+              "speaker": "Снабженец",
+              "de": "Wie viele brauchst du?",
+              "required": true
+            },
+            {
+              "id": "D09-S1-R6",
+              "speaker": "Снабженец",
+              "de": "Der Arzt braucht auch Licht.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D09-S1-P1",
+              "example": "Ich brauche zwei Lampen.",
+              "goal": "Запросить точное количество",
+              "contrast": "Две ≠ три, наличие ≠ потребность",
+              "slots": [
+                {
+                  "group": "12",
+                  "meaning": "Запросить точное количество"
+                },
+                {
+                  "group": "05",
+                  "meaning": "Запросить точное количество"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D09-S1-P2",
+              "example": "Eine Lampe ist kaputt.",
+              "goal": "Передать факт о состоянии конкретного остатка",
+              "contrast": "Один неисправный ≠ два исправных",
+              "slots": [
+                {
+                  "group": "12",
+                  "meaning": "Передать факт о состоянии конкретного остатка"
+                },
+                {
+                  "group": "06",
+                  "meaning": "Передать факт о состоянии конкретного остатка"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D09-S2",
+          "title": "Человек, не только задача",
+          "location": "столовая",
+          "actors": "Медик",
+          "trigger": "После смены врач замечает, что коллега не пришёл на ужин",
+          "consequence": "Появляется естественный личный разговор о состоянии и еде",
+          "evidence": "Ужин не является обязательным знакомством; пропуск не лишает необходимых навыков.",
+          "required": false,
+          "r": [
+            {
+              "id": "D09-S2-R1",
+              "speaker": "Медик",
+              "de": "Lena ist heute müde.",
+              "required": false
+            },
+            {
+              "id": "D09-S2-R2",
+              "speaker": "Медик",
+              "de": "Sie arbeitet noch.",
+              "required": false
+            },
+            {
+              "id": "D09-S2-R3",
+              "speaker": "Медик",
+              "de": "Wir essen jetzt.",
+              "required": false
+            },
+            {
+              "id": "D09-S2-R4",
+              "speaker": "Медик",
+              "de": "Es gibt Brot und Tee.",
+              "required": false
+            },
+            {
+              "id": "D09-S2-R5",
+              "speaker": "Медик",
+              "de": "Möchtest du mit uns essen?",
+              "required": false
+            }
+          ],
+          "p": [
+            {
+              "id": "D09-S2-P1",
+              "example": "Ja, ich esse mit euch.",
+              "goal": "Принять приглашение по желанию",
+              "contrast": "Приглашение ≠ приказ",
+              "slots": [
+                {
+                  "group": "08",
+                  "meaning": "Принять приглашение по желанию"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D09-S2-P2",
+              "example": "Lena ist noch bei der Arbeit.",
+              "goal": "При желании сообщить, где осталась Лена",
+              "contrast": "Присутствует ≠ отсутствует",
+              "slots": [
+                {
+                  "group": "14",
+                  "meaning": "При желании сообщить, где осталась Лена"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 10,
+      "phase": "P3",
+      "scenes": [
+        {
+          "id": "D10-S1",
+          "title": "Окно медицинского осмотра",
+          "location": "медицинский отсек",
+          "actors": "Медик",
+          "trigger": "Перед общей проверкой нужно выбрать доступное время для осмотра",
+          "consequence": "Согласовано окно, не мешающее плану смен",
+          "evidence": "Медик предлагает два слота; время нельзя угадать по единственному варианту.",
+          "required": true,
+          "r": [
+            {
+              "id": "D10-S1-R1",
+              "speaker": "Медик",
+              "de": "Ich bin heute bis drei hier.",
+              "required": true
+            },
+            {
+              "id": "D10-S1-R2",
+              "speaker": "Медик",
+              "de": "Morgen habe ich Zeit um neun.",
+              "required": true
+            },
+            {
+              "id": "D10-S1-R3",
+              "speaker": "Медик",
+              "de": "Lena kommt morgen um zehn.",
+              "required": true
+            },
+            {
+              "id": "D10-S1-R4",
+              "speaker": "Медик",
+              "de": "Passt dir neun Uhr?",
+              "required": true
+            },
+            {
+              "id": "D10-S1-R5",
+              "speaker": "Медик",
+              "de": "Heute geht es nicht mehr.",
+              "required": true
+            },
+            {
+              "id": "D10-S1-R6",
+              "speaker": "Медик",
+              "de": "Wir sehen uns morgen.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D10-S1-P1",
+              "example": "Morgen um neun, bitte.",
+              "goal": "Выбрать доступное время",
+              "contrast": "Девять ≠ десять",
+              "slots": [
+                {
+                  "group": "15",
+                  "meaning": "Выбрать доступное время"
+                },
+                {
+                  "group": "18",
+                  "meaning": "Выбрать доступное время"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D10-S1-P2",
+              "example": "Ich habe morgen Zeit.",
+              "goal": "Подтвердить собственную доступность",
+              "contrast": "Завтра ≠ сегодня",
+              "slots": [
+                {
+                  "group": "15",
+                  "meaning": "Подтвердить собственную доступность"
+                },
+                {
+                  "group": "18",
+                  "meaning": "Подтвердить собственную доступность"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D10-S2",
+          "title": "Расписание навигатора",
+          "location": "навигационный сектор",
+          "actors": "Навигатор",
+          "trigger": "Для технической проверки нужен навигатор, но у него уже назначена смена",
+          "consequence": "Окно участия навигатора согласовано отдельно",
+          "evidence": "Принятие просьбы не назначает время за Лену.",
+          "required": true,
+          "r": [
+            {
+              "id": "D10-S2-R1",
+              "speaker": "Навигатор",
+              "de": "Mein Dienst beginnt um acht.",
+              "required": true
+            },
+            {
+              "id": "D10-S2-R2",
+              "speaker": "Навигатор",
+              "de": "Um zehn bin ich beschäftigt.",
+              "required": true
+            },
+            {
+              "id": "D10-S2-R3",
+              "speaker": "Навигатор",
+              "de": "Um zwölf habe ich Zeit.",
+              "required": true
+            },
+            {
+              "id": "D10-S2-R4",
+              "speaker": "Навигатор",
+              "de": "Kannst du um zwölf kommen?",
+              "required": true
+            },
+            {
+              "id": "D10-S2-R5",
+              "speaker": "Навигатор",
+              "de": "Wir prüfen dann den Sensor.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D10-S2-P1",
+              "example": "Ich komme um zwölf.",
+              "goal": "Согласиться на доступное время",
+              "contrast": "Десять ≠ двенадцать",
+              "slots": [
+                {
+                  "group": "15",
+                  "meaning": "Согласиться на доступное время"
+                },
+                {
+                  "group": "18",
+                  "meaning": "Согласиться на доступное время"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D10-S2-P2",
+              "example": "Kann Lena auch kommen?",
+              "goal": "Уточнить участие третьего человека",
+              "contrast": "Герой не распоряжается Леной",
+              "slots": [
+                {
+                  "group": "14",
+                  "meaning": "Уточнить участие третьего человека"
+                },
+                {
+                  "group": "16",
+                  "meaning": "Уточнить участие третьего человека"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 11,
+      "phase": "P3",
+      "scenes": [
+        {
+          "id": "D11-S1",
+          "title": "Разница между нельзя и не обязательно",
+          "location": "технический проход",
+          "actors": "Советник",
+          "trigger": "Запрет опасной операции и необязательная смена должны быть различены",
+          "consequence": "Игрок не подвергает опасности систему и понимает свои обязанности",
+          "evidence": "Запрет и отсутствие обязанности ведут к разным игровым последствиям.",
+          "required": true,
+          "r": [
+            {
+              "id": "D11-S1-R1",
+              "speaker": "Советник",
+              "de": "Hier darfst du nicht arbeiten.",
+              "required": true
+            },
+            {
+              "id": "D11-S1-R2",
+              "speaker": "Советник",
+              "de": "Der Strom ist noch nicht sicher.",
+              "required": true
+            },
+            {
+              "id": "D11-S1-R3",
+              "speaker": "Советник",
+              "de": "Du musst hier warten.",
+              "required": true
+            },
+            {
+              "id": "D11-S1-R4",
+              "speaker": "Советник",
+              "de": "Morgen musst du nicht kommen.",
+              "required": true
+            },
+            {
+              "id": "D11-S1-R5",
+              "speaker": "Советник",
+              "de": "Aber heute brauchen wir dich.",
+              "required": true
+            },
+            {
+              "id": "D11-S1-R6",
+              "speaker": "Советник",
+              "de": "Verstehst du den Unterschied?",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D11-S1-P1",
+              "example": "Ich darf dort nicht arbeiten.",
+              "goal": "Передать запрет другому участнику",
+              "contrast": "Нельзя ≠ не требуется",
+              "slots": [
+                {
+                  "group": "16",
+                  "meaning": "Передать запрет другому участнику"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D11-S1-P2",
+              "example": "Ich kann heute helfen.",
+              "goal": "Сказать о доступности в безопасном месте",
+              "contrast": "Могу ≠ обязан",
+              "slots": [
+                {
+                  "group": "16",
+                  "meaning": "Сказать о доступности в безопасном месте"
+                },
+                {
+                  "group": "15",
+                  "meaning": "Сказать о доступности в безопасном месте"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D11-S2",
+          "title": "Проверка доступа",
+          "location": "пункт снабжения",
+          "actors": "Снабженец",
+          "trigger": "Герой просит оборудование для допустимой работы",
+          "consequence": "Ресурс не выдаётся для запрещённой зоны",
+          "evidence": "Два ключа отличаются по цвету и разрешению.",
+          "required": true,
+          "r": [
+            {
+              "id": "D11-S2-R1",
+              "speaker": "Снабженец",
+              "de": "Wofür brauchst du den Schlüssel?",
+              "required": true
+            },
+            {
+              "id": "D11-S2-R2",
+              "speaker": "Снабженец",
+              "de": "Für den sicheren Raum? Ja.",
+              "required": true
+            },
+            {
+              "id": "D11-S2-R3",
+              "speaker": "Снабженец",
+              "de": "Für den anderen Raum? Nein.",
+              "required": true
+            },
+            {
+              "id": "D11-S2-R4",
+              "speaker": "Снабженец",
+              "de": "Der Arzt braucht den roten Schlüssel.",
+              "required": true
+            },
+            {
+              "id": "D11-S2-R5",
+              "speaker": "Снабженец",
+              "de": "Du kannst den blauen Schlüssel nehmen.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D11-S2-P1",
+              "example": "Ich brauche den blauen Schlüssel.",
+              "goal": "Запросить разрешённый ключ",
+              "contrast": "Синий ≠ красный",
+              "slots": [
+                {
+                  "group": "02",
+                  "meaning": "Запросить разрешённый ключ"
+                },
+                {
+                  "group": "24",
+                  "meaning": "Запросить разрешённый ключ"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D11-S2-P2",
+              "example": "Der rote Schlüssel ist für den Arzt.",
+              "goal": "Передать ограничение доступа врачу",
+              "contrast": "Роль и цвет существенны",
+              "slots": [
+                {
+                  "group": "14",
+                  "meaning": "Передать ограничение доступа врачу"
+                },
+                {
+                  "group": "24",
+                  "meaning": "Передать ограничение доступа врачу"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 12,
+      "phase": "P3",
+      "scenes": [
+        {
+          "id": "D12-S1",
+          "title": "Медицинский выбор",
+          "location": "медицинский отсек",
+          "actors": "Медик",
+          "trigger": "Игрок выбирает восстановительный режим в медицинских пределах",
+          "consequence": "Предпочтение героя влияет на распорядок, а безопасность остаётся за медиком",
+          "evidence": "Выбор меняет график медицинского визита, но не отменяет запрет тяжёлой работы.",
+          "required": true,
+          "r": [
+            {
+              "id": "D12-S1-R1",
+              "speaker": "Медик",
+              "de": "Du bist noch müde.",
+              "required": true
+            },
+            {
+              "id": "D12-S1-R2",
+              "speaker": "Медик",
+              "de": "Möchtest du jetzt schlafen?",
+              "required": true
+            },
+            {
+              "id": "D12-S1-R3",
+              "speaker": "Медик",
+              "de": "Oder möchtest du später kommen?",
+              "required": true
+            },
+            {
+              "id": "D12-S1-R4",
+              "speaker": "Медик",
+              "de": "Du darfst heute nicht schwer arbeiten.",
+              "required": true
+            },
+            {
+              "id": "D12-S1-R5",
+              "speaker": "Медик",
+              "de": "Tee oder Wasser?",
+              "required": true
+            },
+            {
+              "id": "D12-S1-R6",
+              "speaker": "Медик",
+              "de": "Sag mir, was du möchtest.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D12-S1-P1",
+              "example": "Ich möchte lieber später kommen.",
+              "goal": "Самостоятельно выбрать допустимый вариант",
+              "contrast": "Сейчас ≠ позже",
+              "slots": [
+                {
+                  "group": "17",
+                  "meaning": "Самостоятельно выбрать допустимый вариант"
+                },
+                {
+                  "group": "15",
+                  "meaning": "Самостоятельно выбрать допустимый вариант"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D12-S1-P2",
+              "example": "Ich möchte Wasser, bitte.",
+              "goal": "Назвать потребность, отличную от сна",
+              "contrast": "Вода ≠ чай",
+              "slots": [
+                {
+                  "group": "08",
+                  "meaning": "Назвать потребность, отличную от сна"
+                },
+                {
+                  "group": "17",
+                  "meaning": "Назвать потребность, отличную от сна"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D12-S2",
+          "title": "Свободный разговор с Леной",
+          "location": "гостиная",
+          "actors": "Лена",
+          "trigger": "Лена неуклюже интересуется состоянием героя после смены",
+          "consequence": "Отношения могут развиваться без нового поручения",
+          "evidence": "Разговор необязателен, в главном пути уже есть продуктивное предпочтение.",
+          "required": false,
+          "r": [
+            {
+              "id": "D12-S2-R1",
+              "speaker": "Лена",
+              "de": "Du arbeitest viel.",
+              "required": false
+            },
+            {
+              "id": "D12-S2-R2",
+              "speaker": "Лена",
+              "de": "Ich habe auch wenig Zeit.",
+              "required": false
+            },
+            {
+              "id": "D12-S2-R3",
+              "speaker": "Лена",
+              "de": "Aber heute habe ich frei.",
+              "required": false
+            },
+            {
+              "id": "D12-S2-R4",
+              "speaker": "Лена",
+              "de": "Möchtest du Tee trinken?",
+              "required": false
+            },
+            {
+              "id": "D12-S2-R5",
+              "speaker": "Лена",
+              "de": "Ich bin nicht gut mit Worten.",
+              "required": false
+            }
+          ],
+          "p": [
+            {
+              "id": "D12-S2-P1",
+              "example": "Ja, gern. Ich möchte Tee.",
+              "goal": "Принять приглашение по желанию",
+              "contrast": "Согласие связано с личным выбором, а не квестом",
+              "slots": [
+                {
+                  "group": "08",
+                  "meaning": "Принять приглашение по желанию"
+                },
+                {
+                  "group": "17",
+                  "meaning": "Принять приглашение по желанию"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 13,
+      "phase": "P3",
+      "scenes": [
+        {
+          "id": "D13-S1",
+          "title": "Общий порядок проверки",
+          "location": "комната совещаний",
+          "actors": "Навигатор и советник",
+          "trigger": "Согласуют время, порядок, ответственность разных специалистов",
+          "consequence": "Общее расписание принято без подмены полномочий",
+          "evidence": "Игрок организует собственное участие, но не командует навигатором.",
+          "required": true,
+          "r": [
+            {
+              "id": "D13-S1-R1",
+              "speaker": "Навигатор",
+              "de": "Zuerst prüfen wir die Energie.",
+              "required": true
+            },
+            {
+              "id": "D13-S1-R2",
+              "speaker": "Советник",
+              "de": "Dann prüfen wir die Verbindung.",
+              "required": true
+            },
+            {
+              "id": "D13-S1-R3",
+              "speaker": "Навигатор",
+              "de": "Ich kann um neun kommen.",
+              "required": true
+            },
+            {
+              "id": "D13-S1-R4",
+              "speaker": "Советник",
+              "de": "Ich muss bis zehn arbeiten.",
+              "required": true
+            },
+            {
+              "id": "D13-S1-R5",
+              "speaker": "Навигатор",
+              "de": "Wann hast du Zeit?",
+              "required": true
+            },
+            {
+              "id": "D13-S1-R6",
+              "speaker": "Советник",
+              "de": "Wir brauchen einen neuen Plan.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D13-S1-P1",
+              "example": "Zuerst die Energie, dann die Verbindung.",
+              "goal": "Сформулировать последовательность проверки",
+              "contrast": "Сначала питание ≠ сначала связь",
+              "slots": [
+                {
+                  "group": "27",
+                  "meaning": "Сформулировать последовательность проверки"
+                },
+                {
+                  "group": "14",
+                  "meaning": "Сформулировать последовательность проверки"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D13-S1-P2",
+              "example": "Ich kann morgen um zehn kommen.",
+              "goal": "Согласовать собственное участие",
+              "contrast": "Могу ≠ обязательно",
+              "slots": [
+                {
+                  "group": "15",
+                  "meaning": "Согласовать собственное участие"
+                },
+                {
+                  "group": "16",
+                  "meaning": "Согласовать собственное участие"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D13-S2",
+          "title": "Личное расписание",
+          "location": "общая кухня",
+          "actors": "Сотрудник быта",
+          "trigger": "Обед планируется после технической смены",
+          "consequence": "Герой может отличить рабочее время от свободного",
+          "evidence": "Бытовая сцена обязательна лишь как вторая сфера переноса времени; возможность предпочесть другой момент необязательна.",
+          "required": true,
+          "r": [
+            {
+              "id": "D13-S2-R1",
+              "speaker": "Сотрудник быта",
+              "de": "Das Essen ist um zwölf fertig.",
+              "required": true
+            },
+            {
+              "id": "D13-S2-R2",
+              "speaker": "Сотрудник быта",
+              "de": "Heute gibt es Suppe.",
+              "required": true
+            },
+            {
+              "id": "D13-S2-R3",
+              "speaker": "Сотрудник быта",
+              "de": "Ich bin um elf noch beschäftigt.",
+              "required": true
+            },
+            {
+              "id": "D13-S2-R4",
+              "speaker": "Сотрудник быта",
+              "de": "Wir essen zusammen.",
+              "required": true
+            },
+            {
+              "id": "D13-S2-R5",
+              "speaker": "Сотрудник быта",
+              "de": "Kannst du später kommen?",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D13-S2-P1",
+              "example": "Ich komme um zwölf.",
+              "goal": "Согласовать время без нового ремонта",
+              "contrast": "Одиннадцать ≠ двенадцать",
+              "slots": [
+                {
+                  "group": "15",
+                  "meaning": "Согласовать время без нового ремонта"
+                },
+                {
+                  "group": "18",
+                  "meaning": "Согласовать время без нового ремонта"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D13-S2-P2",
+              "example": "Ich esse lieber später.",
+              "goal": "Самостоятельно предпочесть другое время",
+              "contrast": "Предпочтение ≠ приказ",
+              "slots": [
+                {
+                  "group": "17",
+                  "meaning": "Самостоятельно предпочесть другое время"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 14,
+      "phase": "P4",
+      "scenes": [
+        {
+          "id": "D14-S1",
+          "title": "Два измерения",
+          "location": "инженерный отсек",
+          "actors": "Научный советник",
+          "trigger": "Показания датчика A и B различаются; нужен независимый факт",
+          "consequence": "Сопоставлены данные, но исходная причина аварии не определена",
+          "evidence": "На панели доступны независимые результаты; ответ не подсвечен.",
+          "required": true,
+          "r": [
+            {
+              "id": "D14-S1-R1",
+              "speaker": "Советник",
+              "de": "Sensor A zeigt zehn.",
+              "required": true
+            },
+            {
+              "id": "D14-S1-R2",
+              "speaker": "Советник",
+              "de": "Sensor B zeigt zwölf.",
+              "required": true
+            },
+            {
+              "id": "D14-S1-R3",
+              "speaker": "Советник",
+              "de": "Die Werte sind anders.",
+              "required": true
+            },
+            {
+              "id": "D14-S1-R4",
+              "speaker": "Советник",
+              "de": "Welcher Sensor ist richtig?",
+              "required": true
+            },
+            {
+              "id": "D14-S1-R5",
+              "speaker": "Советник",
+              "de": "Prüfe den Wert noch einmal.",
+              "required": true
+            },
+            {
+              "id": "D14-S1-R6",
+              "speaker": "Советник",
+              "de": "Wir brauchen zwei Ergebnisse.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D14-S1-P1",
+              "example": "Sensor A zeigt zehn. Sensor B zeigt zwölf.",
+              "goal": "Передать обе пары источник—значение",
+              "contrast": "Нельзя поменять местами A и B",
+              "slots": [
+                {
+                  "group": "12",
+                  "meaning": "Передать обе пары источник—значение"
+                },
+                {
+                  "group": "27",
+                  "meaning": "Передать обе пары источник—значение"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D14-S1-P2",
+              "example": "Die Werte sind nicht gleich.",
+              "goal": "Сообщить различие без вывода о причине",
+              "contrast": "Разные ≠ обязательно сломан",
+              "slots": [
+                {
+                  "group": "06",
+                  "meaning": "Сообщить различие без вывода о причине"
+                },
+                {
+                  "group": "27",
+                  "meaning": "Сообщить различие без вывода о причине"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D14-S2",
+          "title": "Разговор о надежности",
+          "location": "навигационный сектор",
+          "actors": "Навигатор",
+          "trigger": "Результаты нужны для безопасного графика, а не для поиска виновного",
+          "consequence": "Навигатор выбирает проверенный источник для планирования",
+          "evidence": "Навигатор решает, как использовать данные; герой не меняет траекторию сам.",
+          "required": true,
+          "r": [
+            {
+              "id": "D14-S2-R1",
+              "speaker": "Навигатор",
+              "de": "Der alte Wert ist zehn.",
+              "required": true
+            },
+            {
+              "id": "D14-S2-R2",
+              "speaker": "Навигатор",
+              "de": "Der neue Wert ist zwölf.",
+              "required": true
+            },
+            {
+              "id": "D14-S2-R3",
+              "speaker": "Навигатор",
+              "de": "Das ist ein Unterschied.",
+              "required": true
+            },
+            {
+              "id": "D14-S2-R4",
+              "speaker": "Навигатор",
+              "de": "Ich brauche den richtigen Wert.",
+              "required": true
+            },
+            {
+              "id": "D14-S2-R5",
+              "speaker": "Навигатор",
+              "de": "Welches Ergebnis ist neu?",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D14-S2-P1",
+              "example": "Der neue Wert ist zwölf.",
+              "goal": "Передать новое значение с источником времени",
+              "contrast": "Старый ≠ новый",
+              "slots": [
+                {
+                  "group": "27",
+                  "meaning": "Передать новое значение с источником времени"
+                },
+                {
+                  "group": "12",
+                  "meaning": "Передать новое значение с источником времени"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D14-S2-P2",
+              "example": "Wir müssen noch prüfen.",
+              "goal": "Сообщить, что проверка нужна дальше",
+              "contrast": "Нельзя объявить исправность без доказательства",
+              "slots": [
+                {
+                  "group": "16",
+                  "meaning": "Сообщить, что проверка нужна дальше"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 15,
+      "phase": "P4",
+      "scenes": [
+        {
+          "id": "D15-S1",
+          "title": "Происхождение записи",
+          "location": "архив смен",
+          "actors": "Навигатор",
+          "trigger": "В архиве два похожих сообщения с разными датами",
+          "consequence": "Установлено, какая запись раньше, без догадок о саботаже",
+          "evidence": "Время написано на двух документах; необходимо различить источники.",
+          "required": true,
+          "r": [
+            {
+              "id": "D15-S1-R1",
+              "speaker": "Архив",
+              "de": "Montag. Sensor A. Zehn Uhr.",
+              "required": true
+            },
+            {
+              "id": "D15-S1-R2",
+              "speaker": "Архив",
+              "de": "Dienstag. Sensor B. Zwölf Uhr.",
+              "required": true
+            },
+            {
+              "id": "D15-S1-R3",
+              "speaker": "Навигатор",
+              "de": "Das ist der alte Bericht.",
+              "required": true
+            },
+            {
+              "id": "D15-S1-R4",
+              "speaker": "Навигатор",
+              "de": "Hier ist der neue Bericht.",
+              "required": true
+            },
+            {
+              "id": "D15-S1-R5",
+              "speaker": "Навигатор",
+              "de": "Wann wurde Sensor B geprüft?",
+              "required": true
+            },
+            {
+              "id": "D15-S1-R6",
+              "speaker": "Навигатор",
+              "de": "Wir brauchen die Zeit.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D15-S1-P1",
+              "example": "Sensor B: Dienstag, zwölf Uhr.",
+              "goal": "Извлечь точную дату и время источника B",
+              "contrast": "Не приписывать B время A",
+              "slots": [
+                {
+                  "group": "15",
+                  "meaning": "Извлечь точную дату и время источника B"
+                },
+                {
+                  "group": "12",
+                  "meaning": "Извлечь точную дату и время источника B"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D15-S1-P2",
+              "example": "Wo ist der andere Bericht?",
+              "goal": "Попросить вторую запись для сравнения",
+              "contrast": "Вторая запись не лежит автоматически рядом",
+              "slots": [
+                {
+                  "group": "04",
+                  "meaning": "Попросить вторую запись для сравнения"
+                },
+                {
+                  "group": "23",
+                  "meaning": "Попросить вторую запись для сравнения"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D15-S2",
+          "title": "Чужой запрос",
+          "location": "пункт связи",
+          "actors": "Лена",
+          "trigger": "Для ответа с Земли требуется прочитать короткую служебную записку",
+          "consequence": "Игрок отличает входящее сообщение от уже принятого решения",
+          "evidence": "Нет мгновенного ответа с Земли после ремонта дальнего передатчика.",
+          "required": true,
+          "r": [
+            {
+              "id": "D15-S2-R1",
+              "speaker": "Лена",
+              "de": "Die Nachricht ist von der Erde.",
+              "required": true
+            },
+            {
+              "id": "D15-S2-R2",
+              "speaker": "Лена",
+              "de": "Sie kommt erst morgen an.",
+              "required": true
+            },
+            {
+              "id": "D15-S2-R3",
+              "speaker": "Лена",
+              "de": "Hier steht nur die Zeit.",
+              "required": true
+            },
+            {
+              "id": "D15-S2-R4",
+              "speaker": "Лена",
+              "de": "Die Antwort kommt später.",
+              "required": true
+            },
+            {
+              "id": "D15-S2-R5",
+              "speaker": "Лена",
+              "de": "Ich kann noch nichts sagen.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D15-S2-P1",
+              "example": "Die Antwort kommt später.",
+              "goal": "Передать срок ожидания, не обещая ответ сейчас",
+              "contrast": "Сейчас ≠ позже",
+              "slots": [
+                {
+                  "group": "15",
+                  "meaning": "Передать срок ожидания, не обещая ответ сейчас"
+                },
+                {
+                  "group": "23",
+                  "meaning": "Передать срок ожидания, не обещая ответ сейчас"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D15-S2-P2",
+              "example": "Ich verstehe nicht. Noch einmal, bitte.",
+              "goal": "Попросить уточнение при незнакомом сообщении",
+              "contrast": "Не угадывать его содержание",
+              "slots": [
+                {
+                  "group": "01",
+                  "meaning": "Попросить уточнение при незнакомом сообщении"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 16,
+      "phase": "P4",
+      "scenes": [
+        {
+          "id": "D16-S1",
+          "title": "Журнал смены",
+          "location": "рабочий терминал",
+          "actors": "Научный советник",
+          "trigger": "Нужно оформить проверенное состояние, а не скопировать старое",
+          "consequence": "Другая смена получает корректную запись",
+          "evidence": "Ввести в форму можно только данные из наблюдений, не случайные дефолты.",
+          "required": true,
+          "r": [
+            {
+              "id": "D16-S1-R1",
+              "speaker": "Терминал",
+              "de": "Sensor: __.",
+              "required": true
+            },
+            {
+              "id": "D16-S1-R2",
+              "speaker": "Терминал",
+              "de": "Zeit: __.",
+              "required": true
+            },
+            {
+              "id": "D16-S1-R3",
+              "speaker": "Терминал",
+              "de": "Status: __.",
+              "required": true
+            },
+            {
+              "id": "D16-S1-R4",
+              "speaker": "Советник",
+              "de": "Bitte füll die Felder aus.",
+              "required": true
+            },
+            {
+              "id": "D16-S1-R5",
+              "speaker": "Советник",
+              "de": "Schreib nur, was du geprüft hast.",
+              "required": true
+            },
+            {
+              "id": "D16-S1-R6",
+              "speaker": "Советник",
+              "de": "Das Ergebnis ist wichtig.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D16-S1-P1",
+              "example": "Sensor B; Zeit zwölf Uhr; Status gut.",
+              "goal": "Заполнить три независимых поля по свежим наблюдениям",
+              "contrast": "Нельзя механически переписать A, десять, kaputt",
+              "slots": [
+                {
+                  "group": "12",
+                  "meaning": "Заполнить три независимых поля по свежим наблюдениям"
+                },
+                {
+                  "group": "15",
+                  "meaning": "Заполнить три независимых поля по свежим наблюдениям"
+                },
+                {
+                  "group": "06",
+                  "meaning": "Заполнить три независимых поля по свежим наблюдениям"
+                }
+              ],
+              "required": true,
+              "kind": "form",
+              "after_r": 3
+            },
+            {
+              "id": "D16-S1-P2",
+              "example": "Sensor B ist jetzt gut.",
+              "goal": "Кратко сообщить результат, принятый журналом",
+              "contrast": "Заполненная форма сама не является свободным ответом",
+              "slots": [
+                {
+                  "group": "06",
+                  "meaning": "Кратко сообщить результат, принятый журналом"
+                },
+                {
+                  "group": "12",
+                  "meaning": "Кратко сообщить результат, принятый журналом"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D16-S2",
+          "title": "Передать следующей смене",
+          "location": "коридор у терминала",
+          "actors": "Лена",
+          "trigger": "Лена не видела измерений и спрашивает о том, что изменилось",
+          "consequence": "Следующая смена получает два независимых факта",
+          "evidence": "Игрок не управляет связью вместо Лены; просит специалиста.",
+          "required": true,
+          "r": [
+            {
+              "id": "D16-S2-R1",
+              "speaker": "Лена",
+              "de": "Ist die Liste fertig?",
+              "required": true
+            },
+            {
+              "id": "D16-S2-R2",
+              "speaker": "Лена",
+              "de": "Welcher Sensor ist gut?",
+              "required": true
+            },
+            {
+              "id": "D16-S2-R3",
+              "speaker": "Лена",
+              "de": "Wann war die Prüfung?",
+              "required": true
+            },
+            {
+              "id": "D16-S2-R4",
+              "speaker": "Лена",
+              "de": "Ich brauche zwei Informationen.",
+              "required": true
+            },
+            {
+              "id": "D16-S2-R5",
+              "speaker": "Лена",
+              "de": "Dann kann ich die Nachricht senden.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D16-S2-P1",
+              "example": "Sensor B ist gut. Die Prüfung war um zwölf.",
+              "goal": "Передать объект, состояние и время самостоятельно",
+              "contrast": "Не достаточно сказать только gut",
+              "slots": [
+                {
+                  "group": "06",
+                  "meaning": "Передать объект, состояние и время самостоятельно"
+                },
+                {
+                  "group": "15",
+                  "meaning": "Передать объект, состояние и время самостоятельно"
+                },
+                {
+                  "group": "27",
+                  "meaning": "Передать объект, состояние и время самостоятельно"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D16-S2-P2",
+              "example": "Bitte sende die Nachricht an den Navigator.",
+              "goal": "Попросить передать сведения нужному адресату",
+              "contrast": "Навигатор ≠ снабженец",
+              "slots": [
+                {
+                  "group": "14",
+                  "meaning": "Попросить передать сведения нужному адресату"
+                },
+                {
+                  "group": "05",
+                  "meaning": "Попросить передать сведения нужному адресату"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 17,
+      "phase": "P4",
+      "scenes": [
+        {
+          "id": "D17-S1",
+          "title": "Спор о воде",
+          "location": "склад",
+          "actors": "Биолог и снабженец",
+          "trigger": "Биолог просит ресурс для растений; снабженец распределяет приоритеты",
+          "consequence": "Снабженец самостоятельно отказывает или назначает поздний пересмотр; герой наблюдатель",
+          "evidence": "Реакция не обязательна; конфликт раскрывает характеры, а не новый квест.",
+          "required": true,
+          "r": [
+            {
+              "id": "D17-S1-R1",
+              "speaker": "Биолог",
+              "de": "Ich brauche Wasser für die Pflanzen.",
+              "required": true
+            },
+            {
+              "id": "D17-S1-R2",
+              "speaker": "Снабженец",
+              "de": "Das Wasser ist für die Menschen.",
+              "required": true
+            },
+            {
+              "id": "D17-S1-R3",
+              "speaker": "Биолог",
+              "de": "Die Pflanzen brauchen auch Wasser.",
+              "required": true
+            },
+            {
+              "id": "D17-S1-R4",
+              "speaker": "Снабженец",
+              "de": "Heute haben wir nicht genug.",
+              "required": true
+            },
+            {
+              "id": "D17-S1-R5",
+              "speaker": "Биолог",
+              "de": "Ich verstehe. Aber morgen?",
+              "required": true
+            },
+            {
+              "id": "D17-S1-R6",
+              "speaker": "Снабженец",
+              "de": "Morgen prüfen wir die Liste.",
+              "required": true
+            },
+            {
+              "id": "D17-S1-R7",
+              "speaker": "Биолог",
+              "de": "Gut. Danke für die Antwort.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D17-S1-P1",
+              "example": "Ich verstehe die beiden.",
+              "goal": "По желанию выразить, что понял позиции обеих сторон",
+              "contrast": "Мнение героя не управляет распределением",
+              "slots": [
+                {
+                  "group": "17",
+                  "meaning": "По желанию выразить, что понял позиции обеих сторон"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 3
+            }
+          ]
+        },
+        {
+          "id": "D17-S2",
+          "title": "После спора",
+          "location": "общая кухня",
+          "actors": "Сотрудник быта",
+          "trigger": "Нужно учесть воду, оставшуюся для питания экипажа, по фактическому списку",
+          "consequence": "Для кухни подтверждён остаток без распоряжения биологическими запасами",
+          "evidence": "Количество наблюдаемо в отдельном журнале; биолог не получает ресурс из-за ответа героя.",
+          "required": true,
+          "r": [
+            {
+              "id": "D17-S2-R1",
+              "speaker": "Сотрудник быта",
+              "de": "Wir haben noch Wasser für heute.",
+              "required": true
+            },
+            {
+              "id": "D17-S2-R2",
+              "speaker": "Сотрудник быта",
+              "de": "Morgen brauchen wir mehr.",
+              "required": true
+            },
+            {
+              "id": "D17-S2-R3",
+              "speaker": "Сотрудник быта",
+              "de": "Der Lagerverwalter entscheidet.",
+              "required": true
+            },
+            {
+              "id": "D17-S2-R4",
+              "speaker": "Сотрудник быта",
+              "de": "Ich möchte heute Suppe machen.",
+              "required": true
+            },
+            {
+              "id": "D17-S2-R5",
+              "speaker": "Сотрудник быта",
+              "de": "Wie viel Wasser ist noch frei?",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D17-S2-P1",
+              "example": "Zwei Flaschen Wasser sind noch frei.",
+              "goal": "Сообщить фактический остаток из списка",
+              "contrast": "Две бутылки ≠ всё количество воды",
+              "slots": [
+                {
+                  "group": "12",
+                  "meaning": "Сообщить фактический остаток из списка"
+                },
+                {
+                  "group": "08",
+                  "meaning": "Сообщить фактический остаток из списка"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D17-S2-P2",
+              "example": "Bitte frag den Lagerverwalter.",
+              "goal": "При необходимости указать полномочного ответственного",
+              "contrast": "Герой не принимает решение за снабженца",
+              "slots": [
+                {
+                  "group": "14",
+                  "meaning": "При необходимости указать полномочного ответственного"
+                },
+                {
+                  "group": "05",
+                  "meaning": "При необходимости указать полномочного ответственного"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 18,
+      "phase": "P5",
+      "scenes": [
+        {
+          "id": "D18-S1",
+          "title": "Архив о прошлом",
+          "location": "архив смен",
+          "actors": "Навигатор",
+          "trigger": "Короткая старая запись расходится с нынешней картиной",
+          "consequence": "Установлены наблюдаемые временные факты без разгадки аварии",
+          "evidence": "Противоречие прошлого не превращается в обвинение NPC.",
+          "required": true,
+          "r": [
+            {
+              "id": "D18-S1-R1",
+              "speaker": "Архив",
+              "de": "Gestern war die Tür geschlossen.",
+              "required": true
+            },
+            {
+              "id": "D18-S1-R2",
+              "speaker": "Архив",
+              "de": "Lena hat den Schlüssel gefunden.",
+              "required": true
+            },
+            {
+              "id": "D18-S1-R3",
+              "speaker": "Навигатор",
+              "de": "Heute ist die Tür offen.",
+              "required": true
+            },
+            {
+              "id": "D18-S1-R4",
+              "speaker": "Навигатор",
+              "de": "Das war gestern. Nicht heute.",
+              "required": true
+            },
+            {
+              "id": "D18-S1-R5",
+              "speaker": "Навигатор",
+              "de": "Wer hat den Schlüssel gefunden?",
+              "required": true
+            },
+            {
+              "id": "D18-S1-R6",
+              "speaker": "Навигатор",
+              "de": "Wir müssen die Zeiten trennen.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D18-S1-P1",
+              "example": "Lena hat den Schlüssel gefunden.",
+              "goal": "Сообщить известный факт о прошлом событии",
+              "contrast": "Нашёл герой ≠ нашла Лена",
+              "slots": [
+                {
+                  "group": "28",
+                  "meaning": "Сообщить известный факт о прошлом событии"
+                },
+                {
+                  "group": "09",
+                  "meaning": "Сообщить известный факт о прошлом событии"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D18-S1-P2",
+              "example": "Heute ist die Tür offen.",
+              "goal": "Отличить текущее положение от прежнего",
+              "contrast": "Сегодня ≠ вчера",
+              "slots": [
+                {
+                  "group": "15",
+                  "meaning": "Отличить текущее положение от прежнего"
+                },
+                {
+                  "group": "06",
+                  "meaning": "Отличить текущее положение от прежнего"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D18-S2",
+          "title": "Маленькое личное событие",
+          "location": "гостиная",
+          "actors": "Лена",
+          "trigger": "Лена узнаёт, смог ли герой отдохнуть после болезни",
+          "consequence": "Восстановление героя показано через бытовой разговор",
+          "evidence": "Реплики персональны; прошлое впервые полезно и вне архива.",
+          "required": true,
+          "r": [
+            {
+              "id": "D18-S2-R1",
+              "speaker": "Лена",
+              "de": "Ich war gestern sehr müde.",
+              "required": true
+            },
+            {
+              "id": "D18-S2-R2",
+              "speaker": "Лена",
+              "de": "Heute geht es mir besser.",
+              "required": true
+            },
+            {
+              "id": "D18-S2-R3",
+              "speaker": "Лена",
+              "de": "Ich habe gestern lange gearbeitet.",
+              "required": true
+            },
+            {
+              "id": "D18-S2-R4",
+              "speaker": "Лена",
+              "de": "Und du? Warst du auch müde?",
+              "required": true
+            },
+            {
+              "id": "D18-S2-R5",
+              "speaker": "Лена",
+              "de": "Jetzt habe ich endlich Zeit.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D18-S2-P1",
+              "example": "Gestern war ich müde. Heute geht es besser.",
+              "goal": "Самостоятельно сопоставить свой вчерашний и сегодняшний опыт",
+              "contrast": "Вчера ≠ сегодня, улучшение ≠ ухудшение",
+              "slots": [
+                {
+                  "group": "28",
+                  "meaning": "Самостоятельно сопоставить свой вчерашний и сегодняшний опыт"
+                },
+                {
+                  "group": "07",
+                  "meaning": "Самостоятельно сопоставить свой вчерашний и сегодняшний опыт"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D18-S2-P2",
+              "example": "Möchtest du Tee?",
+              "goal": "По желанию предложить чай вместо нового задания",
+              "contrast": "Личный контакт без квеста",
+              "slots": [
+                {
+                  "group": "08",
+                  "meaning": "По желанию предложить чай вместо нового задания"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 19,
+      "phase": "P5",
+      "scenes": [
+        {
+          "id": "D19-S1",
+          "title": "Результат проверки",
+          "location": "инженерный отсек",
+          "actors": "Советник",
+          "trigger": "Герой проверил конкретный узел, которого советник не видел",
+          "consequence": "Проверенный результат включён в общую оценку устойчивости",
+          "evidence": "Советник не знает фактический результат до ответа инженера.",
+          "required": true,
+          "r": [
+            {
+              "id": "D19-S1-R1",
+              "speaker": "Советник",
+              "de": "Was hast du heute geprüft?",
+              "required": true
+            },
+            {
+              "id": "D19-S1-R2",
+              "speaker": "Советник",
+              "de": "Der Sensor war gestern nicht sicher.",
+              "required": true
+            },
+            {
+              "id": "D19-S1-R3",
+              "speaker": "Советник",
+              "de": "Jetzt haben wir neue Werte.",
+              "required": true
+            },
+            {
+              "id": "D19-S1-R4",
+              "speaker": "Советник",
+              "de": "Hast du die Leitung geprüft?",
+              "required": true
+            },
+            {
+              "id": "D19-S1-R5",
+              "speaker": "Советник",
+              "de": "Ich brauche deinen Bericht.",
+              "required": true
+            },
+            {
+              "id": "D19-S1-R6",
+              "speaker": "Советник",
+              "de": "Danke. Ich habe die Werte verstanden.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D19-S1-P1",
+              "example": "Ich habe die Leitung geprüft.",
+              "goal": "Отчитаться о собственном совершённом действии",
+              "contrast": "Проверил ≠ отремонтировал",
+              "slots": [
+                {
+                  "group": "28",
+                  "meaning": "Отчитаться о собственном совершённом действии"
+                },
+                {
+                  "group": "14",
+                  "meaning": "Отчитаться о собственном совершённом действии"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D19-S1-P2",
+              "example": "Der Sensor ist jetzt gut.",
+              "goal": "Отдельно сообщить состояние после проверки",
+              "contrast": "Результат ≠ факт выполнения работы",
+              "slots": [
+                {
+                  "group": "06",
+                  "meaning": "Отдельно сообщить состояние после проверки"
+                },
+                {
+                  "group": "12",
+                  "meaning": "Отдельно сообщить состояние после проверки"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        },
+        {
+          "id": "D19-S2",
+          "title": "Разговор о сообщении",
+          "location": "пункт связи",
+          "actors": "Лена",
+          "trigger": "Появился задержанный ответ о получении предыдущего сообщения",
+          "consequence": "Дальняя связь получает следствие для людей, не новый поломанный узел",
+          "evidence": "Земля даёт задержанный ответ без мгновенного чата.",
+          "required": false,
+          "r": [
+            {
+              "id": "D19-S2-R1",
+              "speaker": "Лена",
+              "de": "Die Nachricht ist angekommen.",
+              "required": false
+            },
+            {
+              "id": "D19-S2-R2",
+              "speaker": "Лена",
+              "de": "Wir haben eine Antwort bekommen.",
+              "required": false
+            },
+            {
+              "id": "D19-S2-R3",
+              "speaker": "Лена",
+              "de": "Sie ist kurz, aber wichtig.",
+              "required": false
+            },
+            {
+              "id": "D19-S2-R4",
+              "speaker": "Лена",
+              "de": "Gestern war ich noch unsicher.",
+              "required": false
+            },
+            {
+              "id": "D19-S2-R5",
+              "speaker": "Лена",
+              "de": "Jetzt bin ich froh.",
+              "required": false
+            },
+            {
+              "id": "D19-S2-R6",
+              "speaker": "Лена",
+              "de": "Möchtest du die Nachricht lesen?",
+              "required": false
+            }
+          ],
+          "p": [
+            {
+              "id": "D19-S2-P1",
+              "example": "Ja, ich möchte die Nachricht lesen.",
+              "goal": "Принять личное предложение по желанию",
+              "contrast": "Прочитать ≠ отправить сообщение",
+              "slots": [
+                {
+                  "group": "23",
+                  "meaning": "Принять личное предложение по желанию"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D19-S2-P2",
+              "example": "Ich freue mich für dich.",
+              "goal": "По желанию отреагировать на радость Лены",
+              "contrast": "Социальная реакция не заменяет инженерный отчёт",
+              "slots": [
+                {
+                  "group": "17",
+                  "meaning": "По желанию отреагировать на радость Лены"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 20,
+      "phase": "P5",
+      "scenes": [
+        {
+          "id": "D20-S1",
+          "title": "План итоговой проверки",
+          "location": "комната совещаний",
+          "actors": "Навигатор и капитан",
+          "trigger": "Общий тест требует назначить порядок людей и времени",
+          "consequence": "Утверждён допустимый план финальной проверки",
+          "evidence": "Капитан принимает решение; инженер не управляет полётом сам.",
+          "required": true,
+          "r": [
+            {
+              "id": "D20-S1-R1",
+              "speaker": "Капитан",
+              "de": "Morgen prüfen wir alle wichtigen Systeme.",
+              "required": true
+            },
+            {
+              "id": "D20-S1-R2",
+              "speaker": "Навигатор",
+              "de": "Zuerst die Energie, dann die Verbindung.",
+              "required": true
+            },
+            {
+              "id": "D20-S1-R3",
+              "speaker": "Капитан",
+              "de": "Der Arzt kommt um neun.",
+              "required": true
+            },
+            {
+              "id": "D20-S1-R4",
+              "speaker": "Навигатор",
+              "de": "Ich komme um zehn.",
+              "required": true
+            },
+            {
+              "id": "D20-S1-R5",
+              "speaker": "Капитан",
+              "de": "Kannst du morgen um elf kommen?",
+              "required": true
+            },
+            {
+              "id": "D20-S1-R6",
+              "speaker": "Капитан",
+              "de": "Wir brauchen deinen Bericht.",
+              "required": true
+            },
+            {
+              "id": "D20-S1-R7",
+              "speaker": "Навигатор",
+              "de": "Dann können wir weiterfliegen.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D20-S1-P1",
+              "example": "Ich komme morgen um elf.",
+              "goal": "Согласовать собственное участие",
+              "contrast": "Девять врача ≠ одиннадцать инженера",
+              "slots": [
+                {
+                  "group": "15",
+                  "meaning": "Согласовать собственное участие"
+                },
+                {
+                  "group": "29",
+                  "meaning": "Согласовать собственное участие"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D20-S1-P2",
+              "example": "Zuerst die Energie, dann die Verbindung.",
+              "goal": "Подтвердить технический порядок",
+              "contrast": "Порядок должен оставаться осмысленным",
+              "slots": [
+                {
+                  "group": "27",
+                  "meaning": "Подтвердить технический порядок"
+                },
+                {
+                  "group": "29",
+                  "meaning": "Подтвердить технический порядок"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 6
+            }
+          ]
+        },
+        {
+          "id": "D20-S2",
+          "title": "Перенос личной встречи",
+          "location": "общая кухня",
+          "actors": "Лена",
+          "trigger": "Общая проверка перенесла личную встречу с Леной",
+          "consequence": "Герой умеет выразить изменение плана в бытовой ситуации",
+          "evidence": "Личный план нужен не для прохода инженерного задания, но перенос навыка обеспечивается обязательным разговором.",
+          "required": true,
+          "r": [
+            {
+              "id": "D20-S2-R1",
+              "speaker": "Лена",
+              "de": "Morgen arbeite ich bis zwölf.",
+              "required": true
+            },
+            {
+              "id": "D20-S2-R2",
+              "speaker": "Лена",
+              "de": "Danach habe ich Zeit.",
+              "required": true
+            },
+            {
+              "id": "D20-S2-R3",
+              "speaker": "Лена",
+              "de": "Wir wollten heute Tee trinken.",
+              "required": true
+            },
+            {
+              "id": "D20-S2-R4",
+              "speaker": "Лена",
+              "de": "Aber die Arbeit war wichtig.",
+              "required": true
+            },
+            {
+              "id": "D20-S2-R5",
+              "speaker": "Лена",
+              "de": "Hast du morgen Zeit?",
+              "required": true
+            },
+            {
+              "id": "D20-S2-R6",
+              "speaker": "Лена",
+              "de": "Oder lieber nächste Woche?",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D20-S2-P1",
+              "example": "Morgen nach zwölf habe ich Zeit.",
+              "goal": "Предложить личную встречу с новым временем",
+              "contrast": "Завтра после двенадцати ≠ сегодня",
+              "slots": [
+                {
+                  "group": "15",
+                  "meaning": "Предложить личную встречу с новым временем"
+                },
+                {
+                  "group": "29",
+                  "meaning": "Предложить личную встречу с новым временем"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D20-S2-P2",
+              "example": "Lieber nächste Woche.",
+              "goal": "Предпочесть более поздний срок по желанию",
+              "contrast": "Предложить срок ≠ отменить встречу",
+              "slots": [
+                {
+                  "group": "17",
+                  "meaning": "Предпочесть более поздний срок по желанию"
+                },
+                {
+                  "group": "29",
+                  "meaning": "Предпочесть более поздний срок по желанию"
+                }
+              ],
+              "required": false,
+              "kind": "dialog",
+              "after_r": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 21,
+      "phase": "P6",
+      "scenes": [
+        {
+          "id": "D21-S1",
+          "title": "Проверка устойчивости",
+          "location": "центр управления",
+          "actors": "Капитан, советник, навигатор",
+          "trigger": "Ключевые специалисты знают разные части текущих проверок",
+          "consequence": "Капитан подтверждает надёжность для следующего этапа полёта",
+          "evidence": "Итог рейса — безопасность текущего режима, а не раскрытие причины аварии.",
+          "required": true,
+          "r": [
+            {
+              "id": "D21-S1-R1",
+              "speaker": "Капитан",
+              "de": "Heute prüfen wir die Energie.",
+              "required": true
+            },
+            {
+              "id": "D21-S1-R2",
+              "speaker": "Советник",
+              "de": "Sensor A ist stabil.",
+              "required": true
+            },
+            {
+              "id": "D21-S1-R3",
+              "speaker": "Навигатор",
+              "de": "Die Verbindung ist auch gut.",
+              "required": true
+            },
+            {
+              "id": "D21-S1-R4",
+              "speaker": "Капитан",
+              "de": "Was hast du geprüft?",
+              "required": true
+            },
+            {
+              "id": "D21-S1-R5",
+              "speaker": "Советник",
+              "de": "Wir brauchen deine zwei Ergebnisse.",
+              "required": true
+            },
+            {
+              "id": "D21-S1-R6",
+              "speaker": "Навигатор",
+              "de": "Danach kann das Schiff weiterfliegen.",
+              "required": true
+            },
+            {
+              "id": "D21-S1-R7",
+              "speaker": "Капитан",
+              "de": "Die Ursache des alten Problems ist noch offen.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D21-S1-P1",
+              "example": "Ich habe die Leitung geprüft. Sie ist jetzt gut.",
+              "goal": "Связать завершённое действие и нынешний результат",
+              "contrast": "Недостаточно одного gut без указания работы",
+              "slots": [
+                {
+                  "group": "28",
+                  "meaning": "Связать завершённое действие и нынешний результат"
+                },
+                {
+                  "group": "06",
+                  "meaning": "Связать завершённое действие и нынешний результат"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D21-S1-P2",
+              "example": "Sensor A ist stabil. Die Verbindung ist gut.",
+              "goal": "Передать два независимых состояния нескольким специалистам",
+              "contrast": "Один положительный факт не заменяет два",
+              "slots": [
+                {
+                  "group": "27",
+                  "meaning": "Передать два независимых состояния нескольким специалистам"
+                },
+                {
+                  "group": "06",
+                  "meaning": "Передать два независимых состояния нескольким специалистам"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 6
+            }
+          ]
+        },
+        {
+          "id": "D21-S2",
+          "title": "После смены",
+          "location": "общая гостиная",
+          "actors": "Лена, сотрудник быта",
+          "trigger": "Люди возвращаются к повседневности, пока корабль продолжает путь",
+          "consequence": "У игрока появляется самостоятельный социальный голос после технической развязки",
+          "evidence": "Никакого обязательного группового экзамена за ужином. D22, если сохранится, остаётся отдельной проверкой.",
+          "required": true,
+          "r": [
+            {
+              "id": "D21-S2-R1",
+              "speaker": "Сотрудник быта",
+              "de": "Heute gibt es Essen für alle.",
+              "required": true
+            },
+            {
+              "id": "D21-S2-R2",
+              "speaker": "Лена",
+              "de": "Ich habe morgen frei.",
+              "required": true
+            },
+            {
+              "id": "D21-S2-R3",
+              "speaker": "Лена",
+              "de": "Die letzte Woche war schwer.",
+              "required": true
+            },
+            {
+              "id": "D21-S2-R4",
+              "speaker": "Лена",
+              "de": "Jetzt können wir zusammen essen.",
+              "required": true
+            },
+            {
+              "id": "D21-S2-R5",
+              "speaker": "Лена",
+              "de": "Hast du morgen Zeit?",
+              "required": true
+            },
+            {
+              "id": "D21-S2-R6",
+              "speaker": "Сотрудник быта",
+              "de": "Ich habe Tee gemacht.",
+              "required": true
+            },
+            {
+              "id": "D21-S2-R7",
+              "speaker": "Лена",
+              "de": "Danke für deine Hilfe. Nicht nur heute.",
+              "required": true
+            }
+          ],
+          "p": [
+            {
+              "id": "D21-S2-P1",
+              "example": "Ich habe morgen Zeit. Wir können Tee trinken.",
+              "goal": "Договориться о личной встрече на завтра",
+              "contrast": "Завтра ≠ сейчас",
+              "slots": [
+                {
+                  "group": "15",
+                  "meaning": "Договориться о личной встрече на завтра"
+                },
+                {
+                  "group": "29",
+                  "meaning": "Договориться о личной встрече на завтра"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 3
+            },
+            {
+              "id": "D21-S2-P2",
+              "example": "Ich war gestern müde. Heute geht es besser.",
+              "goal": "Связать прошлое и настоящее в бытовой беседе",
+              "contrast": "Личное переживание не равно техническому статусу",
+              "slots": [
+                {
+                  "group": "28",
+                  "meaning": "Связать прошлое и настоящее в бытовой беседе"
+                },
+                {
+                  "group": "07",
+                  "meaning": "Связать прошлое и настоящее в бытовой беседе"
+                }
+              ],
+              "required": true,
+              "kind": "dialog",
+              "after_r": 6
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
