@@ -1,14 +1,14 @@
 {
   "version": "0.1",
   "status": "A0_design_audit_not_implemented_playtest_or_memory_measurement",
-  "scope": "First nine provisional scene slots P0-P2; critical Input and nonforced first Output",
+  "scope": "Первые девять условных сюжетных слотов P0–P2: необходимый Input, самостоятельность раннего Output и право на непонимание",
   "rules": [
-    "R exposure is not necessarily needed_R comprehension; classify what changes outcome.",
-    "F1 existence in docs is not evidence of reachable reverse lookup or complete inflected forms.",
-    "F1 translation can support early communication; do not require exact morphological generation or correct grammar.",
-    "Non-essential comprehension and optional clarification must never be manufactured as compulsory friction.",
-    "For counterfactual tests vary one meaningful German fact while preserving plausible action choices.",
-    "No pass status implies player learning or verified UI implementation."
+    "Появление немецкой R-фразы не доказывает необходимость её понимания; требование зависит от влияния смысла на действие.",
+    "Наличие F1 в документации не доказывает доступность обратного поиска по родному смыслу и словоформам.",
+    "Ранний язык может быть понятен с помощью F1 и контекста без идеальной грамматики и дословных реплик.",
+    "Не превращать непонимание, повтор и необязательный вопрос в принудительную учебную остановку.",
+    "Контрфакты изменяют один значимый немецкий факт при сохранении правдоподобных игровых альтернатив.",
+    "Ни один статус проверки не означает, что игрок усвоил материал или что интерфейс уже протестирован."
   ],
   "cases": [
     {
@@ -17,9 +17,9 @@
       "r_event_id": "D01-S1-R1",
       "p_event_id": "D01-S1-P1",
       "concept": "contact",
-      "required_meaning": "Greeting is socially meaningful but directly copying Hallo cannot prove independent learning.",
-      "context_requirement": "Lena waves and says Hallo; UI only says respond to greeting, not the target German word.",
-      "acceptance": "Accept Hallo, Hallo Lena, another clear greeting; do not require grammatical sentence.",
+      "required_meaning": "Первое приветствие — социальный контакт, но повторение Hallo ещё не доказывает самостоятельного владения языком.",
+      "context_requirement": "Лена машет рукой и здоровается; русский интерфейс предлагает лишь ответить, не показывает готовый немецкий текст.",
+      "acceptance": "Принять Hallo и другие однозначные короткие приветствия; не требовать законченного грамматически правильного предложения.",
       "assessment": "needs_ui_validation"
     },
     {
@@ -28,9 +28,9 @@
       "r_event_id": "D01-S1-R4",
       "p_event_id": "D01-S1-P2",
       "concept": "object_action",
-      "required_meaning": "A0 must distinguish Schlüssel from another visible item when interpreting Nimm den Schlüssel.",
-      "context_requirement": "Two contrasting objects; no highlight of the correct target, no Russian object label; F1 must support both forms.",
-      "acceptance": "Swap the named target in a counterfactual; correct physical selection must change. Taking the other object must be repairable.",
+      "required_meaning": "Для инструкции Nimm den Schlüssel нужно отличить ключ от другого доступного предмета.",
+      "context_requirement": "Видны два разных предмета; верный не подсвечен. Формы Nimm и Schlüssel доступны в F1.",
+      "acceptance": "Если изменить название предмета в немецкой инструкции, должен измениться правильный выбор; ошибка исправима.",
       "assessment": "needs_gameplay_validation"
     },
     {
@@ -39,9 +39,9 @@
       "r_event_id": "D01-S1-R2",
       "p_event_id": "D01-S1-P3",
       "concept": "clarification",
-      "required_meaning": "Request to repeat is useful only when the player does not understand. An optional action must not block progress.",
-      "context_requirement": "NPC instruction can be repeated on request; button/help gives access to the phrase without auto-filling a reply.",
-      "acceptance": "Test both routes: player understands and proceeds without P3; player uses Noch einmal bitte / Ich verstehe nicht and gets a repeat.",
+      "required_meaning": "Повторять нужно только непонятную фразу; необязательная просьба не должна блокировать прохождение.",
+      "context_requirement": "Игрок может запросить повтор инструкции, а F1 помогает с формулировкой без готового ответа в диалоге.",
+      "acceptance": "Проверить оба пути: игрок понял и продолжил без P3; игрок попросил повторить и получил помощь.",
       "assessment": "needs_ui_validation"
     },
     {
@@ -50,9 +50,9 @@
       "r_event_id": "D01-S2-R3",
       "p_event_id": "D01-S2-P2",
       "concept": "location",
-      "required_meaning": "Arzt appears on an undirected sign; player must discover question wording without having previously read Wo in R.",
-      "context_requirement": "F1 supports searching a Russian meaning such as 'где' as well as looking up German Arzt, and displays usable short forms.",
-      "acceptance": "Test A0 with empty prior knowledge: the player can ask Wo Arzt? or similar; answer in R5 comes after the question, not before.",
+      "required_meaning": "Указатель Arzt не сообщает место врача; игрок должен самостоятельно сформулировать вопрос без готового Wo в репликах NPC.",
+      "context_requirement": "В F1 доступен поиск от русского смысла «где» и поиск немецкого Arzt, отображаются короткие применимые варианты.",
+      "acceptance": "A0 может задать Wo Arzt? или аналогичный понятный вопрос; ответ R5 звучит после вопроса, а не заранее.",
       "assessment": "needs_f1_contract"
     },
     {
@@ -61,9 +61,9 @@
       "r_event_id": "D01-S2-R2",
       "p_event_id": "D01-S2-P1",
       "concept": "negation_route",
-      "required_meaning": "Nein/nicht dort is potentially bypassed by following an unambiguous pointing animation, so motion alone is not proof of German.",
-      "context_requirement": "At least two plausible routes and non-spoiling contextual support; F1 contains nicht and hier/dort.",
-      "acceptance": "Changing nicht should alter the safe interpretation; if visuals alone determine the route, relabel this contact as contextual, not necessary.",
+      "required_meaning": "Направление Nein, nicht dort может угадываться по жесту Лены: движение само по себе не доказывает понимания.",
+      "context_requirement": "Есть два правдоподобных пути, доступен F1 для nicht/hier/dort; не подсвечивать единственный правильный маршрут.",
+      "acceptance": "Контрфакт с отрицанием меняет смысл; если визуальные указатели всё выдают, считать R-контакт фоновым.",
       "assessment": "needs_gameplay_validation"
     },
     {
@@ -72,9 +72,9 @@
       "r_event_id": "D02-S1-R3",
       "p_event_id": "D02-S1-P1",
       "concept": "self_state",
-      "required_meaning": "Bist du müde? can be read with F1 but the player must have an in-world basis to report a condition.",
-      "context_requirement": "Visible/explicit player condition available without a Russian menu that directly dictates 'müde'.",
-      "acceptance": "Accept short Ich müde, Ich bin müde, or unambiguous negation if the game condition allows it. Do not demand a fixed medical state without evidence.",
+      "required_meaning": "Вопрос Bist du müde? понятен через F1, но игрок должен иметь основание сообщать о собственном состоянии.",
+      "context_requirement": "Состояние персонажа понятно из мира, русский пункт меню не даёт слово müde как готовый ответ.",
+      "acceptance": "Принять понятное Ich müde / Ich bin müde либо корректное отрицание, если состояние допускает; не навязывать усталость без данных.",
       "assessment": "needs_state_contract"
     },
     {
@@ -83,9 +83,9 @@
       "r_event_id": "D02-S1-R4",
       "p_event_id": "D02-S1-P2",
       "concept": "health_negation",
-      "required_meaning": "Hast du Schmerzen? introduces an abstract symptom; F1 alone may help decode but a negative answer must be grounded in state.",
-      "context_requirement": "The scene supports no-pain observations; alternatives are not silently ruled out by design.",
-      "acceptance": "Test yes/no symptom contrasts and clarify when ambiguous. If pain is impossible to know, do not claim that negative P proves comprehension.",
+      "required_meaning": "Hast du Schmerzen? вводит абстрактный симптом; отрицание должно соответствовать действительно доступному состоянию героя.",
+      "context_requirement": "В мире есть признаки отсутствия боли и возможность иных симптомов, а не единственный предписанный ответ.",
+      "acceptance": "Проверить альтернативы боли/её отсутствия и уточнения при неоднозначности; без состояния не засчитывать ответ как понимание.",
       "assessment": "needs_state_contract"
     },
     {
@@ -94,9 +94,9 @@
       "r_event_id": "D03-S1-R2",
       "p_event_id": "D03-S1-P1",
       "concept": "object_request",
-      "required_meaning": "Wasser vs Brot must be chosen because of a genuine need; repeating Wasser after NPC is not sufficient proof of retention.",
-      "context_requirement": "Two visible, distinguishable supplies; the player wants drinking water; UI does not name the German answer.",
-      "acceptance": "Wrong object or bare Bitte must not deliver water; Wasser bitte or an equivalent short request works.",
+      "required_meaning": "Wasser и Brot нужно отличить ради реальной потребности; копирование слова Wasser после NPC ещё не доказательство памяти.",
+      "context_requirement": "Видны вода и хлеб; герой действительно хочет пить. Русский интерфейс не называет готовую немецкую просьбу.",
+      "acceptance": "Просьба о другом предмете или одно Bitte не выдают воду; Wasser bitte либо понятная краткая альтернатива работают.",
       "assessment": "needs_gameplay_validation"
     },
     {
@@ -105,9 +105,9 @@
       "r_event_id": "D04-S1-R3",
       "p_event_id": "D04-S1-P2",
       "concept": "status_negation",
-      "required_meaning": "Die Lampe ist kaputt conflicts with visible local evidence; the NPC report and panel must not pre-write the correction.",
-      "context_requirement": "Lamp observed lit, contrary to an explicitly labeled false or stale panel record; F1 makes nicht/kaputt discoverable.",
-      "acceptance": "Negative meaning changes the report: Lamp kaputt vs nicht kaputt cannot both be accepted for the same observed state.",
+      "required_meaning": "Die Lampe ist kaputt противоречит собственному наблюдению героя; NPC не должен заранее давать формулировку опровержения.",
+      "context_requirement": "Лампа визуально исправна, панель сообщает ошибку; F1 доступен для nicht и kaputt.",
+      "acceptance": "Положительное и отрицательное утверждения не должны одинаково приниматься как верный отчёт о наблюдении.",
       "assessment": "needs_gameplay_validation"
     },
     {
@@ -116,9 +116,9 @@
       "r_event_id": "D05-S1-R3",
       "p_event_id": "D05-S1-P1",
       "concept": "missing_location",
-      "required_meaning": "The target object is stated without its location; P1 asks Wo..., and the location is given only afterward.",
-      "context_requirement": "F1 provides way to express Wo and Lampe; scene includes distinguishable locations, no UI waypoint answering automatically.",
-      "acceptance": "Compare player asking for location with merely naming Lampe. R4 supplies 'im Zimmer' only after P1.",
+      "required_meaning": "В D05 необходим предмет, но местонахождение становится известно только после самостоятельного вопроса.",
+      "context_requirement": "В F1 есть способ найти Wo и Lampe; доступно несколько комнат, автоматического указателя нет.",
+      "acceptance": "P1 «Wo ist die Lampe?» (или понятный эквивалент) отличается от простого называния Lampe; R4 отвечает только после вопроса.",
       "assessment": "needs_f1_contract"
     },
     {
@@ -127,9 +127,9 @@
       "r_event_id": "D06-S1-R4",
       "p_event_id": "D06-S1-P1",
       "concept": "route_after_question",
-      "required_meaning": "Left/right and locked door can be bypassed by seeing a physically shut door, so a safe route alone cannot demonstrate comprehension.",
-      "context_requirement": "Both routes are plausible before the dialogue; R4 explicitly disambiguates after a question; no auto-highlight.",
-      "acceptance": "Try counterfactual layout (if the safe exit is right, text and outcome change) and check R4 comprehension, not just whether player follows an open passage.",
+      "required_meaning": "Выбор слева/справа можно угадать по физически закрытой двери, даже не читая немецкий.",
+      "context_requirement": "До диалога оба маршрута правдоподобны; R4 помогает разобраться, но не включает подсветку выхода.",
+      "acceptance": "Проверить вариант с изменённым расположением безопасного выхода и смыслом R4; не засчитывать просто проход через открытую дверь.",
       "assessment": "needs_gameplay_validation"
     },
     {
@@ -138,9 +138,9 @@
       "r_event_id": "D07-S1-R6",
       "p_event_id": "D07-S1-P2",
       "concept": "role_location",
-      "required_meaning": "Where the Lagerverwalter is must not be known before P2; the long compound may require explicit F1 lookup.",
-      "context_requirement": "R5 mentions role, P2 asks where, R6 gives Lager; signposting does not show one highlighted destination.",
-      "acceptance": "Actor ownership and site must be distinguished; learner can ask Wo Lagerverwalter? and follow understood location.",
+      "required_meaning": "Местоположение Lagerverwalter неизвестно до P2; составное слово требует доступного поиска в F1.",
+      "context_requirement": "R5 называет ответственного, P2 спрашивает местоположение, R6 впервые сообщает Lager. Не выделять единственную дверь.",
+      "acceptance": "Отличать владельца от расположения; принять Wo Lagerverwalter?, затем проверить, что игрок понял направление.",
       "assessment": "needs_f1_contract"
     },
     {
@@ -149,9 +149,9 @@
       "r_event_id": "D08-S1-R4",
       "p_event_id": "D08-S1-P1",
       "concept": "remote_information",
-      "required_meaning": "Lena knows only her red light; player knows local green. Text-only dialogue 'Hörst du mich?' must not silently require spoken comprehension.",
-      "context_requirement": "Two panels with non-shared readings; communication channel is textual and clearly presented, no audio-only content.",
-      "acceptance": "Check that player conveys their own local green status; copied red remote status is wrong. Verify the odd audio-language line remains just incidental.",
+      "required_meaning": "Лена видит красный индикатор, игрок — зелёный; текст Hörst du mich? не должен требовать аудирования.",
+      "context_requirement": "Два раздельных пульта; общение остаётся текстовым и понятным без обязательного прослушивания.",
+      "acceptance": "Игрок сообщает локальный зелёный статус, а не повторяет чужой красный; устная форма реплики остаётся лишь фоном.",
       "assessment": "needs_medium_contract"
     },
     {
@@ -160,9 +160,9 @@
       "r_event_id": "D09-S1-R2",
       "p_event_id": "D09-S1-P1",
       "concept": "count_and_state",
-      "required_meaning": "Inventoried 3, 1 broken, 2 usable: a correct request cannot be derived solely from an obvious click target or a Russian instruction.",
-      "context_requirement": "Stock labels and quantity have clear contrast; F1 numbers and Zustand; actual need for two working lamps established.",
-      "acceptance": "With a different damage count, the correct usable count changes, and the requested quantity must remain player-driven.",
+      "required_meaning": "Из трёх ламп одна неисправна, две исправны; правильный запрос нельзя угадывать из русской подсказки.",
+      "context_requirement": "Отдельные числовые надписи и реальные предметы; F1 для чисел; потребность в исправных экземплярах обусловлена задачей.",
+      "acceptance": "Если изменить количество неисправных ламп, правильное число доступных меняется; сам запрос должен исходить от игрока.",
       "assessment": "needs_gameplay_validation"
     }
   ]
