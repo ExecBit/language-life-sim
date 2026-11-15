@@ -27,7 +27,7 @@ LANGUAGE_MAP = DOCS / "LANGUAGE_MAP.md"
 DASHBOARD = DOCS / "ACT_DAY_PROGRESSION_DASHBOARD.html"
 CORPUS = DOCS / "ACT_DIALOGUE_REFERENCE_CORPUS.json"
 NORMALIZATION = DOCS / "ACT_VOCAB_NORMALIZATION.json"
-WORD_PATTERN = re.compile(r"[^\\W_]+", re.UNICODE)
+WORD_PATTERN = re.compile(r"[^\W_]+", re.UNICODE)
 
 DATA_SCRIPT = re.compile(r'(<script id="progression-data">const DATA=)(.*?)(;</script>)', re.DOTALL)
 GROUPS = {
