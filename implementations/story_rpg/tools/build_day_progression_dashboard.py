@@ -268,7 +268,9 @@ def dialogue_load_data() -> dict:
     if len(names) != 29:
         raise ValueError("Expected 29 catalog groups")
     topics = {key: {"id": key, "name": name, "r": 0, "p": 0,
-                    "r_optional": 0, "p_optional": 0}
+                    "r_optional": 0, "p_optional": 0,
+                    "by_day": [{"r": 0, "p": 0, "r_optional": 0, "p_optional": 0}
+                               for _ in corpus["days"]]}
               for key, name in sorted(names.items())}
     days = []
     for day in corpus["days"]:
@@ -284,6 +286,7 @@ def dialogue_load_data() -> dict:
                 group = form_to_group.get(form)
                 if group:
                     topics[group][mode] += 1
+                    topics[group]["by_day"][day["day"] - 1][mode] += 1
                     if event["required"]:
                         point["r_marked"] += 1
         for event in day["p"]:
@@ -295,7 +298,9 @@ def dialogue_load_data() -> dict:
             for slot in event["slots"]:
                 if event["required"]:
                     point["p_slots"] += 1
-                topics[slot["group"]]["p" if event["required"] else "p_optional"] += 1
+                mode = "p" if event["required"] else "p_optional"
+                topics[slot["group"]][mode] += 1
+                topics[slot["group"]]["by_day"][day["day"] - 1][mode] += 1
         days.append(point)
     return {"status": "authored_scene_contracts", "days": days,
             "groups": list(topics.values())}
