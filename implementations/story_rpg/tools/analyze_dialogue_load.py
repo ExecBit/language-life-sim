@@ -16,6 +16,8 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from build_day_progression_dashboard import vocab_data
+
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 CORPUS = DOCS / "ACT_DIALOGUE_REFERENCE_CORPUS.json"
@@ -123,7 +125,7 @@ def render(data: dict, a: dict, names: dict[str, str]) -> str:
     lines = [
         "# Пробная нагрузка немецкого по 21 дню",
         "",
-        "**Статус: расчёт v0.1 на авторских коротких примерах, не оценка полного акта или достаточности закрепления.** "
+        "**Статус: расчёт v0.2 на авторских коротких примерах, не оценка полного акта или достаточности закрепления.** "
         "Источник: [ACT_DIALOGUE_REFERENCE_CORPUS.json](ACT_DIALOGUE_REFERENCE_CORPUS.json). "
         "Расчёт: \`python implementations/story_rpg/tools/analyze_dialogue_load.py\`. "
         "**D22 — экзамен, не подготовительная практика.**",
@@ -185,9 +187,43 @@ def render(data: dict, a: dict, names: dict[str, str]) -> str:
                      f"{', '.join(f'D{n:02}' for n in p_days) or '—'} | "
                      f"{', '.join(contexts) or '—'} | "
                      "Пробные возвраты есть, но реальная достаточность практики и доступность A0 не проверены |")
+    vocabulary = vocab_data()
+    if vocabulary["exam_day"] != data["exam_day"]:
+        raise ValueError("Vocabulary chart and dialogue corpus disagree about exam day.")
     lines += [
         "",
-        "## 4. Конкретные R/P-контракты (авторские образцы, не строки whitelist)",
+        "## 4. Накопительный словарь (все слова, не только тематические)",
+        "",
+        "**Нормализованные лексемы** подсчитаны по немецкому тексту R без привязки к 29 группам. "
+        "Словоформы учитываются отдельно; `war` и `ist` относятся к одной лексеме `sein`, "
+        "но остаются разными формами. Имена собственные и ID датчиков исключены из словаря, "
+        "но не из общего объёма R/P словоупотреблений. "
+        "[Правила нормализации](ACT_VOCAB_NORMALIZATION.json).",
+        "",
+        "R — только обязательные написанные образцы входящих сообщений. P — **лишь авторские "
+        "образцы возможных ответов**, а не реальные введённые игроком слова и не доказательство "
+        "активного владения. Значения с P показываются отдельно. D22 не участвует.",
+        "",
+        "| День | Новые R-лексемы | Повторные R-употребления | Накоплено R-лексем | Накоплено R-словоформ | "
+        "R+P образцы: лексемы | Слова R | Слова P-примеров |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|",
+    ]
+    for point in vocabulary["days"]:
+        lines.append(
+            f"| D{point['day']:02} | {point['r_new_lexemes']} | {point['r_repeated_words']} | "
+            f"{point['r_cumulative_lexemes']} | {point['r_cumulative_forms']} | "
+            f"{point['sample_cumulative_lexemes']} | {point['r_words']} | "
+            f"{point['p_example_words']} |"
+        )
+    end = vocabulary["days"][-1]
+    lines += [
+        "",
+        f"**К D{end['day']:02}:** в R-тексте {end['r_cumulative_lexemes']} разных "
+        f"нормализованных лексем / {end['r_cumulative_forms']} словоформ; "
+        f"в объединении R с примерами P — {end['sample_cumulative_lexemes']} лексем. "
+        "Скорость роста в этом коротком корпусе — **не заданная целевая норма**.",
+        "",
+        "## 5. Конкретные R/P-контракты (авторские образцы, не строки whitelist)",
         "",
     ]
     for d in data["days"]:
@@ -204,7 +240,7 @@ def render(data: dict, a: dict, names: dict[str, str]) -> str:
                          f"Контраст: {event['contrast']}.")
         lines.append("")
     lines += [
-        "## 5. Границы интерпретации",
+        "## 6. Границы интерпретации",
         "",
         "- Это **минимальные авторские примеры**, а не полный сценарий NPC, не фактически прочитанный игроком корпус и не реальные данные прохождения.",
         "- Разметка R задаёт лишь выбранные *тематические* словоупотребления, остальные слова учитываются в общем объёме без принудительного тематического тега. P измеряет необходимые смыслы, а **не размер свободного ответа игрока**. Столбец P-слова — длина только авторского образца; это не минимум, не максимум и не белый список.",
