@@ -20,12 +20,14 @@ import re
 import sys
 from pathlib import Path
 
+from scene_corpus import scene_data
+
 DOCS = Path(__file__).resolve().parents[1] / "docs"
 DAY_MAP = DOCS / "ACT_DAY_PROGRESSION_MAP.md"
 LANGUAGE_DESIGN = DOCS / "LANGUAGE_DESIGN.md"
 LANGUAGE_MAP = DOCS / "LANGUAGE_MAP.md"
 DASHBOARD = DOCS / "ACT_DAY_PROGRESSION_DASHBOARD.html"
-CORPUS = DOCS / "ACT_DIALOGUE_REFERENCE_CORPUS.json"
+CORPUS = DOCS / "ACT_DIALOGUE_SITUATIONS.json"
 NORMALIZATION = DOCS / "ACT_VOCAB_NORMALIZATION.json"
 WORD_PATTERN = re.compile(r"[^\W_]+", re.UNICODE)
 
@@ -168,8 +170,8 @@ def vocab_data() -> dict:
     Proper names and sensor identifiers are excluded from vocabulary only;
     they still count in raw text volume. D22 is an exam and is not counted.
     """
-    corpus = json.loads(CORPUS.read_text(encoding="utf-8"))
-    norm = json.loads(NORMALIZATION.read_text(encoding="utf-8"))
+    corpus = scene_data()
+    norm = corpus["normalization"]
     mapping = norm["form_to_lexeme"]
     excluded = set(norm["excluded"])
     seen_r_lexemes: set[str] = set()
@@ -198,6 +200,8 @@ def vocab_data() -> dict:
         r_lemmas: list[str] = []
         r_words = 0
         for event in day["r"]:
+            if not event["required"]:
+                continue
             forms, lemmas, words = lexemes(event["de"])
             r_forms.extend(forms)
             r_lemmas.extend(lemmas)
@@ -232,9 +236,11 @@ def vocab_data() -> dict:
             "r_cumulative_forms": len(seen_r_forms),
             "p_only_new_lexemes": len(p_only_new),
             "sample_cumulative_lexemes": len(seen_all_lexemes),
+            "mandatory_scenes": sum(1 for s in day["scenes"] if s["required"]),
+            "optional_scenes": sum(1 for s in day["scenes"] if not s["required"]),
         })
     return {
-        "status": "authored_reference_only",
+        "status": "expanded_authored_situations_not_player_telemetry",
         "exam_day": corpus["exam_day"],
         "days": series,
         "excluded": sorted(excluded),
