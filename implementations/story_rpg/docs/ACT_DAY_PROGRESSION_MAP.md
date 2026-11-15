@@ -2,6 +2,7 @@
 
 **Статус: clean-room storyboard v0.2; 22 дневных слота — проектная гипотеза, не утверждённая длительность.**  
 **Главный источник причинности:** [ACT_CLEAN_ROOM_BLUEPRINT.md](ACT_CLEAN_ROOM_BLUEPRINT.md). **Не использованы для расчёта** прежние D01–D06, их квесты или распределение по 18 дням. Новая расстановка M## предложена из сюжетных задач этого документа, а не перенесена со старой диаграммы.  
+**Рост общего словаря:** [пилотный отчёт](ACT_DIALOGUE_PILOT_REPORT.md) §4 и [HTML-кривые](ACT_DAY_PROGRESSION_DASHBOARD.html) показывают новые / повторные слова и накопленные уникальные R-лексемы независимо от тематических групп (D01–D21), отдельно от P-образцов.  
 **Аудит удельного веса входящего и исходящего языка:** [ACT_LANGUAGE_LOAD_AUDIT.md](ACT_LANGUAGE_LOAD_AUDIT.md) (методика, 29 групп; [пробный подсчёт авторских R/P-реплик](ACT_DIALOGUE_PILOT_REPORT.md), полный сюжет не измерен).  
 **Интерактивный отчёт:** [ACT_DAY_PROGRESSION_DASHBOARD.html](ACT_DAY_PROGRESSION_DASHBOARD.html); **генератор:** `implementations/story_rpg/tools/build_day_progression_dashboard.py`.
 
@@ -186,6 +187,7 @@ xychart-beta
 ```bash
 python implementations/story_rpg/tools/build_day_progression_dashboard.py
 python implementations/story_rpg/tools/build_day_progression_dashboard.py --check
+python implementations/story_rpg/tools/analyze_dialogue_load.py --check
 ```
 
 Генератор читает **данные дней и контрактов** из этого файла и названия M## из `LANGUAGE_DESIGN.md`; категорию впервые встреченного M## сверяет по `LANGUAGE_MAP.md`. HTML — **визуальное представление этого источника**, не отдельный источник истины.
