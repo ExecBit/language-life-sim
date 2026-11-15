@@ -338,6 +338,19 @@
           "need": "Отличить направление переноса от местоположения",
           "contrast": "В комнату ≠ в комнате",
           "id": "D06-R2"
+        },
+        {
+          "id": "D06-R3",
+          "de": "Geh nach links.",
+          "tags": [
+            {
+              "group": "11",
+              "form": "links"
+            }
+          ],
+          "context": "route-instruction",
+          "need": "Прочитать направление к нужному проходу",
+          "contrast": "Налево ≠ направо"
         }
       ],
       "p": [
@@ -430,7 +443,7 @@
       "goal": "Передать сведения между рабочими местами",
       "r": [
         {
-          "de": "Lena braucht die Liste.",
+          "de": "Lena braucht den Zettel.",
           "tags": [
             {
               "group": "05",
@@ -438,7 +451,7 @@
             },
             {
               "group": "23",
-              "form": "Liste"
+              "form": "Zettel"
             }
           ],
           "context": "shift-coordination",
@@ -941,7 +954,7 @@
           "de": "Sensor: A. Zeit: acht Uhr.",
           "tags": [
             {
-              "group": "22",
+              "group": "15",
               "form": "Zeit"
             },
             {
@@ -973,7 +986,7 @@
           "example": "Sensor: B; Zeit: neun Uhr; Status: kaputt.",
           "slots": [
             {
-              "group": "22",
+              "group": "12",
               "meaning": "выбрать датчик B в поле формы"
             },
             {
@@ -1040,28 +1053,28 @@
           "id": "D17-R1"
         },
         {
-          "de": "Nein. Das Wasser ist nicht frei.",
+          "de": "Nein. Der Arzt braucht das Wasser.",
           "tags": [
             {
               "group": "01",
               "form": "Nein"
             },
             {
+              "group": "07",
+              "form": "Arzt"
+            },
+            {
+              "group": "05",
+              "form": "braucht"
+            },
+            {
               "group": "08",
               "form": "Wasser"
-            },
-            {
-              "group": "06",
-              "form": "nicht"
-            },
-            {
-              "group": "14",
-              "form": "frei"
             }
           ],
           "context": "resource-dispute",
-          "need": "Узнать, что снабженец отказывает из-за доступности",
-          "contrast": "Не доступно ≠ не нужно",
+          "need": "Узнать, что снабженец отказывает из-за медицинской потребности",
+          "contrast": "Ресурс нужен медику ≠ идея биолога бессмысленна",
           "id": "D17-R2"
         }
       ],
