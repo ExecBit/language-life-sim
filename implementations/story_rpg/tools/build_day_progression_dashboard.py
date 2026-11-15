@@ -29,6 +29,7 @@ LANGUAGE_MAP = DOCS / "LANGUAGE_MAP.md"
 DASHBOARD = DOCS / "ACT_DAY_PROGRESSION_DASHBOARD.html"
 CORPUS = DOCS / "ACT_DIALOGUE_SITUATIONS.json"
 NORMALIZATION = DOCS / "ACT_VOCAB_NORMALIZATION.json"
+LEXICON = DOCS / "LANGUAGE_LEXICON.md"
 WORD_PATTERN = re.compile(r"[^\W_]+", re.UNICODE)
 
 DATA_SCRIPT = re.compile(r'(<script id="progression-data">const DATA=)(.*?)(;</script>)', re.DOTALL)
@@ -247,6 +248,59 @@ def vocab_data() -> dict:
     }
 
 
+
+def dialogue_load_data() -> dict:
+    """Volume of guaranteed scene text and optional additions, by day and topic.
+
+    R counts all displayed German words in guaranteed scenes. Output example
+    words are only an author sample; P components are thematic semantic tags,
+    not unique utterances or actual user text.
+    """
+    corpus = scene_data()
+    form_to_group = corpus["normalization"]["primary_group_for_form"]
+    names: dict[str, str] = {}
+    for line in LEXICON.read_text(encoding="utf-8").splitlines():
+        match = re.match(r"^\|\s*(\d{1,2})\s*\|", line)
+        if match:
+            fields = [x.strip() for x in line.split("|")[1:-1]]
+            if len(fields) >= 3:
+                names[f"{int(match.group(1)):02}"] = fields[2]
+    if len(names) != 29:
+        raise ValueError("Expected 29 catalog groups")
+    topics = {key: {"id": key, "name": name, "r": 0, "p": 0,
+                    "r_optional": 0, "p_optional": 0}
+              for key, name in sorted(names.items())}
+    days = []
+    for day in corpus["days"]:
+        point = {"day": day["day"], "r_words": 0, "r_marked": 0,
+                 "r_optional_words": 0, "p_example_words": 0,
+                 "p_optional_examples": 0, "p_required": 0, "p_optional": 0,
+                 "p_slots": 0}
+        for event in day["r"]:
+            forms = [word.lower() for word in WORD_PATTERN.findall(event["de"])]
+            mode = "r" if event["required"] else "r_optional"
+            point["r_words" if event["required"] else "r_optional_words"] += len(forms)
+            for form in forms:
+                group = form_to_group.get(form)
+                if group:
+                    topics[group][mode] += 1
+                    if event["required"]:
+                        point["r_marked"] += 1
+        for event in day["p"]:
+            point["p_required" if event["required"] else "p_optional"] += 1
+            if event["kind"] == "dialog":
+                point["p_example_words" if event["required"] else "p_optional_examples"] += len(
+                    WORD_PATTERN.findall(event["example"])
+                )
+            for slot in event["slots"]:
+                if event["required"]:
+                    point["p_slots"] += 1
+                topics[slot["group"]]["p" if event["required"] else "p_optional"] += 1
+        days.append(point)
+    return {"status": "authored_scene_contracts", "days": days,
+            "groups": list(topics.values())}
+
+
 def build(html: str, source: str, matrix: str, language: str) -> str:
     embedded = DATA_SCRIPT.search(html)
     if embedded is None:
@@ -271,6 +325,7 @@ def build(html: str, source: str, matrix: str, language: str) -> str:
     payload = {
         "days": days, "groups": GROUPS, "skillNames": names,
         "audit": audit, "first": first, "vocab": vocab_data(),
+        "load": dialogue_load_data(),
     }
     encoded = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("<", r"\u003c")
     return html[:embedded.start(2)] + encoded + html[embedded.end(2):]
