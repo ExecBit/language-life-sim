@@ -24,20 +24,20 @@
 
 | Проверка | День | R → P | Статус | Что нужно проверить |
 |---|---|---|---|---|
-| `A0-01` | D01 | `D01-S1-R1` → `D01-S1-P1` | `needs_ui_validation` | Accept Hallo, Hallo Lena, another clear greeting; do not require grammatical sentence. |
-| `A0-02` | D01 | `D01-S1-R4` → `D01-S1-P2` | `needs_gameplay_validation` | Swap the named target in a counterfactual; correct physical selection must change. Taking the other object must be repairable. |
-| `A0-03` | D01 | `D01-S1-R2` → `D01-S1-P3` | `needs_ui_validation` | Test both routes: player understands and proceeds without P3; player uses Noch einmal bitte / Ich verstehe nicht and gets a repeat. |
-| `A0-04` | D01 | `D01-S2-R3` → `D01-S2-P2` | `needs_f1_contract` | Test A0 with empty prior knowledge: the player can ask Wo Arzt? or similar; answer in R5 comes after the question, not before. |
-| `A0-05` | D01 | `D01-S2-R2` → `D01-S2-P1` | `needs_gameplay_validation` | Changing nicht should alter the safe interpretation; if visuals alone determine the route, relabel this contact as contextual, not necessary. |
-| `A0-06` | D02 | `D02-S1-R3` → `D02-S1-P1` | `needs_state_contract` | Accept short Ich müde, Ich bin müde, or unambiguous negation if the game condition allows it. Do not demand a fixed medical state without evidence. |
-| `A0-07` | D02 | `D02-S1-R4` → `D02-S1-P2` | `needs_state_contract` | Test yes/no symptom contrasts and clarify when ambiguous. If pain is impossible to know, do not claim that negative P proves comprehension. |
-| `A0-08` | D03 | `D03-S1-R2` → `D03-S1-P1` | `needs_gameplay_validation` | Wrong object or bare Bitte must not deliver water; Wasser bitte or an equivalent short request works. |
-| `A0-09` | D04 | `D04-S1-R3` → `D04-S1-P2` | `needs_gameplay_validation` | Negative meaning changes the report: Lamp kaputt vs nicht kaputt cannot both be accepted for the same observed state. |
-| `A0-10` | D05 | `D05-S1-R3` → `D05-S1-P1` | `needs_f1_contract` | Compare player asking for location with merely naming Lampe. R4 supplies 'im Zimmer' only after P1. |
-| `A0-11` | D06 | `D06-S1-R4` → `D06-S1-P1` | `needs_gameplay_validation` | Try counterfactual layout (if the safe exit is right, text and outcome change) and check R4 comprehension, not just whether player follows an open passage. |
-| `A0-12` | D07 | `D07-S1-R6` → `D07-S1-P2` | `needs_f1_contract` | Actor ownership and site must be distinguished; learner can ask Wo Lagerverwalter? and follow understood location. |
-| `A0-13` | D08 | `D08-S1-R4` → `D08-S1-P1` | `needs_medium_contract` | Check that player conveys their own local green status; copied red remote status is wrong. Verify the odd audio-language line remains just incidental. |
-| `A0-14` | D09 | `D09-S1-R2` → `D09-S1-P1` | `needs_gameplay_validation` | With a different damage count, the correct usable count changes, and the requested quantity must remain player-driven. |
+| `A0-01` | D01 | `D01-S1-R1` → `D01-S1-P1` | `needs_ui_validation` | Принять Hallo и другие однозначные короткие приветствия; не требовать законченного грамматически правильного предложения. |
+| `A0-02` | D01 | `D01-S1-R4` → `D01-S1-P2` | `needs_gameplay_validation` | Если изменить название предмета в немецкой инструкции, должен измениться правильный выбор; ошибка исправима. |
+| `A0-03` | D01 | `D01-S1-R2` → `D01-S1-P3` | `needs_ui_validation` | Проверить оба пути: игрок понял и продолжил без P3; игрок попросил повторить и получил помощь. |
+| `A0-04` | D01 | `D01-S2-R3` → `D01-S2-P2` | `needs_f1_contract` | A0 может задать Wo Arzt? или аналогичный понятный вопрос; ответ R5 звучит после вопроса, а не заранее. |
+| `A0-05` | D01 | `D01-S2-R2` → `D01-S2-P1` | `needs_gameplay_validation` | Контрфакт с отрицанием меняет смысл; если визуальные указатели всё выдают, считать R-контакт фоновым. |
+| `A0-06` | D02 | `D02-S1-R3` → `D02-S1-P1` | `needs_state_contract` | Принять понятное Ich müde / Ich bin müde либо корректное отрицание, если состояние допускает; не навязывать усталость без данных. |
+| `A0-07` | D02 | `D02-S1-R4` → `D02-S1-P2` | `needs_state_contract` | Проверить альтернативы боли/её отсутствия и уточнения при неоднозначности; без состояния не засчитывать ответ как понимание. |
+| `A0-08` | D03 | `D03-S1-R2` → `D03-S1-P1` | `needs_gameplay_validation` | Просьба о другом предмете или одно Bitte не выдают воду; Wasser bitte либо понятная краткая альтернатива работают. |
+| `A0-09` | D04 | `D04-S1-R3` → `D04-S1-P2` | `needs_gameplay_validation` | Положительное и отрицательное утверждения не должны одинаково приниматься как верный отчёт о наблюдении. |
+| `A0-10` | D05 | `D05-S1-R3` → `D05-S1-P1` | `needs_f1_contract` | P1 «Wo ist die Lampe?» (или понятный эквивалент) отличается от простого называния Lampe; R4 отвечает только после вопроса. |
+| `A0-11` | D06 | `D06-S1-R4` → `D06-S1-P1` | `needs_gameplay_validation` | Проверить вариант с изменённым расположением безопасного выхода и смыслом R4; не засчитывать просто проход через открытую дверь. |
+| `A0-12` | D07 | `D07-S1-R6` → `D07-S1-P2` | `needs_f1_contract` | Отличать владельца от расположения; принять Wo Lagerverwalter?, затем проверить, что игрок понял направление. |
+| `A0-13` | D08 | `D08-S1-R4` → `D08-S1-P1` | `needs_medium_contract` | Игрок сообщает локальный зелёный статус, а не повторяет чужой красный; устная форма реплики остаётся лишь фоном. |
+| `A0-14` | D09 | `D09-S1-R2` → `D09-S1-P1` | `needs_gameplay_validation` | Если изменить количество неисправных ламп, правильное число доступных меняется; сам запрос должен исходить от игрока. |
 
 ## 3. Приоритетные решения и открытые зависимости
 
