@@ -2,9 +2,10 @@
 
 **Статус: clean-room storyboard v0.2; 22 дневных слота — проектная гипотеза, не утверждённая длительность.**  
 **Главный источник причинности:** [ACT_CLEAN_ROOM_BLUEPRINT.md](ACT_CLEAN_ROOM_BLUEPRINT.md). **Не использованы для расчёта** прежние D01–D06, их квесты или распределение по 18 дням. Новая расстановка M## предложена из сюжетных задач этого документа, а не перенесена со старой диаграммы.  
-**Рост общего словаря:** [сценарный отчёт](ACT_DIALOGUE_LOAD_REPORT.md) §4 и [HTML-кривые](ACT_DAY_PROGRESSION_DASHBOARD.html) показывают новые / повторные слова и накопленные уникальные R-лексемы по D01–D21, отдельно от P-образцов. Данные берутся из [единых сценовых контрактов](ACT_DIALOGUE_SITUATIONS.json); прежний пилот сохранён только как история исследования.  
+**Рост общего словаря:** [сценарный отчёт](ACT_DIALOGUE_LOAD_REPORT.md) §4 и [HTML-кривые](ACT_DAY_PROGRESSION_DASHBOARD.html) показывают новые R-лексемы за день, весь Input за день, накопленные уникальные R-лексемы и накопленный объём Input (словоупотребления) по D01–D21, отдельно от P-образцов. Данные берутся из [единых сценовых контрактов](ACT_DIALOGUE_SITUATIONS.json); прежний пилот сохранён только как история исследования.  
 **Аудит удельного веса входящего и исходящего языка:** [ACT_LANGUAGE_LOAD_AUDIT.md](ACT_LANGUAGE_LOAD_AUDIT.md) (методика, 29 групп); текущий [сценарный расчёт](ACT_DIALOGUE_LOAD_REPORT.md) — 37 обязательных и 5 факультативных ситуаций. Это авторский проект, а не реализованный игровой корпус.  
 **Ревью фактического покрытия:** [ACT_SCENE_COVERAGE_REVIEW.md](ACT_SCENE_COVERAGE_REVIEW.md) отмечает, что некоторые M##, перечисленные как «впервые», пока не поддержаны обязательной сценой. Поэтому показатели ниже нельзя считать доказанной полной трассировкой.  
+**Открыть без скачивания:** [готовый интерактивный HTML в браузере](https://htmlpreview.github.io/?https://github.com/ExecBit/language-life-sim/blob/docs/story-rpg-concept-grill-me-v01/implementations/story_rpg/docs/ACT_DAY_PROGRESSION_DASHBOARD.html) через сторонний просмотрщик; данные берутся из текущей ветки PR #71.  
 **Интерактивный отчёт:** [ACT_DAY_PROGRESSION_DASHBOARD.html](ACT_DAY_PROGRESSION_DASHBOARD.html); **генератор:** `implementations/story_rpg/tools/build_day_progression_dashboard.py`.
 
 ## 1. Сначала сюжетная причинность
