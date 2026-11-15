@@ -100,10 +100,13 @@ def a0_readiness_data() -> dict:
         if not all(item.get(k) and str(item[k]).strip()
                    for k in ("required_meaning", "context_requirement", "acceptance")):
             raise ValueError(f"Unspecified meaning/context/test at {item['id']}")
+        r_turn = next(i for i, ev in enumerate(scene["r"], 1)
+                      if ev["id"] == r_id)
         cases.append({
             **item, "day": day["day"], "phase": day["phase"],
             "r_text": r_event["de"], "p_example": p_event["example"],
             "p_required": p_event["required"], "p_after_r": p_event["after_r"],
+            "r_turn": r_turn, "r_follows_p": r_turn > p_event["after_r"],
             "semantic_r_annotation": semantic_by_id.get(r_id, {}).get("mode", "unassessed"),
             "semantic_p_annotation": semantic_by_id.get(p_id, {}).get("mode", "unassessed"),
         })
@@ -153,7 +156,7 @@ def render_report(a: dict) -> str:
         "",
         "## 2. Четырнадцать сценарных проверок",
         "",
-        "| Проверка | День | R → P | Статус | Что нужно проверить |",
+        "| Проверка | День | Связанные R/P | Статус | Что нужно проверить |",
         "|---|---|---|---|---|",
     ]
     for item in a["cases"]:
@@ -163,6 +166,10 @@ def render_report(a: dict) -> str:
             f"\`{item['assessment']}\` | {item['acceptance']} |"
         )
     lines += [
+        "",
+        "**Порядок событий:** связанные R/P не обязательно следуют по стрелке: "
+        "иногда указанная R-реплика является **ответом после P**. "
+        "Это определяется номером R и полем `after_r` у P.",
         "",
         "## 3. Приоритетные решения и открытые зависимости",
         "",
