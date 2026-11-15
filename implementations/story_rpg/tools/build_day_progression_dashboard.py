@@ -8,7 +8,7 @@ Run from the repository root:
 All daily story goals, first M## contacts, R/P contracts, meanings, heatmap
 repetitions and the complexity curve come from ACT_DAY_PROGRESSION_MAP.md.
 M## names come from LANGUAGE_DESIGN.md and skill categories from LANGUAGE_MAP.md.
-Vocabulary growth comes from the tagged pilot corpus and the reviewed normalization
+Vocabulary growth comes from the scene contract corpus and the reviewed normalization
 map. D22 exam never contributes to the cumulative vocabulary.
 Only Python's standard library is needed; no LLM, browser or network.
 """
@@ -178,6 +178,7 @@ def vocab_data() -> dict:
     seen_r_lexemes: set[str] = set()
     seen_r_forms: set[str] = set()
     seen_all_lexemes: set[str] = set()
+    cumulative_r_words = 0
     series: list[dict] = []
 
     def lexemes(text: str) -> tuple[list[str], list[str], int]:
@@ -210,6 +211,7 @@ def vocab_data() -> dict:
 
         # Vocabulary 'new today' means first appearance across any earlier day;
         # duplicate uses in the same day count as repeated tokens, not new types.
+        cumulative_r_words += r_words
         new_r_lemmas = set(r_lemmas) - seen_r_lexemes
         new_r_forms = set(r_forms) - seen_r_forms
         seen_r_lexemes.update(r_lemmas)
@@ -228,6 +230,7 @@ def vocab_data() -> dict:
         series.append({
             "day": number,
             "r_words": r_words,
+            "r_cumulative_words": cumulative_r_words,
             "p_example_words": p_words,
             "r_lexical_words": len(r_lemmas),
             "r_repeated_words": len(r_lemmas) - len(new_r_lemmas),
