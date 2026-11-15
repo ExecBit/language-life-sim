@@ -162,19 +162,20 @@ def render(data: dict, a: dict, group_names: dict[str, str], vocabulary: dict) -
         "Лексемы, написания и повторные словоупотребления различаются; технические A/B "
         "и имя Lena исключены только из уникального словаря.",
         "",
-        "| День | Новые R-лексемы | R повторы | Накоплено R-лексем | Разные R-словоформы | R+P примеры: лексемы |",
-        "|---|---:|---:|---:|---:|---:|",
+        "| День | Новые R-лексемы | R-словоупотреблений за день | Накоплено R-лексем | Накоплено R-словоупотреблений | Разные R-словоформы | R+P образцы: лексемы |",
+        "|---|---:|---:|---:|---:|---:|---:|",
     ]
     for item in vocab:
         lines.append(
-            f"| D{item['day']:02} | {item['r_new_lexemes']} | {item['r_repeated_words']} | "
-            f"{item['r_cumulative_lexemes']} | {item['r_cumulative_forms']} | "
-            f"{item['sample_cumulative_lexemes']} |"
+            f"| D{item['day']:02} | {item['r_new_lexemes']} | {item['r_words']} | "
+            f"{item['r_cumulative_lexemes']} | {item['r_cumulative_words']} | "
+            f"{item['r_cumulative_forms']} | {item['sample_cumulative_lexemes']} |"
         )
     lines += [
         "",
         f"**К D21:** {vocab[-1]['r_cumulative_lexemes']} R-лексем, "
-        f"{vocab[-1]['r_cumulative_forms']} разных R-словоформ; "
+        f"{vocab[-1]['r_cumulative_forms']} разных R-словоформ, "
+        f"{vocab[-1]['r_cumulative_words']} накопленных R-словоупотреблений; "
         f"{vocab[-1]['sample_cumulative_lexemes']} лексем при включении P-образцов. "
         "Эта кривая отражает только написанный авторский материал, а не желаемый норматив.",
         "",
