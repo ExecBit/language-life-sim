@@ -69,10 +69,10 @@ def skill_horizons(source: str) -> dict[str, str]:
     return first
 
 def parse_days(source: str) -> tuple[list[dict], dict[str, dict]]:
-    daily_section = between(source, "## 2. Содержание 22 предварительных дней",
+    daily_section = between(source, "## 2. Дневная модель — сюжетные исходы",
                             "## 3. Накопление первых доступных коммуникативных функций")
-    contract_section = between(source, "## 8. Минимальный диалоговый контракт каждого дня",
-                               "## 9. Трассировка всех 13 результатов")
+    contract_section = between(source, "## 7. Минимальный диалоговый контракт каждого дня",
+                               "## 8. Трассировка всех 13 результатов")
     contracts = {}
     for row in contract_section.splitlines():
         match = re.match(r"^\| \*\*D(\d+)\*\* \|", row)
@@ -114,7 +114,7 @@ def parse_days(source: str) -> tuple[list[dict], dict[str, dict]]:
     return days, contracts
 
 def parse_curve(source: str, count: int) -> list[float]:
-    section = source.split("## 7. Ожидаемая кривая сложности языка", 1)
+    section = source.split("## 6. Графическое усложнение доступных смыслов", 1)
     if len(section) != 2:
         raise ValueError("Difficulty section missing")
     match = re.search(r"line\s*\[([0-9.,\s]+)\]", section[1])
