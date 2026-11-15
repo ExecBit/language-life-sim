@@ -299,6 +299,11 @@ function renderSemanticLexicalTable(){
 }
 function renderSemanticIssues(){
  const tbody=byId("sem-issue-list");tbody.replaceChildren();
+ if(!DATA.semantic.issues.length){
+  const tr=document.createElement("tr"),td=document.createElement("td");
+  td.colSpan=3;td.textContent="После проектных исправлений прямых needs_revision нет. Но 13 P-контрактов требуют дополнительной проверки, прежде всего изоляция канала капитана в D21.";
+  tr.append(td);tbody.append(tr);
+ }
  for(const item of DATA.semantic.issues){
   const tr=document.createElement("tr");
   for(const v of [item.event_id,"D"+String(item.day).padStart(2,"0"),item.reason]){
