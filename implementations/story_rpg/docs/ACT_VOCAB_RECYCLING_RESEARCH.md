@@ -108,7 +108,7 @@ python implementations/story_rpg/tools/analyze_lexical_recurrence.py --check
 python implementations/story_rpg/tools/build_day_progression_dashboard.py --check
 ```
 
-Следующим содержательным этапом остаётся **проверка значимых контактов** для выбранного ядра: `needed_R` / `needed_P`, изменения обстоятельств, альтернативные ответы. Простая повторная встреча в немецкой строке не доказывает самостоятельное понимание.
+Первый проход **проверки значимых контактов** выполнен: [ACT_SEMANTIC_CONTACT_REPORT.md](ACT_SEMANTIC_CONTACT_REPORT.md) и [ACT_SEMANTIC_CONTACT_ANNOTATIONS.json](ACT_SEMANTIC_CONTACT_ANNOTATIONS.json). Пока аннотированы 43/212 обязательных R и 45/67 обязательных P, выявлены 7 P-контрактов с препятствиями самостоятельному выражению смысла. **Реальная потребность понять и способность самостоятельно выразить смысл не проверены на игроках.**
 
 ## 7. Порядок решений
 
