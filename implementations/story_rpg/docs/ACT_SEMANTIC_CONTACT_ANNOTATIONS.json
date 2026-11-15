@@ -1058,6 +1058,274 @@
       ],
       "assessment": "supported",
       "reason": "Договориться о личной встрече на завтра. Контраст: Завтра ≠ сейчас."
+    },
+    {
+      "event_id": "D04-S1-P1",
+      "mode": "needed_P",
+      "concept": "status",
+      "anchors": [
+        "Lampe",
+        "sein",
+        "hier"
+      ],
+      "assessment": "supported",
+      "reason": "Сообщить, какой предмет обнаружен при осмотре. Контраст: Отсутствие предмета не равно неисправности."
+    },
+    {
+      "event_id": "D04-S2-P2",
+      "mode": "needed_P",
+      "concept": "health",
+      "anchors": [
+        "ich",
+        "sein",
+        "müde"
+      ],
+      "assessment": "supported",
+      "reason": "Назвать состояние и уйти на отдых. Контраст: Действие не выдаётся за язык."
+    },
+    {
+      "event_id": "D07-S1-P2",
+      "mode": "needed_P",
+      "concept": "location",
+      "anchors": [
+        "wo",
+        "lagerverwalter"
+      ],
+      "assessment": "needs_revision",
+      "reason": "В этой же сцене NPC уже сообщил «Er ist im Lager», поэтому вопрос игрока избыточен."
+    },
+    {
+      "event_id": "D07-S2-P1",
+      "mode": "needed_P",
+      "concept": "ownership",
+      "anchors": [
+        "Schlüssel",
+        "von"
+      ],
+      "assessment": "supported",
+      "reason": "Сообщить владельца, которого игрок знает. Контраст: Владелец не совпадает с получателем."
+    },
+    {
+      "event_id": "D08-S1-P2",
+      "mode": "needed_P",
+      "concept": "remote",
+      "anchors": [
+        "ich",
+        "sein",
+        "am",
+        "gerät"
+      ],
+      "assessment": "supported",
+      "reason": "Подтвердить своё место независимо от видимости. Контраст: Пульт ≠ устройство."
+    },
+    {
+      "event_id": "D08-S2-P2",
+      "mode": "needed_P",
+      "concept": "remote",
+      "anchors": [
+        "mein",
+        "Lampe",
+        "grün"
+      ],
+      "assessment": "supported",
+      "reason": "Сообщить существенный признак, а не случайное да. Контраст: Зелёный ≠ красный."
+    },
+    {
+      "event_id": "D09-S1-P2",
+      "mode": "needed_P",
+      "concept": "status",
+      "anchors": [
+        "Lampe",
+        "kaputt"
+      ],
+      "assessment": "supported",
+      "reason": "Передать факт о состоянии конкретного остатка. Контраст: Один неисправный ≠ два исправных."
+    },
+    {
+      "event_id": "D10-S1-P2",
+      "mode": "needed_P",
+      "concept": "schedule",
+      "anchors": [
+        "haben",
+        "morgen",
+        "Zeit"
+      ],
+      "assessment": "supported",
+      "reason": "Подтвердить собственную доступность. Контраст: Завтра ≠ сегодня."
+    },
+    {
+      "event_id": "D10-S2-P2",
+      "mode": "needed_P",
+      "concept": "schedule",
+      "anchors": [
+        "können",
+        "auch",
+        "kommen"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Герой вправе уточнить участие Лены, но её действительное согласие должно оставаться за NPC."
+    },
+    {
+      "event_id": "D11-S1-P2",
+      "mode": "needed_P",
+      "concept": "permission",
+      "anchors": [
+        "ich",
+        "können",
+        "heute",
+        "helfen"
+      ],
+      "assessment": "supported",
+      "reason": "Сказать о доступности в безопасном месте. Контраст: Могу ≠ обязан."
+    },
+    {
+      "event_id": "D11-S2-P2",
+      "mode": "needed_P",
+      "concept": "permission",
+      "anchors": [
+        "rot",
+        "Schlüssel",
+        "für",
+        "Arzt"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Врач может уже знать своё правило доступа; нужен неосведомлённый адресат или новая цель передачи."
+    },
+    {
+      "event_id": "D13-S1-P2",
+      "mode": "needed_P",
+      "concept": "schedule",
+      "anchors": [
+        "können",
+        "morgen",
+        "zehn"
+      ],
+      "assessment": "supported",
+      "reason": "Согласовать собственное участие. Контраст: Могу ≠ обязательно."
+    },
+    {
+      "event_id": "D14-S1-P2",
+      "mode": "needed_P",
+      "concept": "comparison",
+      "anchors": [
+        "wert",
+        "nicht",
+        "gleich"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Равенство показаний может быть очевидно обоим участникам по панели; подтвердить информационный пробел."
+    },
+    {
+      "event_id": "D14-S2-P2",
+      "mode": "needed_P",
+      "concept": "status",
+      "anchors": [
+        "wir",
+        "müssen",
+        "noch",
+        "prüfen"
+      ],
+      "assessment": "supported",
+      "reason": "Сообщить, что проверка нужна дальше. Контраст: Нельзя объявить исправность без доказательства."
+    },
+    {
+      "event_id": "D15-S1-P2",
+      "mode": "needed_P",
+      "concept": "location",
+      "anchors": [
+        "wo",
+        "ander",
+        "bericht"
+      ],
+      "assessment": "supported",
+      "reason": "Попросить вторую запись для сравнения. Контраст: Вторая запись не лежит автоматически рядом."
+    },
+    {
+      "event_id": "D15-S2-P2",
+      "mode": "needed_P",
+      "concept": "clarification",
+      "anchors": [
+        "verstehen",
+        "nicht",
+        "noch",
+        "einmal"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Просьба о повторе должна быть доступна при реальном непонимании, а не требоваться сценарием в любом случае."
+    },
+    {
+      "event_id": "D16-S1-P2",
+      "mode": "needed_P",
+      "concept": "status",
+      "anchors": [
+        "Sensor",
+        "jetzt",
+        "gut"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Если результат уже виден адресату после заполнения формы, произнесение может стать дублированием."
+    },
+    {
+      "event_id": "D16-S2-P2",
+      "mode": "needed_P",
+      "concept": "relay",
+      "anchors": [
+        "bitte",
+        "senden",
+        "nachricht",
+        "navigator"
+      ],
+      "assessment": "supported",
+      "reason": "Попросить передать сведения нужному адресату. Контраст: Навигатор ≠ снабженец."
+    },
+    {
+      "event_id": "D17-S2-P2",
+      "mode": "needed_P",
+      "concept": "allocation",
+      "anchors": [
+        "bitte",
+        "fragen",
+        "lagerverwalter"
+      ],
+      "assessment": "needs_revision",
+      "reason": "Условное «при необходимости» в P-цели противоречит обязательности ответа; нужен выбор ветки."
+    },
+    {
+      "event_id": "D18-S1-P2",
+      "mode": "needed_P",
+      "concept": "past",
+      "anchors": [
+        "heute",
+        "Tür",
+        "offen"
+      ],
+      "assessment": "needs_revision",
+      "reason": "Немецкое предложение уже дано в R3 этого же эпизода; проверяется копирование, а не самостоятельный рассказ."
+    },
+    {
+      "event_id": "D19-S1-P2",
+      "mode": "needed_P",
+      "concept": "status",
+      "anchors": [
+        "Sensor",
+        "jetzt",
+        "gut"
+      ],
+      "assessment": "supported",
+      "reason": "Отдельно сообщить состояние после проверки. Контраст: Результат ≠ факт выполнения работы."
+    },
+    {
+      "event_id": "D21-S2-P2",
+      "mode": "needed_P",
+      "concept": "past",
+      "anchors": [
+        "gestern",
+        "müde",
+        "heute",
+        "besser"
+      ],
+      "assessment": "supported",
+      "reason": "Связать прошлое и настоящее в бытовой беседе. Контраст: Личное переживание не равно техническому статусу."
     }
   ]
 }
