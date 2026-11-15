@@ -64,6 +64,10 @@ def scene_data() -> dict:
                     raise ValueError(f"Optional scene has guaranteed P: {event['id']}")
                 if event["kind"] not in {"dialog", "form"}:
                     raise ValueError(f"Unknown output kind {event['id']}")
+                if (not isinstance(event.get("after_r"), int)
+                        or isinstance(event["after_r"], bool)
+                        or not (1 <= event["after_r"] <= len(scene["r"]))):
+                    raise ValueError(f"Invalid P turn placement after R at {event['id']}")
                 if not event["slots"]:
                     raise ValueError(f"Missing P semantic tags {event['id']}")
                 for slot in event["slots"]:
