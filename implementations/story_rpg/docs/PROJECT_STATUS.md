@@ -9,7 +9,7 @@
 
 **Аудит возвращения лексики реализован:** [ACT_LEXICAL_RECURRENCE_REPORT.md](ACT_LEXICAL_RECURRENCE_REPORT.md) (цифры по дням, когортам и пробелам), [ACT_LEXICAL_ROLE_CANDIDATES.json](ACT_LEXICAL_ROLE_CANDIDATES.json) (27 кандидатов постоянного ядра, 18 ситуационных, остальные не классифицированы), [analyze_lexical_recurrence.py](../tools/analyze_lexical_recurrence.py) (`--check`) и дополнительные фильтры в [HTML](ACT_DAY_PROGRESSION_DASHBOARD.html). **Гипотезы ролей не утверждены; семантические контракты R/P и сюжет не менялись.**  
 
-**Аудит смысловых R/P-контактов v0.1:** [ACT_SEMANTIC_CONTACT_REPORT.md](ACT_SEMANTIC_CONTACT_REPORT.md) из [событий с проверяемыми якорями](ACT_SEMANTIC_CONTACT_ANNOTATIONS.json), генератор `tools/analyze_semantic_contacts.py`, отдельные графики в HTML. Из обязательных 212 R-событий оценены 43 (39 кандидатов нужного смысла и 4 контекстных), из 67 P — 45. Выявлено **7 случаев, не готовых к учёту как самостоятельная продукция**. Неаннотированные события не объявлены бессмысленными; NPC-реплики и сюжетные исходы не менялись.  
+**Аудит смысловых R/P-контактов v0.1:** [ACT_SEMANTIC_CONTACT_REPORT.md](ACT_SEMANTIC_CONTACT_REPORT.md) из [событий с проверяемыми якорями](ACT_SEMANTIC_CONTACT_ANNOTATIONS.json), генератор `tools/analyze_semantic_contacts.py`, отдельные графики в HTML. Из обязательных 212 R-событий оценены 43 (39 кандидатов нужного смысла и 4 контекстных), из 67 P — все 67. Выявлено **10 случаев, не готовых к учёту как самостоятельная продукция**. Неаннотированные события не объявлены бессмысленными; NPC-реплики и сюжетные исходы не менялись.  
 
 ## Как читать статусы
 
