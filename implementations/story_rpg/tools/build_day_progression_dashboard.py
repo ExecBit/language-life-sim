@@ -23,6 +23,7 @@ from pathlib import Path
 from scene_corpus import scene_data
 from analyze_lexical_recurrence import recurrence_data
 from analyze_semantic_contacts import semantic_data
+from analyze_a0_readiness import a0_readiness_data
 
 DOCS = Path(__file__).resolve().parents[1] / "docs"
 DAY_MAP = DOCS / "ACT_DAY_PROGRESSION_MAP.md"
@@ -337,6 +338,7 @@ def build(html: str, source: str, matrix: str, language: str) -> str:
         "audit": audit, "first": first, "vocab": vocab_data(),
         "load": dialogue_load_data(), "recycling": recurrence_data(),
         "semantic": semantic_data(),
+        "a0_readiness": a0_readiness_data(),
     }
     encoded = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("<", r"\u003c")
     return html[:embedded.start(2)] + encoded + html[embedded.end(2):]
