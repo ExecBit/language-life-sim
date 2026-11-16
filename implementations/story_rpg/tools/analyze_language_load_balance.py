@@ -24,6 +24,7 @@ OUTPUT = DOCS / "LANGUAGE_LOAD_BALANCE_REPORT.md"
 LEXICAL = DOCS / "LANGUAGE_LEXICAL_ANCHORS.json"
 OUTCOMES = DOCS / "LEARNING_OUTCOMES.md"
 CATALOGUE = DOCS / "LANGUAGE_LEXICON.md"
+LEXICAL_CATALOGUE = DOCS / "LANGUAGE_LEXICAL_CATALOG.json"
 STAGES = ["P0", "P1", "P2a", "P2b", "P2c", "P3a", "P3b", "P3c",
           "P4a", "P4b", "P4c", "P5", "P6"]
 FIELDS = ("introduce_m", "introduce_g", "first_p", "revisit_m")
@@ -398,6 +399,122 @@ def outcome_stage_report(doc: dict) -> tuple[str, list[str]]:
     return "\n".join(lines) + "\n", sorted(errors)
 
 
+
+def lexical_catalogue_audit(doc: dict) -> list[str]:
+    """Validate independent source, candidate RU glosses and F1 references.
+
+    A static check; it does not execute F1 or assess actual language learning.
+    """
+    errors = []
+    source = {}
+    for line in CATALOGUE.read_text(encoding="utf-8").splitlines():
+        parts = [x.strip() for x in line.split("|")[1:-1]]
+        if len(parts) != 6 or not parts[0].isdigit():
+            continue
+        number = int(parts[0])
+        source[number] = {
+            "horizon": parts[1].replace("**", ""),
+            "domain": parts[2],
+            "functions": re.findall(r"M\d{2}", parts[3]),
+            "productive": re.findall(r"\x60([^\x60]+)\x60", parts[4]),
+            "receptive": re.findall(r"\x60([^\x60]+)\x60", parts[5]),
+        }
+    data = json.loads(LEXICAL_CATALOGUE.read_text(encoding="utf-8"))
+    groups = data.get("groups", [])
+    entries = data.get("entries", [])
+    indexed = {item.get("text"): item for item in entries}
+    expected = defaultdict(list)
+    for number, group in source.items():
+        for role in ("productive", "receptive"):
+            for expression in group[role]:
+                expected[expression].append((number, role))
+    if len(source) != 29 or len(groups) != 29:
+        errors.append("F1 source must contain 29 independent groups")
+    for group in groups:
+        number = group["group"]
+        spec = source.get(number)
+        if spec is None or any(group.get(k) != spec[k] for k in (
+            "horizon", "domain", "functions", "productive", "receptive"
+        )):
+            errors.append(f"F1 catalogue group {number} diverges from source")
+    if set(indexed) != set(expected) or len(indexed) != len(entries):
+        errors.append("F1 catalogue entries mismatch independent source")
+    for expression, item in indexed.items():
+        refs = [(r["group"], r["role"]) for r in item.get("occurrences", [])]
+        if Counter(refs) != Counter(expected.get(expression, [])):
+            errors.append(f"F1 occurrence mismatch: {expression}")
+        if not item.get("draft_ru_meanings") or not all(
+            isinstance(x, str) and x.strip() for x in item["draft_ru_meanings"]
+        ):
+            errors.append(f"F1 missing Russian gloss: {expression}")
+    stats = data.get("validation", {})
+    if (stats.get("groups") != len(source)
+        or stats.get("unique_strings") != len(expected)
+        or stats.get("occurrences") != sum(map(len, expected.values()))):
+        errors.append("F1 catalogue summary counts stale")
+
+    def tokenize(value: str) -> list[str]:
+        return re.findall(r"[a-zäöüß]+", value.lower())
+
+    vocabulary = {w for entry in entries for w in tokenize(entry["text"])}
+    pairs = [pair for item in doc["items"]
+             for pair in item.get("language_example_checks", [])]
+    used_forms = {w for p in pairs
+                  for key in ("example_A_de", "example_B_de")
+                  for w in tokenize(p[key])}
+    no_exact = used_forms - vocabulary
+    aliases = data.get("program_form_alias_candidates", [])
+    if {x.get("observed_form") for x in aliases} != no_exact:
+        errors.append("F1 form aliases stale versus German A/B corpus")
+    if len(pairs) < len(doc["items"]):
+        errors.append("Every language unit needs a German A/B contrast")
+    audit = data.get("program_german_form_audit", {})
+    if (audit.get("unique_example_wordforms") != len(used_forms)
+        or audit.get("exact_surface_token_matches") != len(used_forms - no_exact)
+        or audit.get("needs_normalization") != len(no_exact)):
+        errors.append("F1 German wordform audit stale")
+
+    lookup = data.get("f1_candidate_search", {})
+    if not lookup.get("aliases") or not lookup.get("reverse_ru_queries"):
+        errors.append("F1 candidate lookup has no morphological/reverse data")
+    for item in lookup.get("aliases", []):
+        if not item.get("surface") or item.get("lemma") not in indexed:
+            errors.append(f"F1 alias target absent: {item}")
+    for item in lookup.get("reverse_ru_queries", []):
+        if not item.get("query_ru") or not item.get("candidate_de"):
+            errors.append(f"F1 empty Russian reverse lookup: {item}")
+        for target in item.get("candidate_de", []):
+            if target not in indexed:
+                errors.append(f"F1 reverse query target absent: {target}")
+    for item in lookup.get("ambiguity_groups", []):
+        if not item.get("distinction") or not item.get("forms"):
+            errors.append(f"F1 incomplete ambiguous meaning group: {item}")
+        for target in item.get("forms", []):
+            if target not in indexed:
+                errors.append(f"F1 ambiguous meaning target absent: {target}")
+
+    cases = doc.get("independent_outcome_assessments", {}).get("cases", [])
+    if (len(cases) != 13
+        or sum(x.get("kind") == "reading" for x in cases) != 6
+        or sum(x.get("kind") == "free_writing" for x in cases) != 7):
+        errors.append("LO cases must include 6 R and 7 independent W")
+    reading_forms = {w for case in cases if case.get("kind") == "reading"
+                     for key in ("variant_A_de", "variant_B_de")
+                     for w in tokenize(case["stimulus"][key])}
+    missing_reading = reading_forms - vocabulary
+    ra = data.get("independent_assessment_receptive_forms", {})
+    if (ra.get("forms") != len(reading_forms)
+        or ra.get("unmatched") != len(missing_reading)
+        or {x.get("form") for x in ra.get("unmatched_forms", [])}
+            != missing_reading):
+        errors.append("F1 independent reading wordforms audit stale")
+    productive = sum(len(x.get("independent_production_checks", []))
+                     for x in doc["items"])
+    if productive != 42:
+        errors.append(f"Free-writing first P cases: {productive} != 42")
+    return sorted(set(errors))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
@@ -412,6 +529,7 @@ def main() -> int:
     errors.extend(lexical_errors)
     outcome_appendix, outcome_errors = outcome_stage_report(doc)
     errors.extend(outcome_errors)
+    errors.extend(lexical_catalogue_audit(doc))
     if errors:
         print("FAIL: " + "\nFAIL: ".join(errors), file=sys.stderr)
         return 1
@@ -426,7 +544,7 @@ def main() -> int:
     if OUTPUT.read_text(encoding="utf-8") != expected:
         print("FAIL: language load report is outdated; use --write", file=sys.stderr)
         return 1
-    print(f"PASS: 55 M, 34 G, 42 first P, {len(doc['items'])} language units; lexical anchors valid")
+    print(f"PASS: 55 M, 34 G, 42 first P, {len(doc['items'])} language units; lexical anchors, Russian glosses, and F1 candidate references valid")
     return 0
 
 
