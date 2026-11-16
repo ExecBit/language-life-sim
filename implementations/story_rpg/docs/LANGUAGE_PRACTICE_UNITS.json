@@ -1,5 +1,5 @@
 {
-  "version": "0.9",
+  "version": "1.0",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -20,7 +20,9 @@
     "P6 has distributed integration rather than a single nine-target mega-test: a P6 unit contains at most five planned revisits and never new required M/G.",
     "outcome_candidates provide earlier practice and P6 transfer candidates for each 6 R + 7 W LO; they are not an exam, passing score or proof of mastery.",
     "Independent first-R prerequisites for M08/M22/M27/M30/M55 and G24/G25/G32 are explicitly covered by the lexical anchor schedule.",
-    "P1 load smoothed: bringen is first semantically needed with a recipient, krank is introduced in a short personal-message genre; early A0 still has brauchen/Wasser and müde."
+    "P1 load smoothed: bringen is first semantically needed with a recipient, krank is introduced in a short personal-message genre; early A0 still has brauchen/Wasser and müde.",
+    "53 neutral German contrast pairs from the temporary 53-unit draft were merged into this canonical 73-unit plan; no other language plan is authoritative.",
+    "language_example_checks are proposed German A/B substitutions and do not demonstrate empirical understanding or engine/parser support."
   ],
   "horizon_units": {
     "P0": 8,
@@ -62,7 +64,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Hallo!",
+          "example_B_de": "Tschüss!",
+          "critical_meaning_ru": "Контакт начинается или завершается",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P0",
@@ -93,7 +105,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Komm bitte.",
+          "example_B_de": "Komm bitte nicht.",
+          "critical_meaning_ru": "Просьба совершить действие против просьбы не совершать его",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P0",
@@ -122,7 +144,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich verstehe nicht.",
+          "example_B_de": "Ich verstehe.",
+          "critical_meaning_ru": "Выражено непонимание или понимание; первая формулировка никогда не навязывается",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P0",
@@ -153,7 +185,25 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Nimm die Tasse.",
+          "example_B_de": "Nimm das Buch.",
+          "critical_meaning_ru": "Нужный объект меняется; предметы не подсвечиваются",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        },
+        {
+          "example_A_de": "Nimm das Buch.",
+          "example_B_de": "Zeig das Buch.",
+          "critical_meaning_ru": "Взять предмет против показать",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P0",
@@ -182,7 +232,8 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P0",
@@ -212,7 +263,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin Mia.",
+          "example_B_de": "Du bist Mia.",
+          "critical_meaning_ru": "Меняется лицо, к которому относится имя; имена произвольны",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P0",
@@ -231,7 +292,8 @@
       "id": "P0-07",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P0",
@@ -247,7 +309,8 @@
       "id": "P0-08",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P1",
@@ -275,7 +338,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich heiße Mia.",
+          "example_B_de": "Ich heiße Tom.",
+          "critical_meaning_ru": "Говорящий сообщает другое имя, его нельзя подставить заранее",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -311,7 +384,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Wo ist das Buch?",
+          "example_B_de": "Wer hat das Buch?",
+          "critical_meaning_ru": "Вопрос о месте против вопроса о человеке",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -339,7 +422,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tür ist offen.",
+          "example_B_de": "Die Tür ist zu.",
+          "critical_meaning_ru": "Изменяется состояние одного предмета",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -370,7 +463,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich habe das Buch.",
+          "example_B_de": "Ich habe kein Buch.",
+          "critical_meaning_ru": "Наличие предмета против отсутствия",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -399,7 +502,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich brauche die Tasse.",
+          "example_B_de": "Ich brauche das Buch.",
+          "critical_meaning_ru": "Нужно запросить конкретный предмет без готовой строки",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -432,7 +545,8 @@
       ],
       "outcome_candidates": [
         "LO-W02"
-      ]
+      ],
+      "language_example_checks": []
     },
     {
       "stage": "P1",
@@ -458,7 +572,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin müde.",
+          "example_B_de": "Ich habe Durst.",
+          "critical_meaning_ru": "Состояние усталости против потребности в питье",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -489,7 +613,8 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P1",
@@ -515,7 +640,8 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P1",
@@ -544,7 +670,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Zwei Tassen.",
+          "example_B_de": "Drei Tassen.",
+          "critical_meaning_ru": "Разное необходимое количество одинакового предмета",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -579,7 +715,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tür ist hier.",
+          "example_B_de": "Das Fenster ist hier.",
+          "critical_meaning_ru": "Нужно узнать, какой объект назван, без визуальной подсветки",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -608,7 +754,8 @@
       ],
       "outcome_candidates": [
         "LO-W01"
-      ]
+      ],
+      "language_example_checks": []
     },
     {
       "stage": "P2a",
@@ -641,7 +788,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Das ist mein Buch.",
+          "example_B_de": "Das ist dein Buch.",
+          "critical_meaning_ru": "Принадлежность игроку против собеседника",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P2a",
@@ -661,7 +818,8 @@
       "id": "P2a-02",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P2a",
@@ -688,6 +846,16 @@
       ],
       "outcome_candidates": [
         "LO-R01"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Du kommst morgen.",
+          "example_B_de": "Sie kommen morgen.",
+          "critical_meaning_ru": "Адресная форма отличается; нужно определить регистр и адресата, а не только действие",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
       ]
     },
     {
@@ -717,7 +885,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich möchte Tee.",
+          "example_B_de": "Ich habe Tee.",
+          "critical_meaning_ru": "Желание получить чай отличается от обладания",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P2a",
@@ -735,7 +913,17 @@
       "id": "P2a-05",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin froh.",
+          "example_B_de": "Ich bin traurig.",
+          "critical_meaning_ru": "Меняется переданное эмоциональное состояние",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P2b",
@@ -774,7 +962,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Gib mir das Buch.",
+          "example_B_de": "Gib ihm das Buch.",
+          "critical_meaning_ru": "Получатель действия меняется; смысл определяется немецкими словами",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P2b",
@@ -810,7 +1008,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Das Buch ist im Zimmer.",
+          "example_B_de": "Bring das Buch ins Zimmer.",
+          "critical_meaning_ru": "Статичное местоположение против переноса в указанное место",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P2b",
@@ -839,7 +1047,8 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P2b",
@@ -875,7 +1084,8 @@
       ],
       "outcome_candidates": [
         "LO-R03"
-      ]
+      ],
+      "language_example_checks": []
     },
     {
       "stage": "P2b",
@@ -904,7 +1114,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich habe zwei Bücher.",
+          "example_B_de": "Ich habe drei Bücher.",
+          "critical_meaning_ru": "Разное количество при неизменном объекте",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P2b",
@@ -928,7 +1148,8 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P2c",
@@ -954,7 +1175,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tasse ist leer.",
+          "example_B_de": "Die Tasse ist voll.",
+          "critical_meaning_ru": "Собеседник не знает, каково состояние предмета",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P2c",
@@ -983,7 +1214,8 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P2c",
@@ -1013,7 +1245,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Du darfst nicht gehen.",
+          "example_B_de": "Du musst nicht gehen.",
+          "critical_meaning_ru": "Запрет идти против отсутствия обязанности идти",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P2c",
@@ -1037,7 +1279,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Der Kurs fängt um acht an.",
+          "example_B_de": "Der Kurs hört um acht auf.",
+          "critical_meaning_ru": "Начало в восемь против окончания в восемь; требуется распознать отделяемый глагол",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P2c",
@@ -1061,7 +1313,8 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P3a",
@@ -1093,7 +1346,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich arbeite oft am Montag.",
+          "example_B_de": "Ich arbeite nie am Montag.",
+          "critical_meaning_ru": "Частое действие против отсутствия привычного действия",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P3a",
@@ -1139,6 +1402,16 @@
       ],
       "outcome_candidates": [
         "LO-R04"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Am Montag bin ich frei.",
+          "example_B_de": "Am Montag bin ich beschäftigt.",
+          "critical_meaning_ru": "Доступность меняется при неизменном дне",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
       ]
     },
     {
@@ -1172,7 +1445,8 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P3a",
@@ -1203,7 +1477,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Komm morgen um zehn.",
+          "example_B_de": "Komm morgen um zwölf.",
+          "critical_meaning_ru": "Меняется критический час",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P3a",
@@ -1234,7 +1518,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Zuerst nimmst du das Buch, dann die Tasse.",
+          "example_B_de": "Zuerst nimmst du die Tasse, dann das Buch.",
+          "critical_meaning_ru": "Порядок двух действий меняется",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P3b",
@@ -1274,6 +1568,16 @@
       "outcome_candidates": [
         "LO-R02",
         "LO-W03"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Du musst nicht kommen.",
+          "example_B_de": "Du darfst nicht kommen.",
+          "critical_meaning_ru": "Отсутствие обязанности против прямого запрета",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
       ]
     },
     {
@@ -1294,7 +1598,17 @@
       "id": "P3b-02",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Morgen komme ich.",
+          "example_B_de": "Heute komme ich.",
+          "critical_meaning_ru": "День плана меняется, адресату нужно сообщить",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P3b",
@@ -1327,7 +1641,8 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P3b",
@@ -1345,7 +1660,17 @@
       "id": "P3b-04",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich lese gern.",
+          "example_B_de": "Ich spiele gern.",
+          "critical_meaning_ru": "Вид интереса отличается; не требовать выдуманного хобби NPC",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P3c",
@@ -1371,7 +1696,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich möchte Wasser.",
+          "example_B_de": "Ich möchte Tee.",
+          "critical_meaning_ru": "Из двух известных вариантов предпочтителен другой",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P3c",
@@ -1407,7 +1742,8 @@
       ],
       "outcome_candidates": [
         "LO-W04"
-      ]
+      ],
+      "language_example_checks": []
     },
     {
       "stage": "P3c",
@@ -1438,7 +1774,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich hätte gern Tee.",
+          "example_B_de": "Ich habe Tee.",
+          "critical_meaning_ru": "Вежливая просьба о чае против утверждения обладания",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P3c",
@@ -1462,7 +1808,8 @@
       ],
       "outcome_candidates": [
         "LO-R05"
-      ]
+      ],
+      "language_example_checks": []
     },
     {
       "stage": "P3c",
@@ -1489,7 +1836,8 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P3c",
@@ -1505,7 +1853,8 @@
       "id": "P3c-06",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P3c",
@@ -1526,6 +1875,16 @@
       "lexical_anchors": [],
       "outcome_candidates": [
         "LO-R06"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tasse ist groß, aber das Buch ist klein.",
+          "example_B_de": "Die Tasse ist klein, aber das Buch ist groß.",
+          "critical_meaning_ru": "Свойства двух объектов меняются местами",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
       ]
     },
     {
@@ -1558,7 +1917,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die rote Tasse ist größer.",
+          "example_B_de": "Die blaue Tasse ist größer.",
+          "critical_meaning_ru": "Какой предмет больше, меняется только по немецкому описанию",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P4a",
@@ -1589,7 +1958,8 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P4a",
@@ -1618,7 +1988,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich habe das Buch. Ich brauche die Tasse.",
+          "example_B_de": "Ich habe das Buch. Ich brauche Wasser.",
+          "critical_meaning_ru": "Меняется лишь второй необходимый смысл",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P4a",
@@ -1647,7 +2027,8 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": []
     },
     {
       "stage": "P4b",
@@ -1682,7 +2063,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin morgen nicht da.",
+          "example_B_de": "Ich bin heute nicht da.",
+          "critical_meaning_ru": "Нельзя спутать день недоступности",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P4b",
@@ -1712,7 +2103,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Tom ist mein Bruder.",
+          "example_B_de": "Tom ist mein Freund.",
+          "critical_meaning_ru": "Человек назван братом либо другом; имена только заменяемые тестовые данные",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P4b",
@@ -1751,6 +2152,16 @@
       ],
       "outcome_candidates": [
         "LO-W06"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Name: Mia. Tag: Montag.",
+          "example_B_de": "Name: Mia. Tag: Dienstag.",
+          "critical_meaning_ru": "Меняется только одно значение в известной форме",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
       ]
     },
     {
@@ -1770,7 +2181,17 @@
       "id": "P4c-01",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich lese gern.",
+          "example_B_de": "Ich spiele gern.",
+          "critical_meaning_ru": "План совместного занятия зависит от свободно переданного предпочтения",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P4c",
@@ -1805,7 +2226,17 @@
           "obligation": "contextual_optional"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tasse ist zu groß.",
+          "example_B_de": "Die Tasse ist klein.",
+          "critical_meaning_ru": "Размер становится препятствием, а не обычным описанием",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P4c",
@@ -1838,6 +2269,16 @@
       ],
       "outcome_candidates": [
         "LO-W07"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin krank. Komm morgen.",
+          "example_B_de": "Ich bin gesund. Komm morgen.",
+          "critical_meaning_ru": "Первый из двух связанных пунктов изменён, второй сохранён",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
       ]
     },
     {
@@ -1870,7 +2311,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Gestern war die Tür offen.",
+          "example_B_de": "Heute ist die Tür offen.",
+          "critical_meaning_ru": "Прошлый факт нельзя считать текущим",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P5",
@@ -1901,6 +2352,16 @@
       ],
       "outcome_candidates": [
         "LO-W05"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich habe das Buch gefunden.",
+          "example_B_de": "Ich habe die Tasse gefunden.",
+          "critical_meaning_ru": "Меняется объект законченного действия",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
       ]
     },
     {
@@ -1926,7 +2387,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Der Zug ist angekommen.",
+          "example_B_de": "Der Zug kommt jetzt an.",
+          "critical_meaning_ru": "Прибыл в прошлом против прибывает сейчас: Perfekt с sein",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P5",
@@ -1956,7 +2427,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Morgen gehe ich.",
+          "example_B_de": "Heute gehe ich.",
+          "critical_meaning_ru": "День будущего плана изменён",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P5",
@@ -1985,7 +2466,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich spiele gern.",
+          "example_B_de": "Ich lese gern.",
+          "critical_meaning_ru": "Личное предпочтение применено в новом сообщении",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P5",
@@ -2008,7 +2499,17 @@
           "obligation": "functional_candidate"
         }
       ],
-      "outcome_candidates": []
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich habe das Buch gefunden. Es ist hier.",
+          "example_B_de": "Ich habe das Buch gefunden. Es ist dort.",
+          "critical_meaning_ru": "Получатель узнаёт новое местонахождение после сообщения о находке",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ]
     },
     {
       "stage": "P6",
@@ -2032,6 +2533,16 @@
         "LO-R01",
         "LO-R03",
         "LO-R04"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Komm am Montag. Ich bin frei.",
+          "example_B_de": "Komm am Dienstag. Ich bin frei.",
+          "critical_meaning_ru": "В новом коротком сообщении меняется один критический факт",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
       ]
     },
     {
@@ -2055,6 +2566,16 @@
       "outcome_candidates": [
         "LO-R02",
         "LO-W03"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Das Buch ist hier. Die Tasse ist dort.",
+          "example_B_de": "Das Buch ist dort. Die Tasse ist dort.",
+          "critical_meaning_ru": "Из двух независимых сведений изменено одно",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
       ]
     },
     {
@@ -2077,6 +2598,16 @@
       "outcome_candidates": [
         "LO-R05",
         "LO-W04"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Du musst heute nicht arbeiten.",
+          "example_B_de": "Du darfst heute nicht arbeiten.",
+          "critical_meaning_ru": "Снова отличить отсутствие обязанности от запрета в ином контексте",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
       ]
     },
     {
@@ -2098,7 +2629,8 @@
       "outcome_candidates": [
         "LO-R06",
         "LO-W05"
-      ]
+      ],
+      "language_example_checks": []
     },
     {
       "stage": "P6",
@@ -2121,7 +2653,26 @@
         "LO-W02",
         "LO-W06",
         "LO-W07"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Das Buch ist hier. Komm morgen.",
+          "example_B_de": "Das Buch ist dort. Komm morgen.",
+          "critical_meaning_ru": "В новом сообщении изменяется расположение предмета, не просьба",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        },
+        {
+          "example_A_de": "Ich brauche das Buch am Dienstag.",
+          "example_B_de": "Ich brauche das Buch am Montag.",
+          "critical_meaning_ru": "Новая независимая смысловая задача; образец одной из 13 LO, не весь экзамен",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
       ]
     }
-  ]
+  ],
+  "example_checks_count": 53
 }
