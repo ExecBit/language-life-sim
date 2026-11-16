@@ -1,5 +1,5 @@
 {
-  "version": "0.9",
+  "version": "1.0",
   "status": "balanced_language_only_draft_partially_concrete_probe_specified_not_playtested",
   "purpose": "Candidate language-practice sequence for smoothing new meaningful R/P/grammar loads, independent of any storyline.",
   "provenance": [
@@ -40,7 +40,6 @@
     "empty_intro": [
       "LU42",
       "LU46",
-      "LU47",
       "LU48",
       "LU49",
       "LU50",
@@ -58,7 +57,8 @@
       "G17: LU18→LU20",
       "M20 firstP: LU19→LU22",
       "M37 firstP: LU25→LU31",
-      "M28 firstP: LU35→LU36"
+      "M28 firstP: LU35→LU36",
+      "G15: LU17→LU21 — объект действия при запрете"
     ],
     "grammar_semantically_grouped": true,
     "stage_load_components": {
@@ -84,7 +84,7 @@
         "newP": 9,
         "newG": 6,
         "newLexicalExamples": 19,
-        "revisits": 8
+        "revisits": 7
       },
       "P3": {
         "units": 10,
@@ -92,7 +92,7 @@
         "newP": 10,
         "newG": 7,
         "newLexicalExamples": 20,
-        "revisits": 13
+        "revisits": 10
       },
       "P4": {
         "units": 8,
@@ -100,7 +100,7 @@
         "newP": 6,
         "newG": 3,
         "newLexicalExamples": 15,
-        "revisits": 18
+        "revisits": 21
       },
       "P5": {
         "units": 6,
@@ -108,7 +108,7 @@
         "newP": 2,
         "newG": 3,
         "newLexicalExamples": 12,
-        "revisits": 10
+        "revisits": 11
       },
       "P6": {
         "units": 5,
@@ -1260,9 +1260,7 @@
       "first_P": [
         "M17"
       ],
-      "new_grammar_R": [
-        "G15"
-      ],
+      "new_grammar_R": [],
       "revisit": [],
       "semantic_contrast": "два/три; предмет неизменен",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1272,14 +1270,12 @@
       "existing_support": [],
       "new_required_meanings": 0,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 0,
       "independent_R_facts": 0,
       "independent_P_intents": 1,
       "revisits_in_new_context": 0,
       "new_MR_names": [],
-      "new_grammar_names": [
-        "Личные местоимения Akkusativ `mich/dich/ihn/sie/es`"
-      ],
+      "new_grammar_names": [],
       "lexical_support_examples": [
         "drei",
         "vier"
@@ -1552,13 +1548,15 @@
       "id": "LU21",
       "horizon": "P2",
       "microstep": "P2c",
-      "focus": "Возможность и обязанность",
+      "focus": "Понять запрет, объект действия и отсутствие обязанности",
       "first_R": [
         "M18",
         "M54"
       ],
       "first_P": [],
-      "new_grammar_R": [],
+      "new_grammar_R": [
+        "G15"
+      ],
       "revisit": [
         "M04",
         "M05"
@@ -1571,7 +1569,7 @@
       "existing_support": [],
       "new_required_meanings": 2,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 0,
+      "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 0,
       "revisits_in_new_context": 2,
@@ -1579,7 +1577,9 @@
         "Сообщить возможность, обязанность, запрет",
         "Различать смысл изменения отрицания и модальности"
       ],
-      "new_grammar_names": [],
+      "new_grammar_names": [
+        "Личные местоимения Akkusativ `mich/dich/ihn/sie/es`"
+      ],
       "lexical_support_examples": [
         "dürfen",
         "müssen"
