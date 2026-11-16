@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.2",
   "status": "independent_grammar_contrast_bank_not_player_verified",
   "sources": [
     "LANGUAGE_DESIGN.md",
@@ -38,19 +38,26 @@
     },
     {
       "id": "G06",
-      "unit": "P0-02",
+      "unit": "P0-07",
       "horizon": "P0",
-      "semantic_M": "M07",
+      "semantic_M": "M06",
       "minimum": "P",
-      "example_A": "Du kommst.",
-      "example_B": "Kommst du?",
-      "meaning_difference": "Утверждение против вопроса",
+      "example_A": "Das ist die Tasse.",
+      "example_B": "Ist das die Tasse?",
+      "meaning_difference": "Утверждение об одном знакомом предмете против вопроса о том же предмете; порядок слов сообщает тип высказывания.",
       "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
       "constraints": [
         "No hidden story, NPC identity or game day",
         "F1 or normal context supports words not yet necessary as independent vocabulary",
         "Grammar accuracy in production is never stronger than its source M semantic minimum"
-      ]
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Отличить утверждение Das ist … от вопроса Ist das …? о том же ранее названном предмете; показать контраст немецким текстом, не русской UI-меткой.",
+        "ordered_after": "P0-04 (die Tasse), P0-06 (sein); P0-02 остаётся только Ja/Nein",
+        "independent_contact": "Совпадает с основной A/B-парой P0-07; отдельная обязательная встреча не нужна.",
+        "productive_followup": "Первые самостоятельные вопросы M06 в P1-12; при A0 не требовать самостоятельной инверсии и идеальной формы.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
     },
     {
       "id": "G08",
@@ -86,7 +93,7 @@
     },
     {
       "id": "G03",
-      "unit": "P0-07",
+      "unit": "P0-06",
       "horizon": "P0",
       "semantic_M": "M11",
       "minimum": "P",
@@ -98,7 +105,14 @@
         "No hidden story, NPC identity or game day",
         "F1 or normal context supports words not yet necessary as independent vocabulary",
         "Grammar accuracy in production is never stronger than its source M semantic minimum"
-      ]
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "sein: Ich bin … / Du bist … как известные роли; не требует противопоставления неизвестному haben на P0",
+        "extension": "sein vs haben с знакомыми Ich habe … / Ich bin … после первого появления haben в P1",
+        "ordered_after": "P0-04 (названные предметы), P0-06 (ich/du)",
+        "grammatical_scope": "R: первые формы sein; P-смысл проверяется позже, точность спряжения не нужна",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
     },
     {
       "id": "G09",
@@ -258,7 +272,14 @@
         "No hidden story, NPC identity or game day",
         "F1 or normal context supports words not yet necessary as independent vocabulary",
         "Grammar accuracy in production is never stronger than its source M semantic minimum"
-      ]
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Dieses Buch, bitte. указывает определённый знакомый предмет; Welches Buch? спрашивает, какой именно.",
+        "ordered_after": "P0-04 (Buch), P1-02 (W-вопрос), P1-03 (свойства/выбор известного предмета)",
+        "independent_contact": "Отдельное R-различие после контактов о месте предмета и помощи внутри P1-11; не считать две существующие пары проверкой G25.",
+        "productive_followup": "Предмет можно уточнять коротким welches Buch? / das Buch; не требовать безошибочных окончаний dieses/welches.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
     },
     {
       "id": "G14",
@@ -290,7 +311,14 @@
         "No hidden story, NPC identity or game day",
         "F1 or normal context supports words not yet necessary as independent vocabulary",
         "Grammar accuracy in production is never stronger than its source M semantic minimum"
-      ]
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Ich sehe dich. / Ich sehe ihn. — один говорящий и одно действие, но другой объект/получатель взгляда.",
+        "ordered_after": "P0-06 (ich/du), P2a-02 первая R-пара er/sie как указание на референта; видеть/sehen доступно в F1.",
+        "independent_contact": "Отдельная R-пара внутри P2a-02 после распознавания er/sie; два явно известные референта, не угадывать по русскому интерфейсу.",
+        "productive_followup": "Не требовать точного Akkusativ-окончания; различие получателя действия продуктивно становится критично при M14 в P2b-01.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
     },
     {
       "id": "G16",
@@ -438,7 +466,7 @@
     },
     {
       "id": "G23",
-      "unit": "P3c-01",
+      "unit": "P3c-02",
       "horizon": "P3c",
       "semantic_M": "M31",
       "minimum": "P",
@@ -450,7 +478,14 @@
         "No hidden story, NPC identity or game day",
         "F1 or normal context supports words not yet necessary as independent vocabulary",
         "Grammar accuracy in production is never stronger than its source M semantic minimum"
-      ]
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Ich mag Tee. — нравится как устойчивый факт; Ich möchte Tee. — хочется сейчас / просьба.",
+        "ordered_after": "P2c-05 первое R желания, P3c-01 самостоятельное möchte, P3c-02 первое R/P предпочтения mögen",
+        "independent_contact": "В P3c-02 после первой основной пары mag Wasser/Tee; один знакомый предмет и одна изменяемая семантика, а не новая тема еды.",
+        "productive_followup": "Принимается понятная краткая форма; не путать общую симпатию с конкретной текущей просьбой.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
     },
     {
       "id": "G33",
@@ -546,7 +581,14 @@
         "No hidden story, NPC identity or game day",
         "F1 or normal context supports words not yet necessary as independent vocabulary",
         "Grammar accuracy in production is never stronger than its source M semantic minimum"
-      ]
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Ich habe das Buch gefunden. сообщает о завершённом событии; Ich finde das Buch. — действие в настоящем.",
+        "ordered_after": "P5-01 различение прошлого/настоящего с war/ist, P5-02 отдельный R-контраст G29 перед самостоятельным P результата",
+        "independent_contact": "Основная пара P5-02 различает объект завершённого действия; отдельный G29 R проверяет временную завершённость на одном объекте.",
+        "productive_followup": "Свободное P M51: фактический результат и объект; допускается ясная неполная грамматика, не считать точный Partizip II обязательным.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
     },
     {
       "id": "G30",
