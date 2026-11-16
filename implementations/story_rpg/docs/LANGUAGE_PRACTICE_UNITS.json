@@ -1,5 +1,5 @@
 {
-  "version": "1.7",
+  "version": "1.8",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -279,7 +279,13 @@
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
-      ]
+      ],
+      "a0_readiness_review": {
+        "risk": "5 первых немецких словоформ в A/B-примере, одновременно новый Imperativ и предметы",
+        "mitigation": "Сначала один знакомый предмет и значение 'nimm', затем второй предмет как различие; разрешён F1, нельзя выдавать русскую подсветку правильного объекта.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      }
     },
     {
       "stage": "P0",
@@ -360,7 +366,13 @@
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
       ],
-      "independent_production_checks": []
+      "independent_production_checks": [],
+      "a0_readiness_review": {
+        "risk": "ich bin / du bist — две личные формы при первом знакомстве с ролями",
+        "mitigation": "Рецептивно опираться на ясное различие говорящего и адресата; собственного полного предложения ещё не требовать до P1-01.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      }
     },
     {
       "stage": "P0",
@@ -390,7 +402,13 @@
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
       ],
-      "independent_production_checks": []
+      "independent_production_checks": [],
+      "a0_readiness_review": {
+        "risk": "инверсия Du kommst / Kommst du? требует узнать две формы одного глагола",
+        "mitigation": "Предварительно дать нейтральный поиск kommen / kommst через F1 и ясный интонационно-письменный контекст вопроса; не считать 'попал в кнопку' доказательством чтения.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      }
     },
     {
       "stage": "P0",
@@ -559,7 +577,13 @@
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
-      ]
+      ],
+      "a0_readiness_review": {
+        "risk": "wo/wer одновременно меняют семантическую цель вопроса",
+        "mitigation": "Два последовательных коротких контакта — сначала где, потом кто; свободный P разрешает недостающую грамматику, если цель вопроса понятна.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      }
     },
     {
       "stage": "P1",
@@ -950,7 +974,13 @@
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
       ],
-      "independent_production_checks": []
+      "independent_production_checks": [],
+      "a0_readiness_review": {
+        "risk": "es gibt / kein могут быть прочтены как одна неизвестная фраза при G32",
+        "mitigation": "Показать значение общего наличия отдельно от отрицания, не требуя писать G32 самостоятельно; поиск F1 по обеим устойчивым формам.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      }
     },
     {
       "stage": "P1",
@@ -1046,7 +1076,13 @@
           "content_review": "aligned_with_unit_goal_2026-11-16"
         }
       ],
-      "independent_production_checks": []
+      "independent_production_checks": [],
+      "a0_readiness_review": {
+        "risk": "помощь и местоположение предмета — две разные коммуникативные цели в одной LU",
+        "mitigation": "Разделить первые R-контакты по намерению внутри единицы; помощь не должна угадываться по картинке или автоматически выбираться.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      }
     },
     {
       "stage": "P1",
@@ -1492,7 +1528,13 @@
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
-      ]
+      ],
+      "a0_readiness_review": {
+        "risk": "im/ins и новые место/назначение могут дать одновременную морфологическую и пространственную новизну",
+        "mitigation": "Сначала знакомые Buch/Zimmer и один контраст wo/wohin; форму Akkusativ требовать только рецептивно, P с понятным направлением принять без идеального окончания.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      }
     },
     {
       "stage": "P2b",
@@ -1849,7 +1891,13 @@
         }
       ],
       "independent_production_checks": [],
-      "scaffolding_note": "Первое R M18/M54 — распознавание целых знакомых формул nicht dürfen / nicht müssen при доступном F1. Продуктивное обобщение модальной грамматики G22 и первое P остаются P3b-01; нельзя требовать в P2c построить новые формы произвольно."
+      "scaffolding_note": "Первое R M18/M54 — распознавание целых знакомых формул nicht dürfen / nicht müssen при доступном F1. Продуктивное обобщение модальной грамматики G22 и первое P остаются P3b-01; нельзя требовать в P2c построить новые формы произвольно.",
+      "a0_readiness_review": {
+        "risk": "обязательные R-значения modals M18/M54 появляются до полного введения G22",
+        "mitigation": "Только рецепция фиксированных пар nicht dürfen / nicht müssen с F1; продуктивная модальность и свободное комбинирование вводятся позднее P3b-01.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      }
     },
     {
       "stage": "P2c",
@@ -1895,7 +1943,13 @@
         }
       ],
       "independent_production_checks": [],
-      "scaffolding_note": "Два отдельных рецептивных контакта в порядке: время на знакомом действии, затем начало/окончание через отделяемый глагол; НЕ предъявлять обе новые смысловые задачи одновременно."
+      "scaffolding_note": "Два отдельных рецептивных контакта в порядке: время на знакомом действии, затем начало/окончание через отделяемый глагол; НЕ предъявлять обе новые смысловые задачи одновременно.",
+      "a0_readiness_review": {
+        "risk": "одновременно время и отделяемые глаголы",
+        "mitigation": "Уже разнесено на две A/B-пары: короткое время на знакомом действии, затем начало/окончание через отделяемую форму. Не проводить как один комбинированный тест.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      }
     },
     {
       "stage": "P2c",
@@ -4211,5 +4265,23 @@
     "coverage": "one_semantic_A_B_facts_pair_per_first_productive_M",
     "status": "candidate_not_parser_test",
     "note": "M05 is an OPTIONAL repair strategy, never a compulsory false declaration of incomprehension. Each productive check requires unseen intent and freely generated German; a displayed A/B German pair alone checks receptive contrast only."
+  },
+  "a0_early_review": {
+    "version": "0.1",
+    "scope": "P0 through P2c",
+    "reviewed_risk_units": [
+      "P0-04",
+      "P0-06",
+      "P0-07",
+      "P1-02",
+      "P1-09",
+      "P1-11",
+      "P2b-02",
+      "P2c-03",
+      "P2c-04"
+    ],
+    "risk_count": 9,
+    "conclusion": "No hard blocker from storyline; all nine require F1/interaction validation before asserting true A0 readiness. Neither time nor comprehension were measured.",
+    "status": "design_review_not_implemented"
   }
 }
