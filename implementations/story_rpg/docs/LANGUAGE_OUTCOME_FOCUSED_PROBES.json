@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "status": "setting_independent_semantic_test_design_not_executable_exam",
   "source": "LANGUAGE_PRACTICE_UNITS.json / independent_outcome_assessments",
   "rules": [
@@ -122,11 +122,11 @@
       "id": "LOP-10",
       "lo": "LO-R05",
       "kind": "reading",
-      "focus_slot": "reason",
+      "focus_slot": "person_state",
       "variant_A_de": "Hallo Mia! Mein Bruder Tom ist krank. Komm bitte morgen um zehn. Lea.",
       "variant_B_de": "Hallo Mia! Mein Bruder Tom ist müde. Komm bitte morgen um zehn. Lea.",
-      "meaning_A_ru": "Том болен; причинная связь с просьбой не утверждается.",
-      "meaning_B_ru": "Том устал; причинная связь с просьбой не утверждается.",
+      "meaning_A_ru": "В тексте сказано, что Том болен; причина просьбы прямо не установлена.",
+      "meaning_B_ru": "В тексте сказано, что Том устал; причина просьбы прямо не установлена.",
       "integrity": "single_primary_meaning_change_or_identified_derived_slot",
       "status": "candidate_not_executed"
     },
