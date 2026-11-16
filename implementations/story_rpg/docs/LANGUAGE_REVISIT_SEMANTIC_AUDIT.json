@@ -1006,7 +1006,22 @@
     "coverage_measures": "semantic_evidence_not_acquisition",
     "repair_candidates": 40,
     "repair_pairs": 36,
-    "conditional_or_linked": 4
+    "conditional_or_linked": 4,
+    "repair_proposal_unique_forms": 106,
+    "repair_proposal_unlinked_f1_forms": [
+      "darf",
+      "deine",
+      "einen",
+      "gegeben",
+      "genommen",
+      "große",
+      "größere",
+      "kleinere",
+      "magst",
+      "muss",
+      "nehme"
+    ],
+    "repair_f1_status": "nonbinding_language_form_candidate_requires_morphology_review"
   },
   "revision_history": [
     {
