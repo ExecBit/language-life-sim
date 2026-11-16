@@ -1,5 +1,5 @@
 {
-  "version": "1.6",
+  "version": "1.7",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -1241,15 +1241,17 @@
       ],
       "language_example_checks": [
         {
-          "example_A_de": "Du kommst morgen.",
-          "example_B_de": "Sie kommen morgen.",
-          "critical_meaning_ru": "Адресная форма отличается; нужно определить регистр и адресата, а не только действие",
+          "example_A_de": "Komm bitte morgen.",
+          "example_B_de": "Kommen Sie bitte morgen.",
+          "critical_meaning_ru": "Знакомая просьба различается по регистру обращения; Sie стоит внутри предложения и не совпадает с автоматической заглавной буквой в его начале.",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "The German contrast in the form of address is essential; Russian UI must not reveal register.",
+          "content_review": "corrected_sentence_initial_Sie_ambiguity"
         }
       ],
-      "independent_production_checks": []
+      "independent_production_checks": [],
+      "scaffolding_note": "Не использовать начальное 'Sie kommen' без контекста как единственное доказательство формального Sie: в начале предложения заглавная буква может обозначать также третье лицо множественного числа. Контраст показывается в 'Kommen Sie bitte ...' внутри просьбы."
     },
     {
       "stage": "P2a",
@@ -3068,7 +3070,8 @@
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
       ],
-      "independent_production_checks": []
+      "independent_production_checks": [],
+      "scaffolding_note": "Первое лицо mein/dein в рецептивной связи относится к автору данного высказывания. В языковом контракте A/B/C — произвольные участники, без игрового канона/биографии."
     },
     {
       "stage": "P4b",
