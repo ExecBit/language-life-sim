@@ -282,6 +282,12 @@ def grammar_probe_appendix(doc: dict) -> tuple[str, list[str]]:
     seen = set()
     for probe in grammar.get("items", []):
         gid, unit_id = probe["id"], probe["unit"]
+        plan = probe.get("first_r_plan", {})
+        required = ("minimal_recognition", "ordered_after", "independent_contact",
+                    "productive_followup", "status")
+        if any(not isinstance(plan.get(k), str) or not plan[k].strip()
+               for k in required):
+            errors.append(f"Grammar {gid} lacks explicit first R / prerequisite plan")
         if gid in seen:
             errors.append(f"Grammar probe repeated: {gid}")
         seen.add(gid)
@@ -315,7 +321,9 @@ def grammar_probe_appendix(doc: dict) -> tuple[str, list[str]]:
         lines.append(f"| {stage} | {a} | {b} | {a + b} |")
     lines.extend([
         "",
-        f"**Итого:** {main} основных пар и {len(seen)} грамматических G-контраста, из которых {matched} буквально совпадают с основными парами в соответствующих единицах, а {extra} отличаются. Суммарно **{main + extra} кандидатных проверочных пар по (единица, A/B)**, а НЕ 107 обязательных игровых контактов.",
+        f"**Итого:** {main} основных пар и {len(seen)} грамматических G-контраста, из которых {matched} буквально совпадают с основными парами в соответствующих единицах, а {extra} отличаются. Суммарно **{main + extra} кандидатных проверочных пар по (единица, A/B)**, и не являются количеством обязательных игровых контактов.",
+        "",
+        f"**Планы первого R:** {len(seen)} из {len(seen)} G имеют отдельные условия осмысленного чтения, предпосылки и допустимую продукцию. Это документация, а не проведение тестов.",
         "",
         "**Риск равномерности:** если каждую отличающуюся G-пару позднее предъявлять как самостоятельный обязательный контакт, нагрузка начала программы возрастёт сильнее, чем видно по числу M/G-ID (P0: "
         + str(totals["P0"]["main"] + totals["P0"]["extra"]) + " вместо "
