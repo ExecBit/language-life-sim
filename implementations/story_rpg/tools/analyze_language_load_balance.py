@@ -338,7 +338,7 @@ def lexical_stage_report(doc: dict, glossary: dict) -> tuple[str, list[str]]:
 
 def outcome_stage_report(doc: dict) -> tuple[str, list[str]]:
     """Ensure every independent LO is practised before and after transfer."""
-    expected = set(re.findall(r"LO-[RW]\\d{2}", OUTCOMES.read_text(encoding="utf-8")))
+    expected = set(re.findall(r"LO-[RW]\d{2}", OUTCOMES.read_text(encoding="utf-8")))
     hits = defaultdict(list)
     for item in doc["items"]:
         values = item.get("outcome_candidates", [])
