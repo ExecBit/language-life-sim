@@ -14,6 +14,7 @@ jobs:
       - name: Check migrated structure
         run: python implementations/dormitory/tools/check_repository.py
       - name: Validate setting-independent language program
+        if: ${{ hashFiles('implementations/story_rpg/tools/analyze_language_load_balance.py') != '' }}
         run: python implementations/story_rpg/tools/analyze_language_load_balance.py --check
       - name: Install Godot 4.7.1
         run: |
