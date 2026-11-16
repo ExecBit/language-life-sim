@@ -1,5 +1,5 @@
 {
-  "version": "1.8",
+  "version": "1.9",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -24,7 +24,8 @@
     "53 neutral German contrast pairs from the temporary 53-unit draft were merged into this canonical 73-unit plan; no other language plan is authoritative.",
     "language_example_checks are proposed German A/B substitutions and do not demonstrate empirical understanding or engine/parser support.",
     "Every one of the 73 units now has at least one independent German A/B example; examples are candidate stimuli and not empirically validated difficulty.",
-    "A qualitative goal-alignment review replaced mismatched German contrast pairs in 12 units; semantic plausibility is not empirical A0 validation."
+    "A qualitative goal-alignment review replaced mismatched German contrast pairs in 12 units; semantic plausibility is not empirical A0 validation.",
+    "Repeated identical German A/B stimuli were separated across neighboring abilities: naming vs command, quality vs state, question target, destination vs location, interest R vs P, and late transfer of M34/M36/M38 and M14/M53."
   ],
   "horizon_units": {
     "P0": 8,
@@ -251,13 +252,13 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Nimm die Tasse.",
-          "example_B_de": "Nimm das Buch.",
-          "critical_meaning_ru": "Определить нужный предмет по немецкому, без визуальной подсветки",
+          "example_A_de": "Die Tasse.",
+          "example_B_de": "Das Buch.",
+          "critical_meaning_ru": "Самостоятельно узнать и назвать одну из двух знакомых вещей",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
-          "content_review": "aligned_with_unit_goal_2026-11-16"
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "separate_naming_from_imperative"
         }
       ],
       "independent_production_checks": [
@@ -285,7 +286,8 @@
         "mitigation": "Сначала один знакомый предмет и значение 'nimm', затем второй предмет как различие; разрешён F1, нельзя выдавать русскую подсветку правильного объекта.",
         "blocking": false,
         "status": "methodical_candidate_not_user_test"
-      }
+      },
+      "revisit_support_note": null
     },
     {
       "stage": "P0",
@@ -614,12 +616,13 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Die Tür ist offen.",
-          "example_B_de": "Die Tür ist zu.",
-          "critical_meaning_ru": "Изменяется состояние одного предмета",
+          "example_A_de": "Die Tasse ist groß.",
+          "example_B_de": "Die Tasse ist klein.",
+          "critical_meaning_ru": "Признак размера, отличный от состояния открыто/закрыто в последующей практике",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "separate_M10_property_from_M15_state"
         }
       ],
       "independent_production_checks": [
@@ -641,7 +644,8 @@
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
-      ]
+      ],
+      "revisit_support_note": null
     },
     {
       "stage": "P1",
@@ -1114,12 +1118,13 @@
       ],
       "language_example_checks": [
         {
-          "example_A_de": "Wo ist das Buch?",
-          "example_B_de": "Wer hat das Buch?",
-          "critical_meaning_ru": "Неизвестна вещь по месту или человек, у которого она есть",
+          "example_A_de": "Hast du das Buch?",
+          "example_B_de": "Hast du die Tasse?",
+          "critical_meaning_ru": "Запросить сведения о другом предмете у адресата вместо повторения wo/wer",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "new_information_request"
         }
       ],
       "independent_production_checks": [
@@ -1155,7 +1160,8 @@
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
-      ]
+      ],
+      "revisit_support_note": null
     },
     {
       "stage": "P2a",
@@ -1501,12 +1507,13 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Das Buch ist im Zimmer.",
+          "example_A_de": "Bring das Buch in die Küche.",
           "example_B_de": "Bring das Buch ins Zimmer.",
-          "critical_meaning_ru": "Статичное местоположение против переноса в указанное место",
+          "critical_meaning_ru": "Пункт назначения сменился при том же предмете: отдельный смысл направления",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "separate_direction_from_position"
         }
       ],
       "independent_production_checks": [
@@ -1534,7 +1541,8 @@
         "mitigation": "Сначала знакомые Buch/Zimmer и один контраст wo/wohin; форму Akkusativ требовать только рецептивно, P с понятным направлением принять без идеального окончания.",
         "blocking": false,
         "status": "methodical_candidate_not_user_test"
-      }
+      },
+      "revisit_support_note": null
     },
     {
       "stage": "P2b",
@@ -2470,12 +2478,13 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Komm morgen um zehn.",
-          "example_B_de": "Komm morgen um elf.",
-          "critical_meaning_ru": "Приглашение на разные часы",
+          "example_A_de": "Kommst du morgen nicht? — Doch, ich komme.",
+          "example_B_de": "Kommst du morgen nicht? — Nein, ich komme nicht.",
+          "critical_meaning_ru": "Ответ на отрицательное приглашение: подтверждение вопреки ожиданию или отказ",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "introduce_G24_and_invitation_response"
         }
       ],
       "independent_production_checks": [
@@ -2497,7 +2506,8 @@
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
-      ]
+      ],
+      "revisit_support_note": null
     },
     {
       "stage": "P3b",
@@ -3228,12 +3238,13 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Ich lese gern.",
-          "example_B_de": "Ich spiele gern.",
-          "critical_meaning_ru": "План совместного занятия зависит от свободно переданного предпочтения",
+          "example_A_de": "Willst du zusammen lesen?",
+          "example_B_de": "Willst du zusammen spielen?",
+          "critical_meaning_ru": "Предложение совместного занятия использует ранее воспринятый смысл досуга, а не воспроизводит описание своего хобби",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "M34_R_to_P_transfer"
         }
       ],
       "independent_production_checks": [
@@ -3264,7 +3275,8 @@
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
-      ]
+      ],
+      "revisit_support_note": null
     },
     {
       "stage": "P4c",
@@ -3631,15 +3643,35 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Ich spiele gern.",
-          "example_B_de": "Ich lese gern.",
-          "critical_meaning_ru": "Личное предпочтение применено в новом сообщении",
+          "example_A_de": "Mia liest gern.",
+          "example_B_de": "Mia spielt gern.",
+          "critical_meaning_ru": "Перенести интерес в сообщение о третьем лице",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "M34_transfer"
+        },
+        {
+          "example_A_de": "Mia: Mein Bruder kommt morgen.",
+          "example_B_de": "Mia: Mein Freund kommt morgen.",
+          "critical_meaning_ru": "Различить личную связь в короткой подписанной заметке",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "M36_transfer"
+        },
+        {
+          "example_A_de": "Es ist zu spät.",
+          "example_B_de": "Es ist zu kalt.",
+          "critical_meaning_ru": "Различить бытовое препятствие в ином сообщении",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "M38_transfer"
         }
       ],
-      "independent_production_checks": []
+      "independent_production_checks": [],
+      "revisit_support_note": "Каждая A/B-пара — отдельная короткая языковая ситуация, не предъявлять несколько новых контрастов одновременно."
     },
     {
       "stage": "P5",
@@ -3667,14 +3699,33 @@
         {
           "example_A_de": "Mia hat das Buch gefunden.",
           "example_B_de": "Tom hat das Buch gefunden.",
-          "critical_meaning_ru": "Передаётся прошлое событие другого человека; смена агента меняет смысл",
+          "critical_meaning_ru": "Различить агента завершённого действия другого человека",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
-          "content_review": "aligned_with_unit_goal_2026-11-16"
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "past_third_person"
+        },
+        {
+          "example_A_de": "Mia hat mir das Buch gezeigt.",
+          "example_B_de": "Mia hat dir das Buch gezeigt.",
+          "critical_meaning_ru": "Изменился получатель действия, выраженный формой mir/dir",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "M14_transfer"
+        },
+        {
+          "example_A_de": "Mia hat das Buch gefunden. Sie hat es gezeigt.",
+          "example_B_de": "Tom hat das Buch gefunden. Er hat es gezeigt.",
+          "critical_meaning_ru": "Разрешить местоимения в сообщении о завершённом действии",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "M53_transfer"
         }
       ],
-      "independent_production_checks": []
+      "independent_production_checks": [],
+      "revisit_support_note": "Каждая A/B-пара — отдельная короткая языковая ситуация, не предъявлять несколько новых контрастов одновременно."
     },
     {
       "stage": "P6",
@@ -3857,7 +3908,7 @@
       "independent_production_checks": []
     }
   ],
-  "example_checks_count": 76,
+  "example_checks_count": 80,
   "independent_outcome_assessments": {
     "version": "0.1",
     "status": "candidate_independent_language_assessment_not_real_exam_or_game_scene",
