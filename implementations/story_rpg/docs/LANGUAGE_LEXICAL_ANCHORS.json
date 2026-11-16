@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "status": "plot_independent_lexical_anchor_candidates_not_required_word_quotas",
   "notes": [
     "The 29 source groups are imported from LANGUAGE_LEXICON.md only; nothing from ACT_*, dialogue transcripts or world lore.",
@@ -7,7 +7,8 @@
     "All expressions from the catalogue remain available as productive/receptive candidates; unselected words are not removed from the language programme.",
     "Four contextual groups (shopping/prices, transport, personal fields, weather) are marked for relevance review, not deletion or exclusion from F1.",
     "Group 13 personal relationships has its first REQUIRED semantic contrast M36 at P4b; earlier vocabulary is optional receptive exposure. No family biography is invented.",
-    "A German compound or phrase can contain several lexemes; counts of anchors are NOT unique vocabulary sizes or cognitive difficulty."
+    "A German compound or phrase can contain several lexemes; counts of anchors are NOT unique vocabulary sizes or cognitive difficulty.",
+    "A selected functional anchor is only a candidate; unused productive words such as directional nach remain present in LANGUAGE_LEXICON.md rather than being erased."
   ],
   "groups": [
     {
@@ -432,8 +433,7 @@
       "minimal_anchor_expressions": [
         "links",
         "rechts",
-        "zu",
-        "nach"
+        "zu"
       ],
       "warning": null
     },
