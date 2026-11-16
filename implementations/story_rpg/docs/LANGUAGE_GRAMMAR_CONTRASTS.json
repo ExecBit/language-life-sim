@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "status": "independent_grammar_contrast_bank_not_player_verified",
   "sources": [
     "LANGUAGE_DESIGN.md",
@@ -346,9 +346,9 @@
       "horizon": "P2c",
       "semantic_M": "M24",
       "minimum": "R-sense",
-      "example_A": "Der Kurs fängt um acht an.",
-      "example_B": "Der Kurs hört um acht auf.",
-      "meaning_difference": "Начало против окончания: отделяемые глаголы",
+      "example_A": "Die Arbeit fängt jetzt an.",
+      "example_B": "Die Arbeit hört jetzt auf.",
+      "meaning_difference": "Распознать начало или окончание знакомого действия по отделяемому глаголу (P2c-04), отдельно от первого временного контраста.",
       "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
       "constraints": [
         "No hidden story, NPC identity or game day",
@@ -554,9 +554,9 @@
       "horizon": "P5",
       "semantic_M": "M50",
       "minimum": "R-sense",
-      "example_A": "Der Zug ist angekommen.",
-      "example_B": "Der Zug kommt jetzt an.",
-      "meaning_difference": "Перемещение в прошедшем Perfekt с sein против настоящего",
+      "example_A": "Mia ist gekommen.",
+      "example_B": "Mia kommt.",
+      "meaning_difference": "Завершённое перемещение (Perfekt с sein и нерегулярным Partizip II) против текущего действия; без обязательной транспортной лексики.",
       "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
       "constraints": [
         "No hidden story, NPC identity or game day",
