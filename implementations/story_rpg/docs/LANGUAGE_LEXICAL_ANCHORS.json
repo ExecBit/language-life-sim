@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "status": "plot_independent_lexical_anchor_candidates_not_required_word_quotas",
   "notes": [
     "The 29 source groups are imported from LANGUAGE_LEXICON.md only; nothing from ACT_*, dialogue transcripts or world lore.",
@@ -8,7 +8,8 @@
     "Four contextual groups (shopping/prices, transport, personal fields, weather) are marked for relevance review, not deletion or exclusion from F1.",
     "Group 13 personal relationships has its first REQUIRED semantic contrast M36 at P4b; earlier vocabulary is optional receptive exposure. No family biography is invented.",
     "A German compound or phrase can contain several lexemes; counts of anchors are NOT unique vocabulary sizes or cognitive difficulty.",
-    "A selected functional anchor is only a candidate; unused productive words such as directional nach remain present in LANGUAGE_LEXICON.md rather than being erased."
+    "A selected functional anchor is only a candidate; unused productive words such as directional nach remain present in LANGUAGE_LEXICON.md rather than being erased.",
+    "Critical R/grammar prerequisites received their own anchors: Sie, im/ins, polite phrases, doch, seit/bis, welcher, es gibt; the catalogue retains all prior words."
   ],
   "groups": [
     {
@@ -151,7 +152,8 @@
         "was",
         "wo",
         "wie",
-        "fragen"
+        "fragen",
+        "welcher"
       ],
       "warning": null
     },
@@ -228,7 +230,8 @@
         "schmutzig",
         "falsch",
         "leicht",
-        "schwer"
+        "schwer",
+        "es gibt"
       ],
       "planned_first_practice": "P1",
       "role": "functional_anchor_candidate",
@@ -236,7 +239,8 @@
         "kein",
         "nicht",
         "gut",
-        "kaputt"
+        "kaputt",
+        "es gibt"
       ],
       "warning": null
     },
@@ -350,7 +354,8 @@
         "mein",
         "dein",
         "mir",
-        "dir"
+        "dir",
+        "Sie (вежливо)"
       ],
       "warning": null
     },
@@ -387,7 +392,9 @@
         "über",
         "der Flur",
         "die Treppe",
-        "die Möbel"
+        "die Möbel",
+        "im",
+        "ins"
       ],
       "planned_first_practice": "P2b",
       "role": "functional_anchor_candidate",
@@ -395,7 +402,9 @@
         "das Zimmer",
         "die Küche",
         "in",
-        "auf"
+        "auf",
+        "im",
+        "ins"
       ],
       "warning": null
     },
@@ -629,7 +638,8 @@
         "verboten",
         "die Regel",
         "das Verbot",
-        "die Pflicht"
+        "die Pflicht",
+        "doch"
       ],
       "planned_first_practice": "P3b",
       "role": "functional_anchor_candidate",
@@ -638,7 +648,8 @@
         "müssen",
         "dürfen",
         "nicht dürfen",
-        "nicht müssen"
+        "nicht müssen",
+        "doch"
       ],
       "warning": null
     },
@@ -679,7 +690,9 @@
         "möchten",
         "gern",
         "lieber",
-        "oder"
+        "oder",
+        "ich hätte gern …",
+        "könnte ich …?"
       ],
       "warning": null
     },
@@ -1070,7 +1083,8 @@
         "zuerst … dann …",
         "wie lange",
         "seit",
-        "bis wann"
+        "bis wann",
+        "bis"
       ],
       "planned_first_practice": "P4a",
       "role": "functional_anchor_candidate",
@@ -1078,7 +1092,9 @@
         "und",
         "aber",
         "zuerst",
-        "dann"
+        "dann",
+        "seit",
+        "bis"
       ],
       "warning": null
     },
