@@ -163,7 +163,7 @@
 | LO-R02 | 1 | day |
 | LO-R03 | 1 | object |
 | LO-R04 | 2 | free_slot_day, free_slot_time |
-| LO-R05 | 4 | sender, recipient, requested_time_and_action, reason |
+| LO-R05 | 4 | sender, recipient, requested_time_and_action, person_state |
 | LO-R06 | 1 | object |
 | LO-W01 | 1 | question_intent |
 | LO-W02 | 2 | negation_scope, current_location |
