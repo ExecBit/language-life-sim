@@ -1,5 +1,5 @@
 {
-  "version": "0.5",
+  "version": "0.6",
   "status": "balanced_candidate_sequence_semantic_transfer_not_validated",
   "purpose": "Candidate language-practice sequence for smoothing new meaningful R/P/grammar loads, independent of any storyline.",
   "provenance": [
@@ -139,7 +139,11 @@
       "P4": 21,
       "P5": 11,
       "P6": 5
-    }
+    },
+    "domains_mapped_for_review": 29,
+    "lo_mapped_for_review": 13,
+    "independent_catalogue_unique_strings": 463,
+    "independent_catalogue_occurrences": 469
   },
   "units": [
     {
@@ -2971,5 +2975,648 @@
     "weighting": "Отдельные оси считать, но не суммировать в научный балл без калибровки",
     "word_inventory": "96 иллюстративных кандидатов не заменяют 29 тематических групп и не составляют полного F1",
     "stage_counts": "Количество LU — язык/практика, не игровые дни, квесты или количество занятий"
-  }
+  },
+  "learning_outcome_trace": [
+    {
+      "id": "LO-R01",
+      "skill_count": 6,
+      "M": [
+        "M03",
+        "M06",
+        "M08",
+        "M39",
+        "M40",
+        "M55"
+      ],
+      "first_R": [
+        "LU01",
+        "LU02",
+        "LU03",
+        "LU05",
+        "LU16",
+        "LU32"
+      ],
+      "first_P": [
+        "LU09",
+        "LU13"
+      ],
+      "return_units": [
+        "LU14",
+        "LU15",
+        "LU19",
+        "LU32",
+        "LU39",
+        "LU46"
+      ],
+      "verification": "linked_skills_only_not_confirmed_LO_performance"
+    },
+    {
+      "id": "LO-R02",
+      "skill_count": 4,
+      "M": [
+        "M10",
+        "M14",
+        "M18",
+        "M54"
+      ],
+      "first_R": [
+        "LU08",
+        "LU18",
+        "LU21"
+      ],
+      "first_P": [
+        "LU08",
+        "LU18",
+        "LU28"
+      ],
+      "return_units": [
+        "LU35",
+        "LU42",
+        "LU48"
+      ],
+      "verification": "linked_skills_only_not_confirmed_LO_performance"
+    },
+    {
+      "id": "LO-R03",
+      "skill_count": 4,
+      "M": [
+        "M20",
+        "M21",
+        "M22",
+        "M41"
+      ],
+      "first_R": [
+        "LU14",
+        "LU19"
+      ],
+      "first_P": [
+        "LU19",
+        "LU22"
+      ],
+      "return_units": [
+        "LU25",
+        "LU31",
+        "LU42"
+      ],
+      "verification": "linked_skills_only_not_confirmed_LO_performance"
+    },
+    {
+      "id": "LO-R04",
+      "skill_count": 5,
+      "M": [
+        "M17",
+        "M23",
+        "M27",
+        "M41",
+        "M42"
+      ],
+      "first_R": [
+        "LU12",
+        "LU14",
+        "LU22",
+        "LU31",
+        "LU35"
+      ],
+      "first_P": [
+        "LU17",
+        "LU26"
+      ],
+      "return_units": [
+        "LU26",
+        "LU31",
+        "LU40",
+        "LU49"
+      ],
+      "verification": "linked_skills_only_not_confirmed_LO_performance"
+    },
+    {
+      "id": "LO-R05",
+      "skill_count": 4,
+      "M": [
+        "M36",
+        "M43",
+        "M44",
+        "M50"
+      ],
+      "first_R": [
+        "LU31",
+        "LU38",
+        "LU39",
+        "LU43"
+      ],
+      "first_P": [],
+      "return_units": [
+        "LU39",
+        "LU46",
+        "LU47",
+        "LU49"
+      ],
+      "verification": "linked_skills_only_not_confirmed_LO_performance"
+    },
+    {
+      "id": "LO-R06",
+      "skill_count": 4,
+      "M": [
+        "M16",
+        "M28",
+        "M48",
+        "M53"
+      ],
+      "first_R": [
+        "LU15",
+        "LU23",
+        "LU29"
+      ],
+      "first_P": [
+        "LU23",
+        "LU35",
+        "LU36"
+      ],
+      "return_units": [
+        "LU38",
+        "LU41",
+        "LU47"
+      ],
+      "verification": "linked_skills_only_not_confirmed_LO_performance"
+    },
+    {
+      "id": "LO-W01",
+      "skill_count": 11,
+      "M": [
+        "M01",
+        "M02",
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M09",
+        "M12",
+        "M19",
+        "M47"
+      ],
+      "first_R": [
+        "LU01",
+        "LU02",
+        "LU03",
+        "LU04",
+        "LU05",
+        "LU06",
+        "LU07",
+        "LU13"
+      ],
+      "first_P": [
+        "LU01",
+        "LU02",
+        "LU03",
+        "LU04",
+        "LU07",
+        "LU09",
+        "LU11",
+        "LU13",
+        "LU14",
+        "LU18"
+      ],
+      "return_units": [
+        "LU15",
+        "LU16",
+        "LU18",
+        "LU19",
+        "LU21",
+        "LU28",
+        "LU31",
+        "LU32",
+        "LU40"
+      ],
+      "verification": "linked_skills_only_not_confirmed_LO_performance"
+    },
+    {
+      "id": "LO-W02",
+      "skill_count": 7,
+      "M": [
+        "M10",
+        "M11",
+        "M13",
+        "M14",
+        "M15",
+        "M20",
+        "M21"
+      ],
+      "first_R": [
+        "LU08",
+        "LU09",
+        "LU11",
+        "LU14",
+        "LU15",
+        "LU18",
+        "LU19"
+      ],
+      "first_P": [
+        "LU08",
+        "LU09",
+        "LU15",
+        "LU18",
+        "LU19",
+        "LU22"
+      ],
+      "return_units": [
+        "LU25",
+        "LU30",
+        "LU35",
+        "LU36",
+        "LU38",
+        "LU48"
+      ],
+      "verification": "linked_skills_only_not_confirmed_LO_performance"
+    },
+    {
+      "id": "LO-W03",
+      "skill_count": 9,
+      "M": [
+        "M17",
+        "M18",
+        "M23",
+        "M24",
+        "M25",
+        "M37",
+        "M49",
+        "M52",
+        "M54"
+      ],
+      "first_R": [
+        "LU12",
+        "LU21",
+        "LU22",
+        "LU25",
+        "LU26",
+        "LU34"
+      ],
+      "first_P": [
+        "LU17",
+        "LU25",
+        "LU26",
+        "LU28",
+        "LU31",
+        "LU34",
+        "LU45"
+      ],
+      "return_units": [
+        "LU26",
+        "LU39",
+        "LU40",
+        "LU41",
+        "LU42",
+        "LU43",
+        "LU50"
+      ],
+      "verification": "linked_skills_only_not_confirmed_LO_performance"
+    },
+    {
+      "id": "LO-W04",
+      "skill_count": 9,
+      "M": [
+        "M29",
+        "M30",
+        "M31",
+        "M32",
+        "M33",
+        "M34",
+        "M35",
+        "M37",
+        "M38"
+      ],
+      "first_R": [
+        "LU10",
+        "LU20",
+        "LU24",
+        "LU25",
+        "LU30",
+        "LU33"
+      ],
+      "first_P": [
+        "LU10",
+        "LU20",
+        "LU23",
+        "LU30",
+        "LU31",
+        "LU36",
+        "LU37"
+      ],
+      "return_units": [
+        "LU30",
+        "LU36",
+        "LU37",
+        "LU38",
+        "LU39",
+        "LU46"
+      ],
+      "verification": "linked_skills_only_not_confirmed_LO_performance"
+    },
+    {
+      "id": "LO-W05",
+      "skill_count": 7,
+      "M": [
+        "M16",
+        "M26",
+        "M28",
+        "M48",
+        "M49",
+        "M51",
+        "M52"
+      ],
+      "first_R": [
+        "LU22",
+        "LU23",
+        "LU27",
+        "LU29",
+        "LU34",
+        "LU44"
+      ],
+      "first_P": [
+        "LU23",
+        "LU27",
+        "LU34",
+        "LU35",
+        "LU36",
+        "LU44",
+        "LU45"
+      ],
+      "return_units": [
+        "LU41",
+        "LU43",
+        "LU45",
+        "LU47",
+        "LU50"
+      ],
+      "verification": "linked_skills_only_not_confirmed_LO_performance"
+    },
+    {
+      "id": "LO-W06",
+      "skill_count": 1,
+      "M": [
+        "M45"
+      ],
+      "first_R": [
+        "LU40"
+      ],
+      "first_P": [
+        "LU40"
+      ],
+      "return_units": [
+        "LU50"
+      ],
+      "verification": "linked_skills_only_not_confirmed_LO_performance"
+    },
+    {
+      "id": "LO-W07",
+      "skill_count": 1,
+      "M": [
+        "M46"
+      ],
+      "first_R": [
+        "LU34"
+      ],
+      "first_P": [
+        "LU41"
+      ],
+      "return_units": [
+        "LU48"
+      ],
+      "verification": "linked_skills_only_not_confirmed_LO_performance"
+    }
+  ],
+  "lexical_topic_trace": [
+    {
+      "group": 1,
+      "domain": "Начало общения",
+      "source_horizon": "P0",
+      "candidate_unit": "LU01",
+      "assigned_horizon": "P0",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 2,
+      "domain": "Предмет и короткое действие",
+      "source_horizon": "P0",
+      "candidate_unit": "LU03",
+      "assigned_horizon": "P0",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 3,
+      "domain": "Человек и знакомство",
+      "source_horizon": "P1",
+      "candidate_unit": "LU13",
+      "assigned_horizon": "P1",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 4,
+      "domain": "Вопросы и смысл",
+      "source_horizon": "P1",
+      "candidate_unit": "LU07",
+      "assigned_horizon": "P1",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 5,
+      "domain": "Базовые действия",
+      "source_horizon": "P1",
+      "candidate_unit": "LU11",
+      "assigned_horizon": "P1",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 6,
+      "domain": "Состояние и отрицание",
+      "source_horizon": "P1",
+      "candidate_unit": "LU08",
+      "assigned_horizon": "P1",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 7,
+      "domain": "Самочувствие",
+      "source_horizon": "P1",
+      "candidate_unit": "LU10",
+      "assigned_horizon": "P1",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 8,
+      "domain": "Еда и потребности",
+      "source_horizon": "P1",
+      "candidate_unit": "LU10",
+      "assigned_horizon": "P1",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 9,
+      "domain": "Люди, принадлежность и адресат",
+      "source_horizon": "P2",
+      "candidate_unit": "LU15",
+      "assigned_horizon": "P2",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 10,
+      "domain": "Место, дом и предметы",
+      "source_horizon": "P2",
+      "candidate_unit": "LU19",
+      "assigned_horizon": "P2",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 11,
+      "domain": "Направление и движение",
+      "source_horizon": "P2",
+      "candidate_unit": "LU19",
+      "assigned_horizon": "P2",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 12,
+      "domain": "Количество и идентификаторы",
+      "source_horizon": "P2",
+      "candidate_unit": "LU17",
+      "assigned_horizon": "P2",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 13,
+      "domain": "Люди и семья",
+      "source_horizon": "P2",
+      "candidate_unit": "LU38",
+      "assigned_horizon": "P4",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 14,
+      "domain": "Работа и роли",
+      "source_horizon": "P2",
+      "candidate_unit": "LU23",
+      "assigned_horizon": "P2",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 15,
+      "domain": "Время, дата, расписание",
+      "source_horizon": "P3",
+      "candidate_unit": "LU25",
+      "assigned_horizon": "P3",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 16,
+      "domain": "Возможность, необходимость и запрет",
+      "source_horizon": "P3",
+      "candidate_unit": "LU28",
+      "assigned_horizon": "P3",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 17,
+      "domain": "Желания и выбор",
+      "source_horizon": "P3",
+      "candidate_unit": "LU30",
+      "assigned_horizon": "P3",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 18,
+      "domain": "Встречи и планы",
+      "source_horizon": "P3",
+      "candidate_unit": "LU25",
+      "assigned_horizon": "P3",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 19,
+      "domain": "Покупки и стоимость",
+      "source_horizon": "P3",
+      "candidate_unit": "LU30",
+      "assigned_horizon": "P3",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 20,
+      "domain": "Интересы и досуг",
+      "source_horizon": "P3",
+      "candidate_unit": "LU33",
+      "assigned_horizon": "P3",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 21,
+      "domain": "Транспорт и поездка",
+      "source_horizon": "P3",
+      "candidate_unit": "LU31",
+      "assigned_horizon": "P3",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 22,
+      "domain": "Формы и персональные данные",
+      "source_horizon": "P4",
+      "candidate_unit": "LU40",
+      "assigned_horizon": "P4",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 23,
+      "domain": "Сообщения и услуги",
+      "source_horizon": "P4",
+      "candidate_unit": "LU39",
+      "assigned_horizon": "P4",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 24,
+      "domain": "Признаки, одежда и сравнение",
+      "source_horizon": "P4",
+      "candidate_unit": "LU35",
+      "assigned_horizon": "P4",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 25,
+      "domain": "Погода и окружение",
+      "source_horizon": "P4",
+      "candidate_unit": "LU36",
+      "assigned_horizon": "P4",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 26,
+      "domain": "Учёба и информация",
+      "source_horizon": "P4",
+      "candidate_unit": "LU39",
+      "assigned_horizon": "P4",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 27,
+      "domain": "Сопоставление и временные отношения",
+      "source_horizon": "P4",
+      "candidate_unit": "LU41",
+      "assigned_horizon": "P4",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 28,
+      "domain": "Простой прошлый опыт",
+      "source_horizon": "P5",
+      "candidate_unit": "LU43",
+      "assigned_horizon": "P5",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    },
+    {
+      "group": 29,
+      "domain": "Будущее и изменение планов",
+      "source_horizon": "P5",
+      "candidate_unit": "LU45",
+      "assigned_horizon": "P5",
+      "role": "source_catalogue_review_not_required_scene_or_new_word_quota"
+    }
+  ]
 }
