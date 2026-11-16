@@ -1,0 +1,1262 @@
+{
+  "version": "0.1",
+  "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
+  "sources": [
+    "LANGUAGE_MAP.md",
+    "LANGUAGE_PROGRESSION.md",
+    "LANGUAGE_DESIGN.md",
+    "LANGUAGE_PROGRAM.md"
+  ],
+  "notes": [
+    "Each row is a distinct abstract language-contact unit, not a day, lesson, quest, scene or NPC interaction.",
+    "introduce_m lists first R according to LANGUAGE_MAP; introduce_g lists first meaningful R of G according to LANGUAGE_PROGRESSION; first_p lists first independent productive intent for 42 M, never for receptive-only M.",
+    "revisit_m is a proposed opportunity to reuse an earlier M with a changed context; not evidence of mastery or a performed test.",
+    "The short contrasts are semantic-design tests, not language-parser whitelists; examples may use familiar lexical placeholders.",
+    "Load must be judged as a vector of independent dimensions; counts of M/G IDs are planning proxies, NOT calibrated difficulty."
+  ],
+  "horizon_units": {
+    "P0": 8,
+    "P1": 12,
+    "P2a": 5,
+    "P2b": 5,
+    "P2c": 5,
+    "P3a": 5,
+    "P3b": 4,
+    "P3c": 6,
+    "P4a": 4,
+    "P4b": 3,
+    "P4c": 3,
+    "P5": 6,
+    "P6": 5
+  },
+  "items": [
+    {
+      "stage": "P0",
+      "goal": "Контакт и приветствие",
+      "introduce_m": [
+        "M01",
+        "M39"
+      ],
+      "introduce_g": [
+        "G01"
+      ],
+      "first_p": [
+        "M01"
+      ],
+      "revisit_m": [],
+      "contrast": "Приветствие и прощание требуют разной реакции",
+      "context": "Краткий текст, знакомая социальная цель",
+      "id": "P0-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P0",
+      "goal": "Положительный и отрицательный ответ",
+      "introduce_m": [
+        "M04"
+      ],
+      "introduce_g": [
+        "G06"
+      ],
+      "first_p": [
+        "M04"
+      ],
+      "revisit_m": [],
+      "contrast": "Ja против Nein меняет согласие, не расположение кнопки",
+      "context": "Ясный вопрос без скрытой лексики",
+      "id": "P0-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P0",
+      "goal": "Право на непонимание",
+      "introduce_m": [
+        "M05"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M05"
+      ],
+      "revisit_m": [],
+      "contrast": "Просьба повторить полезна только при неизвестном; понимающий не обязан говорить её",
+      "context": "Один короткий непонятный фрагмент",
+      "id": "P0-03",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P0",
+      "goal": "Узнать и назвать предмет",
+      "introduce_m": [
+        "M09"
+      ],
+      "introduce_g": [
+        "G09"
+      ],
+      "first_p": [
+        "M09"
+      ],
+      "revisit_m": [],
+      "contrast": "Смена Buch на Tasse меняет нужную вещь",
+      "context": "Два равно доступных знакомых предмета",
+      "id": "P0-04",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P0",
+      "goal": "Разобрать краткое действие",
+      "introduce_m": [
+        "M40"
+      ],
+      "introduce_g": [
+        "G08"
+      ],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Nimm против Gib различает взять и отдать",
+      "context": "Знакомый предмет, действие без русского дубляжа",
+      "id": "P0-05",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P0",
+      "goal": "Кто говорит и как обратиться",
+      "introduce_m": [
+        "M02",
+        "M03"
+      ],
+      "introduce_g": [
+        "G02"
+      ],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Ich/du и имя меняют говорящего и адресата",
+      "context": "Два человека без обязательной биографии",
+      "id": "P0-06",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P0",
+      "goal": "Вопрос, факт и собственная мысль",
+      "introduce_m": [
+        "M06"
+      ],
+      "introduce_g": [
+        "G03"
+      ],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Ist das ...? против Das ist ... меняет тип высказывания",
+      "context": "Один известный объект, короткий синтаксис",
+      "id": "P0-07",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P0",
+      "goal": "Понять просьбу об объекте",
+      "introduce_m": [
+        "M12"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Другой предмет в просьбе требует другого понимания",
+      "context": "Объект известен, просьба не подсказывает ответ",
+      "id": "P0-08",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P1",
+      "goal": "Назвать себя и действующее лицо",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M02",
+        "M03"
+      ],
+      "revisit_m": [],
+      "contrast": "Смена ich/du меняет того, чьё имя/действие названо",
+      "context": "Свободное короткое представление",
+      "id": "P1-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P1",
+      "goal": "Самому задать нужный вопрос",
+      "introduce_m": [
+        "M07"
+      ],
+      "introduce_g": [
+        "G07"
+      ],
+      "first_p": [
+        "M07"
+      ],
+      "revisit_m": [],
+      "contrast": "Was? и Wo? приводят к разным недостающим сведениям",
+      "context": "Понятный пробел в информации",
+      "id": "P1-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P1",
+      "goal": "Различить и назвать свойство",
+      "introduce_m": [
+        "M10"
+      ],
+      "introduce_g": [
+        "G13"
+      ],
+      "first_p": [
+        "M10"
+      ],
+      "revisit_m": [],
+      "contrast": "Качественный признак одного из двух объектов меняется",
+      "context": "Один знакомый предмет и одно свойство",
+      "id": "P1-03",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P1",
+      "goal": "Сообщить наличие и отсутствие",
+      "introduce_m": [
+        "M11"
+      ],
+      "introduce_g": [
+        "G12"
+      ],
+      "first_p": [
+        "M11"
+      ],
+      "revisit_m": [],
+      "contrast": "Kein против Nicht меняет отрицание объекта/действия",
+      "context": "Предмет уже известен",
+      "id": "P1-04",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P1",
+      "goal": "Попросить нужную вещь своими словами",
+      "introduce_m": [],
+      "introduce_g": [
+        "G11"
+      ],
+      "first_p": [
+        "M12"
+      ],
+      "revisit_m": [],
+      "contrast": "Только название/действие нужного объекта должно меняться",
+      "context": "Короткая самостоятельная просьба",
+      "id": "P1-05",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P1",
+      "goal": "Сообщить наблюдаемое состояние",
+      "introduce_m": [
+        "M15"
+      ],
+      "introduce_g": [
+        "G04"
+      ],
+      "first_p": [
+        "M15"
+      ],
+      "revisit_m": [],
+      "contrast": "Ist gut против Ist kaputt меняет решение",
+      "context": "Знакомое устройство или бытовой предмет",
+      "id": "P1-06",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P1",
+      "goal": "Рассказать о самочувствии",
+      "introduce_m": [
+        "M29"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M29"
+      ],
+      "revisit_m": [],
+      "contrast": "Müde против nicht müde не являются равным самоотчётом",
+      "context": "Состояние задано условиями, не угадывается",
+      "id": "P1-07",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P1",
+      "goal": "Потребность в напитке или еде",
+      "introduce_m": [
+        "M32"
+      ],
+      "introduce_g": [
+        "G05"
+      ],
+      "first_p": [
+        "M32"
+      ],
+      "revisit_m": [],
+      "contrast": "Wasser против Tee меняет нужный предмет",
+      "context": "Знакомое употребление, свободный ввод",
+      "id": "P1-08",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P1",
+      "goal": "Прочитать короткий знак",
+      "introduce_m": [
+        "M41"
+      ],
+      "introduce_g": [
+        "G32"
+      ],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Offen против geschlossen меняет вывод о доступности",
+      "context": "Немецкая подпись, без визуальной подсказки",
+      "id": "P1-09",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P1",
+      "goal": "Распознать простое количество",
+      "introduce_m": [
+        "M17"
+      ],
+      "introduce_g": [
+        "G10"
+      ],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Ein против zwei меняет число предметов",
+      "context": "Короткий список или описание",
+      "id": "P1-10",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P1",
+      "goal": "Найти предмет и предложить помощь",
+      "introduce_m": [
+        "M19",
+        "M20"
+      ],
+      "introduce_g": [
+        "G25"
+      ],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Wo? и welches? требуют разной информации",
+      "context": "Один объект, ограниченное пространство",
+      "id": "P1-11",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P1",
+      "goal": "Самостоятельно запросить конкретные сведения",
+      "introduce_m": [
+        "M47"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M47",
+        "M06"
+      ],
+      "revisit_m": [
+        "M39"
+      ],
+      "contrast": "Вопрос о месте и вопрос о наличии ведут к разным ответам",
+      "context": "Новое намерение, прежние W-слова",
+      "id": "P1-12",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2a",
+      "goal": "Владение знакомой вещью",
+      "introduce_m": [
+        "M13"
+      ],
+      "introduce_g": [
+        "G14"
+      ],
+      "first_p": [
+        "M13"
+      ],
+      "revisit_m": [
+        "M09"
+      ],
+      "contrast": "Mein против dein меняет владельца",
+      "context": "Два человека, знакомые предметы",
+      "id": "P2a-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2a",
+      "goal": "Ссылки он, она, оно",
+      "introduce_m": [
+        "M53"
+      ],
+      "introduce_g": [
+        "G15"
+      ],
+      "first_p": [],
+      "revisit_m": [
+        "M39"
+      ],
+      "contrast": "Смена местоимения меняет референта при двух кандидатах",
+      "context": "Один упомянутый контекст",
+      "id": "P2a-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2a",
+      "goal": "Формальное и неформальное обращение",
+      "introduce_m": [
+        "M08"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M03"
+      ],
+      "contrast": "Du против Sie меняет регистр, не обязательно реплику игрока",
+      "context": "Короткие адресованные обращения",
+      "id": "P2a-03",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2a",
+      "goal": "Роль человека и действие",
+      "introduce_m": [
+        "M33"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M33"
+      ],
+      "revisit_m": [],
+      "contrast": "Wer? против was macht? меняет требуемый факт",
+      "context": "Две знакомые деятельности",
+      "id": "P2a-04",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2a",
+      "goal": "Выразить эмоциональную оценку",
+      "introduce_m": [
+        "M35"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M35"
+      ],
+      "revisit_m": [],
+      "contrast": "Gut против schlecht меняет реакцию",
+      "context": "Понятный предмет отношения, без длинной причины",
+      "id": "P2a-05",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2b",
+      "goal": "Получатель и участники передачи",
+      "introduce_m": [
+        "M14"
+      ],
+      "introduce_g": [
+        "G16"
+      ],
+      "first_p": [
+        "M14"
+      ],
+      "revisit_m": [
+        "M12",
+        "M04"
+      ],
+      "contrast": "Gib mir против Gib dir меняет получателя",
+      "context": "Два участника, свободная просьба",
+      "id": "P2b-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2b",
+      "goal": "Местонахождение и направление",
+      "introduce_m": [
+        "M21"
+      ],
+      "introduce_g": [
+        "G18"
+      ],
+      "first_p": [
+        "M21",
+        "M20"
+      ],
+      "revisit_m": [
+        "M40"
+      ],
+      "contrast": "Wo? против Wohin? меняет требуемую информацию",
+      "context": "Два правдоподобных места, без стрелок",
+      "id": "P2b-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2b",
+      "goal": "Понять где и куда",
+      "introduce_m": [
+        "M22"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M09"
+      ],
+      "contrast": "Im против ins меняет тип пространственного отношения",
+      "context": "Одинаковый предмет, видимый текст",
+      "id": "P2b-03",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2b",
+      "goal": "Передать число самостоятельно",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M17"
+      ],
+      "revisit_m": [
+        "M10"
+      ],
+      "contrast": "Ein против zwei меняет количество",
+      "context": "Короткий факт о вещах",
+      "id": "P2b-04",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2b",
+      "goal": "Попросить и предложить помощь",
+      "introduce_m": [],
+      "introduce_g": [
+        "G17"
+      ],
+      "first_p": [
+        "M19"
+      ],
+      "revisit_m": [],
+      "contrast": "Mir против dir меняет адресата помощи",
+      "context": "Знакомое действие helfen",
+      "id": "P2b-05",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2c",
+      "goal": "Сообщить другому известный факт",
+      "introduce_m": [
+        "M48"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M48"
+      ],
+      "revisit_m": [
+        "M05"
+      ],
+      "contrast": "Изменение факта меняет сообщение второму собеседнику",
+      "context": "У второго нет исходной информации",
+      "id": "P2c-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2c",
+      "goal": "Распознать время по отношению к сейчас",
+      "introduce_m": [
+        "M49"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M03"
+      ],
+      "contrast": "Heute против morgen меняет время факта",
+      "context": "Знакомое действие и временное слово",
+      "id": "P2c-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2c",
+      "goal": "Возможность, разрешение, отрицание",
+      "introduce_m": [
+        "M18",
+        "M54"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M39"
+      ],
+      "contrast": "Не могу, нельзя и не нужно имеют разные последствия",
+      "context": "Одно знакомое действие, отдельные контрасты",
+      "id": "P2c-03",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2c",
+      "goal": "Начало действия и простой момент",
+      "introduce_m": [
+        "M23"
+      ],
+      "introduce_g": [
+        "G21"
+      ],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Fängt an против hört auf меняет начало и окончание",
+      "context": "Привычное действие и знак времени",
+      "id": "P2c-04",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2c",
+      "goal": "Распознать желание",
+      "introduce_m": [
+        "M30"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M09"
+      ],
+      "contrast": "Möchte против не хочу меняет намерение",
+      "context": "Знакомый выбор двух вещей",
+      "id": "P2c-05",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3a",
+      "goal": "Назвать время и дату",
+      "introduce_m": [],
+      "introduce_g": [
+        "G19",
+        "G20"
+      ],
+      "first_p": [
+        "M23"
+      ],
+      "revisit_m": [
+        "M17"
+      ],
+      "contrast": "Um zehn против um zwölf меняет назначенное время",
+      "context": "Знакомые малые числа, один шаг расписания",
+      "id": "P3a-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3a",
+      "goal": "Читать табличные данные",
+      "introduce_m": [
+        "M42"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M41"
+      ],
+      "contrast": "Montag против Dienstag меняет строку данных",
+      "context": "Короткая таблица с знакомыми заголовками",
+      "id": "P3a-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3a",
+      "goal": "Обычное действие и частота",
+      "introduce_m": [
+        "M25"
+      ],
+      "introduce_g": [
+        "G27"
+      ],
+      "first_p": [
+        "M25"
+      ],
+      "revisit_m": [
+        "M32"
+      ],
+      "contrast": "Oft против nie меняет утверждение о привычке",
+      "context": "Небольшой распорядок, не новый персонаж",
+      "id": "P3a-03",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3a",
+      "goal": "Самостоятельно согласовать время",
+      "introduce_m": [
+        "M24"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M24"
+      ],
+      "revisit_m": [
+        "M07"
+      ],
+      "contrast": "Heute gegen morgen меняет доступность",
+      "context": "Два допустимых варианта времени",
+      "id": "P3a-04",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3a",
+      "goal": "Установить порядок действий",
+      "introduce_m": [
+        "M26"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M26"
+      ],
+      "revisit_m": [
+        "M04"
+      ],
+      "contrast": "Zuerst против danach меняет порядок",
+      "context": "Два знакомых действия",
+      "id": "P3a-05",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3b",
+      "goal": "Запрет, обязанность и возможность",
+      "introduce_m": [],
+      "introduce_g": [
+        "G22"
+      ],
+      "first_p": [
+        "M18",
+        "M54"
+      ],
+      "revisit_m": [
+        "M11"
+      ],
+      "contrast": "Nicht dürfen против nicht müssen не синонимы",
+      "context": "Известное действие, по одному контрасту",
+      "id": "P3b-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3b",
+      "goal": "Время события и сообщение о будущем",
+      "introduce_m": [
+        "M52"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M49"
+      ],
+      "revisit_m": [
+        "M20"
+      ],
+      "contrast": "Gestern против morgen меняет временную привязку",
+      "context": "Один известный факт, ещё не Perfekt",
+      "id": "P3b-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3b",
+      "goal": "Приглашение и координация",
+      "introduce_m": [
+        "M37"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M37"
+      ],
+      "revisit_m": [],
+      "contrast": "Einladung angenommen против abgelehnt меняет решение",
+      "context": "Выбор и отказ оба осмысленны",
+      "id": "P3b-03",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3b",
+      "goal": "Слишком поздно, слишком много",
+      "introduce_m": [
+        "M38"
+      ],
+      "introduce_g": [
+        "G24"
+      ],
+      "first_p": [],
+      "revisit_m": [
+        "M06"
+      ],
+      "contrast": "Doch vs nein после отрицательного вопроса меняет подтверждение",
+      "context": "Простая реакция, известная ситуация",
+      "id": "P3b-04",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3c",
+      "goal": "Желание и предпочтение",
+      "introduce_m": [
+        "M31"
+      ],
+      "introduce_g": [
+        "G23"
+      ],
+      "first_p": [
+        "M30",
+        "M31"
+      ],
+      "revisit_m": [
+        "M29"
+      ],
+      "contrast": "Lieber Tee vs Wasser меняет выбор",
+      "context": "Знакомый объект и отдельное желание",
+      "id": "P3c-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3c",
+      "goal": "Распознать вежливые формулы",
+      "introduce_m": [
+        "M55"
+      ],
+      "introduce_g": [
+        "G33"
+      ],
+      "first_p": [],
+      "revisit_m": [
+        "M09"
+      ],
+      "contrast": "Hätte gern и könnte ich выражают просьбу, не требуя продуктивной формы",
+      "context": "Только рецепция коротких сообщений",
+      "id": "P3c-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3c",
+      "goal": "Понять личное сообщение",
+      "introduce_m": [
+        "M43"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Сегодня/завтра меняет нужный ответ",
+      "context": "Короткий текст с отправителем и просьбой",
+      "id": "P3c-03",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3c",
+      "goal": "Знакомство с интересами и досугом",
+      "introduce_m": [
+        "M34"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Lesen vs spielen меняет предпочитаемое занятие",
+      "context": "Абстрактная информация о предпочтении",
+      "id": "P3c-04",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3c",
+      "goal": "Связать два смысловых пункта",
+      "introduce_m": [
+        "M46"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Изменение второго пункта меняет весь смысл сообщения",
+      "context": "Два коротких знакомых факта",
+      "id": "P3c-05",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3c",
+      "goal": "Увидеть противопоставление и сравнение",
+      "introduce_m": [
+        "M16",
+        "M28"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M21"
+      ],
+      "contrast": "A gut aber B kaputt меняет отношения двух фактов",
+      "context": "Знакомые свойства, разные значения",
+      "id": "P3c-06",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P4a",
+      "goal": "Самому противопоставить два факта",
+      "introduce_m": [],
+      "introduce_g": [
+        "G34"
+      ],
+      "first_p": [
+        "M16"
+      ],
+      "revisit_m": [
+        "M10",
+        "M15"
+      ],
+      "contrast": "Aber и und по-разному связывают факты",
+      "context": "Два факта, без нового жанра",
+      "id": "P4a-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P4a",
+      "goal": "Сравнить понятные варианты",
+      "introduce_m": [],
+      "introduce_g": [
+        "G26"
+      ],
+      "first_p": [
+        "M28"
+      ],
+      "revisit_m": [
+        "M13"
+      ],
+      "contrast": "Größer против kleiner меняет сравнительный вывод",
+      "context": "Два знакомых объекта",
+      "id": "P4a-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P4a",
+      "goal": "Прочитать границы длительности",
+      "introduce_m": [
+        "M27"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M18"
+      ],
+      "contrast": "Seit против bis меняет начало или конец периода",
+      "context": "Только рецепция одной временной границы",
+      "id": "P4a-03",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P4a",
+      "goal": "Распознать признак в короткой группе",
+      "introduce_m": [],
+      "introduce_g": [
+        "G31"
+      ],
+      "first_p": [],
+      "revisit_m": [
+        "M22"
+      ],
+      "contrast": "Rote против blaue меняет объект ссылки",
+      "context": "Знакомая вещь, не тест склонения",
+      "id": "P4a-04",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P4b",
+      "goal": "Понять рабочую заметку",
+      "introduce_m": [
+        "M44"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M42",
+        "M43"
+      ],
+      "contrast": "Смена времени/адресата меняет предписанное действие",
+      "context": "Короткий служебный текст как жанр",
+      "id": "P4b-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P4b",
+      "goal": "Разобраться в личных связях",
+      "introduce_m": [
+        "M36"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M05",
+        "M02"
+      ],
+      "contrast": "Bruder против Freund меняет связь людей A/B/C",
+      "context": "Абстрактные отношения, никаких биографий NPC",
+      "id": "P4b-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P4b",
+      "goal": "Заполнить простую форму",
+      "introduce_m": [
+        "M45"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M45"
+      ],
+      "revisit_m": [
+        "M41",
+        "M20"
+      ],
+      "contrast": "Поля Name и Zeit не взаимозаменяемы",
+      "context": "Только знакомые значения, без автоподстановки",
+      "id": "P4b-03",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P4c",
+      "goal": "Спросить об интересе и предложить занятие",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M34"
+      ],
+      "revisit_m": [
+        "M30",
+        "M31"
+      ],
+      "contrast": "Чтение против прогулки меняет предложение",
+      "context": "Собеседник не знает предпочтение, свободный ответ",
+      "id": "P4c-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P4c",
+      "goal": "Сообщить причину неприменимости варианта",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M38"
+      ],
+      "revisit_m": [
+        "M25",
+        "M29"
+      ],
+      "contrast": "Zu kalt против zu warm меняет отказ",
+      "context": "Привычный объект, ясная причина",
+      "id": "P4c-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P4c",
+      "goal": "Передать два пункта своими словами",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M46"
+      ],
+      "revisit_m": [
+        "M48",
+        "M37",
+        "M33"
+      ],
+      "contrast": "Смена времени при прежнем предмете меняет план",
+      "context": "Собеседник не видел один из фактов",
+      "id": "P4c-03",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P5",
+      "goal": "Распознать прошлое состояния",
+      "introduce_m": [
+        "M50"
+      ],
+      "introduce_g": [
+        "G28"
+      ],
+      "first_p": [],
+      "revisit_m": [
+        "M49",
+        "M03"
+      ],
+      "contrast": "War против ist меняет временную отнесённость",
+      "context": "Один знакомый объект и время",
+      "id": "P5-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P5",
+      "goal": "Сообщить о завершённом действии",
+      "introduce_m": [
+        "M51"
+      ],
+      "introduce_g": [
+        "G29"
+      ],
+      "first_p": [
+        "M51"
+      ],
+      "revisit_m": [
+        "M26",
+        "M11"
+      ],
+      "contrast": "Habe gesucht против suche меняет завершённость",
+      "context": "Известное действие, новый временной смысл",
+      "id": "P5-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P5",
+      "goal": "Понять Perfekt с sein",
+      "introduce_m": [],
+      "introduce_g": [
+        "G30"
+      ],
+      "first_p": [],
+      "revisit_m": [
+        "M16",
+        "M15"
+      ],
+      "contrast": "Ist gekommen против kommt меняет время события",
+      "context": "Простое перемещение, только рецепция формы",
+      "id": "P5-03",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P5",
+      "goal": "Сообщить ближайший план",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M52"
+      ],
+      "revisit_m": [
+        "M28",
+        "M25"
+      ],
+      "contrast": "Morgen против gestern меняет намерение",
+      "context": "Привычное действие и новое время",
+      "id": "P5-04",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P5",
+      "goal": "Повторить личную информацию в другом жанре",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M34",
+        "M36",
+        "M38"
+      ],
+      "contrast": "Смена родства или интереса меняет вывод",
+      "context": "Знакомые отношения в новой функции",
+      "id": "P5-05",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P5",
+      "goal": "Передать чужой прошлый факт",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M14",
+        "M53"
+      ],
+      "contrast": "Смена агента меняет правильный пересказ",
+      "context": "Отложенный вопрос с адресатом",
+      "id": "P5-06",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P6",
+      "goal": "Интеграция понимания короткой инструкции",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M39",
+        "M42",
+        "M55"
+      ],
+      "contrast": "Изменение адресата меняет нужный ответ",
+      "context": "Знакомые короткие формулы",
+      "id": "P6-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P6",
+      "goal": "Возможность, запрет и время",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M18",
+        "M54",
+        "M24",
+        "M23"
+      ],
+      "contrast": "Смена nicht dürfen на nicht müssen меняет выбор",
+      "context": "Знакомая цель, новый контраст контекста",
+      "id": "P6-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P6",
+      "goal": "Личное сообщение с отношениями",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M36",
+        "M35",
+        "M30",
+        "M31"
+      ],
+      "contrast": "Смена родства меняет получателя ответа",
+      "context": "Знакомая лексика, новый адресат",
+      "id": "P6-03",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P6",
+      "goal": "Прошлое и ближайшее будущее",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M16",
+        "M28",
+        "M26",
+        "M50",
+        "M51",
+        "M27"
+      ],
+      "contrast": "Смена времени меняет сообщение",
+      "context": "Два знакомых события, разные времена",
+      "id": "P6-04",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P6",
+      "goal": "Несколько независимых пунктов",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M46",
+        "M48",
+        "M52",
+        "M49",
+        "M17",
+        "M45",
+        "M47",
+        "M37",
+        "M08"
+      ],
+      "contrast": "Если один из трёх фактов меняется, ответ также меняется",
+      "context": "Свободное сообщение, без готового ответа",
+      "id": "P6-05",
+      "mode": "independent_abstract_language_practice"
+    }
+  ]
+}
