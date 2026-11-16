@@ -1,5 +1,5 @@
 {
-  "version": "0.4",
+  "version": "0.5",
   "status": "plot_independent_lexical_anchor_candidates_not_required_word_quotas",
   "notes": [
     "The 29 source groups are imported from LANGUAGE_LEXICON.md only; nothing from ACT_*, dialogue transcripts or world lore.",
@@ -10,7 +10,8 @@
     "A German compound or phrase can contain several lexemes; counts of anchors are NOT unique vocabulary sizes or cognitive difficulty.",
     "A selected functional anchor is only a candidate; unused productive words such as directional nach remain present in LANGUAGE_LEXICON.md rather than being erased.",
     "Critical R/grammar prerequisites received their own anchors: Sie, im/ins, polite phrases, doch, seit/bis, welcher, es gibt; the catalogue retains all prior words.",
-    "All 116 existing candidate lexical anchor slots now have manually drafted Russian glosses; these do not constitute the complete 463-string catalogue or approved F1 articles."
+    "All 116 existing candidate lexical anchor slots now have manually drafted Russian glosses; these do not constitute the complete 463-string catalogue or approved F1 articles.",
+    "Group 19: three minimal price-related anchors are required receptively by LO-R04; purchasing and store-specific lexicon remain optional candidates in LANGUAGE_LEXICON.md. No scene or shop narrative is implied."
   ],
   "groups": [
     {
@@ -1265,20 +1266,14 @@
         "geschlossen"
       ],
       "planned_first_practice": "P3a",
-      "role": "contextual_candidate",
+      "role": "functional_anchor_candidate",
       "minimal_anchor_expressions": [
-        "kaufen",
         "der Preis",
-        "teuer"
+        "der Euro",
+        "kosten"
       ],
-      "warning": null,
+      "warning": "LO-R04 requires understanding a basic price, so the minimal receptive price/Euro/cost information is functional; buying and other store terms remain optional catalogue candidates.",
       "draft_russian_glosses": [
-        {
-          "expression": "kaufen",
-          "ru": "покупать",
-          "status": "unreviewed_semantic_gloss_not_f1_approved",
-          "context_needed": false
-        },
         {
           "expression": "der Preis",
           "ru": "цена",
@@ -1286,8 +1281,14 @@
           "context_needed": false
         },
         {
-          "expression": "teuer",
-          "ru": "дорогой",
+          "expression": "der Euro",
+          "ru": "евро",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "kosten",
+          "ru": "стоить / стоить (о цене)",
           "status": "unreviewed_semantic_gloss_not_f1_approved",
           "context_needed": false
         }
