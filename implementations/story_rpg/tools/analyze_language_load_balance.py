@@ -784,7 +784,7 @@ def lexical_catalogue_audit(doc: dict) -> list[str]:
                     }:
                     errors.append(f"Lexical productive support not producible: {gate.get('id')}: {term}")
     all_outcomes = {
-        case["id"] for case in doc.get("independent_outcome_assessments", {}).get("cases", [])
+        case["lo"] for case in doc.get("independent_outcome_assessments", {}).get("cases", [])
     }
     lexical_outcomes = {
         target for gate in contracts
