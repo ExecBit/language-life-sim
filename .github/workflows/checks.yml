@@ -16,6 +16,9 @@ jobs:
       - name: Validate setting-independent language program
         if: ${{ hashFiles('implementations/story_rpg/tools/analyze_language_load_balance.py') != '' }}
         run: python implementations/story_rpg/tools/analyze_language_load_balance.py --check
+      - name: Validate independent language day-capacity estimate
+        if: ${{ hashFiles('implementations/story_rpg/tools/calculate_language_days.py') != '' }}
+        run: python implementations/story_rpg/tools/calculate_language_days.py --check
       - name: Validate existing Story RPG HTML dashboard
         if: ${{ hashFiles('implementations/story_rpg/tools/build_day_progression_dashboard.py') != '' }}
         run: python implementations/story_rpg/tools/build_day_progression_dashboard.py --check
