@@ -1,12 +1,13 @@
 {
-  "version": "0.1",
-  "status": "scenario_neutral_LO_fixture_draft_not_playtested_or_approved",
+  "version": "0.2",
+  "status": "scenario_independent_semantic_test_blueprints_not_story_or_final_exam",
   "contract": [
-    "A and B variants share the same linguistic frame but differ in meaning-bearing facts.",
-    "No prefilled German answer or task-specific Russian translation; Russian only gives the role/goal for W.",
-    "Accept semantic equivalents and clarify ambiguity; spelling and inflection errors are nonblocking when meaning is clear.",
-    "Observe intended language coverage before administering: blocked items cannot be used as fair exams.",
-    "These cases are test definitions, not automated test results."
+    "These are abstract transferable language tasks. Sample names, objects, rooms, and circumstances are interchangeable data, NOT characters, plot, world canon, or quests.",
+    "All 13 LO items are specified without an assumed ship, technology, occupation, story day, or NPC biography.",
+    "A/B variants change only a critical meaning, not a story beat; counterfactuals are authorship checks, not executable tests.",
+    "R meaning must come from German Input rather than Russian UI or visual guessing; W means free German Output without a provided complete answer.",
+    "Accept semantic equivalents and clarification; grammar or spelling differences are nonblocking when the intended meaning is unambiguous.",
+    "These examples illustrate outcomes, do not determine required vocabulary independently of LANGUAGE_LEXICON.md."
   ],
   "rubric": {
     "full": 2,
@@ -21,20 +22,20 @@
       "mode": "R",
       "blocker": "M08/Sie not yet supported in mandatory source",
       "source_a": [
-        "An Lena: Komm bitte um zehn.",
-        "An den Arzt: Kommen Sie bitte um zwölf."
+        "An Anna: Komm bitte um zehn.",
+        "An Herrn Weber: Kommen Sie bitte um zwölf."
       ],
       "source_b": [
-        "An Lena: Komm bitte um zwölf.",
-        "An den Arzt: Kommen Sie bitte um zehn."
+        "An Anna: Komm bitte um zwölf.",
+        "An Herrn Weber: Kommen Sie bitte um zehn."
       ],
       "required": [
-        "recipient_by_German_address",
-        "formality_register",
-        "time_by_message"
+        "German_text_addressee",
+        "register_du_or_Sie",
+        "time_per_addressee"
       ],
-      "counterfactual": "change the stated appointment time in the German messages, preserving addressee and register",
-      "wrong": "Treat formal Sie as third-person sie, or swap addressee and time"
+      "counterfactual": "Change the time in the German message, keeping addressee and register constant.",
+      "wrong": "Assign the formal Sie request to Anna or swap the hours."
     },
     {
       "lo": "LO-R02",
@@ -44,34 +45,34 @@
         "Morgen musst du nicht kommen."
       ],
       "source_b": [
-        "Hier musst du arbeiten.",
+        "Hier musst du nicht arbeiten.",
         "Morgen darfst du nicht kommen."
       ],
       "required": [
-        "permission_or_obligation",
-        "polarity",
+        "modality",
+        "negation_scope",
         "day"
       ],
-      "counterfactual": "change modal operator and negation; location and appearance unchanged",
-      "wrong": "Treat prohibition as optional attendance"
+      "counterfactual": "Swap prohibition and non-obligation in the same visual layout.",
+      "wrong": "Treat a prohibition as optionality, or vice versa."
     },
     {
       "lo": "LO-R03",
       "mode": "R",
       "source_a": [
-        "Die Liste ist im Lager.",
-        "Bring die Liste ins Zimmer."
+        "Das Buch ist im Zimmer.",
+        "Bring das Buch in die Küche."
       ],
       "source_b": [
-        "Die Liste ist im Zimmer.",
-        "Bring die Liste ins Lager."
+        "Das Buch ist in der Küche.",
+        "Bring das Buch ins Zimmer."
       ],
       "required": [
         "current_location",
-        "different_destination"
+        "destination"
       ],
-      "counterfactual": "change one location only, with plausible routes",
-      "wrong": "Confuse current location with destination"
+      "counterfactual": "Swap the German source/destination with both rooms visually plausible.",
+      "wrong": "Confuse where the item is with where to bring it."
     },
     {
       "lo": "LO-R04",
@@ -89,220 +90,227 @@
         "hour",
         "availability"
       ],
-      "counterfactual": "swap day and availability; no auto-highlight of the free entry",
-      "wrong": "Select busy slot or wrong day"
+      "counterfactual": "Change German calendar entries without auto-highlighting the right answer.",
+      "wrong": "Select an occupied appointment slot or wrong day."
     },
     {
       "lo": "LO-R05",
       "mode": "R",
       "blocker": "Need meaningful complete message practice in mandatory input",
       "source_a": [
-        "Hallo! Ich bin heute müde. Komm bitte morgen um zehn. Danke! Lena."
+        "Hallo! Ich bin heute krank. Komm bitte morgen um zehn. Danke! Mia."
       ],
       "source_b": [
-        "Hallo! Ich bin heute müde. Komm bitte morgen um zwölf. Danke! Lena."
+        "Hallo! Ich bin heute krank. Komm bitte morgen um zwölf. Danke! Mia."
       ],
       "required": [
         "sender",
-        "condition_or_reason",
-        "request",
+        "reason_or_condition",
+        "requested_action",
         "time"
       ],
-      "counterfactual": "change request time only while preserving all other words",
-      "wrong": "Treat tomorrow as today or ignore invitation time"
+      "counterfactual": "Change only the requested hour; the named sender is an arbitrary placeholder.",
+      "wrong": "Confuse today/tomorrow or report the wrong appointment time."
     },
     {
       "lo": "LO-R06",
       "mode": "R",
       "source_a": [
-        "Montag: Sensor A kaputt.",
-        "Dienstag: Sensor A gut."
+        "Montag: Das Fenster ist geschlossen.",
+        "Dienstag: Das Fenster ist offen."
       ],
       "source_b": [
-        "Montag: Sensor A gut.",
-        "Dienstag: Sensor A kaputt."
+        "Montag: Das Fenster ist offen.",
+        "Dienstag: Das Fenster ist geschlossen."
       ],
       "required": [
-        "older_status",
-        "newer_status",
-        "change_direction"
+        "object",
+        "older_state",
+        "newer_state"
       ],
-      "counterfactual": "reverse one status with same sensor/date layout",
-      "wrong": "Report outdated status as current"
+      "counterfactual": "Reverse the states while retaining the same two dates and format.",
+      "wrong": "Take an old note as a current fact."
     },
     {
       "lo": "LO-W01",
       "mode": "W",
-      "goal_ru": "Попросить у человека нужный ключ или узнать, где он находится; ответ не сообщён заранее.",
+      "goal_ru": "В знакомой бытовой ситуации попросить конкретный предмет или узнать, где он находится; готовой немецкой реплики нет.",
       "facts_a": {
-        "needed_object": "Schlüssel",
-        "recipient": "Lagerverwalter"
+        "needed_object": "Buch",
+        "recipient": "person A"
       },
       "facts_b": {
-        "needed_object": "Lampe",
-        "recipient": "Lagerverwalter"
+        "needed_object": "Tasse",
+        "recipient": "person A"
       },
       "required": [
-        "request_intent",
+        "request_or_question_intent",
         "correct_object"
       ],
       "acceptable_examples": [
-        "Schlüssel bitte.",
-        "Ich brauche den Schlüssel.",
-        "Wo Schlüssel?"
+        "Das Buch, bitte.",
+        "Wo ist das Buch?",
+        "Ich brauche das Buch."
       ],
-      "counterfactual": "change object, not appearance or default textbox",
-      "wrong": "Request Lampe when Schlüssel is needed"
+      "counterfactual": "Change the required object while preserving interaction and affordances.",
+      "wrong": "Request a cup when a book is needed."
     },
     {
       "lo": "LO-W02",
       "mode": "W",
-      "goal_ru": "Сообщить другому персонажу состояние узла, который виден только игроку.",
+      "goal_ru": "Самостоятельно сообщить другому человеку наблюдаемый факт о знакомом предмете и его состоянии; факт ему неизвестен.",
       "facts_a": {
-        "object": "Sensor A",
-        "status": "kaputt"
+        "object": "Tasse",
+        "state": "leer",
+        "owner": "Anna"
       },
       "facts_b": {
-        "object": "Sensor B",
-        "status": "gut"
+        "object": "Tasse",
+        "state": "voll",
+        "owner": "Anna"
       },
       "required": [
         "object",
-        "current_status"
+        "observed_state"
       ],
       "acceptable_examples": [
-        "Sensor A kaputt.",
-        "Sensor A ist kaputt."
+        "Die Tasse ist leer.",
+        "Tasse leer."
       ],
-      "counterfactual": "change observed device and status without giving NPC new data",
-      "wrong": "State gut when kaputt or confuse A/B"
+      "counterfactual": "Change the observed state only; the listener cannot see the object.",
+      "wrong": "Say full when the cup is empty."
     },
     {
       "lo": "LO-W03",
       "mode": "W",
-      "goal_ru": "Согласовать время и сообщить ограничение: работу либо запрещают, либо выполнять её не обязательно.",
+      "goal_ru": "Согласовать время и передать разницу между запретом и отсутствием обязанности.",
       "facts_a": {
         "time": "zehn Uhr",
-        "restriction": "nicht dürfen"
+        "rule": "nicht dürfen"
       },
       "facts_b": {
         "time": "zwölf Uhr",
-        "restriction": "nicht müssen"
+        "rule": "nicht müssen"
       },
       "required": [
         "time",
-        "restriction_polarity",
-        "modality"
+        "modality",
+        "negation_scope"
       ],
       "acceptable_examples": [
-        "Ich komme um zehn. Dort darf ich nicht arbeiten.",
-        "Zehn Uhr. Arbeiten dort verboten."
+        "Um zehn. Hier darf ich nicht arbeiten.",
+        "Zehn Uhr. Hier arbeiten verboten."
       ],
-      "counterfactual": "change restriction from prohibited to not required",
-      "wrong": "Equate nicht dürfen and nicht müssen"
+      "counterfactual": "Change time and modality independently across two variants; evaluate both meaning dimensions.",
+      "wrong": "Confuse nicht dürfen with nicht müssen or give the wrong time."
     },
     {
       "lo": "LO-W04",
       "mode": "W",
-      "goal_ru": "Ответить на предложение безопасного отдыха и сообщить собственное предпочтение.",
+      "goal_ru": "Ответить на предложение двух знакомых напитков, сообщив собственное предпочтение, заданное условиями варианта.",
       "facts_a": {
-        "need": "Wasser",
-        "option": "Wasser oder Tee"
+        "preference": "Wasser",
+        "offered": [
+          "Tee",
+          "Wasser"
+        ]
       },
       "facts_b": {
-        "need": "Tee",
-        "option": "Wasser oder Tee"
+        "preference": "Tee",
+        "offered": [
+          "Tee",
+          "Wasser"
+        ]
       },
       "required": [
         "preference",
-        "chosen_option"
+        "selected_item"
       ],
       "acceptable_examples": [
         "Wasser bitte.",
         "Ich möchte Wasser.",
         "Lieber Wasser."
       ],
-      "counterfactual": "change personal preference but keep same offered choices",
-      "wrong": "State opposite preference"
+      "counterfactual": "Change only the character's preference, not the offered choices.",
+      "wrong": "Choose the opposite drink."
     },
     {
       "lo": "LO-W05",
       "mode": "W",
-      "goal_ru": "Передать сотруднику, не видевшему работу, что было проверено и как изменился результат.",
+      "goal_ru": "Сообщить человеку, который не видел действие, о найденном предмете и о том, когда это произошло.",
       "facts_a": {
-        "actor": "player",
-        "past_action": "Leitung geprüft",
-        "current_status": "gut"
+        "agent": "player",
+        "action": "Buch gefunden",
+        "when": "gestern"
       },
       "facts_b": {
-        "actor": "player",
-        "past_action": "Leitung geprüft",
-        "current_status": "kaputt"
+        "agent": "player",
+        "action": "Schlüssel gefunden",
+        "when": "gestern"
       },
       "required": [
+        "agent",
         "completed_action",
-        "actor",
-        "current_result"
+        "object",
+        "time"
       ],
       "acceptable_examples": [
-        "Ich Leitung geprüft. Jetzt gut.",
-        "Ich habe die Leitung geprüft. Sie ist jetzt gut."
+        "Ich habe gestern das Buch gefunden.",
+        "Gestern ich Buch gefunden."
       ],
-      "counterfactual": "change current result, keep archive in same initial condition",
-      "wrong": "Claim somebody else performed check or incorrect current state"
+      "counterfactual": "Change only the found item, preserving the time and recipient information gap.",
+      "wrong": "Attribute the find to another person or name the wrong object."
     },
     {
       "lo": "LO-W06",
       "mode": "W",
-      "goal_ru": "Заполнить понятные немецкие поля формы из трёх независимых наблюдений.",
+      "goal_ru": "По знакомым немецким подписям самостоятельно заполнить простую форму из независимых известных данных.",
       "facts_a": {
-        "Sensor": "A",
-        "Zeit": "zehn Uhr",
-        "Status": "gut"
+        "Name": "Anna",
+        "Tag": "Montag",
+        "Zeit": "zehn Uhr"
       },
       "facts_b": {
-        "Sensor": "B",
-        "Zeit": "zwölf Uhr",
-        "Status": "kaputt"
+        "Name": "Mia",
+        "Tag": "Dienstag",
+        "Zeit": "zwölf Uhr"
       },
       "required": [
-        "field_Sensor",
-        "field_Zeit",
-        "field_Status"
+        "field_Name",
+        "field_Tag",
+        "field_Zeit"
       ],
       "acceptable_examples": [
-        "Sensor: A; Zeit: zehn Uhr; Status: gut."
+        "Name: Anna; Tag: Montag; Zeit: zehn Uhr."
       ],
-      "counterfactual": "change all 3 observed data, leave field captions unchanged",
-      "wrong": "Put value into wrong field or copy previous form"
+      "counterfactual": "Change the values while retaining field labels; names are arbitrary sample data, not NPC canon.",
+      "wrong": "Swap values between fields or copy the other variant."
     },
     {
       "lo": "LO-W07",
       "mode": "W",
-      "goal_ru": "Передать адресату два неизвестных ему показания и время следующей проверки.",
+      "goal_ru": "Передать другому человеку несколько независимых новых сведений о предмете, его местонахождении и просьбе о времени.",
       "facts_a": {
-        "sensor": "A",
-        "sensor_status": "gut",
-        "connection_status": "kaputt",
-        "time": "elf Uhr"
+        "object": "Buch",
+        "location": "Zimmer",
+        "requested_time": "morgen zehn Uhr"
       },
       "facts_b": {
-        "sensor": "B",
-        "sensor_status": "kaputt",
-        "connection_status": "gut",
-        "time": "zwölf Uhr"
+        "object": "Tasse",
+        "location": "Küche",
+        "requested_time": "morgen zwölf Uhr"
       },
       "required": [
-        "sensor_result",
-        "connection_result",
-        "next_time"
+        "object_and_location",
+        "request_or_action",
+        "time"
       ],
       "acceptable_examples": [
-        "Sensor A gut. Verbindung kaputt. Morgen um elf.",
-        "Sensor A ist gut. Die Verbindung ist kaputt. Morgen um elf."
+        "Das Buch ist im Zimmer. Komm bitte morgen um zehn.",
+        "Buch im Zimmer. Morgen um zehn, bitte."
       ],
-      "counterfactual": "change only one result or time at a time",
-      "wrong": "Only one result, or swap two statuses"
+      "counterfactual": "Change just one meaning-bearing fact at a time: object/place or appointment hour.",
+      "wrong": "Omit a critical item, reverse place and destination, or change the time."
     }
   ]
 }
