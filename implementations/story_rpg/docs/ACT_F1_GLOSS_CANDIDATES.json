@@ -1,14 +1,14 @@
 {
-  "version": "0.1",
-  "status": "preliminary_Russian_reverse_lookup_glosses_not_complete_game_F1",
+  "version": "0.2",
+  "status": "preliminary_Russian_reverse_lookup_glosses_for_current_authored_act_not_complete_458_unit_F1",
   "notes": [
-    "207 distinct normalized entries used by mandatory R or author P examples, NOT 458 thematic catalogue phrases.",
+    "221 distinct normalized entries used in current authored mandatory/optional R/P; thematic 458 phrases are additional candidates, not guaranteed scene vocabulary.",
     "The glossary is a manually drafted sense hint requiring German-language and contextual review; meanings may vary by part of speech.",
     "Homographs sie/Sie, sein, zu, morgen, articles, dürfen/darf and normalized Zeit/zeit require sense-level entries before production.",
     "Only a gloss, no verb paradigms, noun gender, full phrase translations, reverse search index or German spelling disambiguation.",
     "Never treat an author P example as the only accepted player utterance."
   ],
-  "entry_count": 207,
+  "entry_count": 221,
   "entries": [
     {
       "lemma": "aber",
@@ -1930,6 +1930,132 @@
         "zuerst"
       ],
       "role": "P_example_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ankommen",
+      "gloss_ru": "прибывать; приходить",
+      "forms": [
+        "angekommen"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "beide",
+      "gloss_ru": "оба; обе",
+      "forms": [
+        "beiden"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "bekommen",
+      "gloss_ru": "получать",
+      "forms": [
+        "bekommen"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "freuen",
+      "gloss_ru": "радоваться",
+      "forms": [
+        "freue"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "froh",
+      "gloss_ru": "радостный; довольный",
+      "forms": [
+        "froh"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "gern",
+      "gloss_ru": "с удовольствием; охотно",
+      "forms": [
+        "gern"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ihr",
+      "gloss_ru": "вы (мн.); её (притяж.); ей (падеж)",
+      "forms": [
+        "euch"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "kurz",
+      "gloss_ru": "короткий; недолго",
+      "forms": [
+        "kurz"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "lesen",
+      "gloss_ru": "читать",
+      "forms": [
+        "lesen"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "mit",
+      "gloss_ru": "с; вместе с",
+      "forms": [
+        "mit"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "unsicher",
+      "gloss_ru": "неуверенный; ненадёжный",
+      "forms": [
+        "unsicher"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "versuchen",
+      "gloss_ru": "пытаться; пробовать",
+      "forms": [
+        "versuche"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wenig",
+      "gloss_ru": "мало; немного",
+      "forms": [
+        "wenig"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wort",
+      "gloss_ru": "слово",
+      "forms": [
+        "worten"
+      ],
+      "role": "optional_authored_only",
       "review": "candidate_unverified"
     }
   ]
