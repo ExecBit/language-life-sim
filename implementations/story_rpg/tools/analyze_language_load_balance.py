@@ -23,6 +23,7 @@ PROGRESSION = DOCS / "LANGUAGE_PROGRESSION.md"
 OUTPUT = DOCS / "LANGUAGE_LOAD_BALANCE_REPORT.md"
 LEXICAL = DOCS / "LANGUAGE_LEXICAL_ANCHORS.json"
 OUTCOMES = DOCS / "LEARNING_OUTCOMES.md"
+CATALOGUE = DOCS / "LANGUAGE_LEXICON.md"
 STAGES = ["P0", "P1", "P2a", "P2b", "P2c", "P3a", "P3b", "P3c",
           "P4a", "P4b", "P4c", "P5", "P6"]
 FIELDS = ("introduce_m", "introduce_g", "first_p", "revisit_m")
@@ -269,6 +270,22 @@ def report(doc: dict, mmap: dict, gmap: dict, errors: list[str]) -> str:
 def lexical_stage_report(doc: dict, glossary: dict) -> tuple[str, list[str]]:
     """Validate all selected lexical anchors against the independent catalogue."""
     errors = []
+    source_groups = {}
+    for line in CATALOGUE.read_text(encoding="utf-8").splitlines():
+        cells = [v.strip() for v in line.split("|")[1:-1]]
+        if len(cells) != 6 or not cells[0].isdigit():
+            continue
+        source_groups[int(cells[0])] = {
+            "active": re.findall(r"`([^`]+)`", cells[4]),
+            "receptive": re.findall(r"`([^`]+)`", cells[5]),
+        }
+    if len(source_groups) != 29:
+        errors.append("LANGUAGE_LEXICON.md must contain 29 groups")
+    for group in glossary["groups"]:
+        canonical = source_groups.get(group["id"])
+        if canonical is None or canonical["active"] != group["active"] or canonical["receptive"] != group["receptive"]:
+            errors.append(f"lexical group {group['id']} is out of sync with LANGUAGE_LEXICON.md")
+
     expected = {}
     for group in glossary["groups"]:
         for expression in group["minimal_anchor_expressions"]:
