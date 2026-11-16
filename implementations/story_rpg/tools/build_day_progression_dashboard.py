@@ -158,7 +158,7 @@ def apply_reuse(source: str, days: list[dict], first: dict[str, str]) -> None:
                 raise ValueError(f"Heatmap introduction mismatch {group} D{day['day']:02}")
             if marker in ("↻", "◉"):
                 day["reuse"].append(group)
-            elif marker != ("●", "·"):
+            elif marker not in ("●", "·"):
                 raise ValueError("Unknown heatmap marker " + marker)
     for day in days:
         for group in day["reuse"]:
