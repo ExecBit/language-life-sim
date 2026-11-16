@@ -1,5 +1,5 @@
 {
-  "version": "0.5",
+  "version": "0.6",
   "status": "independent_lexical_inventory_not_approved_f1",
   "source": "LANGUAGE_LEXICON.md section 2, 29 topic groups; NOT ACT authored dialogue corpus",
   "validation": {
@@ -955,7 +955,12 @@
             "M39"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "привет / здравствуйте"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Tschüss",
@@ -972,7 +977,12 @@
             "M39"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "пока / до свидания"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "ja",
@@ -989,7 +999,12 @@
             "M39"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "да"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "nein",
@@ -1006,7 +1021,12 @@
             "M39"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "нет"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "bitte",
@@ -1023,7 +1043,12 @@
             "M39"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "пожалуйста / прошу / не за что"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "danke",
@@ -1040,7 +1065,12 @@
             "M39"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "спасибо"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Entschuldigung",
@@ -1057,7 +1087,12 @@
             "M39"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "извините / извинение"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "noch einmal",
@@ -1074,7 +1109,12 @@
             "M39"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "ещё раз"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "ich verstehe nicht",
@@ -1091,7 +1131,12 @@
             "M39"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "я не понимаю"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Guten Tag",
@@ -1108,7 +1153,12 @@
             "M39"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "добрый день / здравствуйте"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Auf Wiedersehen",
@@ -1125,7 +1175,12 @@
             "M39"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "до свидания"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Guten Morgen",
@@ -1142,7 +1197,12 @@
             "M39"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "доброе утро"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Gute Nacht",
@@ -1159,7 +1219,12 @@
             "M39"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "спокойной ночи"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Buch",
@@ -1173,7 +1238,12 @@
             "M40"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "книга"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Tasse",
@@ -1187,7 +1257,12 @@
             "M40"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "чашка"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Schlüssel",
@@ -1201,7 +1276,12 @@
             "M40"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "ключ"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "hier",
@@ -1215,7 +1295,12 @@
             "M40"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "здесь / сюда (по контексту)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "nehmen",
@@ -1229,7 +1314,12 @@
             "M40"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "брать / взять"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "geben",
@@ -1243,7 +1333,12 @@
             "M40"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "давать / дать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "kommen",
@@ -1257,7 +1352,12 @@
             "M40"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "приходить / приезжать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "zeigen",
@@ -1271,7 +1371,12 @@
             "M40"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "показывать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "nimm",
@@ -1285,7 +1390,12 @@
             "M40"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "возьми (повелительная форма nehmen)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "gib",
@@ -1299,7 +1409,12 @@
             "M40"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "дай (повелительная форма geben)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "komm",
@@ -1313,7 +1428,12 @@
             "M40"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "иди сюда / приходи (повелительная форма kommen)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das",
@@ -1327,7 +1447,12 @@
             "M40"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "это / определённый артикль среднего рода"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "ich",
@@ -1342,7 +1467,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "я"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "du",
@@ -1357,7 +1487,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "ты"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "er",
@@ -1372,7 +1507,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "он"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "sie",
@@ -1387,7 +1527,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "она / они / её (по контексту и форме)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "wir",
@@ -1402,7 +1547,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "мы"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "sein",
@@ -1417,7 +1567,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "быть"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "haben",
@@ -1432,7 +1587,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "иметь"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "heißen",
@@ -1447,7 +1607,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "называться / зваться"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Name",
@@ -1462,7 +1627,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "имя"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "wer",
@@ -1477,7 +1647,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "кто"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "ihr",
@@ -1492,7 +1667,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "вы (несколько человек) / ей (Dativ) / её (притяжательное по контексту)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "es",
@@ -1507,7 +1687,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "оно / это (местоимение)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Person",
@@ -1522,7 +1707,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "человек / персона"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Alter",
@@ -1537,7 +1727,12 @@
             "M08"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "возраст"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "was",
@@ -1552,7 +1747,12 @@
             "M47"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "что"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "wo",
@@ -1567,7 +1767,12 @@
             "M47"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "где"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "wie",
@@ -1582,7 +1787,12 @@
             "M47"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "как"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "welcher",
@@ -1597,7 +1807,12 @@
             "M47"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "какой / который (форма м. рода)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "fragen",
@@ -1612,7 +1827,12 @@
             "M47"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "спрашивать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "antworten",
@@ -1627,7 +1847,12 @@
             "M47"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "отвечать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "wissen",
@@ -1642,7 +1867,12 @@
             "M47"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "знать (факт, информацию)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "nicht wissen",
@@ -1657,7 +1887,12 @@
             "M47"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "не знать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "wann",
@@ -1672,7 +1907,12 @@
             "M47"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "когда"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "woher",
@@ -1687,7 +1927,12 @@
             "M47"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "откуда"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "warum",
@@ -1702,7 +1947,12 @@
             "M47"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "почему"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "was bedeutet …?",
@@ -1717,7 +1967,12 @@
             "M47"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "что означает …?"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "machen",
@@ -1732,7 +1987,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "делать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "gehen",
@@ -1747,7 +2007,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "идти / ходить / уходить"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "bringen",
@@ -1762,7 +2027,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "приносить / принести"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "brauchen",
@@ -1777,7 +2047,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "нуждаться / быть нужным"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "helfen",
@@ -1792,7 +2067,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "помогать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "finden",
@@ -1807,7 +2087,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "находить"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "suchen",
@@ -1822,7 +2107,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "искать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "öffnen",
@@ -1837,7 +2127,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "открывать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "schließen",
@@ -1852,7 +2147,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "закрывать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "lesen",
@@ -1867,7 +2167,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "читать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "schreiben",
@@ -1882,7 +2187,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "писать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "arbeiten",
@@ -1897,7 +2207,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "работать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "warten",
@@ -1912,7 +2227,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "ждать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "holen",
@@ -1927,7 +2247,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "принести / сходить за чем-либо"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "bleiben",
@@ -1942,7 +2267,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "оставаться"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "anrufen",
@@ -1957,7 +2287,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "звонить по телефону"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "sprechen",
@@ -1972,7 +2307,12 @@
             "M15"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "говорить / разговаривать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "ist",
@@ -1988,7 +2328,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "есть / является (форма sein)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "hat",
@@ -2004,7 +2349,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "имеет / у него есть (форма haben)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "kein",
@@ -2020,7 +2370,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "нет / никакой (отрицание существительного)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "nicht",
@@ -2036,7 +2391,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "не (отрицание факта или действия)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "gut",
@@ -2052,7 +2412,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "хороший / хорошо"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "schlecht",
@@ -2068,7 +2433,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "плохой / плохо"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "neu",
@@ -2084,7 +2454,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "новый"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "alt",
@@ -2100,7 +2475,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "старый / пожилой (по контексту)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "groß",
@@ -2116,7 +2496,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "большой / высокий"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "klein",
@@ -2132,7 +2517,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "маленький / низкий"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "offen",
@@ -2148,7 +2538,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "открытый"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "zu",
@@ -2174,7 +2569,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "к / слишком (зависит от контекста)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "fertig",
@@ -2190,7 +2590,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "готово / закончено"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "kaputt",
@@ -2206,7 +2611,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "сломанный / неработающий"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "leer",
@@ -2222,7 +2632,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "пустой"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "voll",
@@ -2238,7 +2653,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "полный"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "sauber",
@@ -2254,7 +2674,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "чистый"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "schmutzig",
@@ -2270,7 +2695,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "грязный"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "falsch",
@@ -2286,7 +2716,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "неверный / неправильный"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "leicht",
@@ -2302,7 +2737,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "лёгкий (вес / трудность)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "schwer",
@@ -2318,7 +2758,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "тяжёлый / трудный"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "es gibt",
@@ -2334,7 +2779,12 @@
             "M54"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "есть / имеется"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "müde",
@@ -2348,7 +2798,12 @@
             "M35"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "уставший"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "krank",
@@ -2362,7 +2817,12 @@
             "M35"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "больной"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "gesund",
@@ -2376,7 +2836,12 @@
             "M35"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "здоровый"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Hunger haben",
@@ -2390,7 +2855,12 @@
             "M35"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "быть голодным (букв. иметь голод)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Durst haben",
@@ -2404,7 +2874,12 @@
             "M35"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "испытывать жажду"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "weh tun",
@@ -2418,7 +2893,12 @@
             "M35"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "болеть / причинять боль"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Hilfe",
@@ -2432,7 +2912,12 @@
             "M35"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "помощь"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Arzt",
@@ -2446,7 +2931,12 @@
             "M35"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "врач"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Ärztin",
@@ -2460,7 +2950,12 @@
             "M35"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "врач (женщина)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Schmerzen",
@@ -2474,7 +2969,12 @@
             "M35"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "боли / боль"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Fieber",
@@ -2488,7 +2988,12 @@
             "M35"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "жар / лихорадка"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Medizin",
@@ -2502,7 +3007,12 @@
             "M35"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "лекарство / медицина (по контексту)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Termin",
@@ -2527,7 +3037,12 @@
             "M52"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "назначенная встреча / запись"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Krankenhaus",
@@ -2541,7 +3056,12 @@
             "M35"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "больница"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "essen",
@@ -2555,7 +3075,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "есть / кушать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "trinken",
@@ -2569,7 +3094,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "пить"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Wasser",
@@ -2583,7 +3113,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "вода"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Brot",
@@ -2597,7 +3132,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "хлеб"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Tee",
@@ -2611,7 +3151,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "чай"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Kaffee",
@@ -2625,7 +3170,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "кофе"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Apfel",
@@ -2639,7 +3189,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "яблоко"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Milch",
@@ -2653,7 +3208,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "молоко"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Essen",
@@ -2667,7 +3227,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "еда / приём пищи"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "hungrig",
@@ -2681,7 +3246,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "голодный"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "durstig",
@@ -2695,7 +3265,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "испытывающий жажду"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Gemüse",
@@ -2709,7 +3284,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "овощи"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Fleisch",
@@ -2723,7 +3303,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "мясо"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Suppe",
@@ -2737,7 +3322,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "суп"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Frühstück",
@@ -2751,7 +3341,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "завтрак"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Mittagessen",
@@ -2765,7 +3360,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "обед"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Abendessen",
@@ -2779,7 +3379,12 @@
             "M32"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "ужин"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "mein",
@@ -2795,7 +3400,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "мой"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "dein",
@@ -2811,7 +3421,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "твой"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "sein (притяж.)",
@@ -2827,7 +3442,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "его / свой (притяжательное слово sein)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "ihr (притяж.)",
@@ -2843,7 +3463,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "её / их (притяжательное слово ihr)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "mir",
@@ -2859,7 +3484,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "мне"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "dir",
@@ -2875,7 +3505,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "тебе"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "mit",
@@ -2891,7 +3526,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "с / вместе с (предлог)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "zusammen",
@@ -2907,7 +3547,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "вместе"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "allein",
@@ -2923,7 +3568,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "один / в одиночку"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "unser",
@@ -2939,7 +3589,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "наш"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "ihm",
@@ -2955,7 +3610,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "ему (Dativ)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "ihnen",
@@ -2971,7 +3631,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "им (Dativ) / Вам (вежливо, контекст)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "dieser",
@@ -2987,7 +3652,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "этот (мужской род)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "diese",
@@ -3003,7 +3673,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "эта / эти"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "dieses",
@@ -3019,7 +3694,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "это (средний род, указательное)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Besitzer",
@@ -3035,7 +3715,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "владелец / хозяин"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Sie (вежливо)",
@@ -3051,7 +3736,12 @@
             "M53"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "Вы (вежливое обращение)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Zimmer",
@@ -3067,7 +3757,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "комната"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Küche",
@@ -3083,7 +3778,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "кухня"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Bad",
@@ -3099,7 +3799,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "ванная / ванная комната"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Tisch",
@@ -3115,7 +3820,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "стол"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Tür",
@@ -3131,7 +3841,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "дверь"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Fenster",
@@ -3147,7 +3862,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "окно"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Wohnung",
@@ -3163,7 +3883,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "квартира"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "in",
@@ -3179,7 +3904,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "в"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "auf",
@@ -3195,7 +3925,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "на"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "unter",
@@ -3211,7 +3946,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "под / ниже"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "neben",
@@ -3227,7 +3967,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "рядом с"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "vor",
@@ -3256,7 +4001,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "перед / до / назад (о времени)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "hinter",
@@ -3272,7 +4022,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "позади / за"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "drinnen",
@@ -3288,7 +4043,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "внутри (помещения)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "draußen",
@@ -3304,7 +4064,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "снаружи / на улице"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "zwischen",
@@ -3320,7 +4085,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "между"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "an",
@@ -3336,7 +4106,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "у / на / к (зависит от контекста)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "über",
@@ -3352,7 +4127,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "над / через / о (теме, зависит от контекста)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Flur",
@@ -3368,7 +4148,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "коридор"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Treppe",
@@ -3384,7 +4169,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "лестница"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Möbel",
@@ -3400,7 +4190,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "мебель"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "im",
@@ -3416,7 +4211,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "в (где, местонахождение)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "ins",
@@ -3432,7 +4232,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "в (куда, направление)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "links",
@@ -3447,7 +4252,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "слева / налево"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "rechts",
@@ -3462,7 +4272,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "справа / направо"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "geradeaus",
@@ -3477,7 +4292,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "прямо (по направлению)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "nach",
@@ -3505,7 +4325,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "в / к (направление) / после"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "aus",
@@ -3520,7 +4345,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "из / сделанный из"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "von",
@@ -3535,7 +4365,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "от / из / о (чём-либо)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Weg",
@@ -3550,7 +4385,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "дорога / путь"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Eingang",
@@ -3565,7 +4405,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "вход"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Ausgang",
@@ -3580,7 +4425,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "выход"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Straße",
@@ -3595,7 +4445,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "улица / дорога"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Kreuzung",
@@ -3610,7 +4465,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "перекрёсток"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Ecke",
@@ -3625,7 +4485,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "угол"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "in der Nähe",
@@ -3640,7 +4505,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "поблизости / рядом"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "gegenüber",
@@ -3655,7 +4525,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "напротив"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "entlang",
@@ -3670,7 +4545,12 @@
             "M22"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "вдоль"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "eins",
@@ -3684,7 +4564,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "один"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "zwei",
@@ -3698,7 +4583,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "два"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "drei",
@@ -3712,7 +4602,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "три"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "vier",
@@ -3726,7 +4621,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "четыре"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "fünf",
@@ -3740,7 +4640,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "пять"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "zehn",
@@ -3754,7 +4659,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "десять"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "zwanzig",
@@ -3768,7 +4678,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "двадцать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "hundert",
@@ -3782,7 +4697,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "сто"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "viel",
@@ -3796,7 +4716,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "много"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "wenig",
@@ -3810,7 +4735,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "мало"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "wie viel",
@@ -3824,7 +4754,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "сколько (для количества/массы)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "wie viele",
@@ -3838,7 +4773,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "сколько (с исчисляемым существительным)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Nummer",
@@ -3852,7 +4792,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "номер"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Zahl",
@@ -3866,7 +4811,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "число / цифра"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Stück",
@@ -3880,7 +4830,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "штука / кусок"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Kilo",
@@ -3894,7 +4849,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "килограмм / кило"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Hälfte",
@@ -3908,7 +4868,12 @@
             "M42"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "половина"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Familie",
@@ -3923,7 +4888,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "семья"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Freund",
@@ -3938,7 +4908,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "друг / парень (в зависимости от контекста)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Freundin",
@@ -3953,7 +4928,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "подруга / девушка (в зависимости от контекста)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Mann",
@@ -3968,7 +4948,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "мужчина / муж"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Frau",
@@ -3983,7 +4968,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "женщина / жена / госпожа в обращении"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Kind",
@@ -3998,7 +4988,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "ребёнок"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Mutter",
@@ -4013,7 +5008,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "мать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Vater",
@@ -4028,7 +5028,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "отец"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Bruder",
@@ -4043,7 +5048,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "брат"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Schwester",
@@ -4058,7 +5068,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "сестра"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Eltern",
@@ -4073,7 +5088,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "родители"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Sohn",
@@ -4088,7 +5108,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "сын"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Tochter",
@@ -4103,7 +5128,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "дочь"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "verheiratet",
@@ -4118,7 +5148,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "женат / замужем"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "ledig",
@@ -4133,7 +5168,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "не женат / не замужем (семейное положение)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Nachbar",
@@ -4148,7 +5188,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "сосед"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Nachbarin",
@@ -4163,7 +5208,12 @@
             "M36"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "соседка"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Arbeit",
@@ -4178,7 +5228,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "работа"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Beruf",
@@ -4193,7 +5248,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "профессия"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Kollege",
@@ -4208,7 +5268,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "коллега (мужчина)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Kollegin",
@@ -4223,7 +5288,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "коллега (женщина)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Chef",
@@ -4238,7 +5308,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "начальник / руководитель"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Chefin",
@@ -4253,7 +5328,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "начальница / руководительница"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Aufgabe",
@@ -4268,7 +5348,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "задание / задача"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "frei",
@@ -4283,7 +5368,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "свободный / доступный / свободно"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "beschäftigt",
@@ -4298,7 +5388,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "занятый"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Arbeitsplatz",
@@ -4313,7 +5408,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "рабочее место"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Mitarbeiter",
@@ -4328,7 +5428,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "сотрудник"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Mitarbeiterin",
@@ -4343,7 +5448,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "сотрудница"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Lehrer",
@@ -4358,7 +5468,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "учитель"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Lehrerin",
@@ -4373,7 +5488,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "учительница"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Pause",
@@ -4388,7 +5508,12 @@
             "M48"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "перерыв / пауза"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "jetzt",
@@ -4406,7 +5531,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "сейчас"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "heute",
@@ -4424,7 +5554,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "сегодня"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "morgen",
@@ -4442,7 +5577,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "завтра"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "gestern",
@@ -4460,7 +5600,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "вчера"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "später",
@@ -4478,7 +5623,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "позже"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "früh",
@@ -4496,7 +5646,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "рано / ранний"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "spät",
@@ -4514,7 +5669,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "поздно / поздний"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Tag",
@@ -4532,7 +5692,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "день"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Woche",
@@ -4550,7 +5715,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "неделя"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Monat",
@@ -4568,7 +5738,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "месяц"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "das Jahr",
@@ -4586,7 +5761,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "год"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "die Uhr",
@@ -4604,7 +5784,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "часы / час (о времени)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "um",
@@ -4622,7 +5807,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "в (при указании времени); вокруг (в другом контексте)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "am",
@@ -4640,7 +5830,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "в / на (перед днём или датой)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Montag",
@@ -4658,7 +5853,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "понедельник"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Dienstag",
@@ -4676,7 +5876,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "вторник"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Mittwoch",
@@ -4694,7 +5899,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "среда"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Donnerstag",
@@ -4712,7 +5922,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "четверг"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Freitag",
@@ -4730,7 +5945,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "пятница"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Samstag",
@@ -4748,7 +5968,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "суббота"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "Sonntag",
@@ -4766,7 +5991,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "воскресенье"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Kalender",
@@ -4784,7 +6014,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "календарь"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Morgen",
@@ -4802,7 +6037,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "утро"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "der Abend",
@@ -4820,7 +6060,12 @@
             "M49"
           ]
         }
-      ]
+      ],
+      "draft_ru_meanings": [
+        "вечер"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
       "text": "können",
@@ -8811,5 +10056,13 @@
       }
     ],
     "meaning": "Do not confuse name placeholders with missing German lexemes; forms are candidates, not evidence of comprehension."
+  },
+  "lexical_gloss_progress": {
+    "version": "0.1",
+    "groups_reviewed": "01-15",
+    "group_expressions": 249,
+    "drafted_unique_entries": 249,
+    "total_unique_entries": 463,
+    "status": "manual_draft_not_native_speaker_reviewed"
   }
 }
