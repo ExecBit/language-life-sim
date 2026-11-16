@@ -28,6 +28,7 @@ LEXICAL_CATALOGUE = DOCS / "LANGUAGE_LEXICAL_CATALOG.json"
 GRAMMAR_CONTRASTS = DOCS / "LANGUAGE_GRAMMAR_CONTRASTS.json"
 F1_SEMANTIC_CASES = DOCS / "LANGUAGE_F1_SEMANTIC_CASES.json"
 OUTCOME_FOCUSED_PROBES = DOCS / "LANGUAGE_OUTCOME_FOCUSED_PROBES.json"
+REVISIT_SEMANTIC_AUDIT = DOCS / "LANGUAGE_REVISIT_SEMANTIC_AUDIT.json"
 STAGES = ["P0", "P1", "P2a", "P2b", "P2c", "P3a", "P3b", "P3c",
           "P4a", "P4b", "P4c", "P5", "P6"]
 FIELDS = ("introduce_m", "introduce_g", "first_p", "revisit_m")
@@ -586,6 +587,61 @@ def outcome_focused_probe_report(doc: dict) -> tuple[str, list[str]]:
     return "\n".join(lines) + "\n", sorted(set(errors))
 
 
+def revisit_evidence_report(doc: dict) -> tuple[str, list[str]]:
+    """Check candidate revisit evidence without equating a linked ID to learning."""
+    audit = json.loads(REVISIT_SEMANTIC_AUDIT.read_text(encoding="utf-8"))
+    expected = {(it["id"], M) for it in doc["items"] for M in it["revisit_m"]}
+    actual = [(entry["unit"], entry["M"]) for entry in audit["entries"]]
+    status = Counter(entry.get("status") for entry in audit["entries"])
+    errors = []
+    if len(actual) != len(expected) or set(actual) != expected:
+        errors.append("LP07 evidence audit must match all current revisit pairs")
+    if len(set(actual)) != len(actual):
+        errors.append("LP07 duplicate evidence record")
+    if any(entry["status"] not in (
+        "plausible_in_main_AB_candidate_not_user_test",
+        "not_demonstrated_by_current_main_AB")
+           for entry in audit["entries"]):
+        errors.append("LP07 evidence has unrecognised status")
+    if any(not entry.get("primary_example_de") or
+           not entry.get("evidence_rule_ru") for entry in audit["entries"]):
+        errors.append("LP07 evidence missing example or review rule")
+    summary = audit["summary"]
+    if (summary.get("all_candidates") != len(actual)
+        or summary.get("illustrated_candidates")
+            != status["plausible_in_main_AB_candidate_not_user_test"]
+        or summary.get("not_demonstrated_by_main_AB")
+            != status["not_demonstrated_by_current_main_AB"]):
+        errors.append("LP07 evidence summary is stale")
+    lines = [
+        "", "## 10. Качество возвращений ↻ (LP07)", "",
+        "Источник: [LANGUAGE_REVISIT_SEMANTIC_AUDIT.json]"
+        "(LANGUAGE_REVISIT_SEMANTIC_AUDIT.json), отдельная от сюжета "
+        "содержательная ревизия связей возвращения.",
+        "",
+        f"**{len(actual)} запланированных связей ↻:** "
+        f"{status['plausible_in_main_AB_candidate_not_user_test']} "
+        "потенциально иллюстрированы основными A/B, "
+        f"{status['not_demonstrated_by_current_main_AB']} "
+        "**не демонстрируются** текущими основными A/B. "
+        "Ни одна ссылка не доказывает запоминания.",
+        "",
+        "Поиск связей, не подтверждённых смыслом основной пары, "
+        "не равен удалению навыка. Пять ошибочно назначенных связей "
+        "перенесены к более подходящим абстрактным единицам; история "
+        "переносов сохранена. Оставшиеся случаи требуют самостоятельных "
+        "смысловых контрастов, корректного переназначения или "
+        "явной пометки факультативного возврата — без выдумывания сюжета.",
+        "",
+        "**Граница проверки:** статические метки — экспертная гипотеза "
+        "по языковым парам, не эксперимент с игроками и не измерение "
+        "долговременной памяти. Нельзя выдавать покрытие 55 ID за "
+        "55 подтверждённых переносов.",
+        "",
+    ]
+    return "\n".join(lines) + "\n", sorted(set(errors))
+
+
 def lexical_catalogue_audit(doc: dict) -> list[str]:
     """Validate independent source, candidate RU glosses and F1 references.
 
@@ -781,13 +837,15 @@ def main() -> int:
     errors.extend(outcome_errors)
     outcome_focused_appendix, outcome_focused_errors = outcome_focused_probe_report(doc)
     errors.extend(outcome_focused_errors)
+    revisit_appendix, revisit_errors = revisit_evidence_report(doc)
+    errors.extend(revisit_errors)
     grammar_appendix, grammar_errors = grammar_probe_appendix(doc)
     errors.extend(grammar_errors)
     errors.extend(lexical_catalogue_audit(doc))
     if errors:
         print("FAIL: " + "\nFAIL: ".join(errors), file=sys.stderr)
         return 1
-    expected = report(doc, mmap, gmap, errors) + lexical_appendix + outcome_appendix + grammar_appendix + outcome_focused_appendix
+    expected = report(doc, mmap, gmap, errors) + lexical_appendix + outcome_appendix + grammar_appendix + outcome_focused_appendix + revisit_appendix
     if options.write:
         OUTPUT.write_text(expected, encoding="utf-8")
         print(f"WROTE {OUTPUT.relative_to(DOCS.parent.parent.parent)}")
