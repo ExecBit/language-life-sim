@@ -1,0 +1,1822 @@
+{
+  "version": "0.1",
+  "status": "draft_language_only_not_plot_not_game_days",
+  "purpose": "Candidate language-practice sequence for smoothing new meaningful R/P/grammar loads, independent of any storyline.",
+  "provenance": [
+    "LANGUAGE_MAP.md:M01-M55 first_R/first_P/revisit",
+    "LANGUAGE_PROGRESSION.md:G01-G34 introduction horizon",
+    "LANGUAGE_DESIGN.md:meaning labels"
+  ],
+  "counting_rules": [
+    "first_R counts first required meaning contact, not a learned word",
+    "first_P counts first independent production, not repeated exposure",
+    "new_grammar_R counts first meaningful form contact, not mastery",
+    "revisit is a planned distinct semantic necessity, not spaced repetition or a learning guarantee",
+    "word load is not yet measured; names are descriptive labels, not approved lexical entries",
+    "P6 adds no new M or G",
+    "unit IDs are neither days nor quests nor fixed user lessons"
+  ],
+  "validation": {
+    "units": 53,
+    "stage_counts": {
+      "P0": 6,
+      "P1": 8,
+      "P2": 10,
+      "P3": 10,
+      "P4": 8,
+      "P5": 6,
+      "P6": 5
+    },
+    "totals": {
+      "R": 55,
+      "P": 42,
+      "G": 34,
+      "revisits": 55
+    },
+    "max_simultaneous_candidate_intro": 7,
+    "peaks": [
+      {
+        "id": "LU07",
+        "stage": "P1",
+        "R": 2,
+        "P": 3,
+        "G": 2,
+        "revisits": 0,
+        "composite": 7
+      },
+      {
+        "id": "LU25",
+        "stage": "P3a",
+        "R": 2,
+        "P": 3,
+        "G": 1,
+        "revisits": 1,
+        "composite": 6
+      }
+    ],
+    "empty_intro": [
+      "LU42",
+      "LU46",
+      "LU47",
+      "LU48",
+      "LU49",
+      "LU50",
+      "LU51",
+      "LU52",
+      "LU53"
+    ]
+  },
+  "units": [
+    {
+      "id": "LU01",
+      "horizon": "P0",
+      "microstep": "P0",
+      "focus": "Приветствие и адресат",
+      "first_R": [
+        "M01",
+        "M39"
+      ],
+      "first_P": [
+        "M01"
+      ],
+      "new_grammar_R": [
+        "G01"
+      ],
+      "revisit": [],
+      "semantic_contrast": "приветствие/прощание",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Приветствие/прощание, вежливость",
+        "Разобрать короткую реплику NPC как текст"
+      ],
+      "new_grammar_names": [
+        "Прописная буква существительного, пунктуация, разделение слов"
+      ]
+    },
+    {
+      "id": "LU02",
+      "horizon": "P0",
+      "microstep": "P0",
+      "focus": "Вопрос, факт, согласие",
+      "first_R": [
+        "M04",
+        "M06"
+      ],
+      "first_P": [
+        "M04"
+      ],
+      "new_grammar_R": [
+        "G02"
+      ],
+      "revisit": [],
+      "semantic_contrast": "вопрос/факт; согласие/отказ",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Ответить «да / нет», согласиться или отказаться",
+        "Различить утверждение, вопрос и побуждение"
+      ],
+      "new_grammar_names": [
+        "Личные местоимения `ich/du/er/sie/es/wir/ihr/Sie`"
+      ]
+    },
+    {
+      "id": "LU03",
+      "horizon": "P0",
+      "microstep": "P0",
+      "focus": "Предмет в инструкции",
+      "first_R": [
+        "M09",
+        "M40"
+      ],
+      "first_P": [
+        "M09"
+      ],
+      "new_grammar_R": [
+        "G03"
+      ],
+      "revisit": [],
+      "semantic_contrast": "название одного из двух видимых предметов",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Опознать предмет и его категорию",
+        "Прочитать краткую инструкцию"
+      ],
+      "new_grammar_names": [
+        "`sein` / `haben` в Präsens"
+      ]
+    },
+    {
+      "id": "LU04",
+      "horizon": "P0",
+      "microstep": "P0",
+      "focus": "Просьба уточнить",
+      "first_R": [
+        "M05"
+      ],
+      "first_P": [
+        "M05"
+      ],
+      "new_grammar_R": [
+        "G06"
+      ],
+      "revisit": [],
+      "semantic_contrast": "понял/не понял, просьба добровольна",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Попросить повторить или уточнить смысл"
+      ],
+      "new_grammar_names": [
+        "Простое предложение, глагол на второй позиции, вопрос с глагола"
+      ]
+    },
+    {
+      "id": "LU05",
+      "horizon": "P0",
+      "microstep": "P0",
+      "focus": "Имя и говорящий",
+      "first_R": [
+        "M02",
+        "M03"
+      ],
+      "first_P": [],
+      "new_grammar_R": [
+        "G08"
+      ],
+      "revisit": [],
+      "semantic_contrast": "я/другой человек",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Назвать себя и обратиться к другому",
+        "Разобраться, **кто** говорит и кто действует"
+      ],
+      "new_grammar_names": [
+        "Imperativ `du/ihr/Sie`"
+      ]
+    },
+    {
+      "id": "LU06",
+      "horizon": "P0",
+      "microstep": "P0",
+      "focus": "Простая просьба о вещи",
+      "first_R": [
+        "M12"
+      ],
+      "first_P": [],
+      "new_grammar_R": [
+        "G09"
+      ],
+      "revisit": [],
+      "semantic_contrast": "нужная вещь меняется",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Попросить предмет или простое действие"
+      ],
+      "new_grammar_names": [
+        "Род и определённый/неопределённый артикль, Nominativ"
+      ]
+    },
+    {
+      "id": "LU07",
+      "horizon": "P1",
+      "microstep": "P1",
+      "focus": "Недостающий вопрос",
+      "first_R": [
+        "M07",
+        "M47"
+      ],
+      "first_P": [
+        "M02",
+        "M07",
+        "M47"
+      ],
+      "new_grammar_R": [
+        "G04",
+        "G32"
+      ],
+      "revisit": [],
+      "semantic_contrast": "кто/что/где; данные нужны собеседнику",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 2,
+      "independent_R_facts": 1,
+      "independent_P_intents": 3,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Спросить **кто/что/где/когда/как**",
+        "Письменно запросить сведения"
+      ],
+      "new_grammar_names": [
+        "Präsens регулярных глаголов, согласование по лицу",
+        "`es gibt`, `man`, частые безличные обороты"
+      ]
+    },
+    {
+      "id": "LU08",
+      "horizon": "P1",
+      "microstep": "P1",
+      "focus": "Свойство и состояние",
+      "first_R": [
+        "M10",
+        "M15"
+      ],
+      "first_P": [
+        "M10",
+        "M15"
+      ],
+      "new_grammar_R": [
+        "G05"
+      ],
+      "revisit": [],
+      "semantic_contrast": "открыто/закрыто; красный/синий",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 2,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Описать свойство и различить варианты",
+        "Описать состояние, изменение или неисправность"
+      ],
+      "new_grammar_names": [
+        "Частотные неправильные/чередующиеся глаголы"
+      ]
+    },
+    {
+      "id": "LU09",
+      "horizon": "P1",
+      "microstep": "P1",
+      "focus": "Наличие и собственный факт",
+      "first_R": [
+        "M11"
+      ],
+      "first_P": [
+        "M03",
+        "M06",
+        "M11"
+      ],
+      "new_grammar_R": [
+        "G07"
+      ],
+      "revisit": [],
+      "semantic_contrast": "имеется/не имеется; просьба/факт",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 3,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Сообщить наличие/отсутствие"
+      ],
+      "new_grammar_names": [
+        "W-вопросы `wer/was/wo/wohin/woher/wann/wie/welch-`"
+      ]
+    },
+    {
+      "id": "LU10",
+      "horizon": "P1",
+      "microstep": "P1",
+      "focus": "Бытовая потребность",
+      "first_R": [
+        "M29",
+        "M32"
+      ],
+      "first_P": [
+        "M29",
+        "M32"
+      ],
+      "new_grammar_R": [
+        "G10"
+      ],
+      "revisit": [],
+      "semantic_contrast": "хочу пить/не хочу; устал/не устал",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 2,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Описать физическое состояние",
+        "Попросить еду или напиток, описать потребность"
+      ],
+      "new_grammar_names": [
+        "Множественное число и составные существительные"
+      ]
+    },
+    {
+      "id": "LU11",
+      "horizon": "P1",
+      "microstep": "P1",
+      "focus": "Простой запрос предмета",
+      "first_R": [],
+      "first_P": [
+        "M12"
+      ],
+      "new_grammar_R": [
+        "G11"
+      ],
+      "revisit": [
+        "M39"
+      ],
+      "semantic_contrast": "предмет нужен/не нужен",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 0,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [],
+      "new_grammar_names": [
+        "Akkusativ: объект и артикль"
+      ]
+    },
+    {
+      "id": "LU12",
+      "horizon": "P1",
+      "microstep": "P1",
+      "focus": "Количество и предмет",
+      "first_R": [
+        "M17"
+      ],
+      "first_P": [],
+      "new_grammar_R": [
+        "G12"
+      ],
+      "revisit": [],
+      "semantic_contrast": "один/два при прежней форме",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Назвать количество и идентификатор"
+      ],
+      "new_grammar_names": [
+        "`nicht/kein` и объём отрицания"
+      ]
+    },
+    {
+      "id": "LU13",
+      "horizon": "P1",
+      "microstep": "P1",
+      "focus": "Предложение помощи",
+      "first_R": [
+        "M19"
+      ],
+      "first_P": [],
+      "new_grammar_R": [
+        "G13"
+      ],
+      "revisit": [],
+      "semantic_contrast": "помощь нужна/не нужна",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Предложить помощь, согласиться помочь, отказаться"
+      ],
+      "new_grammar_names": [
+        "Прилагательное после `sein`, `zu + Adjektiv`"
+      ]
+    },
+    {
+      "id": "LU14",
+      "horizon": "P1",
+      "microstep": "P1",
+      "focus": "Место и короткое объявление",
+      "first_R": [
+        "M20",
+        "M41"
+      ],
+      "first_P": [],
+      "new_grammar_R": [
+        "G25"
+      ],
+      "revisit": [],
+      "semantic_contrast": "здесь/там и запрет",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Определить местоположение",
+        "Прочитать предупреждение/знак/объявление"
+      ],
+      "new_grammar_names": [
+        "`dies-`, `welch-`"
+      ]
+    },
+    {
+      "id": "LU15",
+      "horizon": "P2",
+      "microstep": "P2a",
+      "focus": "Владелец и местоимения",
+      "first_R": [
+        "M13",
+        "M53"
+      ],
+      "first_P": [
+        "M13"
+      ],
+      "new_grammar_R": [
+        "G14"
+      ],
+      "revisit": [
+        "M10"
+      ],
+      "semantic_contrast": "мой/твой/его; смена владельца",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Указать владельца/принадлежность",
+        "Соотнести местоимение с нужным предметом/человеком"
+      ],
+      "new_grammar_names": [
+        "Притяжательные слова `mein/dein/sein/ihr/unser`"
+      ]
+    },
+    {
+      "id": "LU16",
+      "horizon": "P2",
+      "microstep": "P2a",
+      "focus": "Обращение du/Sie",
+      "first_R": [
+        "M08"
+      ],
+      "first_P": [],
+      "new_grammar_R": [
+        "G15"
+      ],
+      "revisit": [
+        "M04"
+      ],
+      "semantic_contrast": "du/Sie, третье лицо sie",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Различить неформальное `du` и формальное `Sie`"
+      ],
+      "new_grammar_names": [
+        "Личные местоимения Akkusativ `mich/dich/ihn/sie/es`"
+      ]
+    },
+    {
+      "id": "LU17",
+      "horizon": "P2",
+      "microstep": "P2a",
+      "focus": "Количество и классификация",
+      "first_R": [],
+      "first_P": [
+        "M17"
+      ],
+      "new_grammar_R": [
+        "G16"
+      ],
+      "revisit": [
+        "M01"
+      ],
+      "semantic_contrast": "два/три; предмет неизменен",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 0,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [],
+      "new_grammar_names": [
+        "Dativ, личные местоимения `mir/dir/ihm/ihr`"
+      ]
+    },
+    {
+      "id": "LU18",
+      "horizon": "P2",
+      "microstep": "P2b",
+      "focus": "Адресат передачи",
+      "first_R": [
+        "M14"
+      ],
+      "first_P": [
+        "M14",
+        "M19"
+      ],
+      "new_grammar_R": [
+        "G17"
+      ],
+      "revisit": [
+        "M05"
+      ],
+      "semantic_contrast": "кому A/кому B",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 2,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Различить, **кто кому** передаёт/помогает"
+      ],
+      "new_grammar_names": [
+        "Глаголы с Dativ и предлоги `mit/bei/von/zu`"
+      ]
+    },
+    {
+      "id": "LU19",
+      "horizon": "P2",
+      "microstep": "P2b",
+      "focus": "Место и направление",
+      "first_R": [
+        "M21",
+        "M22"
+      ],
+      "first_P": [
+        "M20",
+        "M21"
+      ],
+      "new_grammar_R": [
+        "G18"
+      ],
+      "revisit": [
+        "M12"
+      ],
+      "semantic_contrast": "где/куда; im/ins",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 2,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Понять направление/перемещение",
+        "Отличить положение от помещения/переноса"
+      ],
+      "new_grammar_names": [
+        "Предлоги места, Wechselpräpositionen, `wo/wohin`"
+      ]
+    },
+    {
+      "id": "LU20",
+      "horizon": "P2",
+      "microstep": "P2b",
+      "focus": "Эмоциональное отношение",
+      "first_R": [
+        "M35"
+      ],
+      "first_P": [
+        "M35"
+      ],
+      "new_grammar_R": [
+        "G21"
+      ],
+      "revisit": [
+        "M09"
+      ],
+      "semantic_contrast": "отношение к другому человеку меняется",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Назвать отношение к человеку/событию"
+      ],
+      "new_grammar_names": [
+        "Отделяемые глаголы `anfangen/aufstehen/anrufen`"
+      ]
+    },
+    {
+      "id": "LU21",
+      "horizon": "P2",
+      "microstep": "P2c",
+      "focus": "Возможность и обязанность",
+      "first_R": [
+        "M18",
+        "M54"
+      ],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M40"
+      ],
+      "semantic_contrast": "нельзя/не обязательно",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Сообщить возможность, обязанность, запрет",
+        "Различать смысл изменения отрицания и модальности"
+      ],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU22",
+      "horizon": "P2",
+      "microstep": "P2c",
+      "focus": "Временная привязка",
+      "first_R": [
+        "M23",
+        "M49"
+      ],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [],
+      "semantic_contrast": "сегодня/вчера/завтра",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Понять рабочее расписание и время",
+        "Отличить сейчас / раньше / потом"
+      ],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU23",
+      "horizon": "P2",
+      "microstep": "P2c",
+      "focus": "Передача информации",
+      "first_R": [],
+      "first_P": [
+        "M33",
+        "M48"
+      ],
+      "new_grammar_R": [],
+      "revisit": [
+        "M03"
+      ],
+      "semantic_contrast": "другой адресат не знает факта",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 0,
+      "independent_P_intents": 2,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU24",
+      "horizon": "P2",
+      "microstep": "P2c",
+      "focus": "Желание и занятия",
+      "first_R": [
+        "M30",
+        "M33",
+        "M48"
+      ],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [],
+      "semantic_contrast": "работа/досуг; желание/обязанность",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 3,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 0,
+      "new_MR_names": [
+        "Спросить и сообщить о желаниях",
+        "Спросить о профессии и обязанностях",
+        "Перенести информацию между собеседниками"
+      ],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU25",
+      "horizon": "P3",
+      "microstep": "P3a",
+      "focus": "Согласование времени",
+      "first_R": [
+        "M24",
+        "M37"
+      ],
+      "first_P": [
+        "M23",
+        "M24",
+        "M37"
+      ],
+      "new_grammar_R": [
+        "G19"
+      ],
+      "revisit": [
+        "M17"
+      ],
+      "semantic_contrast": "время доступно/занято",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 3,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Договориться о встрече/доступности",
+        "Согласовать бытовой план, приглашение, отказ"
+      ],
+      "new_grammar_names": [
+        "Предлоги времени `um/am/von…bis/vor/nach`"
+      ]
+    },
+    {
+      "id": "LU26",
+      "horizon": "P3",
+      "microstep": "P3a",
+      "focus": "Частота",
+      "first_R": [
+        "M25"
+      ],
+      "first_P": [
+        "M25"
+      ],
+      "new_grammar_R": [
+        "G20"
+      ],
+      "revisit": [
+        "M06",
+        "M41"
+      ],
+      "semantic_contrast": "обычно/сегодня; часто/никогда",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 2,
+      "new_MR_names": [
+        "Выразить частоту/обычное действие"
+      ],
+      "new_grammar_names": [
+        "Часы, даты, порядковые/количественные числительные"
+      ]
+    },
+    {
+      "id": "LU27",
+      "horizon": "P3",
+      "microstep": "P3a",
+      "focus": "Последовательность действий",
+      "first_R": [
+        "M26"
+      ],
+      "first_P": [
+        "M26"
+      ],
+      "new_grammar_R": [
+        "G22"
+      ],
+      "revisit": [
+        "M07",
+        "M47"
+      ],
+      "semantic_contrast": "сначала A/B; затем B/A",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 2,
+      "new_MR_names": [
+        "Передать порядок коротких действий"
+      ],
+      "new_grammar_names": [
+        "Модальные `können/müssen/dürfen/sollen/wollen` и рамочная конструкция"
+      ]
+    },
+    {
+      "id": "LU28",
+      "horizon": "P3",
+      "microstep": "P3b",
+      "focus": "Модальность в самостоятельном сообщении",
+      "first_R": [],
+      "first_P": [
+        "M18",
+        "M54"
+      ],
+      "new_grammar_R": [
+        "G23"
+      ],
+      "revisit": [
+        "M02",
+        "M32"
+      ],
+      "semantic_contrast": "запрещено/не обязательно",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 0,
+      "independent_P_intents": 2,
+      "revisits_in_new_context": 2,
+      "new_MR_names": [],
+      "new_grammar_names": [
+        "`mögen/gern/lieber/möchten`"
+      ]
+    },
+    {
+      "id": "LU29",
+      "horizon": "P3",
+      "microstep": "P3b",
+      "focus": "Первые сравнения",
+      "first_R": [
+        "M16",
+        "M28"
+      ],
+      "first_P": [],
+      "new_grammar_R": [
+        "G24"
+      ],
+      "revisit": [
+        "M19"
+      ],
+      "semantic_contrast": "больше/меньше; лучше/хуже",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Противопоставить два факта",
+        "Сравнить измерения, значения или объекты"
+      ],
+      "new_grammar_names": [
+        "`doch`, `nicht`, `kein`, частотные отрицательные ответы"
+      ]
+    },
+    {
+      "id": "LU30",
+      "horizon": "P3",
+      "microstep": "P3b",
+      "focus": "Выраженное желание",
+      "first_R": [
+        "M31"
+      ],
+      "first_P": [
+        "M30",
+        "M31"
+      ],
+      "new_grammar_R": [
+        "G27"
+      ],
+      "revisit": [
+        "M11"
+      ],
+      "semantic_contrast": "предпочтение A/B",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 2,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Выразить предпочтение или оценку"
+      ],
+      "new_grammar_names": [
+        "Наречия времени, частоты, порядка"
+      ]
+    },
+    {
+      "id": "LU31",
+      "horizon": "P3",
+      "microstep": "P3c",
+      "focus": "Чтение коротких записей",
+      "first_R": [
+        "M42",
+        "M43"
+      ],
+      "first_P": [],
+      "new_grammar_R": [
+        "G33"
+      ],
+      "revisit": [
+        "M20"
+      ],
+      "semantic_contrast": "отправитель/дата/время",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Найти сведения в расписании/списке/таблице",
+        "Понять короткое личное сообщение или приглашение"
+      ],
+      "new_grammar_names": [
+        "Формулы желания `ich hätte gern`, `könnte ich …?` (Konjunktiv II в фиксированных формулировках)"
+      ]
+    },
+    {
+      "id": "LU32",
+      "horizon": "P3",
+      "microstep": "P3c",
+      "focus": "Вежливая просьба",
+      "first_R": [
+        "M55"
+      ],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M14"
+      ],
+      "semantic_contrast": "предмет просьбы в hätte gern/könnte ich",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Узнать вежливую форму просьбы или пожелания"
+      ],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU33",
+      "horizon": "P3",
+      "microstep": "P3c",
+      "focus": "Интерес и качество",
+      "first_R": [
+        "M34",
+        "M38"
+      ],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M21"
+      ],
+      "semantic_contrast": "занятие нравится/не нравится",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Спросить об интересах и досуге",
+        "Объяснить, что конкретно нравится/не подходит"
+      ],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU34",
+      "horizon": "P3",
+      "microstep": "P3c",
+      "focus": "Соединение намерения и плана",
+      "first_R": [
+        "M46",
+        "M52"
+      ],
+      "first_P": [
+        "M49"
+      ],
+      "new_grammar_R": [],
+      "revisit": [
+        "M29"
+      ],
+      "semantic_contrast": "время и новый план",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 2,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 1,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Передать несколько смысловых пунктов письменно",
+        "Передать план на ближайшее будущее"
+      ],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU35",
+      "horizon": "P4",
+      "microstep": "P4a",
+      "focus": "Сравнение двух фактов",
+      "first_R": [
+        "M27"
+      ],
+      "first_P": [
+        "M16",
+        "M28"
+      ],
+      "new_grammar_R": [
+        "G26"
+      ],
+      "revisit": [
+        "M22",
+        "M37"
+      ],
+      "semantic_contrast": "контраст результата и времени",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 2,
+      "revisits_in_new_context": 2,
+      "new_MR_names": [
+        "Понять простую длительность или границу времени"
+      ],
+      "new_grammar_names": [
+        "Сравнительная/превосходная степень; `als/wie`"
+      ]
+    },
+    {
+      "id": "LU36",
+      "horizon": "P4",
+      "microstep": "P4a",
+      "focus": "Выбор с препятствием",
+      "first_R": [],
+      "first_P": [
+        "M38"
+      ],
+      "new_grammar_R": [
+        "G31"
+      ],
+      "revisit": [
+        "M08",
+        "M30",
+        "M53"
+      ],
+      "semantic_contrast": "слишком холодно/допустимо",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 0,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 3,
+      "new_MR_names": [],
+      "new_grammar_names": [
+        "Склонение прилагательных при существительном"
+      ]
+    },
+    {
+      "id": "LU37",
+      "horizon": "P4",
+      "microstep": "P4a",
+      "focus": "Собственный интерес",
+      "first_R": [],
+      "first_P": [
+        "M34"
+      ],
+      "new_grammar_R": [
+        "G34"
+      ],
+      "revisit": [
+        "M13",
+        "M31",
+        "M54"
+      ],
+      "semantic_contrast": "книга/игра; предпочтение меняет план",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 0,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 3,
+      "new_MR_names": [],
+      "new_grammar_names": [
+        "Простые связки `und/aber/oder`"
+      ]
+    },
+    {
+      "id": "LU38",
+      "horizon": "P4",
+      "microstep": "P4b",
+      "focus": "Сведения о связях",
+      "first_R": [
+        "M36"
+      ],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M23",
+        "M42"
+      ],
+      "semantic_contrast": "A брат B/A друг B",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 2,
+      "new_MR_names": [
+        "Разобраться в близких и личных отношениях"
+      ],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU39",
+      "horizon": "P4",
+      "microstep": "P4b",
+      "focus": "Краткий текст/заметка",
+      "first_R": [
+        "M44"
+      ],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M24",
+        "M43"
+      ],
+      "semantic_contrast": "кто, что, когда",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 2,
+      "new_MR_names": [
+        "Прочитать короткий рабочий текст/заметку"
+      ],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU40",
+      "horizon": "P4",
+      "microstep": "P4b",
+      "focus": "Форма и данные",
+      "first_R": [
+        "M45"
+      ],
+      "first_P": [
+        "M45"
+      ],
+      "new_grammar_R": [],
+      "revisit": [
+        "M25",
+        "M48"
+      ],
+      "semantic_contrast": "значение и поле меняются",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 1,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 2,
+      "new_MR_names": [
+        "Заполнить простую форму"
+      ],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU41",
+      "horizon": "P4",
+      "microstep": "P4c",
+      "focus": "Две самостоятельные мысли",
+      "first_R": [],
+      "first_P": [
+        "M46"
+      ],
+      "new_grammar_R": [],
+      "revisit": [
+        "M15",
+        "M33"
+      ],
+      "semantic_contrast": "изменить один из двух фактов",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 0,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 2,
+      "new_MR_names": [],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU42",
+      "horizon": "P4",
+      "microstep": "P4c",
+      "focus": "Перенос нескольких фактов",
+      "first_R": [],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M18",
+        "M35"
+      ],
+      "semantic_contrast": "адресат не видит вторую часть информации",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 0,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 2,
+      "new_MR_names": [],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU43",
+      "horizon": "P5",
+      "microstep": "P5",
+      "focus": "Прошедшее событие",
+      "first_R": [
+        "M50"
+      ],
+      "first_P": [],
+      "new_grammar_R": [
+        "G28"
+      ],
+      "revisit": [
+        "M36"
+      ],
+      "semantic_contrast": "вчера/сейчас; кто действовал",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Понять простое прошедшее событие"
+      ],
+      "new_grammar_names": [
+        "Präteritum `war/hatte`"
+      ]
+    },
+    {
+      "id": "LU44",
+      "horizon": "P5",
+      "microstep": "P5",
+      "focus": "Результат собственного действия",
+      "first_R": [
+        "M51"
+      ],
+      "first_P": [
+        "M51"
+      ],
+      "new_grammar_R": [
+        "G29"
+      ],
+      "revisit": [
+        "M38"
+      ],
+      "semantic_contrast": "результат A/B и время",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 1,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 1,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [
+        "Кратко сообщить **свой** опыт/результат"
+      ],
+      "new_grammar_names": [
+        "Perfekt с `haben`, Partizip II регулярных глаголов"
+      ]
+    },
+    {
+      "id": "LU45",
+      "horizon": "P5",
+      "microstep": "P5",
+      "focus": "Ближайший будущий план",
+      "first_R": [],
+      "first_P": [
+        "M52"
+      ],
+      "new_grammar_R": [
+        "G30"
+      ],
+      "revisit": [
+        "M16",
+        "M44"
+      ],
+      "semantic_contrast": "завтра/сегодня",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 1,
+      "independent_R_facts": 0,
+      "independent_P_intents": 1,
+      "revisits_in_new_context": 2,
+      "new_MR_names": [],
+      "new_grammar_names": [
+        "Perfekt с `sein`, нерегулярные Partizip II"
+      ]
+    },
+    {
+      "id": "LU46",
+      "horizon": "P5",
+      "microstep": "P5",
+      "focus": "Личные интересы и связи снова",
+      "first_R": [],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M26",
+        "M46"
+      ],
+      "semantic_contrast": "отношение и занятие в другой цели",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 0,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 2,
+      "new_MR_names": [],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU47",
+      "horizon": "P5",
+      "microstep": "P5",
+      "focus": "Раньше и сейчас",
+      "first_R": [],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M28",
+        "M49"
+      ],
+      "semantic_contrast": "изменение по двум записям",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 0,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 2,
+      "new_MR_names": [],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU48",
+      "horizon": "P5",
+      "microstep": "P5",
+      "focus": "Сводка независимых наблюдений",
+      "first_R": [],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M34",
+        "M55"
+      ],
+      "semantic_contrast": "кому известен результат",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 0,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 2,
+      "new_MR_names": [],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU49",
+      "horizon": "P6",
+      "microstep": "P6",
+      "focus": "Новое короткое письмо/объявление",
+      "first_R": [],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M27"
+      ],
+      "semantic_contrast": "адресат/факт/время",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 0,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU50",
+      "horizon": "P6",
+      "microstep": "P6",
+      "focus": "Свободная передача связанных сведений",
+      "first_R": [],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M45"
+      ],
+      "semantic_contrast": "изменить один факт, сохранить другие",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 0,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU51",
+      "horizon": "P6",
+      "microstep": "P6",
+      "focus": "Запрет и предпочтение в переносе",
+      "first_R": [],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M50"
+      ],
+      "semantic_contrast": "необязательно/нельзя; что выбрано",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 0,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU52",
+      "horizon": "P6",
+      "microstep": "P6",
+      "focus": "Личные связи и адресаты",
+      "first_R": [],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M51"
+      ],
+      "semantic_contrast": "родственник/друг; местоимения",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 0,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [],
+      "new_grammar_names": []
+    },
+    {
+      "id": "LU53",
+      "horizon": "P6",
+      "microstep": "P6",
+      "focus": "Независимый контроль LO",
+      "first_R": [],
+      "first_P": [],
+      "new_grammar_R": [],
+      "revisit": [
+        "M52"
+      ],
+      "semantic_contrast": "новые данные без готового немецкого ответа",
+      "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
+      "productive_contract": null,
+      "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
+      "status": "candidate_language_unit_not_lesson_or_plot",
+      "existing_support": [],
+      "new_required_meanings": 0,
+      "new_required_lexemes": "needs_independent_lexical_breakdown",
+      "new_grammar_contrasts": 0,
+      "independent_R_facts": 0,
+      "independent_P_intents": 0,
+      "revisits_in_new_context": 1,
+      "new_MR_names": [],
+      "new_grammar_names": []
+    }
+  ]
+}
