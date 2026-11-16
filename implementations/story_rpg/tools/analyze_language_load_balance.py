@@ -25,6 +25,7 @@ LEXICAL = DOCS / "LANGUAGE_LEXICAL_ANCHORS.json"
 OUTCOMES = DOCS / "LEARNING_OUTCOMES.md"
 CATALOGUE = DOCS / "LANGUAGE_LEXICON.md"
 LEXICAL_CATALOGUE = DOCS / "LANGUAGE_LEXICAL_CATALOG.json"
+GRAMMAR_CONTRASTS = DOCS / "LANGUAGE_GRAMMAR_CONTRASTS.json"
 STAGES = ["P0", "P1", "P2a", "P2b", "P2c", "P3a", "P3b", "P3c",
           "P4a", "P4b", "P4c", "P5", "P6"]
 FIELDS = ("introduce_m", "introduce_g", "first_p", "revisit_m")
@@ -512,6 +513,31 @@ def lexical_catalogue_audit(doc: dict) -> list[str]:
                      for x in doc["items"])
     if productive != 42:
         errors.append(f"Free-writing first P cases: {productive} != 42")
+
+    grammar = json.loads(GRAMMAR_CONTRASTS.read_text(encoding="utf-8"))
+    examples = grammar.get("items", [])
+    if len(examples) != 34 or len({x.get("id") for x in examples}) != 34:
+        errors.append("Expected 34 unique independent grammar examples")
+    form_to_lemma = {x["surface"].lower(): x["lemma"]
+                     for x in lookup.get("aliases", []) if x.get("surface")}
+    grammar_forms = {w for example in examples
+                     for key in ("example_A", "example_B")
+                     for w in tokenize(example[key])}
+    unresolved = grammar_forms - vocabulary - set(form_to_lemma) - {"mia"}
+    if unresolved:
+        errors.append("Grammar examples contain forms missing from F1: "
+                      + ", ".join(sorted(unresolved)))
+    form_audit = data.get("grammar_form_audit", {})
+    if (form_audit.get("unique_example_wordforms") != len(grammar_forms)
+        or form_audit.get("exact_surface_token_matches")
+            != len(grammar_forms & vocabulary)
+        or form_audit.get("unresolved_forms") != len(unresolved)):
+        errors.append("F1 grammar wordform audit stale")
+    for example in examples:
+        if not any(item["id"] == example.get("unit")
+                   and example.get("id") in item.get("introduce_g", [])
+                   for item in doc["items"]):
+            errors.append(f"Grammar example not aligned with LU: {example.get('id')}")
     return sorted(set(errors))
 
 
