@@ -1,6 +1,6 @@
 {
-  "version": "0.6",
-  "status": "balanced_candidate_sequence_semantic_transfer_not_validated",
+  "version": "0.7",
+  "status": "balanced_language_only_draft_partially_concrete_probe_specified_not_playtested",
   "purpose": "Candidate language-practice sequence for smoothing new meaningful R/P/grammar loads, independent of any storyline.",
   "provenance": [
     "LANGUAGE_MAP.md:M01-M55 first_R/first_P/revisit",
@@ -143,7 +143,33 @@
     "domains_mapped_for_review": 29,
     "lo_mapped_for_review": 13,
     "independent_catalogue_unique_strings": 463,
-    "independent_catalogue_occurrences": 469
+    "independent_catalogue_occurrences": 469,
+    "concrete_probes": 30,
+    "probes_missing": [
+      "LU01",
+      "LU05",
+      "LU06",
+      "LU11",
+      "LU12",
+      "LU13",
+      "LU14",
+      "LU17",
+      "LU20",
+      "LU23",
+      "LU24",
+      "LU29",
+      "LU30",
+      "LU34",
+      "LU36",
+      "LU42",
+      "LU45",
+      "LU46",
+      "LU48",
+      "LU50",
+      "LU51",
+      "LU52",
+      "LU53"
+    ]
   },
   "units": [
     {
@@ -191,7 +217,8 @@
         "Tschüss"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU02",
@@ -238,7 +265,18 @@
         "nein"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": {
+        "variant_A_de": "Komm bitte.",
+        "variant_B_de": "Komm bitte nicht.",
+        "semantic_difference_ru": "Просьба совершить действие против просьбы не совершать его",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU03",
@@ -285,7 +323,18 @@
         "Tasse"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": {
+        "variant_A_de": "Nimm die Tasse.",
+        "variant_B_de": "Nimm das Buch.",
+        "semantic_difference_ru": "Нужный объект меняется; предметы не подсвечиваются",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU04",
@@ -326,7 +375,18 @@
         "verstehen"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": {
+        "variant_A_de": "Ich verstehe nicht.",
+        "variant_B_de": "Ich verstehe.",
+        "semantic_difference_ru": "Выражено непонимание или понимание; первая формулировка никогда не навязывается",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU05",
@@ -375,7 +435,8 @@
         "heißen"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU06",
@@ -420,7 +481,8 @@
         "nehmen"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU07",
@@ -467,7 +529,18 @@
         "wo"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": {
+        "variant_A_de": "Wo ist das Buch?",
+        "variant_B_de": "Wer hat das Buch?",
+        "semantic_difference_ru": "Вопрос о месте против вопроса о человеке",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU08",
@@ -513,7 +586,18 @@
         "kaputt"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": {
+        "variant_A_de": "Die Tür ist offen.",
+        "variant_B_de": "Die Tür ist zu.",
+        "semantic_difference_ru": "Изменяется состояние одного предмета",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU09",
@@ -559,7 +643,18 @@
         "kein"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": {
+        "variant_A_de": "Ich habe das Buch.",
+        "variant_B_de": "Ich habe kein Buch.",
+        "semantic_difference_ru": "Наличие предмета против отсутствия",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU10",
@@ -603,7 +698,18 @@
         "Wasser"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": {
+        "variant_A_de": "Ich bin müde.",
+        "variant_B_de": "Ich habe Durst.",
+        "semantic_difference_ru": "Состояние усталости против потребности в питье",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU11",
@@ -650,7 +756,8 @@
         "geben"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU12",
@@ -695,7 +802,8 @@
         "zwei"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU13",
@@ -741,7 +849,8 @@
         "der Name"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU14",
@@ -800,7 +909,8 @@
           "semantic_probe": "здесь/там и запрет",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": null
     },
     {
       "id": "LU15",
@@ -859,7 +969,18 @@
           "semantic_probe": "мой/твой/его; смена владельца",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Das ist mein Buch.",
+        "variant_B_de": "Das ist dein Buch.",
+        "semantic_difference_ru": "Принадлежность игроку против собеседника",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU16",
@@ -911,7 +1032,18 @@
           "semantic_probe": "du/Sie, третье лицо sie",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Du kommst morgen.",
+        "variant_B_de": "Sie kommen morgen.",
+        "semantic_difference_ru": "Адресная форма отличается; нужно определить регистр и адресата, а не только действие",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU17",
@@ -952,7 +1084,8 @@
         "vier"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU18",
@@ -1010,7 +1143,18 @@
           "semantic_probe": "кому A/кому B",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Gib mir das Buch.",
+        "variant_B_de": "Gib ihm das Buch.",
+        "semantic_difference_ru": "Получатель действия меняется; смысл определяется немецкими словами",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU19",
@@ -1079,7 +1223,18 @@
           "semantic_probe": "где/куда; im/ins",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Das Buch ist im Zimmer.",
+        "variant_B_de": "Bring das Buch ins Zimmer.",
+        "semantic_difference_ru": "Статичное местоположение против переноса в указанное место",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU20",
@@ -1124,7 +1279,8 @@
         "traurig"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU21",
@@ -1187,7 +1343,18 @@
           "semantic_probe": "нельзя/не обязательно",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Du darfst nicht gehen.",
+        "variant_B_de": "Du musst nicht gehen.",
+        "semantic_difference_ru": "Запрет идти против отсутствия обязанности идти",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU22",
@@ -1234,7 +1401,18 @@
         "gestern"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": {
+        "variant_A_de": "Der Kurs fängt um acht an.",
+        "variant_B_de": "Der Kurs hört um acht auf.",
+        "semantic_difference_ru": "Начало в восемь против окончания в восемь; требуется распознать отделяемый глагол",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU23",
@@ -1276,7 +1454,8 @@
         "Kollege"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU24",
@@ -1317,7 +1496,8 @@
         "wollen"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU25",
@@ -1386,7 +1566,18 @@
           "semantic_probe": "время доступно/занято",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Komm morgen um zehn.",
+        "variant_B_de": "Komm morgen um zwölf.",
+        "semantic_difference_ru": "Меняется критический час",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU26",
@@ -1444,7 +1635,18 @@
           "semantic_probe": "обычно/сегодня; часто/никогда",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Ich arbeite oft am Montag.",
+        "variant_B_de": "Ich arbeite nie am Montag.",
+        "semantic_difference_ru": "Частое действие против отсутствия привычного действия",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU27",
@@ -1489,7 +1691,18 @@
         "dann"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": {
+        "variant_A_de": "Zuerst nimmst du das Buch, dann die Tasse.",
+        "variant_B_de": "Zuerst nimmst du die Tasse, dann das Buch.",
+        "semantic_difference_ru": "Порядок двух действий меняется",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU28",
@@ -1545,7 +1758,18 @@
           "semantic_probe": "запрещено/не обязательно",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Du musst nicht kommen.",
+        "variant_B_de": "Du darfst nicht kommen.",
+        "semantic_difference_ru": "Отсутствие обязанности против прямого запрета",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU29",
@@ -1586,7 +1810,8 @@
         "kleiner"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU30",
@@ -1654,7 +1879,8 @@
           "semantic_probe": "предпочтение A/B",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": null
     },
     {
       "id": "LU31",
@@ -1729,7 +1955,18 @@
           "semantic_probe": "отправитель/дата/время",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Am Montag bin ich frei.",
+        "variant_B_de": "Am Montag bin ich beschäftigt.",
+        "semantic_difference_ru": "Доступность меняется при неизменном дне",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU32",
@@ -1784,7 +2021,18 @@
           "semantic_probe": "предмет просьбы в hätte gern/könnte ich",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Ich hätte gern Tee.",
+        "variant_B_de": "Ich habe Tee.",
+        "semantic_difference_ru": "Вежливая просьба о чае против утверждения обладания",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU33",
@@ -1825,7 +2073,18 @@
         "lesen"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": {
+        "variant_A_de": "Ich lese gern.",
+        "variant_B_de": "Ich spiele gern.",
+        "semantic_difference_ru": "Вид интереса отличается; не требовать выдуманного хобби NPC",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU34",
@@ -1868,7 +2127,8 @@
         "später"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU35",
@@ -1925,7 +2185,18 @@
           "semantic_probe": "контраст результата и времени",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Die rote Tasse ist größer.",
+        "variant_B_de": "Die blaue Tasse ist größer.",
+        "semantic_difference_ru": "Какой предмет больше, меняется только по немецкому описанию",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU36",
@@ -1987,7 +2258,8 @@
           "semantic_probe": "слишком холодно/допустимо",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": null
     },
     {
       "id": "LU37",
@@ -2046,7 +2318,18 @@
           "semantic_probe": "книга/игра; предпочтение меняет план",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Ich lese gern.",
+        "variant_B_de": "Ich spiele gern.",
+        "semantic_difference_ru": "План совместного занятия зависит от свободно переданного предпочтения",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU38",
@@ -2117,7 +2400,18 @@
           "semantic_probe": "A брат B/A друг B",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Tom ist mein Bruder.",
+        "variant_B_de": "Tom ist mein Freund.",
+        "semantic_difference_ru": "Человек назван братом либо другом; имена только заменяемые тестовые данные",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU39",
@@ -2208,7 +2502,18 @@
           "semantic_probe": "кто, что, когда",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Ich bin morgen nicht da.",
+        "variant_B_de": "Ich bin heute nicht da.",
+        "semantic_difference_ru": "Нельзя спутать день недоступности",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU40",
@@ -2281,7 +2586,18 @@
           "semantic_probe": "значение и поле меняются",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Name: Mia. Tag: Montag.",
+        "variant_B_de": "Name: Mia. Tag: Dienstag.",
+        "semantic_difference_ru": "Меняется только одно значение в известной форме",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU41",
@@ -2344,7 +2660,18 @@
           "semantic_probe": "изменить один из двух фактов",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Ich bin krank. Komm morgen.",
+        "variant_B_de": "Ich bin gesund. Komm morgen.",
+        "semantic_difference_ru": "Первый из двух связанных пунктов изменён, второй сохранён",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU42",
@@ -2411,7 +2738,8 @@
           "semantic_probe": "адресат не видит вторую часть информации",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": null
     },
     {
       "id": "LU43",
@@ -2466,7 +2794,18 @@
           "semantic_probe": "вчера/сейчас; кто действовал",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Gestern war die Tür offen.",
+        "variant_B_de": "Heute ist die Tür offen.",
+        "semantic_difference_ru": "Прошлый факт нельзя считать текущим",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU44",
@@ -2511,7 +2850,18 @@
         "gefunden"
       ],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": {
+        "variant_A_de": "Ich habe das Buch gefunden.",
+        "variant_B_de": "Ich habe die Tasse gefunden.",
+        "semantic_difference_ru": "Меняется объект законченного действия",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU45",
@@ -2560,7 +2910,8 @@
           "semantic_probe": "завтра/сегодня",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": null
     },
     {
       "id": "LU46",
@@ -2637,7 +2988,8 @@
           "semantic_probe": "отношение и занятие в другой цели",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": null
     },
     {
       "id": "LU47",
@@ -2708,7 +3060,18 @@
           "semantic_probe": "изменение по двум записям",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Der Zug ist angekommen.",
+        "variant_B_de": "Der Zug kommt jetzt an.",
+        "semantic_difference_ru": "Прибыл в прошлом против прибывает сейчас: Perfekt с sein",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU48",
@@ -2765,7 +3128,8 @@
           "semantic_probe": "кому известен результат",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": null
     },
     {
       "id": "LU49",
@@ -2816,7 +3180,18 @@
           "semantic_probe": "адресат/факт/время",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": {
+        "variant_A_de": "Komm am Montag. Ich bin frei.",
+        "variant_B_de": "Komm am Dienstag. Ich bin frei.",
+        "semantic_difference_ru": "В новом коротком сообщении меняется один критический факт",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU50",
@@ -2877,7 +3252,8 @@
           "semantic_probe": "изменить один факт, сохранить другие",
           "status": "candidate_semantic_transfer_not_player_verified"
         }
-      ]
+      ],
+      "concrete_probe": null
     },
     {
       "id": "LU51",
@@ -2906,7 +3282,8 @@
       "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
       "candidate_new_lexemes": [],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU52",
@@ -2935,7 +3312,8 @@
       "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
       "candidate_new_lexemes": [],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     },
     {
       "id": "LU53",
@@ -2964,7 +3342,8 @@
       "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
       "candidate_new_lexemes": [],
       "candidate_reused_lexemes": [],
-      "revisit_contracts": []
+      "revisit_contracts": [],
+      "concrete_probe": null
     }
   ],
   "methodology": {
