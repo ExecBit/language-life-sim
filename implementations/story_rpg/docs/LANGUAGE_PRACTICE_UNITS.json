@@ -1,5 +1,5 @@
 {
-  "version": "0.8",
+  "version": "0.9",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -19,7 +19,8 @@
     "Contemporary lesson/domain examples inside one unit are alternative variants, not simultaneous mandatory unknown vocabulary; background R/E grammar does not create forced productive form.",
     "P6 has distributed integration rather than a single nine-target mega-test: a P6 unit contains at most five planned revisits and never new required M/G.",
     "outcome_candidates provide earlier practice and P6 transfer candidates for each 6 R + 7 W LO; they are not an exam, passing score or proof of mastery.",
-    "Independent first-R prerequisites for M08/M22/M27/M30/M55 and G24/G25/G32 are explicitly covered by the lexical anchor schedule."
+    "Independent first-R prerequisites for M08/M22/M27/M30/M55 and G24/G25/G32 are explicitly covered by the lexical anchor schedule.",
+    "P1 load smoothed: bringen is first semantically needed with a recipient, krank is introduced in a short personal-message genre; early A0 still has brauchen/Wasser and müde."
   ],
   "horizon_units": {
     "P0": 8,
@@ -389,11 +390,6 @@
       "lexical_anchors": [
         {
           "group": 5,
-          "expression": "bringen",
-          "obligation": "functional_candidate"
-        },
-        {
-          "group": 5,
           "expression": "brauchen",
           "obligation": "functional_candidate"
         },
@@ -459,11 +455,6 @@
         {
           "group": 7,
           "expression": "müde",
-          "obligation": "functional_candidate"
-        },
-        {
-          "group": 7,
-          "expression": "krank",
           "obligation": "functional_candidate"
         }
       ],
@@ -775,6 +766,11 @@
         {
           "group": 9,
           "expression": "dir",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 5,
+          "expression": "bringen",
           "obligation": "functional_candidate"
         }
       ],
@@ -1457,7 +1453,13 @@
       "context": "Короткий текст с отправителем и просьбой",
       "id": "P3c-04",
       "mode": "independent_abstract_language_practice",
-      "lexical_anchors": [],
+      "lexical_anchors": [
+        {
+          "group": 7,
+          "expression": "krank",
+          "obligation": "functional_candidate"
+        }
+      ],
       "outcome_candidates": [
         "LO-R05"
       ]
