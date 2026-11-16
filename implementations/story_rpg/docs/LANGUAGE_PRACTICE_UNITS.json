@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -22,7 +22,8 @@
     "Independent first-R prerequisites for M08/M22/M27/M30/M55 and G24/G25/G32 are explicitly covered by the lexical anchor schedule.",
     "P1 load smoothed: bringen is first semantically needed with a recipient, krank is introduced in a short personal-message genre; early A0 still has brauchen/Wasser and müde.",
     "53 neutral German contrast pairs from the temporary 53-unit draft were merged into this canonical 73-unit plan; no other language plan is authoritative.",
-    "language_example_checks are proposed German A/B substitutions and do not demonstrate empirical understanding or engine/parser support."
+    "language_example_checks are proposed German A/B substitutions and do not demonstrate empirical understanding or engine/parser support.",
+    "Every one of the 73 units now has at least one independent German A/B example; examples are candidate stimuli and not empirically validated difficulty."
   ],
   "horizon_units": {
     "P0": 8,
@@ -233,7 +234,16 @@
         }
       ],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Nimm die Tasse.",
+          "example_B_de": "Gib die Tasse.",
+          "critical_meaning_ru": "Понять действие «возьми» или «дай», а не просто узнать объект",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P0",
@@ -293,7 +303,16 @@
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Du kommst.",
+          "example_B_de": "Kommst du?",
+          "critical_meaning_ru": "Короткая фраза является утверждением либо вопросом",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P0",
@@ -310,7 +329,16 @@
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Nimm die Tasse.",
+          "example_B_de": "Nimm das Buch.",
+          "critical_meaning_ru": "Конкретная вещь в короткой просьбе меняется",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -546,7 +574,16 @@
       "outcome_candidates": [
         "LO-W02"
       ],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tür ist offen.",
+          "example_B_de": "Die Tür ist zu.",
+          "critical_meaning_ru": "Состояние меняется на противоположное",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -614,7 +651,16 @@
         }
       ],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich habe Durst.",
+          "example_B_de": "Ich habe Hunger.",
+          "critical_meaning_ru": "Нужен напиток или еда",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -641,7 +687,16 @@
         }
       ],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Hier gibt es Wasser.",
+          "example_B_de": "Hier gibt es kein Wasser.",
+          "critical_meaning_ru": "Сообщение о наличии воды или её отсутствии",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -755,7 +810,16 @@
       "outcome_candidates": [
         "LO-W01"
       ],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Wo ist das Buch?",
+          "example_B_de": "Wer hat das Buch?",
+          "critical_meaning_ru": "Неизвестна вещь по месту или человек, у которого она есть",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P2a",
@@ -819,7 +883,16 @@
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Er ist hier.",
+          "example_B_de": "Sie ist hier.",
+          "critical_meaning_ru": "Отсылка к мужчине или женщине меняет адресата; в контексте должны быть два возможных человека",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P2a",
@@ -1048,7 +1121,16 @@
         }
       ],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Das Buch ist im Zimmer.",
+          "example_B_de": "Das Buch ist in der Küche.",
+          "critical_meaning_ru": "Самостоятельно сообщаемое место предмета меняется",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P2b",
@@ -1085,7 +1167,16 @@
       "outcome_candidates": [
         "LO-R03"
       ],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Das Buch ist im Zimmer.",
+          "example_B_de": "Bring das Buch ins Zimmer.",
+          "critical_meaning_ru": "Отличить место предмета от цели его переноса",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P2b",
@@ -1149,7 +1240,16 @@
         }
       ],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich helfe dir.",
+          "example_B_de": "Ich helfe ihm.",
+          "critical_meaning_ru": "Меняется получатель помощи",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P2c",
@@ -1215,7 +1315,16 @@
         }
       ],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich komme heute.",
+          "example_B_de": "Ich komme morgen.",
+          "critical_meaning_ru": "Разное время действия относительно текущего момента",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P2c",
@@ -1314,7 +1423,16 @@
         }
       ],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich möchte Tee.",
+          "example_B_de": "Ich habe Tee.",
+          "critical_meaning_ru": "Желание предмета или сообщение об обладании им",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P3a",
@@ -1446,7 +1564,16 @@
         }
       ],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich arbeite oft.",
+          "example_B_de": "Ich arbeite nie.",
+          "critical_meaning_ru": "Привычное действие часто или никогда",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P3a",
@@ -1642,7 +1769,16 @@
         }
       ],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Komm morgen um zehn.",
+          "example_B_de": "Komm morgen um elf.",
+          "critical_meaning_ru": "Приглашение на разные часы",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P3b",
@@ -1743,7 +1879,16 @@
       "outcome_candidates": [
         "LO-W04"
       ],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich mag Tee.",
+          "example_B_de": "Ich mag Kaffee.",
+          "critical_meaning_ru": "Самостоятельно выраженное предпочтение меняет вариант",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P3c",
@@ -1809,7 +1954,16 @@
       "outcome_candidates": [
         "LO-R05"
       ],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin krank. Komm bitte morgen.",
+          "example_B_de": "Ich bin krank. Komm bitte heute.",
+          "critical_meaning_ru": "Состояние не меняется, но срок просьбы различается",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P3c",
@@ -1837,7 +1991,16 @@
         }
       ],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich lese gern.",
+          "example_B_de": "Ich spiele gern.",
+          "critical_meaning_ru": "Значимая информация об интересе изменена",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P3c",
@@ -1854,7 +2017,16 @@
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich habe das Buch. Ich brauche Wasser.",
+          "example_B_de": "Ich habe das Buch. Ich brauche Tee.",
+          "critical_meaning_ru": "В двух связанных мыслях изменена только потребность",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P3c",
@@ -1959,7 +2131,16 @@
         }
       ],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Die rote Tasse ist größer.",
+          "example_B_de": "Die rote Tasse ist kleiner.",
+          "critical_meaning_ru": "Сравнение размеров даёт противоположный результат",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P4a",
@@ -2028,7 +2209,16 @@
         }
       ],
       "outcome_candidates": [],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Die rote Tasse ist hier.",
+          "example_B_de": "Die blaue Tasse ist hier.",
+          "critical_meaning_ru": "Прочитанный признак выбирает другой предмет, не требуя идеального склонения P",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P4b",
@@ -2630,7 +2820,16 @@
         "LO-R06",
         "LO-W05"
       ],
-      "language_example_checks": []
+      "language_example_checks": [
+        {
+          "example_A_de": "Gestern habe ich das Buch gefunden. Morgen bringe ich es.",
+          "example_B_de": "Gestern habe ich das Buch gefunden. Heute bringe ich es.",
+          "critical_meaning_ru": "Прошлый факт не меняется, ближайший план относится к другому дню",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ]
     },
     {
       "stage": "P6",
@@ -2674,5 +2873,5 @@
       ]
     }
   ],
-  "example_checks_count": 53
+  "example_checks_count": 75
 }
