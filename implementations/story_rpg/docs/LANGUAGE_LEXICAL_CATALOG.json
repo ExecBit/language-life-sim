@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "status": "independent_lexical_inventory_not_approved_f1",
   "source": "LANGUAGE_LEXICON.md section 2, 29 topic groups; NOT ACT authored dialogue corpus",
   "validation": {
@@ -39,7 +39,8 @@
     "Identical surface strings in different groups retain all occurrences; disambiguation, declension, inflection, noun gender and sense ID are separate editorial tasks.",
     "Groups and horizons are independent of story days, NPC biographies, plot vocabulary and ACT scene statistics.",
     "Full F1 is the approved act inventory, not equal to all entries in this exploratory catalogue; all approved entries are available from start.",
-    "Meaningful usage frequency is not derived from count of catalogue occurrences."
+    "Meaningful usage frequency is not derived from count of catalogue occurrences.",
+    "In 73 independent language A/B examples, 36 additional surface tokens were reviewed: 27 form aliases, 2 placeholder names, 7 extra lexical candidates. None came from story content."
   ],
   "groups": [
     {
@@ -8283,6 +8284,412 @@
           ]
         }
       ]
+    }
+  ],
+  "program_german_form_audit": {
+    "source": "LANGUAGE_PRACTICE_UNITS.json German A/B design examples (not ACT scenes)",
+    "unique_example_wordforms": 123,
+    "exact_surface_token_matches": 87,
+    "needs_normalization": 36,
+    "inflected_or_plural": 27,
+    "proper_names_not_lexicon": 2,
+    "supplemental_candidates": 7,
+    "form_coverage_status": "candidate_only; neither full F1 nor implementation passed"
+  },
+  "program_form_alias_candidates": [
+    {
+      "observed_form": "zeig",
+      "unit_ids": [
+        "P0-04"
+      ],
+      "kind": "inflection",
+      "target_entry": "zeigen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "bin",
+      "unit_ids": [
+        "P0-06",
+        "P1-07",
+        "P2a-05",
+        "P3a-02",
+        "P3c-04",
+        "P4b-01",
+        "P4c-03",
+        "P6-01"
+      ],
+      "kind": "inflection",
+      "target_entry": "sein",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "mia",
+      "unit_ids": [
+        "P0-06",
+        "P1-01",
+        "P4b-03"
+      ],
+      "kind": "placeholder_proper_name",
+      "target_entry": null,
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "bist",
+      "unit_ids": [
+        "P0-06"
+      ],
+      "kind": "inflection",
+      "target_entry": "sein",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "kommst",
+      "unit_ids": [
+        "P0-07",
+        "P2a-03"
+      ],
+      "kind": "inflection",
+      "target_entry": "kommen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "heiße",
+      "unit_ids": [
+        "P1-01"
+      ],
+      "kind": "inflection",
+      "target_entry": "heißen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "tom",
+      "unit_ids": [
+        "P1-01",
+        "P4b-02"
+      ],
+      "kind": "placeholder_proper_name",
+      "target_entry": null,
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "brauche",
+      "unit_ids": [
+        "P1-05",
+        "P3c-06",
+        "P4a-03",
+        "P6-05"
+      ],
+      "kind": "inflection",
+      "target_entry": "brauchen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "tassen",
+      "unit_ids": [
+        "P1-10"
+      ],
+      "kind": "plural",
+      "target_entry": "die Tasse",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "möchte",
+      "unit_ids": [
+        "P2a-04",
+        "P2c-05",
+        "P3c-01"
+      ],
+      "kind": "inflection",
+      "target_entry": "möchten",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "froh",
+      "unit_ids": [
+        "P2a-05"
+      ],
+      "kind": "new_language_candidate",
+      "target_entry": "froh",
+      "ru_meaning": "радостный / довольный",
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "traurig",
+      "unit_ids": [
+        "P2a-05"
+      ],
+      "kind": "new_language_candidate",
+      "target_entry": "traurig",
+      "ru_meaning": "грустный",
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "bring",
+      "unit_ids": [
+        "P2b-02",
+        "P2b-04"
+      ],
+      "kind": "inflection",
+      "target_entry": "bringen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "bücher",
+      "unit_ids": [
+        "P2b-05"
+      ],
+      "kind": "plural",
+      "target_entry": "das Buch",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "helfe",
+      "unit_ids": [
+        "P2b-06"
+      ],
+      "kind": "inflection",
+      "target_entry": "helfen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "komme",
+      "unit_ids": [
+        "P2c-02",
+        "P3b-02"
+      ],
+      "kind": "inflection",
+      "target_entry": "kommen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "darfst",
+      "unit_ids": [
+        "P2c-03",
+        "P3b-01",
+        "P6-03"
+      ],
+      "kind": "inflection",
+      "target_entry": "dürfen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "musst",
+      "unit_ids": [
+        "P2c-03",
+        "P3b-01",
+        "P6-03"
+      ],
+      "kind": "inflection",
+      "target_entry": "müssen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "fängt",
+      "unit_ids": [
+        "P2c-04"
+      ],
+      "kind": "separable_inflection",
+      "target_entry": "anfangen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "acht",
+      "unit_ids": [
+        "P2c-04"
+      ],
+      "kind": "new_language_candidate",
+      "target_entry": "acht",
+      "ru_meaning": "восемь",
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "hört",
+      "unit_ids": [
+        "P2c-04"
+      ],
+      "kind": "separable_inflection",
+      "target_entry": "aufhören",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "arbeite",
+      "unit_ids": [
+        "P3a-01",
+        "P3a-03"
+      ],
+      "kind": "inflection",
+      "target_entry": "arbeiten",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "zwölf",
+      "unit_ids": [
+        "P3a-04"
+      ],
+      "kind": "new_language_candidate",
+      "target_entry": "zwölf",
+      "ru_meaning": "двенадцать",
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "nimmst",
+      "unit_ids": [
+        "P3a-05"
+      ],
+      "kind": "inflection",
+      "target_entry": "nehmen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "elf",
+      "unit_ids": [
+        "P3b-03"
+      ],
+      "kind": "new_language_candidate",
+      "target_entry": "elf",
+      "ru_meaning": "одиннадцать",
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "lese",
+      "unit_ids": [
+        "P3b-04",
+        "P3c-05",
+        "P4c-01",
+        "P5-05"
+      ],
+      "kind": "inflection",
+      "target_entry": "lesen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "spiele",
+      "unit_ids": [
+        "P3b-04",
+        "P3c-05",
+        "P4c-01",
+        "P5-05"
+      ],
+      "kind": "inflection",
+      "target_entry": "spielen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "mag",
+      "unit_ids": [
+        "P3c-02"
+      ],
+      "kind": "inflection",
+      "target_entry": "mögen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "rote",
+      "unit_ids": [
+        "P4a-01",
+        "P4a-02",
+        "P4a-04"
+      ],
+      "kind": "adjective_inflection",
+      "target_entry": "rot",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "blaue",
+      "unit_ids": [
+        "P4a-01",
+        "P4a-04"
+      ],
+      "kind": "adjective_inflection",
+      "target_entry": "blau",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "da",
+      "unit_ids": [
+        "P4b-01"
+      ],
+      "kind": "new_language_candidate",
+      "target_entry": "da",
+      "ru_meaning": "тут / там (по контексту)",
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "angekommen",
+      "unit_ids": [
+        "P5-03"
+      ],
+      "kind": "participle",
+      "target_entry": "ankommen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "kommt",
+      "unit_ids": [
+        "P5-03"
+      ],
+      "kind": "inflection",
+      "target_entry": "kommen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "gehe",
+      "unit_ids": [
+        "P5-04"
+      ],
+      "kind": "inflection",
+      "target_entry": "gehen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "dort",
+      "unit_ids": [
+        "P5-06",
+        "P6-02",
+        "P6-05"
+      ],
+      "kind": "new_language_candidate",
+      "target_entry": "dort",
+      "ru_meaning": "там",
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "bringe",
+      "unit_ids": [
+        "P6-04"
+      ],
+      "kind": "inflection",
+      "target_entry": "bringen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
     }
   ]
 }
