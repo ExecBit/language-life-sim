@@ -21,6 +21,7 @@ INPUT = DOCS / "LANGUAGE_PRACTICE_UNITS.json"
 MAP = DOCS / "LANGUAGE_MAP.md"
 PROGRESSION = DOCS / "LANGUAGE_PROGRESSION.md"
 OUTPUT = DOCS / "LANGUAGE_LOAD_BALANCE_REPORT.md"
+LEXICAL = DOCS / "LANGUAGE_LEXICAL_ANCHORS.json"
 STAGES = ["P0", "P1", "P2a", "P2b", "P2c", "P3a", "P3b", "P3c",
           "P4a", "P4b", "P4c", "P5", "P6"]
 FIELDS = ("introduce_m", "introduce_g", "first_p", "revisit_m")
@@ -263,6 +264,76 @@ def report(doc: dict, mmap: dict, gmap: dict, errors: list[str]) -> str:
     return "\n".join(lines) + "\n"
 
 
+
+def lexical_stage_report(doc: dict, glossary: dict) -> tuple[str, list[str]]:
+    """Validate all selected lexical anchors against the independent catalogue."""
+    errors = []
+    expected = {}
+    for group in glossary["groups"]:
+        for expression in group["minimal_anchor_expressions"]:
+            key = (group["id"], expression)
+            if key in expected:
+                errors.append(f"duplicate catalogue anchor: {key}")
+            expected[key] = group["role"]
+    actual = defaultdict(list)
+    lexical_totals = defaultdict(Counter)
+    for item in doc["items"]:
+        stage = item["stage"]
+        for anchor in item.get("lexical_anchors", []):
+            key = (anchor["group"], anchor["expression"])
+            actual[key].append(item["id"])
+            role = anchor["obligation"]
+            if role not in ("functional_candidate", "contextual_optional"):
+                errors.append(f"{item['id']}: invalid lexical role {role}")
+            if key not in expected:
+                errors.append(f"{item['id']}: unknown lexical anchor {key}")
+            elif (role == "functional_candidate") != (
+                expected[key] == "functional_anchor_candidate"
+            ):
+                errors.append(f"{item['id']}: mismatched role {key}")
+            lexical_totals[stage][role] += 1
+    for key in expected:
+        if len(actual[key]) != 1:
+            errors.append(f"lexical anchor {key} occurs {len(actual[key])} times")
+    if len(glossary["groups"]) != 29:
+        errors.append("expected 29 independent lexical groups")
+
+    lines = [
+        "","## 6. Минимальные лексические опоры (не словарные квоты)","",
+        "Источник: [LANGUAGE_LEXICAL_ANCHORS.json](LANGUAGE_LEXICAL_ANCHORS.json), "
+        "на основе [LANGUAGE_LEXICON.md](LANGUAGE_LEXICON.md) — **без сценового словаря**.","",
+        f"Распределено **{len(expected)}** выражений-кандидатов из **29 тематических групп**. "
+        f"Из них **{sum(t['functional_candidate'] for t in lexical_totals.values())}** "
+        "функциональных опор и "
+        f"**{sum(t['contextual_optional'] for t in lexical_totals.values())}** "
+        "контекстных необязательных. **Одна фраза может включать несколько лексем, "
+        "а один знакомый корень — несколько форм; это не подсчёт новых слов.**","",
+        "| Горизонт | Функциональные выражения-кандидаты | Контекстные, необязательные |",
+        "|---|---:|---:|",
+    ]
+    for stage in STAGES:
+        n = lexical_totals[stage]
+        lines.append(f"| {stage} | {n['functional_candidate']} | {n['contextual_optional']} |")
+    lines.extend([
+        "",
+        "**Неравномерность тематического каталога не исправляется навязыванием "
+        "всех его слов.** Избранные опоры ещё должны быть сверены с задачами и "
+        "снижены, если одновременное предъявление нескольких незнакомых слов "
+        "делает языковой контраст недоступным A0.",
+        "",
+        "**Раннее появление отдельных знакомых форм допускается** до основного "
+        "горизонта тематической группы: например, ich/du и verstehen нужны "
+        "раньше, чем развёрнутые темы «человек» и «учёба». Это уточнение "
+        "языковых предпосылок, а не выбор сеттинга.",
+        "",
+        "**Возможность проверки:** этот реестр покрывает выбранные "
+        "минимальные якоря, но не утверждает полный актовый F1, не проверяет "
+        "грамматические омонимы и не выдаёт повторение за усвоение.",
+        "",
+    ])
+    return "\\n".join(lines)+"\\n", sorted(set(errors))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
@@ -272,10 +343,13 @@ def main() -> int:
     doc = json.loads(INPUT.read_text(encoding="utf-8"))
     mmap, gmap = read_map(), grammar_stages()
     errors = validate(doc, mmap, gmap)
+    glossary = json.loads(LEXICAL.read_text(encoding="utf-8"))
+    lexical_appendix, lexical_errors = lexical_stage_report(doc, glossary)
+    errors.extend(lexical_errors)
     if errors:
         print("FAIL: " + "\nFAIL: ".join(errors), file=sys.stderr)
         return 1
-    expected = report(doc, mmap, gmap, errors)
+    expected = report(doc, mmap, gmap, errors) + lexical_appendix
     if options.write:
         OUTPUT.write_text(expected, encoding="utf-8")
         print(f"WROTE {OUTPUT.relative_to(DOCS.parent.parent.parent)}")
@@ -286,7 +360,7 @@ def main() -> int:
     if OUTPUT.read_text(encoding="utf-8") != expected:
         print("FAIL: language load report is outdated; use --write", file=sys.stderr)
         return 1
-    print(f"PASS: 55 M, 34 G, 42 first P, {len(doc['items'])} language units")
+    print(f"PASS: 55 M, 34 G, 42 first P, {len(doc['items'])} language units; lexical anchors valid")
     return 0
 
 
