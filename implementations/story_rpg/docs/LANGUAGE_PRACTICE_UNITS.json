@@ -1,5 +1,5 @@
 {
-  "version": "1.3",
+  "version": "1.4",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -76,6 +76,26 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M01",
+          "semantic_goal_ru": "Начать или завершить контакт",
+          "variant_A_facts": {
+            "contact": "arriving",
+            "addressee": "person B"
+          },
+          "variant_B_facts": {
+            "contact": "departing",
+            "addressee": "person B"
+          },
+          "critical_slots": [
+            "greeting_vs_farewell"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -118,6 +138,26 @@
           "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
           "content_review": "aligned_with_unit_goal_2026-11-16"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M04",
+          "semantic_goal_ru": "Ответить в соответствии со своим решением",
+          "variant_A_facts": {
+            "question": "Want water?",
+            "player_decision": "yes"
+          },
+          "variant_B_facts": {
+            "question": "Want water?",
+            "player_decision": "no"
+          },
+          "critical_slots": [
+            "agreement_vs_refusal"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -156,6 +196,26 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M05",
+          "semantic_goal_ru": "Если реально не понял — запросить повторение; если понял — не заставлять произносить непонимание",
+          "variant_A_facts": {
+            "input_comprehension": "unknown meaning",
+            "help_needed": true
+          },
+          "variant_B_facts": {
+            "input_comprehension": "fully understood",
+            "help_needed": false
+          },
+          "critical_slots": [
+            "whether_clarification_is_needed"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -199,6 +259,26 @@
           "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
           "content_review": "aligned_with_unit_goal_2026-11-16"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M09",
+          "semantic_goal_ru": "Самостоятельно назвать знакомый предмет",
+          "variant_A_facts": {
+            "pointed_object": "Buch",
+            "other_visible_object": "Tasse"
+          },
+          "variant_B_facts": {
+            "pointed_object": "Tasse",
+            "other_visible_object": "Buch"
+          },
+          "critical_slots": [
+            "object_identity"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -238,7 +318,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P0",
@@ -278,7 +359,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P0",
@@ -307,7 +389,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P0",
@@ -333,7 +416,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P1",
@@ -370,6 +454,44 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M02",
+          "semantic_goal_ru": "Представиться неизвестному собеседнику",
+          "variant_A_facts": {
+            "speaker_name": "Mia",
+            "listener_does_not_know": true
+          },
+          "variant_B_facts": {
+            "speaker_name": "Tom",
+            "listener_does_not_know": true
+          },
+          "critical_slots": [
+            "speaker_identity"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        },
+        {
+          "M": "M03",
+          "semantic_goal_ru": "Сообщить, кто совершает знакомое действие",
+          "variant_A_facts": {
+            "actor": "speaker",
+            "action": "holding_book"
+          },
+          "variant_B_facts": {
+            "actor": "other_person",
+            "action": "holding_book"
+          },
+          "critical_slots": [
+            "actor_role"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -417,6 +539,26 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M07",
+          "semantic_goal_ru": "Задать вопрос об отсутствующем сведении",
+          "variant_A_facts": {
+            "information_gap": "location of book",
+            "listener_knows": true
+          },
+          "variant_B_facts": {
+            "information_gap": "person holding book",
+            "listener_knows": true
+          },
+          "critical_slots": [
+            "question_target"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -454,6 +596,26 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M10",
+          "semantic_goal_ru": "Передать отличие по простому признаку",
+          "variant_A_facts": {
+            "object": "Tasse",
+            "property": "rot"
+          },
+          "variant_B_facts": {
+            "object": "Tasse",
+            "property": "blau"
+          },
+          "critical_slots": [
+            "object_property"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -496,6 +658,26 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M11",
+          "semantic_goal_ru": "Сообщить о наличии или отсутствии",
+          "variant_A_facts": {
+            "object": "Buch",
+            "has_item": true
+          },
+          "variant_B_facts": {
+            "object": "Buch",
+            "has_item": false
+          },
+          "critical_slots": [
+            "possession_and_negation"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -534,6 +716,26 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M12",
+          "semantic_goal_ru": "Попросить нужную вещь",
+          "variant_A_facts": {
+            "needed_item": "Buch",
+            "listener_has_item": true
+          },
+          "variant_B_facts": {
+            "needed_item": "Tasse",
+            "listener_has_item": true
+          },
+          "critical_slots": [
+            "requested_object"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -578,6 +780,26 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M15",
+          "semantic_goal_ru": "Сообщить состояние, которого адресат не видит",
+          "variant_A_facts": {
+            "object": "Tür",
+            "state": "offen"
+          },
+          "variant_B_facts": {
+            "object": "Tür",
+            "state": "zu"
+          },
+          "critical_slots": [
+            "observed_state"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -613,6 +835,24 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M29",
+          "semantic_goal_ru": "Сообщить о самочувствии",
+          "variant_A_facts": {
+            "player_state": "müde"
+          },
+          "variant_B_facts": {
+            "player_state": "krank"
+          },
+          "critical_slots": [
+            "own_state"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -655,6 +895,24 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M32",
+          "semantic_goal_ru": "Сообщить бытовую потребность",
+          "variant_A_facts": {
+            "need_type": "Wasser"
+          },
+          "variant_B_facts": {
+            "need_type": "Brot"
+          },
+          "critical_slots": [
+            "needed_food_or_drink"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -691,7 +949,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P1",
@@ -730,7 +989,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P1",
@@ -785,7 +1045,8 @@
           "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
           "content_review": "aligned_with_unit_goal_2026-11-16"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P1",
@@ -823,6 +1084,40 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M47",
+          "semantic_goal_ru": "Запросить конкретное недостающее сведение",
+          "variant_A_facts": {
+            "missing_information": "where is the book"
+          },
+          "variant_B_facts": {
+            "missing_information": "when person B arrives"
+          },
+          "critical_slots": [
+            "requested_information_type"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        },
+        {
+          "M": "M06",
+          "semantic_goal_ru": "Сформулировать вопрос или утверждение",
+          "variant_A_facts": {
+            "intent": "ask whether person B comes"
+          },
+          "variant_B_facts": {
+            "intent": "state person B comes"
+          },
+          "critical_slots": [
+            "question_vs_statement"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -867,6 +1162,24 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M13",
+          "semantic_goal_ru": "Сообщить, кому принадлежит вещь",
+          "variant_A_facts": {
+            "book_owner": "player"
+          },
+          "variant_B_facts": {
+            "book_owner": "listener"
+          },
+          "critical_slots": [
+            "owner"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -897,7 +1210,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P2a",
@@ -934,7 +1248,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P2a",
@@ -974,6 +1289,24 @@
           "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
           "content_review": "aligned_with_unit_goal_2026-11-16"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M33",
+          "semantic_goal_ru": "Сообщить знакомую профессию или роль",
+          "variant_A_facts": {
+            "own_role": "doctor"
+          },
+          "variant_B_facts": {
+            "own_role": "teacher"
+          },
+          "critical_slots": [
+            "known_role"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -1001,6 +1334,26 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M35",
+          "semantic_goal_ru": "Выразить простое отношение",
+          "variant_A_facts": {
+            "opinion_emotion": "froh",
+            "referent": "known outcome"
+          },
+          "variant_B_facts": {
+            "opinion_emotion": "traurig",
+            "referent": "known outcome"
+          },
+          "critical_slots": [
+            "emotional_evaluation"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -1051,6 +1404,26 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M14",
+          "semantic_goal_ru": "Попросить передать предмет определённому получателю",
+          "variant_A_facts": {
+            "recipient": "speaker",
+            "object": "Buch"
+          },
+          "variant_B_facts": {
+            "recipient": "person B",
+            "object": "Buch"
+          },
+          "critical_slots": [
+            "receiver_of_transfer"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -1097,6 +1470,26 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M21",
+          "semantic_goal_ru": "Сообщить, куда нужно переместить предмет",
+          "variant_A_facts": {
+            "destination": "Zimmer",
+            "object": "Buch"
+          },
+          "variant_B_facts": {
+            "destination": "Küche",
+            "object": "Buch"
+          },
+          "critical_slots": [
+            "destination_not_current_location"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -1135,6 +1528,26 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M20",
+          "semantic_goal_ru": "Объяснить, где находится предмет",
+          "variant_A_facts": {
+            "observed_location": "Zimmer",
+            "object": "Buch"
+          },
+          "variant_B_facts": {
+            "observed_location": "Küche",
+            "object": "Buch"
+          },
+          "critical_slots": [
+            "current_location_not_destination"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -1182,7 +1595,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P2b",
@@ -1221,6 +1635,26 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M17",
+          "semantic_goal_ru": "Сообщить количество",
+          "variant_A_facts": {
+            "object": "Tasse",
+            "quantity": 2
+          },
+          "variant_B_facts": {
+            "object": "Tasse",
+            "quantity": 3
+          },
+          "critical_slots": [
+            "count"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -1254,6 +1688,26 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M19",
+          "semantic_goal_ru": "Предложить помощь или самостоятельно отказаться",
+          "variant_A_facts": {
+            "intention": "offer help to person B",
+            "can_help": true
+          },
+          "variant_B_facts": {
+            "intention": "decline help request",
+            "can_help": false
+          },
+          "critical_slots": [
+            "help_offer_vs_refusal"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -1290,6 +1744,26 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M48",
+          "semantic_goal_ru": "Передать незнакомый адресату факт своими словами",
+          "variant_A_facts": {
+            "known_private_fact": "the cup is empty",
+            "recipient_knows": false
+          },
+          "variant_B_facts": {
+            "known_private_fact": "the cup is full",
+            "recipient_knows": false
+          },
+          "critical_slots": [
+            "transferred_fact"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -1330,7 +1804,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P2c",
@@ -1370,7 +1845,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P2c",
@@ -1404,7 +1880,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P2c",
@@ -1438,7 +1915,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P3a",
@@ -1480,6 +1958,26 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
           "content_review": "aligned_with_unit_goal_2026-11-16"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M23",
+          "semantic_goal_ru": "Сообщить время",
+          "variant_A_facts": {
+            "appointment_hour": "10:00",
+            "day": "Montag"
+          },
+          "variant_B_facts": {
+            "appointment_hour": "12:00",
+            "day": "Montag"
+          },
+          "critical_slots": [
+            "clock_time"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -1542,7 +2040,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P3a",
@@ -1585,6 +2084,26 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M25",
+          "semantic_goal_ru": "Описать частоту знакомого действия",
+          "variant_A_facts": {
+            "habit_frequency": "oft",
+            "action": "read"
+          },
+          "variant_B_facts": {
+            "habit_frequency": "nie",
+            "action": "read"
+          },
+          "critical_slots": [
+            "frequency"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -1626,6 +2145,26 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M24",
+          "semantic_goal_ru": "Согласовать доступное время",
+          "variant_A_facts": {
+            "own_availability": "Monday 10:00",
+            "other_knows": false
+          },
+          "variant_B_facts": {
+            "own_availability": "Monday 12:00",
+            "other_knows": false
+          },
+          "critical_slots": [
+            "availability_time"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -1666,6 +2205,30 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M26",
+          "semantic_goal_ru": "Передать порядок знакомых действий",
+          "variant_A_facts": {
+            "steps": [
+              "take book",
+              "take cup"
+            ]
+          },
+          "variant_B_facts": {
+            "steps": [
+              "take cup",
+              "take book"
+            ]
+          },
+          "critical_slots": [
+            "action_order"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -1717,6 +2280,44 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M18",
+          "semantic_goal_ru": "Передать возможность/обязанность без смены модальности",
+          "variant_A_facts": {
+            "action": "come",
+            "rule": "permitted"
+          },
+          "variant_B_facts": {
+            "action": "come",
+            "rule": "obligatory"
+          },
+          "critical_slots": [
+            "permission_vs_obligation"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        },
+        {
+          "M": "M54",
+          "semantic_goal_ru": "Различить «не нужно» и «нельзя» в собственном сообщении",
+          "variant_A_facts": {
+            "action": "come",
+            "rule": "not required"
+          },
+          "variant_B_facts": {
+            "action": "come",
+            "rule": "prohibited"
+          },
+          "critical_slots": [
+            "negation_scope_of_modality"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -1746,6 +2347,24 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M49",
+          "semantic_goal_ru": "Сообщить когда событие относится к настоящему или прошлому",
+          "variant_A_facts": {
+            "event_time": "today"
+          },
+          "variant_B_facts": {
+            "event_time": "yesterday"
+          },
+          "critical_slots": [
+            "relative_time"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -1790,6 +2409,26 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M37",
+          "semantic_goal_ru": "Согласиться или отказаться от приглашения",
+          "variant_A_facts": {
+            "invitation": "tomorrow at 10",
+            "response": "accept"
+          },
+          "variant_B_facts": {
+            "invitation": "tomorrow at 10",
+            "response": "decline"
+          },
+          "critical_slots": [
+            "invitation_response"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -1819,7 +2458,8 @@
           "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
           "content_review": "aligned_with_unit_goal_2026-11-16"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P3c",
@@ -1854,6 +2494,24 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M30",
+          "semantic_goal_ru": "Сообщить желание",
+          "variant_A_facts": {
+            "wanted_item": "Wasser"
+          },
+          "variant_B_facts": {
+            "wanted_item": "Tee"
+          },
+          "critical_slots": [
+            "desired_object"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -1896,6 +2554,32 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M31",
+          "semantic_goal_ru": "Выразить предпочтение в отсутствии готового ответа",
+          "variant_A_facts": {
+            "offered": [
+              "Wasser",
+              "Tee"
+            ],
+            "preference": "Wasser"
+          },
+          "variant_B_facts": {
+            "offered": [
+              "Wasser",
+              "Tee"
+            ],
+            "preference": "Tee"
+          },
+          "critical_slots": [
+            "preferred_option"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -1937,7 +2621,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P3c",
@@ -1971,7 +2656,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P3c",
@@ -2008,7 +2694,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P3c",
@@ -2034,7 +2721,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P3c",
@@ -2065,7 +2753,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P4a",
@@ -2108,6 +2797,30 @@
           "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
           "content_review": "aligned_with_unit_goal_2026-11-16"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M16",
+          "semantic_goal_ru": "Сопоставить два независимых факта",
+          "variant_A_facts": {
+            "objectA": "Tasse",
+            "stateA": "leer",
+            "objectB": "Buch",
+            "stateB": "neu"
+          },
+          "variant_B_facts": {
+            "objectA": "Tasse",
+            "stateA": "voll",
+            "objectB": "Buch",
+            "stateB": "neu"
+          },
+          "critical_slots": [
+            "contrasting_two_facts"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -2149,6 +2862,32 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M28",
+          "semantic_goal_ru": "Самостоятельно сравнить две вещи",
+          "variant_A_facts": {
+            "objects": [
+              "Tasse A",
+              "Tasse B"
+            ],
+            "larger": "A"
+          },
+          "variant_B_facts": {
+            "objects": [
+              "Tasse A",
+              "Tasse B"
+            ],
+            "larger": "B"
+          },
+          "critical_slots": [
+            "comparison_direction"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -2189,7 +2928,8 @@
           "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
           "content_review": "aligned_with_unit_goal_2026-11-16"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P4a",
@@ -2228,7 +2968,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P4b",
@@ -2273,7 +3014,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P4b",
@@ -2313,7 +3055,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P4b",
@@ -2362,6 +3105,38 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M45",
+          "semantic_goal_ru": "Заполнить известными данными самостоятельную форму",
+          "variant_A_facts": {
+            "field_labels_de": [
+              "Name",
+              "Tag"
+            ],
+            "known_data": {
+              "Name": "Mia",
+              "Tag": "Montag"
+            }
+          },
+          "variant_B_facts": {
+            "field_labels_de": [
+              "Name",
+              "Tag"
+            ],
+            "known_data": {
+              "Name": "Mia",
+              "Tag": "Dienstag"
+            }
+          },
+          "critical_slots": [
+            "correct_field_assignment"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -2390,6 +3165,35 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M34",
+          "semantic_goal_ru": "Спросить об интересе либо предложить соответствующее совместное занятие",
+          "variant_A_facts": {
+            "private_interest": "lesen",
+            "activity_offered": [
+              "lesen",
+              "spielen"
+            ],
+            "listener_does_not_know": true
+          },
+          "variant_B_facts": {
+            "private_interest": "spielen",
+            "activity_offered": [
+              "lesen",
+              "spielen"
+            ],
+            "listener_does_not_know": true
+          },
+          "critical_slots": [
+            "preferred_activity",
+            "offer_of_shared_activity"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -2436,6 +3240,26 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M38",
+          "semantic_goal_ru": "Объяснить, почему вариант не подходит",
+          "variant_A_facts": {
+            "candidate": "Tasse",
+            "issue": "too large"
+          },
+          "variant_B_facts": {
+            "candidate": "Tasse",
+            "issue": "too cold"
+          },
+          "critical_slots": [
+            "specific_obstacle"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -2479,6 +3303,26 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M46",
+          "semantic_goal_ru": "Передать два пункта адресату своими словами",
+          "variant_A_facts": {
+            "fact1": "player ill today",
+            "fact2": "asks B to come tomorrow"
+          },
+          "variant_B_facts": {
+            "fact1": "player well today",
+            "fact2": "asks B to come tomorrow"
+          },
+          "critical_slots": [
+            "two_independent_meanings"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -2521,7 +3365,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P5",
@@ -2562,6 +3407,29 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M51",
+          "semantic_goal_ru": "Сообщить завершённое действие",
+          "variant_A_facts": {
+            "actor": "player",
+            "event": "found book",
+            "time": "yesterday"
+          },
+          "variant_B_facts": {
+            "actor": "player",
+            "event": "found key",
+            "time": "yesterday"
+          },
+          "critical_slots": [
+            "past_completed_event",
+            "object"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
       ]
     },
     {
@@ -2597,7 +3465,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P5",
@@ -2636,6 +3505,28 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M52",
+          "semantic_goal_ru": "Передать ближайший план",
+          "variant_A_facts": {
+            "actor": "player",
+            "action": "come",
+            "time": "tomorrow"
+          },
+          "variant_B_facts": {
+            "actor": "player",
+            "action": "come",
+            "time": "today"
+          },
+          "critical_slots": [
+            "future_or_present_plan_time"
+          ],
+          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
         }
       ]
     },
@@ -2676,7 +3567,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P5",
@@ -2710,7 +3602,8 @@
           "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
           "content_review": "aligned_with_unit_goal_2026-11-16"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P6",
@@ -2744,7 +3637,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P6",
@@ -2778,7 +3672,8 @@
           "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
           "content_review": "aligned_with_unit_goal_2026-11-16"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P6",
@@ -2811,7 +3706,8 @@
           "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
           "content_review": "aligned_with_unit_goal_2026-11-16"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P6",
@@ -2842,7 +3738,8 @@
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
-      ]
+      ],
+      "independent_production_checks": []
     },
     {
       "stage": "P6",
@@ -2885,7 +3782,8 @@
           "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
           "content_review": "aligned_with_unit_goal_2026-11-16"
         }
-      ]
+      ],
+      "independent_production_checks": []
     }
   ],
   "example_checks_count": 75,
@@ -3287,5 +4185,13 @@
         "design_status": "independent_candidate_not_player_test"
       }
     ]
+  },
+  "production_assessment_audit": {
+    "version": "0.1",
+    "first_p_total": 42,
+    "probes": 42,
+    "coverage": "one_semantic_A_B_facts_pair_per_first_productive_M",
+    "status": "candidate_not_parser_test",
+    "note": "M05 is an OPTIONAL repair strategy, never a compulsory false declaration of incomprehension. Each productive check requires unseen intent and freely generated German; a displayed A/B German pair alone checks receptive contrast only."
   }
 }
