@@ -1,5 +1,5 @@
 {
-  "version": "0.5",
+  "version": "0.6",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -16,7 +16,8 @@
     "A second independent-P opportunity was added at P2b for location and P3c for preferences, to avoid packing multiple first productive intentions into the same unit.",
     "lexical_anchors are selected expression *candidates* from the 29-group independent language catalogue, NOT a hard number of new words in a day; context_optional is never a requirement.",
     "A few elementary expressions are placed earlier than their catalogue group horizon because the independent M/G map uses them earlier (e.g. ich/du, verstehen, heute/morgen); this is deliberate and must not be confused with teaching entire theme early.",
-    "Contemporary lesson/domain examples inside one unit are alternative variants, not simultaneous mandatory unknown vocabulary; background R/E grammar does not create forced productive form."
+    "Contemporary lesson/domain examples inside one unit are alternative variants, not simultaneous mandatory unknown vocabulary; background R/E grammar does not create forced productive form.",
+    "P6 has distributed integration rather than a single nine-target mega-test: a P6 unit contains at most five planned revisits and never new required M/G."
   ],
   "horizon_units": {
     "P0": 8,
@@ -1859,24 +1860,26 @@
     },
     {
       "stage": "P6",
-      "goal": "Интеграция понимания короткой инструкции",
+      "goal": "Адресат, жанр и сведения коротких текстов",
       "introduce_m": [],
       "introduce_g": [],
       "first_p": [],
       "revisit_m": [
         "M39",
         "M42",
-        "M55"
+        "M55",
+        "M08",
+        "M44"
       ],
-      "contrast": "Изменение адресата меняет нужный ответ",
-      "context": "Знакомые короткие формулы",
+      "contrast": "Два разных письменных обращения требуют разного адресата или извлечённого времени",
+      "context": "Знакомые формы: инструкция, таблица и обращение; не все жанры в одной обязательной реплике",
       "id": "P6-01",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": []
     },
     {
       "stage": "P6",
-      "goal": "Возможность, запрет и время",
+      "goal": "Ограничение, расписание и согласование действий",
       "introduce_m": [],
       "introduce_g": [],
       "first_p": [],
@@ -1884,72 +1887,63 @@
         "M18",
         "M54",
         "M24",
-        "M23"
+        "M23",
+        "M27"
       ],
-      "contrast": "Смена nicht dürfen на nicht müssen меняет выбор",
-      "context": "Знакомая цель, новый контраст контекста",
+      "contrast": "Замена запрета на необязательность меняет план действий",
+      "context": "Одна известная деятельность, два варианта времени, без новых слов",
       "id": "P6-02",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": []
     },
     {
       "stage": "P6",
-      "goal": "Личное сообщение с отношениями",
+      "goal": "Личные связи, предпочтение и вопрос",
       "introduce_m": [],
       "introduce_g": [],
       "first_p": [],
       "revisit_m": [
         "M36",
         "M35",
-        "M30",
-        "M31"
+        "M31",
+        "M47"
       ],
-      "contrast": "Смена родства меняет получателя ответа",
-      "context": "Знакомая лексика, новый адресат",
+      "contrast": "Смена отношения между людьми меняет кому адресовать ответ",
+      "context": "Знакомые социальные значения, связь и вопрос, без биографий",
       "id": "P6-03",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": []
     },
     {
       "stage": "P6",
-      "goal": "Прошлое и ближайшее будущее",
+      "goal": "Краткий рассказ о прошлом и ближайшем плане",
       "introduce_m": [],
       "introduce_g": [],
       "first_p": [],
       "revisit_m": [
-        "M16",
-        "M28",
-        "M26",
         "M50",
         "M51",
-        "M27"
+        "M52"
       ],
-      "contrast": "Смена времени меняет сообщение",
-      "context": "Два знакомых события, разные времена",
+      "contrast": "Вчера и завтра различают завершённое действие и новый план",
+      "context": "Два знакомых факта, один прошлый и один будущий; все глаголы ранее встречались",
       "id": "P6-04",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": []
     },
     {
       "stage": "P6",
-      "goal": "Несколько независимых пунктов",
+      "goal": "Передача нескольких фактов и заполнение простой формы",
       "introduce_m": [],
       "introduce_g": [],
       "first_p": [],
       "revisit_m": [
         "M46",
         "M48",
-        "M52",
-        "M49",
-        "M17",
-        "M45",
-        "M47",
-        "M37",
-        "M08",
-        "M44"
+        "M45"
       ],
-      "contrast": "Если один из трёх фактов меняется, ответ также меняется",
-      "context": "Свободное сообщение, без готового ответа",
+      "contrast": "Замена одного поля или получателя меняет запись и сообщение",
+      "context": "Знакомые поля, короткий свободный ввод и отдельный информационный разрыв",
       "id": "P6-05",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": []
