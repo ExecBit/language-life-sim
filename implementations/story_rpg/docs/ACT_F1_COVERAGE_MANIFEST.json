@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "status": "derived_R_vocabulary_inventory_not_translated_or_reviewed_F1_dictionary",
   "source": "ACT_DIALOGUE_SITUATIONS.json (mandatory R only) + ACT_VOCAB_NORMALIZATION.json; ACT_LEXICAL_ROLE_CANDIDATES.json",
   "rules": [
@@ -8,7 +8,8 @@
     "Lemma normalization is provisional and cannot disambiguate identical spellings with different meanings; F1 needs separate senses.",
     "No translation, gender, inflection, or Russian reverse search is supplied by this manifest.",
     "Mandatory P-only example lemmas are included separately as F1 candidate lookups; these example strings are not mandatory player word choices.",
-    "29 thematic catalogue groups extend beyond the currently authored mandatory scenes; each backticked unit is a F1 candidate entry, not a learner requirement."
+    "29 thematic catalogue groups extend beyond the currently authored mandatory scenes; each backticked unit is a F1 candidate entry, not a learner requirement.",
+    "Optional scenes and optional P replies are not mandatory learning evidence but must be available in the full F1 of the authored act."
   ],
   "summary": {
     "distinct_r_lemmas": 199,
@@ -36,7 +37,9 @@
     "p_examples_lexemes": 102,
     "catalogue_distinct_phrase_strings": 458,
     "catalogue_phrase_occurrences": 464,
-    "catalogue_groups": 29
+    "catalogue_groups": 29,
+    "optional_only_lemmas": 14,
+    "current_authored_corpus_R_P_lexemes": 221
   },
   "lemmas": [
     {
@@ -3721,6 +3724,120 @@
         "später am Tag",
         "in zwei Tagen"
       ]
+    }
+  ],
+  "optional_only": [
+    {
+      "lemma": "ankommen",
+      "forms": [
+        "angekommen"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "beide",
+      "forms": [
+        "beiden"
+      ],
+      "optional_R": false,
+      "optional_P": true
+    },
+    {
+      "lemma": "bekommen",
+      "forms": [
+        "bekommen"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "freuen",
+      "forms": [
+        "freue"
+      ],
+      "optional_R": false,
+      "optional_P": true
+    },
+    {
+      "lemma": "froh",
+      "forms": [
+        "froh"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "gern",
+      "forms": [
+        "gern"
+      ],
+      "optional_R": false,
+      "optional_P": true
+    },
+    {
+      "lemma": "ihr",
+      "forms": [
+        "euch"
+      ],
+      "optional_R": false,
+      "optional_P": true
+    },
+    {
+      "lemma": "kurz",
+      "forms": [
+        "kurz"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "lesen",
+      "forms": [
+        "lesen"
+      ],
+      "optional_R": true,
+      "optional_P": true
+    },
+    {
+      "lemma": "mit",
+      "forms": [
+        "mit"
+      ],
+      "optional_R": true,
+      "optional_P": true
+    },
+    {
+      "lemma": "unsicher",
+      "forms": [
+        "unsicher"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "versuchen",
+      "forms": [
+        "versuche"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "wenig",
+      "forms": [
+        "wenig"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "wort",
+      "forms": [
+        "worten"
+      ],
+      "optional_R": true,
+      "optional_P": false
     }
   ]
 }
