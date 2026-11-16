@@ -4032,7 +4032,7 @@
         "lo": "LO-R05",
         "kind": "reading",
         "transfer_unit": "P6-03",
-        "goal_ru": "Прочитать адресата, личную связь, причину и просьбу",
+        "goal_ru": "Прочитать адресата, личную связь, состояние упомянутого человека и просьбу",
         "stimulus": {
           "format": "short_German_input",
           "variant_A_de": "Hallo Mia! Mein Bruder Tom ist krank. Komm bitte morgen um zehn. Lea.",
@@ -4042,16 +4042,17 @@
           "sender",
           "recipient",
           "relationship",
-          "reason",
+          "person_state",
           "requested_time_and_action"
         ],
         "incorrect_interpretation_examples": [
           "Назвать Тома отправителем",
           "Подменить брат на друг",
-          "Перепутать сегодня и завтра"
+          "Перепутать сегодня и завтра",
+          "Приписать письму неуказанную прямую причину просьбы"
         ],
         "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
-        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input. Не следует автоматически считать соседнее высказывание о состоянии доказанной причинной связью с просьбой.",
         "design_status": "independent_candidate_not_player_test"
       },
       {
