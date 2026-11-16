@@ -733,6 +733,65 @@ def lexical_catalogue_audit(doc: dict) -> list[str]:
         or stats.get("occurrences") != sum(map(len, expected.values()))):
         errors.append("F1 catalogue summary counts stale")
 
+    # Lexical curriculum: validate intent, not an arbitrary total of words.
+    scope_tracks = {"active_core", "receptive_core", "productive_choice", "contextual"}
+    focus_bands = {"P0", "P1", "P2a", "P2b", "P2c", "P3a", "P3b",
+                   "P3c", "P4a", "P4b", "P4c", "P5"}
+    current_tracks = Counter()
+    band_counts = defaultdict(Counter)
+    for entry in entries:
+        scope = entry.get("learning_scope", {})
+        track = scope.get("track")
+        band = scope.get("focus_band")
+        if track not in scope_tracks or band not in focus_bands:
+            errors.append(f"F1 lexical learning scope missing/invalid: {entry.get('text')}")
+            continue
+        current_tracks[track] += 1
+        if track in {"active_core", "receptive_core"}:
+            band_counts[band][track] += 1
+    summary = data.get("curriculum_summary", {})
+    if (summary.get("entries_total") != len(entries)
+        or summary.get("occurrences") != sum(map(len, expected.values()))
+        or summary.get("tracks") != dict(current_tracks)):
+        errors.append("Lexical curriculum role summary stale")
+    expected_bands = {
+        band: {track: band_counts[band][track]
+               for track in ("active_core", "receptive_core")}
+        for band in ("P0", "P1", "P2a", "P2b", "P2c", "P3a", "P3b",
+                     "P3c", "P4a", "P4b", "P4c", "P5")
+    }
+    if summary.get("focus_band_counts") != expected_bands:
+        errors.append("Lexical curriculum focus windows stale")
+    contracts = data.get("lexical_competency_contracts", [])
+    if (len({g.get("id") for g in contracts}) != len(contracts)
+        or summary.get("lexical_competency_contracts") != len(contracts)):
+        errors.append("Lexical semantic contract index stale")
+    for gate in contracts:
+        if (not gate.get("goal") or not gate.get("semantic_acceptance_rule_ru")
+            or not gate.get("functions")
+            or gate.get("horizon") not in focus_bands):
+            errors.append(f"Lexical semantic contract invalid: {gate.get('id')}")
+        for role in ("receptive_support", "productive_support"):
+            terms = gate.get(role, [])
+            if not terms:
+                errors.append(f"Lexical semantic contract no {role}: {gate.get('id')}")
+            for term in terms:
+                if term not in indexed:
+                    errors.append(f"Lexical semantic support missing: {gate.get('id')}: {term}")
+                elif role == "productive_support" and indexed[term].get(
+                    "learning_scope", {}).get("track") not in {
+                        "active_core", "productive_choice"
+                    }:
+                    errors.append(f"Lexical productive support not producible: {gate.get('id')}: {term}")
+    themes = data.get("goethe_a1_theme_coverage", [])
+    if (len(themes) != 10
+        or summary.get("official_a1_topics") != len(themes)
+        or any(not theme.get("domain_ru")
+               or not theme.get("group_ids")
+               or not set(theme["group_ids"]) <= set(source)
+               for theme in themes)):
+        errors.append("A1 thematic coverage index stale")
+
     def tokenize(value: str) -> list[str]:
         return re.findall(r"[a-zäöüß]+", value.lower())
 
