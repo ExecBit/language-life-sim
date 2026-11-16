@@ -1,5 +1,5 @@
 {
-  "version": "1.12",
+  "version": "1.13",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -374,7 +374,7 @@
         "blocking": false,
         "status": "methodical_candidate_not_user_test"
       },
-      "scaffolding_note": "Знакомить с ich/du и bin/bist на одном известном имени; G03 на P0 только минимальное узнавание sein. Контраст sein/haben допустим позднее, после появления haben. Не требовать самостоятельной морфологии."
+      "scaffolding_note": "На абсолютном A0 основная пара Ich bin Mia. / Du bist Mia. одновременно вводит роли ich/du (G02) и первые формы sein (G03), без дополнительных brauche/habe/модальных слов. G02 с brauchen — необязательный перенос после P1; различение sein/haben уже есть в P1-07."
     },
     {
       "stage": "P0",
@@ -886,7 +886,8 @@
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
-      ]
+      ],
+      "scaffolding_note": "Помимо M29 самочувствия эта уже существующая пара Ich bin müde. / Ich habe Durst. служит отсроченным обязательным R для полной разницы sein/haben (G03), после знакомства с bin/bist и habe. Не добавлять отдельный тест G03."
     },
     {
       "stage": "P1",
