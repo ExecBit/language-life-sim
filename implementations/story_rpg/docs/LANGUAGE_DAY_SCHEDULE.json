@@ -96,7 +96,8 @@
         },
         "revisit": 3
       }
-    }
+    },
+    "lexical_R_probes_are_candidates_not_mastery": true
   },
   "baseline_profile": "baseline",
   "profiles": {
@@ -203,7 +204,8 @@
             "komm"
           ],
           "day": 1,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -238,7 +240,8 @@
             "das"
           ],
           "day": 2,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -272,7 +275,8 @@
             "Guten Abend"
           ],
           "day": 3,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -304,7 +308,8 @@
             "gib"
           ],
           "day": 4,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -342,7 +347,8 @@
             "satt"
           ],
           "day": 5,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -381,7 +387,8 @@
             "falsch"
           ],
           "day": 6,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -415,7 +422,8 @@
             "es gibt"
           ],
           "day": 7,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -454,7 +462,8 @@
             "die Schmerzen"
           ],
           "day": 8,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -488,7 +497,8 @@
             "das Fieber"
           ],
           "day": 9,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -522,7 +532,8 @@
             "die Medizin"
           ],
           "day": 10,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -559,7 +570,8 @@
             "welche"
           ],
           "day": 11,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -592,7 +604,8 @@
             "die Speisekarte"
           ],
           "day": 12,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -629,7 +642,8 @@
             "das Restaurant"
           ],
           "day": 13,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2a",
@@ -677,7 +691,8 @@
             "der Großvater"
           ],
           "day": 14,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2a",
@@ -723,7 +738,8 @@
             "der Ehemann"
           ],
           "day": 15,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2a",
@@ -762,7 +778,8 @@
             "die Ehefrau"
           ],
           "day": 16,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2b",
@@ -805,7 +822,8 @@
             "das Büro"
           ],
           "day": 17,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2b",
@@ -845,7 +863,8 @@
             "die Stelle"
           ],
           "day": 18,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2b",
@@ -883,7 +902,8 @@
             "die Arbeitszeit"
           ],
           "day": 19,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2c",
@@ -931,7 +951,8 @@
             "neunzig"
           ],
           "day": 20,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2c",
@@ -979,7 +1000,8 @@
             "tausend"
           ],
           "day": 21,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2c",
@@ -1021,7 +1043,8 @@
             "achtzig"
           ],
           "day": 22,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -1065,7 +1088,8 @@
             "pünktlich"
           ],
           "day": 23,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -1110,7 +1134,10 @@
             "zu Fuß"
           ],
           "day": 24,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": [
+            "LX-DATE-02"
+          ]
         },
         {
           "stage": "P3a",
@@ -1151,7 +1178,8 @@
             "aussteigen"
           ],
           "day": 25,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -1195,7 +1223,10 @@
             "umsteigen"
           ],
           "day": 26,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": [
+            "LX-DATE-01"
+          ]
         },
         {
           "stage": "P3a",
@@ -1238,7 +1269,8 @@
             "die Verspätung"
           ],
           "day": 27,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3b",
@@ -1279,7 +1311,8 @@
             "sofort"
           ],
           "day": 28,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3b",
@@ -1320,7 +1353,8 @@
             "man"
           ],
           "day": 29,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3c",
@@ -1365,7 +1399,8 @@
             "gefallen"
           ],
           "day": 30,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3c",
@@ -1398,7 +1433,8 @@
             "am liebsten"
           ],
           "day": 31,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3c",
@@ -1434,7 +1470,8 @@
             "die Freizeit"
           ],
           "day": 32,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4a",
@@ -1480,7 +1517,8 @@
             "weniger als"
           ],
           "day": 33,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4a",
@@ -1517,7 +1555,8 @@
             "nachher"
           ],
           "day": 34,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4a",
@@ -1554,7 +1593,8 @@
             "mehr als"
           ],
           "day": 35,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4b",
@@ -1592,7 +1632,8 @@
             "der Fehler"
           ],
           "day": 36,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4b",
@@ -1629,7 +1670,8 @@
             "die Seite"
           ],
           "day": 37,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4b",
@@ -1670,7 +1712,8 @@
             "wiederholen"
           ],
           "day": 38,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4c",
@@ -1701,7 +1744,8 @@
             "Liebe Grüße"
           ],
           "day": 39,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4c",
@@ -1730,7 +1774,8 @@
             "Viele Grüße"
           ],
           "day": 40,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P5",
@@ -1770,7 +1815,8 @@
             "nächsten Monat"
           ],
           "day": 41,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P5",
@@ -1800,7 +1846,8 @@
             "nächstes Jahr"
           ],
           "day": 42,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P5",
@@ -1834,7 +1881,8 @@
             "in einer Woche"
           ],
           "day": 43,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P5",
@@ -1862,7 +1910,8 @@
             "vor einer Woche"
           ],
           "day": 44,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -1892,7 +1941,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 45,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -1922,7 +1972,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 46,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -1951,7 +2002,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 47,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -1982,7 +2034,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 48,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         }
       ]
     },
@@ -2017,7 +2070,7 @@
         "P3a": {
           "lower_bound": 7,
           "proposed_days": 7,
-          "lexical_only_days": 2
+          "lexical_only_days": 0
         },
         "P3b": {
           "lower_bound": 2,
@@ -2083,7 +2136,8 @@
             "Guten Tag"
           ],
           "day": 1,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -2110,7 +2164,8 @@
             "Auf Wiedersehen"
           ],
           "day": 2,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -2137,7 +2192,8 @@
             "nimm"
           ],
           "day": 3,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -2166,7 +2222,8 @@
             "gib"
           ],
           "day": 4,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -2191,7 +2248,8 @@
             "komm"
           ],
           "day": 5,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -2219,7 +2277,8 @@
             "das"
           ],
           "day": 6,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -2248,7 +2307,8 @@
             "Guten Abend"
           ],
           "day": 7,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -2274,7 +2334,8 @@
           ],
           "lex_R": [],
           "day": 8,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -2296,7 +2357,8 @@
           ],
           "lex_R": [],
           "day": 9,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -2325,7 +2387,8 @@
             "das Fieber"
           ],
           "day": 10,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -2360,7 +2423,8 @@
             "die Medizin"
           ],
           "day": 11,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -2397,7 +2461,8 @@
             "welche"
           ],
           "day": 12,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -2431,7 +2496,8 @@
             "die Speisekarte"
           ],
           "day": 13,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -2463,7 +2529,8 @@
             "das Restaurant"
           ],
           "day": 14,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -2499,7 +2566,8 @@
             "satt"
           ],
           "day": 15,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -2532,7 +2600,8 @@
             "bleiben"
           ],
           "day": 16,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -2565,7 +2634,8 @@
             "sprechen"
           ],
           "day": 17,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -2600,7 +2670,8 @@
             "leer"
           ],
           "day": 18,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -2629,7 +2700,8 @@
             "voll"
           ],
           "day": 19,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -2659,7 +2731,8 @@
             "falsch"
           ],
           "day": 20,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -2692,7 +2765,8 @@
             "es gibt"
           ],
           "day": 21,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -2719,7 +2793,8 @@
             "die Schmerzen"
           ],
           "day": 22,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2a",
@@ -2762,7 +2837,8 @@
             "die Großmutter"
           ],
           "day": 23,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2a",
@@ -2805,7 +2881,8 @@
             "der Großvater"
           ],
           "day": 24,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2a",
@@ -2840,7 +2917,8 @@
             "der Ehemann"
           ],
           "day": 25,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2a",
@@ -2875,7 +2953,8 @@
             "die Ehefrau"
           ],
           "day": 26,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2b",
@@ -2916,7 +2995,8 @@
             "das Büro"
           ],
           "day": 27,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2b",
@@ -2961,7 +3041,8 @@
             "die Stelle"
           ],
           "day": 28,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2b",
@@ -2999,7 +3080,8 @@
             "die Arbeitszeit"
           ],
           "day": 29,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2c",
@@ -3043,7 +3125,8 @@
             "achtzig"
           ],
           "day": 30,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2c",
@@ -3082,7 +3165,8 @@
             "neunzig"
           ],
           "day": 31,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2c",
@@ -3120,7 +3204,8 @@
             "tausend"
           ],
           "day": 32,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2c",
@@ -3157,7 +3242,8 @@
             "siebzig"
           ],
           "day": 33,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -3193,7 +3279,8 @@
             "zu Fuß"
           ],
           "day": 34,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -3238,7 +3325,8 @@
             "der Flughafen"
           ],
           "day": 35,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -3275,7 +3363,8 @@
             "einsteigen"
           ],
           "day": 36,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -3306,7 +3395,10 @@
             "aussteigen"
           ],
           "day": 37,
-          "needs_contract": true
+          "needs_contract": false,
+          "semantic_probes": [
+            "LX-DATE-01"
+          ]
         },
         {
           "stage": "P3a",
@@ -3345,7 +3437,8 @@
             "umsteigen"
           ],
           "day": 38,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -3383,7 +3476,8 @@
             "die Verspätung"
           ],
           "day": 39,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -3413,7 +3507,10 @@
             "pünktlich"
           ],
           "day": 40,
-          "needs_contract": true
+          "needs_contract": false,
+          "semantic_probes": [
+            "LX-DATE-02"
+          ]
         },
         {
           "stage": "P3b",
@@ -3454,7 +3551,8 @@
             "sofort"
           ],
           "day": 41,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3b",
@@ -3495,7 +3593,8 @@
             "man"
           ],
           "day": 42,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3c",
@@ -3534,7 +3633,8 @@
             "am liebsten"
           ],
           "day": 43,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3c",
@@ -3570,7 +3670,8 @@
             "die Freizeit"
           ],
           "day": 44,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3c",
@@ -3599,7 +3700,8 @@
             "genug"
           ],
           "day": 45,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3c",
@@ -3631,7 +3733,8 @@
             "gefallen"
           ],
           "day": 46,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4a",
@@ -3669,7 +3772,8 @@
             "vorher"
           ],
           "day": 47,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4a",
@@ -3705,7 +3809,8 @@
             "nachher"
           ],
           "day": 48,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4a",
@@ -3739,7 +3844,8 @@
             "mehr als"
           ],
           "day": 49,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4a",
@@ -3773,7 +3879,8 @@
             "weniger als"
           ],
           "day": 50,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4b",
@@ -3811,7 +3918,8 @@
             "der Fehler"
           ],
           "day": 51,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4b",
@@ -3848,7 +3956,8 @@
             "die Seite"
           ],
           "day": 52,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4b",
@@ -3889,7 +3998,8 @@
             "wiederholen"
           ],
           "day": 53,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4c",
@@ -3920,7 +4030,8 @@
             "Liebe Grüße"
           ],
           "day": 54,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4c",
@@ -3949,7 +4060,8 @@
             "Viele Grüße"
           ],
           "day": 55,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P5",
@@ -3986,7 +4098,8 @@
             "nächsten Monat"
           ],
           "day": 56,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P5",
@@ -4020,7 +4133,8 @@
             "nächstes Jahr"
           ],
           "day": 57,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P5",
@@ -4057,7 +4171,8 @@
             "in einer Woche"
           ],
           "day": 58,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P5",
@@ -4088,7 +4203,8 @@
             "vor einer Woche"
           ],
           "day": 59,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -4115,7 +4231,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 60,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -4143,7 +4260,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 61,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -4171,7 +4289,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 62,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -4199,7 +4318,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 63,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -4228,7 +4348,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 64,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -4248,7 +4369,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 65,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         }
       ]
     },
@@ -4283,7 +4405,7 @@
         "P3a": {
           "lower_bound": 10,
           "proposed_days": 10,
-          "lexical_only_days": 4
+          "lexical_only_days": 3
         },
         "P3b": {
           "lower_bound": 4,
@@ -4349,7 +4471,8 @@
             "Guten Tag"
           ],
           "day": 1,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -4376,7 +4499,8 @@
             "Auf Wiedersehen"
           ],
           "day": 2,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -4403,7 +4527,8 @@
             "nimm"
           ],
           "day": 3,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -4432,7 +4557,8 @@
             "gib"
           ],
           "day": 4,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -4457,7 +4583,8 @@
             "komm"
           ],
           "day": 5,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -4485,7 +4612,8 @@
             "das"
           ],
           "day": 6,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -4514,7 +4642,8 @@
             "Guten Abend"
           ],
           "day": 7,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -4540,7 +4669,8 @@
           ],
           "lex_R": [],
           "day": 8,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P0",
@@ -4562,7 +4692,8 @@
           ],
           "lex_R": [],
           "day": 9,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4590,7 +4721,8 @@
             "die Medizin"
           ],
           "day": 10,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4624,7 +4756,8 @@
             "welche"
           ],
           "day": 11,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4660,7 +4793,8 @@
             "die Speisekarte"
           ],
           "day": 12,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4694,7 +4828,8 @@
             "das Restaurant"
           ],
           "day": 13,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4726,7 +4861,8 @@
             "satt"
           ],
           "day": 14,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4761,7 +4897,8 @@
             "holen"
           ],
           "day": 15,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4788,7 +4925,8 @@
             "bleiben"
           ],
           "day": 16,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4819,7 +4957,8 @@
             "sprechen"
           ],
           "day": 17,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4850,7 +4989,8 @@
             "leer"
           ],
           "day": 18,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4881,7 +5021,8 @@
             "voll"
           ],
           "day": 19,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4910,7 +5051,8 @@
             "falsch"
           ],
           "day": 20,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4940,7 +5082,8 @@
             "es gibt"
           ],
           "day": 21,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4973,7 +5116,8 @@
             "die Schmerzen"
           ],
           "day": 22,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P1",
@@ -4999,7 +5143,8 @@
             "das Fieber"
           ],
           "day": 23,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2a",
@@ -5035,7 +5180,8 @@
             "ihre"
           ],
           "day": 24,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2a",
@@ -5069,7 +5215,8 @@
             "die Geschwister"
           ],
           "day": 25,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2a",
@@ -5104,7 +5251,8 @@
             "die Großmutter"
           ],
           "day": 26,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2a",
@@ -5136,7 +5284,8 @@
             "der Großvater"
           ],
           "day": 27,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2a",
@@ -5167,7 +5316,8 @@
             "der Ehemann"
           ],
           "day": 28,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2a",
@@ -5192,7 +5342,8 @@
             "die Ehefrau"
           ],
           "day": 29,
-          "needs_contract": true
+          "needs_contract": true,
+          "semantic_probes": []
         },
         {
           "stage": "P2b",
@@ -5230,7 +5381,8 @@
             "das Büro"
           ],
           "day": 30,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2b",
@@ -5263,7 +5415,8 @@
             "die Stelle"
           ],
           "day": 31,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2b",
@@ -5300,7 +5453,8 @@
             "die Arbeitszeit"
           ],
           "day": 32,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2b",
@@ -5329,7 +5483,8 @@
             "unten"
           ],
           "day": 33,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2b",
@@ -5358,7 +5513,8 @@
             "die Firma"
           ],
           "day": 34,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2c",
@@ -5394,7 +5550,8 @@
             "sechzig"
           ],
           "day": 35,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2c",
@@ -5428,7 +5585,8 @@
             "siebzig"
           ],
           "day": 36,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2c",
@@ -5463,7 +5621,8 @@
             "achtzig"
           ],
           "day": 37,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2c",
@@ -5496,7 +5655,8 @@
             "neunzig"
           ],
           "day": 38,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2c",
@@ -5529,7 +5689,8 @@
             "tausend"
           ],
           "day": 39,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P2c",
@@ -5555,7 +5716,8 @@
             "fünfzig"
           ],
           "day": 40,
-          "needs_contract": true
+          "needs_contract": true,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -5587,7 +5749,8 @@
             "der Flughafen"
           ],
           "day": 41,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -5621,7 +5784,8 @@
             "einsteigen"
           ],
           "day": 42,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -5656,7 +5820,8 @@
             "aussteigen"
           ],
           "day": 43,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -5683,7 +5848,10 @@
             "umsteigen"
           ],
           "day": 44,
-          "needs_contract": true
+          "needs_contract": false,
+          "semantic_probes": [
+            "LX-DATE-01"
+          ]
         },
         {
           "stage": "P3a",
@@ -5716,7 +5884,8 @@
             "die Verspätung"
           ],
           "day": 45,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -5743,7 +5912,8 @@
             "pünktlich"
           ],
           "day": 46,
-          "needs_contract": true
+          "needs_contract": true,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -5779,7 +5949,10 @@
             "zu Fuß"
           ],
           "day": 47,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": [
+            "LX-DATE-02"
+          ]
         },
         {
           "stage": "P3a",
@@ -5805,7 +5978,8 @@
             "das Flugzeug"
           ],
           "day": 48,
-          "needs_contract": true
+          "needs_contract": true,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -5839,7 +6013,8 @@
             "die U-Bahn"
           ],
           "day": 49,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3a",
@@ -5865,7 +6040,8 @@
             "die S-Bahn"
           ],
           "day": 50,
-          "needs_contract": true
+          "needs_contract": true,
+          "semantic_probes": []
         },
         {
           "stage": "P3b",
@@ -5898,7 +6074,8 @@
             "sofort"
           ],
           "day": 51,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3b",
@@ -5929,7 +6106,8 @@
             "verboten"
           ],
           "day": 52,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3b",
@@ -5963,7 +6141,8 @@
             "doch"
           ],
           "day": 53,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3b",
@@ -5994,7 +6173,8 @@
             "man"
           ],
           "day": 54,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3c",
@@ -6032,7 +6212,8 @@
             "am liebsten"
           ],
           "day": 55,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3c",
@@ -6072,7 +6253,8 @@
             "die Freizeit"
           ],
           "day": 56,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3c",
@@ -6101,7 +6283,8 @@
             "genug"
           ],
           "day": 57,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P3c",
@@ -6133,7 +6316,8 @@
             "gefallen"
           ],
           "day": 58,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4a",
@@ -6169,7 +6353,8 @@
             "nachher"
           ],
           "day": 59,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4a",
@@ -6204,7 +6389,8 @@
             "mehr als"
           ],
           "day": 60,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4a",
@@ -6237,7 +6423,8 @@
             "weniger als"
           ],
           "day": 61,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4a",
@@ -6268,7 +6455,8 @@
             "ungefähr"
           ],
           "day": 62,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4a",
@@ -6293,7 +6481,8 @@
             "vorher"
           ],
           "day": 63,
-          "needs_contract": true
+          "needs_contract": true,
+          "semantic_probes": []
         },
         {
           "stage": "P4b",
@@ -6326,7 +6515,8 @@
             "die Seite"
           ],
           "day": 64,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4b",
@@ -6359,7 +6549,8 @@
             "wiederholen"
           ],
           "day": 65,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4b",
@@ -6384,7 +6575,8 @@
             "das Beispiel"
           ],
           "day": 66,
-          "needs_contract": true
+          "needs_contract": true,
+          "semantic_probes": []
         },
         {
           "stage": "P4b",
@@ -6420,7 +6612,8 @@
             "die Lösung"
           ],
           "day": 67,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4b",
@@ -6445,7 +6638,8 @@
             "der Fehler"
           ],
           "day": 68,
-          "needs_contract": true
+          "needs_contract": true,
+          "semantic_probes": []
         },
         {
           "stage": "P4c",
@@ -6471,7 +6665,8 @@
             "Viele Grüße"
           ],
           "day": 69,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4c",
@@ -6497,7 +6692,8 @@
             "Liebe Grüße"
           ],
           "day": 70,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P4c",
@@ -6525,7 +6721,8 @@
             "der Betreff"
           ],
           "day": 71,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P5",
@@ -6562,7 +6759,8 @@
             "in einer Woche"
           ],
           "day": 72,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P5",
@@ -6595,7 +6793,8 @@
             "letzten Montag"
           ],
           "day": 73,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P5",
@@ -6628,7 +6827,8 @@
             "vor einer Woche"
           ],
           "day": 74,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P5",
@@ -6655,7 +6855,8 @@
             "nächsten Monat"
           ],
           "day": 75,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P5",
@@ -6682,7 +6883,8 @@
             "nächstes Jahr"
           ],
           "day": 76,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -6707,7 +6909,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 77,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -6734,7 +6937,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 78,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -6761,7 +6965,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 79,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -6786,7 +6991,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 80,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -6813,7 +7019,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 81,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -6840,7 +7047,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 82,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         },
         {
           "stage": "P6",
@@ -6864,7 +7072,8 @@
           "lex_A": [],
           "lex_R": [],
           "day": 83,
-          "needs_contract": false
+          "needs_contract": false,
+          "semantic_probes": []
         }
       ]
     }
