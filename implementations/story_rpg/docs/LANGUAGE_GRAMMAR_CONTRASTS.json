@@ -1,0 +1,567 @@
+{
+  "version": "0.1",
+  "status": "independent_grammar_contrast_bank_not_player_verified",
+  "sources": [
+    "LANGUAGE_DESIGN.md",
+    "LANGUAGE_PROGRESSION.md",
+    "LANGUAGE_PRACTICE_SEQUENCE.json"
+  ],
+  "rules": [
+    "A grammar item is counted only when it changes recoverable meaning or permits understanding it, not because a sentence contains that structure.",
+    "Some early examples necessarily vary more than one feature: confounds and vocabulary support must be checked before claiming a controlled experimental contrast.",
+    "27 grammar items linked to semantic productive M; seven are R-form or R-sense. P morphological exactness is not required unless independently specified.",
+    "These are replaceable language-test examples, not lessons, scenes, characters, or approved game dialogue."
+  ],
+  "validation": {
+    "grammar_count": 34,
+    "linked_to_practice_count": 34,
+    "p_semantic": 27,
+    "receptive_or_semantic": 7
+  },
+  "items": [
+    {
+      "id": "G01",
+      "unit": "LU01",
+      "horizon": "P0",
+      "semantic_M": "M01",
+      "minimum": "P",
+      "example_A": "Heute?",
+      "example_B": "Heute.",
+      "meaning_difference": "Вопрос против сообщения; пунктуация — помощь чтению, не требование безошибочного письма",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G06",
+      "unit": "LU02",
+      "horizon": "P0",
+      "semantic_M": "M07",
+      "minimum": "P",
+      "example_A": "Du kommst.",
+      "example_B": "Kommst du?",
+      "meaning_difference": "Утверждение против вопроса",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G08",
+      "unit": "LU03",
+      "horizon": "P0",
+      "semantic_M": "M09",
+      "minimum": "P",
+      "example_A": "Nimm das Buch.",
+      "example_B": "Du nimmst das Buch.",
+      "meaning_difference": "Побуждение против утверждения о действии",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G02",
+      "unit": "LU05",
+      "horizon": "P0",
+      "semantic_M": "M03",
+      "minimum": "P",
+      "example_A": "Ich brauche Wasser.",
+      "example_B": "Du brauchst Wasser.",
+      "meaning_difference": "Меняется лицо, которому нужна вода",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G03",
+      "unit": "LU05",
+      "horizon": "P0",
+      "semantic_M": "M11",
+      "minimum": "P",
+      "example_A": "Ich habe Wasser.",
+      "example_B": "Ich bin müde.",
+      "meaning_difference": "Обладание против состояния: разные функции знакомых sein/haben",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G09",
+      "unit": "LU06",
+      "horizon": "P0",
+      "semantic_M": "M09",
+      "minimum": "R",
+      "example_A": "Der Mann kommt.",
+      "example_B": "Ein Mann kommt.",
+      "meaning_difference": "Знакомый определённый участник против неопределённого; морфологическая точность P не обязательна",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G07",
+      "unit": "LU07",
+      "horizon": "P1",
+      "semantic_M": "M07",
+      "minimum": "P",
+      "example_A": "Wo ist das Buch?",
+      "example_B": "Wer hat das Buch?",
+      "meaning_difference": "Место предмета против его владельца/носителя",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G13",
+      "unit": "LU08",
+      "horizon": "P1",
+      "semantic_M": "M15",
+      "minimum": "P",
+      "example_A": "Das Wasser ist kalt.",
+      "example_B": "Das Wasser ist zu kalt.",
+      "meaning_difference": "Свойство против препятствующей чрезмерной степени",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G12",
+      "unit": "LU09",
+      "horizon": "P1",
+      "semantic_M": "M11",
+      "minimum": "P",
+      "example_A": "Ich habe ein Buch.",
+      "example_B": "Ich habe kein Buch.",
+      "meaning_difference": "Отрицание наличия против наличия",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G05",
+      "unit": "LU11",
+      "horizon": "P1",
+      "semantic_M": "M12",
+      "minimum": "P",
+      "example_A": "Nimm die Tasse.",
+      "example_B": "Gib die Tasse.",
+      "meaning_difference": "Разные действия за частотными нерегулярными формами",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G11",
+      "unit": "LU11",
+      "horizon": "P1",
+      "semantic_M": "M12",
+      "minimum": "P",
+      "example_A": "Ich brauche den Schlüssel.",
+      "example_B": "Der Schlüssel ist hier.",
+      "meaning_difference": "Объект необходимости против предмета сообщения; понимать Akkusativ без требования идеальных окончаний",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G10",
+      "unit": "LU12",
+      "horizon": "P1",
+      "semantic_M": "M17",
+      "minimum": "P",
+      "example_A": "Ein Buch ist hier.",
+      "example_B": "Zwei Bücher sind hier.",
+      "meaning_difference": "Один предмет против двух; форму множественного числа можно понимать без точного самостоятельного написания",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G32",
+      "unit": "LU12",
+      "horizon": "P1",
+      "semantic_M": "M11",
+      "minimum": "R-form",
+      "example_A": "Es gibt Wasser.",
+      "example_B": "Ich habe Wasser.",
+      "meaning_difference": "Общее наличие против владения говорящего",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G04",
+      "unit": "LU13",
+      "horizon": "P1",
+      "semantic_M": "M06",
+      "minimum": "P",
+      "example_A": "Ich arbeite.",
+      "example_B": "Du arbeitest.",
+      "meaning_difference": "Роли говорящего и адресата отражаются в знакомой форме глагола",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G25",
+      "unit": "LU14",
+      "horizon": "P1",
+      "semantic_M": "M10",
+      "minimum": "P",
+      "example_A": "Dieses Buch, bitte.",
+      "example_B": "Welches Buch?",
+      "meaning_difference": "Указание на конкретный предмет против уточняющего вопроса",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G14",
+      "unit": "LU15",
+      "horizon": "P2",
+      "semantic_M": "M13",
+      "minimum": "P",
+      "example_A": "Mein Buch ist hier.",
+      "example_B": "Dein Buch ist hier.",
+      "meaning_difference": "Разные владельцы",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G15",
+      "unit": "LU17",
+      "horizon": "P2",
+      "semantic_M": "M14",
+      "minimum": "P",
+      "example_A": "Ich sehe dich.",
+      "example_B": "Ich sehe ihn.",
+      "meaning_difference": "Разный объект действия: тебя против его",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G16",
+      "unit": "LU18",
+      "horizon": "P2",
+      "semantic_M": "M14",
+      "minimum": "P",
+      "example_A": "Gib mir das Buch.",
+      "example_B": "Gib ihm das Buch.",
+      "meaning_difference": "Разные получатели",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G18",
+      "unit": "LU19",
+      "horizon": "P2",
+      "semantic_M": "M21",
+      "minimum": "P",
+      "example_A": "Das Buch liegt im Zimmer.",
+      "example_B": "Bring das Buch ins Zimmer.",
+      "meaning_difference": "Статичное место против назначения",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G17",
+      "unit": "LU20",
+      "horizon": "P2",
+      "semantic_M": "M19",
+      "minimum": "P",
+      "example_A": "Ich komme mit dir.",
+      "example_B": "Ich komme ohne dich.",
+      "meaning_difference": "Совместное действие против действия без другого; предлоги несут важный смысл",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G21",
+      "unit": "LU22",
+      "horizon": "P2",
+      "semantic_M": "M24",
+      "minimum": "R-sense",
+      "example_A": "Der Kurs fängt um acht an.",
+      "example_B": "Der Kurs hört um acht auf.",
+      "meaning_difference": "Начало против окончания: отделяемые глаголы",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G19",
+      "unit": "LU25",
+      "horizon": "P3",
+      "semantic_M": "M23",
+      "minimum": "P",
+      "example_A": "Komm um acht.",
+      "example_B": "Komm nach acht.",
+      "meaning_difference": "В восемь против после восьми",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G20",
+      "unit": "LU26",
+      "horizon": "P3",
+      "semantic_M": "M23",
+      "minimum": "P",
+      "example_A": "Wir treffen uns am Montag.",
+      "example_B": "Wir treffen uns am Dienstag.",
+      "meaning_difference": "Дата действия меняется",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G27",
+      "unit": "LU27",
+      "horizon": "P3",
+      "semantic_M": "M26",
+      "minimum": "P",
+      "example_A": "Zuerst das Buch, dann die Tasse.",
+      "example_B": "Zuerst die Tasse, dann das Buch.",
+      "meaning_difference": "Смена порядка действий",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G22",
+      "unit": "LU28",
+      "horizon": "P3",
+      "semantic_M": "M18",
+      "minimum": "P",
+      "example_A": "Du musst gehen.",
+      "example_B": "Du darfst gehen.",
+      "meaning_difference": "Обязанность против разрешения",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G24",
+      "unit": "LU28",
+      "horizon": "P3",
+      "semantic_M": "M54",
+      "minimum": "P",
+      "example_A": "Du kommst nicht? — Doch!",
+      "example_B": "Du kommst nicht? — Nein.",
+      "meaning_difference": "Отрицание отрицания против подтверждённого отказа",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G23",
+      "unit": "LU30",
+      "horizon": "P3",
+      "semantic_M": "M31",
+      "minimum": "P",
+      "example_A": "Ich mag Tee.",
+      "example_B": "Ich möchte Tee.",
+      "meaning_difference": "Предпочтение как факт против просьбы/желания",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G33",
+      "unit": "LU32",
+      "horizon": "P3",
+      "semantic_M": "M55",
+      "minimum": "R-form",
+      "example_A": "Ich hätte gern Tee.",
+      "example_B": "Ich habe Tee.",
+      "meaning_difference": "Вежливая просьба против сообщения о владении; только рецепция формулы Konjunktiv II",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G26",
+      "unit": "LU35",
+      "horizon": "P4",
+      "semantic_M": "M28",
+      "minimum": "P",
+      "example_A": "Die rote Tasse ist größer als die blaue.",
+      "example_B": "Die rote Tasse ist kleiner als die blaue.",
+      "meaning_difference": "Больший против меньшего при одном объекте сравнения",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G31",
+      "unit": "LU36",
+      "horizon": "P4",
+      "semantic_M": "M10",
+      "minimum": "R-form",
+      "example_A": "Die rote Tasse ist hier.",
+      "example_B": "Die blaue Tasse ist hier.",
+      "meaning_difference": "Определённый по цвету предмет меняется; точное склонение в P не обязательно",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G34",
+      "unit": "LU41",
+      "horizon": "P4",
+      "semantic_M": "M46",
+      "minimum": "P",
+      "example_A": "Die Tasse ist leer und das Buch ist hier.",
+      "example_B": "Die Tasse ist leer oder das Buch ist hier.",
+      "meaning_difference": "Соединение двух истинных пунктов против альтернативы",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G28",
+      "unit": "LU43",
+      "horizon": "P5",
+      "semantic_M": "M50",
+      "minimum": "R-sense",
+      "example_A": "Gestern war ich müde.",
+      "example_B": "Heute bin ich müde.",
+      "meaning_difference": "Прошлое состояние против текущего",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G29",
+      "unit": "LU44",
+      "horizon": "P5",
+      "semantic_M": "M51",
+      "minimum": "P",
+      "example_A": "Ich habe das Buch gefunden.",
+      "example_B": "Ich finde das Buch.",
+      "meaning_difference": "Завершённая находка против нахождения в настоящем",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    },
+    {
+      "id": "G30",
+      "unit": "LU47",
+      "horizon": "P5",
+      "semantic_M": "M50",
+      "minimum": "R-sense",
+      "example_A": "Der Zug ist angekommen.",
+      "example_B": "Der Zug kommt jetzt an.",
+      "meaning_difference": "Перемещение в прошедшем Perfekt с sein против настоящего",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ]
+    }
+  ]
+}
