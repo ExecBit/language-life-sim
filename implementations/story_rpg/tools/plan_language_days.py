@@ -11,6 +11,7 @@ from calculate_language_days import PROFILES, STAGES, calculate
 
 DOCS = Path(__file__).resolve().parents[1] / "docs"
 TARGET = DOCS / "LANGUAGE_DAY_SCHEDULE.json"
+PROBES = DOCS / "LANGUAGE_DAY_LEXICAL_PROBES.json"
 V_CAP = {"compact": 5, "baseline": 4, "gentle": 3}
 CAP_FIELDS = ("U", "M", "G", "P", "A", "R", "LO", "V")
 TRACKS = {"active_core": "A", "receptive_core": "R"}
@@ -24,7 +25,7 @@ def empty_day(stage: str, slot: int) -> dict:
                 early_lo=[], assess_lo=[], lex_A=[], lex_R=[])
 
 def used(day: dict, field: str) -> int:
-    return len(day[FIELD_NAMES[field]])
+    return len(day[FIELD_NAMES[field]]) + (len(day["early_lo"]) if field == "LO" else 0)
 
 def attempt(stage: str, units: list, words: list, caps: dict, length: int):
     days = [empty_day(stage, k+1) for k in range(length)]
@@ -83,6 +84,7 @@ def build() -> dict:
     original = json.loads((DOCS/"LANGUAGE_PRACTICE_UNITS.json").read_text(encoding="utf-8"))
     lex = json.loads((DOCS/"LANGUAGE_LEXICAL_CATALOG.json").read_text(encoding="utf-8"))
     counts, lower_bounds = calculate()
+    lexical_probes = json.loads(PROBES.read_text(encoding="utf-8"))["probes"]
     results = {}
     for name, profile in PROFILES.items():
         days, stage_summaries = [], {}
@@ -98,8 +100,10 @@ def build() -> dict:
             if selected is None:raise ValueError(f"Cannot pack {name}:{stage}")
             for number, day in enumerate(selected, start=len(days)+1):
                 day["day"]=number
+                day["semantic_probes"]=[p["id"] for p in lexical_probes
+                    if p["horizon"]==stage and p["trigger_expression"] in day["lex_R"]]
                 day["needs_contract"]=not any(day[k] for k in
-                   ("unit_start","first_g","first_p","revisit_m","assess_lo"))
+                   ("unit_start","first_g","first_p","revisit_m","assess_lo","semantic_probes"))
             days.extend(selected)
             stage_summaries[stage] = dict(lower_bound=lower,
               proposed_days=len(selected),
@@ -116,6 +120,7 @@ def build() -> dict:
         lexical_only_slots_require_real_semantic_contracts=True,
         game_day_is_not_calendar_elapsed_time=True,
         real_A0_validation_required=True,
+        lexical_R_probes_are_candidates_not_mastery=True,
         capacity_profiles={name:dict(default=profile["default"],
            overrides={k:v for k,v in profile.items() if k!="default"},
            revisit=V_CAP[name]) for name,profile in PROFILES.items()}),
@@ -124,6 +129,8 @@ def build() -> dict:
 def validate(plan:dict) -> None:
     original=json.loads((DOCS/"LANGUAGE_PRACTICE_UNITS.json").read_text(encoding="utf-8"))
     lex=json.loads((DOCS/"LANGUAGE_LEXICAL_CATALOG.json").read_text(encoding="utf-8"))
+    probe_defs=json.loads(PROBES.read_text(encoding="utf-8"))["probes"]
+    probe_ids={p["id"] for p in probe_defs}
     expected={k:[] for k in ("unit_start","first_m","first_g","first_p","revisit_m","assess_lo","lex_A","lex_R")}
     for u in original["items"]:
         expected["unit_start"].append(u["id"])
@@ -139,6 +146,7 @@ def validate(plan:dict) -> None:
     for name,result in plan["profiles"].items():
         seen={k:[] for k in expected}
         first_R, first_P, revisits={}, {}, []
+        applied_probes=[]
         stage_nos=[]
         if result["total_days"]!=len(result["days"]):raise ValueError("Bad total")
         for n,d in enumerate(result["days"],1):
@@ -155,10 +163,24 @@ def validate(plan:dict) -> None:
                 if code in first_P:raise ValueError(f"Duplicated first P {code}")
                 first_P[code]=n
             revisits.extend((code,n) for code in d["revisit_m"])
+            applied_probes.extend(d["semantic_probes"])
+            if any(p not in probe_ids for p in d["semantic_probes"]):
+                raise ValueError("Unknown lexical meaning probe")
             incomplete=not any(d[k] for k in
-                   ("unit_start","first_g","first_p","revisit_m","assess_lo"))
+                   ("unit_start","first_g","first_p","revisit_m","assess_lo","semantic_probes"))
             if d["needs_contract"]!=incomplete:raise ValueError("Incorrect contract-needed flag")
         if stage_nos!=sorted(stage_nos):raise ValueError("Stage order changed")
+        if sorted(applied_probes)!=sorted(probe_ids):
+            raise ValueError("Missing or duplicated lexical meaning probes")
+        for p in probe_defs:
+            loc=next(d for d in result["days"] if p["id"] in d["semantic_probes"])
+            if p["trigger_expression"] not in loc["lex_R"] or p["horizon"]!=loc["stage"]:
+                raise ValueError("Lexical meaning probe not tied to first receptive focus")
+            before=[d for d in result["days"] if d["day"] < loc["day"]]
+            if not any(p["earlier_expression"] in d["lex_R"] for d in before):
+                raise ValueError("Lexical meaning contrast lacks earlier known expression")
+            if not any(p["target_m"] in d["first_m"] for d in before):
+                raise ValueError("Lexical meaning probe precedes target M")
         if seen["unit_start"]!=expected["unit_start"]:raise ValueError("Unit order changed")
         for k in expected:
             if sorted(seen[k])!=sorted(expected[k]):
