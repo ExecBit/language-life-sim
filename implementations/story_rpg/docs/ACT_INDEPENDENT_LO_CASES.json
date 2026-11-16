@@ -21,19 +21,20 @@
       "mode": "R",
       "blocker": "M08/Sie not yet supported in mandatory source",
       "source_a": [
-        "Nachricht 1: Lena: Komm bitte um zehn.",
-        "Nachricht 2: Kapitän: Kommen Sie bitte um zwölf."
+        "An Lena: Komm bitte um zehn.",
+        "An den Arzt: Kommen Sie bitte um zwölf."
       ],
       "source_b": [
-        "Nachricht 1: Kapitän: Kommen Sie bitte um zehn.",
-        "Nachricht 2: Lena: Komm bitte um zwölf."
+        "An Lena: Komm bitte um zwölf.",
+        "An den Arzt: Kommen Sie bitte um zehn."
       ],
       "required": [
-        "recipient/formal_register",
+        "recipient_by_German_address",
+        "formality_register",
         "time_by_message"
       ],
-      "counterfactual": "swap sender and hour but keep same visual presentation",
-      "wrong": "Treat Sie as third-person sie or swap appointment times"
+      "counterfactual": "change the stated appointment time in the German messages, preserving addressee and register",
+      "wrong": "Treat formal Sie as third-person sie, or swap addressee and time"
     },
     {
       "lo": "LO-R02",
@@ -58,16 +59,16 @@
       "lo": "LO-R03",
       "mode": "R",
       "source_a": [
-        "Die Liste ist im Zimmer.",
-        "Bring die Liste ins Zimmer."
-      ],
-      "source_b": [
         "Die Liste ist im Lager.",
         "Bring die Liste ins Zimmer."
       ],
+      "source_b": [
+        "Die Liste ist im Zimmer.",
+        "Bring die Liste ins Lager."
+      ],
       "required": [
         "current_location",
-        "destination"
+        "different_destination"
       ],
       "counterfactual": "change one location only, with plausible routes",
       "wrong": "Confuse current location with destination"
@@ -179,7 +180,7 @@
     {
       "lo": "LO-W03",
       "mode": "W",
-      "goal_ru": "Согласовать время и сообщить запрет на работу в опасном месте.",
+      "goal_ru": "Согласовать время и сообщить ограничение: работу либо запрещают, либо выполнять её не обязательно.",
       "facts_a": {
         "time": "zehn Uhr",
         "restriction": "nicht dürfen"
