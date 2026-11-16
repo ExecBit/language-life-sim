@@ -1,0 +1,1154 @@
+{
+  "version": "0.1",
+  "status": "plot_independent_lexical_anchor_candidates_not_required_word_quotas",
+  "notes": [
+    "The 29 source groups are imported from LANGUAGE_LEXICON.md only; nothing from ACT_*, dialogue transcripts or world lore.",
+    "Minimal anchors give illustrative useful language for independent practices, NOT a list of words to learn by heart or a rigid count per horizon.",
+    "All expressions from the catalogue remain available as productive/receptive candidates; unselected words are not removed from the language programme.",
+    "Four contextual groups (shopping/prices, transport, personal fields, weather) are marked for relevance review, not deletion or exclusion from F1.",
+    "Group 13 personal relationships has its first REQUIRED semantic contrast M36 at P4b; earlier vocabulary is optional receptive exposure. No family biography is invented.",
+    "A German compound or phrase can contain several lexemes; counts of anchors are NOT unique vocabulary sizes or cognitive difficulty."
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "catalogue_horizon": "P0",
+      "domain": "Начало общения",
+      "targets": [
+        "M01",
+        "M04",
+        "M05",
+        "M06",
+        "M39"
+      ],
+      "active": [
+        "Hallo",
+        "Tschüss",
+        "ja",
+        "nein",
+        "bitte",
+        "danke",
+        "Entschuldigung",
+        "noch einmal",
+        "ich verstehe nicht"
+      ],
+      "receptive": [
+        "Guten Tag",
+        "Auf Wiedersehen",
+        "Guten Morgen",
+        "Gute Nacht"
+      ],
+      "planned_first_practice": "P0",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "Hallo",
+        "ja",
+        "nein",
+        "noch einmal"
+      ],
+      "warning": null
+    },
+    {
+      "id": 2,
+      "catalogue_horizon": "P0",
+      "domain": "Предмет и короткое действие",
+      "targets": [
+        "M09",
+        "M40"
+      ],
+      "active": [
+        "das Buch",
+        "die Tasse",
+        "der Schlüssel",
+        "hier",
+        "nehmen",
+        "geben",
+        "kommen",
+        "zeigen"
+      ],
+      "receptive": [
+        "nimm",
+        "gib",
+        "komm",
+        "das"
+      ],
+      "planned_first_practice": "P0",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "das Buch",
+        "die Tasse",
+        "nehmen",
+        "geben"
+      ],
+      "warning": null
+    },
+    {
+      "id": 3,
+      "catalogue_horizon": "P1",
+      "domain": "Человек и знакомство",
+      "targets": [
+        "M02",
+        "M03",
+        "M08"
+      ],
+      "active": [
+        "ich",
+        "du",
+        "er",
+        "sie",
+        "wir",
+        "sein",
+        "haben",
+        "heißen",
+        "der Name",
+        "wer"
+      ],
+      "receptive": [
+        "ihr",
+        "es",
+        "die Person",
+        "das Alter"
+      ],
+      "planned_first_practice": "P1",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "ich",
+        "du",
+        "heißen",
+        "der Name"
+      ],
+      "warning": null
+    },
+    {
+      "id": 4,
+      "catalogue_horizon": "P1",
+      "domain": "Вопросы и смысл",
+      "targets": [
+        "M05",
+        "M07",
+        "M47"
+      ],
+      "active": [
+        "was",
+        "wo",
+        "wie",
+        "welcher",
+        "fragen",
+        "antworten",
+        "wissen",
+        "nicht wissen"
+      ],
+      "receptive": [
+        "wann",
+        "woher",
+        "warum",
+        "was bedeutet …?"
+      ],
+      "planned_first_practice": "P1",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "was",
+        "wo",
+        "wie",
+        "fragen"
+      ],
+      "warning": null
+    },
+    {
+      "id": 5,
+      "catalogue_horizon": "P1",
+      "domain": "Базовые действия",
+      "targets": [
+        "M06",
+        "M12",
+        "M15"
+      ],
+      "active": [
+        "machen",
+        "gehen",
+        "bringen",
+        "brauchen",
+        "helfen",
+        "finden",
+        "suchen",
+        "öffnen",
+        "schließen",
+        "lesen",
+        "schreiben",
+        "arbeiten"
+      ],
+      "receptive": [
+        "warten",
+        "holen",
+        "bleiben",
+        "anrufen",
+        "sprechen"
+      ],
+      "planned_first_practice": "P1",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "machen",
+        "bringen",
+        "brauchen",
+        "helfen"
+      ],
+      "warning": null
+    },
+    {
+      "id": 6,
+      "catalogue_horizon": "P1",
+      "domain": "Состояние и отрицание",
+      "targets": [
+        "M10",
+        "M11",
+        "M15",
+        "M54"
+      ],
+      "active": [
+        "ist",
+        "hat",
+        "kein",
+        "nicht",
+        "gut",
+        "schlecht",
+        "neu",
+        "alt",
+        "groß",
+        "klein",
+        "offen",
+        "zu",
+        "fertig",
+        "kaputt"
+      ],
+      "receptive": [
+        "leer",
+        "voll",
+        "sauber",
+        "schmutzig",
+        "falsch",
+        "leicht",
+        "schwer"
+      ],
+      "planned_first_practice": "P1",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "kein",
+        "nicht",
+        "gut",
+        "kaputt"
+      ],
+      "warning": null
+    },
+    {
+      "id": 7,
+      "catalogue_horizon": "P1",
+      "domain": "Самочувствие",
+      "targets": [
+        "M29",
+        "M35"
+      ],
+      "active": [
+        "müde",
+        "krank",
+        "gesund",
+        "Hunger haben",
+        "Durst haben",
+        "weh tun",
+        "die Hilfe",
+        "der Arzt",
+        "die Ärztin"
+      ],
+      "receptive": [
+        "die Schmerzen",
+        "das Fieber",
+        "die Medizin",
+        "der Termin",
+        "das Krankenhaus"
+      ],
+      "planned_first_practice": "P1",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "müde",
+        "krank",
+        "die Hilfe"
+      ],
+      "warning": null
+    },
+    {
+      "id": 8,
+      "catalogue_horizon": "P1",
+      "domain": "Еда и потребности",
+      "targets": [
+        "M30",
+        "M32"
+      ],
+      "active": [
+        "essen",
+        "trinken",
+        "das Wasser",
+        "das Brot",
+        "der Tee",
+        "der Kaffee",
+        "der Apfel",
+        "die Milch",
+        "das Essen",
+        "hungrig",
+        "durstig"
+      ],
+      "receptive": [
+        "das Gemüse",
+        "das Fleisch",
+        "die Suppe",
+        "das Frühstück",
+        "das Mittagessen",
+        "das Abendessen"
+      ],
+      "planned_first_practice": "P1",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "trinken",
+        "das Wasser",
+        "der Tee"
+      ],
+      "warning": null
+    },
+    {
+      "id": 9,
+      "catalogue_horizon": "P2",
+      "domain": "Люди, принадлежность и адресат",
+      "targets": [
+        "M03",
+        "M13",
+        "M14",
+        "M53"
+      ],
+      "active": [
+        "mein",
+        "dein",
+        "sein (притяж.)",
+        "ihr (притяж.)",
+        "mir",
+        "dir",
+        "mit",
+        "zusammen",
+        "allein"
+      ],
+      "receptive": [
+        "unser",
+        "ihm",
+        "ihnen",
+        "dieser",
+        "diese",
+        "dieses",
+        "der Besitzer",
+        "Sie (вежливо)"
+      ],
+      "planned_first_practice": "P2a",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "mein",
+        "dein",
+        "mir",
+        "dir"
+      ],
+      "warning": null
+    },
+    {
+      "id": 10,
+      "catalogue_horizon": "P2",
+      "domain": "Место, дом и предметы",
+      "targets": [
+        "M09",
+        "M20",
+        "M21",
+        "M22"
+      ],
+      "active": [
+        "das Zimmer",
+        "die Küche",
+        "das Bad",
+        "der Tisch",
+        "die Tür",
+        "das Fenster",
+        "die Wohnung",
+        "in",
+        "auf",
+        "unter",
+        "neben",
+        "vor",
+        "hinter",
+        "drinnen"
+      ],
+      "receptive": [
+        "draußen",
+        "zwischen",
+        "an",
+        "über",
+        "der Flur",
+        "die Treppe",
+        "die Möbel"
+      ],
+      "planned_first_practice": "P2b",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "das Zimmer",
+        "die Küche",
+        "in",
+        "auf"
+      ],
+      "warning": null
+    },
+    {
+      "id": 11,
+      "catalogue_horizon": "P2",
+      "domain": "Направление и движение",
+      "targets": [
+        "M20",
+        "M21",
+        "M22"
+      ],
+      "active": [
+        "links",
+        "rechts",
+        "geradeaus",
+        "zu",
+        "nach",
+        "aus",
+        "von",
+        "der Weg",
+        "der Eingang",
+        "der Ausgang"
+      ],
+      "receptive": [
+        "die Straße",
+        "die Kreuzung",
+        "die Ecke",
+        "in der Nähe",
+        "gegenüber",
+        "entlang"
+      ],
+      "planned_first_practice": "P2b",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "links",
+        "rechts",
+        "zu",
+        "nach"
+      ],
+      "warning": null
+    },
+    {
+      "id": 12,
+      "catalogue_horizon": "P2",
+      "domain": "Количество и идентификаторы",
+      "targets": [
+        "M17",
+        "M42"
+      ],
+      "active": [
+        "eins",
+        "zwei",
+        "drei",
+        "vier",
+        "fünf",
+        "zehn",
+        "zwanzig",
+        "hundert",
+        "viel",
+        "wenig",
+        "wie viel"
+      ],
+      "receptive": [
+        "wie viele",
+        "die Nummer",
+        "die Zahl",
+        "das Stück",
+        "das Kilo",
+        "die Hälfte"
+      ],
+      "planned_first_practice": "P2b",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "eins",
+        "zwei",
+        "drei",
+        "wie viel"
+      ],
+      "warning": null
+    },
+    {
+      "id": 13,
+      "catalogue_horizon": "P2",
+      "domain": "Люди и семья",
+      "targets": [
+        "M02",
+        "M35",
+        "M36"
+      ],
+      "active": [
+        "die Familie",
+        "der Freund",
+        "die Freundin",
+        "der Mann",
+        "die Frau",
+        "das Kind",
+        "die Mutter",
+        "der Vater",
+        "der Bruder",
+        "die Schwester"
+      ],
+      "receptive": [
+        "die Eltern",
+        "der Sohn",
+        "die Tochter",
+        "verheiratet",
+        "ledig",
+        "der Nachbar",
+        "die Nachbarin"
+      ],
+      "planned_first_practice": "P4b",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "der Freund",
+        "die Freundin",
+        "der Bruder",
+        "die Schwester"
+      ],
+      "warning": "Family terms may be recognized earlier as optional vocabulary; M36's first required R contrast remains in P4b."
+    },
+    {
+      "id": 14,
+      "catalogue_horizon": "P2",
+      "domain": "Работа и роли",
+      "targets": [
+        "M19",
+        "M33",
+        "M48"
+      ],
+      "active": [
+        "die Arbeit",
+        "der Beruf",
+        "der Kollege",
+        "die Kollegin",
+        "der Chef",
+        "die Chefin",
+        "die Aufgabe",
+        "frei",
+        "beschäftigt"
+      ],
+      "receptive": [
+        "der Arbeitsplatz",
+        "der Mitarbeiter",
+        "die Mitarbeiterin",
+        "der Lehrer",
+        "die Lehrerin",
+        "die Pause"
+      ],
+      "planned_first_practice": "P2a",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "die Arbeit",
+        "der Beruf",
+        "die Aufgabe"
+      ],
+      "warning": null
+    },
+    {
+      "id": 15,
+      "catalogue_horizon": "P3",
+      "domain": "Время, дата, расписание",
+      "targets": [
+        "M17",
+        "M23",
+        "M24",
+        "M25",
+        "M42",
+        "M49"
+      ],
+      "active": [
+        "jetzt",
+        "heute",
+        "morgen",
+        "gestern",
+        "später",
+        "früh",
+        "spät",
+        "der Tag",
+        "die Woche",
+        "der Monat",
+        "das Jahr",
+        "die Uhr",
+        "um",
+        "am",
+        "vor",
+        "nach"
+      ],
+      "receptive": [
+        "Montag",
+        "Dienstag",
+        "Mittwoch",
+        "Donnerstag",
+        "Freitag",
+        "Samstag",
+        "Sonntag",
+        "der Kalender",
+        "der Morgen",
+        "der Abend"
+      ],
+      "planned_first_practice": "P3a",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "heute",
+        "morgen",
+        "um",
+        "am"
+      ],
+      "warning": null
+    },
+    {
+      "id": 16,
+      "catalogue_horizon": "P3",
+      "domain": "Возможность, необходимость и запрет",
+      "targets": [
+        "M18",
+        "M54"
+      ],
+      "active": [
+        "können",
+        "müssen",
+        "dürfen",
+        "wollen",
+        "sollen",
+        "nicht dürfen",
+        "nicht müssen",
+        "notwendig",
+        "möglich"
+      ],
+      "receptive": [
+        "erlaubt",
+        "verboten",
+        "die Regel",
+        "das Verbot",
+        "die Pflicht"
+      ],
+      "planned_first_practice": "P3b",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "können",
+        "müssen",
+        "dürfen",
+        "nicht dürfen",
+        "nicht müssen"
+      ],
+      "warning": null
+    },
+    {
+      "id": 17,
+      "catalogue_horizon": "P3",
+      "domain": "Желания и выбор",
+      "targets": [
+        "M30",
+        "M31",
+        "M32",
+        "M38",
+        "M55"
+      ],
+      "active": [
+        "möchten",
+        "mögen",
+        "gern",
+        "lieber",
+        "oder",
+        "auch",
+        "nur",
+        "mehr",
+        "weniger",
+        "wählen",
+        "bestellen"
+      ],
+      "receptive": [
+        "ich hätte gern …",
+        "könnte ich …?",
+        "das Menü",
+        "der Wunsch",
+        "die Auswahl"
+      ],
+      "planned_first_practice": "P3c",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "möchten",
+        "gern",
+        "lieber",
+        "oder"
+      ],
+      "warning": null
+    },
+    {
+      "id": 18,
+      "catalogue_horizon": "P3",
+      "domain": "Встречи и планы",
+      "targets": [
+        "M24",
+        "M25",
+        "M37",
+        "M52"
+      ],
+      "active": [
+        "der Termin",
+        "die Zeit",
+        "treffen",
+        "besuchen",
+        "mitkommen",
+        "Zeit haben",
+        "keine Zeit haben",
+        "anfangen",
+        "aufhören"
+      ],
+      "receptive": [
+        "verschieben",
+        "die Einladung",
+        "der Besuch",
+        "die Verabredung",
+        "absagen"
+      ],
+      "planned_first_practice": "P3a",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "der Termin",
+        "die Zeit",
+        "treffen",
+        "anfangen"
+      ],
+      "warning": null
+    },
+    {
+      "id": 19,
+      "catalogue_horizon": "P3",
+      "domain": "Покупки и стоимость",
+      "targets": [
+        "M17",
+        "M30",
+        "M31",
+        "M32"
+      ],
+      "active": [
+        "kaufen",
+        "bezahlen",
+        "kosten",
+        "der Preis",
+        "das Geld",
+        "der Euro",
+        "billig",
+        "teuer",
+        "das Geschäft"
+      ],
+      "receptive": [
+        "die Kasse",
+        "das Angebot",
+        "die Rechnung",
+        "das Wechselgeld",
+        "der Kunde",
+        "die Kundin",
+        "geöffnet",
+        "geschlossen"
+      ],
+      "planned_first_practice": "P3a",
+      "role": "contextual_candidate",
+      "minimal_anchor_expressions": [
+        "kaufen",
+        "der Preis",
+        "teuer"
+      ],
+      "warning": null
+    },
+    {
+      "id": 20,
+      "catalogue_horizon": "P3",
+      "domain": "Интересы и досуг",
+      "targets": [
+        "M25",
+        "M33",
+        "M34",
+        "M35"
+      ],
+      "active": [
+        "spielen",
+        "lernen",
+        "Musik hören",
+        "Sport machen",
+        "spazieren gehen",
+        "immer",
+        "oft",
+        "manchmal",
+        "nie",
+        "das Hobby"
+      ],
+      "receptive": [
+        "der Film",
+        "das Spiel",
+        "die Musik",
+        "der Sport",
+        "das Buch lesen",
+        "der Urlaub"
+      ],
+      "planned_first_practice": "P3c",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "spielen",
+        "Musik hören",
+        "oft",
+        "manchmal"
+      ],
+      "warning": null
+    },
+    {
+      "id": 21,
+      "catalogue_horizon": "P3",
+      "domain": "Транспорт и поездка",
+      "targets": [
+        "M21",
+        "M23",
+        "M24",
+        "M42"
+      ],
+      "active": [
+        "fahren",
+        "der Bus",
+        "der Zug",
+        "der Bahnhof",
+        "die Haltestelle",
+        "die Fahrkarte",
+        "ankommen",
+        "abfahren"
+      ],
+      "receptive": [
+        "das Gleis",
+        "die Abfahrt",
+        "die Ankunft",
+        "die Reise",
+        "der Fahrplan",
+        "das Ticket",
+        "das Gepäck",
+        "die Unterkunft"
+      ],
+      "planned_first_practice": "P3a",
+      "role": "contextual_candidate",
+      "minimal_anchor_expressions": [
+        "fahren",
+        "der Bus",
+        "der Zug"
+      ],
+      "warning": null
+    },
+    {
+      "id": 22,
+      "catalogue_horizon": "P4",
+      "domain": "Формы и персональные данные",
+      "targets": [
+        "M02",
+        "M17",
+        "M42",
+        "M45"
+      ],
+      "active": [
+        "der Vorname",
+        "der Nachname",
+        "die Adresse",
+        "die Telefonnummer",
+        "das Datum",
+        "das Geburtsdatum",
+        "ausfüllen",
+        "unterschreiben"
+      ],
+      "receptive": [
+        "die Postleitzahl",
+        "der Geburtsort",
+        "die Staatsangehörigkeit",
+        "die Unterschrift",
+        "das Formular",
+        "die E-Mail-Adresse"
+      ],
+      "planned_first_practice": "P4b",
+      "role": "contextual_candidate",
+      "minimal_anchor_expressions": [
+        "der Vorname",
+        "der Nachname",
+        "die Adresse"
+      ],
+      "warning": null
+    },
+    {
+      "id": 23,
+      "catalogue_horizon": "P4",
+      "domain": "Сообщения и услуги",
+      "targets": [
+        "M41",
+        "M43",
+        "M44",
+        "M45",
+        "M46",
+        "M47"
+      ],
+      "active": [
+        "die Nachricht",
+        "der Brief",
+        "die E-Mail",
+        "der Zettel",
+        "die Information",
+        "der Hinweis",
+        "die Frage",
+        "die Antwort",
+        "senden",
+        "bekommen"
+      ],
+      "receptive": [
+        "die Bank",
+        "die Post",
+        "die Polizei",
+        "das Amt",
+        "geöffnet",
+        "geschlossen",
+        "der Schalter",
+        "die Öffnungszeit",
+        "die Anmeldung",
+        "der Ausweis"
+      ],
+      "planned_first_practice": "P4b",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "die Nachricht",
+        "die Frage",
+        "die Antwort"
+      ],
+      "warning": null
+    },
+    {
+      "id": 24,
+      "catalogue_horizon": "P4",
+      "domain": "Признаки, одежда и сравнение",
+      "targets": [
+        "M10",
+        "M16",
+        "M28",
+        "M38"
+      ],
+      "active": [
+        "rot",
+        "blau",
+        "grün",
+        "schwarz",
+        "weiß",
+        "kalt",
+        "warm",
+        "größer",
+        "kleiner",
+        "besser",
+        "schlechter",
+        "passen"
+      ],
+      "receptive": [
+        "die Jacke",
+        "die Hose",
+        "das Hemd",
+        "die Schuhe",
+        "die Größe",
+        "die Farbe",
+        "das Kleid",
+        "die Kleidung"
+      ],
+      "planned_first_practice": "P4a",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "rot",
+        "blau",
+        "größer",
+        "besser"
+      ],
+      "warning": null
+    },
+    {
+      "id": 25,
+      "catalogue_horizon": "P4",
+      "domain": "Погода и окружение",
+      "targets": [
+        "M10",
+        "M15",
+        "M41"
+      ],
+      "active": [
+        "das Wetter",
+        "die Sonne",
+        "der Regen",
+        "regnen",
+        "der Schnee",
+        "der Winter",
+        "der Sommer",
+        "der Frühling",
+        "der Herbst"
+      ],
+      "receptive": [
+        "die Wolke",
+        "windig",
+        "sonnig",
+        "der Baum",
+        "die Pflanze",
+        "das Tier",
+        "der Park"
+      ],
+      "planned_first_practice": "P4a",
+      "role": "contextual_candidate",
+      "minimal_anchor_expressions": [
+        "das Wetter",
+        "der Regen",
+        "der Schnee"
+      ],
+      "warning": null
+    },
+    {
+      "id": 26,
+      "catalogue_horizon": "P4",
+      "domain": "Учёба и информация",
+      "targets": [
+        "M41",
+        "M43",
+        "M45",
+        "M47"
+      ],
+      "active": [
+        "die Schule",
+        "der Kurs",
+        "die Sprache",
+        "Deutsch",
+        "verstehen",
+        "erklären",
+        "das Wort",
+        "der Text"
+      ],
+      "receptive": [
+        "die Universität",
+        "die Stunde",
+        "die Prüfung",
+        "die Hausaufgabe",
+        "die Lektion",
+        "die Bibliothek"
+      ],
+      "planned_first_practice": "P4b",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "die Sprache",
+        "Deutsch",
+        "verstehen"
+      ],
+      "warning": null
+    },
+    {
+      "id": 27,
+      "catalogue_horizon": "P4",
+      "domain": "Сопоставление и временные отношения",
+      "targets": [
+        "M16",
+        "M26",
+        "M27",
+        "M28",
+        "M38",
+        "M53"
+      ],
+      "active": [
+        "und",
+        "aber",
+        "dann",
+        "danach",
+        "zuerst",
+        "gleich",
+        "anders",
+        "richtig"
+      ],
+      "receptive": [
+        "ähnlich",
+        "der Unterschied",
+        "der Vergleich",
+        "zuerst … dann …",
+        "wie lange",
+        "seit",
+        "bis wann"
+      ],
+      "planned_first_practice": "P4a",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "und",
+        "aber",
+        "zuerst",
+        "dann"
+      ],
+      "warning": null
+    },
+    {
+      "id": 28,
+      "catalogue_horizon": "P5",
+      "domain": "Простой прошлый опыт",
+      "targets": [
+        "M49",
+        "M50",
+        "M51"
+      ],
+      "active": [
+        "war",
+        "hatte",
+        "habe gemacht",
+        "habe gefunden",
+        "habe gesehen",
+        "habe gelernt",
+        "ist gekommen",
+        "ist gegangen"
+      ],
+      "receptive": [
+        "die Vergangenheit",
+        "früher",
+        "letzte Woche",
+        "schon",
+        "noch nicht",
+        "das Ergebnis"
+      ],
+      "planned_first_practice": "P5",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "war",
+        "hatte",
+        "habe gemacht",
+        "ist gekommen"
+      ],
+      "warning": null
+    },
+    {
+      "id": 29,
+      "catalogue_horizon": "P5",
+      "domain": "Будущее и изменение планов",
+      "targets": [
+        "M24",
+        "M26",
+        "M52"
+      ],
+      "active": [
+        "nächste Woche",
+        "wieder",
+        "planen",
+        "hoffen",
+        "warten auf"
+      ],
+      "receptive": [
+        "der Plan",
+        "der nächste Termin",
+        "später am Tag",
+        "in zwei Tagen"
+      ],
+      "planned_first_practice": "P5",
+      "role": "functional_anchor_candidate",
+      "minimal_anchor_expressions": [
+        "nächste Woche",
+        "wieder",
+        "planen"
+      ],
+      "warning": null
+    }
+  ]
+}
