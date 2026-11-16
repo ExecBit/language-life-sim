@@ -458,6 +458,19 @@ def main() -> int:
             )
             old_payload = json.loads(DATA_SCRIPT.search(old).group(2))
             new_payload = json.loads(DATA_SCRIPT.search(fresh).group(2))
+            for parent, field, id_key in (
+                ("recycling", "lexemes", "lexeme"),
+                ("semantic", "lexemes", "lexeme"),
+                ("traceability", "items", "id"),
+            ):
+                older = old_payload[parent][field]
+                newer = new_payload[parent][field]
+                by_old = {r[id_key]: r for r in older}
+                by_new = {r[id_key]: r for r in newer}
+                different = [k for k in by_new if by_old.get(k) != by_new[k]]
+                print(f"{parent}.{field}: old={len(older)}, new={len(newer)}, "
+                      f"element_changes={len(different)}, examples={different[:8]}",
+                      file=sys.stderr)
             for key in sorted(set(old_payload) | set(new_payload)):
                 if old_payload.get(key) != new_payload.get(key):
                     old_value, new_value = old_payload.get(key), new_payload.get(key)
