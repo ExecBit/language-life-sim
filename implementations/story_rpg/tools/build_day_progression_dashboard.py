@@ -456,6 +456,20 @@ def main() -> int:
                 (i for i, (a, b) in enumerate(zip(old, fresh)) if a != b),
                 min(len(old), len(fresh))
             )
+            old_payload = json.loads(DATA_SCRIPT.search(old).group(2))
+            new_payload = json.loads(DATA_SCRIPT.search(fresh).group(2))
+            for key in sorted(set(old_payload) | set(new_payload)):
+                if old_payload.get(key) != new_payload.get(key):
+                    old_value, new_value = old_payload.get(key), new_payload.get(key)
+                    if isinstance(old_value, dict) and isinstance(new_value, dict):
+                        inner = [k for k in set(old_value) | set(new_value)
+                                 if old_value.get(k) != new_value.get(k)]
+                    else:
+                        inner = []
+                    print(
+                        f"Changed data section: {key}; differing inner keys: {sorted(inner)}",
+                        file=sys.stderr
+                    )
             print(
                 "Dashboard is stale; first difference at character "
                 + str(diff_at)
