@@ -1,5 +1,5 @@
 {
-  "version": "0.8",
+  "version": "0.9",
   "status": "plot_independent_lexical_anchor_candidates_not_required_word_quotas",
   "notes": [
     "The 29 source groups are imported from LANGUAGE_LEXICON.md only; nothing from ACT_*, dialogue transcripts or world lore.",
@@ -323,9 +323,9 @@
         },
         {
           "expression": "bringen",
-          "ru": "приносить / принести",
-          "status": "unreviewed_semantic_gloss_not_f1_approved",
-          "context_needed": false
+          "ru": "принести / приносить (сюда) или отнести / относить (к цели), в зависимости от направления",
+          "status": "revised_semantic_candidate_not_F1_verified",
+          "context_needed": true
         },
         {
           "expression": "brauchen",
@@ -754,8 +754,8 @@
         },
         {
           "expression": "zu",
-          "ru": "к / слишком (зависит от контекста)",
-          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "ru": "к (направление) / слишком (степень) / закрыто (о двери или окне); значение зависит от контекста",
+          "status": "revised_semantic_candidate_not_F1_verified",
           "context_needed": true
         }
       ]
