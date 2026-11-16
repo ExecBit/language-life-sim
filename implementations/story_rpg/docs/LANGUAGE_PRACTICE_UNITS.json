@@ -4365,7 +4365,11 @@
         "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
         "design_status": "independent_candidate_not_player_test"
       }
-    ]
+    ],
+    "focused_probes_source": "LANGUAGE_OUTCOME_FOCUSED_PROBES.json",
+    "focused_probes_count": 21,
+    "focused_probes_purpose": "Изолировать ранее смешанные смысловые переменные LO без новых обязательных языковых единиц. 11 R + 10 W.",
+    "validation_status": "structured_candidate_not_executable_test"
   },
   "production_assessment_audit": {
     "version": "0.2",
