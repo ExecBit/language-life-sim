@@ -1,5 +1,5 @@
 {
-  "version": "0.4",
+  "version": "0.5",
   "status": "independent_lexical_inventory_not_approved_f1",
   "source": "LANGUAGE_LEXICON.md section 2, 29 topic groups; NOT ACT authored dialogue corpus",
   "validation": {
@@ -41,7 +41,8 @@
     "Full F1 is the approved act inventory, not equal to all entries in this exploratory catalogue; all approved entries are available from start.",
     "Meaningful usage frequency is not derived from count of catalogue occurrences.",
     "In 73 independent language A/B examples, 36 additional surface tokens were reviewed: 27 form aliases, 2 placeholder names, 7 extra lexical candidates. None came from story content.",
-    "After qualitative goal-alignment fixes, the A/B examples were re-tokenized. Observed form counts always derive from the current 73-unit canonical examples; extra candidates are tracked separately, never counted as observed."
+    "After qualitative goal-alignment fixes, the A/B examples were re-tokenized. Observed form counts always derive from the current 73-unit canonical examples; extra candidates are tracked separately, never counted as observed.",
+    "After removing duplicated language examples, re-evaluated 80 pairs and added candidate normalization for hast, willst, liest, spielt, gezeigt."
   ],
   "groups": [
     {
@@ -8288,14 +8289,14 @@
     }
   ],
   "program_german_form_audit": {
-    "source": "LANGUAGE_PRACTICE_UNITS.json current 76 A/B German pairs",
-    "unique_example_wordforms": 136,
-    "exact_surface_token_matches": 102,
-    "needs_normalization": 34,
-    "inflected_or_plural": 26,
+    "source": "LANGUAGE_PRACTICE_UNITS.json current 80 A/B German pairs",
+    "unique_example_wordforms": 146,
+    "exact_surface_token_matches": 107,
+    "needs_normalization": 39,
+    "inflected_or_plural": 31,
     "proper_names_not_lexicon": 2,
     "supplemental_candidates": 6,
-    "form_coverage_status": "static candidate mapping, NOT validated F1 search"
+    "form_coverage_status": "static candidate mapping, not F1 implementation"
   },
   "program_form_alias_candidates": [
     {
@@ -8325,6 +8326,7 @@
         "P1-01",
         "P4b-03",
         "P5-03",
+        "P5-05",
         "P5-06"
       ],
       "kind": "placeholder_proper_name",
@@ -8346,7 +8348,7 @@
       "observed_form": "kommst",
       "unit_ids": [
         "P0-07",
-        "P2a-03"
+        "P3b-03"
       ],
       "kind": "inflection",
       "target_entry": "kommen",
@@ -8395,6 +8397,16 @@
       ],
       "kind": "plural",
       "target_entry": "die Tasse",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "hast",
+      "unit_ids": [
+        "P1-12"
+      ],
+      "kind": "finite_verb_form",
+      "target_entry": "haben",
       "ru_meaning": null,
       "status": "candidate_normalization_not_verified_UI"
     },
@@ -8454,6 +8466,7 @@
       "unit_ids": [
         "P2c-02",
         "P3b-02",
+        "P3b-03",
         "P3b-04"
       ],
       "kind": "inflection",
@@ -8557,17 +8570,6 @@
       "status": "candidate_normalization_not_verified_UI"
     },
     {
-      "observed_form": "elf",
-      "unit_ids": [
-        "P3b-03",
-        "P6-05"
-      ],
-      "kind": "new_language_candidate",
-      "target_entry": "elf",
-      "ru_meaning": "одиннадцать",
-      "status": "candidate_normalization_not_verified_UI"
-    },
-    {
       "observed_form": "mag",
       "unit_ids": [
         "P3c-02",
@@ -8581,9 +8583,7 @@
     {
       "observed_form": "lese",
       "unit_ids": [
-        "P3c-05",
-        "P4c-01",
-        "P5-05"
+        "P3c-05"
       ],
       "kind": "inflection",
       "target_entry": "lesen",
@@ -8593,9 +8593,7 @@
     {
       "observed_form": "spiele",
       "unit_ids": [
-        "P3c-05",
-        "P4c-01",
-        "P5-05"
+        "P3c-05"
       ],
       "kind": "inflection",
       "target_entry": "spielen",
@@ -8634,9 +8632,20 @@
       "status": "candidate_normalization_not_verified_UI"
     },
     {
+      "observed_form": "willst",
+      "unit_ids": [
+        "P4c-01"
+      ],
+      "kind": "finite_verb_form",
+      "target_entry": "wollen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
       "observed_form": "kommt",
       "unit_ids": [
-        "P5-03"
+        "P5-03",
+        "P5-05"
       ],
       "kind": "inflection",
       "target_entry": "kommen",
@@ -8650,6 +8659,36 @@
       ],
       "kind": "inflection",
       "target_entry": "gehen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "liest",
+      "unit_ids": [
+        "P5-05"
+      ],
+      "kind": "finite_verb_form",
+      "target_entry": "lesen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "spielt",
+      "unit_ids": [
+        "P5-05"
+      ],
+      "kind": "finite_verb_form",
+      "target_entry": "spielen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "gezeigt",
+      "unit_ids": [
+        "P5-06"
+      ],
+      "kind": "regular_perfect_participle",
+      "target_entry": "zeigen",
       "ru_meaning": null,
       "status": "candidate_normalization_not_verified_UI"
     },
@@ -8671,6 +8710,16 @@
       "kind": "inflection",
       "target_entry": "bringen",
       "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "elf",
+      "unit_ids": [
+        "P6-05"
+      ],
+      "kind": "new_language_candidate",
+      "target_entry": "elf",
+      "ru_meaning": "одиннадцать",
       "status": "candidate_normalization_not_verified_UI"
     }
   ],
