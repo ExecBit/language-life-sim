@@ -1,5 +1,5 @@
 {
-  "version": "0.4",
+  "version": "0.5",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -15,7 +15,8 @@
     "Load must be judged as a vector of independent dimensions; counts of M/G IDs are planning proxies, NOT calibrated difficulty.",
     "A second independent-P opportunity was added at P2b for location and P3c for preferences, to avoid packing multiple first productive intentions into the same unit.",
     "lexical_anchors are selected expression *candidates* from the 29-group independent language catalogue, NOT a hard number of new words in a day; context_optional is never a requirement.",
-    "A few elementary expressions are placed earlier than their catalogue group horizon because the independent M/G map uses them earlier (e.g. ich/du, verstehen, heute/morgen); this is deliberate and must not be confused with teaching entire theme early."
+    "A few elementary expressions are placed earlier than their catalogue group horizon because the independent M/G map uses them earlier (e.g. ich/du, verstehen, heute/morgen); this is deliberate and must not be confused with teaching entire theme early.",
+    "Contemporary lesson/domain examples inside one unit are alternative variants, not simultaneous mandatory unknown vocabulary; background R/E grammar does not create forced productive form."
   ],
   "horizon_units": {
     "P0": 8,
@@ -480,7 +481,7 @@
     },
     {
       "stage": "P1",
-      "goal": "Прочитать короткий знак",
+      "goal": "Прочитать короткое сообщение о наличии",
       "introduce_m": [
         "M41"
       ],
@@ -491,8 +492,8 @@
       "revisit_m": [
         "M39"
       ],
-      "contrast": "Offen против geschlossen меняет вывод о доступности",
-      "context": "Немецкая подпись, без визуальной подсказки",
+      "contrast": "Es gibt ... против Es gibt kein ... меняет наличие знакомого предмета",
+      "context": "Одно короткое немецкое сообщение без подсветки предмета; форма man пока необязательна",
       "id": "P1-09",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": []
@@ -810,11 +811,6 @@
           "group": 10,
           "expression": "in",
           "obligation": "functional_candidate"
-        },
-        {
-          "group": 11,
-          "expression": "nach",
-          "obligation": "functional_candidate"
         }
       ]
     },
@@ -962,8 +958,8 @@
       ],
       "first_p": [],
       "revisit_m": [],
-      "contrast": "Fängt an против hört auf меняет начало и окончание",
-      "context": "Привычное действие и знак времени",
+      "contrast": "Die Arbeit fängt um acht an против um neun an меняет время начала",
+      "context": "Один знакомый процесс, время и отделяемое an нужны для понимания",
       "id": "P2c-04",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [
@@ -1185,6 +1181,11 @@
           "group": 16,
           "expression": "nicht dürfen",
           "obligation": "functional_candidate"
+        },
+        {
+          "group": 16,
+          "expression": "nicht müssen",
+          "obligation": "functional_candidate"
         }
       ]
     },
@@ -1213,7 +1214,9 @@
       "introduce_m": [
         "M37"
       ],
-      "introduce_g": [],
+      "introduce_g": [
+        "G24"
+      ],
       "first_p": [
         "M37"
       ],
@@ -1221,7 +1224,7 @@
         "M19"
       ],
       "contrast": "Einladung angenommen против abgelehnt меняет решение",
-      "context": "Выбор и отказ оба осмысленны",
+      "context": "Два безопасных решения о приглашении; отрицательный вопрос допускает самостоятельный Doch",
       "id": "P3b-03",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [
@@ -1238,24 +1241,16 @@
       "introduce_m": [
         "M38"
       ],
-      "introduce_g": [
-        "G24"
-      ],
+      "introduce_g": [],
       "first_p": [],
       "revisit_m": [
         "M06"
       ],
-      "contrast": "Doch vs nein после отрицательного вопроса меняет подтверждение",
-      "context": "Простая реакция, известная ситуация",
+      "contrast": "Zu spät против nicht zu spät меняет оценку пригодности",
+      "context": "Один знакомый вариант; отличие слишком поздно от подходящего не маскируется интерфейсом",
       "id": "P3b-04",
       "mode": "independent_abstract_language_practice",
-      "lexical_anchors": [
-        {
-          "group": 16,
-          "expression": "nicht müssen",
-          "obligation": "functional_candidate"
-        }
-      ]
+      "lexical_anchors": []
     },
     {
       "stage": "P3c",
@@ -1333,8 +1328,8 @@
       "revisit_m": [
         "M09"
       ],
-      "contrast": "Hätte gern и könnte ich выражают просьбу, не требуя продуктивной формы",
-      "context": "Только рецепция коротких сообщений",
+      "contrast": "Вежливый вопрос о книге и о воде требует разного ответа, хотя просьба сформулирована одинаково",
+      "context": "Узнавание готовых формул ich hätte gern / könnte ich; без требования самому писать Konjunktiv II",
       "id": "P3c-03",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": []
@@ -1503,7 +1498,7 @@
         "M22"
       ],
       "contrast": "Rote против blaue меняет объект ссылки",
-      "context": "Знакомая вещь, не тест склонения",
+      "context": "G31 только рецептивно-фоновая форма: важен выбор свойства, а не правильное склонение в P",
       "id": "P4a-04",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [
