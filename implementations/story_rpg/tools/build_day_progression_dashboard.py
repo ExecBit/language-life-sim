@@ -458,6 +458,11 @@ def main() -> int:
             )
             old_payload = json.loads(DATA_SCRIPT.search(old).group(2))
             new_payload = json.loads(DATA_SCRIPT.search(fresh).group(2))
+            for item in new_payload["traceability"]["items"]:
+                if item["id"] in ("LO-R02", "LO-R06"):
+                    print("CORRECT_TRACE_ITEM=" + json.dumps(
+                        item, ensure_ascii=False, separators=(",", ":")
+                    ), file=sys.stderr)
             for parent, field, id_key in (
                 ("recycling", "lexemes", "lexeme"),
                 ("semantic", "lexemes", "lexeme"),
