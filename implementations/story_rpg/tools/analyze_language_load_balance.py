@@ -769,7 +769,7 @@ def lexical_catalogue_audit(doc: dict) -> list[str]:
     for gate in contracts:
         if (not gate.get("goal") or not gate.get("semantic_acceptance_rule_ru")
             or not gate.get("functions")
-            or gate.get("horizon") not in focus_bands):
+            or gate.get("horizon") not in (focus_bands | {"P2", "P3", "P4"})):
             errors.append(f"Lexical semantic contract invalid: {gate.get('id')}")
         for role in ("receptive_support", "productive_support"):
             terms = gate.get(role, [])
