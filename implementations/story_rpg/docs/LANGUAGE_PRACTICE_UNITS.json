@@ -2888,5 +2888,403 @@
       ]
     }
   ],
-  "example_checks_count": 75
+  "example_checks_count": 75,
+  "independent_outcome_assessments": {
+    "version": "0.1",
+    "status": "candidate_independent_language_assessment_not_real_exam_or_game_scene",
+    "rules": [
+      "All cases are language-only contexts with interchangeable names/objects; they neither define NPC biographies nor the game narrative.",
+      "For R, German input carries critical facts that are not exposed in Russian instruction/visual highlights.",
+      "For W, abstract context facts are the player's observations, not German phrases to copy; receiver lacks these facts.",
+      "A/B must differ meaningfully; when multiple slots are relevant, grading evaluates all slots, not merely the changed one.",
+      "Parser uncertainty triggers clarification or neutral reformulation, never an automatic 'wrong German' verdict.",
+      "The exam remains resittable and separated from the main-path F1 help. Cutoffs and actual exam format remain unapproved.",
+      "These are 13 outcome case blueprints, not 13 mandated separate quests or a limit of one test per outcome."
+    ],
+    "cases": [
+      {
+        "lo": "LO-R01",
+        "kind": "reading",
+        "transfer_unit": "P6-01",
+        "goal_ru": "Кому и какое действие адресовано, включая du/Sie",
+        "stimulus": {
+          "format": "short_German_input",
+          "variant_A_de": "Für Mia: Komm bitte um zehn. Für Herrn Weber: Kommen Sie bitte um zwölf.",
+          "variant_B_de": "Für Mia: Komm bitte um zwölf. Für Herrn Weber: Kommen Sie bitte um zehn."
+        },
+        "required_semantic_slots": [
+          "addressee",
+          "du_or_Sie_register",
+          "requested_action",
+          "time_by_addressee"
+        ],
+        "incorrect_interpretation_examples": [
+          "Перепутать адресатов",
+          "Принять вежливое Sie за sie (она)",
+          "Поменять часы местами"
+        ],
+        "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-R02",
+        "kind": "reading",
+        "transfer_unit": "P6-02",
+        "goal_ru": "Различить обязанность, запрет и отрицание",
+        "stimulus": {
+          "format": "short_German_input",
+          "variant_A_de": "Du darfst heute nicht arbeiten.",
+          "variant_B_de": "Du musst heute nicht arbeiten."
+        },
+        "required_semantic_slots": [
+          "prohibition_vs_absence_of_obligation",
+          "negation_scope",
+          "day"
+        ],
+        "incorrect_interpretation_examples": [
+          "Воспринять нельзя как необязательно",
+          "Объявить обязанность, которой нет"
+        ],
+        "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-R03",
+        "kind": "reading",
+        "transfer_unit": "P6-01",
+        "goal_ru": "Отличить место предмета от пункта назначения",
+        "stimulus": {
+          "format": "short_German_input",
+          "variant_A_de": "Das Buch ist im Zimmer. Bring das Buch in die Küche.",
+          "variant_B_de": "Das Buch ist in der Küche. Bring das Buch ins Zimmer."
+        },
+        "required_semantic_slots": [
+          "current_location",
+          "requested_destination",
+          "object"
+        ],
+        "incorrect_interpretation_examples": [
+          "Указать пункт назначения как текущее место",
+          "Игнорировать разницу wo/wohin"
+        ],
+        "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-R04",
+        "kind": "reading",
+        "transfer_unit": "P6-01",
+        "goal_ru": "Извлечь время, доступность и цену из короткой записи",
+        "stimulus": {
+          "format": "short_German_input",
+          "variant_A_de": "Montag: zehn Uhr, frei. Dienstag: zwölf Uhr, besetzt. Preis: zwei Euro.",
+          "variant_B_de": "Montag: zehn Uhr, frei. Dienstag: zwölf Uhr, besetzt. Preis: fünf Euro."
+        },
+        "required_semantic_slots": [
+          "free_slot_day",
+          "free_slot_time",
+          "price"
+        ],
+        "incorrect_interpretation_examples": [
+          "Перепутать занятый и свободный день",
+          "Назвать цену из другого варианта"
+        ],
+        "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-R05",
+        "kind": "reading",
+        "transfer_unit": "P6-03",
+        "goal_ru": "Прочитать адресата, личную связь, причину и просьбу",
+        "stimulus": {
+          "format": "short_German_input",
+          "variant_A_de": "Hallo Mia! Mein Bruder Tom ist krank. Komm bitte morgen um zehn. Lea.",
+          "variant_B_de": "Hallo Mia! Mein Freund Tom ist krank. Komm bitte morgen um zehn. Lea."
+        },
+        "required_semantic_slots": [
+          "sender",
+          "recipient",
+          "relationship",
+          "reason",
+          "requested_time_and_action"
+        ],
+        "incorrect_interpretation_examples": [
+          "Назвать Тома отправителем",
+          "Подменить брат на друг",
+          "Перепутать сегодня и завтра"
+        ],
+        "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-R06",
+        "kind": "reading",
+        "transfer_unit": "P6-04",
+        "goal_ru": "По двум записям узнать изменение состояния",
+        "stimulus": {
+          "format": "short_German_input",
+          "variant_A_de": "Montag: Die Tasse ist leer. Dienstag: Die Tasse ist voll.",
+          "variant_B_de": "Montag: Die Tasse ist voll. Dienstag: Die Tasse ist leer."
+        },
+        "required_semantic_slots": [
+          "object",
+          "earlier_state",
+          "later_state",
+          "difference"
+        ],
+        "incorrect_interpretation_examples": [
+          "Воспринять прошлую запись как актуальную",
+          "Перепутать исходное и новое состояния"
+        ],
+        "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-W01",
+        "kind": "free_writing",
+        "transfer_unit": "P6-05",
+        "goal_ru": "Уточнить, где находится нужная вещь",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "unknown_item": "Buch",
+            "listener_knows_location": true
+          },
+          "variant_B_facts": {
+            "unknown_item": "Schlüssel",
+            "listener_knows_location": true
+          }
+        },
+        "required_semantic_slots": [
+          "question_intent",
+          "required_object"
+        ],
+        "incorrect_interpretation_examples": [
+          "Вместо вопроса написать утверждение о другом предмете",
+          "Попросить не нужную вещь"
+        ],
+        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-W02",
+        "kind": "free_writing",
+        "transfer_unit": "P6-05",
+        "goal_ru": "Сообщить невидимое адресату состояние и отрицание",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "object": "Tasse",
+            "observed_state": "leer",
+            "listener_cannot_see": true
+          },
+          "variant_B_facts": {
+            "object": "Tasse",
+            "observed_state": "voll",
+            "listener_cannot_see": true
+          }
+        },
+        "required_semantic_slots": [
+          "object",
+          "observed_state"
+        ],
+        "incorrect_interpretation_examples": [
+          "Сообщить противоположное состояние",
+          "Назвать только предмет без состояния"
+        ],
+        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-W03",
+        "kind": "free_writing",
+        "transfer_unit": "P6-02",
+        "goal_ru": "Передать время и отсутствие обязанности либо запрет",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "appointment": "Montag 10:00",
+            "rule": "no_obligation_to_come",
+            "listener_needs_both_facts": true
+          },
+          "variant_B_facts": {
+            "appointment": "Montag 12:00",
+            "rule": "prohibited_from_coming",
+            "listener_needs_both_facts": true
+          }
+        },
+        "required_semantic_slots": [
+          "time",
+          "modality",
+          "negation_scope"
+        ],
+        "incorrect_interpretation_examples": [
+          "Смешать nicht müssen и nicht dürfen",
+          "Сообщить неверное время"
+        ],
+        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-W04",
+        "kind": "free_writing",
+        "transfer_unit": "P6-03",
+        "goal_ru": "Самостоятельно сообщить предпочтение",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "options": [
+              "Wasser",
+              "Tee"
+            ],
+            "private_preference": "Wasser"
+          },
+          "variant_B_facts": {
+            "options": [
+              "Wasser",
+              "Tee"
+            ],
+            "private_preference": "Tee"
+          }
+        },
+        "required_semantic_slots": [
+          "chosen_item",
+          "preference_or_request_intent"
+        ],
+        "incorrect_interpretation_examples": [
+          "Назвать другой напиток",
+          "Не передать предпочтение"
+        ],
+        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-W05",
+        "kind": "free_writing",
+        "transfer_unit": "P6-04",
+        "goal_ru": "Передать незнакомому с событием адресату прошлый результат",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "actor": "player",
+            "when": "gestern",
+            "completed_action": "finden",
+            "object": "Buch"
+          },
+          "variant_B_facts": {
+            "actor": "player",
+            "when": "gestern",
+            "completed_action": "finden",
+            "object": "Schlüssel"
+          }
+        },
+        "required_semantic_slots": [
+          "actor",
+          "completed_action",
+          "object",
+          "past_time"
+        ],
+        "incorrect_interpretation_examples": [
+          "Назвать чужого исполнителя",
+          "Сказать, что находка случится завтра",
+          "Неверный объект"
+        ],
+        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-W06",
+        "kind": "free_writing",
+        "transfer_unit": "P6-05",
+        "goal_ru": "Заполнить простую форму по независимым известным данным",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "fields_de": [
+              "Name",
+              "Tag",
+              "Zeit"
+            ],
+            "facts": {
+              "Name": "Mia",
+              "Tag": "Montag",
+              "Zeit": "10:00"
+            }
+          },
+          "variant_B_facts": {
+            "fields_de": [
+              "Name",
+              "Tag",
+              "Zeit"
+            ],
+            "facts": {
+              "Name": "Mia",
+              "Tag": "Dienstag",
+              "Zeit": "10:00"
+            }
+          }
+        },
+        "required_semantic_slots": [
+          "field_name",
+          "field_day",
+          "field_time"
+        ],
+        "incorrect_interpretation_examples": [
+          "Поставить дату в поле имени",
+          "Скопировать день из другого варианта",
+          "Автоподставить готовые значения"
+        ],
+        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-W07",
+        "kind": "free_writing",
+        "transfer_unit": "P6-05",
+        "goal_ru": "Самостоятельно связать несколько неизвестных адресату сведений",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "object": "Buch",
+            "current_location": "Zimmer",
+            "request": "come",
+            "requested_time": "morgen 10:00"
+          },
+          "variant_B_facts": {
+            "object": "Buch",
+            "current_location": "Zimmer",
+            "request": "come",
+            "requested_time": "morgen 12:00"
+          }
+        },
+        "required_semantic_slots": [
+          "object",
+          "current_location",
+          "requested_action",
+          "requested_time"
+        ],
+        "incorrect_interpretation_examples": [
+          "Упустить временную просьбу",
+          "Перенести предмет в другое место",
+          "Сообщить другое время"
+        ],
+        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
+        "design_status": "independent_candidate_not_player_test"
+      }
+    ]
+  }
 }
