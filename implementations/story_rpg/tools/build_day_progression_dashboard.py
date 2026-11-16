@@ -415,48 +415,120 @@ def language_program_data() -> dict:
 
 
 def independent_duration_html() -> str:
-    """Независимый от сюжетных дней HTML из двух языковых JSON."""
-    counts, days = calculate_language_days()
-    md = render_language_days(counts, days).splitlines()
-    if not md or len(md) < 3:
-        raise ValueError("Missing independent language duration table")
+    """Render language-only duration and daily contacts without ACT inputs."""
+    counts, lower_days = calculate_language_days()
+    lines = render_language_days(counts, lower_days).splitlines()
+    if len(lines) < 3:
+        raise ValueError("Language duration table unavailable")
 
-    def tr(line: str, heading: bool = False) -> str:
+    def esc(value) -> str:
+        return html_stdlib.escape(str(value), quote=True)
+
+    def tr(values, heading=False):
         tag = "th" if heading else "td"
-        values = cells(line)
         return "<tr>" + "".join(
-            f"<{tag}>" + html_stdlib.escape(v.replace("**", "")) + f"</{tag}>"
-            for v in values
+            f"<{tag}>{esc(value)}</{tag}>" for value in values
         ) + "</tr>"
 
-    table = ("<div class=\"heatwrap\"><table class=\"load-table\">"
-             "<thead>" + tr(md[0], True) + "</thead><tbody>"
-             + "".join(tr(line) for line in md[2:])
-             + "</tbody></table></div>")
-    totals = {
-        name: sum(days[s][name] for s in days)
-        for name in ("compact", "baseline", "gentle")
-    }
+    def join(values):
+        return ", ".join(values) if values else "—"
+
+    # Old aggregate estimate is retained for transparent comparison.
+    lower_rows = []
+    for line in lines[2:]:
+        lower_rows.append(tr([cell.replace("**", "") for cell in cells(line)]))
+    lower_table = (
+        '<div class="heatwrap"><table class="load-table"><thead>'
+        + tr(cells(lines[0]), True)
+        + "</thead><tbody>" + "".join(lower_rows)
+        + "</tbody></table></div>"
+    )
+    plan = json.loads((DOCS / "LANGUAGE_DAY_SCHEDULE.json").read_text(encoding="utf-8"))
+    prof = plan["profiles"]
+    totals = {name: prof[name]["total_days"] for name in ("compact", "baseline", "gentle")}
+    stages = [row for row in plan["profiles"]["baseline"]["stages"]]
+    stage_table = (
+        '<div class="heatwrap"><table class="load-table"><thead>'
+        + tr(("Языковой этап", "Компактный", "Базовый", "Бережный"), True)
+        + "</thead><tbody>"
+        + "".join(tr((stage, prof["compact"]["stages"][stage]["proposed_days"],
+                         prof["baseline"]["stages"][stage]["proposed_days"],
+                         prof["gentle"]["stages"][stage]["proposed_days"]))
+                  for stage in stages)
+        + tr(("ВСЕГО", totals["compact"], totals["baseline"], totals["gentle"]))
+        + "</tbody></table></div>"
+    )
+    daily = prof["baseline"]["days"]
+    daily_rows = []
+    for d in daily:
+        outcomes = d["assess_lo"] if d["stage"] == "P6" else d["early_lo"]
+        daily_rows.append(
+            tr((f'{d["day"]:02}', d["stage"], join(d["unit_start"]),
+                join(d["first_m"]), join(d["first_g"]), join(d["first_p"]),
+                join(d["revisit_m"]), f'{len(d["lex_A"])}/{len(d["lex_R"])}',
+                join(outcomes), "НЕТ КОНТРАКТА" if d["needs_contract"] else "—"))
+        )
+    daily_table = (
+        '<div class="heatwrap"><table class="load-table"><thead>'
+        + tr(("День", "P", "Единицы", "M", "G", "Первое P", "↻", "A/R", "LO", "Пробел"), True)
+        + "</thead><tbody>" + "".join(daily_rows)
+        + "</tbody></table></div>"
+    )
+    lexical_details = "".join(
+        '<details class="vocab-more"><summary>День '
+        + esc(f'{d["day"]:02}') + " · " + esc(d["stage"]) + " · "
+        + esc(f'{len(d["lex_A"])} A / {len(d["lex_R"])} R')
+        + (" · нужен смысловой контракт" if d["needs_contract"] else "")
+        + "</summary><p><b>Активные:</b> " + esc(join(d["lex_A"]))
+        + "</p><p><b>Рецептивные:</b> " + esc(join(d["lex_R"]))
+        + "</p></details>"
+        for d in daily
+    )
+    empty = [str(d["day"]) for d in daily if d["needs_contract"]]
     return (
-        "<h2>13. Независимый расчёт продолжительности языковой программы</h2>\n"
-        "<p class=\"small\">Число игровых дней выводится из "
-        "<b>языковой нагрузки</b>, а не из 22 сюжетных слотов выше. "
-        "Это три предварительные модели вместимости, а не готовый календарь "
-        "сцен или доказательство усвоения A1.</p>\n"
-        f"<div class=\"stats\">"
-        f"<div class=\"stat\"><strong>{totals['compact']}</strong><span>компактный: гипотеза</span></div>"
-        f"<div class=\"stat\"><strong>{totals['baseline']}</strong><span>базовый: гипотеза</span></div>"
-        f"<div class=\"stat\"><strong>{totals['gentle']}</strong><span>бережный: гипотеза</span></div>"
-        f"<div class=\"stat\"><strong>{sum(counts[s]['U'] for s in counts)}</strong><span>абстрактных языковых единиц</span></div>"
-        "</div>\n" + table + "\n"
-        "<p class=\"small\">U — языковые единицы; M/G/P — первые требования, "
-        "A/R — кандидатные функциональные фокусы, не количество выученных слов. "
-        "Ограничения дневной новизны заданы как <b>не проверенные на A0 гипотезы</b>. "
-        "Понадобится подневное распределение R/P/возвратов, проверка поздней "
-        "практики до экзамена и калибровка по прохождениям. "
-        "<a href=\"LANGUAGE_PROGRAM.md\">Методика</a> · "
-        "<a href=\"LANGUAGE_PROGRAM_ROADMAP.md\">Актуальный порядок работ</a>."
-        "</p>"
+        "<h2>13. Независимый расчёт и подневная языковая программа</h2>\n"
+        '<p class="small">Расчёт не использует 22 старых сюжетных дня, '
+        'их NPC и сцены. Это <b>распределение возможностей обучения</b>, '
+        'не доказательство освоения и не окончательная длина истории.</p>\n'
+        '<div class="stats">'
+        f'<div class="stat"><strong>{totals["compact"]}</strong>'
+        '<span>компактный: проектные слоты</span></div>'
+        f'<div class="stat"><strong>{totals["baseline"]}</strong>'
+        '<span>базовый: проектные слоты</span></div>'
+        f'<div class="stat"><strong>{totals["gentle"]}</strong>'
+        '<span>бережный: проектные слоты</span></div>'
+        f'<div class="stat"><strong>{len(daily)}</strong>'
+        '<span>подробно расписано в базовом профиле</span></div>'
+        '</div>\n'
+        '<h3>Длительность по языковым горизонтам</h3>'
+        + stage_table
+        + '<p class="small">В каждом варианте сохранены 73 единицы, '
+        'первые M/G/P, 80 кандидатных возвратов и фокусы лексики. '
+        'Дневные лимиты — некалиброванные проектные гипотезы.</p>'
+        + '<h3>Распределение языковых действий — базовый профиль</h3>'
+        + '<p class="small">M/G — первое понимание; P — первый самостоятельный '
+        'письменный ответ; ↻ — кандидат осмысленного возврата; A/R — '
+        'новые функциональные лексические фокусы, не выученные слова. '
+        'LO на P6 — предложенные итоговые контракты. '
+        '<b>Нет контракта</b> — это реальный пробел, а не готовый день.</p>'
+        + daily_table
+        + '<details class="vocab-more"><summary>Лексический фокус '
+        'каждого дня (все записи)</summary>'
+        + lexical_details
+        + '</details>'
+        + '<details class="vocab-more"><summary>Сравнить с прежней '
+        'грубой оценкой вместимости</summary>'
+        + '<p class="small">Ранее суммарная вместимость по горизонтам '
+        'давала 45/58/80 слотов. Она не учитывала сложность фактической '
+        'последовательной упаковки и отдельных внутриединичных '
+        'контрастов; не использовать её вместо подневного календаря.</p>'
+        + lower_table + '</details>'
+        + '<p class="small">В базовом варианте '
+        + str(len(empty)) + ' дней без самостоятельного смыслового контракта'
+        + (' (номера: ' + ", ".join(empty) + ')' if empty else '')
+        + '. Не утверждать их до языковой проверки. '
+        '<a href="LANGUAGE_DAY_SCHEDULE.md">Полный отчёт</a> · '
+        '<a href="LANGUAGE_PROGRAM_ROADMAP.md">Оставшиеся действия</a>.</p>'
     )
 
 
