@@ -1,0 +1,6872 @@
+{
+  "version": "1.0",
+  "status": "language_only_provisional_slots_not_proven_learning_or_story_days",
+  "input_versions": {
+    "units": "1.14",
+    "lexicon": "1.6"
+  },
+  "assumptions": {
+    "stages_are_sequential_for_this_projection": true,
+    "units_keep_canonical_first_R_order": true,
+    "A_R_are_focus_candidates_not_words_memorized": true,
+    "LO_in_P6_are_proposed_probes_not_exams_passed": true,
+    "lexical_only_slots_require_real_semantic_contracts": true,
+    "game_day_is_not_calendar_elapsed_time": true,
+    "real_A0_validation_required": true,
+    "capacity_profiles": {
+      "compact": {
+        "default": {
+          "U": 3,
+          "M": 3,
+          "G": 2,
+          "P": 2,
+          "A": 8,
+          "R": 12,
+          "LO": 4
+        },
+        "overrides": {
+          "P0": {
+            "U": 2,
+            "M": 3,
+            "G": 2,
+            "P": 2,
+            "A": 6,
+            "R": 8
+          },
+          "P1": {
+            "U": 3,
+            "M": 2,
+            "G": 2,
+            "P": 2,
+            "A": 7,
+            "R": 10
+          }
+        },
+        "revisit": 5
+      },
+      "baseline": {
+        "default": {
+          "U": 2,
+          "M": 2,
+          "G": 1,
+          "P": 2,
+          "A": 6,
+          "R": 9,
+          "LO": 3
+        },
+        "overrides": {
+          "P0": {
+            "U": 2,
+            "M": 2,
+            "G": 1,
+            "P": 1,
+            "A": 5,
+            "R": 6
+          },
+          "P1": {
+            "U": 2,
+            "M": 2,
+            "G": 1,
+            "P": 1,
+            "A": 5,
+            "R": 7
+          }
+        },
+        "revisit": 4
+      },
+      "gentle": {
+        "default": {
+          "U": 2,
+          "M": 2,
+          "G": 1,
+          "P": 1,
+          "A": 4,
+          "R": 6,
+          "LO": 2
+        },
+        "overrides": {
+          "P0": {
+            "U": 1,
+            "M": 2,
+            "G": 1,
+            "P": 1,
+            "A": 3,
+            "R": 5
+          }
+        },
+        "revisit": 3
+      }
+    }
+  },
+  "baseline_profile": "baseline",
+  "profiles": {
+    "compact": {
+      "total_days": 48,
+      "stages": {
+        "P0": {
+          "lower_bound": 4,
+          "proposed_days": 4,
+          "lexical_only_days": 0
+        },
+        "P1": {
+          "lower_bound": 8,
+          "proposed_days": 9,
+          "lexical_only_days": 0
+        },
+        "P2a": {
+          "lower_bound": 3,
+          "proposed_days": 3,
+          "lexical_only_days": 0
+        },
+        "P2b": {
+          "lower_bound": 3,
+          "proposed_days": 3,
+          "lexical_only_days": 0
+        },
+        "P2c": {
+          "lower_bound": 3,
+          "proposed_days": 3,
+          "lexical_only_days": 0
+        },
+        "P3a": {
+          "lower_bound": 5,
+          "proposed_days": 5,
+          "lexical_only_days": 0
+        },
+        "P3b": {
+          "lower_bound": 2,
+          "proposed_days": 2,
+          "lexical_only_days": 0
+        },
+        "P3c": {
+          "lower_bound": 3,
+          "proposed_days": 3,
+          "lexical_only_days": 0
+        },
+        "P4a": {
+          "lower_bound": 3,
+          "proposed_days": 3,
+          "lexical_only_days": 0
+        },
+        "P4b": {
+          "lower_bound": 3,
+          "proposed_days": 3,
+          "lexical_only_days": 0
+        },
+        "P4c": {
+          "lower_bound": 2,
+          "proposed_days": 2,
+          "lexical_only_days": 0
+        },
+        "P5": {
+          "lower_bound": 3,
+          "proposed_days": 4,
+          "lexical_only_days": 0
+        },
+        "P6": {
+          "lower_bound": 4,
+          "proposed_days": 4,
+          "lexical_only_days": 0
+        }
+      },
+      "days": [
+        {
+          "stage": "P0",
+          "slot": 1,
+          "unit_start": [
+            "P0-01",
+            "P0-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M01",
+            "M04"
+          ],
+          "first_g": [
+            "G01"
+          ],
+          "first_p": [
+            "M01",
+            "M04"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "Hallo",
+            "bitte",
+            "ich verstehe nicht",
+            "kommen"
+          ],
+          "lex_R": [
+            "Guten Tag",
+            "komm"
+          ],
+          "day": 1,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 2,
+          "unit_start": [
+            "P0-03",
+            "P0-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M05",
+            "M09"
+          ],
+          "first_g": [
+            "G09"
+          ],
+          "first_p": [
+            "M05",
+            "M09"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "Tschüss",
+            "danke",
+            "hier",
+            "zeigen"
+          ],
+          "lex_R": [
+            "Auf Wiedersehen",
+            "das"
+          ],
+          "day": 2,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 3,
+          "unit_start": [
+            "P0-05",
+            "P0-06"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M40",
+            "M02",
+            "M03"
+          ],
+          "first_g": [
+            "G02",
+            "G03"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "ja",
+            "Entschuldigung",
+            "nehmen",
+            "Wie bitte?"
+          ],
+          "lex_R": [
+            "nimm",
+            "Guten Abend"
+          ],
+          "day": 3,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 4,
+          "unit_start": [
+            "P0-07",
+            "P0-08"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M06",
+            "M39",
+            "M12"
+          ],
+          "first_g": [
+            "G06",
+            "G08"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "nein",
+            "noch einmal",
+            "geben"
+          ],
+          "lex_R": [
+            "gib"
+          ],
+          "day": 4,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 1,
+          "unit_start": [
+            "P1-01",
+            "P1-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M07"
+          ],
+          "first_g": [
+            "G07"
+          ],
+          "first_p": [
+            "M02",
+            "M03"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "ich",
+            "wer",
+            "brauchen",
+            "ist",
+            "klein",
+            "Durst haben",
+            "noch"
+          ],
+          "lex_R": [
+            "wann",
+            "voll",
+            "satt"
+          ],
+          "day": 5,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 2,
+          "unit_start": [
+            "P1-03"
+          ],
+          "unit_activity": [
+            "P1-02"
+          ],
+          "first_m": [
+            "M10"
+          ],
+          "first_g": [
+            "G13"
+          ],
+          "first_p": [
+            "M07",
+            "M10"
+          ],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "du",
+            "was",
+            "helfen",
+            "hat",
+            "offen",
+            "weh tun"
+          ],
+          "lex_R": [
+            "woher",
+            "falsch"
+          ],
+          "day": 6,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 3,
+          "unit_start": [
+            "P1-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M11"
+          ],
+          "first_g": [
+            "G12"
+          ],
+          "first_p": [
+            "M11"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "er",
+            "wo",
+            "finden",
+            "kein",
+            "zu",
+            "die Hilfe"
+          ],
+          "lex_R": [
+            "warum",
+            "es gibt"
+          ],
+          "day": 7,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 4,
+          "unit_start": [
+            "P1-05",
+            "P1-06"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M15"
+          ],
+          "first_g": [
+            "G11",
+            "G04"
+          ],
+          "first_p": [
+            "M12",
+            "M15"
+          ],
+          "revisit_m": [],
+          "early_lo": [
+            "LO-W02"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "sie",
+            "wie",
+            "suchen",
+            "nicht",
+            "fertig",
+            "der Termin"
+          ],
+          "lex_R": [
+            "was bedeutet …?",
+            "die Schmerzen"
+          ],
+          "day": 8,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 5,
+          "unit_start": [
+            "P1-07"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M29"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M29"
+          ],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "wir",
+            "wissen",
+            "öffnen",
+            "gut",
+            "kaputt",
+            "essen"
+          ],
+          "lex_R": [
+            "warten",
+            "das Fieber"
+          ],
+          "day": 9,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 6,
+          "unit_start": [
+            "P1-08"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M32"
+          ],
+          "first_g": [
+            "G05"
+          ],
+          "first_p": [
+            "M32"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "sein",
+            "nicht wissen",
+            "schließen",
+            "schlecht",
+            "müde",
+            "trinken"
+          ],
+          "lex_R": [
+            "holen",
+            "die Medizin"
+          ],
+          "day": 10,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 7,
+          "unit_start": [
+            "P1-09",
+            "P1-10"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M41",
+            "M17"
+          ],
+          "first_g": [
+            "G32",
+            "G10"
+          ],
+          "first_p": [],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "haben",
+            "machen",
+            "lesen",
+            "neu",
+            "krank",
+            "das Wasser"
+          ],
+          "lex_R": [
+            "bleiben",
+            "welche"
+          ],
+          "day": 11,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 8,
+          "unit_start": [
+            "P1-11"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M19",
+            "M20"
+          ],
+          "first_g": [
+            "G25"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "heißen",
+            "gehen",
+            "schreiben",
+            "alt",
+            "gesund",
+            "das Essen"
+          ],
+          "lex_R": [
+            "sprechen",
+            "die Speisekarte"
+          ],
+          "day": 12,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 9,
+          "unit_start": [
+            "P1-12"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M47"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M47",
+            "M06"
+          ],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [
+            "LO-W01"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "der Name",
+            "bringen",
+            "arbeiten",
+            "groß",
+            "Hunger haben",
+            "sagen"
+          ],
+          "lex_R": [
+            "leer",
+            "das Restaurant"
+          ],
+          "day": 13,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2a",
+          "slot": 1,
+          "unit_start": [
+            "P2a-01",
+            "P2a-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M13",
+            "M53"
+          ],
+          "first_g": [
+            "G14",
+            "G15"
+          ],
+          "first_p": [
+            "M13"
+          ],
+          "revisit_m": [
+            "M09",
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "mein",
+            "dir",
+            "allein",
+            "leben"
+          ],
+          "lex_R": [
+            "unser",
+            "dieser",
+            "Sie (вежливо)",
+            "die Freundin",
+            "das Kind",
+            "der Bruder",
+            "der Sohn",
+            "ledig",
+            "mich",
+            "euch",
+            "ihre",
+            "der Großvater"
+          ],
+          "day": 14,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2a",
+          "slot": 2,
+          "unit_start": [
+            "P2a-03",
+            "P2a-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M08",
+            "M33"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M33"
+          ],
+          "revisit_m": [
+            "M03",
+            "M01"
+          ],
+          "early_lo": [
+            "LO-R01"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "dein",
+            "mit",
+            "ohne"
+          ],
+          "lex_R": [
+            "ihm",
+            "diese",
+            "die Familie",
+            "der Mann",
+            "die Mutter",
+            "die Schwester",
+            "die Tochter",
+            "das Land",
+            "dich",
+            "euer",
+            "die Geschwister",
+            "der Ehemann"
+          ],
+          "day": 15,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2a",
+          "slot": 3,
+          "unit_start": [
+            "P2a-05"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M35"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M35"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "mir",
+            "zusammen",
+            "wohnen"
+          ],
+          "lex_R": [
+            "ihnen",
+            "dieses",
+            "der Freund",
+            "die Frau",
+            "der Vater",
+            "die Eltern",
+            "verheiratet",
+            "wie alt?",
+            "uns",
+            "seine",
+            "die Großmutter",
+            "die Ehefrau"
+          ],
+          "day": 16,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2b",
+          "slot": 1,
+          "unit_start": [
+            "P2b-01",
+            "P2b-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M14",
+            "M21"
+          ],
+          "first_g": [
+            "G16",
+            "G18"
+          ],
+          "first_p": [
+            "M14",
+            "M21"
+          ],
+          "revisit_m": [
+            "M12",
+            "M04"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "in",
+            "neben",
+            "die Arbeit",
+            "beschäftigt"
+          ],
+          "lex_R": [
+            "im",
+            "dort",
+            "der Kopf",
+            "das Bein",
+            "oben",
+            "das Büro"
+          ],
+          "day": 17,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2b",
+          "slot": 2,
+          "unit_start": [
+            "P2b-03",
+            "P2b-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M22"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M20"
+          ],
+          "revisit_m": [
+            "M09",
+            "M40"
+          ],
+          "early_lo": [
+            "LO-R03"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "auf",
+            "vor",
+            "die Aufgabe",
+            "schlafen"
+          ],
+          "lex_R": [
+            "ins",
+            "liegen",
+            "der Bauch",
+            "die Toilette",
+            "unten",
+            "die Stelle"
+          ],
+          "day": 18,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2b",
+          "slot": 3,
+          "unit_start": [
+            "P2b-05",
+            "P2b-06"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G17"
+          ],
+          "first_p": [
+            "M17",
+            "M19"
+          ],
+          "revisit_m": [
+            "M10"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "unter",
+            "hinter",
+            "frei",
+            "das Haus"
+          ],
+          "lex_R": [
+            "da",
+            "kochen",
+            "die Hand",
+            "der Boden",
+            "die Firma",
+            "die Arbeitszeit"
+          ],
+          "day": 19,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2c",
+          "slot": 1,
+          "unit_start": [
+            "P2c-01",
+            "P2c-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M48",
+            "M49"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M48"
+          ],
+          "revisit_m": [
+            "M05",
+            "M03"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "links",
+            "nach",
+            "wohin",
+            "drei",
+            "zehn",
+            "viel",
+            "schnell"
+          ],
+          "lex_R": [
+            "wie viele",
+            "null",
+            "acht",
+            "zwölf",
+            "der Platz",
+            "nah",
+            "hinten",
+            "fünfzehn",
+            "achtzehn",
+            "dreißig",
+            "sechzig",
+            "neunzig"
+          ],
+          "day": 20,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2c",
+          "slot": 2,
+          "unit_start": [
+            "P2c-03",
+            "P2c-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M18",
+            "M54",
+            "M23"
+          ],
+          "first_g": [
+            "G21"
+          ],
+          "first_p": [],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "rechts",
+            "aus",
+            "eins",
+            "vier",
+            "zwanzig",
+            "wenig",
+            "langsam"
+          ],
+          "lex_R": [
+            "die Nummer",
+            "sechs",
+            "neun",
+            "die Tablette",
+            "die Karte",
+            "weit",
+            "dreizehn",
+            "sechzehn",
+            "neunzehn",
+            "vierzig",
+            "siebzig",
+            "tausend"
+          ],
+          "day": 21,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2c",
+          "slot": 3,
+          "unit_start": [
+            "P2c-05"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M30"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M09"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "geradeaus",
+            "von",
+            "zwei",
+            "fünf",
+            "hundert",
+            "wie viel",
+            "zurück"
+          ],
+          "lex_R": [
+            "die Zahl",
+            "sieben",
+            "elf",
+            "die Apotheke",
+            "die Ampel",
+            "vorne",
+            "vierzehn",
+            "siebzehn",
+            "einundzwanzig",
+            "fünfzig",
+            "achtzig"
+          ],
+          "day": 22,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 1,
+          "unit_start": [
+            "P3a-01"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G19",
+            "G20"
+          ],
+          "first_p": [
+            "M23"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "jetzt",
+            "früh",
+            "das Jahr",
+            "treffen",
+            "kosten",
+            "abfahren",
+            "der Geburtstag"
+          ],
+          "lex_R": [
+            "Montag",
+            "Samstag",
+            "geöffnet",
+            "die Ankunft",
+            "April",
+            "September",
+            "der Mittag",
+            "die Uhrzeit",
+            "der Cent",
+            "das Fahrrad",
+            "der Flughafen",
+            "pünktlich"
+          ],
+          "day": 23,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 2,
+          "unit_start": [
+            "P3a-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M42"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M41"
+          ],
+          "early_lo": [
+            "LO-R04"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "heute",
+            "spät",
+            "die Uhr",
+            "Zeit haben",
+            "der Preis",
+            "die Stunde",
+            "Wie spät ist es?"
+          ],
+          "lex_R": [
+            "Dienstag",
+            "Sonntag",
+            "geschlossen",
+            "telefonieren",
+            "Mai",
+            "Oktober",
+            "der Nachmittag",
+            "erste",
+            "bar",
+            "das Auto",
+            "einsteigen",
+            "zu Fuß"
+          ],
+          "day": 24,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 3,
+          "unit_start": [
+            "P3a-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M25"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M25"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "morgen",
+            "der Tag",
+            "um",
+            "keine Zeit haben",
+            "der Euro",
+            "aufstehen"
+          ],
+          "lex_R": [
+            "Mittwoch",
+            "der Morgen",
+            "die Haltestelle",
+            "Januar",
+            "Juni",
+            "November",
+            "am Wochenende",
+            "zweite",
+            "mit Karte",
+            "das Flugzeug",
+            "aussteigen"
+          ],
+          "day": 25,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 4,
+          "unit_start": [
+            "P3a-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M24"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M24"
+          ],
+          "revisit_m": [
+            "M07",
+            "M17"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "gestern",
+            "die Woche",
+            "am",
+            "anfangen",
+            "fahren",
+            "die Minute"
+          ],
+          "lex_R": [
+            "Donnerstag",
+            "der Abend",
+            "die Fahrkarte",
+            "Februar",
+            "Juli",
+            "Dezember",
+            "halb",
+            "dritte",
+            "das Bargeld",
+            "die U-Bahn",
+            "umsteigen"
+          ],
+          "day": 26,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 5,
+          "unit_start": [
+            "P3a-05"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M26"
+          ],
+          "first_g": [
+            "G27"
+          ],
+          "first_p": [
+            "M26"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "später",
+            "der Monat",
+            "die Zeit",
+            "aufhören",
+            "ankommen",
+            "das Wochenende"
+          ],
+          "lex_R": [
+            "Freitag",
+            "die Rechnung",
+            "die Abfahrt",
+            "März",
+            "August",
+            "die Nacht",
+            "das Viertel",
+            "der Vorschlag",
+            "die Kreditkarte",
+            "die S-Bahn",
+            "die Verspätung"
+          ],
+          "day": 27,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3b",
+          "slot": 1,
+          "unit_start": [
+            "P3b-01",
+            "P3b-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M52"
+          ],
+          "first_g": [
+            "G22"
+          ],
+          "first_p": [
+            "M18",
+            "M54"
+          ],
+          "revisit_m": [
+            "M11",
+            "M20"
+          ],
+          "early_lo": [
+            "LO-R02",
+            "LO-W03"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "können",
+            "dürfen",
+            "sollen",
+            "nicht müssen"
+          ],
+          "lex_R": [
+            "erlaubt",
+            "doch",
+            "sofort"
+          ],
+          "day": 28,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3b",
+          "slot": 2,
+          "unit_start": [
+            "P3b-03",
+            "P3b-04"
+          ],
+          "unit_activity": [
+            "P3b-02"
+          ],
+          "first_m": [
+            "M37",
+            "M38"
+          ],
+          "first_g": [
+            "G24"
+          ],
+          "first_p": [
+            "M49",
+            "M37"
+          ],
+          "revisit_m": [
+            "M19",
+            "M04",
+            "M06"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "müssen",
+            "wollen",
+            "nicht dürfen",
+            "vielleicht"
+          ],
+          "lex_R": [
+            "verboten",
+            "man"
+          ],
+          "day": 29,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3c",
+          "slot": 1,
+          "unit_start": [
+            "P3c-01",
+            "P3c-02",
+            "P3c-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M31",
+            "M55"
+          ],
+          "first_g": [
+            "G23",
+            "G33"
+          ],
+          "first_p": [
+            "M30",
+            "M31"
+          ],
+          "revisit_m": [
+            "M29",
+            "M32",
+            "M09"
+          ],
+          "early_lo": [
+            "LO-W04"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "möchten",
+            "lieber",
+            "nur",
+            "wählen",
+            "immer",
+            "nie"
+          ],
+          "lex_R": [
+            "ich hätte gern …",
+            "gefallen"
+          ],
+          "day": 30,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3c",
+          "slot": 2,
+          "unit_start": [
+            "P3c-04",
+            "P3c-05"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M43",
+            "M34"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [
+            "LO-R05"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "mögen",
+            "oder",
+            "mehr",
+            "spielen",
+            "oft"
+          ],
+          "lex_R": [
+            "könnte ich …?",
+            "am liebsten"
+          ],
+          "day": 31,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3c",
+          "slot": 3,
+          "unit_start": [
+            "P3c-06",
+            "P3c-07"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M46",
+            "M16",
+            "M28"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M21"
+          ],
+          "early_lo": [
+            "LO-R06"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "gern",
+            "auch",
+            "weniger",
+            "lernen",
+            "manchmal"
+          ],
+          "lex_R": [
+            "genug",
+            "die Freizeit"
+          ],
+          "day": 32,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4a",
+          "slot": 1,
+          "unit_start": [
+            "P4a-01",
+            "P4a-02"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G34",
+            "G26"
+          ],
+          "first_p": [
+            "M16",
+            "M28"
+          ],
+          "revisit_m": [
+            "M10",
+            "M15",
+            "M13"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "größer",
+            "schlechter",
+            "aber",
+            "zuerst",
+            "genau"
+          ],
+          "lex_R": [
+            "die Jacke",
+            "die Größe",
+            "wie lange",
+            "bis",
+            "braun",
+            "die Socke",
+            "heiß",
+            "der Grad",
+            "vorher",
+            "weniger als"
+          ],
+          "day": 33,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4a",
+          "slot": 2,
+          "unit_start": [
+            "P4a-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M27"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M18"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "kleiner",
+            "als",
+            "dann",
+            "anders"
+          ],
+          "lex_R": [
+            "die Hose",
+            "die Farbe",
+            "seit",
+            "gelb",
+            "der Pullover",
+            "eng",
+            "kühl",
+            "der Himmel",
+            "nachher"
+          ],
+          "day": 34,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4a",
+          "slot": 3,
+          "unit_start": [
+            "P4a-04"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G31"
+          ],
+          "first_p": [],
+          "revisit_m": [
+            "M22"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "besser",
+            "und",
+            "danach",
+            "richtig"
+          ],
+          "lex_R": [
+            "die Schuhe",
+            "die Kleidung",
+            "bis wann",
+            "grau",
+            "der Mantel",
+            "bewölkt",
+            "schneien",
+            "ungefähr",
+            "mehr als"
+          ],
+          "day": 35,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4b",
+          "slot": 1,
+          "unit_start": [
+            "P4b-01"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M44"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M42",
+            "M43"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "die Nachricht",
+            "die Antwort",
+            "Deutsch",
+            "der Text"
+          ],
+          "lex_R": [
+            "die Postleitzahl",
+            "die Unterschrift",
+            "die Öffnungszeit",
+            "die Schule",
+            "das Geschlecht",
+            "ankreuzen",
+            "der Familienstand",
+            "die Übung",
+            "der Fehler"
+          ],
+          "day": 36,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4b",
+          "slot": 2,
+          "unit_start": [
+            "P4b-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M36"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M05",
+            "M02"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "die Information",
+            "senden",
+            "verstehen"
+          ],
+          "lex_R": [
+            "der Geburtsort",
+            "das Formular",
+            "die Anmeldung",
+            "die Prüfung",
+            "der Wohnort",
+            "männlich",
+            "Bitte antworten",
+            "das Beispiel",
+            "die Seite"
+          ],
+          "day": 37,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4b",
+          "slot": 3,
+          "unit_start": [
+            "P4b-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M45"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M45"
+          ],
+          "revisit_m": [
+            "M41",
+            "M20"
+          ],
+          "early_lo": [
+            "LO-W06"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "die Frage",
+            "bekommen",
+            "das Wort"
+          ],
+          "lex_R": [
+            "die Staatsangehörigkeit",
+            "die E-Mail-Adresse",
+            "der Ausweis",
+            "geboren",
+            "die Hausnummer",
+            "weiblich",
+            "die Öffnungszeiten",
+            "die Lösung",
+            "wiederholen"
+          ],
+          "day": 38,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4c",
+          "slot": 1,
+          "unit_start": [
+            "P4c-01",
+            "P4c-02"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M34",
+            "M38"
+          ],
+          "revisit_m": [
+            "M30",
+            "M31",
+            "M25",
+            "M29"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [],
+          "lex_R": [
+            "der Absender",
+            "der Betreff",
+            "Liebe Grüße"
+          ],
+          "day": 39,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4c",
+          "slot": 2,
+          "unit_start": [
+            "P4c-03"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M46"
+          ],
+          "revisit_m": [
+            "M48",
+            "M37",
+            "M33"
+          ],
+          "early_lo": [
+            "LO-W07"
+          ],
+          "assess_lo": [],
+          "lex_A": [],
+          "lex_R": [
+            "der Empfänger",
+            "Viele Grüße"
+          ],
+          "day": 40,
+          "needs_contract": false
+        },
+        {
+          "stage": "P5",
+          "slot": 1,
+          "unit_start": [
+            "P5-01",
+            "P5-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M50",
+            "M51"
+          ],
+          "first_g": [
+            "G28",
+            "G29"
+          ],
+          "first_p": [
+            "M51"
+          ],
+          "revisit_m": [
+            "M49",
+            "M26",
+            "M11"
+          ],
+          "early_lo": [
+            "LO-W05"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "war",
+            "nächste Woche"
+          ],
+          "lex_R": [
+            "früher",
+            "der Plan",
+            "nächsten Monat"
+          ],
+          "day": 41,
+          "needs_contract": false
+        },
+        {
+          "stage": "P5",
+          "slot": 2,
+          "unit_start": [
+            "P5-03"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G30"
+          ],
+          "first_p": [],
+          "revisit_m": [
+            "M16",
+            "M15"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "habe gemacht",
+            "wieder"
+          ],
+          "lex_R": [
+            "schon",
+            "letztes Jahr",
+            "nächstes Jahr"
+          ],
+          "day": 42,
+          "needs_contract": false
+        },
+        {
+          "stage": "P5",
+          "slot": 3,
+          "unit_start": [
+            "P5-04",
+            "P5-05"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M52"
+          ],
+          "revisit_m": [
+            "M28",
+            "M25",
+            "M34",
+            "M36",
+            "M38"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "habe gefunden",
+            "planen"
+          ],
+          "lex_R": [
+            "noch nicht",
+            "letzten Montag",
+            "in einer Woche"
+          ],
+          "day": 43,
+          "needs_contract": false
+        },
+        {
+          "stage": "P5",
+          "slot": 4,
+          "unit_start": [
+            "P5-06"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M14",
+            "M53",
+            "M03"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "ist gekommen",
+            "bald"
+          ],
+          "lex_R": [
+            "das Ergebnis",
+            "vor einer Woche"
+          ],
+          "day": 44,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 1,
+          "unit_start": [
+            "P6-01",
+            "P6-02"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M39",
+            "M42",
+            "M55",
+            "M08",
+            "M44"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-R01",
+            "LO-R03",
+            "LO-R04",
+            "LO-R02"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 45,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 2,
+          "unit_start": [
+            "P6-03"
+          ],
+          "unit_activity": [
+            "P6-02"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M18",
+            "M54",
+            "M24",
+            "M23",
+            "M27"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-W03",
+            "LO-R05",
+            "LO-W04"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 46,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 3,
+          "unit_start": [
+            "P6-04"
+          ],
+          "unit_activity": [
+            "P6-03"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M36",
+            "M35",
+            "M31",
+            "M47",
+            "M50"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-R06",
+            "LO-W05"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 47,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 4,
+          "unit_start": [
+            "P6-05"
+          ],
+          "unit_activity": [
+            "P6-04"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M51",
+            "M52",
+            "M46",
+            "M48",
+            "M45"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-W01",
+            "LO-W02",
+            "LO-W06",
+            "LO-W07"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 48,
+          "needs_contract": false
+        }
+      ]
+    },
+    "baseline": {
+      "total_days": 65,
+      "stages": {
+        "P0": {
+          "lower_bound": 6,
+          "proposed_days": 9,
+          "lexical_only_days": 0
+        },
+        "P1": {
+          "lower_bound": 11,
+          "proposed_days": 13,
+          "lexical_only_days": 0
+        },
+        "P2a": {
+          "lower_bound": 4,
+          "proposed_days": 4,
+          "lexical_only_days": 0
+        },
+        "P2b": {
+          "lower_bound": 3,
+          "proposed_days": 3,
+          "lexical_only_days": 0
+        },
+        "P2c": {
+          "lower_bound": 4,
+          "proposed_days": 4,
+          "lexical_only_days": 0
+        },
+        "P3a": {
+          "lower_bound": 7,
+          "proposed_days": 7,
+          "lexical_only_days": 2
+        },
+        "P3b": {
+          "lower_bound": 2,
+          "proposed_days": 2,
+          "lexical_only_days": 0
+        },
+        "P3c": {
+          "lower_bound": 4,
+          "proposed_days": 4,
+          "lexical_only_days": 0
+        },
+        "P4a": {
+          "lower_bound": 4,
+          "proposed_days": 4,
+          "lexical_only_days": 0
+        },
+        "P4b": {
+          "lower_bound": 3,
+          "proposed_days": 3,
+          "lexical_only_days": 0
+        },
+        "P4c": {
+          "lower_bound": 2,
+          "proposed_days": 2,
+          "lexical_only_days": 0
+        },
+        "P5": {
+          "lower_bound": 4,
+          "proposed_days": 4,
+          "lexical_only_days": 0
+        },
+        "P6": {
+          "lower_bound": 5,
+          "proposed_days": 6,
+          "lexical_only_days": 0
+        }
+      },
+      "days": [
+        {
+          "stage": "P0",
+          "slot": 1,
+          "unit_start": [
+            "P0-01"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M01"
+          ],
+          "first_g": [
+            "G01"
+          ],
+          "first_p": [
+            "M01"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "Hallo",
+            "hier"
+          ],
+          "lex_R": [
+            "Guten Tag"
+          ],
+          "day": 1,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 2,
+          "unit_start": [
+            "P0-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M04"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M04"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "Tschüss",
+            "nehmen"
+          ],
+          "lex_R": [
+            "Auf Wiedersehen"
+          ],
+          "day": 2,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 3,
+          "unit_start": [
+            "P0-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M05"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M05"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "ja",
+            "geben"
+          ],
+          "lex_R": [
+            "nimm"
+          ],
+          "day": 3,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 4,
+          "unit_start": [
+            "P0-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M09"
+          ],
+          "first_g": [
+            "G09"
+          ],
+          "first_p": [
+            "M09"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "nein",
+            "kommen"
+          ],
+          "lex_R": [
+            "gib"
+          ],
+          "day": 4,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 5,
+          "unit_start": [
+            "P0-05"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M40"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "bitte",
+            "zeigen"
+          ],
+          "lex_R": [
+            "komm"
+          ],
+          "day": 5,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 6,
+          "unit_start": [
+            "P0-06"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M02",
+            "M03"
+          ],
+          "first_g": [
+            "G02"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "danke",
+            "Wie bitte?"
+          ],
+          "lex_R": [
+            "das"
+          ],
+          "day": 6,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 7,
+          "unit_start": [
+            "P0-07"
+          ],
+          "unit_activity": [
+            "P0-06"
+          ],
+          "first_m": [
+            "M06",
+            "M39"
+          ],
+          "first_g": [
+            "G03"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "Entschuldigung"
+          ],
+          "lex_R": [
+            "Guten Abend"
+          ],
+          "day": 7,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 8,
+          "unit_start": [
+            "P0-08"
+          ],
+          "unit_activity": [
+            "P0-07"
+          ],
+          "first_m": [
+            "M12"
+          ],
+          "first_g": [
+            "G06"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "noch einmal"
+          ],
+          "lex_R": [],
+          "day": 8,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 9,
+          "unit_start": [],
+          "unit_activity": [
+            "P0-08"
+          ],
+          "first_m": [],
+          "first_g": [
+            "G08"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "ich verstehe nicht"
+          ],
+          "lex_R": [],
+          "day": 9,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 1,
+          "unit_start": [
+            "P1-01"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M02"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "ich",
+            "wissen",
+            "arbeiten",
+            "fertig",
+            "das Essen"
+          ],
+          "lex_R": [
+            "wann",
+            "das Fieber"
+          ],
+          "day": 10,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 2,
+          "unit_start": [
+            "P1-02"
+          ],
+          "unit_activity": [
+            "P1-01"
+          ],
+          "first_m": [
+            "M07"
+          ],
+          "first_g": [
+            "G07"
+          ],
+          "first_p": [
+            "M03"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "du",
+            "nicht wissen",
+            "ist",
+            "kaputt",
+            "sagen"
+          ],
+          "lex_R": [
+            "woher",
+            "die Medizin"
+          ],
+          "day": 11,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 3,
+          "unit_start": [
+            "P1-03"
+          ],
+          "unit_activity": [
+            "P1-02"
+          ],
+          "first_m": [
+            "M10"
+          ],
+          "first_g": [
+            "G13"
+          ],
+          "first_p": [
+            "M07"
+          ],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "er",
+            "machen",
+            "hat",
+            "müde",
+            "noch"
+          ],
+          "lex_R": [
+            "warum",
+            "welche"
+          ],
+          "day": 12,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 4,
+          "unit_start": [
+            "P1-04"
+          ],
+          "unit_activity": [
+            "P1-03"
+          ],
+          "first_m": [
+            "M11"
+          ],
+          "first_g": [
+            "G12"
+          ],
+          "first_p": [
+            "M10"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "sie",
+            "gehen",
+            "kein",
+            "krank"
+          ],
+          "lex_R": [
+            "was bedeutet …?",
+            "die Speisekarte"
+          ],
+          "day": 13,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 5,
+          "unit_start": [
+            "P1-05"
+          ],
+          "unit_activity": [
+            "P1-04"
+          ],
+          "first_m": [],
+          "first_g": [
+            "G11"
+          ],
+          "first_p": [
+            "M11"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "wir",
+            "bringen",
+            "nicht",
+            "gesund"
+          ],
+          "lex_R": [
+            "warten",
+            "das Restaurant"
+          ],
+          "day": 14,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 6,
+          "unit_start": [
+            "P1-06"
+          ],
+          "unit_activity": [
+            "P1-05"
+          ],
+          "first_m": [
+            "M15"
+          ],
+          "first_g": [
+            "G04"
+          ],
+          "first_p": [
+            "M12"
+          ],
+          "revisit_m": [],
+          "early_lo": [
+            "LO-W02"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "sein",
+            "brauchen",
+            "gut",
+            "Hunger haben"
+          ],
+          "lex_R": [
+            "holen",
+            "satt"
+          ],
+          "day": 15,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 7,
+          "unit_start": [
+            "P1-07"
+          ],
+          "unit_activity": [
+            "P1-06"
+          ],
+          "first_m": [
+            "M29"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M15"
+          ],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "haben",
+            "helfen",
+            "schlecht",
+            "Durst haben"
+          ],
+          "lex_R": [
+            "bleiben"
+          ],
+          "day": 16,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 8,
+          "unit_start": [
+            "P1-08"
+          ],
+          "unit_activity": [
+            "P1-07"
+          ],
+          "first_m": [
+            "M32"
+          ],
+          "first_g": [
+            "G05"
+          ],
+          "first_p": [
+            "M29"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "heißen",
+            "finden",
+            "neu",
+            "weh tun"
+          ],
+          "lex_R": [
+            "sprechen"
+          ],
+          "day": 17,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 9,
+          "unit_start": [
+            "P1-09"
+          ],
+          "unit_activity": [
+            "P1-08"
+          ],
+          "first_m": [
+            "M41"
+          ],
+          "first_g": [
+            "G32"
+          ],
+          "first_p": [
+            "M32"
+          ],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "der Name",
+            "suchen",
+            "alt",
+            "die Hilfe"
+          ],
+          "lex_R": [
+            "leer"
+          ],
+          "day": 18,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 10,
+          "unit_start": [
+            "P1-10"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M17"
+          ],
+          "first_g": [
+            "G10"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "wer",
+            "öffnen",
+            "groß",
+            "der Termin"
+          ],
+          "lex_R": [
+            "voll"
+          ],
+          "day": 19,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 11,
+          "unit_start": [
+            "P1-11"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M19",
+            "M20"
+          ],
+          "first_g": [
+            "G25"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "was",
+            "schließen",
+            "klein",
+            "essen"
+          ],
+          "lex_R": [
+            "falsch"
+          ],
+          "day": 20,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 12,
+          "unit_start": [
+            "P1-12"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M47"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M47"
+          ],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [
+            "LO-W01"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "wo",
+            "lesen",
+            "offen",
+            "trinken"
+          ],
+          "lex_R": [
+            "es gibt"
+          ],
+          "day": 21,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 13,
+          "unit_start": [],
+          "unit_activity": [
+            "P1-12"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M06"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "wie",
+            "schreiben",
+            "zu",
+            "das Wasser"
+          ],
+          "lex_R": [
+            "die Schmerzen"
+          ],
+          "day": 22,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2a",
+          "slot": 1,
+          "unit_start": [
+            "P2a-01",
+            "P2a-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M13",
+            "M53"
+          ],
+          "first_g": [
+            "G14"
+          ],
+          "first_p": [
+            "M13"
+          ],
+          "revisit_m": [
+            "M09",
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "mein",
+            "mit",
+            "wohnen"
+          ],
+          "lex_R": [
+            "unser",
+            "diese",
+            "der Freund",
+            "das Kind",
+            "die Schwester",
+            "verheiratet",
+            "mich",
+            "euer",
+            "die Großmutter"
+          ],
+          "day": 23,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2a",
+          "slot": 2,
+          "unit_start": [
+            "P2a-03"
+          ],
+          "unit_activity": [
+            "P2a-02"
+          ],
+          "first_m": [
+            "M08"
+          ],
+          "first_g": [
+            "G15"
+          ],
+          "first_p": [],
+          "revisit_m": [
+            "M03",
+            "M01"
+          ],
+          "early_lo": [
+            "LO-R01"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "dein",
+            "zusammen",
+            "leben"
+          ],
+          "lex_R": [
+            "ihm",
+            "dieses",
+            "die Freundin",
+            "die Mutter",
+            "die Eltern",
+            "ledig",
+            "dich",
+            "seine",
+            "der Großvater"
+          ],
+          "day": 24,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2a",
+          "slot": 3,
+          "unit_start": [
+            "P2a-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M33"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M33"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "mir",
+            "allein"
+          ],
+          "lex_R": [
+            "ihnen",
+            "Sie (вежливо)",
+            "der Mann",
+            "der Vater",
+            "der Sohn",
+            "das Land",
+            "uns",
+            "ihre",
+            "der Ehemann"
+          ],
+          "day": 25,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2a",
+          "slot": 4,
+          "unit_start": [
+            "P2a-05"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M35"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M35"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "dir",
+            "ohne"
+          ],
+          "lex_R": [
+            "dieser",
+            "die Familie",
+            "die Frau",
+            "der Bruder",
+            "die Tochter",
+            "wie alt?",
+            "euch",
+            "die Geschwister",
+            "die Ehefrau"
+          ],
+          "day": 26,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2b",
+          "slot": 1,
+          "unit_start": [
+            "P2b-01",
+            "P2b-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M14",
+            "M21"
+          ],
+          "first_g": [
+            "G16"
+          ],
+          "first_p": [
+            "M14"
+          ],
+          "revisit_m": [
+            "M12",
+            "M04"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "in",
+            "neben",
+            "die Arbeit",
+            "beschäftigt"
+          ],
+          "lex_R": [
+            "im",
+            "dort",
+            "der Kopf",
+            "das Bein",
+            "oben",
+            "das Büro"
+          ],
+          "day": 27,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2b",
+          "slot": 2,
+          "unit_start": [
+            "P2b-03",
+            "P2b-04"
+          ],
+          "unit_activity": [
+            "P2b-02"
+          ],
+          "first_m": [
+            "M22"
+          ],
+          "first_g": [
+            "G18"
+          ],
+          "first_p": [
+            "M21",
+            "M20"
+          ],
+          "revisit_m": [
+            "M09",
+            "M40"
+          ],
+          "early_lo": [
+            "LO-R03"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "auf",
+            "vor",
+            "die Aufgabe",
+            "schlafen"
+          ],
+          "lex_R": [
+            "ins",
+            "liegen",
+            "der Bauch",
+            "die Toilette",
+            "unten",
+            "die Stelle"
+          ],
+          "day": 28,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2b",
+          "slot": 3,
+          "unit_start": [
+            "P2b-05",
+            "P2b-06"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G17"
+          ],
+          "first_p": [
+            "M17",
+            "M19"
+          ],
+          "revisit_m": [
+            "M10"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "unter",
+            "hinter",
+            "frei",
+            "das Haus"
+          ],
+          "lex_R": [
+            "da",
+            "kochen",
+            "die Hand",
+            "der Boden",
+            "die Firma",
+            "die Arbeitszeit"
+          ],
+          "day": 29,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2c",
+          "slot": 1,
+          "unit_start": [
+            "P2c-01",
+            "P2c-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M48",
+            "M49"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M48"
+          ],
+          "revisit_m": [
+            "M05",
+            "M03"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "links",
+            "aus",
+            "zwei",
+            "zehn",
+            "wenig",
+            "zurück"
+          ],
+          "lex_R": [
+            "wie viele",
+            "sechs",
+            "elf",
+            "der Platz",
+            "weit",
+            "vierzehn",
+            "achtzehn",
+            "vierzig",
+            "achtzig"
+          ],
+          "day": 30,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2c",
+          "slot": 2,
+          "unit_start": [
+            "P2c-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M18",
+            "M54"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "rechts",
+            "von",
+            "drei",
+            "zwanzig",
+            "wie viel"
+          ],
+          "lex_R": [
+            "die Nummer",
+            "sieben",
+            "zwölf",
+            "die Karte",
+            "vorne",
+            "fünfzehn",
+            "neunzehn",
+            "fünfzig",
+            "neunzig"
+          ],
+          "day": 31,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2c",
+          "slot": 3,
+          "unit_start": [
+            "P2c-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M23"
+          ],
+          "first_g": [
+            "G21"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "geradeaus",
+            "wohin",
+            "vier",
+            "hundert",
+            "schnell"
+          ],
+          "lex_R": [
+            "die Zahl",
+            "acht",
+            "die Tablette",
+            "die Ampel",
+            "hinten",
+            "sechzehn",
+            "einundzwanzig",
+            "sechzig",
+            "tausend"
+          ],
+          "day": 32,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2c",
+          "slot": 4,
+          "unit_start": [
+            "P2c-05"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M30"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M09"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "nach",
+            "eins",
+            "fünf",
+            "viel",
+            "langsam"
+          ],
+          "lex_R": [
+            "null",
+            "neun",
+            "die Apotheke",
+            "nah",
+            "dreizehn",
+            "siebzehn",
+            "dreißig",
+            "siebzig"
+          ],
+          "day": 33,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 1,
+          "unit_start": [
+            "P3a-01"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G19"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "jetzt",
+            "der Tag",
+            "die Zeit",
+            "der Preis",
+            "die Minute"
+          ],
+          "lex_R": [
+            "Montag",
+            "der Morgen",
+            "die Abfahrt",
+            "Mai",
+            "Dezember",
+            "die Uhrzeit",
+            "mit Karte",
+            "die S-Bahn",
+            "zu Fuß"
+          ],
+          "day": 34,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 2,
+          "unit_start": [
+            "P3a-02"
+          ],
+          "unit_activity": [
+            "P3a-01"
+          ],
+          "first_m": [
+            "M42"
+          ],
+          "first_g": [
+            "G20"
+          ],
+          "first_p": [
+            "M23"
+          ],
+          "revisit_m": [
+            "M41"
+          ],
+          "early_lo": [
+            "LO-R04"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "heute",
+            "die Woche",
+            "treffen",
+            "der Euro",
+            "das Wochenende"
+          ],
+          "lex_R": [
+            "Dienstag",
+            "der Abend",
+            "die Ankunft",
+            "Juni",
+            "die Nacht",
+            "erste",
+            "das Bargeld",
+            "der Flughafen"
+          ],
+          "day": 35,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 3,
+          "unit_start": [
+            "P3a-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M25"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M25"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "morgen",
+            "der Monat",
+            "Zeit haben",
+            "fahren",
+            "der Geburtstag"
+          ],
+          "lex_R": [
+            "Mittwoch",
+            "die Rechnung",
+            "telefonieren",
+            "Juli",
+            "der Mittag",
+            "zweite",
+            "die Kreditkarte",
+            "einsteigen"
+          ],
+          "day": 36,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 4,
+          "unit_start": [],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "gestern",
+            "das Jahr",
+            "keine Zeit haben",
+            "ankommen",
+            "Wie spät ist es?"
+          ],
+          "lex_R": [
+            "Donnerstag",
+            "geöffnet",
+            "Januar",
+            "August",
+            "der Nachmittag",
+            "dritte",
+            "das Fahrrad",
+            "aussteigen"
+          ],
+          "day": 37,
+          "needs_contract": true
+        },
+        {
+          "stage": "P3a",
+          "slot": 5,
+          "unit_start": [
+            "P3a-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M24"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M24"
+          ],
+          "revisit_m": [
+            "M07",
+            "M17"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "später",
+            "die Uhr",
+            "anfangen",
+            "abfahren"
+          ],
+          "lex_R": [
+            "Freitag",
+            "geschlossen",
+            "Februar",
+            "September",
+            "am Wochenende",
+            "der Vorschlag",
+            "das Auto",
+            "umsteigen"
+          ],
+          "day": 38,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 6,
+          "unit_start": [
+            "P3a-05"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M26"
+          ],
+          "first_g": [
+            "G27"
+          ],
+          "first_p": [
+            "M26"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "früh",
+            "um",
+            "aufhören",
+            "die Stunde"
+          ],
+          "lex_R": [
+            "Samstag",
+            "die Haltestelle",
+            "März",
+            "Oktober",
+            "halb",
+            "der Cent",
+            "das Flugzeug",
+            "die Verspätung"
+          ],
+          "day": 39,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 7,
+          "unit_start": [],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "spät",
+            "am",
+            "kosten",
+            "aufstehen"
+          ],
+          "lex_R": [
+            "Sonntag",
+            "die Fahrkarte",
+            "April",
+            "November",
+            "das Viertel",
+            "bar",
+            "die U-Bahn",
+            "pünktlich"
+          ],
+          "day": 40,
+          "needs_contract": true
+        },
+        {
+          "stage": "P3b",
+          "slot": 1,
+          "unit_start": [
+            "P3b-01",
+            "P3b-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M52"
+          ],
+          "first_g": [
+            "G22"
+          ],
+          "first_p": [
+            "M18",
+            "M54"
+          ],
+          "revisit_m": [
+            "M11",
+            "M20"
+          ],
+          "early_lo": [
+            "LO-R02",
+            "LO-W03"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "können",
+            "dürfen",
+            "sollen",
+            "nicht müssen"
+          ],
+          "lex_R": [
+            "erlaubt",
+            "doch",
+            "sofort"
+          ],
+          "day": 41,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3b",
+          "slot": 2,
+          "unit_start": [
+            "P3b-03",
+            "P3b-04"
+          ],
+          "unit_activity": [
+            "P3b-02"
+          ],
+          "first_m": [
+            "M37",
+            "M38"
+          ],
+          "first_g": [
+            "G24"
+          ],
+          "first_p": [
+            "M49",
+            "M37"
+          ],
+          "revisit_m": [
+            "M19",
+            "M04",
+            "M06"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "müssen",
+            "wollen",
+            "nicht dürfen",
+            "vielleicht"
+          ],
+          "lex_R": [
+            "verboten",
+            "man"
+          ],
+          "day": 42,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3c",
+          "slot": 1,
+          "unit_start": [
+            "P3c-01",
+            "P3c-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M31"
+          ],
+          "first_g": [
+            "G23"
+          ],
+          "first_p": [
+            "M30",
+            "M31"
+          ],
+          "revisit_m": [
+            "M29",
+            "M32"
+          ],
+          "early_lo": [
+            "LO-W04"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "möchten",
+            "oder",
+            "weniger",
+            "immer"
+          ],
+          "lex_R": [
+            "ich hätte gern …",
+            "am liebsten"
+          ],
+          "day": 43,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3c",
+          "slot": 2,
+          "unit_start": [
+            "P3c-03",
+            "P3c-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M55",
+            "M43"
+          ],
+          "first_g": [
+            "G33"
+          ],
+          "first_p": [],
+          "revisit_m": [
+            "M09"
+          ],
+          "early_lo": [
+            "LO-R05"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "mögen",
+            "auch",
+            "wählen",
+            "oft"
+          ],
+          "lex_R": [
+            "könnte ich …?",
+            "die Freizeit"
+          ],
+          "day": 44,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3c",
+          "slot": 3,
+          "unit_start": [
+            "P3c-05",
+            "P3c-06"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M34",
+            "M46"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "gern",
+            "nur",
+            "spielen",
+            "manchmal"
+          ],
+          "lex_R": [
+            "genug"
+          ],
+          "day": 45,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3c",
+          "slot": 4,
+          "unit_start": [
+            "P3c-07"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M16",
+            "M28"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M21"
+          ],
+          "early_lo": [
+            "LO-R06"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "lieber",
+            "mehr",
+            "lernen",
+            "nie"
+          ],
+          "lex_R": [
+            "gefallen"
+          ],
+          "day": 46,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4a",
+          "slot": 1,
+          "unit_start": [
+            "P4a-01"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G34"
+          ],
+          "first_p": [
+            "M16"
+          ],
+          "revisit_m": [
+            "M10",
+            "M15"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "größer",
+            "als",
+            "danach",
+            "genau"
+          ],
+          "lex_R": [
+            "die Jacke",
+            "die Farbe",
+            "bis wann",
+            "braun",
+            "eng",
+            "schneien",
+            "vorher"
+          ],
+          "day": 47,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4a",
+          "slot": 2,
+          "unit_start": [
+            "P4a-02"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G26"
+          ],
+          "first_p": [
+            "M28"
+          ],
+          "revisit_m": [
+            "M13"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "kleiner",
+            "und",
+            "zuerst"
+          ],
+          "lex_R": [
+            "die Hose",
+            "die Kleidung",
+            "bis",
+            "der Pullover",
+            "bewölkt",
+            "der Grad",
+            "nachher"
+          ],
+          "day": 48,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4a",
+          "slot": 3,
+          "unit_start": [
+            "P4a-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M27"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M18"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "besser",
+            "aber",
+            "anders"
+          ],
+          "lex_R": [
+            "die Schuhe",
+            "wie lange",
+            "gelb",
+            "der Mantel",
+            "heiß",
+            "der Himmel",
+            "mehr als"
+          ],
+          "day": 49,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4a",
+          "slot": 4,
+          "unit_start": [
+            "P4a-04"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G31"
+          ],
+          "first_p": [],
+          "revisit_m": [
+            "M22"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "schlechter",
+            "dann",
+            "richtig"
+          ],
+          "lex_R": [
+            "die Größe",
+            "seit",
+            "grau",
+            "die Socke",
+            "kühl",
+            "ungefähr",
+            "weniger als"
+          ],
+          "day": 50,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4b",
+          "slot": 1,
+          "unit_start": [
+            "P4b-01"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M44"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M42",
+            "M43"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "die Nachricht",
+            "die Antwort",
+            "Deutsch",
+            "der Text"
+          ],
+          "lex_R": [
+            "die Postleitzahl",
+            "die Unterschrift",
+            "die Öffnungszeit",
+            "die Schule",
+            "das Geschlecht",
+            "ankreuzen",
+            "der Familienstand",
+            "die Übung",
+            "der Fehler"
+          ],
+          "day": 51,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4b",
+          "slot": 2,
+          "unit_start": [
+            "P4b-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M36"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M05",
+            "M02"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "die Information",
+            "senden",
+            "verstehen"
+          ],
+          "lex_R": [
+            "der Geburtsort",
+            "das Formular",
+            "die Anmeldung",
+            "die Prüfung",
+            "der Wohnort",
+            "männlich",
+            "Bitte antworten",
+            "das Beispiel",
+            "die Seite"
+          ],
+          "day": 52,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4b",
+          "slot": 3,
+          "unit_start": [
+            "P4b-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M45"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M45"
+          ],
+          "revisit_m": [
+            "M41",
+            "M20"
+          ],
+          "early_lo": [
+            "LO-W06"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "die Frage",
+            "bekommen",
+            "das Wort"
+          ],
+          "lex_R": [
+            "die Staatsangehörigkeit",
+            "die E-Mail-Adresse",
+            "der Ausweis",
+            "geboren",
+            "die Hausnummer",
+            "weiblich",
+            "die Öffnungszeiten",
+            "die Lösung",
+            "wiederholen"
+          ],
+          "day": 53,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4c",
+          "slot": 1,
+          "unit_start": [
+            "P4c-01",
+            "P4c-02"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M34",
+            "M38"
+          ],
+          "revisit_m": [
+            "M30",
+            "M31",
+            "M25",
+            "M29"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [],
+          "lex_R": [
+            "der Absender",
+            "der Betreff",
+            "Liebe Grüße"
+          ],
+          "day": 54,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4c",
+          "slot": 2,
+          "unit_start": [
+            "P4c-03"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M46"
+          ],
+          "revisit_m": [
+            "M48",
+            "M37",
+            "M33"
+          ],
+          "early_lo": [
+            "LO-W07"
+          ],
+          "assess_lo": [],
+          "lex_A": [],
+          "lex_R": [
+            "der Empfänger",
+            "Viele Grüße"
+          ],
+          "day": 55,
+          "needs_contract": false
+        },
+        {
+          "stage": "P5",
+          "slot": 1,
+          "unit_start": [
+            "P5-01",
+            "P5-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M50",
+            "M51"
+          ],
+          "first_g": [
+            "G28"
+          ],
+          "first_p": [],
+          "revisit_m": [
+            "M49",
+            "M26",
+            "M11"
+          ],
+          "early_lo": [
+            "LO-W05"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "war",
+            "nächste Woche"
+          ],
+          "lex_R": [
+            "früher",
+            "der Plan",
+            "nächsten Monat"
+          ],
+          "day": 56,
+          "needs_contract": false
+        },
+        {
+          "stage": "P5",
+          "slot": 2,
+          "unit_start": [
+            "P5-03"
+          ],
+          "unit_activity": [
+            "P5-02"
+          ],
+          "first_m": [],
+          "first_g": [
+            "G29"
+          ],
+          "first_p": [
+            "M51"
+          ],
+          "revisit_m": [
+            "M16",
+            "M15"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "habe gemacht",
+            "wieder"
+          ],
+          "lex_R": [
+            "schon",
+            "letztes Jahr",
+            "nächstes Jahr"
+          ],
+          "day": 57,
+          "needs_contract": false
+        },
+        {
+          "stage": "P5",
+          "slot": 3,
+          "unit_start": [
+            "P5-04",
+            "P5-05"
+          ],
+          "unit_activity": [
+            "P5-03"
+          ],
+          "first_m": [],
+          "first_g": [
+            "G30"
+          ],
+          "first_p": [
+            "M52"
+          ],
+          "revisit_m": [
+            "M28",
+            "M25",
+            "M34",
+            "M36"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "habe gefunden",
+            "planen"
+          ],
+          "lex_R": [
+            "noch nicht",
+            "letzten Montag",
+            "in einer Woche"
+          ],
+          "day": 58,
+          "needs_contract": false
+        },
+        {
+          "stage": "P5",
+          "slot": 4,
+          "unit_start": [
+            "P5-06"
+          ],
+          "unit_activity": [
+            "P5-05"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M38",
+            "M14",
+            "M53",
+            "M03"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "ist gekommen",
+            "bald"
+          ],
+          "lex_R": [
+            "das Ergebnis",
+            "vor einer Woche"
+          ],
+          "day": 59,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 1,
+          "unit_start": [
+            "P6-01"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M39",
+            "M42",
+            "M55",
+            "M08"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-R01",
+            "LO-R03",
+            "LO-R04"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 60,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 2,
+          "unit_start": [
+            "P6-02"
+          ],
+          "unit_activity": [
+            "P6-01"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M44",
+            "M18",
+            "M54",
+            "M24"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-R02",
+            "LO-W03"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 61,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 3,
+          "unit_start": [
+            "P6-03"
+          ],
+          "unit_activity": [
+            "P6-02"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M23",
+            "M27",
+            "M36",
+            "M35"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-R05",
+            "LO-W04"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 62,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 4,
+          "unit_start": [
+            "P6-04"
+          ],
+          "unit_activity": [
+            "P6-03"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M31",
+            "M47",
+            "M50",
+            "M51"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-R06",
+            "LO-W05"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 63,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 5,
+          "unit_start": [
+            "P6-05"
+          ],
+          "unit_activity": [
+            "P6-04"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M52",
+            "M46",
+            "M48",
+            "M45"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-W01",
+            "LO-W02",
+            "LO-W06"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 64,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 6,
+          "unit_start": [],
+          "unit_activity": [
+            "P6-05"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-W07"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 65,
+          "needs_contract": false
+        }
+      ]
+    },
+    "gentle": {
+      "total_days": 83,
+      "stages": {
+        "P0": {
+          "lower_bound": 8,
+          "proposed_days": 9,
+          "lexical_only_days": 0
+        },
+        "P1": {
+          "lower_bound": 14,
+          "proposed_days": 14,
+          "lexical_only_days": 0
+        },
+        "P2a": {
+          "lower_bound": 6,
+          "proposed_days": 6,
+          "lexical_only_days": 1
+        },
+        "P2b": {
+          "lower_bound": 5,
+          "proposed_days": 5,
+          "lexical_only_days": 0
+        },
+        "P2c": {
+          "lower_bound": 6,
+          "proposed_days": 6,
+          "lexical_only_days": 1
+        },
+        "P3a": {
+          "lower_bound": 10,
+          "proposed_days": 10,
+          "lexical_only_days": 4
+        },
+        "P3b": {
+          "lower_bound": 4,
+          "proposed_days": 4,
+          "lexical_only_days": 0
+        },
+        "P3c": {
+          "lower_bound": 4,
+          "proposed_days": 4,
+          "lexical_only_days": 0
+        },
+        "P4a": {
+          "lower_bound": 5,
+          "proposed_days": 5,
+          "lexical_only_days": 1
+        },
+        "P4b": {
+          "lower_bound": 5,
+          "proposed_days": 5,
+          "lexical_only_days": 2
+        },
+        "P4c": {
+          "lower_bound": 3,
+          "proposed_days": 3,
+          "lexical_only_days": 0
+        },
+        "P5": {
+          "lower_bound": 5,
+          "proposed_days": 5,
+          "lexical_only_days": 0
+        },
+        "P6": {
+          "lower_bound": 7,
+          "proposed_days": 7,
+          "lexical_only_days": 0
+        }
+      },
+      "days": [
+        {
+          "stage": "P0",
+          "slot": 1,
+          "unit_start": [
+            "P0-01"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M01"
+          ],
+          "first_g": [
+            "G01"
+          ],
+          "first_p": [
+            "M01"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "Hallo",
+            "hier"
+          ],
+          "lex_R": [
+            "Guten Tag"
+          ],
+          "day": 1,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 2,
+          "unit_start": [
+            "P0-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M04"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M04"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "Tschüss",
+            "nehmen"
+          ],
+          "lex_R": [
+            "Auf Wiedersehen"
+          ],
+          "day": 2,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 3,
+          "unit_start": [
+            "P0-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M05"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M05"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "ja",
+            "geben"
+          ],
+          "lex_R": [
+            "nimm"
+          ],
+          "day": 3,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 4,
+          "unit_start": [
+            "P0-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M09"
+          ],
+          "first_g": [
+            "G09"
+          ],
+          "first_p": [
+            "M09"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "nein",
+            "kommen"
+          ],
+          "lex_R": [
+            "gib"
+          ],
+          "day": 4,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 5,
+          "unit_start": [
+            "P0-05"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M40"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "bitte",
+            "zeigen"
+          ],
+          "lex_R": [
+            "komm"
+          ],
+          "day": 5,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 6,
+          "unit_start": [
+            "P0-06"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M02",
+            "M03"
+          ],
+          "first_g": [
+            "G02"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "danke",
+            "Wie bitte?"
+          ],
+          "lex_R": [
+            "das"
+          ],
+          "day": 6,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 7,
+          "unit_start": [
+            "P0-07"
+          ],
+          "unit_activity": [
+            "P0-06"
+          ],
+          "first_m": [
+            "M06",
+            "M39"
+          ],
+          "first_g": [
+            "G03"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "Entschuldigung"
+          ],
+          "lex_R": [
+            "Guten Abend"
+          ],
+          "day": 7,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 8,
+          "unit_start": [
+            "P0-08"
+          ],
+          "unit_activity": [
+            "P0-07"
+          ],
+          "first_m": [
+            "M12"
+          ],
+          "first_g": [
+            "G06"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "noch einmal"
+          ],
+          "lex_R": [],
+          "day": 8,
+          "needs_contract": false
+        },
+        {
+          "stage": "P0",
+          "slot": 9,
+          "unit_start": [],
+          "unit_activity": [
+            "P0-08"
+          ],
+          "first_m": [],
+          "first_g": [
+            "G08"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "ich verstehe nicht"
+          ],
+          "lex_R": [],
+          "day": 9,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 1,
+          "unit_start": [
+            "P1-01"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M02"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "ich",
+            "nicht wissen",
+            "hat",
+            "krank"
+          ],
+          "lex_R": [
+            "wann",
+            "die Medizin"
+          ],
+          "day": 10,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 2,
+          "unit_start": [
+            "P1-02"
+          ],
+          "unit_activity": [
+            "P1-01"
+          ],
+          "first_m": [
+            "M07"
+          ],
+          "first_g": [
+            "G07"
+          ],
+          "first_p": [
+            "M03"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "du",
+            "machen",
+            "kein",
+            "gesund"
+          ],
+          "lex_R": [
+            "woher",
+            "welche"
+          ],
+          "day": 11,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 3,
+          "unit_start": [
+            "P1-03"
+          ],
+          "unit_activity": [
+            "P1-02"
+          ],
+          "first_m": [
+            "M10"
+          ],
+          "first_g": [
+            "G13"
+          ],
+          "first_p": [
+            "M07"
+          ],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "er",
+            "gehen",
+            "nicht",
+            "Hunger haben"
+          ],
+          "lex_R": [
+            "warum",
+            "die Speisekarte"
+          ],
+          "day": 12,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 4,
+          "unit_start": [
+            "P1-04"
+          ],
+          "unit_activity": [
+            "P1-03"
+          ],
+          "first_m": [
+            "M11"
+          ],
+          "first_g": [
+            "G12"
+          ],
+          "first_p": [
+            "M10"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "sie",
+            "bringen",
+            "gut",
+            "Durst haben"
+          ],
+          "lex_R": [
+            "was bedeutet …?",
+            "das Restaurant"
+          ],
+          "day": 13,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 5,
+          "unit_start": [
+            "P1-05"
+          ],
+          "unit_activity": [
+            "P1-04"
+          ],
+          "first_m": [],
+          "first_g": [
+            "G11"
+          ],
+          "first_p": [
+            "M11"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "wir",
+            "brauchen",
+            "schlecht",
+            "weh tun"
+          ],
+          "lex_R": [
+            "warten",
+            "satt"
+          ],
+          "day": 14,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 6,
+          "unit_start": [
+            "P1-06"
+          ],
+          "unit_activity": [
+            "P1-05"
+          ],
+          "first_m": [
+            "M15"
+          ],
+          "first_g": [
+            "G04"
+          ],
+          "first_p": [
+            "M12"
+          ],
+          "revisit_m": [],
+          "early_lo": [
+            "LO-W02"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "sein",
+            "helfen",
+            "neu",
+            "die Hilfe"
+          ],
+          "lex_R": [
+            "holen"
+          ],
+          "day": 15,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 7,
+          "unit_start": [],
+          "unit_activity": [
+            "P1-06"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M15"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "haben",
+            "finden",
+            "alt",
+            "der Termin"
+          ],
+          "lex_R": [
+            "bleiben"
+          ],
+          "day": 16,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 8,
+          "unit_start": [
+            "P1-07"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M29"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M29"
+          ],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "heißen",
+            "suchen",
+            "groß",
+            "essen"
+          ],
+          "lex_R": [
+            "sprechen"
+          ],
+          "day": 17,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 9,
+          "unit_start": [
+            "P1-08"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M32"
+          ],
+          "first_g": [
+            "G05"
+          ],
+          "first_p": [
+            "M32"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "der Name",
+            "öffnen",
+            "klein",
+            "trinken"
+          ],
+          "lex_R": [
+            "leer"
+          ],
+          "day": 18,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 10,
+          "unit_start": [
+            "P1-09"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M41"
+          ],
+          "first_g": [
+            "G32"
+          ],
+          "first_p": [],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "wer",
+            "schließen",
+            "offen",
+            "das Wasser"
+          ],
+          "lex_R": [
+            "voll"
+          ],
+          "day": 19,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 11,
+          "unit_start": [
+            "P1-10"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M17"
+          ],
+          "first_g": [
+            "G10"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "was",
+            "lesen",
+            "zu",
+            "das Essen"
+          ],
+          "lex_R": [
+            "falsch"
+          ],
+          "day": 20,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 12,
+          "unit_start": [
+            "P1-11"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M19",
+            "M20"
+          ],
+          "first_g": [
+            "G25"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "wo",
+            "schreiben",
+            "fertig",
+            "sagen"
+          ],
+          "lex_R": [
+            "es gibt"
+          ],
+          "day": 21,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 13,
+          "unit_start": [
+            "P1-12"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M47"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M47"
+          ],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [
+            "LO-W01"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "wie",
+            "arbeiten",
+            "kaputt",
+            "noch"
+          ],
+          "lex_R": [
+            "die Schmerzen"
+          ],
+          "day": 22,
+          "needs_contract": false
+        },
+        {
+          "stage": "P1",
+          "slot": 14,
+          "unit_start": [],
+          "unit_activity": [
+            "P1-12"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M06"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "wissen",
+            "ist",
+            "müde"
+          ],
+          "lex_R": [
+            "das Fieber"
+          ],
+          "day": 23,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2a",
+          "slot": 1,
+          "unit_start": [
+            "P2a-01"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M13"
+          ],
+          "first_g": [
+            "G14"
+          ],
+          "first_p": [
+            "M13"
+          ],
+          "revisit_m": [
+            "M09"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "mein",
+            "allein"
+          ],
+          "lex_R": [
+            "unser",
+            "Sie (вежливо)",
+            "das Kind",
+            "der Sohn",
+            "mich",
+            "ihre"
+          ],
+          "day": 24,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2a",
+          "slot": 2,
+          "unit_start": [
+            "P2a-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M53"
+          ],
+          "first_g": [
+            "G15"
+          ],
+          "first_p": [],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "dein",
+            "ohne"
+          ],
+          "lex_R": [
+            "ihm",
+            "die Familie",
+            "die Mutter",
+            "die Tochter",
+            "dich",
+            "die Geschwister"
+          ],
+          "day": 25,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2a",
+          "slot": 3,
+          "unit_start": [
+            "P2a-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M08"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M03",
+            "M01"
+          ],
+          "early_lo": [
+            "LO-R01"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "mir",
+            "wohnen"
+          ],
+          "lex_R": [
+            "ihnen",
+            "der Freund",
+            "der Vater",
+            "verheiratet",
+            "uns",
+            "die Großmutter"
+          ],
+          "day": 26,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2a",
+          "slot": 4,
+          "unit_start": [
+            "P2a-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M33"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M33"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "dir",
+            "leben"
+          ],
+          "lex_R": [
+            "dieser",
+            "die Freundin",
+            "der Bruder",
+            "ledig",
+            "euch",
+            "der Großvater"
+          ],
+          "day": 27,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2a",
+          "slot": 5,
+          "unit_start": [
+            "P2a-05"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M35"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M35"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "mit"
+          ],
+          "lex_R": [
+            "diese",
+            "der Mann",
+            "die Schwester",
+            "das Land",
+            "euer",
+            "der Ehemann"
+          ],
+          "day": 28,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2a",
+          "slot": 6,
+          "unit_start": [],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "zusammen"
+          ],
+          "lex_R": [
+            "dieses",
+            "die Frau",
+            "die Eltern",
+            "wie alt?",
+            "seine",
+            "die Ehefrau"
+          ],
+          "day": 29,
+          "needs_contract": true
+        },
+        {
+          "stage": "P2b",
+          "slot": 1,
+          "unit_start": [
+            "P2b-01",
+            "P2b-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M14",
+            "M21"
+          ],
+          "first_g": [
+            "G16"
+          ],
+          "first_p": [
+            "M14"
+          ],
+          "revisit_m": [
+            "M12",
+            "M04"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "in",
+            "hinter",
+            "schlafen"
+          ],
+          "lex_R": [
+            "im",
+            "kochen",
+            "die Toilette",
+            "das Büro"
+          ],
+          "day": 30,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2b",
+          "slot": 2,
+          "unit_start": [
+            "P2b-03"
+          ],
+          "unit_activity": [
+            "P2b-02"
+          ],
+          "first_m": [],
+          "first_g": [
+            "G18"
+          ],
+          "first_p": [
+            "M21"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "auf",
+            "die Arbeit",
+            "das Haus"
+          ],
+          "lex_R": [
+            "ins",
+            "der Kopf",
+            "der Boden",
+            "die Stelle"
+          ],
+          "day": 31,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2b",
+          "slot": 3,
+          "unit_start": [
+            "P2b-04"
+          ],
+          "unit_activity": [
+            "P2b-03"
+          ],
+          "first_m": [
+            "M22"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M20"
+          ],
+          "revisit_m": [
+            "M09",
+            "M40"
+          ],
+          "early_lo": [
+            "LO-R03"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "unter",
+            "die Aufgabe"
+          ],
+          "lex_R": [
+            "da",
+            "der Bauch",
+            "oben",
+            "die Arbeitszeit"
+          ],
+          "day": 32,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2b",
+          "slot": 4,
+          "unit_start": [
+            "P2b-05"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M17"
+          ],
+          "revisit_m": [
+            "M10"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "neben",
+            "frei"
+          ],
+          "lex_R": [
+            "dort",
+            "die Hand",
+            "unten"
+          ],
+          "day": 33,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2b",
+          "slot": 5,
+          "unit_start": [
+            "P2b-06"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G17"
+          ],
+          "first_p": [
+            "M19"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "vor",
+            "beschäftigt"
+          ],
+          "lex_R": [
+            "liegen",
+            "das Bein",
+            "die Firma"
+          ],
+          "day": 34,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2c",
+          "slot": 1,
+          "unit_start": [
+            "P2c-01"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M48"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M48"
+          ],
+          "revisit_m": [
+            "M05"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "links",
+            "wohin",
+            "zehn",
+            "schnell"
+          ],
+          "lex_R": [
+            "wie viele",
+            "acht",
+            "der Platz",
+            "hinten",
+            "achtzehn",
+            "sechzig"
+          ],
+          "day": 35,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2c",
+          "slot": 2,
+          "unit_start": [
+            "P2c-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M49"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M03"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "rechts",
+            "eins",
+            "zwanzig",
+            "langsam"
+          ],
+          "lex_R": [
+            "die Nummer",
+            "neun",
+            "die Karte",
+            "dreizehn",
+            "neunzehn",
+            "siebzig"
+          ],
+          "day": 36,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2c",
+          "slot": 3,
+          "unit_start": [
+            "P2c-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M18",
+            "M54"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M39"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "geradeaus",
+            "zwei",
+            "hundert",
+            "zurück"
+          ],
+          "lex_R": [
+            "die Zahl",
+            "elf",
+            "die Ampel",
+            "vierzehn",
+            "einundzwanzig",
+            "achtzig"
+          ],
+          "day": 37,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2c",
+          "slot": 4,
+          "unit_start": [
+            "P2c-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M23"
+          ],
+          "first_g": [
+            "G21"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "nach",
+            "drei",
+            "viel"
+          ],
+          "lex_R": [
+            "null",
+            "zwölf",
+            "nah",
+            "fünfzehn",
+            "dreißig",
+            "neunzig"
+          ],
+          "day": 38,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2c",
+          "slot": 5,
+          "unit_start": [
+            "P2c-05"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M30"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M09"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "aus",
+            "vier",
+            "wenig"
+          ],
+          "lex_R": [
+            "sechs",
+            "die Tablette",
+            "weit",
+            "sechzehn",
+            "vierzig",
+            "tausend"
+          ],
+          "day": 39,
+          "needs_contract": false
+        },
+        {
+          "stage": "P2c",
+          "slot": 6,
+          "unit_start": [],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "von",
+            "fünf",
+            "wie viel"
+          ],
+          "lex_R": [
+            "sieben",
+            "die Apotheke",
+            "vorne",
+            "siebzehn",
+            "fünfzig"
+          ],
+          "day": 40,
+          "needs_contract": true
+        },
+        {
+          "stage": "P3a",
+          "slot": 1,
+          "unit_start": [
+            "P3a-01"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G19"
+          ],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "jetzt",
+            "das Jahr",
+            "kosten",
+            "der Geburtstag"
+          ],
+          "lex_R": [
+            "Montag",
+            "geöffnet",
+            "April",
+            "der Mittag",
+            "der Cent",
+            "der Flughafen"
+          ],
+          "day": 41,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 2,
+          "unit_start": [],
+          "unit_activity": [
+            "P3a-01"
+          ],
+          "first_m": [],
+          "first_g": [
+            "G20"
+          ],
+          "first_p": [
+            "M23"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "heute",
+            "die Uhr",
+            "der Preis",
+            "Wie spät ist es?"
+          ],
+          "lex_R": [
+            "Dienstag",
+            "geschlossen",
+            "Mai",
+            "der Nachmittag",
+            "bar",
+            "einsteigen"
+          ],
+          "day": 42,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 3,
+          "unit_start": [
+            "P3a-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M42"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M41"
+          ],
+          "early_lo": [
+            "LO-R04"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "morgen",
+            "um",
+            "der Euro"
+          ],
+          "lex_R": [
+            "Mittwoch",
+            "die Haltestelle",
+            "Juni",
+            "am Wochenende",
+            "mit Karte",
+            "aussteigen"
+          ],
+          "day": 43,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 4,
+          "unit_start": [],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "gestern",
+            "am",
+            "fahren"
+          ],
+          "lex_R": [
+            "Donnerstag",
+            "die Fahrkarte",
+            "Juli",
+            "halb",
+            "das Bargeld",
+            "umsteigen"
+          ],
+          "day": 44,
+          "needs_contract": true
+        },
+        {
+          "stage": "P3a",
+          "slot": 5,
+          "unit_start": [
+            "P3a-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M25"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M25"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "später",
+            "die Zeit",
+            "ankommen"
+          ],
+          "lex_R": [
+            "Freitag",
+            "die Abfahrt",
+            "August",
+            "das Viertel",
+            "die Kreditkarte",
+            "die Verspätung"
+          ],
+          "day": 45,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 6,
+          "unit_start": [],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "früh",
+            "treffen",
+            "abfahren"
+          ],
+          "lex_R": [
+            "Samstag",
+            "die Ankunft",
+            "September",
+            "die Uhrzeit",
+            "das Fahrrad",
+            "pünktlich"
+          ],
+          "day": 46,
+          "needs_contract": true
+        },
+        {
+          "stage": "P3a",
+          "slot": 7,
+          "unit_start": [
+            "P3a-04"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M24"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M24"
+          ],
+          "revisit_m": [
+            "M07",
+            "M17"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "spät",
+            "Zeit haben",
+            "die Stunde"
+          ],
+          "lex_R": [
+            "Sonntag",
+            "telefonieren",
+            "Oktober",
+            "erste",
+            "das Auto",
+            "zu Fuß"
+          ],
+          "day": 47,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 8,
+          "unit_start": [],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "der Tag",
+            "keine Zeit haben",
+            "aufstehen"
+          ],
+          "lex_R": [
+            "der Morgen",
+            "Januar",
+            "November",
+            "zweite",
+            "das Flugzeug"
+          ],
+          "day": 48,
+          "needs_contract": true
+        },
+        {
+          "stage": "P3a",
+          "slot": 9,
+          "unit_start": [
+            "P3a-05"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M26"
+          ],
+          "first_g": [
+            "G27"
+          ],
+          "first_p": [
+            "M26"
+          ],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "die Woche",
+            "anfangen",
+            "die Minute"
+          ],
+          "lex_R": [
+            "der Abend",
+            "Februar",
+            "Dezember",
+            "dritte",
+            "die U-Bahn"
+          ],
+          "day": 49,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3a",
+          "slot": 10,
+          "unit_start": [],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "der Monat",
+            "aufhören",
+            "das Wochenende"
+          ],
+          "lex_R": [
+            "die Rechnung",
+            "März",
+            "die Nacht",
+            "der Vorschlag",
+            "die S-Bahn"
+          ],
+          "day": 50,
+          "needs_contract": true
+        },
+        {
+          "stage": "P3b",
+          "slot": 1,
+          "unit_start": [
+            "P3b-01"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G22"
+          ],
+          "first_p": [
+            "M18"
+          ],
+          "revisit_m": [
+            "M11"
+          ],
+          "early_lo": [
+            "LO-R02",
+            "LO-W03"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "können",
+            "sollen"
+          ],
+          "lex_R": [
+            "erlaubt",
+            "sofort"
+          ],
+          "day": 51,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3b",
+          "slot": 2,
+          "unit_start": [
+            "P3b-02"
+          ],
+          "unit_activity": [
+            "P3b-01"
+          ],
+          "first_m": [
+            "M52"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M54"
+          ],
+          "revisit_m": [
+            "M20"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "müssen",
+            "nicht dürfen"
+          ],
+          "lex_R": [
+            "verboten"
+          ],
+          "day": 52,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3b",
+          "slot": 3,
+          "unit_start": [
+            "P3b-03"
+          ],
+          "unit_activity": [
+            "P3b-02"
+          ],
+          "first_m": [
+            "M37"
+          ],
+          "first_g": [
+            "G24"
+          ],
+          "first_p": [
+            "M49"
+          ],
+          "revisit_m": [
+            "M19",
+            "M04"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "dürfen",
+            "nicht müssen"
+          ],
+          "lex_R": [
+            "doch"
+          ],
+          "day": 53,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3b",
+          "slot": 4,
+          "unit_start": [
+            "P3b-04"
+          ],
+          "unit_activity": [
+            "P3b-03"
+          ],
+          "first_m": [
+            "M38"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M37"
+          ],
+          "revisit_m": [
+            "M06"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "wollen",
+            "vielleicht"
+          ],
+          "lex_R": [
+            "man"
+          ],
+          "day": 54,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3c",
+          "slot": 1,
+          "unit_start": [
+            "P3c-01",
+            "P3c-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M31"
+          ],
+          "first_g": [
+            "G23"
+          ],
+          "first_p": [
+            "M30"
+          ],
+          "revisit_m": [
+            "M29",
+            "M32"
+          ],
+          "early_lo": [
+            "LO-W04"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "möchten",
+            "oder",
+            "weniger",
+            "immer"
+          ],
+          "lex_R": [
+            "ich hätte gern …",
+            "am liebsten"
+          ],
+          "day": 55,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3c",
+          "slot": 2,
+          "unit_start": [
+            "P3c-03",
+            "P3c-04"
+          ],
+          "unit_activity": [
+            "P3c-02"
+          ],
+          "first_m": [
+            "M55",
+            "M43"
+          ],
+          "first_g": [
+            "G33"
+          ],
+          "first_p": [
+            "M31"
+          ],
+          "revisit_m": [
+            "M09"
+          ],
+          "early_lo": [
+            "LO-R05"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "mögen",
+            "auch",
+            "wählen",
+            "oft"
+          ],
+          "lex_R": [
+            "könnte ich …?",
+            "die Freizeit"
+          ],
+          "day": 56,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3c",
+          "slot": 3,
+          "unit_start": [
+            "P3c-05",
+            "P3c-06"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M34",
+            "M46"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "gern",
+            "nur",
+            "spielen",
+            "manchmal"
+          ],
+          "lex_R": [
+            "genug"
+          ],
+          "day": 57,
+          "needs_contract": false
+        },
+        {
+          "stage": "P3c",
+          "slot": 4,
+          "unit_start": [
+            "P3c-07"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M16",
+            "M28"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M21"
+          ],
+          "early_lo": [
+            "LO-R06"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "lieber",
+            "mehr",
+            "lernen",
+            "nie"
+          ],
+          "lex_R": [
+            "gefallen"
+          ],
+          "day": 58,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4a",
+          "slot": 1,
+          "unit_start": [
+            "P4a-01"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G34"
+          ],
+          "first_p": [
+            "M16"
+          ],
+          "revisit_m": [
+            "M10",
+            "M15"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "größer",
+            "und",
+            "anders"
+          ],
+          "lex_R": [
+            "die Jacke",
+            "die Kleidung",
+            "gelb",
+            "die Socke",
+            "schneien",
+            "nachher"
+          ],
+          "day": 59,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4a",
+          "slot": 2,
+          "unit_start": [
+            "P4a-02"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G26"
+          ],
+          "first_p": [
+            "M28"
+          ],
+          "revisit_m": [
+            "M13"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "kleiner",
+            "aber",
+            "richtig"
+          ],
+          "lex_R": [
+            "die Hose",
+            "wie lange",
+            "grau",
+            "eng",
+            "der Grad",
+            "mehr als"
+          ],
+          "day": 60,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4a",
+          "slot": 3,
+          "unit_start": [
+            "P4a-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M27"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M18"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "besser",
+            "dann",
+            "genau"
+          ],
+          "lex_R": [
+            "die Schuhe",
+            "seit",
+            "braun",
+            "bewölkt",
+            "der Himmel",
+            "weniger als"
+          ],
+          "day": 61,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4a",
+          "slot": 4,
+          "unit_start": [
+            "P4a-04"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [
+            "G31"
+          ],
+          "first_p": [],
+          "revisit_m": [
+            "M22"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "schlechter",
+            "danach"
+          ],
+          "lex_R": [
+            "die Größe",
+            "bis wann",
+            "der Pullover",
+            "heiß",
+            "ungefähr"
+          ],
+          "day": 62,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4a",
+          "slot": 5,
+          "unit_start": [],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "als",
+            "zuerst"
+          ],
+          "lex_R": [
+            "die Farbe",
+            "bis",
+            "der Mantel",
+            "kühl",
+            "vorher"
+          ],
+          "day": 63,
+          "needs_contract": true
+        },
+        {
+          "stage": "P4b",
+          "slot": 1,
+          "unit_start": [
+            "P4b-01"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M44"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M42",
+            "M43"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "die Nachricht",
+            "bekommen"
+          ],
+          "lex_R": [
+            "die Postleitzahl",
+            "die E-Mail-Adresse",
+            "die Prüfung",
+            "ankreuzen",
+            "die Öffnungszeiten",
+            "die Seite"
+          ],
+          "day": 64,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4b",
+          "slot": 2,
+          "unit_start": [
+            "P4b-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M36"
+          ],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M05",
+            "M02"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "die Information",
+            "Deutsch"
+          ],
+          "lex_R": [
+            "der Geburtsort",
+            "die Öffnungszeit",
+            "geboren",
+            "männlich",
+            "die Übung",
+            "wiederholen"
+          ],
+          "day": 65,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4b",
+          "slot": 3,
+          "unit_start": [],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "die Frage",
+            "verstehen"
+          ],
+          "lex_R": [
+            "die Staatsangehörigkeit",
+            "die Anmeldung",
+            "das Geschlecht",
+            "weiblich",
+            "das Beispiel"
+          ],
+          "day": 66,
+          "needs_contract": true
+        },
+        {
+          "stage": "P4b",
+          "slot": 4,
+          "unit_start": [
+            "P4b-03"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M45"
+          ],
+          "first_g": [],
+          "first_p": [
+            "M45"
+          ],
+          "revisit_m": [
+            "M41",
+            "M20"
+          ],
+          "early_lo": [
+            "LO-W06"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "die Antwort",
+            "das Wort"
+          ],
+          "lex_R": [
+            "die Unterschrift",
+            "der Ausweis",
+            "der Wohnort",
+            "der Familienstand",
+            "die Lösung"
+          ],
+          "day": 67,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4b",
+          "slot": 5,
+          "unit_start": [],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "senden",
+            "der Text"
+          ],
+          "lex_R": [
+            "das Formular",
+            "die Schule",
+            "die Hausnummer",
+            "Bitte antworten",
+            "der Fehler"
+          ],
+          "day": 68,
+          "needs_contract": true
+        },
+        {
+          "stage": "P4c",
+          "slot": 1,
+          "unit_start": [
+            "P4c-01"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M34"
+          ],
+          "revisit_m": [
+            "M30",
+            "M31"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [],
+          "lex_R": [
+            "der Absender",
+            "Viele Grüße"
+          ],
+          "day": 69,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4c",
+          "slot": 2,
+          "unit_start": [
+            "P4c-02"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M38"
+          ],
+          "revisit_m": [
+            "M25",
+            "M29"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [],
+          "lex_R": [
+            "der Empfänger",
+            "Liebe Grüße"
+          ],
+          "day": 70,
+          "needs_contract": false
+        },
+        {
+          "stage": "P4c",
+          "slot": 3,
+          "unit_start": [
+            "P4c-03"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [
+            "M46"
+          ],
+          "revisit_m": [
+            "M48",
+            "M37",
+            "M33"
+          ],
+          "early_lo": [
+            "LO-W07"
+          ],
+          "assess_lo": [],
+          "lex_A": [],
+          "lex_R": [
+            "der Betreff"
+          ],
+          "day": 71,
+          "needs_contract": false
+        },
+        {
+          "stage": "P5",
+          "slot": 1,
+          "unit_start": [
+            "P5-01",
+            "P5-02"
+          ],
+          "unit_activity": [],
+          "first_m": [
+            "M50",
+            "M51"
+          ],
+          "first_g": [
+            "G28"
+          ],
+          "first_p": [],
+          "revisit_m": [
+            "M49",
+            "M26",
+            "M11"
+          ],
+          "early_lo": [
+            "LO-W05"
+          ],
+          "assess_lo": [],
+          "lex_A": [
+            "war",
+            "wieder"
+          ],
+          "lex_R": [
+            "früher",
+            "letztes Jahr",
+            "in einer Woche"
+          ],
+          "day": 72,
+          "needs_contract": false
+        },
+        {
+          "stage": "P5",
+          "slot": 2,
+          "unit_start": [
+            "P5-03"
+          ],
+          "unit_activity": [
+            "P5-02"
+          ],
+          "first_m": [],
+          "first_g": [
+            "G29"
+          ],
+          "first_p": [
+            "M51"
+          ],
+          "revisit_m": [
+            "M16",
+            "M15"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "habe gemacht",
+            "planen"
+          ],
+          "lex_R": [
+            "schon",
+            "letzten Montag"
+          ],
+          "day": 73,
+          "needs_contract": false
+        },
+        {
+          "stage": "P5",
+          "slot": 3,
+          "unit_start": [
+            "P5-04"
+          ],
+          "unit_activity": [
+            "P5-03"
+          ],
+          "first_m": [],
+          "first_g": [
+            "G30"
+          ],
+          "first_p": [
+            "M52"
+          ],
+          "revisit_m": [
+            "M28",
+            "M25"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "habe gefunden",
+            "bald"
+          ],
+          "lex_R": [
+            "noch nicht",
+            "vor einer Woche"
+          ],
+          "day": 74,
+          "needs_contract": false
+        },
+        {
+          "stage": "P5",
+          "slot": 4,
+          "unit_start": [
+            "P5-05"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M34",
+            "M36",
+            "M38"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "ist gekommen"
+          ],
+          "lex_R": [
+            "das Ergebnis",
+            "nächsten Monat"
+          ],
+          "day": 75,
+          "needs_contract": false
+        },
+        {
+          "stage": "P5",
+          "slot": 5,
+          "unit_start": [
+            "P5-06"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M14",
+            "M53",
+            "M03"
+          ],
+          "early_lo": [],
+          "assess_lo": [],
+          "lex_A": [
+            "nächste Woche"
+          ],
+          "lex_R": [
+            "der Plan",
+            "nächstes Jahr"
+          ],
+          "day": 76,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 1,
+          "unit_start": [
+            "P6-01"
+          ],
+          "unit_activity": [],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M39",
+            "M42",
+            "M55"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-R01",
+            "LO-R03"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 77,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 2,
+          "unit_start": [
+            "P6-02"
+          ],
+          "unit_activity": [
+            "P6-01"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M08",
+            "M44",
+            "M18"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-R04",
+            "LO-R02"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 78,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 3,
+          "unit_start": [
+            "P6-03"
+          ],
+          "unit_activity": [
+            "P6-02"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M54",
+            "M24",
+            "M23"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-W03",
+            "LO-R05"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 79,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 4,
+          "unit_start": [],
+          "unit_activity": [
+            "P6-02",
+            "P6-03"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M27",
+            "M36",
+            "M35"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-W04"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 80,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 5,
+          "unit_start": [
+            "P6-04"
+          ],
+          "unit_activity": [
+            "P6-03"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M31",
+            "M47",
+            "M50"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-R06",
+            "LO-W05"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 81,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 6,
+          "unit_start": [
+            "P6-05"
+          ],
+          "unit_activity": [
+            "P6-04"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M51",
+            "M52",
+            "M46"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-W01",
+            "LO-W02"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 82,
+          "needs_contract": false
+        },
+        {
+          "stage": "P6",
+          "slot": 7,
+          "unit_start": [],
+          "unit_activity": [
+            "P6-05"
+          ],
+          "first_m": [],
+          "first_g": [],
+          "first_p": [],
+          "revisit_m": [
+            "M48",
+            "M45"
+          ],
+          "early_lo": [],
+          "assess_lo": [
+            "LO-W06",
+            "LO-W07"
+          ],
+          "lex_A": [],
+          "lex_R": [],
+          "day": 83,
+          "needs_contract": false
+        }
+      ]
+    }
+  }
+}
