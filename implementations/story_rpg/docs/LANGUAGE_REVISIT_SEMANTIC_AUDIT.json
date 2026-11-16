@@ -7,7 +7,7 @@
     "A valid revisit requires a meaningful second encounter that actually needs the target communication function, not merely shared vocabulary or another grammatical form.",
     "A new candidate language-only contrast may support a weak return, but it is not a new mandatory story event or user-visible lesson by default.",
     "Do not require a player to fake misunderstanding (M05) merely to tick a repetition counter.",
-    "This audit does not remove any M, G, LO or older proposal. Weak links remain visible for revision."
+    "The main A/B pair is not a comprehensive demonstration of every reused skill in the unit. A missing M from that pair is NOT independently a defect or a mandatory remediation; old candidates stay archived for optional future evidence."
   ],
   "entries": [
     {
@@ -1021,7 +1021,8 @@
       "muss",
       "nehme"
     ],
-    "repair_f1_status": "nonbinding_language_form_candidate_requires_morphology_review"
+    "repair_f1_status": "nonbinding_language_form_candidate_requires_morphology_review",
+    "interpretation": "40 missing from the main A/B does not mean 40 missing learning opportunities. The 36 extra pairs and 4 conditional proposals are nonbinding archive, not new backlog. Verify actual reuse only when an independently identified learner-facing failure exists."
   },
   "revision_history": [
     {
