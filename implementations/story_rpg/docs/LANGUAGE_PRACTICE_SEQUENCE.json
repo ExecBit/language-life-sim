@@ -112,7 +112,15 @@
       }
     },
     "total_candidate_lexemes": 96,
-    "overloaded_composite_units": []
+    "overloaded_composite_units": [],
+    "targets": {
+      "M_required_intro_count": 55,
+      "M_production_count": 42,
+      "grammar_count": 34,
+      "planned_return_count": 55,
+      "LO_count": 13,
+      "estimated_word_inventory_candidate_only": 96
+    }
   },
   "units": [
     {
@@ -274,7 +282,7 @@
       "existing_support": [],
       "new_required_meanings": 1,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
       "revisits_in_new_context": 0,
@@ -550,7 +558,7 @@
       "existing_support": [],
       "new_required_meanings": 2,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 2,
       "revisits_in_new_context": 0,
@@ -679,7 +687,7 @@
       "existing_support": [],
       "new_required_meanings": 1,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
       "revisits_in_new_context": 0,
@@ -815,7 +823,7 @@
       "existing_support": [],
       "new_required_meanings": 1,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 0,
       "revisits_in_new_context": 1,
@@ -999,7 +1007,7 @@
       "existing_support": [],
       "new_required_meanings": 1,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
       "revisits_in_new_context": 1,
@@ -1108,8 +1116,10 @@
       "id": "LU23",
       "horizon": "P2",
       "microstep": "P2c",
-      "focus": "Передача информации",
-      "first_R": [],
+      "focus": "Принять и передать сведения без подсказки ответа",
+      "first_R": [
+        "M48"
+      ],
       "first_P": [
         "M33",
         "M48"
@@ -1124,10 +1134,10 @@
       "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
       "status": "candidate_language_unit_not_lesson_or_plot",
       "existing_support": [],
-      "new_required_meanings": 0,
+      "new_required_meanings": 1,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 0,
-      "independent_R_facts": 0,
+      "independent_R_facts": 1,
       "independent_P_intents": 2,
       "revisits_in_new_context": 1,
       "new_MR_names": [],
@@ -1150,8 +1160,7 @@
       "focus": "Желание и занятия",
       "first_R": [
         "M30",
-        "M33",
-        "M48"
+        "M33"
       ],
       "first_P": [],
       "new_grammar_R": [],
@@ -1162,7 +1171,7 @@
       "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
       "status": "candidate_language_unit_not_lesson_or_plot",
       "existing_support": [],
-      "new_required_meanings": 3,
+      "new_required_meanings": 2,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
@@ -1396,7 +1405,7 @@
       "existing_support": [],
       "new_required_meanings": 2,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 0,
       "revisits_in_new_context": 1,
@@ -1487,7 +1496,7 @@
       "existing_support": [],
       "new_required_meanings": 2,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 0,
       "revisits_in_new_context": 1,
@@ -1750,7 +1759,7 @@
       "existing_support": [],
       "new_required_meanings": 0,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 0,
       "independent_R_facts": 0,
       "independent_P_intents": 1,
       "revisits_in_new_context": 3,
@@ -2084,7 +2093,7 @@
       "existing_support": [],
       "new_required_meanings": 0,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 0,
       "independent_R_facts": 0,
       "independent_P_intents": 1,
       "revisits_in_new_context": 2,
@@ -2366,5 +2375,14 @@
       "candidate_new_lexemes": [],
       "candidate_reused_lexemes": []
     }
-  ]
+  ],
+  "methodology": {
+    "first_R": "Первая необходимая рецепция функции; не равно выучено",
+    "first_P": "Первое самостоятельное выражение смысла, а не предъявленный текст",
+    "grammar_R": "Первая значимая грамматическая форма, не заявленное продуктивное владение",
+    "revisit": "Только запланированный возврат; содержательный контраст каждой пары ещё подлежит проверке",
+    "weighting": "Отдельные оси считать, но не суммировать в научный балл без калибровки",
+    "word_inventory": "96 иллюстративных кандидатов не заменяют 29 тематических групп и не составляют полного F1",
+    "stage_counts": "Количество LU — язык/практика, не игровые дни, квесты или количество занятий"
+  }
 }
