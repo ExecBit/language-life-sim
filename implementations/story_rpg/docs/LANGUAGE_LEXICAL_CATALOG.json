@@ -1,5 +1,5 @@
 {
-  "version": "1.3",
+  "version": "1.4",
   "status": "independent_expanded_A1_functional_lexical_program_not_verified_F1",
   "source": "LANGUAGE_LEXICON.md section 2, 29 topic groups; NOT ACT authored dialogue corpus",
   "validation": {
@@ -21825,5 +21825,596 @@
     "placeholders": 1,
     "unresolved_forms": 0,
     "status": "expanded_lexical_scope_static_check_not_F1_ui"
+  },
+  "lexical_competency_contracts": [
+    {
+      "id": "L01",
+      "goal": "Контакт, ответ и непонимание",
+      "horizon": "P0",
+      "functions": [
+        "M01",
+        "M04",
+        "M05"
+      ],
+      "receptive_support": [
+        "Hallo",
+        "Tschüss",
+        "ja",
+        "nein"
+      ],
+      "productive_support": [
+        "ich verstehe nicht",
+        "noch einmal"
+      ],
+      "semantic_acceptance_rule_ru": "Новичок различает приветствие/прощание и вправе запросить повтор без притворного непонимания.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L02",
+      "goal": "Предмет, инструкция, просьба",
+      "horizon": "P0",
+      "functions": [
+        "M09",
+        "M12",
+        "M40"
+      ],
+      "receptive_support": [
+        "nimm",
+        "gib",
+        "komm"
+      ],
+      "productive_support": [
+        "nehmen",
+        "geben",
+        "hier"
+      ],
+      "semantic_acceptance_rule_ru": "Предмет и действие меняют требуемый смысл; названия предметов — открытая заменяемая группа.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L03",
+      "goal": "Лицо, имя и вопрос",
+      "horizon": "P1",
+      "functions": [
+        "M02",
+        "M03",
+        "M07"
+      ],
+      "receptive_support": [
+        "ich",
+        "du",
+        "wer"
+      ],
+      "productive_support": [
+        "heißen",
+        "der Name",
+        "was"
+      ],
+      "semantic_acceptance_rule_ru": "Самостоятельное представление и вопрос о неизвестном факте.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L04",
+      "goal": "Наличие, отрицание, состояние",
+      "horizon": "P1",
+      "functions": [
+        "M10",
+        "M11",
+        "M15"
+      ],
+      "receptive_support": [
+        "kein",
+        "nicht",
+        "es gibt"
+      ],
+      "productive_support": [
+        "sein",
+        "haben",
+        "offen"
+      ],
+      "semantic_acceptance_rule_ru": "Наличие противопоставлено отсутствию; состояние не угадывается без немецкого.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L05",
+      "goal": "Самочувствие и потребности",
+      "horizon": "P1",
+      "functions": [
+        "M29",
+        "M30",
+        "M32"
+      ],
+      "receptive_support": [
+        "müde",
+        "krank",
+        "Durst haben"
+      ],
+      "productive_support": [
+        "brauchen",
+        "helfen",
+        "trinken"
+      ],
+      "semantic_acceptance_rule_ru": "Самостоятельная потребность/просьба при доступном бытовом словаре.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L06",
+      "goal": "Место и направление",
+      "horizon": "P2",
+      "functions": [
+        "M19",
+        "M20",
+        "M21",
+        "M22"
+      ],
+      "receptive_support": [
+        "im",
+        "ins",
+        "liegen"
+      ],
+      "productive_support": [
+        "wohin",
+        "links",
+        "rechts"
+      ],
+      "semantic_acceptance_rule_ru": "Различить где находится предмет и куда его нужно перенести.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L07",
+      "goal": "Принадлежность и личные связи",
+      "horizon": "P2",
+      "functions": [
+        "M13",
+        "M14",
+        "M36"
+      ],
+      "receptive_support": [
+        "die Mutter",
+        "der Bruder",
+        "die Schwester"
+      ],
+      "productive_support": [
+        "mein",
+        "dein",
+        "dir"
+      ],
+      "semantic_acceptance_rule_ru": "Кто кому родственник и кому адресовано действие; личные связи прежде всего R.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L08",
+      "goal": "Количество и составные числа",
+      "horizon": "P2",
+      "functions": [
+        "M17",
+        "M42"
+      ],
+      "receptive_support": [
+        "dreizehn",
+        "einundzwanzig",
+        "fünfzig",
+        "tausend"
+      ],
+      "productive_support": [
+        "eins",
+        "zwei",
+        "wie viel"
+      ],
+      "semantic_acceptance_rule_ru": "Числа 13–19, десятки и сложные числа осознаются как группы и правила, а не десятки независимых обязательных уроков.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L09",
+      "goal": "Личные сведения и место проживания",
+      "horizon": "P2",
+      "functions": [
+        "M02",
+        "M35"
+      ],
+      "receptive_support": [
+        "das Land",
+        "die Stadt",
+        "geboren"
+      ],
+      "productive_support": [
+        "wohnen",
+        "leben",
+        "heißen"
+      ],
+      "semantic_acceptance_rule_ru": "Вопрос о себе/другом не должен требовать неизвестных фактов о героях.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L10",
+      "goal": "Время, календарь и дата",
+      "horizon": "P3",
+      "functions": [
+        "M23",
+        "M24",
+        "M42"
+      ],
+      "receptive_support": [
+        "Januar",
+        "Dezember",
+        "halb",
+        "erste"
+      ],
+      "productive_support": [
+        "die Minute",
+        "die Stunde",
+        "das Wochenende"
+      ],
+      "semantic_acceptance_rule_ru": "Отличить время, дату, день недели и порядок; все месяцы доступны в F1, не требуют немедленного активного воспроизведения.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L11",
+      "goal": "Обязанность, запрет, отсутствие необходимости",
+      "horizon": "P3",
+      "functions": [
+        "M18",
+        "M54"
+      ],
+      "receptive_support": [
+        "müssen",
+        "dürfen",
+        "nicht dürfen"
+      ],
+      "productive_support": [
+        "müssen",
+        "nicht müssen",
+        "können"
+      ],
+      "semantic_acceptance_rule_ru": "Nicht müssen и nicht dürfen не считаются синонимами.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L12",
+      "goal": "Желания, интересы и выбор",
+      "horizon": "P3",
+      "functions": [
+        "M31",
+        "M34",
+        "M38"
+      ],
+      "receptive_support": [
+        "mögen",
+        "gern",
+        "lieber"
+      ],
+      "productive_support": [
+        "möchten",
+        "gern",
+        "lieber"
+      ],
+      "semantic_acceptance_rule_ru": "Функции выбора требуют самостоятельного предпочтения, не набора конкретных хобби.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L13",
+      "goal": "Цена, деньги и покупки",
+      "horizon": "P3",
+      "functions": [
+        "M17",
+        "M30",
+        "M31"
+      ],
+      "receptive_support": [
+        "der Euro",
+        "der Cent",
+        "die Rechnung"
+      ],
+      "productive_support": [
+        "kosten",
+        "der Preis",
+        "wie viel"
+      ],
+      "semantic_acceptance_rule_ru": "Смысл цен и количества доступен даже без торгового сюжета; не считать покупку обязательной сценой.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L14",
+      "goal": "Расписание, транспорт и ориентирование",
+      "horizon": "P3",
+      "functions": [
+        "M21",
+        "M23",
+        "M24"
+      ],
+      "receptive_support": [
+        "die Abfahrt",
+        "die Ankunft",
+        "die Verspätung"
+      ],
+      "productive_support": [
+        "fahren",
+        "ankommen",
+        "abfahren"
+      ],
+      "semantic_acceptance_rule_ru": "Понять расписание, время и направление, не вводя обязательный транспортный квест.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L15",
+      "goal": "Повседневные активности и отдых",
+      "horizon": "P3",
+      "functions": [
+        "M25",
+        "M33",
+        "M34"
+      ],
+      "receptive_support": [
+        "der Film",
+        "die Musik",
+        "die Freizeit"
+      ],
+      "productive_support": [
+        "spielen",
+        "lernen",
+        "oft"
+      ],
+      "semantic_acceptance_rule_ru": "Тематические слова — свободный выбор, но частота и предпочтение — переносимые смыслы.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L16",
+      "goal": "Анкеты и обозначения полей",
+      "horizon": "P4",
+      "functions": [
+        "M42",
+        "M45"
+      ],
+      "receptive_support": [
+        "der Vorname",
+        "der Nachname",
+        "das Geburtsdatum",
+        "ankreuzen"
+      ],
+      "productive_support": [
+        "der Name",
+        "die Adresse",
+        "das Datum"
+      ],
+      "semantic_acceptance_rule_ru": "Подсказка поля не подставляет готовое содержимое ответа; незнакомые формулировки можно найти в F1.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L17",
+      "goal": "Короткие сообщения, обращение и ответ",
+      "horizon": "P4",
+      "functions": [
+        "M41",
+        "M43",
+        "M44",
+        "M46",
+        "M47"
+      ],
+      "receptive_support": [
+        "der Absender",
+        "der Betreff",
+        "Viele Grüße",
+        "die Öffnungszeiten"
+      ],
+      "productive_support": [
+        "die Nachricht",
+        "senden",
+        "die Antwort"
+      ],
+      "semantic_acceptance_rule_ru": "Прочитать отправителя, просьбу, время и намерение; причинность не выдумывается из контекста.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L18",
+      "goal": "Сравнение, цвет и описание",
+      "horizon": "P4",
+      "functions": [
+        "M10",
+        "M16",
+        "M28",
+        "M38"
+      ],
+      "receptive_support": [
+        "gelb",
+        "grau",
+        "die Größe"
+      ],
+      "productive_support": [
+        "größer",
+        "kleiner",
+        "als",
+        "aber"
+      ],
+      "semantic_acceptance_rule_ru": "Сравнение меняет результат; оттенки и одежда не становятся 12 обязательными новыми словами.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L19",
+      "goal": "Объявления и погода",
+      "horizon": "P4",
+      "functions": [
+        "M15",
+        "M41"
+      ],
+      "receptive_support": [
+        "geöffnet",
+        "geschlossen",
+        "bewölkt"
+      ],
+      "productive_support": [
+        "das Wetter",
+        "regnen",
+        "kalt"
+      ],
+      "semantic_acceptance_rule_ru": "Короткое сообщение должно давать сведения, которых нет в русской метке.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L20",
+      "goal": "Учёба и инструкция в тексте",
+      "horizon": "P4",
+      "functions": [
+        "M43",
+        "M45"
+      ],
+      "receptive_support": [
+        "die Übung",
+        "das Beispiel",
+        "der Fehler"
+      ],
+      "productive_support": [
+        "Deutsch",
+        "verstehen",
+        "der Text"
+      ],
+      "semantic_acceptance_rule_ru": "Распознавать задания, указания и короткие тексты, не превращая игру в школьный тренажёр.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L21",
+      "goal": "Прошлый факт и результат",
+      "horizon": "P5",
+      "functions": [
+        "M49",
+        "M50",
+        "M51"
+      ],
+      "receptive_support": [
+        "war",
+        "früher",
+        "das Ergebnis"
+      ],
+      "productive_support": [
+        "war",
+        "habe gemacht",
+        "habe gefunden"
+      ],
+      "semantic_acceptance_rule_ru": "Сообщить простой завершённый факт; точность всей парадигмы Perfekt не обязательна.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    },
+    {
+      "id": "L22",
+      "goal": "Будущий план и связанный текст",
+      "horizon": "P5",
+      "functions": [
+        "M26",
+        "M52",
+        "M53"
+      ],
+      "receptive_support": [
+        "nächste Woche",
+        "nächsten Monat",
+        "bald"
+      ],
+      "productive_support": [
+        "nächste Woche",
+        "planen",
+        "und",
+        "dann"
+      ],
+      "semantic_acceptance_rule_ru": "Составить несколько собственных пунктов в свободном вводе, не копируя готовый образец.",
+      "status": "normative_semantic_scope_not_executable_assessment"
+    }
+  ],
+  "goethe_a1_theme_coverage": [
+    {
+      "domain_ru": "Личные сведения и отношения",
+      "group_ids": [
+        3,
+        9,
+        13,
+        22
+      ],
+      "scope": "functionally_supported_candidate_not_word_for_word_Goethe_list_equivalence"
+    },
+    {
+      "domain_ru": "Жильё и быт",
+      "group_ids": [
+        2,
+        5,
+        10
+      ],
+      "scope": "functionally_supported_candidate_not_word_for_word_Goethe_list_equivalence"
+    },
+    {
+      "domain_ru": "Окружающий мир и погода",
+      "group_ids": [
+        24,
+        25
+      ],
+      "scope": "functionally_supported_candidate_not_word_for_word_Goethe_list_equivalence"
+    },
+    {
+      "domain_ru": "Поездки и транспорт",
+      "group_ids": [
+        11,
+        21
+      ],
+      "scope": "functionally_supported_candidate_not_word_for_word_Goethe_list_equivalence"
+    },
+    {
+      "domain_ru": "Еда и напитки",
+      "group_ids": [
+        7,
+        8
+      ],
+      "scope": "functionally_supported_candidate_not_word_for_word_Goethe_list_equivalence"
+    },
+    {
+      "domain_ru": "Покупки, товары, одежда",
+      "group_ids": [
+        19,
+        24
+      ],
+      "scope": "functionally_supported_candidate_not_word_for_word_Goethe_list_equivalence"
+    },
+    {
+      "domain_ru": "Услуги и публичные учреждения",
+      "group_ids": [
+        22,
+        23
+      ],
+      "scope": "functionally_supported_candidate_not_word_for_word_Goethe_list_equivalence"
+    },
+    {
+      "domain_ru": "Учёба и языковая информация",
+      "group_ids": [
+        4,
+        26
+      ],
+      "scope": "functionally_supported_candidate_not_word_for_word_Goethe_list_equivalence"
+    },
+    {
+      "domain_ru": "Работа и профессии",
+      "group_ids": [
+        14,
+        18
+      ],
+      "scope": "functionally_supported_candidate_not_word_for_word_Goethe_list_equivalence"
+    },
+    {
+      "domain_ru": "Отдых и интересы",
+      "group_ids": [
+        17,
+        20
+      ],
+      "scope": "functionally_supported_candidate_not_word_for_word_Goethe_list_equivalence"
+    }
+  ],
+  "curriculum_summary": {
+    "entries_total": 712,
+    "distinct_surface_strings": 712,
+    "occurrences": 719,
+    "originals": 484,
+    "additions": 228,
+    "tracks": {
+      "active_core": 200,
+      "receptive_core": 254,
+      "productive_choice": 123,
+      "contextual": 135
+    },
+    "lexical_competency_contracts": 22,
+    "official_a1_topics": 10,
+    "essential_caveat": "Each lexical entry can be a wordform or multiword expression. Counts are NOT lemma count, unique words learned, A1 certification, mandatory contact count, or an active memorization quota."
   }
 }
