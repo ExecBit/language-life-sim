@@ -13,6 +13,8 @@ jobs:
           python-version: '3.x'
       - name: Check migrated structure
         run: python implementations/dormitory/tools/check_repository.py
+      - name: Validate setting-independent language program
+        run: python implementations/story_rpg/tools/analyze_language_load_balance.py --check
       - name: Install Godot 4.7.1
         run: |
           curl --fail --location --retry 3 -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.7.1-stable/Godot_v4.7.1-stable_linux.x86_64.zip
