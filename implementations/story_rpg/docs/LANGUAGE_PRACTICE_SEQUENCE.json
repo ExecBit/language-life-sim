@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "status": "balanced_language_only_draft_partially_concrete_probe_specified_not_playtested",
   "purpose": "Candidate language-practice sequence for smoothing new meaningful R/P/grammar loads, independent of any storyline.",
   "provenance": [
@@ -144,32 +144,8 @@
     "lo_mapped_for_review": 13,
     "independent_catalogue_unique_strings": 463,
     "independent_catalogue_occurrences": 469,
-    "concrete_probes": 30,
-    "probes_missing": [
-      "LU01",
-      "LU05",
-      "LU06",
-      "LU11",
-      "LU12",
-      "LU13",
-      "LU14",
-      "LU17",
-      "LU20",
-      "LU23",
-      "LU24",
-      "LU29",
-      "LU30",
-      "LU34",
-      "LU36",
-      "LU42",
-      "LU45",
-      "LU46",
-      "LU48",
-      "LU50",
-      "LU51",
-      "LU52",
-      "LU53"
-    ]
+    "concrete_probes": 53,
+    "probes_missing": []
   },
   "units": [
     {
@@ -218,7 +194,17 @@
       ],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Hallo!",
+        "variant_B_de": "Tschüss!",
+        "semantic_difference_ru": "Контакт начинается или завершается",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU02",
@@ -436,7 +422,17 @@
       ],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Ich bin Mia.",
+        "variant_B_de": "Du bist Mia.",
+        "semantic_difference_ru": "Меняется лицо, к которому относится имя; имена произвольны",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU06",
@@ -482,7 +478,17 @@
       ],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Nimm das Buch.",
+        "variant_B_de": "Zeig das Buch.",
+        "semantic_difference_ru": "Взять предмет против показать",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU07",
@@ -757,7 +763,17 @@
       ],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Ich brauche die Tasse.",
+        "variant_B_de": "Ich brauche das Buch.",
+        "semantic_difference_ru": "Нужно запросить конкретный предмет без готовой строки",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU12",
@@ -803,7 +819,17 @@
       ],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Zwei Tassen.",
+        "variant_B_de": "Drei Tassen.",
+        "semantic_difference_ru": "Разное необходимое количество одинакового предмета",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU13",
@@ -850,7 +876,17 @@
       ],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Ich heiße Mia.",
+        "variant_B_de": "Ich heiße Tom.",
+        "semantic_difference_ru": "Говорящий сообщает другое имя, его нельзя подставить заранее",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU14",
@@ -910,7 +946,17 @@
           "status": "candidate_semantic_transfer_not_player_verified"
         }
       ],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Die Tür ist hier.",
+        "variant_B_de": "Das Fenster ist hier.",
+        "semantic_difference_ru": "Нужно узнать, какой объект назван, без визуальной подсветки",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU15",
@@ -1085,7 +1131,17 @@
       ],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Ich habe zwei Bücher.",
+        "variant_B_de": "Ich habe drei Bücher.",
+        "semantic_difference_ru": "Разное количество при неизменном объекте",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU18",
@@ -1280,7 +1336,17 @@
       ],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Ich bin froh.",
+        "variant_B_de": "Ich bin traurig.",
+        "semantic_difference_ru": "Меняется переданное эмоциональное состояние",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU21",
@@ -1455,7 +1521,17 @@
       ],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Die Tasse ist leer.",
+        "variant_B_de": "Die Tasse ist voll.",
+        "semantic_difference_ru": "Собеседник не знает, каково состояние предмета",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU24",
@@ -1497,7 +1573,17 @@
       ],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Ich möchte Tee.",
+        "variant_B_de": "Ich habe Tee.",
+        "semantic_difference_ru": "Желание получить чай отличается от обладания",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU25",
@@ -1811,7 +1897,17 @@
       ],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Die Tasse ist groß, aber das Buch ist klein.",
+        "variant_B_de": "Die Tasse ist klein, aber das Buch ist groß.",
+        "semantic_difference_ru": "Свойства двух объектов меняются местами",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU30",
@@ -1880,7 +1976,17 @@
           "status": "candidate_semantic_transfer_not_player_verified"
         }
       ],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Ich möchte Wasser.",
+        "variant_B_de": "Ich möchte Tee.",
+        "semantic_difference_ru": "Из двух известных вариантов предпочтителен другой",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU31",
@@ -2128,7 +2234,17 @@
       ],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Morgen komme ich.",
+        "variant_B_de": "Heute komme ich.",
+        "semantic_difference_ru": "День плана меняется, адресату нужно сообщить",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU35",
@@ -2259,7 +2375,17 @@
           "status": "candidate_semantic_transfer_not_player_verified"
         }
       ],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Die Tasse ist zu groß.",
+        "variant_B_de": "Die Tasse ist klein.",
+        "semantic_difference_ru": "Размер становится препятствием, а не обычным описанием",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU37",
@@ -2739,7 +2865,17 @@
           "status": "candidate_semantic_transfer_not_player_verified"
         }
       ],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Ich habe das Buch. Ich brauche die Tasse.",
+        "variant_B_de": "Ich habe das Buch. Ich brauche Wasser.",
+        "semantic_difference_ru": "Меняется лишь второй необходимый смысл",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU43",
@@ -2911,7 +3047,17 @@
           "status": "candidate_semantic_transfer_not_player_verified"
         }
       ],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Morgen gehe ich.",
+        "variant_B_de": "Heute gehe ich.",
+        "semantic_difference_ru": "День будущего плана изменён",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU46",
@@ -2989,7 +3135,17 @@
           "status": "candidate_semantic_transfer_not_player_verified"
         }
       ],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Ich spiele gern.",
+        "variant_B_de": "Ich lese gern.",
+        "semantic_difference_ru": "Личное предпочтение применено в новом сообщении",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU47",
@@ -3129,7 +3285,17 @@
           "status": "candidate_semantic_transfer_not_player_verified"
         }
       ],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Ich habe das Buch gefunden. Es ist hier.",
+        "variant_B_de": "Ich habe das Buch gefunden. Es ist dort.",
+        "semantic_difference_ru": "Получатель узнаёт новое местонахождение после сообщения о находке",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU49",
@@ -3253,7 +3419,17 @@
           "status": "candidate_semantic_transfer_not_player_verified"
         }
       ],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Das Buch ist hier. Komm morgen.",
+        "variant_B_de": "Das Buch ist dort. Komm morgen.",
+        "semantic_difference_ru": "В новом сообщении изменяется расположение предмета, не просьба",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU51",
@@ -3283,7 +3459,17 @@
       "candidate_new_lexemes": [],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Das Buch ist hier. Die Tasse ist dort.",
+        "variant_B_de": "Das Buch ist dort. Die Tasse ist dort.",
+        "semantic_difference_ru": "Из двух независимых сведений изменено одно",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU52",
@@ -3313,7 +3499,17 @@
       "candidate_new_lexemes": [],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Du musst heute nicht arbeiten.",
+        "variant_B_de": "Du darfst heute nicht arbeiten.",
+        "semantic_difference_ru": "Снова отличить отсутствие обязанности от запрета в ином контексте",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     },
     {
       "id": "LU53",
@@ -3343,7 +3539,17 @@
       "candidate_new_lexemes": [],
       "candidate_reused_lexemes": [],
       "revisit_contracts": [],
-      "concrete_probe": null
+      "concrete_probe": {
+        "variant_A_de": "Ich brauche das Buch am Dienstag.",
+        "variant_B_de": "Ich brauche das Buch am Montag.",
+        "semantic_difference_ru": "Новая независимая смысловая задача; образец одной из 13 LO, не весь экзамен",
+        "kind": "design_example_not_user_test",
+        "confounds_to_check": [
+          "Russian UI does not reveal the critical difference",
+          "F1 may be consulted outside independent final assessment",
+          "A0 prerequisites are available before required action"
+        ]
+      }
     }
   ],
   "methodology": {
