@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -18,7 +18,8 @@
     "A few elementary expressions are placed earlier than their catalogue group horizon because the independent M/G map uses them earlier (e.g. ich/du, verstehen, heute/morgen); this is deliberate and must not be confused with teaching entire theme early.",
     "Contemporary lesson/domain examples inside one unit are alternative variants, not simultaneous mandatory unknown vocabulary; background R/E grammar does not create forced productive form.",
     "P6 has distributed integration rather than a single nine-target mega-test: a P6 unit contains at most five planned revisits and never new required M/G.",
-    "outcome_candidates provide earlier practice and P6 transfer candidates for each 6 R + 7 W LO; they are not an exam, passing score or proof of mastery."
+    "outcome_candidates provide earlier practice and P6 transfer candidates for each 6 R + 7 W LO; they are not an exam, passing score or proof of mastery.",
+    "Independent first-R prerequisites for M08/M22/M27/M30/M55 and G24/G25/G32 are explicitly covered by the lexical anchor schedule."
   ],
   "horizon_units": {
     "P0": 8,
@@ -516,7 +517,13 @@
       "context": "Одно короткое немецкое сообщение без подсветки предмета; форма man пока необязательна",
       "id": "P1-09",
       "mode": "independent_abstract_language_practice",
-      "lexical_anchors": [],
+      "lexical_anchors": [
+        {
+          "group": 6,
+          "expression": "es gibt",
+          "obligation": "functional_candidate"
+        }
+      ],
       "outcome_candidates": []
     },
     {
@@ -573,6 +580,11 @@
         {
           "group": 7,
           "expression": "die Hilfe",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 4,
+          "expression": "welcher",
           "obligation": "functional_candidate"
         }
       ],
@@ -676,7 +688,13 @@
       "context": "Короткие адресованные обращения",
       "id": "P2a-03",
       "mode": "independent_abstract_language_practice",
-      "lexical_anchors": [],
+      "lexical_anchors": [
+        {
+          "group": 9,
+          "expression": "Sie (вежливо)",
+          "obligation": "functional_candidate"
+        }
+      ],
       "outcome_candidates": [
         "LO-R01"
       ]
@@ -846,6 +864,16 @@
         {
           "group": 10,
           "expression": "in",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 10,
+          "expression": "im",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 10,
+          "expression": "ins",
           "obligation": "functional_candidate"
         }
       ],
@@ -1030,7 +1058,13 @@
       "context": "Знакомый выбор двух вещей",
       "id": "P2c-05",
       "mode": "independent_abstract_language_practice",
-      "lexical_anchors": [],
+      "lexical_anchors": [
+        {
+          "group": 17,
+          "expression": "möchten",
+          "obligation": "functional_candidate"
+        }
+      ],
       "outcome_candidates": []
     },
     {
@@ -1290,6 +1324,11 @@
           "group": 18,
           "expression": "treffen",
           "obligation": "functional_candidate"
+        },
+        {
+          "group": 16,
+          "expression": "doch",
+          "obligation": "functional_candidate"
         }
       ],
       "outcome_candidates": []
@@ -1330,11 +1369,6 @@
       "id": "P3c-01",
       "mode": "independent_abstract_language_practice",
       "lexical_anchors": [
-        {
-          "group": 17,
-          "expression": "möchten",
-          "obligation": "functional_candidate"
-        },
         {
           "group": 17,
           "expression": "oder",
@@ -1396,7 +1430,18 @@
       "context": "Узнавание готовых формул ich hätte gern / könnte ich; без требования самому писать Konjunktiv II",
       "id": "P3c-03",
       "mode": "independent_abstract_language_practice",
-      "lexical_anchors": [],
+      "lexical_anchors": [
+        {
+          "group": 17,
+          "expression": "ich hätte gern …",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 17,
+          "expression": "könnte ich …?",
+          "obligation": "functional_candidate"
+        }
+      ],
       "outcome_candidates": []
     },
     {
@@ -1559,7 +1604,18 @@
       "context": "Только рецепция одной временной границы",
       "id": "P4a-03",
       "mode": "independent_abstract_language_practice",
-      "lexical_anchors": [],
+      "lexical_anchors": [
+        {
+          "group": 27,
+          "expression": "seit",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 27,
+          "expression": "bis",
+          "obligation": "functional_candidate"
+        }
+      ],
       "outcome_candidates": []
     },
     {
