@@ -1,5 +1,5 @@
 {
-  "version": "1.13",
+  "version": "1.14",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -1559,9 +1559,7 @@
       "first_p": [
         "M20"
       ],
-      "revisit_m": [
-        "M40"
-      ],
+      "revisit_m": [],
       "contrast": "Здесь против там меняет положение знакомого предмета",
       "context": "Адресату неизвестно место объекта, а направление не нужно",
       "id": "P2b-03",
@@ -1619,7 +1617,8 @@
       "introduce_g": [],
       "first_p": [],
       "revisit_m": [
-        "M09"
+        "M09",
+        "M40"
       ],
       "contrast": "Im против ins меняет тип пространственного отношения",
       "context": "Одинаковый предмет, видимый текст",
@@ -2012,9 +2011,7 @@
       "first_p": [
         "M23"
       ],
-      "revisit_m": [
-        "M17"
-      ],
+      "revisit_m": [],
       "contrast": "Um zehn против um zwölf меняет назначенное время",
       "context": "Знакомые малые числа, один шаг расписания",
       "id": "P3a-01",
@@ -2136,9 +2133,7 @@
       "first_p": [
         "M25"
       ],
-      "revisit_m": [
-        "M32"
-      ],
+      "revisit_m": [],
       "contrast": "Oft против nie меняет утверждение о привычке",
       "context": "Небольшой распорядок, не новый персонаж",
       "id": "P3a-03",
@@ -2199,7 +2194,8 @@
         "M24"
       ],
       "revisit_m": [
-        "M07"
+        "M07",
+        "M17"
       ],
       "contrast": "Heute gegen morgen меняет доступность",
       "context": "Два допустимых варианта времени",
@@ -2261,9 +2257,7 @@
       "first_p": [
         "M26"
       ],
-      "revisit_m": [
-        "M04"
-      ],
+      "revisit_m": [],
       "contrast": "Zuerst против danach меняет порядок",
       "context": "Два знакомых действия",
       "id": "P3a-05",
@@ -2466,7 +2460,8 @@
         "M37"
       ],
       "revisit_m": [
-        "M19"
+        "M19",
+        "M04"
       ],
       "contrast": "Einladung angenommen против abgelehnt меняет решение",
       "context": "Два безопасных решения о приглашении; отрицательный вопрос допускает самостоятельный Doch",
@@ -2557,7 +2552,8 @@
         "M30"
       ],
       "revisit_m": [
-        "M29"
+        "M29",
+        "M32"
       ],
       "contrast": "Меняется желаемый знакомый объект",
       "context": "Знакомый объект и отдельное желание",
@@ -3428,8 +3424,7 @@
       ],
       "first_p": [],
       "revisit_m": [
-        "M49",
-        "M03"
+        "M49"
       ],
       "contrast": "War против ist меняет временную отнесённость",
       "context": "Один знакомый объект и время",
@@ -3693,7 +3688,8 @@
       "first_p": [],
       "revisit_m": [
         "M14",
-        "M53"
+        "M53",
+        "M03"
       ],
       "contrast": "Смена агента меняет правильный пересказ",
       "context": "Отложенный вопрос с адресатом",
@@ -4396,5 +4392,42 @@
     "risk_count": 9,
     "conclusion": "No hard blocker from storyline; all nine require F1/interaction validation before asserting true A0 readiness. Neither time nor comprehension were measured.",
     "status": "design_review_not_implemented"
-  }
+  },
+  "revisit_move_history": [
+    {
+      "M": "M40",
+      "from": "P2b-03",
+      "to": "P2b-04",
+      "why": "Чтение инструкции возвращается при противопоставлении местонахождения и просьбы Bring; простое Das Buch ist im Zimmer не является инструкцией.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    },
+    {
+      "M": "M32",
+      "from": "P3a-03",
+      "to": "P3c-01",
+      "why": "Еда/напиток и потребность возвращаются в выражении желания Ich möchte Wasser/Tee; частота Ich arbeite oft — не потребность.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    },
+    {
+      "M": "M17",
+      "from": "P3a-01",
+      "to": "P3a-04",
+      "why": "Числа в P3a-04 используются как часы 10/12, тогда как P3a-01 меняет только названия дней.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    },
+    {
+      "M": "M04",
+      "from": "P3a-05",
+      "to": "P3b-03",
+      "why": "Ответ doch/nein на приглашение возвращает положительное/отрицательное решение; порядок предметов Zuerst/dann не проверяет согласие.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    },
+    {
+      "M": "M03",
+      "from": "P5-01",
+      "to": "P5-06",
+      "why": "Выбор Mia/Tom реально меняет субъект чужого прошлого факта; время war/ist двери не проверяет человеческого участника.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    }
+  ]
 }
