@@ -1,5 +1,5 @@
 {
-  "version": "0.4",
+  "version": "0.5",
   "status": "independent_grammar_contrast_bank_not_player_verified",
   "sources": [
     "LANGUAGE_DESIGN.md",
@@ -104,7 +104,7 @@
       "minimum": "P",
       "example_A": "Ich bin Mia.",
       "example_B": "Du bist Mia.",
-      "meaning_difference": "Меняется лицо, которому нужна вода",
+      "meaning_difference": "В одной и той же конструкции представления меняется участник: ich — говорящий, du — адресат. Вода и потребности в этих примерах отсутствуют.",
       "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
       "constraints": [
         "No hidden story, NPC identity or game day",
@@ -112,7 +112,7 @@
         "Grammar accuracy in production is never stronger than its source M semantic minimum"
       ],
       "first_r_plan": {
-        "minimal_recognition": "Ich/du меняют говорящего и адресата у знакомой конструкции bin/bist.",
+        "minimal_recognition": "Понять, кто обозначен ich (говорящий) и du (адресат), без нового глагола и без искусственной потребности в воде.",
         "ordered_after": "P0-06 первая пара Ich bin Mia. / Du bist Mia.; brauche/brauchst только после P1-05.",
         "independent_contact": "Совпадает с основным P0-06: Ich bin Mia. / Du bist Mia.; brauche/brauchst отложены как необязательный перенос после P1-05.",
         "productive_followup": "Самостоятельная роль закрепляется P1-01; точное спряжение не требовать.",
@@ -134,7 +134,7 @@
       "minimum": "P",
       "example_A": "Ich bin Mia.",
       "example_B": "Du bist Mia.",
-      "meaning_difference": "Обладание против состояния: разные функции знакомых sein/haben",
+      "meaning_difference": "В P0-06 знакомство только с bin/bist (формы sein), а не с различием sein/haben; его самостоятельный смысловой контраст уже присутствует в P1-07: Ich bin müde. / Ich habe Durst.",
       "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
       "constraints": [
         "No hidden story, NPC identity or game day",
@@ -142,7 +142,7 @@
         "Grammar accuracy in production is never stronger than its source M semantic minimum"
       ],
       "first_r_plan": {
-        "minimal_recognition": "sein: Ich bin … / Du bist … как известные роли; не требует противопоставления неизвестному haben на P0",
+        "minimal_recognition": "Узнать bin/bist как формы sein в знакомой конструкции представления. На этом шаге различие с haben ещё НЕ предъявляется.",
         "extension": "Обязательное R-различие sein/haben достигается после появления habe: существующая P1-07 Ich bin müde. / Ich habe Durst.; не вводить его впервые на P0-06.",
         "ordered_after": "P0-04 (названные предметы), P0-06 (ich/du)",
         "grammatical_scope": "R: первые формы sein; P-смысл проверяется позже, точность спряжения не нужна",
