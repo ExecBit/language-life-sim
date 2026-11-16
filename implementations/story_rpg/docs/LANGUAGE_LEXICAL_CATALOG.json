@@ -1,5 +1,5 @@
 {
-  "version": "0.9",
+  "version": "1.0",
   "status": "independent_lexical_inventory_not_approved_f1",
   "source": "LANGUAGE_LEXICON.md section 2, 29 topic groups; NOT ACT authored dialogue corpus",
   "validation": {
@@ -11354,5 +11354,876 @@
     "drafted_unique_entries": 477,
     "total_unique_entries": 477,
     "status": "full_candidate_RU_gloss_draft_not_native_speaker_reviewed_not_normalized_F1"
+  },
+  "f1_candidate_search": {
+    "version": "0.1",
+    "status": "static_candidate_lookup_not_implemented_or_linguistically_verified",
+    "aliases": [
+      {
+        "surface": "bin",
+        "lemma": "sein",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "bist",
+        "lemma": "sein",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "kommst",
+        "lemma": "kommen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "heiße",
+        "lemma": "heißen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "brauche",
+        "lemma": "brauchen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "tassen",
+        "lemma": "die Tasse",
+        "relation": "plural",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "hast",
+        "lemma": "haben",
+        "relation": "finite_verb_form",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "bring",
+        "lemma": "bringen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "bücher",
+        "lemma": "das Buch",
+        "relation": "plural",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "helfe",
+        "lemma": "helfen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "komme",
+        "lemma": "kommen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "darfst",
+        "lemma": "dürfen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "musst",
+        "lemma": "müssen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "fängt",
+        "lemma": "anfangen",
+        "relation": "separable_inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "hört",
+        "lemma": "aufhören",
+        "relation": "separable_inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "möchte",
+        "lemma": "möchten",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "arbeite",
+        "lemma": "arbeiten",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "nimmst",
+        "lemma": "nehmen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "mag",
+        "lemma": "mögen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "lese",
+        "lemma": "lesen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "spiele",
+        "lemma": "spielen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "rote",
+        "lemma": "rot",
+        "relation": "adjective_inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "blaue",
+        "lemma": "blau",
+        "relation": "adjective_inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "willst",
+        "lemma": "wollen",
+        "relation": "finite_verb_form",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "kommt",
+        "lemma": "kommen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "gehe",
+        "lemma": "gehen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "liest",
+        "lemma": "lesen",
+        "relation": "finite_verb_form",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "spielt",
+        "lemma": "spielen",
+        "relation": "finite_verb_form",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "gezeigt",
+        "lemma": "zeigen",
+        "relation": "regular_perfect_participle",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "meine",
+        "lemma": "mein",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "bringe",
+        "lemma": "bringen",
+        "relation": "inflection",
+        "source": "80_language_AB_probes"
+      },
+      {
+        "surface": "nimm",
+        "lemma": "nehmen",
+        "relation": "imperative",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "gib",
+        "lemma": "geben",
+        "relation": "imperative",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "komm",
+        "lemma": "kommen",
+        "relation": "imperative",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "ist",
+        "lemma": "sein",
+        "relation": "finite",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "hat",
+        "lemma": "haben",
+        "relation": "finite",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "war",
+        "lemma": "sein",
+        "relation": "preterite",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "hatte",
+        "lemma": "haben",
+        "relation": "preterite",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "habe gemacht",
+        "lemma": "machen",
+        "relation": "perfect_haben",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "habe gefunden",
+        "lemma": "finden",
+        "relation": "perfect_haben",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "habe gelernt",
+        "lemma": "lernen",
+        "relation": "perfect_haben",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "habe gesehen",
+        "lemma": "sehen",
+        "relation": "perfect_haben",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "ist gekommen",
+        "lemma": "kommen",
+        "relation": "perfect_sein",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "ist gegangen",
+        "lemma": "gehen",
+        "relation": "perfect_sein",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "hat gefunden",
+        "lemma": "finden",
+        "relation": "perfect_haben",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "hat gezeigt",
+        "lemma": "zeigen",
+        "relation": "perfect_haben",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "fängt an",
+        "lemma": "anfangen",
+        "relation": "separable",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "hört auf",
+        "lemma": "aufhören",
+        "relation": "separable",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "im",
+        "lemma": "in",
+        "relation": "contraction_location",
+        "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "ins",
+        "lemma": "in",
+        "relation": "contraction_direction",
+        "source": "G_and_F1_functional_contract"
+      }
+    ],
+    "reverse_ru_queries": [
+      {
+        "query_ru": "где",
+        "candidate_de": [
+          "wo"
+        ],
+        "contrast": "место, не направление",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "куда",
+        "candidate_de": [
+          "wohin",
+          "in",
+          "ins",
+          "zu",
+          "nach"
+        ],
+        "contrast": "направление, предлог зависит от контекста",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "кто",
+        "candidate_de": [
+          "wer"
+        ],
+        "contrast": "вопрос о лице",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "что",
+        "candidate_de": [
+          "was"
+        ],
+        "contrast": "вопрос о предмете/смысле",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "возьми",
+        "candidate_de": [
+          "nimm",
+          "nehmen"
+        ],
+        "contrast": "побуждение против инфинитива",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "дай",
+        "candidate_de": [
+          "gib",
+          "geben"
+        ],
+        "contrast": "побуждение против инфинитива",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "не понимаю",
+        "candidate_de": [
+          "ich verstehe nicht",
+          "verstehen"
+        ],
+        "contrast": "смысл непонимания, не обязательная реплика",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "помоги",
+        "candidate_de": [
+          "helfen",
+          "die Hilfe"
+        ],
+        "contrast": "помощь как действие или существительное",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "нельзя",
+        "candidate_de": [
+          "nicht dürfen",
+          "verboten"
+        ],
+        "contrast": "запрет",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "не обязан",
+        "candidate_de": [
+          "nicht müssen"
+        ],
+        "contrast": "нет обязательства",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "не обязательно",
+        "candidate_de": [
+          "nicht müssen"
+        ],
+        "contrast": "нет необходимости, не запрет",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "можно",
+        "candidate_de": [
+          "dürfen",
+          "erlaubt"
+        ],
+        "contrast": "разрешено, не обязательно",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "надо",
+        "candidate_de": [
+          "müssen",
+          "notwendig",
+          "sollen"
+        ],
+        "contrast": "обязательство/необходимость/совет различаются контекстом",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "утро",
+        "candidate_de": [
+          "der Morgen",
+          "Guten Morgen"
+        ],
+        "contrast": "существительное и приветствие",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "завтра",
+        "candidate_de": [
+          "morgen"
+        ],
+        "contrast": "наречие времени",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "сегодня",
+        "candidate_de": [
+          "heute"
+        ],
+        "contrast": "наречие времени",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "вчера",
+        "candidate_de": [
+          "gestern"
+        ],
+        "contrast": "наречие времени",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "где находится",
+        "candidate_de": [
+          "wo",
+          "sein"
+        ],
+        "contrast": "вопрос о месте",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "прямо",
+        "candidate_de": [
+          "geradeaus"
+        ],
+        "contrast": "направление",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "друг",
+        "candidate_de": [
+          "der Freund"
+        ],
+        "contrast": "может быть другом либо романтическим партнёром",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "подруга",
+        "candidate_de": [
+          "die Freundin"
+        ],
+        "contrast": "может быть подругой либо партнёршей",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "брат",
+        "candidate_de": [
+          "der Bruder"
+        ],
+        "contrast": "родственная связь",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "сестра",
+        "candidate_de": [
+          "die Schwester"
+        ],
+        "contrast": "родственная связь",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "господин",
+        "candidate_de": [
+          "der Herr"
+        ],
+        "contrast": "формальное обращение",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "люблю читать",
+        "candidate_de": [
+          "lesen",
+          "gern"
+        ],
+        "contrast": "не собирать готовое решение для текущего задания",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "чаще",
+        "candidate_de": [
+          "oft",
+          "mehr"
+        ],
+        "contrast": "частота и количество/степень различаются",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "вместе",
+        "candidate_de": [
+          "zusammen",
+          "mit"
+        ],
+        "contrast": "наречие и предлог",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "пустой",
+        "candidate_de": [
+          "leer"
+        ],
+        "contrast": "состояние",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "полный",
+        "candidate_de": [
+          "voll"
+        ],
+        "contrast": "состояние",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "рад",
+        "candidate_de": [
+          "froh"
+        ],
+        "contrast": "состояние",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "грустный",
+        "candidate_de": [
+          "traurig"
+        ],
+        "contrast": "состояние",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "цена",
+        "candidate_de": [
+          "der Preis"
+        ],
+        "contrast": "ценник",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "евро",
+        "candidate_de": [
+          "der Euro"
+        ],
+        "contrast": "валюта",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "сколько стоит",
+        "candidate_de": [
+          "kosten",
+          "der Preis"
+        ],
+        "contrast": "стоимость",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "ноль",
+        "candidate_de": [
+          "null"
+        ],
+        "contrast": "число 0",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "восемь",
+        "candidate_de": [
+          "acht"
+        ],
+        "contrast": "число 8",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "одиннадцать",
+        "candidate_de": [
+          "elf"
+        ],
+        "contrast": "число 11",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "двенадцать",
+        "candidate_de": [
+          "zwölf"
+        ],
+        "contrast": "число 12",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "раньше",
+        "candidate_de": [
+          "früher"
+        ],
+        "contrast": "время в прошлом",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "позже",
+        "candidate_de": [
+          "später"
+        ],
+        "contrast": "время после",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "начать",
+        "candidate_de": [
+          "anfangen"
+        ],
+        "contrast": "отделяемый глагол",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "закончить",
+        "candidate_de": [
+          "aufhören"
+        ],
+        "contrast": "отделяемый глагол",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "пришёл",
+        "candidate_de": [
+          "ist gekommen",
+          "kommen"
+        ],
+        "contrast": "Perfekt с sein",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "увидел",
+        "candidate_de": [
+          "habe gesehen",
+          "sehen"
+        ],
+        "contrast": "Perfekt с haben",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "с понедельника",
+        "candidate_de": [
+          "seit",
+          "Montag"
+        ],
+        "contrast": "исходная точка",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "до понедельника",
+        "candidate_de": [
+          "bis",
+          "Montag"
+        ],
+        "contrast": "конец периода",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "тут",
+        "candidate_de": [
+          "hier",
+          "da"
+        ],
+        "contrast": "не всегда взаимозаменяемы",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "там",
+        "candidate_de": [
+          "dort",
+          "da"
+        ],
+        "contrast": "ориентир в другом месте",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "доступен",
+        "candidate_de": [
+          "frei"
+        ],
+        "contrast": "свободный по времени; не трактовать как бесплатно",
+        "status": "draft_query_not_executed"
+      }
+    ],
+    "ambiguity_groups": [
+      {
+        "id": "sie_Sie",
+        "forms": [
+          "sie",
+          "Sie (вежливо)"
+        ],
+        "distinction": "3-е лицо 'она/они/её' против вежливого 'Вы'; в начале предложения заглавная буква без дополнительного контекста не доказывает регистр",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "sein_verb_possessive",
+        "forms": [
+          "sein",
+          "sein (притяж.)"
+        ],
+        "distinction": "быть против притяжательного 'его'",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "ihr_pronoun_possessive",
+        "forms": [
+          "ihr",
+          "ihr (притяж.)"
+        ],
+        "distinction": "вы, ей и притяжательное 'её/их' имеют разные грамматические роли",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "morgen_Morgen",
+        "forms": [
+          "morgen",
+          "der Morgen"
+        ],
+        "distinction": "завтра против утра",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "wo_wohin",
+        "forms": [
+          "wo",
+          "wohin"
+        ],
+        "distinction": "где (место) против куда (направление)",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "im_ins",
+        "forms": [
+          "im",
+          "ins"
+        ],
+        "distinction": "в (где: in dem) против в (куда: in das)",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "negative_modals",
+        "forms": [
+          "nicht dürfen",
+          "nicht müssen"
+        ],
+        "distinction": "запрещено против не обязан",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "haben_sein_perfect",
+        "forms": [
+          "habe gemacht",
+          "ist gekommen"
+        ],
+        "distinction": "две вспомогательные формы Perfekt для разных глаголов",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "mag_moechte",
+        "forms": [
+          "mögen",
+          "möchten"
+        ],
+        "distinction": "нравится против хочет / хотел бы",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "gern_lieber",
+        "forms": [
+          "gern",
+          "lieber"
+        ],
+        "distinction": "охотно против предпочёл бы",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "zu_multisense",
+        "forms": [
+          "zu"
+        ],
+        "distinction": "слишком, к, закрыто — контекстно различать",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "doch_multisense",
+        "forms": [
+          "doch"
+        ],
+        "distinction": "да вопреки отрицательному вопросу против частицы с другими оттенками",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "bitte_multisense",
+        "forms": [
+          "bitte"
+        ],
+        "distinction": "пожалуйста, прошу, не за что",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "Bank_multisense",
+        "forms": [
+          "die Bank"
+        ],
+        "distinction": "банк как учреждение или скамейка",
+        "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "free_vs_free_of_charge",
+        "forms": [
+          "frei",
+          "billig"
+        ],
+        "distinction": "свободно/доступно против дёшево (или бесплатно — не одно и то же)",
+        "status": "draft_context_sensitive_rule"
+      }
+    ],
+    "rules": [
+      "All entries/queries are derived from independent M/G/LO and not from narrative-specific dialogue.",
+      "A search query may return multiple dictionary senses; grammatical role, context and register are required for disambiguation.",
+      "A Russian reverse search lists neutral candidate words and grammar notes, never completes the present task automatically.",
+      "A lookup hit is not evidence of acquisition. Unknown, misspelled or ambiguous queries have explicit no-match/uncertain states.",
+      "Capitalized Sie at sentence start is ambiguous without verb/person/context; do not determine register from capital alone.",
+      "The complete approved act vocabulary will be available on F1 from beginning, irrespective of language horizon."
+    ],
+    "validation": {
+      "alias_links": 50,
+      "reverse_queries": 49,
+      "ambiguity_groups": 15,
+      "unknown_query": "explain_uncertainty_and_offer_candidates_not_a_fabricated_single_translation"
+    }
   }
 }
