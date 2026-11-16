@@ -1,6 +1,6 @@
 {
-  "version": "0.3",
-  "status": "provisional_load_smoothed_language_only_requires_lexical_and_semantic_validation",
+  "version": "0.4",
+  "status": "balanced_candidate_sequence_semantic_transfer_not_validated",
   "purpose": "Candidate language-practice sequence for smoothing new meaningful R/P/grammar loads, independent of any storyline.",
   "provenance": [
     "LANGUAGE_MAP.md:M01-M55 first_R/first_P/revisit",
@@ -34,7 +34,7 @@
       "G": 34,
       "revisits": 55
     },
-    "max_simultaneous_candidate_intro": 5,
+    "max_simultaneous_candidate_intro": 4,
     "peaks": [],
     "empty_intro": [
       "LU42",
@@ -50,7 +50,14 @@
     "balancing_moves": [
       "P1: first_P M02 LU07→LU13 (представление при знакомстве/помощи)",
       "P1: first_P M47 LU07→LU14 (уточнение по объявлению)",
-      "P3: first_P M23 LU25→LU26 (время + обычная частота)"
+      "P3: first_P M23 LU25→LU26 (время + обычная частота)",
+      "G04: LU07→LU13",
+      "M15 firstR: LU08→LU11",
+      "M03 firstP: LU09→LU13",
+      "G17: LU18→LU20",
+      "M20 firstP: LU19→LU22",
+      "M37 firstP: LU25→LU31",
+      "M28 firstP: LU35→LU36"
     ],
     "grammar_semantically_grouped": true,
     "stage_load_components": {
@@ -202,7 +209,7 @@
         "Различить утверждение, вопрос и побуждение"
       ],
       "new_grammar_names": [
-        "Личные местоимения `ich/du/er/sie/es/wir/ihr/Sie`"
+        "Простое предложение, глагол на второй позиции, вопрос с глагола"
       ],
       "lexical_support_examples": [
         "ja",
@@ -248,7 +255,7 @@
         "Прочитать краткую инструкцию"
       ],
       "new_grammar_names": [
-        "`sein` / `haben` в Präsens"
+        "Imperativ `du/ihr/Sie`"
       ],
       "lexical_support_examples": [
         "Buch",
@@ -289,9 +296,7 @@
       "new_MR_names": [
         "Попросить повторить или уточнить смысл"
       ],
-      "new_grammar_names": [
-        "Простое предложение, глагол на второй позиции, вопрос с глагола"
-      ],
+      "new_grammar_names": [],
       "lexical_support_examples": [
         "noch einmal",
         "verstehen"
@@ -335,7 +340,8 @@
         "Разобраться, **кто** говорит и кто действует"
       ],
       "new_grammar_names": [
-        "Imperativ `du/ihr/Sie`"
+        "Личные местоимения `ich/du/er/sie/es/wir/ihr/Sie`",
+        "`sein` / `haben` в Präsens"
       ],
       "lexical_support_examples": [
         "ich",
@@ -407,7 +413,6 @@
         "M07"
       ],
       "new_grammar_R": [
-        "G04",
         "G07"
       ],
       "revisit": [],
@@ -419,7 +424,7 @@
       "existing_support": [],
       "new_required_meanings": 2,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 2,
+      "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
       "revisits_in_new_context": 0,
@@ -428,8 +433,7 @@
         "Письменно запросить сведения"
       ],
       "new_grammar_names": [
-        "Präsens регулярных глаголов, согласование по лицу",
-        "`es gibt`, `man`, частые безличные обороты"
+        "W-вопросы `wer/was/wo/wohin/woher/wann/wie/welch-`"
       ],
       "lexical_support_examples": [
         "was",
@@ -448,8 +452,7 @@
       "microstep": "P1",
       "focus": "Свойство и состояние",
       "first_R": [
-        "M10",
-        "M15"
+        "M10"
       ],
       "first_P": [
         "M10",
@@ -465,18 +468,17 @@
       "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
       "status": "candidate_language_unit_not_lesson_or_plot",
       "existing_support": [],
-      "new_required_meanings": 2,
+      "new_required_meanings": 1,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 2,
       "revisits_in_new_context": 0,
       "new_MR_names": [
-        "Описать свойство и различить варианты",
-        "Описать состояние, изменение или неисправность"
+        "Описать свойство и различить варианты"
       ],
       "new_grammar_names": [
-        "Частотные неправильные/чередующиеся глаголы"
+        "Прилагательное после `sein`, `zu + Adjektiv`"
       ],
       "lexical_support_examples": [
         "offen",
@@ -498,7 +500,6 @@
         "M11"
       ],
       "first_P": [
-        "M03",
         "M06",
         "M11"
       ],
@@ -516,13 +517,13 @@
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
-      "independent_P_intents": 3,
+      "independent_P_intents": 2,
       "revisits_in_new_context": 0,
       "new_MR_names": [
         "Сообщить наличие/отсутствие"
       ],
       "new_grammar_names": [
-        "W-вопросы `wer/was/wo/wohin/woher/wann/wie/welch-`"
+        "`nicht/kein` и объём отрицания"
       ],
       "lexical_support_examples": [
         "haben",
@@ -566,9 +567,7 @@
         "Описать физическое состояние",
         "Попросить еду или напиток, описать потребность"
       ],
-      "new_grammar_names": [
-        "Множественное число и составные существительные"
-      ],
+      "new_grammar_names": [],
       "lexical_support_examples": [
         "müde",
         "Wasser"
@@ -584,8 +583,10 @@
       "id": "LU11",
       "horizon": "P1",
       "microstep": "P1",
-      "focus": "Простой запрос предмета",
-      "first_R": [],
+      "focus": "Попросить конкретную вещь, узнав её состояние",
+      "first_R": [
+        "M15"
+      ],
       "first_P": [
         "M12"
       ],
@@ -602,14 +603,17 @@
       "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
       "status": "candidate_language_unit_not_lesson_or_plot",
       "existing_support": [],
-      "new_required_meanings": 0,
+      "new_required_meanings": 1,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 2,
-      "independent_R_facts": 0,
+      "independent_R_facts": 1,
       "independent_P_intents": 1,
       "revisits_in_new_context": 1,
-      "new_MR_names": [],
+      "new_MR_names": [
+        "Описать состояние, изменение или неисправность"
+      ],
       "new_grammar_names": [
+        "Частотные неправильные/чередующиеся глаголы",
         "Akkusativ: объект и артикль"
       ],
       "lexical_support_examples": [
@@ -653,7 +657,8 @@
         "Назвать количество и идентификатор"
       ],
       "new_grammar_names": [
-        "`nicht/kein` и объём отрицания"
+        "Множественное число и составные существительные",
+        "`es gibt`, `man`, частые безличные обороты"
       ],
       "lexical_support_examples": [
         "eins",
@@ -670,14 +675,17 @@
       "id": "LU13",
       "horizon": "P1",
       "microstep": "P1",
-      "focus": "Попросить помощь и уточнить имя собеседника",
+      "focus": "Выяснить, кто предлагает помощь, представиться",
       "first_R": [
         "M19"
       ],
       "first_P": [
-        "M02"
+        "M02",
+        "M03"
       ],
-      "new_grammar_R": [],
+      "new_grammar_R": [
+        "G04"
+      ],
       "revisit": [],
       "semantic_contrast": "помощь нужна/не нужна",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -687,15 +695,15 @@
       "existing_support": [],
       "new_required_meanings": 1,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 0,
+      "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
-      "independent_P_intents": 1,
+      "independent_P_intents": 2,
       "revisits_in_new_context": 0,
       "new_MR_names": [
         "Предложить помощь, согласиться помочь, отказаться"
       ],
       "new_grammar_names": [
-        "Прилагательное после `sein`, `zu + Adjektiv`"
+        "Präsens регулярных глаголов, согласование по лицу"
       ],
       "lexical_support_examples": [
         "helfen",
@@ -830,9 +838,7 @@
       "new_MR_names": [
         "Различить неформальное `du` и формальное `Sie`"
       ],
-      "new_grammar_names": [
-        "Личные местоимения Akkusativ `mich/dich/ihn/sie/es`"
-      ],
+      "new_grammar_names": [],
       "lexical_support_examples": [
         "Sie",
         "du"
@@ -874,7 +880,7 @@
       "revisits_in_new_context": 1,
       "new_MR_names": [],
       "new_grammar_names": [
-        "Dativ, личные местоимения `mir/dir/ihm/ihr`"
+        "Личные местоимения Akkusativ `mich/dich/ihn/sie/es`"
       ],
       "lexical_support_examples": [
         "drei",
@@ -900,8 +906,7 @@
         "M19"
       ],
       "new_grammar_R": [
-        "G16",
-        "G17"
+        "G16"
       ],
       "revisit": [
         "M05"
@@ -914,7 +919,7 @@
       "existing_support": [],
       "new_required_meanings": 1,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 2,
+      "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 2,
       "revisits_in_new_context": 1,
@@ -922,7 +927,7 @@
         "Различить, **кто кому** передаёт/помогает"
       ],
       "new_grammar_names": [
-        "Глаголы с Dativ и предлоги `mit/bei/von/zu`"
+        "Dativ, личные местоимения `mir/dir/ihm/ihr`"
       ],
       "lexical_support_examples": [
         "mir",
@@ -945,7 +950,6 @@
         "M22"
       ],
       "first_P": [
-        "M20",
         "M21"
       ],
       "new_grammar_R": [
@@ -964,7 +968,7 @@
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
-      "independent_P_intents": 2,
+      "independent_P_intents": 1,
       "revisits_in_new_context": 1,
       "new_MR_names": [
         "Понять направление/перемещение",
@@ -988,14 +992,16 @@
       "id": "LU20",
       "horizon": "P2",
       "microstep": "P2b",
-      "focus": "Эмоциональное отношение",
+      "focus": "Сообщить отношение к человеку и понять взаимодействие",
       "first_R": [
         "M35"
       ],
       "first_P": [
         "M35"
       ],
-      "new_grammar_R": [],
+      "new_grammar_R": [
+        "G17"
+      ],
       "revisit": [
         "M09"
       ],
@@ -1007,7 +1013,7 @@
       "existing_support": [],
       "new_required_meanings": 1,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 0,
+      "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
       "revisits_in_new_context": 1,
@@ -1015,7 +1021,7 @@
         "Назвать отношение к человеку/событию"
       ],
       "new_grammar_names": [
-        "Отделяемые глаголы `anfangen/aufstehen/anrufen`"
+        "Глаголы с Dativ и предлоги `mit/bei/von/zu`"
       ],
       "lexical_support_examples": [
         "froh",
@@ -1074,19 +1080,21 @@
       "id": "LU22",
       "horizon": "P2",
       "microstep": "P2c",
-      "focus": "Временная привязка",
+      "focus": "Где и когда начинается знакомое действие",
       "first_R": [
         "M23",
         "M49"
       ],
-      "first_P": [],
+      "first_P": [
+        "M20"
+      ],
       "new_grammar_R": [
         "G21"
       ],
       "revisit": [],
       "semantic_contrast": "сегодня/вчера/завтра",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
-      "productive_contract": null,
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
       "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
       "status": "candidate_language_unit_not_lesson_or_plot",
       "existing_support": [],
@@ -1094,13 +1102,15 @@
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
-      "independent_P_intents": 0,
+      "independent_P_intents": 1,
       "revisits_in_new_context": 0,
       "new_MR_names": [
         "Понять рабочее расписание и время",
         "Отличить сейчас / раньше / потом"
       ],
-      "new_grammar_names": [],
+      "new_grammar_names": [
+        "Отделяемые глаголы `anfangen/aufstehen/anrufen`"
+      ],
       "lexical_support_examples": [
         "heute",
         "gestern"
@@ -1140,7 +1150,9 @@
       "independent_R_facts": 1,
       "independent_P_intents": 2,
       "revisits_in_new_context": 1,
-      "new_MR_names": [],
+      "new_MR_names": [
+        "Перенести информацию между собеседниками"
+      ],
       "new_grammar_names": [],
       "lexical_support_examples": [
         "arbeiten",
@@ -1179,8 +1191,7 @@
       "revisits_in_new_context": 0,
       "new_MR_names": [
         "Спросить и сообщить о желаниях",
-        "Спросить о профессии и обязанностях",
-        "Перенести информацию между собеседниками"
+        "Спросить о профессии и обязанностях"
       ],
       "new_grammar_names": [],
       "lexical_support_examples": [
@@ -1204,8 +1215,7 @@
         "M37"
       ],
       "first_P": [
-        "M24",
-        "M37"
+        "M24"
       ],
       "new_grammar_R": [
         "G19"
@@ -1223,7 +1233,7 @@
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
-      "independent_P_intents": 2,
+      "independent_P_intents": 1,
       "revisits_in_new_context": 1,
       "new_MR_names": [
         "Договориться о встрече/доступности",
@@ -1325,7 +1335,7 @@
         "Передать порядок коротких действий"
       ],
       "new_grammar_names": [
-        "Модальные `können/müssen/dürfen/sollen/wollen` и рамочная конструкция"
+        "Наречия времени, частоты, порядка"
       ],
       "lexical_support_examples": [
         "zuerst",
@@ -1370,7 +1380,8 @@
       "revisits_in_new_context": 2,
       "new_MR_names": [],
       "new_grammar_names": [
-        "`mögen/gern/lieber/möchten`"
+        "Модальные `können/müssen/dürfen/sollen/wollen` и рамочная конструкция",
+        "`doch`, `nicht`, `kein`, частотные отрицательные ответы"
       ],
       "lexical_support_examples": [
         "nicht dürfen",
@@ -1413,9 +1424,7 @@
         "Противопоставить два факта",
         "Сравнить измерения, значения или объекты"
       ],
-      "new_grammar_names": [
-        "`doch`, `nicht`, `kein`, частотные отрицательные ответы"
-      ],
+      "new_grammar_names": [],
       "lexical_support_examples": [
         "größer",
         "kleiner"
@@ -1461,7 +1470,7 @@
         "Выразить предпочтение или оценку"
       ],
       "new_grammar_names": [
-        "Наречия времени, частоты, порядка"
+        "`mögen/gern/lieber/möchten`"
       ],
       "lexical_support_examples": [
         "gern",
@@ -1478,19 +1487,21 @@
       "id": "LU31",
       "horizon": "P3",
       "microstep": "P3c",
-      "focus": "Чтение коротких записей",
+      "focus": "Извлечь время из приглашения и согласовать встречу",
       "first_R": [
         "M42",
         "M43"
       ],
-      "first_P": [],
+      "first_P": [
+        "M37"
+      ],
       "new_grammar_R": [],
       "revisit": [
         "M20"
       ],
       "semantic_contrast": "отправитель/дата/время",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
-      "productive_contract": null,
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
       "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
       "status": "candidate_language_unit_not_lesson_or_plot",
       "existing_support": [],
@@ -1498,15 +1509,13 @@
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
-      "independent_P_intents": 0,
+      "independent_P_intents": 1,
       "revisits_in_new_context": 1,
       "new_MR_names": [
         "Найти сведения в расписании/списке/таблице",
         "Понять короткое личное сообщение или приглашение"
       ],
-      "new_grammar_names": [
-        "Формулы желания `ich hätte gern`, `könnte ich …?` (Konjunktiv II в фиксированных формулировках)"
-      ],
+      "new_grammar_names": [],
       "lexical_support_examples": [
         "Montag",
         "Dienstag"
@@ -1548,7 +1557,9 @@
       "new_MR_names": [
         "Узнать вежливую форму просьбы или пожелания"
       ],
-      "new_grammar_names": [],
+      "new_grammar_names": [
+        "Формулы желания `ich hätte gern`, `könnte ich …?` (Konjunktiv II в фиксированных формулировках)"
+      ],
       "lexical_support_examples": [
         "ich hätte gern",
         "könnte ich"
@@ -1655,8 +1666,7 @@
         "M27"
       ],
       "first_P": [
-        "M16",
-        "M28"
+        "M16"
       ],
       "new_grammar_R": [
         "G26"
@@ -1675,7 +1685,7 @@
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
-      "independent_P_intents": 2,
+      "independent_P_intents": 1,
       "revisits_in_new_context": 2,
       "new_MR_names": [
         "Понять простую длительность или границу времени"
@@ -1698,10 +1708,11 @@
       "id": "LU36",
       "horizon": "P4",
       "microstep": "P4a",
-      "focus": "Выбор с препятствием",
+      "focus": "Сравнить характеристики и объяснить препятствие",
       "first_R": [],
       "first_P": [
-        "M38"
+        "M38",
+        "M28"
       ],
       "new_grammar_R": [
         "G31"
@@ -1721,7 +1732,7 @@
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 1,
       "independent_R_facts": 0,
-      "independent_P_intents": 1,
+      "independent_P_intents": 2,
       "revisits_in_new_context": 3,
       "new_MR_names": [],
       "new_grammar_names": [
@@ -1764,9 +1775,7 @@
       "independent_P_intents": 1,
       "revisits_in_new_context": 3,
       "new_MR_names": [],
-      "new_grammar_names": [
-        "Простые связки `und/aber/oder`"
-      ],
+      "new_grammar_names": [],
       "lexical_support_examples": [
         "Hobby",
         "Sport"
@@ -1932,7 +1941,9 @@
       "independent_P_intents": 1,
       "revisits_in_new_context": 2,
       "new_MR_names": [],
-      "new_grammar_names": [],
+      "new_grammar_names": [
+        "Простые связки `und/aber/oder`"
+      ],
       "lexical_support_examples": [
         "aber",
         "und"
@@ -2098,9 +2109,7 @@
       "independent_P_intents": 1,
       "revisits_in_new_context": 2,
       "new_MR_names": [],
-      "new_grammar_names": [
-        "Perfekt с `sein`, нерегулярные Partizip II"
-      ],
+      "new_grammar_names": [],
       "lexical_support_examples": [
         "planen",
         "nächste Woche"
@@ -2176,7 +2185,9 @@
       "independent_P_intents": 0,
       "revisits_in_new_context": 2,
       "new_MR_names": [],
-      "new_grammar_names": [],
+      "new_grammar_names": [
+        "Perfekt с `sein`, нерегулярные Partizip II"
+      ],
       "lexical_support_examples": [
         "früher",
         "jetzt"
