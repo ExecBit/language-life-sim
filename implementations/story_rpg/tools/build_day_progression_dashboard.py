@@ -456,45 +456,9 @@ def main() -> int:
                 (i for i, (a, b) in enumerate(zip(old, fresh)) if a != b),
                 min(len(old), len(fresh))
             )
-            old_payload = json.loads(DATA_SCRIPT.search(old).group(2))
-            new_payload = json.loads(DATA_SCRIPT.search(fresh).group(2))
-            for item in new_payload["traceability"]["items"]:
-                if item["id"] in ("LO-R02", "LO-R06"):
-                    print("CORRECT_TRACE_ITEM=" + json.dumps(
-                        item, ensure_ascii=False, separators=(",", ":")
-                    ), file=sys.stderr)
-            for parent, field, id_key in (
-                ("recycling", "lexemes", "lexeme"),
-                ("semantic", "lexemes", "lexeme"),
-                ("traceability", "items", "id"),
-            ):
-                older = old_payload[parent][field]
-                newer = new_payload[parent][field]
-                by_old = {r[id_key]: r for r in older}
-                by_new = {r[id_key]: r for r in newer}
-                different = [k for k in by_new if by_old.get(k) != by_new[k]]
-                print(f"{parent}.{field}: old={len(older)}, new={len(newer)}, "
-                      f"element_changes={len(different)}, examples={different[:8]}",
-                      file=sys.stderr)
-            for key in sorted(set(old_payload) | set(new_payload)):
-                if old_payload.get(key) != new_payload.get(key):
-                    old_value, new_value = old_payload.get(key), new_payload.get(key)
-                    if isinstance(old_value, dict) and isinstance(new_value, dict):
-                        inner = [k for k in set(old_value) | set(new_value)
-                                 if old_value.get(k) != new_value.get(k)]
-                    else:
-                        inner = []
-                    print(
-                        f"Changed data section: {key}; differing inner keys: {sorted(inner)}",
-                        file=sys.stderr
-                    )
-            print(
-                "Dashboard is stale; first difference at character "
-                + str(diff_at)
-                + "; tracked=" + repr(old[max(0, diff_at - 80):diff_at + 170])
-                + "; generated=" + repr(fresh[max(0, diff_at - 80):diff_at + 170]),
-                file=sys.stderr
-            )
+            print(f"Dashboard stale at character {diff_at}. Rebuild with "
+                  "python implementations/story_rpg/tools/build_day_progression_dashboard.py",
+                  file=sys.stderr)
             return 1
         print("Dashboard matches the Markdown and language references.")
         return 0
