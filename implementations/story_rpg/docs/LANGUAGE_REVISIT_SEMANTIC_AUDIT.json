@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "status": "independent_semantic_audit_of_revisit_candidates_not_player_test",
   "source": "LANGUAGE_PRACTICE_UNITS.json / revisit_m",
   "rules": [
@@ -72,7 +72,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Komm bitte morgen.",
       "risk_note_ru": "Основной пример сравнивает формы обращения, но не содержит приветствия или прощания M01.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Guten Tag!",
+        "example_B_de": "Auf Wiedersehen!",
+        "semantic_necessity_ru": "Контакт и прощание в формальном обращении, без новых персонажей.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M12",
@@ -88,7 +97,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Gib mir das Buch.",
       "risk_note_ru": "Передача предмета с разными получателями не показывает осмысленного согласия/отказа.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Ja, bitte.",
+        "example_B_de": "Nein, danke.",
+        "semantic_necessity_ru": "Согласие или отказ на предложение передачи предмета, не сама передача.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M09",
@@ -112,7 +130,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Ich habe zwei Bücher.",
       "risk_note_ru": "Основная пара меняет количество, а M10 требует отличать признак/свойство.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Zwei Tassen sind groß.",
+        "example_B_de": "Zwei Tassen sind klein.",
+        "semantic_necessity_ru": "Одинаковое число предметов, изменяется только свойство.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M05",
@@ -120,7 +147,13 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Die Tasse ist leer.",
       "risk_note_ru": "Передача известного факта не демонстрирует реальное непонимание и свободную просьбу повторить.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "conditional_clarification_only",
+        "evidence_requirement_ru": "Разрешать просьбу повторения при настоящем непонимании, не принуждать игрока инсценировать непонимание ради повторения.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed"
+      }
     },
     {
       "M": "M03",
@@ -152,7 +185,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Am Montag bin ich frei.",
       "risk_note_ru": "Табличные данные не показывают различия предупреждения/таблички M41.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Heute geschlossen.",
+        "example_B_de": "Heute offen.",
+        "semantic_necessity_ru": "Краткая табличка о доступности, а не только строка расписания.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M07",
@@ -176,7 +218,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Du musst nicht kommen.",
       "risk_note_ru": "Modal nicht müssen относится к обязанности, а не наличию предмета.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Ich habe Zeit.",
+        "example_B_de": "Ich habe keine Zeit.",
+        "semantic_necessity_ru": "Наличие или отсутствие времени отдельно от обязательности.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M20",
@@ -184,7 +235,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Morgen komme ich.",
       "risk_note_ru": "Morgen komme ich показывает время, но не текущее место предмета/человека.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Morgen bin ich im Zimmer.",
+        "example_B_de": "Morgen bin ich in der Küche.",
+        "semantic_necessity_ru": "Время будущего фиксировано, изменяется местонахождение.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M19",
@@ -192,7 +252,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Kommst du morgen nicht? — Doch, ich komme.",
       "risk_note_ru": "Приглашение не содержит предложения помощи или отказа помочь.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Hilfe, bitte.",
+        "example_B_de": "Nein, danke.",
+        "semantic_necessity_ru": "Реальный запрос помощи или отказ в рамках координации, а не любая реакция на приглашение.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M04",
@@ -208,7 +277,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Ich komme zu spät.",
       "risk_note_ru": "Ich komme zu spät — сообщение, но контраст вопрос/сообщение не проверяется.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Du kommst zu spät.",
+        "example_B_de": "Kommst du zu spät?",
+        "semantic_necessity_ru": "Утверждение против вопроса при знакомом препятствии.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M29",
@@ -216,7 +294,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Ich möchte Wasser.",
       "risk_note_ru": "Желание воды не доказывает способность сообщать физическое состояние.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Ich habe Durst. Ich möchte Wasser.",
+        "example_B_de": "Ich habe Hunger. Ich möchte Brot.",
+        "semantic_necessity_ru": "Самочувствие и связанное желание; не выводить состояние из желания автоматически.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M32",
@@ -240,7 +327,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Die Tasse ist groß, aber das Buch ist klein.",
       "risk_note_ru": "Контраст свойств предметов не содержит направления перемещения.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Bring die große Tasse ins Zimmer.",
+        "example_B_de": "Bring die große Tasse in die Küche.",
+        "semantic_necessity_ru": "Направление перемещения знакомого предмета в контексте различения свойств.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M10",
@@ -264,7 +360,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Die rote Tasse ist größer.",
       "risk_note_ru": "Две чашки сравниваются по размеру, но не различаются владельцы.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Meine Tasse ist größer.",
+        "example_B_de": "Deine Tasse ist größer.",
+        "semantic_necessity_ru": "Владение различается при неизменном сравнении.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M18",
@@ -272,7 +377,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Ich bin seit Montag hier.",
       "risk_note_ru": "Seit/bis — длительность, не разрешение/обязанность.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Seit Montag darf ich kommen.",
+        "example_B_de": "Seit Montag muss ich kommen.",
+        "semantic_necessity_ru": "Известная временная граница; меняется разрешение на обязанность.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M22",
@@ -280,7 +394,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Die rote Tasse ist hier.",
       "risk_note_ru": "Распознавание цвета и местонахождения не отличает где от куда.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Die rote Tasse ist im Zimmer.",
+        "example_B_de": "Bring die rote Tasse ins Zimmer.",
+        "semantic_necessity_ru": "Где находится объект против куда его нести при одном признаке.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M42",
@@ -288,7 +411,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Ich bin morgen nicht da.",
       "risk_note_ru": "Короткая заметка не является таблицей/расписанием, сама по себе не показывает извлечение значения из столбцов.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Montag: frei. Dienstag: nicht frei.",
+        "example_B_de": "Montag: nicht frei. Dienstag: frei.",
+        "semantic_necessity_ru": "Извлечение данных из строк короткого графика в тексте.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M43",
@@ -304,7 +436,13 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Tom ist mein Bruder.",
       "risk_note_ru": "Личная связь не обязательно требует переспрашивания; не навязывать ложное непонимание.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "conditional_clarification_only",
+        "evidence_requirement_ru": "Разрешать просьбу повторения при настоящем непонимании, не принуждать игрока инсценировать непонимание ради повторения.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed"
+      }
     },
     {
       "M": "M02",
@@ -312,7 +450,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Tom ist mein Bruder.",
       "risk_note_ru": "Tom ist mein Bruder/Freund — личная связь, не представление себя.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Ich bin Mia. Tom ist mein Bruder.",
+        "example_B_de": "Ich bin Lea. Tom ist mein Bruder.",
+        "semantic_necessity_ru": "Самостоятельно назвать себя при неизменной известной личной связи.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M41",
@@ -320,7 +467,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Name: Mia. Tag: Montag.",
       "risk_note_ru": "Поля анкеты не эквивалентны пониманию предупреждений/объявлений.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Heute geschlossen.",
+        "example_B_de": "Heute offen.",
+        "semantic_necessity_ru": "Короткое объявление о доступности, отдельно от заполнения формы.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M20",
@@ -328,7 +484,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Name: Mia. Tag: Montag.",
       "risk_note_ru": "Name/Tag не сообщают текущее местонахождение.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Buch: Zimmer.",
+        "example_B_de": "Buch: Küche.",
+        "semantic_necessity_ru": "Извлечь наблюдаемое местонахождение из самостоятельной краткой записи.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M30",
@@ -352,7 +517,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Die Tasse ist zu groß.",
       "risk_note_ru": "Слишком большой/холодный предмет не сообщает частоту действия.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Die Tasse ist oft leer.",
+        "example_B_de": "Die Tasse ist nie leer.",
+        "semantic_necessity_ru": "Частота появления одного и того же препятствия.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M29",
@@ -360,7 +534,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Die Tasse ist zu groß.",
       "risk_note_ru": "Свойство чашки не равно состоянию говорящего.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Ich bin müde.",
+        "example_B_de": "Ich bin krank.",
+        "semantic_necessity_ru": "Собственное состояние влияет на допустимость действия, не свойство чашки.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M48",
@@ -384,7 +567,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Ich bin krank. Komm morgen.",
       "risk_note_ru": "Ich bin krank/gesund сообщает состояние, а не профессию/занятие.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Ich bin Lehrer. Ich bin krank.",
+        "example_B_de": "Ich bin Arzt. Ich bin krank.",
+        "semantic_necessity_ru": "Различаются профессии при неизменном самочувствии и отдельной просьбе.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M49",
@@ -400,7 +592,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Ich habe das Buch gefunden.",
       "risk_note_ru": "Я нашёл книгу — результат, но нет последовательности действий.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Zuerst habe ich die Tasse genommen. Dann habe ich das Buch gefunden.",
+        "example_B_de": "Zuerst habe ich das Buch gefunden. Dann habe ich die Tasse genommen.",
+        "semantic_necessity_ru": "Порядок двух завершённых знакомых действий, не только результат.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M11",
@@ -408,7 +609,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Ich habe das Buch gefunden.",
       "risk_note_ru": "Habe gefunden — вспомогательный haben, не владение/отсутствие.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Gestern hatte ich das Buch.",
+        "example_B_de": "Gestern hatte ich kein Buch.",
+        "semantic_necessity_ru": "Отсутствие или наличие предмета в прошлом; не путать вспомогательное habe с владением.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M16",
@@ -416,7 +626,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Mia ist gekommen.",
       "risk_note_ru": "Mia ist gekommen/kommt сравнивает время одного события, не два независимых факта.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Mia ist gekommen. Tom ist gegangen.",
+        "example_B_de": "Mia ist gegangen. Tom ist gekommen.",
+        "semantic_necessity_ru": "Два независимых завершённых события, а не только изменение времени одного.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M15",
@@ -424,7 +643,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Mia ist gekommen.",
       "risk_note_ru": "Perfekt движения не проверяет описание физического состояния.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Mia ist gekommen. Die Tür ist offen.",
+        "example_B_de": "Mia ist gekommen. Die Tür ist zu.",
+        "semantic_necessity_ru": "Уже знакомое состояние предмета как отдельный факт после прошлого события.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M28",
@@ -432,7 +660,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Morgen gehe ich.",
       "risk_note_ru": "Morgen/Heute gehe ich меняет время, но не сравнение объектов.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Morgen nehme ich die größere Tasse.",
+        "example_B_de": "Morgen nehme ich die kleinere Tasse.",
+        "semantic_necessity_ru": "Ближайший план сохраняется, меняется сравнение размеров.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M25",
@@ -440,7 +677,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Morgen gehe ich.",
       "risk_note_ru": "План на сегодня/завтра не является частотой привычки.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Ich arbeite oft. Morgen komme ich.",
+        "example_B_de": "Ich arbeite nie. Morgen komme ich.",
+        "semantic_necessity_ru": "Привычная частота и будущий план — два разных факта.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M34",
@@ -456,7 +702,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Mia liest gern.",
       "risk_note_ru": "Mia liest gern/spielt gern — интерес, не родственные или личные связи.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Mia ist meine Schwester. Sie liest gern.",
+        "example_B_de": "Mia ist meine Freundin. Sie liest gern.",
+        "semantic_necessity_ru": "Личная связь отделена от интереса человека.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M38",
@@ -464,7 +719,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Mia liest gern.",
       "risk_note_ru": "Чтение/игра не содержат слишком/не подходит.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Mia liest gern. Das Buch ist zu schwer.",
+        "example_B_de": "Mia liest gern. Das Buch ist zu klein.",
+        "semantic_necessity_ru": "Явное объяснение, почему вариант не подходит, а не только упоминание хобби.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M14",
@@ -472,7 +736,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Mia hat das Buch gefunden.",
       "risk_note_ru": "Mia/Tom как исполнитель находки — не получатель передачи.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Mia hat Tom das Buch gegeben.",
+        "example_B_de": "Mia hat Lea das Buch gegeben.",
+        "semantic_necessity_ru": "Меняется получатель завершённой передачи, не исполнитель находки.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M53",
@@ -504,7 +777,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Komm am Montag. Ich bin frei.",
       "risk_note_ru": "Краткое приглашение не показывает поиск строки/столбца расписания.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Montag: frei. Dienstag: nicht frei.",
+        "example_B_de": "Montag: nicht frei. Dienstag: frei.",
+        "semantic_necessity_ru": "Расписание внутри короткого письменного материала, не общий текст приглашения.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M55",
@@ -512,7 +794,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Komm am Montag. Ich bin frei.",
       "risk_note_ru": "Komm am Montag — простая просьба, но не вежливая формула G33/M55.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Ich hätte gern einen Termin am Montag.",
+        "example_B_de": "Ich habe einen Termin am Montag.",
+        "semantic_necessity_ru": "Вежливая формула запроса против утверждения о наличии записи.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M08",
@@ -520,7 +811,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Komm am Montag. Ich bin frei.",
       "risk_note_ru": "Нет явного du/Sie-контраста в основных A/B-парах единицы.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Komm am Montag.",
+        "example_B_de": "Kommen Sie am Montag.",
+        "semantic_necessity_ru": "Неформальное du против вежливого Sie при одном действии/времени.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M44",
@@ -552,7 +852,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Du darfst morgen nicht kommen.",
       "risk_note_ru": "Запрет завтра — правило, а не самостоятельное согласование времени.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Komm morgen um zehn.",
+        "example_B_de": "Komm morgen um zwölf.",
+        "semantic_necessity_ru": "Договориться о конкретном часе, а не только распознать правило.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M23",
@@ -568,7 +877,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Du darfst morgen nicht kommen.",
       "risk_note_ru": "Morgen не различает начало/конец периода seit/bis.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Du darfst bis Montag nicht kommen.",
+        "example_B_de": "Du darfst seit Montag nicht kommen.",
+        "semantic_necessity_ru": "Запрет с противоположным временным ограничением; граница vs исходная точка.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M36",
@@ -584,7 +902,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Das ist meine Schwester. Sie mag Tee.",
       "risk_note_ru": "Sie mag Tee — предпочтение, но не эмоциональная оценка froh/traurig.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Sie ist froh.",
+        "example_B_de": "Sie ist traurig.",
+        "semantic_necessity_ru": "Понять выраженную эмоциональную оценку человека, не считать mag тем же самым.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M31",
@@ -600,7 +927,16 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Das ist meine Schwester. Sie mag Tee.",
       "risk_note_ru": "Личные сведения не являются самостоятельным письменным вопросом.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "alternative_language_only_AB_candidate",
+        "example_A_de": "Magst du Tee?",
+        "example_B_de": "Magst du Wasser?",
+        "semantic_necessity_ru": "Самостоятельный вопрос о предпочтении; не только чтение чужого факта.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed",
+        "caveat": "Требует проверки F1, посильности и соответствия этому абстрактному шагу; не превращать в новый обязательный контакт автоматически."
+      }
     },
     {
       "M": "M50",
@@ -632,7 +968,13 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Name: Tom. Zeit: zehn Uhr.",
       "risk_note_ru": "Основная пара Name/Zeit не показывает передачу нескольких связанных пунктов своим текстом; независимый LO-W07 делает это отдельно.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "linked_independent_LO_not_main_pair",
+        "evidence_requirement_ru": "Проверить перенос через независимый LO-W07, который требует самостоятельно передать несколько неизвестных адресату фактов, не через форму Name/Zeit.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed"
+      }
     },
     {
       "M": "M48",
@@ -640,7 +982,13 @@
       "status": "not_demonstrated_by_current_main_AB",
       "primary_example_de": "Name: Tom. Zeit: zehn Uhr.",
       "risk_note_ru": "Анкетные поля сами по себе не являются передачей факта другому адресату; LO-W07 требует дополнительной проверки.",
-      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу.",
+      "repair_candidate": {
+        "kind": "linked_independent_LO_not_main_pair",
+        "evidence_requirement_ru": "Проверить перенос через независимый LO-W07, который требует самостоятельно передать несколько неизвестных адресату фактов, не через форму Name/Zeit.",
+        "obligatory_contact": false,
+        "status": "unproven_proposed"
+      }
     },
     {
       "M": "M45",
@@ -655,7 +1003,10 @@
     "all_candidates": 80,
     "illustrated_candidates": 40,
     "not_demonstrated_by_main_AB": 40,
-    "coverage_measures": "semantic_evidence_not_acquisition"
+    "coverage_measures": "semantic_evidence_not_acquisition",
+    "repair_candidates": 40,
+    "repair_pairs": 36,
+    "conditional_or_linked": 4
   },
   "revision_history": [
     {
