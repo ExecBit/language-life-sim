@@ -452,7 +452,17 @@ def main() -> int:
                   LANGUAGE_MAP.read_text(encoding="utf-8"))
     if args.check:
         if old != fresh:
-            print("Dashboard is stale. Rebuild it and commit HTML with Markdown.", file=sys.stderr)
+            diff_at = next(
+                (i for i, (a, b) in enumerate(zip(old, fresh)) if a != b),
+                min(len(old), len(fresh))
+            )
+            print(
+                "Dashboard is stale; first difference at character "
+                + str(diff_at)
+                + "; tracked=" + repr(old[max(0, diff_at - 80):diff_at + 170])
+                + "; generated=" + repr(fresh[max(0, diff_at - 80):diff_at + 170]),
+                file=sys.stderr
+            )
             return 1
         print("Dashboard matches the Markdown and language references.")
         return 0
