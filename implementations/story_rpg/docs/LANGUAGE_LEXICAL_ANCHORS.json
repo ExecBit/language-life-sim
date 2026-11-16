@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "status": "plot_independent_lexical_anchor_candidates_not_required_word_quotas",
   "notes": [
     "The 29 source groups are imported from LANGUAGE_LEXICON.md only; nothing from ACT_*, dialogue transcripts or world lore.",
@@ -13,7 +13,8 @@
     "All 116 existing candidate lexical anchor slots now have manually drafted Russian glosses; these do not constitute the complete 477-string catalogue or approved F1 articles.",
     "Group 19: three minimal price-related anchors are required receptively by LO-R04; purchasing and store-specific lexicon remain optional candidates in LANGUAGE_LEXICON.md. No scene or shop narrative is implied.",
     "Source lexical groups 7/10/12/13 augmented with setting-neutral emotion, place, complete 0–12 number reading, and Herr for formal address; no new obligatory anchor quotas and no earlier P targets.",
-    "Synchronized pre-existing wohin (group 11) and sehen (group 28) additions with full independent LANGUAGE_LEXICON.md source; neither becomes a new mandatory practice anchor by virtue of being in the catalogue."
+    "Synchronized pre-existing wohin (group 11) and sehen (group 28) additions with full independent LANGUAGE_LEXICON.md source; neither becomes a new mandatory practice anchor by virtue of being in the catalogue.",
+    "Added article candidates ein/der/die, functional ohne/bei/als, and receptive liegen to support grammatical meaning checks; no new required lexical anchor assignments."
   ],
   "groups": [
     {
@@ -165,7 +166,10 @@
         "ihr",
         "es",
         "die Person",
-        "das Alter"
+        "das Alter",
+        "ein",
+        "der",
+        "die"
       ],
       "planned_first_practice": "P1",
       "role": "functional_anchor_candidate",
@@ -550,7 +554,8 @@
         "dir",
         "mit",
         "zusammen",
-        "allein"
+        "allein",
+        "ohne"
       ],
       "receptive": [
         "unser",
@@ -560,7 +565,8 @@
         "diese",
         "dieses",
         "der Besitzer",
-        "Sie (вежливо)"
+        "Sie (вежливо)",
+        "bei"
       ],
       "planned_first_practice": "P2a",
       "role": "functional_anchor_candidate",
@@ -642,7 +648,8 @@
         "im",
         "ins",
         "da",
-        "dort"
+        "dort",
+        "liegen"
       ],
       "planned_first_practice": "P2b",
       "role": "functional_anchor_candidate",
@@ -1578,7 +1585,8 @@
         "kleiner",
         "besser",
         "schlechter",
-        "passen"
+        "passen",
+        "als"
       ],
       "receptive": [
         "die Jacke",
