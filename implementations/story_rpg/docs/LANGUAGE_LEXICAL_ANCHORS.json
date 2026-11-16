@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "status": "plot_independent_lexical_anchor_candidates_not_required_word_quotas",
   "notes": [
     "The 29 source groups are imported from LANGUAGE_LEXICON.md only; nothing from ACT_*, dialogue transcripts or world lore.",
@@ -9,7 +9,8 @@
     "Group 13 personal relationships has its first REQUIRED semantic contrast M36 at P4b; earlier vocabulary is optional receptive exposure. No family biography is invented.",
     "A German compound or phrase can contain several lexemes; counts of anchors are NOT unique vocabulary sizes or cognitive difficulty.",
     "A selected functional anchor is only a candidate; unused productive words such as directional nach remain present in LANGUAGE_LEXICON.md rather than being erased.",
-    "Critical R/grammar prerequisites received their own anchors: Sie, im/ins, polite phrases, doch, seit/bis, welcher, es gibt; the catalogue retains all prior words."
+    "Critical R/grammar prerequisites received their own anchors: Sie, im/ins, polite phrases, doch, seit/bis, welcher, es gibt; the catalogue retains all prior words.",
+    "All 116 existing candidate lexical anchor slots now have manually drafted Russian glosses; these do not constitute the complete 463-string catalogue or approved F1 articles."
   ],
   "groups": [
     {
@@ -48,7 +49,33 @@
         "nein",
         "noch einmal"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "Hallo",
+          "ru": "привет / здравствуйте",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "ja",
+          "ru": "да",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "nein",
+          "ru": "нет",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "noch einmal",
+          "ru": "ещё раз",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 2,
@@ -82,7 +109,33 @@
         "nehmen",
         "geben"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "das Buch",
+          "ru": "книга",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "die Tasse",
+          "ru": "чашка",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "nehmen",
+          "ru": "брать / взять",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "geben",
+          "ru": "давать / дать",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 3,
@@ -119,7 +172,33 @@
         "heißen",
         "der Name"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "ich",
+          "ru": "я",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "du",
+          "ru": "ты",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "heißen",
+          "ru": "называться / зваться",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "der Name",
+          "ru": "имя",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 4,
@@ -155,7 +234,39 @@
         "fragen",
         "welcher"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "was",
+          "ru": "что",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "wo",
+          "ru": "где",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "wie",
+          "ru": "как",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "fragen",
+          "ru": "спрашивать",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "welcher",
+          "ru": "какой / который (форма м. рода)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 5,
@@ -195,7 +306,33 @@
         "brauchen",
         "helfen"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "machen",
+          "ru": "делать",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "bringen",
+          "ru": "приносить / принести",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "brauchen",
+          "ru": "нуждаться / быть нужным",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "helfen",
+          "ru": "помогать",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 6,
@@ -242,7 +379,39 @@
         "kaputt",
         "es gibt"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "kein",
+          "ru": "нет / никакой (отрицание существительного)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "nicht",
+          "ru": "не (отрицание факта или действия)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "gut",
+          "ru": "хороший / хорошо",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "kaputt",
+          "ru": "сломанный / неработающий",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "es gibt",
+          "ru": "есть / имеется",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 7,
@@ -277,7 +446,27 @@
         "krank",
         "die Hilfe"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "müde",
+          "ru": "уставший",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "krank",
+          "ru": "больной",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "die Hilfe",
+          "ru": "помощь",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 8,
@@ -315,7 +504,27 @@
         "das Wasser",
         "der Tee"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "trinken",
+          "ru": "пить",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "das Wasser",
+          "ru": "вода",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "der Tee",
+          "ru": "чай",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 9,
@@ -357,7 +566,39 @@
         "dir",
         "Sie (вежливо)"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "mein",
+          "ru": "мой",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "dein",
+          "ru": "твой",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "mir",
+          "ru": "мне",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "dir",
+          "ru": "тебе",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "Sie (вежливо)",
+          "ru": "Вы (вежливое обращение)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": true
+        }
+      ]
     },
     {
       "id": 10,
@@ -406,7 +647,45 @@
         "im",
         "ins"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "das Zimmer",
+          "ru": "комната",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "die Küche",
+          "ru": "кухня",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "in",
+          "ru": "в",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "auf",
+          "ru": "на",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "im",
+          "ru": "в (где, местонахождение)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "ins",
+          "ru": "в (куда, направление)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 11,
@@ -444,7 +723,27 @@
         "rechts",
         "zu"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "links",
+          "ru": "слева / налево",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "rechts",
+          "ru": "справа / направо",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "zu",
+          "ru": "к / слишком (зависит от контекста)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": true
+        }
+      ]
     },
     {
       "id": 12,
@@ -483,7 +782,33 @@
         "drei",
         "wie viel"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "eins",
+          "ru": "один",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "zwei",
+          "ru": "два",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "drei",
+          "ru": "три",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "wie viel",
+          "ru": "сколько (для количества/массы)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 13,
@@ -523,7 +848,33 @@
         "der Bruder",
         "die Schwester"
       ],
-      "warning": "Family terms may be recognized earlier as optional vocabulary; M36's first required R contrast remains in P4b."
+      "warning": "Family terms may be recognized earlier as optional vocabulary; M36's first required R contrast remains in P4b.",
+      "draft_russian_glosses": [
+        {
+          "expression": "der Freund",
+          "ru": "друг / парень (в зависимости от контекста)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": true
+        },
+        {
+          "expression": "die Freundin",
+          "ru": "подруга / девушка (в зависимости от контекста)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": true
+        },
+        {
+          "expression": "der Bruder",
+          "ru": "брат",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "die Schwester",
+          "ru": "сестра",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 14,
@@ -560,7 +911,27 @@
         "der Beruf",
         "die Aufgabe"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "die Arbeit",
+          "ru": "работа",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "der Beruf",
+          "ru": "профессия",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "die Aufgabe",
+          "ru": "задание / задача",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 15,
@@ -612,7 +983,33 @@
         "um",
         "am"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "heute",
+          "ru": "сегодня",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "morgen",
+          "ru": "завтра",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "um",
+          "ru": "в (при указании времени); вокруг (в другом контексте)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": true
+        },
+        {
+          "expression": "am",
+          "ru": "в / на (перед днём или датой)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": true
+        }
+      ]
     },
     {
       "id": 16,
@@ -651,7 +1048,45 @@
         "nicht müssen",
         "doch"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "können",
+          "ru": "мочь / быть способным",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "müssen",
+          "ru": "быть должным / необходимо",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "dürfen",
+          "ru": "иметь разрешение / можно",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "nicht dürfen",
+          "ru": "нельзя / запрещено",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "nicht müssen",
+          "ru": "не обязательно / не требуется",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "doch",
+          "ru": "да (вопреки отрицанию); другие значения зависят от контекста",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": true
+        }
+      ]
     },
     {
       "id": 17,
@@ -694,7 +1129,45 @@
         "ich hätte gern …",
         "könnte ich …?"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "möchten",
+          "ru": "хотеть (вежливая форма)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "gern",
+          "ru": "охотно / нравиться делать",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "lieber",
+          "ru": "предпочтительнее / лучше",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "oder",
+          "ru": "или",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "ich hätte gern …",
+          "ru": "я хотел(а) бы …",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "könnte ich …?",
+          "ru": "могу ли я …? / можно мне …?",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 18,
@@ -732,7 +1205,33 @@
         "treffen",
         "anfangen"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "der Termin",
+          "ru": "назначенная встреча / запись",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "die Zeit",
+          "ru": "время",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "treffen",
+          "ru": "встречать / встречаться",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "anfangen",
+          "ru": "начинать(ся)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 19,
@@ -772,7 +1271,27 @@
         "der Preis",
         "teuer"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "kaufen",
+          "ru": "покупать",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "der Preis",
+          "ru": "цена",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "teuer",
+          "ru": "дорогой",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 20,
@@ -812,7 +1331,33 @@
         "oft",
         "manchmal"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "spielen",
+          "ru": "играть",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "Musik hören",
+          "ru": "слушать музыку",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "oft",
+          "ru": "часто",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "manchmal",
+          "ru": "иногда",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 21,
@@ -851,7 +1396,27 @@
         "der Bus",
         "der Zug"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "fahren",
+          "ru": "ехать / ездить",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "der Bus",
+          "ru": "автобус",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "der Zug",
+          "ru": "поезд",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 22,
@@ -888,7 +1453,27 @@
         "der Nachname",
         "die Adresse"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "der Vorname",
+          "ru": "имя (в отличие от фамилии)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "der Nachname",
+          "ru": "фамилия",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "die Adresse",
+          "ru": "адрес",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 23,
@@ -933,7 +1518,27 @@
         "die Frage",
         "die Antwort"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "die Nachricht",
+          "ru": "сообщение",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "die Frage",
+          "ru": "вопрос",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "die Antwort",
+          "ru": "ответ",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 24,
@@ -977,7 +1582,33 @@
         "größer",
         "besser"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "rot",
+          "ru": "красный",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "blau",
+          "ru": "синий",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "größer",
+          "ru": "больше по размеру",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "besser",
+          "ru": "лучше",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 25,
@@ -1015,7 +1646,27 @@
         "der Regen",
         "der Schnee"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "das Wetter",
+          "ru": "погода",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "der Regen",
+          "ru": "дождь",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "der Schnee",
+          "ru": "снег",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 26,
@@ -1052,7 +1703,27 @@
         "Deutsch",
         "verstehen"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "die Sprache",
+          "ru": "язык (речь)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "Deutsch",
+          "ru": "немецкий язык",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "verstehen",
+          "ru": "понимать",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 27,
@@ -1096,7 +1767,45 @@
         "seit",
         "bis"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "und",
+          "ru": "и",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "aber",
+          "ru": "но",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "zuerst",
+          "ru": "сначала",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "dann",
+          "ru": "потом / затем",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "seit",
+          "ru": "с (начального момента времени)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "bis",
+          "ru": "до",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 28,
@@ -1133,7 +1842,33 @@
         "habe gemacht",
         "ist gekommen"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "war",
+          "ru": "был / была (форма sein)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "hatte",
+          "ru": "имел / имела (форма haben)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "habe gemacht",
+          "ru": "сделал(а) (Perfekt с haben)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "ist gekommen",
+          "ru": "пришёл / пришла (Perfekt с sein)",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     },
     {
       "id": 29,
@@ -1164,7 +1899,33 @@
         "wieder",
         "planen"
       ],
-      "warning": null
+      "warning": null,
+      "draft_russian_glosses": [
+        {
+          "expression": "nächste Woche",
+          "ru": "на следующей неделе",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "wieder",
+          "ru": "снова / опять",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        },
+        {
+          "expression": "planen",
+          "ru": "планировать",
+          "status": "unreviewed_semantic_gloss_not_f1_approved",
+          "context_needed": false
+        }
+      ]
     }
-  ]
+  ],
+  "glosses_coverage": {
+    "anchor_occurrences": 116,
+    "unique_anchor_expressions": 116,
+    "missing": 0,
+    "source_independent": true
+  }
 }
