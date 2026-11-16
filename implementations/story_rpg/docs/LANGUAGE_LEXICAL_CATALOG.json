@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "status": "independent_lexical_inventory_not_approved_f1",
   "source": "LANGUAGE_LEXICON.md section 2, 29 topic groups; NOT ACT authored dialogue corpus",
   "validation": {
@@ -8288,14 +8288,14 @@
     }
   ],
   "program_german_form_audit": {
-    "source": "LANGUAGE_PRACTICE_UNITS.json current A/B examples, independent of ACT stories",
-    "unique_example_wordforms": 137,
+    "source": "LANGUAGE_PRACTICE_UNITS.json current 76 A/B German pairs",
+    "unique_example_wordforms": 136,
     "exact_surface_token_matches": 102,
-    "needs_normalization": 35,
-    "inflected_or_plural": 27,
+    "needs_normalization": 34,
+    "inflected_or_plural": 26,
     "proper_names_not_lexicon": 2,
     "supplemental_candidates": 6,
-    "form_coverage_status": "candidate_only_not_real_F1_test"
+    "form_coverage_status": "static candidate mapping, NOT validated F1 search"
   },
   "program_form_alias_candidates": [
     {
@@ -8324,6 +8324,7 @@
         "P0-06",
         "P1-01",
         "P4b-03",
+        "P5-03",
         "P5-06"
       ],
       "kind": "placeholder_proper_name",
@@ -8485,16 +8486,6 @@
       "status": "candidate_normalization_not_verified_UI"
     },
     {
-      "observed_form": "fängt",
-      "unit_ids": [
-        "P2c-04"
-      ],
-      "kind": "separable_inflection",
-      "target_entry": "anfangen",
-      "ru_meaning": null,
-      "status": "candidate_normalization_not_verified_UI"
-    },
-    {
       "observed_form": "acht",
       "unit_ids": [
         "P2c-04"
@@ -8502,6 +8493,16 @@
       "kind": "new_language_candidate",
       "target_entry": "acht",
       "ru_meaning": "восемь",
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
+      "observed_form": "fängt",
+      "unit_ids": [
+        "P2c-04"
+      ],
+      "kind": "separable_inflection",
+      "target_entry": "anfangen",
+      "ru_meaning": null,
       "status": "candidate_normalization_not_verified_UI"
     },
     {
@@ -8633,16 +8634,6 @@
       "status": "candidate_normalization_not_verified_UI"
     },
     {
-      "observed_form": "angekommen",
-      "unit_ids": [
-        "P5-03"
-      ],
-      "kind": "participle",
-      "target_entry": "ankommen",
-      "ru_meaning": null,
-      "status": "candidate_normalization_not_verified_UI"
-    },
-    {
       "observed_form": "kommt",
       "unit_ids": [
         "P5-03"
@@ -8696,5 +8687,80 @@
       "status": "candidate_word_missing_catalogue_even_if_not_used_in_current_pairs",
       "ru": "там"
     }
-  ]
+  ],
+  "independent_assessment_receptive_forms": {
+    "source": "LANGUAGE_PRACTICE_UNITS.json independent_outcome_assessments (6 R cases)",
+    "forms": 47,
+    "exact_matches": 39,
+    "unmatched": 8,
+    "unmatched_forms": [
+      {
+        "form": "mia",
+        "case_ids": [
+          "LO-R01",
+          "LO-R05"
+        ],
+        "classification": "placeholder_proper_name",
+        "lemma_candidate": null
+      },
+      {
+        "form": "weber",
+        "case_ids": [
+          "LO-R01"
+        ],
+        "classification": "placeholder_proper_name",
+        "lemma_candidate": null
+      },
+      {
+        "form": "zwölf",
+        "case_ids": [
+          "LO-R01",
+          "LO-R04"
+        ],
+        "classification": "new_language_candidate",
+        "lemma_candidate": "zwölf"
+      },
+      {
+        "form": "darfst",
+        "case_ids": [
+          "LO-R02"
+        ],
+        "classification": "inflection",
+        "lemma_candidate": "dürfen"
+      },
+      {
+        "form": "musst",
+        "case_ids": [
+          "LO-R02"
+        ],
+        "classification": "inflection",
+        "lemma_candidate": "müssen"
+      },
+      {
+        "form": "bring",
+        "case_ids": [
+          "LO-R03"
+        ],
+        "classification": "inflection",
+        "lemma_candidate": "bringen"
+      },
+      {
+        "form": "tom",
+        "case_ids": [
+          "LO-R05"
+        ],
+        "classification": "placeholder_proper_name",
+        "lemma_candidate": null
+      },
+      {
+        "form": "lea",
+        "case_ids": [
+          "LO-R05"
+        ],
+        "classification": "placeholder_proper_name",
+        "lemma_candidate": null
+      }
+    ],
+    "meaning": "Do not confuse name placeholders with missing German lexemes; forms are candidates, not evidence of comprehension."
+  }
 }
