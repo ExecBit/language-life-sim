@@ -1,5 +1,5 @@
 {
-  "version": "1.1",
+  "version": "1.2",
   "status": "independent_lexical_inventory_not_approved_f1",
   "source": "LANGUAGE_LEXICON.md section 2, 29 topic groups; NOT ACT authored dialogue corpus",
   "validation": {
@@ -2113,9 +2113,9 @@
         }
       ],
       "draft_ru_meanings": [
-        "приносить / принести"
+        "принести / приносить (сюда) или отнести / относить (к цели), в зависимости от направления"
       ],
-      "draft_gloss_status": "unreviewed_translation_candidate",
+      "draft_gloss_status": "revised_semantic_candidate_not_F1_verified",
       "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
@@ -2624,9 +2624,9 @@
         }
       ],
       "draft_ru_meanings": [
-        "открытый"
+        "открытый / открыто (о двери, помещении, доступе)"
       ],
-      "draft_gloss_status": "unreviewed_translation_candidate",
+      "draft_gloss_status": "revised_semantic_candidate_not_F1_verified",
       "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
@@ -2655,9 +2655,9 @@
         }
       ],
       "draft_ru_meanings": [
-        "к / слишком (зависит от контекста)"
+        "к (направление) / слишком (степень) / закрыто (о двери или окне); значение зависит от контекста"
       ],
-      "draft_gloss_status": "unreviewed_translation_candidate",
+      "draft_gloss_status": "revised_semantic_candidate_not_F1_verified",
       "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
@@ -11508,7 +11508,7 @@
     "status": "full_candidate_RU_gloss_draft_not_native_speaker_reviewed_not_normalized_F1"
   },
   "f1_candidate_search": {
-    "version": "0.2",
+    "version": "0.3",
     "status": "static_candidate_lookup_not_implemented_or_linguistically_verified",
     "aliases": [
       {
@@ -11882,6 +11882,12 @@
         "lemma": "finden",
         "relation": "finite_1sg",
         "source": "G_contrast_or_core_A1_morphology"
+      },
+      {
+        "surface": "hilf",
+        "lemma": "helfen",
+        "relation": "imperative_du_irregular",
+        "source": "independent_F1_RU_to_DE_semantic_review"
       }
     ],
     "reverse_ru_queries": [
@@ -11951,10 +11957,9 @@
       {
         "query_ru": "помоги",
         "candidate_de": [
-          "helfen",
-          "die Hilfe"
+          "helfen"
         ],
-        "contrast": "помощь как действие или существительное",
+        "contrast": "лемма помочь; в немецком Imperativ du: hilf! (морфологическая словоформа), не существительное die Hilfe.",
         "status": "draft_query_not_executed"
       },
       {
@@ -12101,12 +12106,11 @@
         "status": "draft_query_not_executed"
       },
       {
-        "query_ru": "чаще",
+        "query_ru": "часто",
         "candidate_de": [
-          "oft",
-          "mehr"
+          "oft"
         ],
-        "contrast": "частота и количество/степень различаются",
+        "contrast": "часто, не сравнительное «чаще»",
         "status": "draft_query_not_executed"
       },
       {
@@ -12351,6 +12355,39 @@
         ],
         "contrast": "место или состояние предмета, не направление",
         "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "больше",
+        "candidate_de": [
+          "mehr"
+        ],
+        "contrast": "увеличение количества/степени; не перевод «чаще»",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "помощь",
+        "candidate_de": [
+          "die Hilfe"
+        ],
+        "contrast": "существительное, отличается от повеления «помоги»",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "закрыто",
+        "candidate_de": [
+          "zu",
+          "geschlossen"
+        ],
+        "contrast": "у двери sein + zu означает «закрыто»; geschlossen — причастие/прилагательное «закрыт», не смешивать с предлогом zu",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "отнести",
+        "candidate_de": [
+          "bringen"
+        ],
+        "contrast": "bringen может означать переместить вещь к указанному адресату/цели; не только принести к говорящему",
+        "status": "draft_query_not_executed"
       }
     ],
     "ambiguity_groups": [
@@ -12449,7 +12486,7 @@
         "forms": [
           "zu"
         ],
-        "distinction": "слишком, к, закрыто — контекстно различать",
+        "distinction": "zu означает «закрыто» в Die Tür ist zu, «к» как предлог направления и «слишком» перед прилагательным; нельзя переносить смысл из одной конструкции в другую",
         "status": "draft_context_sensitive_rule"
       },
       {
@@ -12506,11 +12543,35 @@
       "The complete approved act vocabulary will be available on F1 from beginning, irrespective of language horizon."
     ],
     "validation": {
-      "alias_links": 62,
-      "reverse_queries": 55,
+      "alias_links": 63,
+      "reverse_queries": 59,
       "ambiguity_groups": 16,
-      "unknown_query": "return uncertainty and candidates rather than invented single translation"
-    }
+      "unknown_query": "return uncertainty and candidates rather than invented single translation",
+      "negative_ru_queries": 1
+    },
+    "rejected_reverse_ru_mappings": [
+      {
+        "query_ru": "чаще",
+        "previous_candidates": [
+          "oft",
+          "mehr"
+        ],
+        "reason": "oft=часто, mehr=больше; оба не равны сравнительному наречию öfter/häufiger (чаще)",
+        "status": "rejected_inaccurate_candidate_2026_11_16"
+      }
+    ],
+    "negative_ru_queries": [
+      {
+        "query_ru": "чаще",
+        "reason": "В кандидатном каталоге нет отдельного öfter/häufiger. Нельзя возвращать oft/mehr как точный эквивалент.",
+        "related_candidates_not_equivalent": [
+          "oft",
+          "mehr"
+        ],
+        "expected_behavior": "no_exact_match_show_uncertainty_without_fake_translation",
+        "status": "candidate_negative_test_not_UI_test"
+      }
+    ]
   },
   "grammar_form_audit": {
     "version": "0.3",
