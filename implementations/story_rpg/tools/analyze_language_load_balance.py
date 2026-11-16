@@ -269,6 +269,66 @@ def report(doc: dict, mmap: dict, gmap: dict, errors: list[str]) -> str:
 
 
 
+
+def grammar_probe_appendix(doc: dict) -> tuple[str, list[str]]:
+    """Compare the separate G A/B examples with the main language-unit pairs."""
+    grammar = json.loads(GRAMMAR_CONTRASTS.read_text(encoding="utf-8"))
+    unit_by_id = {it["id"]: it for it in doc["items"]}
+    totals = defaultdict(Counter)
+    errors = []
+    for it in doc["items"]:
+        totals[it["stage"]]["main"] += len(it.get("language_example_checks", []))
+
+    seen = set()
+    for probe in grammar.get("items", []):
+        gid, unit_id = probe["id"], probe["unit"]
+        if gid in seen:
+            errors.append(f"Grammar probe repeated: {gid}")
+        seen.add(gid)
+        it = unit_by_id.get(unit_id)
+        if it is None or gid not in it["introduce_g"]:
+            errors.append(f"Grammar probe {gid} not linked to first G unit {unit_id}")
+            continue
+        already_main = any(
+            pair["example_A_de"] == probe["example_A"]
+            and pair["example_B_de"] == probe["example_B"]
+            for pair in it.get("language_example_checks", [])
+        )
+        if not already_main:
+            totals[it["stage"]]["extra"] += 1
+    expected_g = {gid for it in doc["items"] for gid in it["introduce_g"]}
+    if seen != expected_g:
+        errors.append(f"Grammar probe IDs differ: {sorted(seen ^ expected_g)}")
+
+    main = sum(totals[s]["main"] for s in STAGES)
+    extra = sum(totals[s]["extra"] for s in STAGES)
+    matched = len(seen) - extra
+    lines = [
+        "", "## 8. Грамматические A/B-контрасты вне основных пар: скрытая плотность", "",
+        "**Источники:** [LANGUAGE_PRACTICE_UNITS.json](LANGUAGE_PRACTICE_UNITS.json) и [LANGUAGE_GRAMMAR_CONTRASTS.json](LANGUAGE_GRAMMAR_CONTRASTS.json). Это только сопоставление двух независимых наборов проектных примеров, без сценария.",
+        "",
+        "| Горизонт | Основных A/B-пар | Отдельных G A/B-пар вне основных | Всего кандидатных пар |",
+        "|---|---:|---:|---:|",
+    ]
+    for stage in STAGES:
+        a, b = totals[stage]["main"], totals[stage]["extra"]
+        lines.append(f"| {stage} | {a} | {b} | {a + b} |")
+    lines.extend([
+        "",
+        f"**Итого:** {main} основных пар и {len(seen)} грамматических G-контраста, из которых {matched} буквально совпадают с основными парами в соответствующих единицах, а {extra} отличаются. Суммарно **{main + extra} кандидатных проверочных пар по (единица, A/B)**, а НЕ 107 обязательных игровых контактов.",
+        "",
+        "**Риск равномерности:** если каждую отличающуюся G-пару позднее предъявлять как самостоятельный обязательный контакт, нагрузка начала программы возрастёт сильнее, чем видно по числу M/G-ID (P0: "
+        + str(totals["P0"]["main"] + totals["P0"]["extra"]) + " вместо "
+        + str(totals["P0"]["main"]) + " пар; P1: "
+        + str(totals["P1"]["main"] + totals["P1"]["extra"]) + " вместо "
+        + str(totals["P1"]["main"]) + "). При адаптации нужно объединять совместимые различия или планировать отдельные доступные R-контакты без автоматического добавления задач. Отдельные примеры пока НЕ проверены на A0.",
+        "",
+        "**Качественные несоответствия:** см. [LANGUAGE_SEMANTIC_ALIGNMENT_AUDIT.md](LANGUAGE_SEMANTIC_ALIGNMENT_AUDIT.md). Число пар отражает ширину проектной проверки, но не измеренную когнитивную нагрузку и не доказательство усвоения.",
+        "",
+    ])
+    return "\n".join(lines) + "\n", sorted(set(errors))
+
+
 def lexical_stage_report(doc: dict, glossary: dict) -> tuple[str, list[str]]:
     """Validate all selected lexical anchors against the independent catalogue."""
     errors = []
@@ -555,11 +615,13 @@ def main() -> int:
     errors.extend(lexical_errors)
     outcome_appendix, outcome_errors = outcome_stage_report(doc)
     errors.extend(outcome_errors)
+    grammar_appendix, grammar_errors = grammar_probe_appendix(doc)
+    errors.extend(grammar_errors)
     errors.extend(lexical_catalogue_audit(doc))
     if errors:
         print("FAIL: " + "\nFAIL: ".join(errors), file=sys.stderr)
         return 1
-    expected = report(doc, mmap, gmap, errors) + lexical_appendix + outcome_appendix
+    expected = report(doc, mmap, gmap, errors) + lexical_appendix + outcome_appendix + grammar_appendix
     if options.write:
         OUTPUT.write_text(expected, encoding="utf-8")
         print(f"WROTE {OUTPUT.relative_to(DOCS.parent.parent.parent)}")
