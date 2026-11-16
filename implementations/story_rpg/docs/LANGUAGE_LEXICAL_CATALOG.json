@@ -12513,10 +12513,10 @@
     }
   },
   "grammar_form_audit": {
-    "version": "0.2",
+    "version": "0.3",
     "source": "LANGUAGE_GRAMMAR_CONTRASTS.json G01–G34",
-    "unique_example_wordforms": 100,
-    "exact_surface_token_matches": 72,
+    "unique_example_wordforms": 101,
+    "exact_surface_token_matches": 73,
     "alias_or_placeholder_forms": 28,
     "placeholders": 1,
     "unresolved_forms": 0,
