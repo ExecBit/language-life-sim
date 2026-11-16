@@ -1,5 +1,5 @@
 {
-  "version": "1.10",
+  "version": "1.11",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -105,9 +105,7 @@
       "introduce_m": [
         "M04"
       ],
-      "introduce_g": [
-        "G06"
-      ],
+      "introduce_g": [],
       "first_p": [
         "M04"
       ],
@@ -159,7 +157,8 @@
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
-      ]
+      ],
+      "scaffolding_note": "Это только самостоятельный краткий ответ Ja/Nein; G06 не вводится и не проверяется здесь. Первый R G06 перенесён в P0-07 после называния предмета и знакомства с sein."
     },
     {
       "stage": "P0",
@@ -337,7 +336,8 @@
         "M03"
       ],
       "introduce_g": [
-        "G02"
+        "G02",
+        "G03"
       ],
       "first_p": [],
       "revisit_m": [],
@@ -374,7 +374,8 @@
         "mitigation": "Рецептивно опираться на ясное различие говорящего и адресата; собственного полного предложения ещё не требовать до P1-01.",
         "blocking": false,
         "status": "methodical_candidate_not_user_test"
-      }
+      },
+      "scaffolding_note": "Знакомить с ich/du и bin/bist на одном известном имени; G03 на P0 только минимальное узнавание sein. Контраст sein/haben допустим позднее, после появления haben. Не требовать самостоятельной морфологии."
     },
     {
       "stage": "P0",
@@ -384,7 +385,7 @@
         "M39"
       ],
       "introduce_g": [
-        "G03"
+        "G06"
       ],
       "first_p": [],
       "revisit_m": [],
@@ -410,7 +411,8 @@
         "mitigation": "Использовать ранее введённый предмет и знакомое sein (Das ist … / Ist das …?); сначала R, не требовать самостоятельно построить вопрос.",
         "blocking": false,
         "status": "methodical_candidate_not_user_test"
-      }
+      },
+      "scaffolding_note": "Первая G06 и M06/M39 проверяются общей парой Das ist die Tasse / Ist das die Tasse; G03 здесь уже опорная конструкция. Никакой отдельной обязательной G06-пары или нового глагола действия."
     },
     {
       "stage": "P0",
@@ -1086,7 +1088,8 @@
         "mitigation": "Разделить первые R-контакты по намерению внутри единицы; помощь не должна угадываться по картинке или автоматически выбираться.",
         "blocking": false,
         "status": "methodical_candidate_not_user_test"
-      }
+      },
+      "scaffolding_note": "Три семантики строго последовательно и отдельно: местоположение предмета (M20), предложение/отказ помощи (M19), потом G25 Dieses Buch / Welches Buch с тем же знакомым предметом. Не совмещать всё в одном обязательном вводе."
     },
     {
       "stage": "P1",
@@ -1253,7 +1256,8 @@
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
         }
       ],
-      "independent_production_checks": []
+      "independent_production_checks": [],
+      "scaffolding_note": "Два рецептивных шага: сначала референт er/sie (M53), затем объектные dich/ihn (G15) с известным действием sehen. F1 обеспечивает морфологию, P пока не требуется."
     },
     {
       "stage": "P2a",
@@ -2543,9 +2547,7 @@
       "stage": "P3c",
       "goal": "Самостоятельно выразить желание",
       "introduce_m": [],
-      "introduce_g": [
-        "G23"
-      ],
+      "introduce_g": [],
       "first_p": [
         "M30"
       ],
@@ -2591,7 +2593,8 @@
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
-      ]
+      ],
+      "scaffolding_note": "Только самостоятельный смысл желания с möchte, знакомыми предметами; G23 mag vs möchte вводится в P3c-02 после первого контакта с предпочтением."
     },
     {
       "stage": "P3c",
@@ -2599,7 +2602,9 @@
       "introduce_m": [
         "M31"
       ],
-      "introduce_g": [],
+      "introduce_g": [
+        "G23"
+      ],
       "first_p": [
         "M31"
       ],
@@ -2658,7 +2663,8 @@
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
-      ]
+      ],
+      "scaffolding_note": "Сначала знакомое предпочтение mag с двумя уже известными объектами, затем G23: mag как общая симпатия против möchte как текущая просьба. Одно R-различие на известном Tee."
     },
     {
       "stage": "P3c",
@@ -3511,7 +3517,8 @@
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
-      ]
+      ],
+      "scaffolding_note": "Основная A/B-пара различает объект завершённого действия (M51); отдельная G29 R-пара сравнивает результат и настоящее на одном известном Buch. Первое P о результате — самостоятельное, без подсказанного ответа."
     },
     {
       "stage": "P5",
