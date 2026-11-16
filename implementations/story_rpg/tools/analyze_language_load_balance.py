@@ -22,6 +22,7 @@ MAP = DOCS / "LANGUAGE_MAP.md"
 PROGRESSION = DOCS / "LANGUAGE_PROGRESSION.md"
 OUTPUT = DOCS / "LANGUAGE_LOAD_BALANCE_REPORT.md"
 LEXICAL = DOCS / "LANGUAGE_LEXICAL_ANCHORS.json"
+OUTCOMES = DOCS / "LEARNING_OUTCOMES.md"
 STAGES = ["P0", "P1", "P2a", "P2b", "P2c", "P3a", "P3b", "P3c",
           "P4a", "P4b", "P4c", "P5", "P6"]
 FIELDS = ("introduce_m", "introduce_g", "first_p", "revisit_m")
@@ -334,6 +335,52 @@ def lexical_stage_report(doc: dict, glossary: dict) -> tuple[str, list[str]]:
     return "\n".join(lines)+"\n", sorted(set(errors))
 
 
+
+def outcome_stage_report(doc: dict) -> tuple[str, list[str]]:
+    """Ensure every independent LO is practised before and after transfer."""
+    expected = set(re.findall(r"LO-[RW]\\d{2}", OUTCOMES.read_text(encoding="utf-8")))
+    hits = defaultdict(list)
+    for item in doc["items"]:
+        values = item.get("outcome_candidates", [])
+        if len(values) != len(set(values)):
+            raise ValueError(f"{item['id']}: duplicate outcome")
+        for value in values:
+            hits[value].append(item["id"])
+    errors = []
+    if len(expected) != 13:
+        errors.append(f"LO spec contains {len(expected)}, expected 13")
+    for code in sorted(expected):
+        targets = hits.get(code, [])
+        if not any(not x.startswith("P6-") for x in targets):
+            errors.append(f"{code}: no earlier learning practice")
+        if not any(x.startswith("P6-") for x in targets):
+            errors.append(f"{code}: no P6 transfer candidate")
+    for code in hits:
+        if code not in expected:
+            errors.append(f"unknown LO {code}")
+    lines = [
+        "",
+        "## 7. Связь с независимыми результатами (13 LO)",
+        "",
+        "| LO | Ранее — самостоятельная практика (кандидат) | P6 — перенос (кандидат) |",
+        "|---|---|---|",
+    ]
+    for code in sorted(expected):
+        earlier = ", ".join(x for x in hits[code] if not x.startswith("P6-"))
+        later = ", ".join(x for x in hits[code] if x.startswith("P6-"))
+        lines.append(f"| {code} | {earlier} | {later} |")
+    lines.extend([
+        "",
+        "**В каждом LO предусмотрены два контекста, но это ещё не проведённый "
+        "экзамен или эмпирически доказанный перенос.** "
+        "Текстовый R требует извлечения необходимого факта; свободный W — "
+        "самостоятельной передачи информации без готовой немецкой реплики. "
+        "Контрфакт должен менять результат, а не только порядок вариантов.",
+        "",
+    ])
+    return "\n".join(lines) + "\n", sorted(errors)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
@@ -346,10 +393,12 @@ def main() -> int:
     glossary = json.loads(LEXICAL.read_text(encoding="utf-8"))
     lexical_appendix, lexical_errors = lexical_stage_report(doc, glossary)
     errors.extend(lexical_errors)
+    outcome_appendix, outcome_errors = outcome_stage_report(doc)
+    errors.extend(outcome_errors)
     if errors:
         print("FAIL: " + "\nFAIL: ".join(errors), file=sys.stderr)
         return 1
-    expected = report(doc, mmap, gmap, errors) + lexical_appendix
+    expected = report(doc, mmap, gmap, errors) + lexical_appendix + outcome_appendix
     if options.write:
         OUTPUT.write_text(expected, encoding="utf-8")
         print(f"WROTE {OUTPUT.relative_to(DOCS.parent.parent.parent)}")
