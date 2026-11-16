@@ -207,7 +207,7 @@ def report(doc: dict, mmap: dict, gmap: dict, errors: list[str]) -> str:
         f"**Структурный контроль: {states}.** {len(doc['items'])} независимых "
         f"языковых единиц, {len(mmap)} из {len(mmap)} первых R для M, "
         f"{len(gmap)} из {len(gmap)} первых G, {counts['first_p']} "
-        "первых P и {0 if errors else len(mmap)} M с кандидатами ↻. "
+        f"первых P и {0 if errors else len(mmap)} M с кандидатами ↻. "
         "Значимость, доступность и объём слов **не** валидируются этим подсчётом.",
         "",
         "## 1. Вектор нагрузки по горизонтам",
