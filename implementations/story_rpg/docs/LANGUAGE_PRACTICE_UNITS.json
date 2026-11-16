@@ -1,5 +1,5 @@
 {
-  "version": "1.1",
+  "version": "1.2",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -23,7 +23,8 @@
     "P1 load smoothed: bringen is first semantically needed with a recipient, krank is introduced in a short personal-message genre; early A0 still has brauchen/Wasser and müde.",
     "53 neutral German contrast pairs from the temporary 53-unit draft were merged into this canonical 73-unit plan; no other language plan is authoritative.",
     "language_example_checks are proposed German A/B substitutions and do not demonstrate empirical understanding or engine/parser support.",
-    "Every one of the 73 units now has at least one independent German A/B example; examples are candidate stimuli and not empirically validated difficulty."
+    "Every one of the 73 units now has at least one independent German A/B example; examples are candidate stimuli and not empirically validated difficulty.",
+    "A qualitative goal-alignment review replaced mismatched German contrast pairs in 12 units; semantic plausibility is not empirical A0 validation."
   ],
   "horizon_units": {
     "P0": 8,
@@ -109,12 +110,13 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Komm bitte.",
-          "example_B_de": "Komm bitte nicht.",
-          "critical_meaning_ru": "Просьба совершить действие против просьбы не совершать его",
+          "example_A_de": "Ja.",
+          "example_B_de": "Nein.",
+          "critical_meaning_ru": "Самостоятельное согласие или отказ в ответ на ясный вопрос",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
         }
       ]
     },
@@ -191,18 +193,11 @@
         {
           "example_A_de": "Nimm die Tasse.",
           "example_B_de": "Nimm das Buch.",
-          "critical_meaning_ru": "Нужный объект меняется; предметы не подсвечиваются",
+          "critical_meaning_ru": "Определить нужный предмет по немецкому, без визуальной подсветки",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
-        },
-        {
-          "example_A_de": "Nimm das Buch.",
-          "example_B_de": "Zeig das Buch.",
-          "critical_meaning_ru": "Взять предмет против показать",
-          "transferable_example": true,
-          "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
         }
       ]
     },
@@ -775,10 +770,20 @@
         {
           "example_A_de": "Die Tür ist hier.",
           "example_B_de": "Das Fenster ist hier.",
-          "critical_meaning_ru": "Нужно узнать, какой объект назван, без визуальной подсветки",
+          "critical_meaning_ru": "Изменяется искомый объект",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
+        },
+        {
+          "example_A_de": "Hilfe, bitte.",
+          "example_B_de": "Nein, danke.",
+          "critical_meaning_ru": "Просьба о помощи против отказа от предложенной помощи; не навязывать продукцию сложных форм",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
         }
       ]
     },
@@ -961,12 +966,13 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Ich möchte Tee.",
-          "example_B_de": "Ich habe Tee.",
-          "critical_meaning_ru": "Желание получить чай отличается от обладания",
+          "example_A_de": "Ich bin Arzt.",
+          "example_B_de": "Ich bin Lehrer.",
+          "critical_meaning_ru": "Собеседник сообщает разную профессию; два имени профессий — заменяемые данные",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
         }
       ]
     },
@@ -1467,12 +1473,13 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Ich arbeite oft am Montag.",
-          "example_B_de": "Ich arbeite nie am Montag.",
-          "critical_meaning_ru": "Частое действие против отсутствия привычного действия",
+          "example_A_de": "Am Montag bin ich frei.",
+          "example_B_de": "Am Dienstag bin ich frei.",
+          "critical_meaning_ru": "Изменяется день доступности",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
         }
       ]
     },
@@ -1799,12 +1806,13 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Ich lese gern.",
-          "example_B_de": "Ich spiele gern.",
-          "critical_meaning_ru": "Вид интереса отличается; не требовать выдуманного хобби NPC",
+          "example_A_de": "Ich komme zu spät.",
+          "example_B_de": "Ich komme früh.",
+          "critical_meaning_ru": "Время прихода подходит или оказывается слишком поздним",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
         }
       ]
     },
@@ -2092,12 +2100,13 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Die rote Tasse ist größer.",
-          "example_B_de": "Die blaue Tasse ist größer.",
-          "critical_meaning_ru": "Какой предмет больше, меняется только по немецкому описанию",
+          "example_A_de": "Die Tasse ist leer und das Buch ist hier.",
+          "example_B_de": "Die Tasse ist leer oder das Buch ist hier.",
+          "critical_meaning_ru": "Два одновременно истинных пункта против выбора хотя бы одного; смысл связки критичен",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
         }
       ]
     },
@@ -2172,12 +2181,13 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Ich habe das Buch. Ich brauche die Tasse.",
-          "example_B_de": "Ich habe das Buch. Ich brauche Wasser.",
-          "critical_meaning_ru": "Меняется лишь второй необходимый смысл",
+          "example_A_de": "Ich bin seit Montag hier.",
+          "example_B_de": "Ich bin bis Montag hier.",
+          "critical_meaning_ru": "Продолжительность с указанного дня против пребывания до него",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
         }
       ]
     },
@@ -2692,12 +2702,13 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Ich habe das Buch gefunden. Es ist hier.",
-          "example_B_de": "Ich habe das Buch gefunden. Es ist dort.",
-          "critical_meaning_ru": "Получатель узнаёт новое местонахождение после сообщения о находке",
+          "example_A_de": "Mia hat das Buch gefunden.",
+          "example_B_de": "Tom hat das Buch gefunden.",
+          "critical_meaning_ru": "Передаётся прошлое событие другого человека; смена агента меняет смысл",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
         }
       ]
     },
@@ -2759,12 +2770,13 @@
       ],
       "language_example_checks": [
         {
-          "example_A_de": "Das Buch ist hier. Die Tasse ist dort.",
-          "example_B_de": "Das Buch ist dort. Die Tasse ist dort.",
-          "critical_meaning_ru": "Из двух независимых сведений изменено одно",
+          "example_A_de": "Du darfst morgen nicht kommen.",
+          "example_B_de": "Du musst morgen nicht kommen.",
+          "critical_meaning_ru": "Запрет прийти завтра против отсутствия обязанности прийти",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
         }
       ]
     },
@@ -2791,12 +2803,13 @@
       ],
       "language_example_checks": [
         {
-          "example_A_de": "Du musst heute nicht arbeiten.",
-          "example_B_de": "Du darfst heute nicht arbeiten.",
-          "critical_meaning_ru": "Снова отличить отсутствие обязанности от запрета в ином контексте",
+          "example_A_de": "Das ist meine Schwester. Sie mag Tee.",
+          "example_B_de": "Das ist meine Freundin. Sie mag Tee.",
+          "critical_meaning_ru": "Другая личная связь при том же предпочтении; нужно правильно разрешить местоимение",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
         }
       ]
     },
@@ -2855,20 +2868,22 @@
       ],
       "language_example_checks": [
         {
-          "example_A_de": "Das Buch ist hier. Komm morgen.",
-          "example_B_de": "Das Buch ist dort. Komm morgen.",
-          "critical_meaning_ru": "В новом сообщении изменяется расположение предмета, не просьба",
+          "example_A_de": "Name: Tom. Zeit: zehn Uhr.",
+          "example_B_de": "Name: Tom. Zeit: elf Uhr.",
+          "critical_meaning_ru": "При заполнении знакомой формы изменено только время",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
         },
         {
           "example_A_de": "Ich brauche das Buch am Dienstag.",
           "example_B_de": "Ich brauche das Buch am Montag.",
-          "critical_meaning_ru": "Новая независимая смысловая задача; образец одной из 13 LO, не весь экзамен",
+          "critical_meaning_ru": "В сообщении новому адресату поменялся один календарный факт",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
         }
       ]
     }
