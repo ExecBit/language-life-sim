@@ -1,5 +1,5 @@
 {
-  "version": "1.9",
+  "version": "1.10",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -93,7 +93,7 @@
           "critical_slots": [
             "greeting_vs_farewell"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Цель — начать или завершить контакт; неизвестный факт не требуется, различается социальное намерение.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -155,7 +155,7 @@
           "critical_slots": [
             "agreement_vs_refusal"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат ожидает решение игрока и ещё не знает, согласится он или откажется.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -214,7 +214,7 @@
           "critical_slots": [
             "whether_clarification_is_needed"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает, понятна ли игроку реплика; при реальном непонимании доступен запрос повтора, при понимании не нужен ложный запрос.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -276,7 +276,7 @@
           "critical_slots": [
             "object_identity"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает, какой из двух указанных предметов назван; критично различить объект.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -396,9 +396,9 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Du kommst.",
-          "example_B_de": "Kommst du?",
-          "critical_meaning_ru": "Короткая фраза является утверждением либо вопросом",
+          "example_A_de": "Das ist die Tasse.",
+          "example_B_de": "Ist das die Tasse?",
+          "critical_meaning_ru": "Утверждение об известном предмете против вопроса о нём; знакомая форма ist, без нового глагола действия.",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
@@ -406,8 +406,8 @@
       ],
       "independent_production_checks": [],
       "a0_readiness_review": {
-        "risk": "инверсия Du kommst / Kommst du? требует узнать две формы одного глагола",
-        "mitigation": "Предварительно дать нейтральный поиск kommen / kommst через F1 и ясный интонационно-письменный контекст вопроса; не считать 'попал в кнопку' доказательством чтения.",
+        "risk": "Впервые нужно отличить вопрос от утверждения по порядку знакомых слов, без опоры на русскую кнопку или знак вопроса как единственный сигнал.",
+        "mitigation": "Использовать ранее введённый предмет и знакомое sein (Das ist … / Ist das …?); сначала R, не требовать самостоятельно построить вопрос.",
         "blocking": false,
         "status": "methodical_candidate_not_user_test"
       }
@@ -491,7 +491,7 @@
           "critical_slots": [
             "speaker_identity"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Собеседник не знает имени говорящего.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         },
@@ -509,7 +509,7 @@
           "critical_slots": [
             "actor_role"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает, кто совершает указанное действие.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -575,7 +575,7 @@
           "critical_slots": [
             "question_target"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Игрок не знает ответа, адресат знает; проверяется нужный тип вопроса, а не сообщение игроком уже известного факта.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -640,7 +640,7 @@
           "critical_slots": [
             "object_property"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает наблюдаемого свойства выбранного предмета.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -702,7 +702,7 @@
           "critical_slots": [
             "possession_and_negation"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает, есть ли предмет у говорящего.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -761,7 +761,7 @@
           "critical_slots": [
             "requested_object"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат может передать вещь, но не знает, какая нужна игроку.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -824,7 +824,7 @@
           "critical_slots": [
             "observed_state"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не видит состояния предмета; именно игрок сообщает его.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -878,7 +878,7 @@
           "critical_slots": [
             "own_state"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает самочувствия говорящего.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -937,7 +937,7 @@
           "critical_slots": [
             "needed_food_or_drink"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает, какой еды или напитка требует потребность игрока.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -1140,7 +1140,7 @@
           "critical_slots": [
             "requested_information_type"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Игрок не знает запрашиваемых сведений; адресат может ответить. Проверяется вид вопроса, а не передача адресату факта.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         },
@@ -1156,7 +1156,7 @@
           "critical_slots": [
             "question_vs_statement"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "При вопросе ответ может знать адресат, а не игрок; при утверждении игрок сообщает известное ему. Различается коммуникативная цель.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -1218,7 +1218,7 @@
           "critical_slots": [
             "owner"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает, кому принадлежит известная вещь.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -1347,7 +1347,7 @@
           "critical_slots": [
             "known_role"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает профессию или роль говорящего.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -1395,7 +1395,7 @@
           "critical_slots": [
             "emotional_evaluation"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает эмоциональную оценку говорящего.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -1464,7 +1464,7 @@
           "critical_slots": [
             "receiver_of_transfer"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат может выполнить передачу, но не знает, кому должен достаться предмет.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -1531,7 +1531,7 @@
           "critical_slots": [
             "destination_not_current_location"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресату неизвестен пункт назначения предмета; не подменять его текущим местоположением.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -1597,7 +1597,7 @@
           "critical_slots": [
             "current_location_not_destination"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресату неизвестно наблюдаемое игроком текущее место предмета.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -1703,7 +1703,7 @@
           "critical_slots": [
             "count"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает количество предметов.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -1757,7 +1757,7 @@
           "critical_slots": [
             "help_offer_vs_refusal"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "При предложении помощи адресат не знает готовность игрока; при отказе игрок отвечает на просьбу адресата.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -1813,7 +1813,7 @@
           "critical_slots": [
             "transferred_fact"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Получатель не знает исходного факта и должен узнать его из самостоятельной формулировки игрока.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -2051,7 +2051,7 @@
           "critical_slots": [
             "clock_time"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает нужного часа; в вариантах сохраняется известный день.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -2176,7 +2176,7 @@
           "critical_slots": [
             "frequency"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает частоты знакомого действия.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -2237,7 +2237,7 @@
           "critical_slots": [
             "availability_time"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат ещё не знает, когда игрок доступен; игрок сообщает доступное время.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -2302,7 +2302,7 @@
           "critical_slots": [
             "action_order"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает последовательность двух знакомых действий.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -2372,7 +2372,7 @@
           "critical_slots": [
             "permission_vs_obligation"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресату неизвестно, разрешено действие или оно обязательно.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         },
@@ -2390,7 +2390,7 @@
           "critical_slots": [
             "negation_scope_of_modality"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает, действие запрещено или просто не обязательно; неправильная область отрицания меняет смысл.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -2438,7 +2438,7 @@
           "critical_slots": [
             "relative_time"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает относительного времени события.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -2502,7 +2502,7 @@
           "critical_slots": [
             "invitation_response"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Собеседник предложил приглашение и ещё не знает, согласен ли игрок.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -2587,7 +2587,7 @@
           "critical_slots": [
             "desired_object"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает, какой предмет хочет игрок.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -2654,7 +2654,7 @@
           "critical_slots": [
             "preferred_option"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат предложил варианты и ещё не знает предпочтение игрока.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -2895,7 +2895,7 @@
           "critical_slots": [
             "contrasting_two_facts"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресату неизвестны оба факта и их связь; проверять оба смысловых пункта, а не только изменённый.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -2962,7 +2962,7 @@
           "critical_slots": [
             "comparison_direction"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает, какой из двух объектов больше; направление сравнения критично.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -3212,7 +3212,7 @@
           "critical_slots": [
             "correct_field_assignment"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Заполнение формы не требует неизвестного адресату факта: проверяется соответствие собственных известных данных немецким названиям полей.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -3271,7 +3271,7 @@
             "preferred_activity",
             "offer_of_shared_activity"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Собеседнику неизвестен интерес игрока; предложение занятия передаёт его, вопрос может уточнить интерес адресата.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -3337,7 +3337,7 @@
           "critical_slots": [
             "specific_obstacle"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает конкретную причину, по которой вариант не подходит игроку.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -3400,7 +3400,7 @@
           "critical_slots": [
             "two_independent_meanings"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает двух смысловых пунктов; оба должны присутствовать без подсказанной немецкой формулировки.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -3507,7 +3507,7 @@
             "past_completed_event",
             "object"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресату неизвестны результат завершённого действия и/или его объект.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -3607,7 +3607,7 @@
           "critical_slots": [
             "future_or_present_plan_time"
           ],
-          "recipient_knowledge": "Адресат не знает критический факт, который игрок сообщает/запрашивает",
+          "recipient_knowledge": "Адресат не знает ближайший план игрока и время этого плана.",
           "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
           "status": "language_only_semantic_probe_not_playtested"
         }
@@ -4310,12 +4310,12 @@
     ]
   },
   "production_assessment_audit": {
-    "version": "0.1",
+    "version": "0.2",
     "first_p_total": 42,
     "probes": 42,
     "coverage": "one_semantic_A_B_facts_pair_per_first_productive_M",
     "status": "candidate_not_parser_test",
-    "note": "M05 is an OPTIONAL repair strategy, never a compulsory false declaration of incomprehension. Each productive check requires unseen intent and freely generated German; a displayed A/B German pair alone checks receptive contrast only."
+    "note": "Каждая из 42 продуктивных проверок задаёт корректную информированность адресата для вопроса, просьбы, реакции, передачи факта или заполнения формы; неопределённость/незнание адресата не навязывается для всех речевых актов. M05 остаётся правом попросить повторение только при реальном непонимании."
   },
   "a0_early_review": {
     "version": "0.1",
