@@ -1,5 +1,5 @@
 {
-  "version": "0.6",
+  "version": "0.7",
   "status": "plot_independent_lexical_anchor_candidates_not_required_word_quotas",
   "notes": [
     "The 29 source groups are imported from LANGUAGE_LEXICON.md only; nothing from ACT_*, dialogue transcripts or world lore.",
@@ -12,7 +12,8 @@
     "Critical R/grammar prerequisites received their own anchors: Sie, im/ins, polite phrases, doch, seit/bis, welcher, es gibt; the catalogue retains all prior words.",
     "All 116 existing candidate lexical anchor slots now have manually drafted Russian glosses; these do not constitute the complete 477-string catalogue or approved F1 articles.",
     "Group 19: three minimal price-related anchors are required receptively by LO-R04; purchasing and store-specific lexicon remain optional candidates in LANGUAGE_LEXICON.md. No scene or shop narrative is implied.",
-    "Source lexical groups 7/10/12/13 augmented with setting-neutral emotion, place, complete 0–12 number reading, and Herr for formal address; no new obligatory anchor quotas and no earlier P targets."
+    "Source lexical groups 7/10/12/13 augmented with setting-neutral emotion, place, complete 0–12 number reading, and Herr for formal address; no new obligatory anchor quotas and no earlier P targets.",
+    "Synchronized pre-existing wohin (group 11) and sehen (group 28) additions with full independent LANGUAGE_LEXICON.md source; neither becomes a new mandatory practice anchor by virtue of being in the catalogue."
   ],
   "groups": [
     {
@@ -712,7 +713,8 @@
         "von",
         "der Weg",
         "der Eingang",
-        "der Ausgang"
+        "der Ausgang",
+        "wohin"
       ],
       "receptive": [
         "die Straße",
@@ -1846,7 +1848,8 @@
         "letzte Woche",
         "schon",
         "noch nicht",
-        "das Ergebnis"
+        "das Ergebnis",
+        "sehen"
       ],
       "planned_first_practice": "P5",
       "role": "functional_anchor_candidate",
