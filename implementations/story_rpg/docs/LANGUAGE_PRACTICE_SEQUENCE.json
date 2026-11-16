@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "status": "provisional_load_smoothed_language_only_requires_lexical_and_semantic_validation",
   "purpose": "Candidate language-practice sequence for smoothing new meaningful R/P/grammar loads, independent of any storyline.",
   "provenance": [
@@ -14,7 +14,8 @@
     "revisit is a planned distinct semantic necessity, not spaced repetition or a learning guarantee",
     "word load is not yet measured; names are descriptive labels, not approved lexical entries",
     "P6 adds no new M or G",
-    "unit IDs are neither days nor quests nor fixed user lessons"
+    "unit IDs are neither days nor quests nor fixed user lessons",
+    "Lexical support is a deliberately small illustrative seed list, not complete act F1, not an experimentally calibrated target, and currently not counted against the 458 catalogue strings."
   ],
   "validation": {
     "units": 53,
@@ -50,7 +51,68 @@
       "P1: first_P M02 LU07→LU13 (представление при знакомстве/помощи)",
       "P1: first_P M47 LU07→LU14 (уточнение по объявлению)",
       "P3: first_P M23 LU25→LU26 (время + обычная частота)"
-    ]
+    ],
+    "grammar_semantically_grouped": true,
+    "stage_load_components": {
+      "P0": {
+        "units": 6,
+        "newR": 10,
+        "newP": 4,
+        "newG": 6,
+        "newLexicalExamples": 14,
+        "revisits": 0
+      },
+      "P1": {
+        "units": 8,
+        "newR": 11,
+        "newP": 11,
+        "newG": 9,
+        "newLexicalExamples": 16,
+        "revisits": 1
+      },
+      "P2": {
+        "units": 10,
+        "newR": 14,
+        "newP": 9,
+        "newG": 6,
+        "newLexicalExamples": 19,
+        "revisits": 8
+      },
+      "P3": {
+        "units": 10,
+        "newR": 14,
+        "newP": 10,
+        "newG": 7,
+        "newLexicalExamples": 20,
+        "revisits": 13
+      },
+      "P4": {
+        "units": 8,
+        "newR": 4,
+        "newP": 6,
+        "newG": 3,
+        "newLexicalExamples": 15,
+        "revisits": 18
+      },
+      "P5": {
+        "units": 6,
+        "newR": 2,
+        "newP": 2,
+        "newG": 3,
+        "newLexicalExamples": 12,
+        "revisits": 10
+      },
+      "P6": {
+        "units": 5,
+        "newR": 0,
+        "newP": 0,
+        "newG": 0,
+        "newLexicalExamples": 0,
+        "revisits": 5
+      }
+    },
+    "total_candidate_lexemes": 96,
+    "overloaded_composite_units": []
   },
   "units": [
     {
@@ -87,7 +149,17 @@
       ],
       "new_grammar_names": [
         "Прописная буква существительного, пунктуация, разделение слов"
-      ]
+      ],
+      "lexical_support_examples": [
+        "Hallo",
+        "Tschüss"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "Hallo",
+        "Tschüss"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU02",
@@ -102,7 +174,7 @@
         "M04"
       ],
       "new_grammar_R": [
-        "G02"
+        "G06"
       ],
       "revisit": [],
       "semantic_contrast": "вопрос/факт; согласие/отказ",
@@ -123,7 +195,17 @@
       ],
       "new_grammar_names": [
         "Личные местоимения `ich/du/er/sie/es/wir/ihr/Sie`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "ja",
+        "nein"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "ja",
+        "nein"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU03",
@@ -138,7 +220,7 @@
         "M09"
       ],
       "new_grammar_R": [
-        "G03"
+        "G08"
       ],
       "revisit": [],
       "semantic_contrast": "название одного из двух видимых предметов",
@@ -159,7 +241,17 @@
       ],
       "new_grammar_names": [
         "`sein` / `haben` в Präsens"
-      ]
+      ],
+      "lexical_support_examples": [
+        "Buch",
+        "Tasse"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "Buch",
+        "Tasse"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU04",
@@ -172,9 +264,7 @@
       "first_P": [
         "M05"
       ],
-      "new_grammar_R": [
-        "G06"
-      ],
+      "new_grammar_R": [],
       "revisit": [],
       "semantic_contrast": "понял/не понял, просьба добровольна",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -193,7 +283,17 @@
       ],
       "new_grammar_names": [
         "Простое предложение, глагол на второй позиции, вопрос с глагола"
-      ]
+      ],
+      "lexical_support_examples": [
+        "noch einmal",
+        "verstehen"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "noch einmal",
+        "verstehen"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU05",
@@ -206,7 +306,8 @@
       ],
       "first_P": [],
       "new_grammar_R": [
-        "G08"
+        "G02",
+        "G03"
       ],
       "revisit": [],
       "semantic_contrast": "я/другой человек",
@@ -217,7 +318,7 @@
       "existing_support": [],
       "new_required_meanings": 2,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 2,
       "independent_R_facts": 1,
       "independent_P_intents": 0,
       "revisits_in_new_context": 0,
@@ -227,7 +328,19 @@
       ],
       "new_grammar_names": [
         "Imperativ `du/ihr/Sie`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "ich",
+        "du",
+        "heißen"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "ich",
+        "du",
+        "heißen"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU06",
@@ -259,7 +372,19 @@
       ],
       "new_grammar_names": [
         "Род и определённый/неопределённый артикль, Nominativ"
-      ]
+      ],
+      "lexical_support_examples": [
+        "bitte",
+        "Schlüssel",
+        "nehmen"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "bitte",
+        "Schlüssel",
+        "nehmen"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU07",
@@ -275,7 +400,7 @@
       ],
       "new_grammar_R": [
         "G04",
-        "G32"
+        "G07"
       ],
       "revisit": [],
       "semantic_contrast": "кто/что/где; данные нужны собеседнику",
@@ -297,7 +422,17 @@
       "new_grammar_names": [
         "Präsens регулярных глаголов, согласование по лицу",
         "`es gibt`, `man`, частые безличные обороты"
-      ]
+      ],
+      "lexical_support_examples": [
+        "was",
+        "wo"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "was",
+        "wo"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU08",
@@ -313,7 +448,7 @@
         "M15"
       ],
       "new_grammar_R": [
-        "G05"
+        "G13"
       ],
       "revisit": [],
       "semantic_contrast": "открыто/закрыто; красный/синий",
@@ -334,7 +469,17 @@
       ],
       "new_grammar_names": [
         "Частотные неправильные/чередующиеся глаголы"
-      ]
+      ],
+      "lexical_support_examples": [
+        "offen",
+        "kaputt"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "offen",
+        "kaputt"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU09",
@@ -350,7 +495,7 @@
         "M11"
       ],
       "new_grammar_R": [
-        "G07"
+        "G12"
       ],
       "revisit": [],
       "semantic_contrast": "имеется/не имеется; просьба/факт",
@@ -370,7 +515,17 @@
       ],
       "new_grammar_names": [
         "W-вопросы `wer/was/wo/wohin/woher/wann/wie/welch-`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "haben",
+        "kein"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "haben",
+        "kein"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU10",
@@ -385,9 +540,7 @@
         "M29",
         "M32"
       ],
-      "new_grammar_R": [
-        "G10"
-      ],
+      "new_grammar_R": [],
       "revisit": [],
       "semantic_contrast": "хочу пить/не хочу; устал/не устал",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -407,7 +560,17 @@
       ],
       "new_grammar_names": [
         "Множественное число и составные существительные"
-      ]
+      ],
+      "lexical_support_examples": [
+        "müde",
+        "Wasser"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "müde",
+        "Wasser"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU11",
@@ -419,6 +582,7 @@
         "M12"
       ],
       "new_grammar_R": [
+        "G05",
         "G11"
       ],
       "revisit": [
@@ -432,14 +596,24 @@
       "existing_support": [],
       "new_required_meanings": 0,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 2,
       "independent_R_facts": 0,
       "independent_P_intents": 1,
       "revisits_in_new_context": 1,
       "new_MR_names": [],
       "new_grammar_names": [
         "Akkusativ: объект и артикль"
-      ]
+      ],
+      "lexical_support_examples": [
+        "brauchen",
+        "geben"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "brauchen",
+        "geben"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU12",
@@ -451,7 +625,8 @@
       ],
       "first_P": [],
       "new_grammar_R": [
-        "G12"
+        "G10",
+        "G32"
       ],
       "revisit": [],
       "semantic_contrast": "один/два при прежней форме",
@@ -462,7 +637,7 @@
       "existing_support": [],
       "new_required_meanings": 1,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 2,
       "independent_R_facts": 1,
       "independent_P_intents": 0,
       "revisits_in_new_context": 0,
@@ -471,7 +646,17 @@
       ],
       "new_grammar_names": [
         "`nicht/kein` и объём отрицания"
-      ]
+      ],
+      "lexical_support_examples": [
+        "eins",
+        "zwei"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "eins",
+        "zwei"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU13",
@@ -484,9 +669,7 @@
       "first_P": [
         "M02"
       ],
-      "new_grammar_R": [
-        "G13"
-      ],
+      "new_grammar_R": [],
       "revisit": [],
       "semantic_contrast": "помощь нужна/не нужна",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -505,7 +688,17 @@
       ],
       "new_grammar_names": [
         "Прилагательное после `sein`, `zu + Adjektiv`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "helfen",
+        "der Name"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "helfen",
+        "der Name"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU14",
@@ -541,7 +734,17 @@
       ],
       "new_grammar_names": [
         "`dies-`, `welch-`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "hier",
+        "Tür"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "hier",
+        "Tür"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU15",
@@ -579,7 +782,17 @@
       ],
       "new_grammar_names": [
         "Притяжательные слова `mein/dein/sein/ihr/unser`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "mein",
+        "dein"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "mein",
+        "dein"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU16",
@@ -590,9 +803,7 @@
         "M08"
       ],
       "first_P": [],
-      "new_grammar_R": [
-        "G15"
-      ],
+      "new_grammar_R": [],
       "revisit": [
         "M04"
       ],
@@ -613,6 +824,17 @@
       ],
       "new_grammar_names": [
         "Личные местоимения Akkusativ `mich/dich/ihn/sie/es`"
+      ],
+      "lexical_support_examples": [
+        "Sie",
+        "du"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "Sie"
+      ],
+      "candidate_reused_lexemes": [
+        "du"
       ]
     },
     {
@@ -625,7 +847,7 @@
         "M17"
       ],
       "new_grammar_R": [
-        "G16"
+        "G15"
       ],
       "revisit": [
         "M01"
@@ -645,7 +867,17 @@
       "new_MR_names": [],
       "new_grammar_names": [
         "Dativ, личные местоимения `mir/dir/ihm/ihr`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "drei",
+        "vier"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "drei",
+        "vier"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU18",
@@ -660,6 +892,7 @@
         "M19"
       ],
       "new_grammar_R": [
+        "G16",
         "G17"
       ],
       "revisit": [
@@ -673,7 +906,7 @@
       "existing_support": [],
       "new_required_meanings": 1,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 2,
       "independent_R_facts": 1,
       "independent_P_intents": 2,
       "revisits_in_new_context": 1,
@@ -682,7 +915,17 @@
       ],
       "new_grammar_names": [
         "Глаголы с Dativ и предлоги `mit/bei/von/zu`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "mir",
+        "dir"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "mir",
+        "dir"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU19",
@@ -721,7 +964,17 @@
       ],
       "new_grammar_names": [
         "Предлоги места, Wechselpräpositionen, `wo/wohin`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "im",
+        "ins"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "im",
+        "ins"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU20",
@@ -734,9 +987,7 @@
       "first_P": [
         "M35"
       ],
-      "new_grammar_R": [
-        "G21"
-      ],
+      "new_grammar_R": [],
       "revisit": [
         "M09"
       ],
@@ -757,7 +1008,17 @@
       ],
       "new_grammar_names": [
         "Отделяемые глаголы `anfangen/aufstehen/anrufen`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "froh",
+        "traurig"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "froh",
+        "traurig"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU21",
@@ -789,7 +1050,17 @@
         "Сообщить возможность, обязанность, запрет",
         "Различать смысл изменения отрицания и модальности"
       ],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "dürfen",
+        "müssen"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "dürfen",
+        "müssen"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU22",
@@ -801,7 +1072,9 @@
         "M49"
       ],
       "first_P": [],
-      "new_grammar_R": [],
+      "new_grammar_R": [
+        "G21"
+      ],
       "revisit": [],
       "semantic_contrast": "сегодня/вчера/завтра",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -811,7 +1084,7 @@
       "existing_support": [],
       "new_required_meanings": 2,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 0,
+      "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 0,
       "revisits_in_new_context": 0,
@@ -819,7 +1092,17 @@
         "Понять рабочее расписание и время",
         "Отличить сейчас / раньше / потом"
       ],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "heute",
+        "gestern"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "heute",
+        "gestern"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU23",
@@ -848,7 +1131,17 @@
       "independent_P_intents": 2,
       "revisits_in_new_context": 1,
       "new_MR_names": [],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "arbeiten",
+        "Kollege"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "arbeiten",
+        "Kollege"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU24",
@@ -880,7 +1173,17 @@
         "Спросить о профессии и обязанностях",
         "Перенести информацию между собеседниками"
       ],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "möchten",
+        "wollen"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "möchten",
+        "wollen"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU25",
@@ -919,7 +1222,17 @@
       ],
       "new_grammar_names": [
         "Предлоги времени `um/am/von…bis/vor/nach`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "um",
+        "Uhr"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "um",
+        "Uhr"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU26",
@@ -957,7 +1270,17 @@
       ],
       "new_grammar_names": [
         "Часы, даты, порядковые/количественные числительные"
-      ]
+      ],
+      "lexical_support_examples": [
+        "immer",
+        "oft"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "immer",
+        "oft"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU27",
@@ -971,7 +1294,7 @@
         "M26"
       ],
       "new_grammar_R": [
-        "G22"
+        "G27"
       ],
       "revisit": [
         "M07",
@@ -994,7 +1317,17 @@
       ],
       "new_grammar_names": [
         "Модальные `können/müssen/dürfen/sollen/wollen` и рамочная конструкция"
-      ]
+      ],
+      "lexical_support_examples": [
+        "zuerst",
+        "dann"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "zuerst",
+        "dann"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU28",
@@ -1007,7 +1340,8 @@
         "M54"
       ],
       "new_grammar_R": [
-        "G23"
+        "G22",
+        "G24"
       ],
       "revisit": [
         "M02",
@@ -1021,14 +1355,24 @@
       "existing_support": [],
       "new_required_meanings": 0,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 1,
+      "new_grammar_contrasts": 2,
       "independent_R_facts": 0,
       "independent_P_intents": 2,
       "revisits_in_new_context": 2,
       "new_MR_names": [],
       "new_grammar_names": [
         "`mögen/gern/lieber/möchten`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "nicht dürfen",
+        "nicht müssen"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "nicht dürfen",
+        "nicht müssen"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU29",
@@ -1040,9 +1384,7 @@
         "M28"
       ],
       "first_P": [],
-      "new_grammar_R": [
-        "G24"
-      ],
+      "new_grammar_R": [],
       "revisit": [
         "M19"
       ],
@@ -1064,7 +1406,17 @@
       ],
       "new_grammar_names": [
         "`doch`, `nicht`, `kein`, частотные отрицательные ответы"
-      ]
+      ],
+      "lexical_support_examples": [
+        "größer",
+        "kleiner"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "größer",
+        "kleiner"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU30",
@@ -1079,7 +1431,7 @@
         "M31"
       ],
       "new_grammar_R": [
-        "G27"
+        "G23"
       ],
       "revisit": [
         "M11"
@@ -1101,7 +1453,17 @@
       ],
       "new_grammar_names": [
         "Наречия времени, частоты, порядка"
-      ]
+      ],
+      "lexical_support_examples": [
+        "gern",
+        "lieber"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "gern",
+        "lieber"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU31",
@@ -1113,9 +1475,7 @@
         "M43"
       ],
       "first_P": [],
-      "new_grammar_R": [
-        "G33"
-      ],
+      "new_grammar_R": [],
       "revisit": [
         "M20"
       ],
@@ -1137,7 +1497,17 @@
       ],
       "new_grammar_names": [
         "Формулы желания `ich hätte gern`, `könnte ich …?` (Konjunktiv II в фиксированных формулировках)"
-      ]
+      ],
+      "lexical_support_examples": [
+        "Montag",
+        "Dienstag"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "Montag",
+        "Dienstag"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU32",
@@ -1148,7 +1518,9 @@
         "M55"
       ],
       "first_P": [],
-      "new_grammar_R": [],
+      "new_grammar_R": [
+        "G33"
+      ],
       "revisit": [
         "M14"
       ],
@@ -1160,14 +1532,24 @@
       "existing_support": [],
       "new_required_meanings": 1,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 0,
+      "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 0,
       "revisits_in_new_context": 1,
       "new_MR_names": [
         "Узнать вежливую форму просьбы или пожелания"
       ],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "ich hätte gern",
+        "könnte ich"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "ich hätte gern",
+        "könnte ich"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU33",
@@ -1199,7 +1581,17 @@
         "Спросить об интересах и досуге",
         "Объяснить, что конкретно нравится/не подходит"
       ],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "spielen",
+        "lesen"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "spielen",
+        "lesen"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU34",
@@ -1233,7 +1625,17 @@
         "Передать несколько смысловых пунктов письменно",
         "Передать план на ближайшее будущее"
       ],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "morgen",
+        "später"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "morgen",
+        "später"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU35",
@@ -1271,7 +1673,17 @@
       ],
       "new_grammar_names": [
         "Сравнительная/превосходная степень; `als/wie`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "besser",
+        "schlechter"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "besser",
+        "schlechter"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU36",
@@ -1305,7 +1717,15 @@
       "new_MR_names": [],
       "new_grammar_names": [
         "Склонение прилагательных при существительном"
-      ]
+      ],
+      "lexical_support_examples": [
+        "zu kalt"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "zu kalt"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU37",
@@ -1316,9 +1736,7 @@
       "first_P": [
         "M34"
       ],
-      "new_grammar_R": [
-        "G34"
-      ],
+      "new_grammar_R": [],
       "revisit": [
         "M13",
         "M31",
@@ -1339,7 +1757,17 @@
       "new_MR_names": [],
       "new_grammar_names": [
         "Простые связки `und/aber/oder`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "Hobby",
+        "Sport"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "Hobby",
+        "Sport"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU38",
@@ -1370,7 +1798,17 @@
       "new_MR_names": [
         "Разобраться в близких и личных отношениях"
       ],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "Bruder",
+        "Schwester"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "Bruder",
+        "Schwester"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU39",
@@ -1401,7 +1839,17 @@
       "new_MR_names": [
         "Прочитать короткий рабочий текст/заметку"
       ],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "Nachricht",
+        "senden"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "Nachricht",
+        "senden"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU40",
@@ -1434,7 +1882,17 @@
       "new_MR_names": [
         "Заполнить простую форму"
       ],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "Vorname",
+        "Nachname"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "Vorname",
+        "Nachname"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU41",
@@ -1445,7 +1903,9 @@
       "first_P": [
         "M46"
       ],
-      "new_grammar_R": [],
+      "new_grammar_R": [
+        "G34"
+      ],
       "revisit": [
         "M15",
         "M33"
@@ -1458,12 +1918,22 @@
       "existing_support": [],
       "new_required_meanings": 0,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 0,
+      "new_grammar_contrasts": 1,
       "independent_R_facts": 0,
       "independent_P_intents": 1,
       "revisits_in_new_context": 2,
       "new_MR_names": [],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "aber",
+        "und"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "aber",
+        "und"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU42",
@@ -1490,7 +1960,17 @@
       "independent_P_intents": 0,
       "revisits_in_new_context": 2,
       "new_MR_names": [],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "anders",
+        "richtig"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "anders",
+        "richtig"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU43",
@@ -1524,7 +2004,17 @@
       ],
       "new_grammar_names": [
         "Präteritum `war/hatte`"
-      ]
+      ],
+      "lexical_support_examples": [
+        "war",
+        "hatte"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "war",
+        "hatte"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU44",
@@ -1560,7 +2050,17 @@
       ],
       "new_grammar_names": [
         "Perfekt с `haben`, Partizip II регулярных глаголов"
-      ]
+      ],
+      "lexical_support_examples": [
+        "habe gemacht",
+        "gefunden"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "habe gemacht",
+        "gefunden"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU45",
@@ -1571,9 +2071,7 @@
       "first_P": [
         "M52"
       ],
-      "new_grammar_R": [
-        "G30"
-      ],
+      "new_grammar_R": [],
       "revisit": [
         "M16",
         "M44"
@@ -1593,7 +2091,17 @@
       "new_MR_names": [],
       "new_grammar_names": [
         "Perfekt с `sein`, нерегулярные Partizip II"
-      ]
+      ],
+      "lexical_support_examples": [
+        "planen",
+        "nächste Woche"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "planen",
+        "nächste Woche"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU46",
@@ -1620,7 +2128,17 @@
       "independent_P_intents": 0,
       "revisits_in_new_context": 2,
       "new_MR_names": [],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "Eltern",
+        "Freundin"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "Eltern",
+        "Freundin"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU47",
@@ -1629,7 +2147,9 @@
       "focus": "Раньше и сейчас",
       "first_R": [],
       "first_P": [],
-      "new_grammar_R": [],
+      "new_grammar_R": [
+        "G30"
+      ],
       "revisit": [
         "M28",
         "M49"
@@ -1642,12 +2162,22 @@
       "existing_support": [],
       "new_required_meanings": 0,
       "new_required_lexemes": "needs_independent_lexical_breakdown",
-      "new_grammar_contrasts": 0,
+      "new_grammar_contrasts": 1,
       "independent_R_facts": 0,
       "independent_P_intents": 0,
       "revisits_in_new_context": 2,
       "new_MR_names": [],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "früher",
+        "jetzt"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "früher",
+        "jetzt"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU48",
@@ -1674,7 +2204,17 @@
       "independent_P_intents": 0,
       "revisits_in_new_context": 2,
       "new_MR_names": [],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [
+        "Ergebnis",
+        "schon"
+      ],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [
+        "Ergebnis",
+        "schon"
+      ],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU49",
@@ -1700,7 +2240,11 @@
       "independent_P_intents": 0,
       "revisits_in_new_context": 1,
       "new_MR_names": [],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU50",
@@ -1726,7 +2270,11 @@
       "independent_P_intents": 0,
       "revisits_in_new_context": 1,
       "new_MR_names": [],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU51",
@@ -1752,7 +2300,11 @@
       "independent_P_intents": 0,
       "revisits_in_new_context": 1,
       "new_MR_names": [],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU52",
@@ -1778,7 +2330,11 @@
       "independent_P_intents": 0,
       "revisits_in_new_context": 1,
       "new_MR_names": [],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [],
+      "candidate_reused_lexemes": []
     },
     {
       "id": "LU53",
@@ -1804,7 +2360,11 @@
       "independent_P_intents": 0,
       "revisits_in_new_context": 1,
       "new_MR_names": [],
-      "new_grammar_names": []
+      "new_grammar_names": [],
+      "lexical_support_examples": [],
+      "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
+      "candidate_new_lexemes": [],
+      "candidate_reused_lexemes": []
     }
   ]
 }
