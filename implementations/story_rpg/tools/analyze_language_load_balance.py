@@ -26,6 +26,7 @@ OUTCOMES = DOCS / "LEARNING_OUTCOMES.md"
 CATALOGUE = DOCS / "LANGUAGE_LEXICON.md"
 LEXICAL_CATALOGUE = DOCS / "LANGUAGE_LEXICAL_CATALOG.json"
 GRAMMAR_CONTRASTS = DOCS / "LANGUAGE_GRAMMAR_CONTRASTS.json"
+F1_SEMANTIC_CASES = DOCS / "LANGUAGE_F1_SEMANTIC_CASES.json"
 STAGES = ["P0", "P1", "P2a", "P2b", "P2c", "P3a", "P3b", "P3c",
           "P4a", "P4b", "P4c", "P5", "P6"]
 FIELDS = ("introduce_m", "introduce_g", "first_p", "revisit_m")
@@ -573,6 +574,45 @@ def lexical_catalogue_audit(doc: dict) -> list[str]:
         for target in item.get("forms", []):
             if target not in indexed:
                 errors.append(f"F1 ambiguous meaning target absent: {target}")
+
+    # Validate static dictionary meaning contracts independently of UI/parser.
+    fixtures = json.loads(F1_SEMANTIC_CASES.read_text(encoding="utf-8"))
+    reverse = {q["query_ru"]: q for q in lookup.get("reverse_ru_queries", [])}
+    aliases_by_surface = {a["surface"]: a["lemma"] for a in lookup.get("aliases", [])}
+    ambiguous = {g["id"]: g for g in lookup.get("ambiguity_groups", [])}
+    negative = {q["query_ru"]: q for q in lookup.get("negative_ru_queries", [])}
+    for fixture in fixtures["gloss_cases"]:
+        meanings = " / ".join(indexed.get(fixture["entry"], {}).get("draft_ru_meanings", [])).lower()
+        if any(fragment.lower() not in meanings
+               for fragment in fixture["required_ru_fragments"]):
+            errors.append(f"F1 gloss semantic check failed: {fixture['id']}")
+    for fixture in fixtures["reverse_cases"]:
+        query = reverse.get(fixture["query_ru"], {})
+        candidates = set(query.get("candidate_de", []))
+        if (not set(fixture["required_candidates"]) <= candidates
+            or set(fixture.get("forbidden_candidates", [])) & candidates):
+            errors.append(f"F1 reverse semantic check failed: {fixture['id']}")
+    for fixture in fixtures["alias_cases"]:
+        if aliases_by_surface.get(fixture["surface"]) != fixture["lemma"]:
+            errors.append(f"F1 morphology semantic check failed: {fixture['id']}")
+    for fixture in fixtures["negative_reverse_cases"]:
+        query = reverse.get(fixture["query_ru"], {})
+        if (set(fixture["forbidden_exact_candidates"])
+                & set(query.get("candidate_de", []))
+            or fixture["query_ru"] not in negative):
+            errors.append(f"F1 negative semantic check failed: {fixture['id']}")
+    for fixture in fixtures["ambiguity_cases"]:
+        meaning = ambiguous.get(fixture["group_id"], {}).get("distinction", "").lower()
+        if any(fragment.lower() not in meaning
+               for fragment in fixture["required_distinction_fragments"]):
+            errors.append(f"F1 ambiguity semantic check failed: {fixture['id']}")
+    counts = lookup.get("validation", {})
+    for label, value in (("alias_links", len(aliases_by_surface)),
+                         ("reverse_queries", len(reverse)),
+                         ("ambiguity_groups", len(ambiguous)),
+                         ("negative_ru_queries", len(negative))):
+        if counts.get(label) != value:
+            errors.append(f"F1 static lookup counts stale: {label}")
 
     cases = doc.get("independent_outcome_assessments", {}).get("cases", [])
     if (len(cases) != 13
