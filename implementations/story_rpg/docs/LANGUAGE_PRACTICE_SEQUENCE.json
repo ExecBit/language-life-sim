@@ -1298,16 +1298,7 @@
           "A0 prerequisites are available before required action"
         ]
       },
-      "grammar_application": [
-        {
-          "grammar": "G15",
-          "semantic_M": "M14",
-          "minimum": "P",
-          "first_semantic_R_unit": "LU18",
-          "first_independent_P_unit": "LU18",
-          "validation": "candidate_association_not_grammar_mastery"
-        }
-      ]
+      "grammar_application": []
     },
     {
       "id": "LU18",
@@ -1621,7 +1612,16 @@
           "A0 prerequisites are available before required action"
         ]
       },
-      "grammar_application": []
+      "grammar_application": [
+        {
+          "grammar": "G15",
+          "semantic_M": "M14",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU18",
+          "first_independent_P_unit": "LU18",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU22",
