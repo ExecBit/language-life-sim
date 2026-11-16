@@ -1,5 +1,5 @@
 {
-  "version": "1.5",
+  "version": "1.6",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -3821,8 +3821,8 @@
         "goal_ru": "Кому и какое действие адресовано, включая du/Sie",
         "stimulus": {
           "format": "short_German_input",
-          "variant_A_de": "Für Mia: Komm bitte um zehn. Für Herrn Weber: Kommen Sie bitte um zwölf.",
-          "variant_B_de": "Für Mia: Komm bitte um zwölf. Für Herrn Weber: Kommen Sie bitte um zehn."
+          "variant_A_de": "An Mia: Komm bitte um zehn. An Frau Weber: Kommen Sie bitte um zwölf.",
+          "variant_B_de": "An Mia: Komm bitte um zwölf. An Frau Weber: Kommen Sie bitte um zehn."
         },
         "required_semantic_slots": [
           "addressee",
@@ -3837,7 +3837,8 @@
         ],
         "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
         "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input.",
-        "design_status": "independent_candidate_not_player_test"
+        "design_status": "independent_candidate_not_player_test",
+        "readiness_note": "Формальное обращение Sie сопоставляется с известным Frau; фамилия Weber и имя Mia — взаимозаменяемые маркеры, не обязательные слова."
       },
       {
         "lo": "LO-R02",
