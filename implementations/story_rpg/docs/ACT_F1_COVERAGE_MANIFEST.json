@@ -1,12 +1,13 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "status": "derived_R_vocabulary_inventory_not_translated_or_reviewed_F1_dictionary",
   "source": "ACT_DIALOGUE_SITUATIONS.json (mandatory R only) + ACT_VOCAB_NORMALIZATION.json; ACT_LEXICAL_ROLE_CANDIDATES.json",
   "rules": [
     "Only mandatory R input counted: optional scenes and P examples are not evidence of R exposure.",
     "Role categories are previous proposals, not proof of lexical importance.",
     "Lemma normalization is provisional and cannot disambiguate identical spellings with different meanings; F1 needs separate senses.",
-    "No translation, gender, inflection, or Russian reverse search is supplied by this manifest."
+    "No translation, gender, inflection, or Russian reverse search is supplied by this manifest.",
+    "Mandatory P-only example lemmas are included separately as F1 candidate lookups; these example strings are not mandatory player word choices."
   ],
   "summary": {
     "distinct_r_lemmas": 199,
@@ -19,7 +20,19 @@
     "situational_missing": [],
     "unclassified": 155,
     "unmapped_required_r_forms": [],
-    "productive_example_forms_not_in_r_normalization": []
+    "productive_example_forms_not_in_r_normalization": [],
+    "mandatory_p_only_lemmas": [
+      "darf",
+      "flasche",
+      "gleich",
+      "helfen",
+      "nach",
+      "navigator",
+      "wo",
+      "zuerst"
+    ],
+    "distinct_required_r_or_p_example_lemmas": 207,
+    "p_examples_lexemes": 102
   },
   "lemmas": [
     {
@@ -2869,6 +2882,85 @@
       "r_occurrences": 7,
       "first_r_event": "D10-S2-R3",
       "role": "unclassified"
+    }
+  ],
+  "mandatory_p_only": [
+    {
+      "lemma": "darf",
+      "forms": [
+        "darf"
+      ],
+      "events": [
+        "D11-S1-P1"
+      ]
+    },
+    {
+      "lemma": "flasche",
+      "forms": [
+        "flaschen"
+      ],
+      "events": [
+        "D17-S2-P1"
+      ]
+    },
+    {
+      "lemma": "gleich",
+      "forms": [
+        "gleich"
+      ],
+      "events": [
+        "D14-S1-P2"
+      ]
+    },
+    {
+      "lemma": "helfen",
+      "forms": [
+        "helfen"
+      ],
+      "events": [
+        "D11-S1-P2"
+      ]
+    },
+    {
+      "lemma": "nach",
+      "forms": [
+        "nach"
+      ],
+      "events": [
+        "D20-S2-P1"
+      ]
+    },
+    {
+      "lemma": "navigator",
+      "forms": [
+        "navigator"
+      ],
+      "events": [
+        "D16-S2-P2"
+      ]
+    },
+    {
+      "lemma": "wo",
+      "forms": [
+        "wo"
+      ],
+      "events": [
+        "D01-S2-P2",
+        "D05-S1-P1",
+        "D06-S1-P1",
+        "D07-S1-P2",
+        "D15-S1-P2"
+      ]
+    },
+    {
+      "lemma": "zuerst",
+      "forms": [
+        "zuerst"
+      ],
+      "events": [
+        "D13-S1-P1",
+        "D20-S1-P2"
+      ]
     }
   ]
 }
