@@ -331,7 +331,7 @@ def lexical_stage_report(doc: dict, glossary: dict) -> tuple[str, list[str]]:
         "грамматические омонимы и не выдаёт повторение за усвоение.",
         "",
     ])
-    return "\\n".join(lines)+"\\n", sorted(set(errors))
+    return "\n".join(lines)+"\n", sorted(set(errors))
 
 
 def main() -> int:
