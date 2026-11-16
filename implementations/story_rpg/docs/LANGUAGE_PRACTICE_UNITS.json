@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -12,17 +12,18 @@
     "introduce_m lists first R according to LANGUAGE_MAP; introduce_g lists first meaningful R of G according to LANGUAGE_PROGRESSION; first_p lists first independent productive intent for 42 M, never for receptive-only M.",
     "revisit_m is a proposed opportunity to reuse an earlier M with a changed context; not evidence of mastery or a performed test.",
     "The short contrasts are semantic-design tests, not language-parser whitelists; examples may use familiar lexical placeholders.",
-    "Load must be judged as a vector of independent dimensions; counts of M/G IDs are planning proxies, NOT calibrated difficulty."
+    "Load must be judged as a vector of independent dimensions; counts of M/G IDs are planning proxies, NOT calibrated difficulty.",
+    "A second independent-P opportunity was added at P2b for location and P3c for preferences, to avoid packing multiple first productive intentions into the same unit."
   ],
   "horizon_units": {
     "P0": 8,
     "P1": 12,
     "P2a": 5,
-    "P2b": 5,
+    "P2b": 6,
     "P2c": 5,
     "P3a": 5,
     "P3b": 4,
-    "P3c": 6,
+    "P3c": 7,
     "P4a": 4,
     "P4b": 3,
     "P4c": 3,
@@ -34,8 +35,7 @@
       "stage": "P0",
       "goal": "Контакт и приветствие",
       "introduce_m": [
-        "M01",
-        "M39"
+        "M01"
       ],
       "introduce_g": [
         "G01"
@@ -138,7 +138,8 @@
       "stage": "P0",
       "goal": "Вопрос, факт и собственная мысль",
       "introduce_m": [
-        "M06"
+        "M06",
+        "M39"
       ],
       "introduce_g": [
         "G03"
@@ -209,7 +210,9 @@
       "first_p": [
         "M10"
       ],
-      "revisit_m": [],
+      "revisit_m": [
+        "M39"
+      ],
       "contrast": "Качественный признак одного из двух объектов меняется",
       "context": "Один знакомый предмет и одно свойство",
       "id": "P1-03",
@@ -277,7 +280,9 @@
       "first_p": [
         "M29"
       ],
-      "revisit_m": [],
+      "revisit_m": [
+        "M39"
+      ],
       "contrast": "Müde против nicht müde не являются равным самоотчётом",
       "context": "Состояние задано условиями, не угадывается",
       "id": "P1-07",
@@ -311,7 +316,9 @@
         "G32"
       ],
       "first_p": [],
-      "revisit_m": [],
+      "revisit_m": [
+        "M39"
+      ],
       "contrast": "Offen против geschlossen меняет вывод о доступности",
       "context": "Немецкая подпись, без визуальной подсказки",
       "id": "P1-09",
@@ -416,7 +423,8 @@
       "introduce_g": [],
       "first_p": [],
       "revisit_m": [
-        "M03"
+        "M03",
+        "M01"
       ],
       "contrast": "Du против Sie меняет регистр, не обязательно реплику игрока",
       "context": "Короткие адресованные обращения",
@@ -478,7 +486,7 @@
     },
     {
       "stage": "P2b",
-      "goal": "Местонахождение и направление",
+      "goal": "Разобраться, куда направлено действие",
       "introduce_m": [
         "M21"
       ],
@@ -486,15 +494,28 @@
         "G18"
       ],
       "first_p": [
-        "M21",
+        "M21"
+      ],
+      "revisit_m": [],
+      "contrast": "Wo? против Wohin? меняет требуемую информацию",
+      "context": "Два правдоподобных места, без стрелок",
+      "id": "P2b-02",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P2b",
+      "goal": "Самостоятельно объяснить местонахождение",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
         "M20"
       ],
       "revisit_m": [
         "M40"
       ],
-      "contrast": "Wo? против Wohin? меняет требуемую информацию",
-      "context": "Два правдоподобных места, без стрелок",
-      "id": "P2b-02",
+      "contrast": "Здесь против там меняет положение знакомого предмета",
+      "context": "Адресату неизвестно место объекта, а направление не нужно",
+      "id": "P2b-03",
       "mode": "independent_abstract_language_practice"
     },
     {
@@ -510,7 +531,7 @@
       ],
       "contrast": "Im против ins меняет тип пространственного отношения",
       "context": "Одинаковый предмет, видимый текст",
-      "id": "P2b-03",
+      "id": "P2b-04",
       "mode": "independent_abstract_language_practice"
     },
     {
@@ -526,7 +547,7 @@
       ],
       "contrast": "Ein против zwei меняет количество",
       "context": "Короткий факт о вещах",
-      "id": "P2b-04",
+      "id": "P2b-05",
       "mode": "independent_abstract_language_practice"
     },
     {
@@ -542,7 +563,7 @@
       "revisit_m": [],
       "contrast": "Mir против dir меняет адресата помощи",
       "context": "Знакомое действие helfen",
-      "id": "P2b-05",
+      "id": "P2b-06",
       "mode": "independent_abstract_language_practice"
     },
     {
@@ -766,7 +787,9 @@
       "first_p": [
         "M37"
       ],
-      "revisit_m": [],
+      "revisit_m": [
+        "M19"
+      ],
       "contrast": "Einladung angenommen против abgelehnt меняет решение",
       "context": "Выбор и отказ оба осмысленны",
       "id": "P3b-03",
@@ -792,23 +815,36 @@
     },
     {
       "stage": "P3c",
-      "goal": "Желание и предпочтение",
-      "introduce_m": [
-        "M31"
-      ],
+      "goal": "Самостоятельно выразить желание",
+      "introduce_m": [],
       "introduce_g": [
         "G23"
       ],
       "first_p": [
-        "M30",
-        "M31"
+        "M30"
       ],
       "revisit_m": [
         "M29"
       ],
-      "contrast": "Lieber Tee vs Wasser меняет выбор",
+      "contrast": "Меняется желаемый знакомый объект",
       "context": "Знакомый объект и отдельное желание",
       "id": "P3c-01",
+      "mode": "independent_abstract_language_practice"
+    },
+    {
+      "stage": "P3c",
+      "goal": "Самостоятельно выразить предпочтение",
+      "introduce_m": [
+        "M31"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M31"
+      ],
+      "revisit_m": [],
+      "contrast": "Lieber ... меняет выбранный вариант",
+      "context": "Два знакомых занятия или предмета, предпочтение неизвестно адресату",
+      "id": "P3c-02",
       "mode": "independent_abstract_language_practice"
     },
     {
@@ -826,7 +862,7 @@
       ],
       "contrast": "Hätte gern и könnte ich выражают просьбу, не требуя продуктивной формы",
       "context": "Только рецепция коротких сообщений",
-      "id": "P3c-02",
+      "id": "P3c-03",
       "mode": "independent_abstract_language_practice"
     },
     {
@@ -840,7 +876,7 @@
       "revisit_m": [],
       "contrast": "Сегодня/завтра меняет нужный ответ",
       "context": "Короткий текст с отправителем и просьбой",
-      "id": "P3c-03",
+      "id": "P3c-04",
       "mode": "independent_abstract_language_practice"
     },
     {
@@ -854,7 +890,7 @@
       "revisit_m": [],
       "contrast": "Lesen vs spielen меняет предпочитаемое занятие",
       "context": "Абстрактная информация о предпочтении",
-      "id": "P3c-04",
+      "id": "P3c-05",
       "mode": "independent_abstract_language_practice"
     },
     {
@@ -868,7 +904,7 @@
       "revisit_m": [],
       "contrast": "Изменение второго пункта меняет весь смысл сообщения",
       "context": "Два коротких знакомых факта",
-      "id": "P3c-05",
+      "id": "P3c-06",
       "mode": "independent_abstract_language_practice"
     },
     {
@@ -885,7 +921,7 @@
       ],
       "contrast": "A gut aber B kaputt меняет отношения двух фактов",
       "context": "Знакомые свойства, разные значения",
-      "id": "P3c-06",
+      "id": "P3c-07",
       "mode": "independent_abstract_language_practice"
     },
     {
@@ -1251,7 +1287,8 @@
         "M45",
         "M47",
         "M37",
-        "M08"
+        "M08",
+        "M44"
       ],
       "contrast": "Если один из трёх фактов меняется, ответ также меняется",
       "context": "Свободное сообщение, без готового ответа",
