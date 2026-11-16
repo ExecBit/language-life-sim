@@ -37,13 +37,15 @@
         "danke",
         "Entschuldigung",
         "noch einmal",
-        "ich verstehe nicht"
+        "ich verstehe nicht",
+        "Wie bitte?"
       ],
       "receptive": [
         "Guten Tag",
         "Auf Wiedersehen",
         "Guten Morgen",
-        "Gute Nacht"
+        "Gute Nacht",
+        "Guten Abend"
       ],
       "planned_first_practice": "P0",
       "role": "functional_anchor_candidate",
@@ -97,13 +99,18 @@
         "nehmen",
         "geben",
         "kommen",
-        "zeigen"
+        "zeigen",
+        "die Flasche",
+        "das Glas"
       ],
       "receptive": [
         "nimm",
         "gib",
         "komm",
-        "das"
+        "das",
+        "der Stift",
+        "das Handy",
+        "das Papier"
       ],
       "planned_first_practice": "P0",
       "role": "functional_anchor_candidate",
@@ -160,7 +167,10 @@
         "haben",
         "heißen",
         "der Name",
-        "wer"
+        "wer",
+        "wohnen",
+        "leben",
+        "die Stadt"
       ],
       "receptive": [
         "ihr",
@@ -169,7 +179,9 @@
         "das Alter",
         "ein",
         "der",
-        "die"
+        "die",
+        "geboren",
+        "das Land"
       ],
       "planned_first_practice": "P1",
       "role": "functional_anchor_candidate",
@@ -224,13 +236,17 @@
         "fragen",
         "antworten",
         "wissen",
-        "nicht wissen"
+        "nicht wissen",
+        "sagen",
+        "noch"
       ],
       "receptive": [
         "wann",
         "woher",
         "warum",
-        "was bedeutet …?"
+        "was bedeutet …?",
+        "welche",
+        "wie alt?"
       ],
       "planned_first_practice": "P1",
       "role": "functional_anchor_candidate",
@@ -296,14 +312,21 @@
         "schließen",
         "lesen",
         "schreiben",
-        "arbeiten"
+        "arbeiten",
+        "schlafen",
+        "aufstehen",
+        "sitzen",
+        "stehen",
+        "putzen"
       ],
       "receptive": [
         "warten",
         "holen",
         "bleiben",
         "anrufen",
-        "sprechen"
+        "sprechen",
+        "telefonieren",
+        "kochen"
       ],
       "planned_first_practice": "P1",
       "role": "functional_anchor_candidate",
@@ -365,7 +388,13 @@
         "offen",
         "zu",
         "fertig",
-        "kaputt"
+        "kaputt",
+        "schnell",
+        "langsam",
+        "lang",
+        "kurz",
+        "einfach",
+        "schön"
       ],
       "receptive": [
         "leer",
@@ -375,7 +404,8 @@
         "falsch",
         "leicht",
         "schwer",
-        "es gibt"
+        "es gibt",
+        "genug"
       ],
       "planned_first_practice": "P1",
       "role": "functional_anchor_candidate",
@@ -446,7 +476,13 @@
         "der Termin",
         "das Krankenhaus",
         "froh",
-        "traurig"
+        "traurig",
+        "der Kopf",
+        "der Bauch",
+        "die Hand",
+        "das Bein",
+        "die Tablette",
+        "die Apotheke"
       ],
       "planned_first_practice": "P1",
       "role": "functional_anchor_candidate",
@@ -496,7 +532,15 @@
         "die Milch",
         "das Essen",
         "hungrig",
-        "durstig"
+        "durstig",
+        "die Banane",
+        "der Käse",
+        "das Ei",
+        "der Saft",
+        "der Reis",
+        "die Kartoffel",
+        "der Salat",
+        "lecker"
       ],
       "receptive": [
         "das Gemüse",
@@ -504,7 +548,14 @@
         "die Suppe",
         "das Frühstück",
         "das Mittagessen",
-        "das Abendessen"
+        "das Abendessen",
+        "die Butter",
+        "die Gabel",
+        "das Messer",
+        "der Löffel",
+        "die Speisekarte",
+        "das Restaurant",
+        "satt"
       ],
       "planned_first_practice": "P1",
       "role": "functional_anchor_candidate",
@@ -566,7 +617,14 @@
         "dieses",
         "der Besitzer",
         "Sie (вежливо)",
-        "bei"
+        "bei",
+        "mich",
+        "dich",
+        "uns",
+        "euch",
+        "euer",
+        "seine",
+        "ihre"
       ],
       "planned_first_practice": "P2a",
       "role": "functional_anchor_candidate",
@@ -635,7 +693,12 @@
         "neben",
         "vor",
         "hinter",
-        "drinnen"
+        "drinnen",
+        "das Haus",
+        "das Bett",
+        "der Stuhl",
+        "der Schrank",
+        "die Lampe"
       ],
       "receptive": [
         "draußen",
@@ -649,7 +712,15 @@
         "ins",
         "da",
         "dort",
-        "liegen"
+        "liegen",
+        "das Sofa",
+        "der Kühlschrank",
+        "die Toilette",
+        "die Dusche",
+        "der Boden",
+        "oben",
+        "unten",
+        "der Aufzug"
       ],
       "planned_first_practice": "P2b",
       "role": "functional_anchor_candidate",
@@ -721,7 +792,8 @@
         "der Weg",
         "der Eingang",
         "der Ausgang",
-        "wohin"
+        "wohin",
+        "zurück"
       ],
       "receptive": [
         "die Straße",
@@ -729,7 +801,15 @@
         "die Ecke",
         "in der Nähe",
         "gegenüber",
-        "entlang"
+        "entlang",
+        "der Platz",
+        "die Karte",
+        "die Ampel",
+        "nah",
+        "weit",
+        "vorne",
+        "hinten",
+        "die Brücke"
       ],
       "planned_first_practice": "P2b",
       "role": "functional_anchor_candidate",
@@ -794,7 +874,25 @@
         "acht",
         "neun",
         "elf",
-        "zwölf"
+        "zwölf",
+        "dreizehn",
+        "vierzehn",
+        "fünfzehn",
+        "sechzehn",
+        "siebzehn",
+        "achtzehn",
+        "neunzehn",
+        "einundzwanzig",
+        "dreißig",
+        "vierzig",
+        "fünfzig",
+        "sechzig",
+        "siebzig",
+        "achtzig",
+        "neunzig",
+        "tausend",
+        "eine Million",
+        "eine Milliarde"
       ],
       "planned_first_practice": "P2b",
       "role": "functional_anchor_candidate",
@@ -851,7 +949,9 @@
         "die Mutter",
         "der Vater",
         "der Bruder",
-        "die Schwester"
+        "die Schwester",
+        "der Partner",
+        "die Partnerin"
       ],
       "receptive": [
         "die Eltern",
@@ -861,7 +961,13 @@
         "ledig",
         "der Nachbar",
         "die Nachbarin",
-        "der Herr"
+        "der Herr",
+        "die Geschwister",
+        "die Großmutter",
+        "der Großvater",
+        "der Ehemann",
+        "die Ehefrau",
+        "das Baby"
       ],
       "planned_first_practice": "P4b",
       "role": "functional_anchor_candidate",
@@ -925,7 +1031,12 @@
         "die Mitarbeiterin",
         "der Lehrer",
         "die Lehrerin",
-        "die Pause"
+        "die Pause",
+        "die Firma",
+        "das Büro",
+        "die Stelle",
+        "die Arbeitszeit",
+        "die Ferien"
       ],
       "planned_first_practice": "P2a",
       "role": "functional_anchor_candidate",
@@ -984,7 +1095,12 @@
         "um",
         "am",
         "vor",
-        "nach"
+        "nach",
+        "die Minute",
+        "die Stunde",
+        "das Wochenende",
+        "der Geburtstag",
+        "Wie spät ist es?"
       ],
       "receptive": [
         "Montag",
@@ -996,7 +1112,29 @@
         "Sonntag",
         "der Kalender",
         "der Morgen",
-        "der Abend"
+        "der Abend",
+        "Januar",
+        "Februar",
+        "März",
+        "April",
+        "Mai",
+        "Juni",
+        "Juli",
+        "August",
+        "September",
+        "Oktober",
+        "November",
+        "Dezember",
+        "die Nacht",
+        "der Mittag",
+        "der Nachmittag",
+        "am Wochenende",
+        "halb",
+        "das Viertel",
+        "die Uhrzeit",
+        "erste",
+        "zweite",
+        "dritte"
       ],
       "planned_first_practice": "P3a",
       "role": "functional_anchor_candidate",
@@ -1051,7 +1189,8 @@
         "nicht dürfen",
         "nicht müssen",
         "notwendig",
-        "möglich"
+        "möglich",
+        "vielleicht"
       ],
       "receptive": [
         "erlaubt",
@@ -1059,7 +1198,10 @@
         "die Regel",
         "das Verbot",
         "die Pflicht",
-        "doch"
+        "doch",
+        "man",
+        "bestimmt",
+        "sofort"
       ],
       "planned_first_practice": "P3b",
       "role": "functional_anchor_candidate",
@@ -1133,14 +1275,18 @@
         "mehr",
         "weniger",
         "wählen",
-        "bestellen"
+        "bestellen",
+        "lieber nicht"
       ],
       "receptive": [
         "ich hätte gern …",
         "könnte ich …?",
         "das Menü",
         "der Wunsch",
-        "die Auswahl"
+        "die Auswahl",
+        "gefallen",
+        "das Lieblingsessen",
+        "am liebsten"
       ],
       "planned_first_practice": "P3c",
       "role": "functional_anchor_candidate",
@@ -1218,7 +1364,9 @@
         "die Einladung",
         "der Besuch",
         "die Verabredung",
-        "absagen"
+        "absagen",
+        "der Vorschlag",
+        "die Änderung"
       ],
       "planned_first_practice": "P3a",
       "role": "functional_anchor_candidate",
@@ -1285,7 +1433,13 @@
         "der Kunde",
         "die Kundin",
         "geöffnet",
-        "geschlossen"
+        "geschlossen",
+        "der Cent",
+        "bar",
+        "mit Karte",
+        "das Bargeld",
+        "die Kreditkarte",
+        "der Kassenbon"
       ],
       "planned_first_practice": "P3a",
       "role": "functional_anchor_candidate",
@@ -1336,7 +1490,14 @@
         "oft",
         "manchmal",
         "nie",
-        "das Hobby"
+        "das Hobby",
+        "schwimmen",
+        "tanzen",
+        "singen",
+        "fernsehen",
+        "reisen",
+        "fotografieren",
+        "zeichnen"
       ],
       "receptive": [
         "der Film",
@@ -1344,7 +1505,9 @@
         "die Musik",
         "der Sport",
         "das Buch lesen",
-        "der Urlaub"
+        "der Urlaub",
+        "die Freizeit",
+        "das Konzert"
       ],
       "planned_first_practice": "P3c",
       "role": "functional_anchor_candidate",
@@ -1410,7 +1573,19 @@
         "der Fahrplan",
         "das Ticket",
         "das Gepäck",
-        "die Unterkunft"
+        "die Unterkunft",
+        "das Fahrrad",
+        "das Auto",
+        "das Flugzeug",
+        "die U-Bahn",
+        "die S-Bahn",
+        "der Flughafen",
+        "einsteigen",
+        "aussteigen",
+        "umsteigen",
+        "die Verspätung",
+        "pünktlich",
+        "zu Fuß"
       ],
       "planned_first_practice": "P3a",
       "role": "contextual_candidate",
@@ -1467,7 +1642,14 @@
         "die Staatsangehörigkeit",
         "die Unterschrift",
         "das Formular",
-        "die E-Mail-Adresse"
+        "die E-Mail-Adresse",
+        "das Geschlecht",
+        "der Wohnort",
+        "die Hausnummer",
+        "ankreuzen",
+        "männlich",
+        "weiblich",
+        "der Familienstand"
       ],
       "planned_first_practice": "P4b",
       "role": "contextual_candidate",
@@ -1532,7 +1714,14 @@
         "der Schalter",
         "die Öffnungszeit",
         "die Anmeldung",
-        "der Ausweis"
+        "der Ausweis",
+        "der Absender",
+        "der Empfänger",
+        "der Betreff",
+        "Viele Grüße",
+        "Liebe Grüße",
+        "Bitte antworten",
+        "die Öffnungszeiten"
       ],
       "planned_first_practice": "P4b",
       "role": "functional_anchor_candidate",
@@ -1596,7 +1785,16 @@
         "die Größe",
         "die Farbe",
         "das Kleid",
-        "die Kleidung"
+        "die Kleidung",
+        "gelb",
+        "grau",
+        "braun",
+        "orange",
+        "rosa",
+        "der Pullover",
+        "der Mantel",
+        "die Socke",
+        "eng"
       ],
       "planned_first_practice": "P4a",
       "role": "functional_anchor_candidate",
@@ -1661,7 +1859,15 @@
         "der Baum",
         "die Pflanze",
         "das Tier",
-        "der Park"
+        "der Park",
+        "bewölkt",
+        "heiß",
+        "kühl",
+        "schneien",
+        "der Grad",
+        "der Himmel",
+        "die Blume",
+        "das Klima"
       ],
       "planned_first_practice": "P4a",
       "role": "contextual_candidate",
@@ -1710,7 +1916,8 @@
         "verstehen",
         "erklären",
         "das Wort",
-        "der Text"
+        "der Text",
+        "üben"
       ],
       "receptive": [
         "die Universität",
@@ -1718,7 +1925,15 @@
         "die Prüfung",
         "die Hausaufgabe",
         "die Lektion",
-        "die Bibliothek"
+        "die Bibliothek",
+        "die Übung",
+        "das Beispiel",
+        "die Lösung",
+        "der Fehler",
+        "die Seite",
+        "das Heft",
+        "wiederholen",
+        "buchstabieren"
       ],
       "planned_first_practice": "P4b",
       "role": "functional_anchor_candidate",
@@ -1769,7 +1984,8 @@
         "zuerst",
         "gleich",
         "anders",
-        "richtig"
+        "richtig",
+        "genau"
       ],
       "receptive": [
         "ähnlich",
@@ -1779,7 +1995,12 @@
         "wie lange",
         "seit",
         "bis wann",
-        "bis"
+        "bis",
+        "ungefähr",
+        "vorher",
+        "nachher",
+        "mehr als",
+        "weniger als"
       ],
       "planned_first_practice": "P4a",
       "role": "functional_anchor_candidate",
@@ -1857,7 +2078,10 @@
         "schon",
         "noch nicht",
         "das Ergebnis",
-        "sehen"
+        "sehen",
+        "letztes Jahr",
+        "letzten Montag",
+        "vor einer Woche"
       ],
       "planned_first_practice": "P5",
       "role": "functional_anchor_candidate",
@@ -1909,13 +2133,18 @@
         "wieder",
         "planen",
         "hoffen",
-        "warten auf"
+        "warten auf",
+        "bald"
       ],
       "receptive": [
         "der Plan",
         "der nächste Termin",
         "später am Tag",
-        "in zwei Tagen"
+        "in zwei Tagen",
+        "nächsten Monat",
+        "nächstes Jahr",
+        "in einer Woche",
+        "übermorgen"
       ],
       "planned_first_practice": "P5",
       "role": "functional_anchor_candidate",
