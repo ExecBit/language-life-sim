@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "status": "derived_R_vocabulary_inventory_not_translated_or_reviewed_F1_dictionary",
   "source": "ACT_DIALOGUE_SITUATIONS.json (mandatory R only) + ACT_VOCAB_NORMALIZATION.json; ACT_LEXICAL_ROLE_CANDIDATES.json",
   "rules": [
@@ -7,7 +7,8 @@
     "Role categories are previous proposals, not proof of lexical importance.",
     "Lemma normalization is provisional and cannot disambiguate identical spellings with different meanings; F1 needs separate senses.",
     "No translation, gender, inflection, or Russian reverse search is supplied by this manifest.",
-    "Mandatory P-only example lemmas are included separately as F1 candidate lookups; these example strings are not mandatory player word choices."
+    "Mandatory P-only example lemmas are included separately as F1 candidate lookups; these example strings are not mandatory player word choices.",
+    "29 thematic catalogue groups extend beyond the currently authored mandatory scenes; each backticked unit is a F1 candidate entry, not a learner requirement."
   ],
   "summary": {
     "distinct_r_lemmas": 199,
@@ -32,7 +33,10 @@
       "zuerst"
     ],
     "distinct_required_r_or_p_example_lemmas": 207,
-    "p_examples_lexemes": 102
+    "p_examples_lexemes": 102,
+    "catalogue_distinct_phrase_strings": 458,
+    "catalogue_phrase_occurrences": 464,
+    "catalogue_groups": 29
   },
   "lemmas": [
     {
@@ -2960,6 +2964,762 @@
       "events": [
         "D13-S1-P1",
         "D20-S1-P2"
+      ]
+    }
+  ],
+  "catalogue": [
+    {
+      "group": "01",
+      "horizon": "P0",
+      "domain": "Начало общения",
+      "functions": "M01, M04, M05, M06, M39",
+      "productive": [
+        "Hallo",
+        "Tschüss",
+        "ja",
+        "nein",
+        "bitte",
+        "danke",
+        "Entschuldigung",
+        "noch einmal",
+        "ich verstehe nicht"
+      ],
+      "receptive": [
+        "Guten Tag",
+        "Auf Wiedersehen",
+        "Guten Morgen",
+        "Gute Nacht"
+      ]
+    },
+    {
+      "group": "02",
+      "horizon": "P0",
+      "domain": "Предмет и короткое действие",
+      "functions": "M09, M40",
+      "productive": [
+        "das Buch",
+        "die Tasse",
+        "der Schlüssel",
+        "hier",
+        "nehmen",
+        "geben",
+        "kommen",
+        "zeigen"
+      ],
+      "receptive": [
+        "nimm",
+        "gib",
+        "komm",
+        "das"
+      ]
+    },
+    {
+      "group": "03",
+      "horizon": "P1",
+      "domain": "Человек и знакомство",
+      "functions": "M02, M03, M08",
+      "productive": [
+        "ich",
+        "du",
+        "er",
+        "sie",
+        "wir",
+        "sein",
+        "haben",
+        "heißen",
+        "der Name",
+        "wer"
+      ],
+      "receptive": [
+        "ihr",
+        "es",
+        "die Person",
+        "das Alter"
+      ]
+    },
+    {
+      "group": "04",
+      "horizon": "P1",
+      "domain": "Вопросы и смысл",
+      "functions": "M05, M07, M47",
+      "productive": [
+        "was",
+        "wo",
+        "wie",
+        "welcher",
+        "fragen",
+        "antworten",
+        "wissen",
+        "nicht wissen"
+      ],
+      "receptive": [
+        "wann",
+        "woher",
+        "warum",
+        "was bedeutet …?"
+      ]
+    },
+    {
+      "group": "05",
+      "horizon": "P1",
+      "domain": "Базовые действия",
+      "functions": "M06, M12, M15",
+      "productive": [
+        "machen",
+        "gehen",
+        "bringen",
+        "brauchen",
+        "helfen",
+        "finden",
+        "suchen",
+        "öffnen",
+        "schließen",
+        "lesen",
+        "schreiben",
+        "arbeiten"
+      ],
+      "receptive": [
+        "warten",
+        "holen",
+        "bleiben",
+        "anrufen",
+        "sprechen"
+      ]
+    },
+    {
+      "group": "06",
+      "horizon": "P1",
+      "domain": "Состояние и отрицание",
+      "functions": "M10, M11, M15, M54",
+      "productive": [
+        "ist",
+        "hat",
+        "kein",
+        "nicht",
+        "gut",
+        "schlecht",
+        "neu",
+        "alt",
+        "groß",
+        "klein",
+        "offen",
+        "zu",
+        "fertig",
+        "kaputt"
+      ],
+      "receptive": [
+        "leer",
+        "voll",
+        "sauber",
+        "schmutzig",
+        "falsch",
+        "leicht",
+        "schwer"
+      ]
+    },
+    {
+      "group": "07",
+      "horizon": "P1",
+      "domain": "Самочувствие",
+      "functions": "M29, M35",
+      "productive": [
+        "müde",
+        "krank",
+        "gesund",
+        "Hunger haben",
+        "Durst haben",
+        "weh tun",
+        "die Hilfe",
+        "der Arzt",
+        "die Ärztin"
+      ],
+      "receptive": [
+        "die Schmerzen",
+        "das Fieber",
+        "die Medizin",
+        "der Termin",
+        "das Krankenhaus"
+      ]
+    },
+    {
+      "group": "08",
+      "horizon": "P1",
+      "domain": "Еда и потребности",
+      "functions": "M30, M32",
+      "productive": [
+        "essen",
+        "trinken",
+        "das Wasser",
+        "das Brot",
+        "der Tee",
+        "der Kaffee",
+        "der Apfel",
+        "die Milch",
+        "das Essen",
+        "hungrig",
+        "durstig"
+      ],
+      "receptive": [
+        "das Gemüse",
+        "das Fleisch",
+        "die Suppe",
+        "das Frühstück",
+        "das Mittagessen",
+        "das Abendessen"
+      ]
+    },
+    {
+      "group": "09",
+      "horizon": "P2",
+      "domain": "Люди, принадлежность и адресат",
+      "functions": "M03, M13, M14, M53",
+      "productive": [
+        "mein",
+        "dein",
+        "sein (притяж.)",
+        "ihr (притяж.)",
+        "mir",
+        "dir",
+        "mit",
+        "zusammen",
+        "allein"
+      ],
+      "receptive": [
+        "unser",
+        "ihm",
+        "ihnen",
+        "dieser",
+        "diese",
+        "dieses",
+        "der Besitzer",
+        "Sie (вежливо)"
+      ]
+    },
+    {
+      "group": "10",
+      "horizon": "P2",
+      "domain": "Место, дом и предметы",
+      "functions": "M09, M20, M21, M22",
+      "productive": [
+        "das Zimmer",
+        "die Küche",
+        "das Bad",
+        "der Tisch",
+        "die Tür",
+        "das Fenster",
+        "die Wohnung",
+        "in",
+        "auf",
+        "unter",
+        "neben",
+        "vor",
+        "hinter",
+        "drinnen"
+      ],
+      "receptive": [
+        "draußen",
+        "zwischen",
+        "an",
+        "über",
+        "der Flur",
+        "die Treppe",
+        "die Möbel"
+      ]
+    },
+    {
+      "group": "11",
+      "horizon": "P2",
+      "domain": "Направление и движение",
+      "functions": "M20, M21, M22",
+      "productive": [
+        "links",
+        "rechts",
+        "geradeaus",
+        "zu",
+        "nach",
+        "aus",
+        "von",
+        "der Weg",
+        "der Eingang",
+        "der Ausgang"
+      ],
+      "receptive": [
+        "die Straße",
+        "die Kreuzung",
+        "die Ecke",
+        "in der Nähe",
+        "gegenüber",
+        "entlang"
+      ]
+    },
+    {
+      "group": "12",
+      "horizon": "P2",
+      "domain": "Количество и идентификаторы",
+      "functions": "M17, M42",
+      "productive": [
+        "eins",
+        "zwei",
+        "drei",
+        "vier",
+        "fünf",
+        "zehn",
+        "zwanzig",
+        "hundert",
+        "viel",
+        "wenig",
+        "wie viel"
+      ],
+      "receptive": [
+        "wie viele",
+        "die Nummer",
+        "die Zahl",
+        "das Stück",
+        "das Kilo",
+        "die Hälfte"
+      ]
+    },
+    {
+      "group": "13",
+      "horizon": "P2",
+      "domain": "Люди и семья",
+      "functions": "M02, M35, M36",
+      "productive": [
+        "die Familie",
+        "der Freund",
+        "die Freundin",
+        "der Mann",
+        "die Frau",
+        "das Kind",
+        "die Mutter",
+        "der Vater",
+        "der Bruder",
+        "die Schwester"
+      ],
+      "receptive": [
+        "die Eltern",
+        "der Sohn",
+        "die Tochter",
+        "verheiratet",
+        "ledig",
+        "der Nachbar",
+        "die Nachbarin"
+      ]
+    },
+    {
+      "group": "14",
+      "horizon": "P2",
+      "domain": "Работа и роли",
+      "functions": "M19, M33, M48",
+      "productive": [
+        "die Arbeit",
+        "der Beruf",
+        "der Kollege",
+        "die Kollegin",
+        "der Chef",
+        "die Chefin",
+        "die Aufgabe",
+        "frei",
+        "beschäftigt"
+      ],
+      "receptive": [
+        "der Arbeitsplatz",
+        "der Mitarbeiter",
+        "die Mitarbeiterin",
+        "der Lehrer",
+        "die Lehrerin",
+        "die Pause"
+      ]
+    },
+    {
+      "group": "15",
+      "horizon": "P3",
+      "domain": "Время, дата, расписание",
+      "functions": "M17, M23, M24, M25, M42, M49",
+      "productive": [
+        "jetzt",
+        "heute",
+        "morgen",
+        "gestern",
+        "später",
+        "früh",
+        "spät",
+        "der Tag",
+        "die Woche",
+        "der Monat",
+        "das Jahr",
+        "die Uhr",
+        "um",
+        "am",
+        "vor",
+        "nach"
+      ],
+      "receptive": [
+        "Montag",
+        "Dienstag",
+        "Mittwoch",
+        "Donnerstag",
+        "Freitag",
+        "Samstag",
+        "Sonntag",
+        "der Kalender",
+        "der Morgen",
+        "der Abend"
+      ]
+    },
+    {
+      "group": "16",
+      "horizon": "P3",
+      "domain": "Возможность, необходимость и запрет",
+      "functions": "M18, M54",
+      "productive": [
+        "können",
+        "müssen",
+        "dürfen",
+        "wollen",
+        "sollen",
+        "nicht dürfen",
+        "nicht müssen",
+        "notwendig",
+        "möglich"
+      ],
+      "receptive": [
+        "erlaubt",
+        "verboten",
+        "die Regel",
+        "das Verbot",
+        "die Pflicht"
+      ]
+    },
+    {
+      "group": "17",
+      "horizon": "P3",
+      "domain": "Желания и выбор",
+      "functions": "M30, M31, M32, M38, M55",
+      "productive": [
+        "möchten",
+        "mögen",
+        "gern",
+        "lieber",
+        "oder",
+        "auch",
+        "nur",
+        "mehr",
+        "weniger",
+        "wählen",
+        "bestellen"
+      ],
+      "receptive": [
+        "ich hätte gern …",
+        "könnte ich …?",
+        "das Menü",
+        "der Wunsch",
+        "die Auswahl"
+      ]
+    },
+    {
+      "group": "18",
+      "horizon": "P3",
+      "domain": "Встречи и планы",
+      "functions": "M24, M25, M37, M52",
+      "productive": [
+        "der Termin",
+        "die Zeit",
+        "treffen",
+        "besuchen",
+        "mitkommen",
+        "Zeit haben",
+        "keine Zeit haben",
+        "anfangen",
+        "aufhören"
+      ],
+      "receptive": [
+        "verschieben",
+        "die Einladung",
+        "der Besuch",
+        "die Verabredung",
+        "absagen"
+      ]
+    },
+    {
+      "group": "19",
+      "horizon": "P3",
+      "domain": "Покупки и стоимость",
+      "functions": "M17, M30, M31, M32",
+      "productive": [
+        "kaufen",
+        "bezahlen",
+        "kosten",
+        "der Preis",
+        "das Geld",
+        "der Euro",
+        "billig",
+        "teuer",
+        "das Geschäft"
+      ],
+      "receptive": [
+        "die Kasse",
+        "das Angebot",
+        "die Rechnung",
+        "das Wechselgeld",
+        "der Kunde",
+        "die Kundin",
+        "geöffnet",
+        "geschlossen"
+      ]
+    },
+    {
+      "group": "20",
+      "horizon": "P3",
+      "domain": "Интересы и досуг",
+      "functions": "M25, M33, M34, M35",
+      "productive": [
+        "spielen",
+        "lernen",
+        "Musik hören",
+        "Sport machen",
+        "spazieren gehen",
+        "immer",
+        "oft",
+        "manchmal",
+        "nie",
+        "das Hobby"
+      ],
+      "receptive": [
+        "der Film",
+        "das Spiel",
+        "die Musik",
+        "der Sport",
+        "das Buch lesen",
+        "der Urlaub"
+      ]
+    },
+    {
+      "group": "21",
+      "horizon": "P3",
+      "domain": "Транспорт и поездка",
+      "functions": "M21, M23, M24, M42",
+      "productive": [
+        "fahren",
+        "der Bus",
+        "der Zug",
+        "der Bahnhof",
+        "die Haltestelle",
+        "die Fahrkarte",
+        "ankommen",
+        "abfahren"
+      ],
+      "receptive": [
+        "das Gleis",
+        "die Abfahrt",
+        "die Ankunft",
+        "die Reise",
+        "der Fahrplan",
+        "das Ticket",
+        "das Gepäck",
+        "die Unterkunft"
+      ]
+    },
+    {
+      "group": "22",
+      "horizon": "P4",
+      "domain": "Формы и персональные данные",
+      "functions": "M02, M17, M42, M45",
+      "productive": [
+        "der Vorname",
+        "der Nachname",
+        "die Adresse",
+        "die Telefonnummer",
+        "das Datum",
+        "das Geburtsdatum",
+        "ausfüllen",
+        "unterschreiben"
+      ],
+      "receptive": [
+        "die Postleitzahl",
+        "der Geburtsort",
+        "die Staatsangehörigkeit",
+        "die Unterschrift",
+        "das Formular",
+        "die E-Mail-Adresse"
+      ]
+    },
+    {
+      "group": "23",
+      "horizon": "P4",
+      "domain": "Сообщения и услуги",
+      "functions": "M41, M43, M44, M45, M46, M47",
+      "productive": [
+        "die Nachricht",
+        "der Brief",
+        "die E-Mail",
+        "der Zettel",
+        "die Information",
+        "der Hinweis",
+        "die Frage",
+        "die Antwort",
+        "senden",
+        "bekommen"
+      ],
+      "receptive": [
+        "die Bank",
+        "die Post",
+        "die Polizei",
+        "das Amt",
+        "geöffnet",
+        "geschlossen",
+        "der Schalter",
+        "die Öffnungszeit",
+        "die Anmeldung",
+        "der Ausweis"
+      ]
+    },
+    {
+      "group": "24",
+      "horizon": "P4",
+      "domain": "Признаки, одежда и сравнение",
+      "functions": "M10, M16, M28, M38",
+      "productive": [
+        "rot",
+        "blau",
+        "grün",
+        "schwarz",
+        "weiß",
+        "kalt",
+        "warm",
+        "größer",
+        "kleiner",
+        "besser",
+        "schlechter",
+        "passen"
+      ],
+      "receptive": [
+        "die Jacke",
+        "die Hose",
+        "das Hemd",
+        "die Schuhe",
+        "die Größe",
+        "die Farbe",
+        "das Kleid",
+        "die Kleidung"
+      ]
+    },
+    {
+      "group": "25",
+      "horizon": "P4",
+      "domain": "Погода и окружение",
+      "functions": "M10, M15, M41",
+      "productive": [
+        "das Wetter",
+        "die Sonne",
+        "der Regen",
+        "regnen",
+        "der Schnee",
+        "der Winter",
+        "der Sommer",
+        "der Frühling",
+        "der Herbst"
+      ],
+      "receptive": [
+        "die Wolke",
+        "windig",
+        "sonnig",
+        "der Baum",
+        "die Pflanze",
+        "das Tier",
+        "der Park"
+      ]
+    },
+    {
+      "group": "26",
+      "horizon": "P4",
+      "domain": "Учёба и информация",
+      "functions": "M41, M43, M45, M47",
+      "productive": [
+        "die Schule",
+        "der Kurs",
+        "die Sprache",
+        "Deutsch",
+        "verstehen",
+        "erklären",
+        "das Wort",
+        "der Text"
+      ],
+      "receptive": [
+        "die Universität",
+        "die Stunde",
+        "die Prüfung",
+        "die Hausaufgabe",
+        "die Lektion",
+        "die Bibliothek"
+      ]
+    },
+    {
+      "group": "27",
+      "horizon": "P4",
+      "domain": "Сопоставление и временные отношения",
+      "functions": "M16, M26, M27, M28, M38, M53",
+      "productive": [
+        "und",
+        "aber",
+        "dann",
+        "danach",
+        "zuerst",
+        "gleich",
+        "anders",
+        "richtig"
+      ],
+      "receptive": [
+        "ähnlich",
+        "der Unterschied",
+        "der Vergleich",
+        "zuerst … dann …",
+        "wie lange",
+        "seit",
+        "bis wann"
+      ]
+    },
+    {
+      "group": "28",
+      "horizon": "P5",
+      "domain": "Простой прошлый опыт",
+      "functions": "M49, M50, M51",
+      "productive": [
+        "war",
+        "hatte",
+        "habe gemacht",
+        "habe gefunden",
+        "habe gesehen",
+        "habe gelernt",
+        "ist gekommen",
+        "ist gegangen"
+      ],
+      "receptive": [
+        "die Vergangenheit",
+        "früher",
+        "letzte Woche",
+        "schon",
+        "noch nicht",
+        "das Ergebnis"
+      ]
+    },
+    {
+      "group": "29",
+      "horizon": "P5",
+      "domain": "Будущее и изменение планов",
+      "functions": "M24, M26, M52",
+      "productive": [
+        "nächste Woche",
+        "wieder",
+        "planen",
+        "hoffen",
+        "warten auf"
+      ],
+      "receptive": [
+        "der Plan",
+        "der nächste Termin",
+        "später am Tag",
+        "in zwei Tagen"
       ]
     }
   ]
