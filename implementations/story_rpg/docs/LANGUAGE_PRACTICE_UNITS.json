@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -782,6 +782,11 @@
           "group": 10,
           "expression": "die Küche",
           "obligation": "functional_candidate"
+        },
+        {
+          "group": 10,
+          "expression": "auf",
+          "obligation": "functional_candidate"
         }
       ]
     },
@@ -804,16 +809,6 @@
         {
           "group": 10,
           "expression": "in",
-          "obligation": "functional_candidate"
-        },
-        {
-          "group": 10,
-          "expression": "auf",
-          "obligation": "functional_candidate"
-        },
-        {
-          "group": 11,
-          "expression": "zu",
           "obligation": "functional_candidate"
         },
         {
@@ -866,7 +861,13 @@
       "context": "Знакомое действие helfen",
       "id": "P2b-06",
       "mode": "independent_abstract_language_practice",
-      "lexical_anchors": []
+      "lexical_anchors": [
+        {
+          "group": 11,
+          "expression": "zu",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P2c",
@@ -1544,6 +1545,11 @@
           "group": 23,
           "expression": "die Frage",
           "obligation": "functional_candidate"
+        },
+        {
+          "group": 26,
+          "expression": "Deutsch",
+          "obligation": "functional_candidate"
         }
       ]
     },
@@ -1690,11 +1696,6 @@
         {
           "group": 26,
           "expression": "die Sprache",
-          "obligation": "functional_candidate"
-        },
-        {
-          "group": 26,
-          "expression": "Deutsch",
           "obligation": "functional_candidate"
         }
       ]
