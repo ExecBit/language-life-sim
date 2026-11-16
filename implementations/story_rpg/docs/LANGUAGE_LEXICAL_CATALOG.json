@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "status": "independent_lexical_inventory_not_approved_f1",
   "source": "LANGUAGE_LEXICON.md section 2, 29 topic groups; NOT ACT authored dialogue corpus",
   "validation": {
@@ -40,7 +40,8 @@
     "Groups and horizons are independent of story days, NPC biographies, plot vocabulary and ACT scene statistics.",
     "Full F1 is the approved act inventory, not equal to all entries in this exploratory catalogue; all approved entries are available from start.",
     "Meaningful usage frequency is not derived from count of catalogue occurrences.",
-    "In 73 independent language A/B examples, 36 additional surface tokens were reviewed: 27 form aliases, 2 placeholder names, 7 extra lexical candidates. None came from story content."
+    "In 73 independent language A/B examples, 36 additional surface tokens were reviewed: 27 form aliases, 2 placeholder names, 7 extra lexical candidates. None came from story content.",
+    "After qualitative goal-alignment fixes, the A/B examples were re-tokenized. Observed form counts always derive from the current 73-unit canonical examples; extra candidates are tracked separately, never counted as observed."
   ],
   "groups": [
     {
@@ -8287,34 +8288,27 @@
     }
   ],
   "program_german_form_audit": {
-    "source": "LANGUAGE_PRACTICE_UNITS.json German A/B design examples (not ACT scenes)",
-    "unique_example_wordforms": 123,
-    "exact_surface_token_matches": 87,
-    "needs_normalization": 36,
+    "source": "LANGUAGE_PRACTICE_UNITS.json current A/B examples, independent of ACT stories",
+    "unique_example_wordforms": 137,
+    "exact_surface_token_matches": 102,
+    "needs_normalization": 35,
     "inflected_or_plural": 27,
     "proper_names_not_lexicon": 2,
-    "supplemental_candidates": 7,
-    "form_coverage_status": "candidate_only; neither full F1 nor implementation passed"
+    "supplemental_candidates": 6,
+    "form_coverage_status": "candidate_only_not_real_F1_test"
   },
   "program_form_alias_candidates": [
-    {
-      "observed_form": "zeig",
-      "unit_ids": [
-        "P0-04"
-      ],
-      "kind": "inflection",
-      "target_entry": "zeigen",
-      "ru_meaning": null,
-      "status": "candidate_normalization_not_verified_UI"
-    },
     {
       "observed_form": "bin",
       "unit_ids": [
         "P0-06",
         "P1-07",
+        "P2a-04",
         "P2a-05",
+        "P3a-01",
         "P3a-02",
         "P3c-04",
+        "P4a-03",
         "P4b-01",
         "P4c-03",
         "P6-01"
@@ -8329,7 +8323,8 @@
       "unit_ids": [
         "P0-06",
         "P1-01",
-        "P4b-03"
+        "P4b-03",
+        "P5-06"
       ],
       "kind": "placeholder_proper_name",
       "target_entry": null,
@@ -8371,7 +8366,9 @@
       "observed_form": "tom",
       "unit_ids": [
         "P1-01",
-        "P4b-02"
+        "P4b-02",
+        "P5-06",
+        "P6-05"
       ],
       "kind": "placeholder_proper_name",
       "target_entry": null,
@@ -8383,7 +8380,6 @@
       "unit_ids": [
         "P1-05",
         "P3c-06",
-        "P4a-03",
         "P6-05"
       ],
       "kind": "inflection",
@@ -8398,18 +8394,6 @@
       ],
       "kind": "plural",
       "target_entry": "die Tasse",
-      "ru_meaning": null,
-      "status": "candidate_normalization_not_verified_UI"
-    },
-    {
-      "observed_form": "möchte",
-      "unit_ids": [
-        "P2a-04",
-        "P2c-05",
-        "P3c-01"
-      ],
-      "kind": "inflection",
-      "target_entry": "möchten",
       "ru_meaning": null,
       "status": "candidate_normalization_not_verified_UI"
     },
@@ -8468,7 +8452,8 @@
       "observed_form": "komme",
       "unit_ids": [
         "P2c-02",
-        "P3b-02"
+        "P3b-02",
+        "P3b-04"
       ],
       "kind": "inflection",
       "target_entry": "kommen",
@@ -8480,7 +8465,7 @@
       "unit_ids": [
         "P2c-03",
         "P3b-01",
-        "P6-03"
+        "P6-02"
       ],
       "kind": "inflection",
       "target_entry": "dürfen",
@@ -8492,7 +8477,7 @@
       "unit_ids": [
         "P2c-03",
         "P3b-01",
-        "P6-03"
+        "P6-02"
       ],
       "kind": "inflection",
       "target_entry": "müssen",
@@ -8530,9 +8515,19 @@
       "status": "candidate_normalization_not_verified_UI"
     },
     {
+      "observed_form": "möchte",
+      "unit_ids": [
+        "P2c-05",
+        "P3c-01"
+      ],
+      "kind": "inflection",
+      "target_entry": "möchten",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
       "observed_form": "arbeite",
       "unit_ids": [
-        "P3a-01",
         "P3a-03"
       ],
       "kind": "inflection",
@@ -8563,7 +8558,8 @@
     {
       "observed_form": "elf",
       "unit_ids": [
-        "P3b-03"
+        "P3b-03",
+        "P6-05"
       ],
       "kind": "new_language_candidate",
       "target_entry": "elf",
@@ -8571,9 +8567,19 @@
       "status": "candidate_normalization_not_verified_UI"
     },
     {
+      "observed_form": "mag",
+      "unit_ids": [
+        "P3c-02",
+        "P6-03"
+      ],
+      "kind": "inflection",
+      "target_entry": "mögen",
+      "ru_meaning": null,
+      "status": "candidate_normalization_not_verified_UI"
+    },
+    {
       "observed_form": "lese",
       "unit_ids": [
-        "P3b-04",
         "P3c-05",
         "P4c-01",
         "P5-05"
@@ -8586,7 +8592,6 @@
     {
       "observed_form": "spiele",
       "unit_ids": [
-        "P3b-04",
         "P3c-05",
         "P4c-01",
         "P5-05"
@@ -8597,19 +8602,8 @@
       "status": "candidate_normalization_not_verified_UI"
     },
     {
-      "observed_form": "mag",
-      "unit_ids": [
-        "P3c-02"
-      ],
-      "kind": "inflection",
-      "target_entry": "mögen",
-      "ru_meaning": null,
-      "status": "candidate_normalization_not_verified_UI"
-    },
-    {
       "observed_form": "rote",
       "unit_ids": [
-        "P4a-01",
         "P4a-02",
         "P4a-04"
       ],
@@ -8621,7 +8615,6 @@
     {
       "observed_form": "blaue",
       "unit_ids": [
-        "P4a-01",
         "P4a-04"
       ],
       "kind": "adjective_inflection",
@@ -8670,15 +8663,13 @@
       "status": "candidate_normalization_not_verified_UI"
     },
     {
-      "observed_form": "dort",
+      "kind": "inflection",
+      "target_entry": "mein",
+      "ru_meaning": null,
+      "observed_form": "meine",
       "unit_ids": [
-        "P5-06",
-        "P6-02",
-        "P6-05"
+        "P6-03"
       ],
-      "kind": "new_language_candidate",
-      "target_entry": "dort",
-      "ru_meaning": "там",
       "status": "candidate_normalization_not_verified_UI"
     },
     {
@@ -8690,6 +8681,20 @@
       "target_entry": "bringen",
       "ru_meaning": null,
       "status": "candidate_normalization_not_verified_UI"
+    }
+  ],
+  "additional_review_outside_current_pairs": [
+    {
+      "form": "zeig",
+      "lemma": "zeigen",
+      "kind": "imperative_alias_G08",
+      "status": "not_in_current_75_design_pairs_but_useful_in_F1"
+    },
+    {
+      "form": "dort",
+      "kind": "core_location_adverb_M20",
+      "status": "candidate_word_missing_catalogue_even_if_not_used_in_current_pairs",
+      "ru": "там"
     }
   ]
 }
