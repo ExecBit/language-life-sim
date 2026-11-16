@@ -103,6 +103,8 @@ def traceability_data() -> dict:
                     raise ValueError(f"Optional event cannot prove guaranteed exposure {target}: {eid}")
                 if mode and ref["mode"] != mode:
                     raise ValueError(f"Wrong event mode {target}: {eid}")
+        if target.startswith("LO-R") and item["p"]:
+            raise ValueError(f"Receptive LO must be supported by receptive evidence: {target}")
         if item["status"] == "gap" and item["p"]:
             raise ValueError(f"Review gap with claimed productive evidence: {target}")
         first = item["r"] + item["p"]
