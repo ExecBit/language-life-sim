@@ -34,6 +34,7 @@ DASHBOARD = DOCS / "ACT_DAY_PROGRESSION_DASHBOARD.html"
 CORPUS = DOCS / "ACT_DIALOGUE_SITUATIONS.json"
 NORMALIZATION = DOCS / "ACT_VOCAB_NORMALIZATION.json"
 LEXICON = DOCS / "LANGUAGE_LEXICON.md"
+LANGUAGE_CATALOG = DOCS / "LANGUAGE_LEXICAL_CATALOG.json"
 WORD_PATTERN = re.compile(r"[^\W_]+", re.UNICODE)
 
 DATA_SCRIPT = re.compile(r'(<script id="progression-data">const DATA=)(.*?)(;</script>)', re.DOTALL)
@@ -313,6 +314,100 @@ def dialogue_load_data() -> dict:
             "groups": list(topics.values())}
 
 
+def language_program_data() -> dict:
+    """Independent language-program lexicon, never inferred from ACT scenes.
+
+    P0-P5 are language horizons, not story days. Entries are expressions/forms,
+    not a count of learned lemmas; F1 and actual learner performance are untested.
+    """
+    catalogue = json.loads(LANGUAGE_CATALOG.read_text(encoding="utf-8"))
+    source_groups = catalogue["groups"]
+    entries = catalogue["entries"]
+    band_order = (
+        "P0", "P1", "P2a", "P2b", "P2c",
+        "P3a", "P3b", "P3c", "P4a", "P4b", "P4c", "P5"
+    )
+    track_order = (
+        "active_core", "receptive_core", "productive_choice", "contextual"
+    )
+    bands = [
+        {
+            "band": band,
+            "tracks": {
+                track: sum(
+                    item["learning_scope"]["focus_band"] == band
+                    and item["learning_scope"]["track"] == track
+                    for item in entries
+                )
+                for track in track_order
+            },
+        }
+        for band in band_order
+    ]
+    tracks = {
+        track: sum(
+            item["learning_scope"]["track"] == track for item in entries
+        )
+        for track in track_order
+    }
+    summary = catalogue["curriculum_summary"]
+    if len(entries) != summary["entries_total"] or tracks != summary["tracks"]:
+        raise ValueError("Independent lexical catalogue totals are inconsistent")
+    if not all(
+        summary["focus_band_counts"][b["band"]][track] == b["tracks"][track]
+        for b in bands for track in ("active_core", "receptive_core")
+    ):
+        raise ValueError("Independent lexical program focus bands are stale")
+    topics = [
+        {
+            "id": group["group"],
+            "name": group["domain"],
+            "horizon": group["horizon"],
+            "productive": len(group["productive"]),
+            "receptive": len(group["receptive"]),
+        }
+        for group in source_groups
+    ]
+    vocabulary = [
+        {
+            "text": item["text"],
+            "ru": " / ".join(item["draft_ru_meanings"]),
+            "track": item["learning_scope"]["track"],
+            "band": item["learning_scope"]["focus_band"],
+            "groups": sorted({
+                usage["group"] for usage in item["occurrences"]
+            }),
+        }
+        for item in entries
+    ]
+    contracts = [
+        {
+            "id": item["id"],
+            "goal": item["goal"],
+            "horizon": item["horizon"],
+            "outcomes": item["learning_outcome_refs"],
+            "acceptance": item["semantic_acceptance_rule_ru"],
+        }
+        for item in catalogue["lexical_competency_contracts"]
+    ]
+    return {
+        "summary": {
+            "expressions": len(entries),
+            "occurrences": catalogue["validation"]["occurrences"],
+            "previous": summary["originals"],
+            "added": summary["additions"],
+            "groups": len(source_groups),
+            "contracts": len(contracts),
+            "outcomes": summary["independent_outcomes_lexically_traced"],
+            "tracks": tracks,
+        },
+        "bands": bands,
+        "topics": topics,
+        "vocabulary": vocabulary,
+        "contracts": contracts,
+    }
+
+
 def build(html: str, source: str, matrix: str, language: str) -> str:
     embedded = DATA_SCRIPT.search(html)
     if embedded is None:
@@ -341,6 +436,7 @@ def build(html: str, source: str, matrix: str, language: str) -> str:
         "semantic": semantic_data(),
         "a0_readiness": a0_readiness_data(),
         "traceability": traceability_data(),
+        "language_program": language_program_data(),
     }
     encoded = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("<", r"\u003c")
     return html[:embedded.start(2)] + encoded + html[embedded.end(2):]
