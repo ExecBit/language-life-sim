@@ -195,7 +195,7 @@ def render_report(data: dict) -> str:
         ]
         for item in (i for i in data["items"] if i["kind"] == kind):
             form = item.get("core", "—")
-            evidence = lambda field: ", ".join(f"\`{x}\`" for x in item[field]) or "—"
+            evidence = lambda field: ", ".join(f"`{x}`" for x in item[field]) or "—"
             lines.append(
                 f"| {item['id']} | {item['title']} | {form} | "
                 f"{STATE_LABELS[item['status']]} | "
