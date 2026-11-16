@@ -3922,7 +3922,7 @@
   ],
   "example_checks_count": 80,
   "independent_outcome_assessments": {
-    "version": "0.1",
+    "version": "0.2",
     "status": "candidate_independent_language_assessment_not_real_exam_or_game_scene",
     "rules": [
       "All cases are language-only contexts with interchangeable names/objects; they neither define NPC biographies nor the game narrative.",
@@ -3931,7 +3931,9 @@
       "A/B must differ meaningfully; when multiple slots are relevant, grading evaluates all slots, not merely the changed one.",
       "Parser uncertainty triggers clarification or neutral reformulation, never an automatic 'wrong German' verdict.",
       "The exam remains resittable and separated from the main-path F1 help. Cutoffs and actual exam format remain unapproved.",
-      "These are 13 outcome case blueprints, not 13 mandated separate quests or a limit of one test per outcome."
+      "These are 13 outcome case blueprints, not 13 mandated separate quests or a limit of one test per outcome.",
+      "Разделять смысловые слоты независимыми контрастами, а не считать одну смешанную A/B-пару доказательством понимания каждой её части.",
+      "Дополнительные смысловые пары — проектные варианты, а не число обязательных экзаменационных задач, дней или игровых сцен."
     ],
     "cases": [
       {
@@ -4128,14 +4130,16 @@
         },
         "required_semantic_slots": [
           "object",
-          "observed_state"
+          "observed_state",
+          "negation_scope",
+          "current_location"
         ],
         "incorrect_interpretation_examples": [
           "Сообщить противоположное состояние",
           "Назвать только предмет без состояния"
         ],
         "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
-        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует. Дополнительно требуется отличать отрицание и текущее место; эти значения проверяются отдельными контрастами.",
         "design_status": "independent_candidate_not_player_test"
       },
       {
@@ -4153,7 +4157,7 @@
           "variant_B_facts": {
             "rule": "prohibited_from_coming",
             "listener_needs_both_facts": true,
-            "time_reference": "Montag 12:00"
+            "time_reference": "Montag 10:00"
           }
         },
         "required_semantic_slots": [
@@ -4166,8 +4170,22 @@
           "Сообщить неверное время"
         ],
         "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
-        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
-        "design_status": "independent_candidate_not_player_test"
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует. Основная A/B-пара изолирует запрещено/не обязательно при фиксированном времени. Отдельная пара проверяет время.",
+        "design_status": "independent_candidate_not_player_test",
+        "retained_earlier_variant": {
+          "variant_A_facts": {
+            "rule": "no_obligation_to_come",
+            "listener_needs_both_facts": true,
+            "time_reference": "Montag 10:00"
+          },
+          "variant_B_facts": {
+            "rule": "prohibited_from_coming",
+            "listener_needs_both_facts": true,
+            "time_reference": "Montag 12:00"
+          },
+          "reason": "Одновременно менялись модальность и время; поздняя составная проверка, а не изолированный смысл.",
+          "status": "optional_combined_transfer_variant"
+        }
       },
       {
         "lo": "LO-W04",
@@ -4193,14 +4211,14 @@
         },
         "required_semantic_slots": [
           "chosen_item",
-          "preference_or_request_intent"
+          "preference_intent"
         ],
         "incorrect_interpretation_examples": [
           "Назвать другой напиток",
           "Не передать предпочтение"
         ],
         "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
-        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует. Предпочтение как факт не следует автоматически смешивать с просьбой получить предмет сейчас.",
         "design_status": "independent_candidate_not_player_test"
       },
       {
@@ -4251,6 +4269,45 @@
               "Tag",
               "Zeit"
             ],
+            "private_data": {
+              "person_name": "Mia",
+              "weekday_iso": 1,
+              "clock_24h": "10:00"
+            }
+          },
+          "variant_B_facts": {
+            "fields_de": [
+              "Name",
+              "Tag",
+              "Zeit"
+            ],
+            "private_data": {
+              "person_name": "Mia",
+              "weekday_iso": 2,
+              "clock_24h": "10:00"
+            }
+          }
+        },
+        "required_semantic_slots": [
+          "field_name",
+          "field_day",
+          "field_time"
+        ],
+        "incorrect_interpretation_examples": [
+          "Поставить дату в поле имени",
+          "Скопировать день из другого варианта",
+          "Автоподставить готовые значения"
+        ],
+        "expected_player_action": "По немецким подписям формы самостоятельно заполнить соответствующие поля независимыми данными. Сведения не должны автоматически подаваться уже с немецкими именами полей.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует. 1/2 в weekday_iso — абстрактные значения понедельника/вторника, а не готовое немецкое поле с ответом.",
+        "design_status": "independent_candidate_not_player_test",
+        "retained_earlier_variant": {
+          "variant_A_facts": {
+            "fields_de": [
+              "Name",
+              "Tag",
+              "Zeit"
+            ],
             "facts": {
               "Name": "Mia",
               "Tag": "Montag",
@@ -4268,21 +4325,10 @@
               "Tag": "Dienstag",
               "Zeit": "10:00"
             }
-          }
-        },
-        "required_semantic_slots": [
-          "field_name",
-          "field_day",
-          "field_time"
-        ],
-        "incorrect_interpretation_examples": [
-          "Поставить дату в поле имени",
-          "Скопировать день из другого варианта",
-          "Автоподставить готовые значения"
-        ],
-        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
-        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
-        "design_status": "independent_candidate_not_player_test"
+          },
+          "reason": "Старые факты уже разложены по немецким полям Name/Tag/Zeit; нет независимой проверки соответствия.",
+          "status": "retained_historical_design_not_exam_default"
+        }
       },
       {
         "lo": "LO-W07",
