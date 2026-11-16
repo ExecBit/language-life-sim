@@ -1,5 +1,5 @@
 {
-  "version": "0.4",
+  "version": "0.5",
   "status": "balanced_candidate_sequence_semantic_transfer_not_validated",
   "purpose": "Candidate language-practice sequence for smoothing new meaningful R/P/grammar loads, independent of any storyline.",
   "provenance": [
@@ -15,7 +15,8 @@
     "word load is not yet measured; names are descriptive labels, not approved lexical entries",
     "P6 adds no new M or G",
     "unit IDs are neither days nor quests nor fixed user lessons",
-    "Lexical support is a deliberately small illustrative seed list, not complete act F1, not an experimentally calibrated target, and currently not counted against the 458 catalogue strings."
+    "Lexical support is a deliberately small illustrative seed list, not complete act F1, not an experimentally calibrated target, and currently not counted against the 458 catalogue strings.",
+    "A planned revisit must differ in communicative goal, critical German semantic contrast, or information recipient; contextual verification remains necessary for each candidate."
   ],
   "validation": {
     "units": 53,
@@ -127,6 +128,17 @@
       "planned_return_count": 55,
       "LO_count": 13,
       "estimated_word_inventory_candidate_only": 96
+    },
+    "revisit_semantic_contracts": 55,
+    "revisit_max_per_unit": 5,
+    "revisit_stage_counts": {
+      "P0": 0,
+      "P1": 1,
+      "P2": 7,
+      "P3": 10,
+      "P4": 21,
+      "P5": 11,
+      "P6": 5
     }
   },
   "units": [
@@ -174,7 +186,8 @@
         "Hallo",
         "Tschüss"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU02",
@@ -220,7 +233,8 @@
         "ja",
         "nein"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU03",
@@ -266,7 +280,8 @@
         "Buch",
         "Tasse"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU04",
@@ -306,7 +321,8 @@
         "noch einmal",
         "verstehen"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU05",
@@ -354,7 +370,8 @@
         "du",
         "heißen"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU06",
@@ -398,7 +415,8 @@
         "Schlüssel",
         "nehmen"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU07",
@@ -444,7 +462,8 @@
         "was",
         "wo"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU08",
@@ -489,7 +508,8 @@
         "offen",
         "kaputt"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU09",
@@ -534,7 +554,8 @@
         "haben",
         "kein"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU10",
@@ -577,7 +598,8 @@
         "müde",
         "Wasser"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU11",
@@ -594,9 +616,7 @@
         "G05",
         "G11"
       ],
-      "revisit": [
-        "M39"
-      ],
+      "revisit": [],
       "semantic_contrast": "предмет нужен/не нужен",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
       "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
@@ -608,7 +628,7 @@
       "new_grammar_contrasts": 2,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 0,
       "new_MR_names": [
         "Описать состояние, изменение или неисправность"
       ],
@@ -625,7 +645,8 @@
         "brauchen",
         "geben"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU12",
@@ -669,7 +690,8 @@
         "eins",
         "zwei"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU13",
@@ -714,7 +736,8 @@
         "helfen",
         "der Name"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU14",
@@ -731,7 +754,9 @@
       "new_grammar_R": [
         "G25"
       ],
-      "revisit": [],
+      "revisit": [
+        "M39"
+      ],
       "semantic_contrast": "здесь/там и запрет",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
       "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
@@ -743,7 +768,7 @@
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 0,
+      "revisits_in_new_context": 1,
       "new_MR_names": [
         "Определить местоположение",
         "Прочитать предупреждение/знак/объявление"
@@ -760,7 +785,18 @@
         "hier",
         "Tür"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M39",
+          "initial_unit": "LU01",
+          "return_unit": "LU14",
+          "distinct_goal": "Прочитать объявление и самостоятельно запросить сведения",
+          "initial_goal": "Приветствие и адресат",
+          "semantic_probe": "здесь/там и запрет",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU15",
@@ -778,7 +814,7 @@
         "G14"
       ],
       "revisit": [
-        "M10"
+        "M03"
       ],
       "semantic_contrast": "мой/твой/его; смена владельца",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -808,7 +844,18 @@
         "mein",
         "dein"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M03",
+          "initial_unit": "LU05",
+          "return_unit": "LU15",
+          "distinct_goal": "Владелец и местоимения",
+          "initial_goal": "Имя и говорящий",
+          "semantic_probe": "мой/твой/его; смена владельца",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU16",
@@ -821,7 +868,7 @@
       "first_P": [],
       "new_grammar_R": [],
       "revisit": [
-        "M04"
+        "M01"
       ],
       "semantic_contrast": "du/Sie, третье лицо sie",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -849,6 +896,17 @@
       ],
       "candidate_reused_lexemes": [
         "du"
+      ],
+      "revisit_contracts": [
+        {
+          "id": "M01",
+          "initial_unit": "LU01",
+          "return_unit": "LU16",
+          "distinct_goal": "Обращение du/Sie",
+          "initial_goal": "Приветствие и адресат",
+          "semantic_probe": "du/Sie, третье лицо sie",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
       ]
     },
     {
@@ -863,9 +921,7 @@
       "new_grammar_R": [
         "G15"
       ],
-      "revisit": [
-        "M01"
-      ],
+      "revisit": [],
       "semantic_contrast": "два/три; предмет неизменен",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
       "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
@@ -877,7 +933,7 @@
       "new_grammar_contrasts": 1,
       "independent_R_facts": 0,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 0,
       "new_MR_names": [],
       "new_grammar_names": [
         "Личные местоимения Akkusativ `mich/dich/ihn/sie/es`"
@@ -891,7 +947,8 @@
         "drei",
         "vier"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU18",
@@ -909,7 +966,7 @@
         "G16"
       ],
       "revisit": [
-        "M05"
+        "M12"
       ],
       "semantic_contrast": "кому A/кому B",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -938,7 +995,18 @@
         "mir",
         "dir"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M12",
+          "initial_unit": "LU06",
+          "return_unit": "LU18",
+          "distinct_goal": "Адресат передачи",
+          "initial_goal": "Простая просьба о вещи",
+          "semantic_probe": "кому A/кому B",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU19",
@@ -956,7 +1024,8 @@
         "G18"
       ],
       "revisit": [
-        "M12"
+        "M09",
+        "M40"
       ],
       "semantic_contrast": "где/куда; im/ins",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -969,7 +1038,7 @@
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 2,
       "new_MR_names": [
         "Понять направление/перемещение",
         "Отличить положение от помещения/переноса"
@@ -986,7 +1055,27 @@
         "im",
         "ins"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M09",
+          "initial_unit": "LU03",
+          "return_unit": "LU19",
+          "distinct_goal": "Место и направление",
+          "initial_goal": "Предмет в инструкции",
+          "semantic_probe": "где/куда; im/ins",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M40",
+          "initial_unit": "LU03",
+          "return_unit": "LU19",
+          "distinct_goal": "Место и направление",
+          "initial_goal": "Предмет в инструкции",
+          "semantic_probe": "где/куда; im/ins",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU20",
@@ -1002,9 +1091,7 @@
       "new_grammar_R": [
         "G17"
       ],
-      "revisit": [
-        "M09"
-      ],
+      "revisit": [],
       "semantic_contrast": "отношение к другому человеку меняется",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
       "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
@@ -1016,7 +1103,7 @@
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 0,
       "new_MR_names": [
         "Назвать отношение к человеку/событию"
       ],
@@ -1032,7 +1119,8 @@
         "froh",
         "traurig"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU21",
@@ -1046,7 +1134,8 @@
       "first_P": [],
       "new_grammar_R": [],
       "revisit": [
-        "M40"
+        "M04",
+        "M05"
       ],
       "semantic_contrast": "нельзя/не обязательно",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1059,7 +1148,7 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 0,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 2,
       "new_MR_names": [
         "Сообщить возможность, обязанность, запрет",
         "Различать смысл изменения отрицания и модальности"
@@ -1074,7 +1163,27 @@
         "dürfen",
         "müssen"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M04",
+          "initial_unit": "LU02",
+          "return_unit": "LU21",
+          "distinct_goal": "Возможность и обязанность",
+          "initial_goal": "Вопрос, факт, согласие",
+          "semantic_probe": "нельзя/не обязательно",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M05",
+          "initial_unit": "LU04",
+          "return_unit": "LU21",
+          "distinct_goal": "Возможность и обязанность",
+          "initial_goal": "Просьба уточнить",
+          "semantic_probe": "нельзя/не обязательно",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU22",
@@ -1120,7 +1229,8 @@
         "heute",
         "gestern"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU23",
@@ -1135,9 +1245,7 @@
         "M48"
       ],
       "new_grammar_R": [],
-      "revisit": [
-        "M03"
-      ],
+      "revisit": [],
       "semantic_contrast": "другой адресат не знает факта",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
       "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
@@ -1149,7 +1257,7 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 2,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 0,
       "new_MR_names": [
         "Перенести информацию между собеседниками"
       ],
@@ -1163,7 +1271,8 @@
         "arbeiten",
         "Kollege"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU24",
@@ -1203,7 +1312,8 @@
         "möchten",
         "wollen"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU25",
@@ -1221,7 +1331,8 @@
         "G19"
       ],
       "revisit": [
-        "M17"
+        "M20",
+        "M21"
       ],
       "semantic_contrast": "время доступно/занято",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1234,7 +1345,7 @@
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 2,
       "new_MR_names": [
         "Договориться о встрече/доступности",
         "Согласовать бытовой план, приглашение, отказ"
@@ -1251,7 +1362,27 @@
         "um",
         "Uhr"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M20",
+          "initial_unit": "LU14",
+          "return_unit": "LU25",
+          "distinct_goal": "Согласование времени",
+          "initial_goal": "Прочитать объявление и самостоятельно запросить сведения",
+          "semantic_probe": "время доступно/занято",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M21",
+          "initial_unit": "LU19",
+          "return_unit": "LU25",
+          "distinct_goal": "Согласование времени",
+          "initial_goal": "Место и направление",
+          "semantic_probe": "время доступно/занято",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU26",
@@ -1269,8 +1400,7 @@
         "G20"
       ],
       "revisit": [
-        "M06",
-        "M41"
+        "M17"
       ],
       "semantic_contrast": "обычно/сегодня; часто/никогда",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1283,7 +1413,7 @@
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 2,
-      "revisits_in_new_context": 2,
+      "revisits_in_new_context": 1,
       "new_MR_names": [
         "Выразить частоту/обычное действие"
       ],
@@ -1299,7 +1429,18 @@
         "immer",
         "oft"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M17",
+          "initial_unit": "LU12",
+          "return_unit": "LU26",
+          "distinct_goal": "Частота привычного действия и уточнение времени",
+          "initial_goal": "Количество и предмет",
+          "semantic_probe": "обычно/сегодня; часто/никогда",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU27",
@@ -1315,10 +1456,7 @@
       "new_grammar_R": [
         "G27"
       ],
-      "revisit": [
-        "M07",
-        "M47"
-      ],
+      "revisit": [],
       "semantic_contrast": "сначала A/B; затем B/A",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
       "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
@@ -1330,7 +1468,7 @@
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 2,
+      "revisits_in_new_context": 0,
       "new_MR_names": [
         "Передать порядок коротких действий"
       ],
@@ -1346,7 +1484,8 @@
         "zuerst",
         "dann"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU28",
@@ -1363,8 +1502,7 @@
         "G24"
       ],
       "revisit": [
-        "M02",
-        "M32"
+        "M19"
       ],
       "semantic_contrast": "запрещено/не обязательно",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1377,7 +1515,7 @@
       "new_grammar_contrasts": 2,
       "independent_R_facts": 0,
       "independent_P_intents": 2,
-      "revisits_in_new_context": 2,
+      "revisits_in_new_context": 1,
       "new_MR_names": [],
       "new_grammar_names": [
         "Модальные `können/müssen/dürfen/sollen/wollen` и рамочная конструкция",
@@ -1392,7 +1530,18 @@
         "nicht dürfen",
         "nicht müssen"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M19",
+          "initial_unit": "LU13",
+          "return_unit": "LU28",
+          "distinct_goal": "Модальность в самостоятельном сообщении",
+          "initial_goal": "Выяснить, кто предлагает помощь, представиться",
+          "semantic_probe": "запрещено/не обязательно",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU29",
@@ -1405,9 +1554,7 @@
       ],
       "first_P": [],
       "new_grammar_R": [],
-      "revisit": [
-        "M19"
-      ],
+      "revisit": [],
       "semantic_contrast": "больше/меньше; лучше/хуже",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
       "productive_contract": null,
@@ -1419,7 +1566,7 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 0,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 0,
       "new_MR_names": [
         "Противопоставить два факта",
         "Сравнить измерения, значения или объекты"
@@ -1434,7 +1581,8 @@
         "größer",
         "kleiner"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU30",
@@ -1452,7 +1600,8 @@
         "G23"
       ],
       "revisit": [
-        "M11"
+        "M11",
+        "M32"
       ],
       "semantic_contrast": "предпочтение A/B",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1465,7 +1614,7 @@
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 2,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 2,
       "new_MR_names": [
         "Выразить предпочтение или оценку"
       ],
@@ -1481,7 +1630,27 @@
         "gern",
         "lieber"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M11",
+          "initial_unit": "LU09",
+          "return_unit": "LU30",
+          "distinct_goal": "Выраженное желание",
+          "initial_goal": "Наличие и собственный факт",
+          "semantic_probe": "предпочтение A/B",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M32",
+          "initial_unit": "LU10",
+          "return_unit": "LU30",
+          "distinct_goal": "Выраженное желание",
+          "initial_goal": "Бытовая потребность",
+          "semantic_probe": "предпочтение A/B",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU31",
@@ -1497,7 +1666,9 @@
       ],
       "new_grammar_R": [],
       "revisit": [
-        "M20"
+        "M07",
+        "M41",
+        "M47"
       ],
       "semantic_contrast": "отправитель/дата/время",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1510,7 +1681,7 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 3,
       "new_MR_names": [
         "Найти сведения в расписании/списке/таблице",
         "Понять короткое личное сообщение или приглашение"
@@ -1525,7 +1696,36 @@
         "Montag",
         "Dienstag"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M07",
+          "initial_unit": "LU07",
+          "return_unit": "LU31",
+          "distinct_goal": "Извлечь время из приглашения и согласовать встречу",
+          "initial_goal": "Недостающий вопрос",
+          "semantic_probe": "отправитель/дата/время",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M41",
+          "initial_unit": "LU14",
+          "return_unit": "LU31",
+          "distinct_goal": "Извлечь время из приглашения и согласовать встречу",
+          "initial_goal": "Прочитать объявление и самостоятельно запросить сведения",
+          "semantic_probe": "отправитель/дата/время",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M47",
+          "initial_unit": "LU07",
+          "return_unit": "LU31",
+          "distinct_goal": "Извлечь время из приглашения и согласовать встречу",
+          "initial_goal": "Недостающий вопрос",
+          "semantic_probe": "отправитель/дата/время",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU32",
@@ -1540,7 +1740,7 @@
         "G33"
       ],
       "revisit": [
-        "M14"
+        "M06"
       ],
       "semantic_contrast": "предмет просьбы в hätte gern/könnte ich",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1569,7 +1769,18 @@
         "ich hätte gern",
         "könnte ich"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M06",
+          "initial_unit": "LU02",
+          "return_unit": "LU32",
+          "distinct_goal": "Вежливая просьба",
+          "initial_goal": "Вопрос, факт, согласие",
+          "semantic_probe": "предмет просьбы в hätte gern/könnte ich",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU33",
@@ -1582,9 +1793,7 @@
       ],
       "first_P": [],
       "new_grammar_R": [],
-      "revisit": [
-        "M21"
-      ],
+      "revisit": [],
       "semantic_contrast": "занятие нравится/не нравится",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
       "productive_contract": null,
@@ -1596,7 +1805,7 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 0,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 0,
       "new_MR_names": [
         "Спросить об интересах и досуге",
         "Объяснить, что конкретно нравится/не подходит"
@@ -1611,7 +1820,8 @@
         "spielen",
         "lesen"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU34",
@@ -1626,9 +1836,7 @@
         "M49"
       ],
       "new_grammar_R": [],
-      "revisit": [
-        "M29"
-      ],
+      "revisit": [],
       "semantic_contrast": "время и новый план",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
       "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
@@ -1640,7 +1848,7 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 0,
       "new_MR_names": [
         "Передать несколько смысловых пунктов письменно",
         "Передать план на ближайшее будущее"
@@ -1655,7 +1863,8 @@
         "morgen",
         "später"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU35",
@@ -1672,8 +1881,7 @@
         "G26"
       ],
       "revisit": [
-        "M22",
-        "M37"
+        "M10"
       ],
       "semantic_contrast": "контраст результата и времени",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1686,7 +1894,7 @@
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 2,
+      "revisits_in_new_context": 1,
       "new_MR_names": [
         "Понять простую длительность или границу времени"
       ],
@@ -1702,7 +1910,18 @@
         "besser",
         "schlechter"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M10",
+          "initial_unit": "LU08",
+          "return_unit": "LU35",
+          "distinct_goal": "Сравнение двух фактов",
+          "initial_goal": "Свойство и состояние",
+          "semantic_probe": "контраст результата и времени",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU36",
@@ -1718,9 +1937,8 @@
         "G31"
       ],
       "revisit": [
-        "M08",
-        "M30",
-        "M53"
+        "M15",
+        "M29"
       ],
       "semantic_contrast": "слишком холодно/допустимо",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1733,7 +1951,7 @@
       "new_grammar_contrasts": 1,
       "independent_R_facts": 0,
       "independent_P_intents": 2,
-      "revisits_in_new_context": 3,
+      "revisits_in_new_context": 2,
       "new_MR_names": [],
       "new_grammar_names": [
         "Склонение прилагательных при существительном"
@@ -1745,7 +1963,27 @@
       "candidate_new_lexemes": [
         "zu kalt"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M15",
+          "initial_unit": "LU11",
+          "return_unit": "LU36",
+          "distinct_goal": "Сравнить характеристики и объяснить препятствие",
+          "initial_goal": "Попросить конкретную вещь, узнав её состояние",
+          "semantic_probe": "слишком холодно/допустимо",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M29",
+          "initial_unit": "LU10",
+          "return_unit": "LU36",
+          "distinct_goal": "Сравнить характеристики и объяснить препятствие",
+          "initial_goal": "Бытовая потребность",
+          "semantic_probe": "слишком холодно/допустимо",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU37",
@@ -1758,9 +1996,8 @@
       ],
       "new_grammar_R": [],
       "revisit": [
-        "M13",
-        "M31",
-        "M54"
+        "M30",
+        "M31"
       ],
       "semantic_contrast": "книга/игра; предпочтение меняет план",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1773,7 +2010,7 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 0,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 3,
+      "revisits_in_new_context": 2,
       "new_MR_names": [],
       "new_grammar_names": [],
       "lexical_support_examples": [
@@ -1785,7 +2022,27 @@
         "Hobby",
         "Sport"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M30",
+          "initial_unit": "LU24",
+          "return_unit": "LU37",
+          "distinct_goal": "Собственный интерес",
+          "initial_goal": "Желание и занятия",
+          "semantic_probe": "книга/игра; предпочтение меняет план",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M31",
+          "initial_unit": "LU30",
+          "return_unit": "LU37",
+          "distinct_goal": "Собственный интерес",
+          "initial_goal": "Выраженное желание",
+          "semantic_probe": "книга/игра; предпочтение меняет план",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU38",
@@ -1798,8 +2055,9 @@
       "first_P": [],
       "new_grammar_R": [],
       "revisit": [
-        "M23",
-        "M42"
+        "M13",
+        "M35",
+        "M53"
       ],
       "semantic_contrast": "A брат B/A друг B",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1812,7 +2070,7 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 0,
-      "revisits_in_new_context": 2,
+      "revisits_in_new_context": 3,
       "new_MR_names": [
         "Разобраться в близких и личных отношениях"
       ],
@@ -1826,7 +2084,36 @@
         "Bruder",
         "Schwester"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M13",
+          "initial_unit": "LU15",
+          "return_unit": "LU38",
+          "distinct_goal": "Сведения о связях",
+          "initial_goal": "Владелец и местоимения",
+          "semantic_probe": "A брат B/A друг B",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M35",
+          "initial_unit": "LU20",
+          "return_unit": "LU38",
+          "distinct_goal": "Сведения о связях",
+          "initial_goal": "Сообщить отношение к человеку и понять взаимодействие",
+          "semantic_probe": "A брат B/A друг B",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M53",
+          "initial_unit": "LU15",
+          "return_unit": "LU38",
+          "distinct_goal": "Сведения о связях",
+          "initial_goal": "Владелец и местоимения",
+          "semantic_probe": "A брат B/A друг B",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU39",
@@ -1839,7 +2126,10 @@
       "first_P": [],
       "new_grammar_R": [],
       "revisit": [
+        "M08",
         "M24",
+        "M33",
+        "M37",
         "M43"
       ],
       "semantic_contrast": "кто, что, когда",
@@ -1853,7 +2143,7 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 0,
-      "revisits_in_new_context": 2,
+      "revisits_in_new_context": 5,
       "new_MR_names": [
         "Прочитать короткий рабочий текст/заметку"
       ],
@@ -1867,7 +2157,54 @@
         "Nachricht",
         "senden"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M08",
+          "initial_unit": "LU16",
+          "return_unit": "LU39",
+          "distinct_goal": "Краткий текст/заметка",
+          "initial_goal": "Обращение du/Sie",
+          "semantic_probe": "кто, что, когда",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M24",
+          "initial_unit": "LU25",
+          "return_unit": "LU39",
+          "distinct_goal": "Краткий текст/заметка",
+          "initial_goal": "Согласование времени",
+          "semantic_probe": "кто, что, когда",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M33",
+          "initial_unit": "LU24",
+          "return_unit": "LU39",
+          "distinct_goal": "Краткий текст/заметка",
+          "initial_goal": "Желание и занятия",
+          "semantic_probe": "кто, что, когда",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M37",
+          "initial_unit": "LU25",
+          "return_unit": "LU39",
+          "distinct_goal": "Краткий текст/заметка",
+          "initial_goal": "Согласование времени",
+          "semantic_probe": "кто, что, когда",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M43",
+          "initial_unit": "LU31",
+          "return_unit": "LU39",
+          "distinct_goal": "Краткий текст/заметка",
+          "initial_goal": "Извлечь время из приглашения и согласовать встречу",
+          "semantic_probe": "кто, что, когда",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU40",
@@ -1882,8 +2219,9 @@
       ],
       "new_grammar_R": [],
       "revisit": [
-        "M25",
-        "M48"
+        "M02",
+        "M23",
+        "M42"
       ],
       "semantic_contrast": "значение и поле меняются",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1896,7 +2234,7 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 2,
+      "revisits_in_new_context": 3,
       "new_MR_names": [
         "Заполнить простую форму"
       ],
@@ -1910,7 +2248,36 @@
         "Vorname",
         "Nachname"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M02",
+          "initial_unit": "LU05",
+          "return_unit": "LU40",
+          "distinct_goal": "Форма и данные",
+          "initial_goal": "Имя и говорящий",
+          "semantic_probe": "значение и поле меняются",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M23",
+          "initial_unit": "LU22",
+          "return_unit": "LU40",
+          "distinct_goal": "Форма и данные",
+          "initial_goal": "Где и когда начинается знакомое действие",
+          "semantic_probe": "значение и поле меняются",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M42",
+          "initial_unit": "LU31",
+          "return_unit": "LU40",
+          "distinct_goal": "Форма и данные",
+          "initial_goal": "Извлечь время из приглашения и согласовать встречу",
+          "semantic_probe": "значение и поле меняются",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU41",
@@ -1925,8 +2292,8 @@
         "G34"
       ],
       "revisit": [
-        "M15",
-        "M33"
+        "M25",
+        "M48"
       ],
       "semantic_contrast": "изменить один из двух фактов",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1953,7 +2320,27 @@
         "aber",
         "und"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M25",
+          "initial_unit": "LU26",
+          "return_unit": "LU41",
+          "distinct_goal": "Две самостоятельные мысли",
+          "initial_goal": "Частота привычного действия и уточнение времени",
+          "semantic_probe": "изменить один из двух фактов",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M48",
+          "initial_unit": "LU23",
+          "return_unit": "LU41",
+          "distinct_goal": "Две самостоятельные мысли",
+          "initial_goal": "Принять и передать сведения без подсказки ответа",
+          "semantic_probe": "изменить один из двух фактов",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU42",
@@ -1965,7 +2352,8 @@
       "new_grammar_R": [],
       "revisit": [
         "M18",
-        "M35"
+        "M22",
+        "M54"
       ],
       "semantic_contrast": "адресат не видит вторую часть информации",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -1978,7 +2366,7 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 0,
       "independent_P_intents": 0,
-      "revisits_in_new_context": 2,
+      "revisits_in_new_context": 3,
       "new_MR_names": [],
       "new_grammar_names": [],
       "lexical_support_examples": [
@@ -1990,7 +2378,36 @@
         "anders",
         "richtig"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M18",
+          "initial_unit": "LU21",
+          "return_unit": "LU42",
+          "distinct_goal": "Перенос нескольких фактов",
+          "initial_goal": "Возможность и обязанность",
+          "semantic_probe": "адресат не видит вторую часть информации",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M22",
+          "initial_unit": "LU19",
+          "return_unit": "LU42",
+          "distinct_goal": "Перенос нескольких фактов",
+          "initial_goal": "Место и направление",
+          "semantic_probe": "адресат не видит вторую часть информации",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M54",
+          "initial_unit": "LU21",
+          "return_unit": "LU42",
+          "distinct_goal": "Перенос нескольких фактов",
+          "initial_goal": "Возможность и обязанность",
+          "semantic_probe": "адресат не видит вторую часть информации",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU43",
@@ -2005,7 +2422,7 @@
         "G28"
       ],
       "revisit": [
-        "M36"
+        "M49"
       ],
       "semantic_contrast": "вчера/сейчас; кто действовал",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -2034,7 +2451,18 @@
         "war",
         "hatte"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M49",
+          "initial_unit": "LU22",
+          "return_unit": "LU43",
+          "distinct_goal": "Прошедшее событие",
+          "initial_goal": "Где и когда начинается знакомое действие",
+          "semantic_probe": "вчера/сейчас; кто действовал",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU44",
@@ -2050,9 +2478,7 @@
       "new_grammar_R": [
         "G29"
       ],
-      "revisit": [
-        "M38"
-      ],
+      "revisit": [],
       "semantic_contrast": "результат A/B и время",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
       "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
@@ -2064,7 +2490,7 @@
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 0,
       "new_MR_names": [
         "Кратко сообщить **свой** опыт/результат"
       ],
@@ -2080,7 +2506,8 @@
         "habe gemacht",
         "gefunden"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU45",
@@ -2093,8 +2520,7 @@
       ],
       "new_grammar_R": [],
       "revisit": [
-        "M16",
-        "M44"
+        "M26"
       ],
       "semantic_contrast": "завтра/сегодня",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -2107,7 +2533,7 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 0,
       "independent_P_intents": 1,
-      "revisits_in_new_context": 2,
+      "revisits_in_new_context": 1,
       "new_MR_names": [],
       "new_grammar_names": [],
       "lexical_support_examples": [
@@ -2119,7 +2545,18 @@
         "planen",
         "nächste Woche"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M26",
+          "initial_unit": "LU27",
+          "return_unit": "LU45",
+          "distinct_goal": "Ближайший будущий план",
+          "initial_goal": "Последовательность действий",
+          "semantic_probe": "завтра/сегодня",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU46",
@@ -2130,8 +2567,10 @@
       "first_P": [],
       "new_grammar_R": [],
       "revisit": [
-        "M26",
-        "M46"
+        "M34",
+        "M36",
+        "M38",
+        "M55"
       ],
       "semantic_contrast": "отношение и занятие в другой цели",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -2144,7 +2583,7 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 0,
       "independent_P_intents": 0,
-      "revisits_in_new_context": 2,
+      "revisits_in_new_context": 4,
       "new_MR_names": [],
       "new_grammar_names": [],
       "lexical_support_examples": [
@@ -2156,7 +2595,45 @@
         "Eltern",
         "Freundin"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M34",
+          "initial_unit": "LU33",
+          "return_unit": "LU46",
+          "distinct_goal": "Личные интересы и связи снова",
+          "initial_goal": "Интерес и качество",
+          "semantic_probe": "отношение и занятие в другой цели",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M36",
+          "initial_unit": "LU38",
+          "return_unit": "LU46",
+          "distinct_goal": "Личные интересы и связи снова",
+          "initial_goal": "Сведения о связях",
+          "semantic_probe": "отношение и занятие в другой цели",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M38",
+          "initial_unit": "LU33",
+          "return_unit": "LU46",
+          "distinct_goal": "Личные интересы и связи снова",
+          "initial_goal": "Интерес и качество",
+          "semantic_probe": "отношение и занятие в другой цели",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M55",
+          "initial_unit": "LU32",
+          "return_unit": "LU46",
+          "distinct_goal": "Личные интересы и связи снова",
+          "initial_goal": "Вежливая просьба",
+          "semantic_probe": "отношение и занятие в другой цели",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU47",
@@ -2169,8 +2646,9 @@
         "G30"
       ],
       "revisit": [
+        "M16",
         "M28",
-        "M49"
+        "M44"
       ],
       "semantic_contrast": "изменение по двум записям",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -2183,7 +2661,7 @@
       "new_grammar_contrasts": 1,
       "independent_R_facts": 0,
       "independent_P_intents": 0,
-      "revisits_in_new_context": 2,
+      "revisits_in_new_context": 3,
       "new_MR_names": [],
       "new_grammar_names": [
         "Perfekt с `sein`, нерегулярные Partizip II"
@@ -2197,7 +2675,36 @@
         "früher",
         "jetzt"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M16",
+          "initial_unit": "LU29",
+          "return_unit": "LU47",
+          "distinct_goal": "Раньше и сейчас",
+          "initial_goal": "Первые сравнения",
+          "semantic_probe": "изменение по двум записям",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M28",
+          "initial_unit": "LU29",
+          "return_unit": "LU47",
+          "distinct_goal": "Раньше и сейчас",
+          "initial_goal": "Первые сравнения",
+          "semantic_probe": "изменение по двум записям",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M44",
+          "initial_unit": "LU39",
+          "return_unit": "LU47",
+          "distinct_goal": "Раньше и сейчас",
+          "initial_goal": "Краткий текст/заметка",
+          "semantic_probe": "изменение по двум записям",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU48",
@@ -2208,8 +2715,8 @@
       "first_P": [],
       "new_grammar_R": [],
       "revisit": [
-        "M34",
-        "M55"
+        "M14",
+        "M46"
       ],
       "semantic_contrast": "кому известен результат",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -2234,7 +2741,27 @@
         "Ergebnis",
         "schon"
       ],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M14",
+          "initial_unit": "LU18",
+          "return_unit": "LU48",
+          "distinct_goal": "Сводка независимых наблюдений",
+          "initial_goal": "Адресат передачи",
+          "semantic_probe": "кому известен результат",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M46",
+          "initial_unit": "LU34",
+          "return_unit": "LU48",
+          "distinct_goal": "Сводка независимых наблюдений",
+          "initial_goal": "Соединение намерения и плана",
+          "semantic_probe": "кому известен результат",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU49",
@@ -2245,7 +2772,8 @@
       "first_P": [],
       "new_grammar_R": [],
       "revisit": [
-        "M27"
+        "M27",
+        "M50"
       ],
       "semantic_contrast": "адресат/факт/время",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -2258,13 +2786,33 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 0,
       "independent_P_intents": 0,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 2,
       "new_MR_names": [],
       "new_grammar_names": [],
       "lexical_support_examples": [],
       "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
       "candidate_new_lexemes": [],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M27",
+          "initial_unit": "LU35",
+          "return_unit": "LU49",
+          "distinct_goal": "Новое короткое письмо/объявление",
+          "initial_goal": "Сравнение двух фактов",
+          "semantic_probe": "адресат/факт/время",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M50",
+          "initial_unit": "LU43",
+          "return_unit": "LU49",
+          "distinct_goal": "Новое короткое письмо/объявление",
+          "initial_goal": "Прошедшее событие",
+          "semantic_probe": "адресат/факт/время",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU50",
@@ -2275,7 +2823,9 @@
       "first_P": [],
       "new_grammar_R": [],
       "revisit": [
-        "M45"
+        "M45",
+        "M51",
+        "M52"
       ],
       "semantic_contrast": "изменить один факт, сохранить другие",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
@@ -2288,13 +2838,42 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 0,
       "independent_P_intents": 0,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 3,
       "new_MR_names": [],
       "new_grammar_names": [],
       "lexical_support_examples": [],
       "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
       "candidate_new_lexemes": [],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": [
+        {
+          "id": "M45",
+          "initial_unit": "LU40",
+          "return_unit": "LU50",
+          "distinct_goal": "Свободная передача связанных сведений",
+          "initial_goal": "Форма и данные",
+          "semantic_probe": "изменить один факт, сохранить другие",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M51",
+          "initial_unit": "LU44",
+          "return_unit": "LU50",
+          "distinct_goal": "Свободная передача связанных сведений",
+          "initial_goal": "Результат собственного действия",
+          "semantic_probe": "изменить один факт, сохранить другие",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        },
+        {
+          "id": "M52",
+          "initial_unit": "LU34",
+          "return_unit": "LU50",
+          "distinct_goal": "Свободная передача связанных сведений",
+          "initial_goal": "Соединение намерения и плана",
+          "semantic_probe": "изменить один факт, сохранить другие",
+          "status": "candidate_semantic_transfer_not_player_verified"
+        }
+      ]
     },
     {
       "id": "LU51",
@@ -2304,9 +2883,7 @@
       "first_R": [],
       "first_P": [],
       "new_grammar_R": [],
-      "revisit": [
-        "M50"
-      ],
+      "revisit": [],
       "semantic_contrast": "необязательно/нельзя; что выбрано",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
       "productive_contract": null,
@@ -2318,13 +2895,14 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 0,
       "independent_P_intents": 0,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 0,
       "new_MR_names": [],
       "new_grammar_names": [],
       "lexical_support_examples": [],
       "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
       "candidate_new_lexemes": [],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU52",
@@ -2334,9 +2912,7 @@
       "first_R": [],
       "first_P": [],
       "new_grammar_R": [],
-      "revisit": [
-        "M51"
-      ],
+      "revisit": [],
       "semantic_contrast": "родственник/друг; местоимения",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
       "productive_contract": null,
@@ -2348,13 +2924,14 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 0,
       "independent_P_intents": 0,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 0,
       "new_MR_names": [],
       "new_grammar_names": [],
       "lexical_support_examples": [],
       "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
       "candidate_new_lexemes": [],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     },
     {
       "id": "LU53",
@@ -2364,9 +2941,7 @@
       "first_R": [],
       "first_P": [],
       "new_grammar_R": [],
-      "revisit": [
-        "M52"
-      ],
+      "revisit": [],
       "semantic_contrast": "новые данные без готового немецкого ответа",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
       "productive_contract": null,
@@ -2378,13 +2953,14 @@
       "new_grammar_contrasts": 0,
       "independent_R_facts": 0,
       "independent_P_intents": 0,
-      "revisits_in_new_context": 1,
+      "revisits_in_new_context": 0,
       "new_MR_names": [],
       "new_grammar_names": [],
       "lexical_support_examples": [],
       "lexical_novelty": "candidate_examples_only_not_a_full_lexicon",
       "candidate_new_lexemes": [],
-      "candidate_reused_lexemes": []
+      "candidate_reused_lexemes": [],
+      "revisit_contracts": []
     }
   ],
   "methodology": {
