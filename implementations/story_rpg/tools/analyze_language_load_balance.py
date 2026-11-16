@@ -27,6 +27,7 @@ CATALOGUE = DOCS / "LANGUAGE_LEXICON.md"
 LEXICAL_CATALOGUE = DOCS / "LANGUAGE_LEXICAL_CATALOG.json"
 GRAMMAR_CONTRASTS = DOCS / "LANGUAGE_GRAMMAR_CONTRASTS.json"
 F1_SEMANTIC_CASES = DOCS / "LANGUAGE_F1_SEMANTIC_CASES.json"
+OUTCOME_FOCUSED_PROBES = DOCS / "LANGUAGE_OUTCOME_FOCUSED_PROBES.json"
 STAGES = ["P0", "P1", "P2a", "P2b", "P2c", "P3a", "P3b", "P3c",
           "P4a", "P4b", "P4c", "P5", "P6"]
 FIELDS = ("introduce_m", "introduce_g", "first_p", "revisit_m")
@@ -482,6 +483,109 @@ def outcome_stage_report(doc: dict) -> tuple[str, list[str]]:
 
 
 
+def outcome_focused_probe_report(doc: dict) -> tuple[str, list[str]]:
+    """Check semantic isolation in independent LO candidates, not test learners."""
+    cases = doc.get("independent_outcome_assessments", {}).get("cases", [])
+    cases_by_id = {case["lo"]: case for case in cases}
+    fixtures = json.loads(OUTCOME_FOCUSED_PROBES.read_text(encoding="utf-8"))
+    rows = fixtures.get("items", [])
+    errors = []
+    focus = defaultdict(list)
+    ids = set()
+    counts = Counter()
+    if len(cases) != 13 or len(cases_by_id) != 13:
+        errors.append("Expected 13 unique independent LO candidates")
+    for case in cases:
+        case_id = case["lo"]
+        if not case.get("required_semantic_slots"):
+            errors.append(f"{case_id}: missing semantic slots")
+        if len(case["required_semantic_slots"]) != len(set(case["required_semantic_slots"])):
+            errors.append(f"{case_id}: duplicate semantic slots")
+        stim = case["stimulus"]
+        if case["kind"] == "reading":
+            if stim.get("variant_A_de") == stim.get("variant_B_de"):
+                errors.append(f"{case_id}: identical independent reading A/B")
+        elif case["kind"] == "free_writing":
+            if stim.get("variant_A_facts") == stim.get("variant_B_facts"):
+                errors.append(f"{case_id}: identical independent writing A/B")
+        else:
+            errors.append(f"{case_id}: unexpected assessment kind")
+    for probe in rows:
+        pid, cid = probe["id"], probe["lo"]
+        if pid in ids:
+            errors.append(f"Duplicate focused LO probe: {pid}")
+        ids.add(pid)
+        case = cases_by_id.get(cid)
+        if not case or case["kind"] != probe.get("kind"):
+            errors.append(f"LO focused probe mismatched case/kind: {pid}")
+            continue
+        if probe.get("focus_slot") not in case.get("required_semantic_slots", []):
+            errors.append(f"LO focused probe unknown critical slot: {pid}")
+        if (not probe.get("meaning_A_ru") or not probe.get("meaning_B_ru")
+            or probe["meaning_A_ru"] == probe["meaning_B_ru"]):
+            errors.append(f"LO focused probe lacks distinct grading meanings: {pid}")
+        if probe["kind"] == "reading":
+            va, vb = probe.get("variant_A_de"), probe.get("variant_B_de")
+        else:
+            va, vb = probe.get("variant_A_facts"), probe.get("variant_B_facts")
+        if not va or not vb or va == vb:
+            errors.append(f"LO focused probe identical/empty A/B: {pid}")
+        focus[cid].append(probe["focus_slot"])
+        counts[probe["kind"]] += 1
+    if (len(rows) != 21 or counts != Counter({"reading": 11, "free_writing": 10})
+        or doc["independent_outcome_assessments"].get("focused_probes_count") != len(rows)
+        or set(focus) != set(cases_by_id)):
+        errors.append("Independent LO focused probe total, type or coverage stale")
+    w2, w3, w4, w6 = (cases_by_id.get(k) for k in
+                        ("LO-W02", "LO-W03", "LO-W04", "LO-W06"))
+    if w2 and (not {"negation_scope", "current_location"} <= set(focus["LO-W02"])):
+        errors.append("LO-W02: negation and location are not independently checked")
+    if w3 and (w3["stimulus"]["variant_A_facts"].get("time_reference")
+               != w3["stimulus"]["variant_B_facts"].get("time_reference")):
+        errors.append("LO-W03: modality contrast also changes time")
+    if w4 and "preference_intent" not in w4["required_semantic_slots"]:
+        errors.append("LO-W04: preference/request intention not explicit")
+    if w6 and any("facts" in variant for variant in
+                  (w6["stimulus"]["variant_A_facts"],
+                   w6["stimulus"]["variant_B_facts"])):
+        errors.append("LO-W06: German-form-field values are already prefilled")
+    lines = [
+        "", "## 9. Независимость смысловых результатов (LP11)", "",
+        "Источник: [LANGUAGE_OUTCOME_FOCUSED_PROBES.json]"
+        "(LANGUAGE_OUTCOME_FOCUSED_PROBES.json) и "
+        "[LANGUAGE_PRACTICE_UNITS.json](LANGUAGE_PRACTICE_UNITS.json). "
+        "Проектные варианты языка без использования сюжетных материалов.",
+        "",
+        f"**13 исходных LO и {len(rows)} дополнительных сфокусированных A/B-контрастов**"
+        f" ({counts['reading']} R, {counts['free_writing']} W). "
+        "Они дополняют, а не заменяют исходные варианты; "
+        "это не количество обязательных экзаменационных задач.",
+        "",
+        "| LO | Дополнительные пары | Проверяемые изменяемые слоты |",
+        "|---|---:|---|",
+    ]
+    for case in cases:
+        cid = case["lo"]
+        slots = ", ".join(dict.fromkeys(focus[cid])) or "—"
+        lines.append(f"| {cid} | {len(focus[cid])} | {slots} |")
+    lines.extend([
+        "",
+        "**Устранённые проблемы:** отрицание в LO-W02 больше не "
+        "выдаётся за проверенное через leer/voll; в LO-W03 отделены "
+        "время и область модального отрицания; LO-W06 использует "
+        "независимые сведения вместо заранее заполненных немецких полей; "
+        "LO-W04 различает предпочтение и текущую просьбу.",
+        "",
+        "**Граница статической проверки:** валидируются связи, "
+        "отличие A/B и форматы данных, но не правильность восприятия "
+        "немецкого, не работающий парсер, не попытки учащихся и "
+        "не отложенное запоминание. Цену реальной экзаменационной "
+        "нагрузки и проходной порог пока не определяем.",
+        "",
+    ])
+    return "\n".join(lines) + "\n", sorted(set(errors))
+
+
 def lexical_catalogue_audit(doc: dict) -> list[str]:
     """Validate independent source, candidate RU glosses and F1 references.
 
@@ -675,13 +779,15 @@ def main() -> int:
     errors.extend(lexical_errors)
     outcome_appendix, outcome_errors = outcome_stage_report(doc)
     errors.extend(outcome_errors)
+    outcome_focused_appendix, outcome_focused_errors = outcome_focused_probe_report(doc)
+    errors.extend(outcome_focused_errors)
     grammar_appendix, grammar_errors = grammar_probe_appendix(doc)
     errors.extend(grammar_errors)
     errors.extend(lexical_catalogue_audit(doc))
     if errors:
         print("FAIL: " + "\nFAIL: ".join(errors), file=sys.stderr)
         return 1
-    expected = report(doc, mmap, gmap, errors) + lexical_appendix + outcome_appendix + grammar_appendix
+    expected = report(doc, mmap, gmap, errors) + lexical_appendix + outcome_appendix + grammar_appendix + outcome_focused_appendix
     if options.write:
         OUTPUT.write_text(expected, encoding="utf-8")
         print(f"WROTE {OUTPUT.relative_to(DOCS.parent.parent.parent)}")
