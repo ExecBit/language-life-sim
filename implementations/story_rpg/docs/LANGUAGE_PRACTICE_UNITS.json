@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -13,7 +13,9 @@
     "revisit_m is a proposed opportunity to reuse an earlier M with a changed context; not evidence of mastery or a performed test.",
     "The short contrasts are semantic-design tests, not language-parser whitelists; examples may use familiar lexical placeholders.",
     "Load must be judged as a vector of independent dimensions; counts of M/G IDs are planning proxies, NOT calibrated difficulty.",
-    "A second independent-P opportunity was added at P2b for location and P3c for preferences, to avoid packing multiple first productive intentions into the same unit."
+    "A second independent-P opportunity was added at P2b for location and P3c for preferences, to avoid packing multiple first productive intentions into the same unit.",
+    "lexical_anchors are selected expression *candidates* from the 29-group independent language catalogue, NOT a hard number of new words in a day; context_optional is never a requirement.",
+    "A few elementary expressions are placed earlier than their catalogue group horizon because the independent M/G map uses them earlier (e.g. ich/du, verstehen, heute/morgen); this is deliberate and must not be confused with teaching entire theme early."
   ],
   "horizon_units": {
     "P0": 8,
@@ -47,7 +49,14 @@
       "contrast": "Приветствие и прощание требуют разной реакции",
       "context": "Краткий текст, знакомая социальная цель",
       "id": "P0-01",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 1,
+          "expression": "Hallo",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P0",
@@ -65,7 +74,19 @@
       "contrast": "Ja против Nein меняет согласие, не расположение кнопки",
       "context": "Ясный вопрос без скрытой лексики",
       "id": "P0-02",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 1,
+          "expression": "ja",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 1,
+          "expression": "nein",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P0",
@@ -81,7 +102,19 @@
       "contrast": "Просьба повторить полезна только при неизвестном; понимающий не обязан говорить её",
       "context": "Один короткий непонятный фрагмент",
       "id": "P0-03",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 1,
+          "expression": "noch einmal",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 26,
+          "expression": "verstehen",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P0",
@@ -99,7 +132,19 @@
       "contrast": "Смена Buch на Tasse меняет нужную вещь",
       "context": "Два равно доступных знакомых предмета",
       "id": "P0-04",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 2,
+          "expression": "das Buch",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 2,
+          "expression": "die Tasse",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P0",
@@ -115,7 +160,19 @@
       "contrast": "Nimm против Gib различает взять и отдать",
       "context": "Знакомый предмет, действие без русского дубляжа",
       "id": "P0-05",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 2,
+          "expression": "nehmen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 2,
+          "expression": "geben",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P0",
@@ -132,7 +189,19 @@
       "contrast": "Ich/du и имя меняют говорящего и адресата",
       "context": "Два человека без обязательной биографии",
       "id": "P0-06",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 3,
+          "expression": "ich",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 3,
+          "expression": "du",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P0",
@@ -149,7 +218,8 @@
       "contrast": "Ist das ...? против Das ist ... меняет тип высказывания",
       "context": "Один известный объект, короткий синтаксис",
       "id": "P0-07",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P0",
@@ -163,7 +233,8 @@
       "contrast": "Другой предмет в просьбе требует другого понимания",
       "context": "Объект известен, просьба не подсказывает ответ",
       "id": "P0-08",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P1",
@@ -178,7 +249,19 @@
       "contrast": "Смена ich/du меняет того, чьё имя/действие названо",
       "context": "Свободное короткое представление",
       "id": "P1-01",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 3,
+          "expression": "heißen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 3,
+          "expression": "der Name",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -196,7 +279,24 @@
       "contrast": "Was? и Wo? приводят к разным недостающим сведениям",
       "context": "Понятный пробел в информации",
       "id": "P1-02",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 4,
+          "expression": "was",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 4,
+          "expression": "wo",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 4,
+          "expression": "wie",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -216,7 +316,14 @@
       "contrast": "Качественный признак одного из двух объектов меняется",
       "context": "Один знакомый предмет и одно свойство",
       "id": "P1-03",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 6,
+          "expression": "gut",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -234,7 +341,19 @@
       "contrast": "Kein против Nicht меняет отрицание объекта/действия",
       "context": "Предмет уже известен",
       "id": "P1-04",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 6,
+          "expression": "kein",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 6,
+          "expression": "nicht",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -250,7 +369,24 @@
       "contrast": "Только название/действие нужного объекта должно меняться",
       "context": "Короткая самостоятельная просьба",
       "id": "P1-05",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 5,
+          "expression": "bringen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 5,
+          "expression": "brauchen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 8,
+          "expression": "das Wasser",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -268,7 +404,19 @@
       "contrast": "Ist gut против Ist kaputt меняет решение",
       "context": "Знакомое устройство или бытовой предмет",
       "id": "P1-06",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 5,
+          "expression": "machen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 6,
+          "expression": "kaputt",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -286,7 +434,19 @@
       "contrast": "Müde против nicht müde не являются равным самоотчётом",
       "context": "Состояние задано условиями, не угадывается",
       "id": "P1-07",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 7,
+          "expression": "müde",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 7,
+          "expression": "krank",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -304,7 +464,19 @@
       "contrast": "Wasser против Tee меняет нужный предмет",
       "context": "Знакомое употребление, свободный ввод",
       "id": "P1-08",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 8,
+          "expression": "trinken",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 8,
+          "expression": "der Tee",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -322,7 +494,8 @@
       "contrast": "Offen против geschlossen меняет вывод о доступности",
       "context": "Немецкая подпись, без визуальной подсказки",
       "id": "P1-09",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P1",
@@ -338,7 +511,19 @@
       "contrast": "Ein против zwei меняет число предметов",
       "context": "Короткий список или описание",
       "id": "P1-10",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 12,
+          "expression": "eins",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 12,
+          "expression": "zwei",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -355,7 +540,19 @@
       "contrast": "Wo? и welches? требуют разной информации",
       "context": "Один объект, ограниченное пространство",
       "id": "P1-11",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 5,
+          "expression": "helfen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 7,
+          "expression": "die Hilfe",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P1",
@@ -374,7 +571,14 @@
       "contrast": "Вопрос о месте и вопрос о наличии ведут к разным ответам",
       "context": "Новое намерение, прежние W-слова",
       "id": "P1-12",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 4,
+          "expression": "fragen",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P2a",
@@ -394,7 +598,19 @@
       "contrast": "Mein против dein меняет владельца",
       "context": "Два человека, знакомые предметы",
       "id": "P2a-01",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 9,
+          "expression": "mein",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 9,
+          "expression": "dein",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P2a",
@@ -412,7 +628,8 @@
       "contrast": "Смена местоимения меняет референта при двух кандидатах",
       "context": "Один упомянутый контекст",
       "id": "P2a-02",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P2a",
@@ -429,7 +646,8 @@
       "contrast": "Du против Sie меняет регистр, не обязательно реплику игрока",
       "context": "Короткие адресованные обращения",
       "id": "P2a-03",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P2a",
@@ -445,7 +663,19 @@
       "contrast": "Wer? против was macht? меняет требуемый факт",
       "context": "Две знакомые деятельности",
       "id": "P2a-04",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 14,
+          "expression": "die Arbeit",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 14,
+          "expression": "der Beruf",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P2a",
@@ -461,7 +691,8 @@
       "contrast": "Gut против schlecht меняет реакцию",
       "context": "Понятный предмет отношения, без длинной причины",
       "id": "P2a-05",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P2b",
@@ -482,7 +713,19 @@
       "contrast": "Gib mir против Gib dir меняет получателя",
       "context": "Два участника, свободная просьба",
       "id": "P2b-01",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 9,
+          "expression": "mir",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 9,
+          "expression": "dir",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P2b",
@@ -500,7 +743,24 @@
       "contrast": "Wo? против Wohin? меняет требуемую информацию",
       "context": "Два правдоподобных места, без стрелок",
       "id": "P2b-02",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 10,
+          "expression": "das Zimmer",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 11,
+          "expression": "links",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 11,
+          "expression": "rechts",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P2b",
@@ -516,7 +776,14 @@
       "contrast": "Здесь против там меняет положение знакомого предмета",
       "context": "Адресату неизвестно место объекта, а направление не нужно",
       "id": "P2b-03",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 10,
+          "expression": "die Küche",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P2b",
@@ -532,7 +799,29 @@
       "contrast": "Im против ins меняет тип пространственного отношения",
       "context": "Одинаковый предмет, видимый текст",
       "id": "P2b-04",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 10,
+          "expression": "in",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 10,
+          "expression": "auf",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 11,
+          "expression": "zu",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 11,
+          "expression": "nach",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P2b",
@@ -548,7 +837,19 @@
       "contrast": "Ein против zwei меняет количество",
       "context": "Короткий факт о вещах",
       "id": "P2b-05",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 12,
+          "expression": "drei",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 12,
+          "expression": "wie viel",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P2b",
@@ -564,7 +865,8 @@
       "contrast": "Mir против dir меняет адресата помощи",
       "context": "Знакомое действие helfen",
       "id": "P2b-06",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P2c",
@@ -582,7 +884,14 @@
       "contrast": "Изменение факта меняет сообщение второму собеседнику",
       "context": "У второго нет исходной информации",
       "id": "P2c-01",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 14,
+          "expression": "die Aufgabe",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P2c",
@@ -598,7 +907,19 @@
       "contrast": "Heute против morgen меняет время факта",
       "context": "Знакомое действие и временное слово",
       "id": "P2c-02",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 15,
+          "expression": "heute",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 15,
+          "expression": "morgen",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P2c",
@@ -615,7 +936,19 @@
       "contrast": "Не могу, нельзя и не нужно имеют разные последствия",
       "context": "Одно знакомое действие, отдельные контрасты",
       "id": "P2c-03",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 16,
+          "expression": "können",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 16,
+          "expression": "müssen",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P2c",
@@ -631,7 +964,14 @@
       "contrast": "Fängt an против hört auf меняет начало и окончание",
       "context": "Привычное действие и знак времени",
       "id": "P2c-04",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 18,
+          "expression": "anfangen",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P2c",
@@ -647,7 +987,8 @@
       "contrast": "Möchte против не хочу меняет намерение",
       "context": "Знакомый выбор двух вещей",
       "id": "P2c-05",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P3a",
@@ -666,7 +1007,19 @@
       "contrast": "Um zehn против um zwölf меняет назначенное время",
       "context": "Знакомые малые числа, один шаг расписания",
       "id": "P3a-01",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 15,
+          "expression": "um",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 18,
+          "expression": "die Zeit",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P3a",
@@ -682,7 +1035,34 @@
       "contrast": "Montag против Dienstag меняет строку данных",
       "context": "Короткая таблица с знакомыми заголовками",
       "id": "P3a-02",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 19,
+          "expression": "kaufen",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 19,
+          "expression": "der Preis",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 21,
+          "expression": "fahren",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 21,
+          "expression": "der Bus",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 21,
+          "expression": "der Zug",
+          "obligation": "contextual_optional"
+        }
+      ]
     },
     {
       "stage": "P3a",
@@ -702,7 +1082,19 @@
       "contrast": "Oft против nie меняет утверждение о привычке",
       "context": "Небольшой распорядок, не новый персонаж",
       "id": "P3a-03",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 20,
+          "expression": "oft",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 20,
+          "expression": "manchmal",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P3a",
@@ -720,7 +1112,19 @@
       "contrast": "Heute gegen morgen меняет доступность",
       "context": "Два допустимых варианта времени",
       "id": "P3a-04",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 15,
+          "expression": "am",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 18,
+          "expression": "der Termin",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P3a",
@@ -738,7 +1142,19 @@
       "contrast": "Zuerst против danach меняет порядок",
       "context": "Два знакомых действия",
       "id": "P3a-05",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 27,
+          "expression": "zuerst",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 27,
+          "expression": "dann",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P3b",
@@ -757,7 +1173,19 @@
       "contrast": "Nicht dürfen против nicht müssen не синонимы",
       "context": "Известное действие, по одному контрасту",
       "id": "P3b-01",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 16,
+          "expression": "dürfen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 16,
+          "expression": "nicht dürfen",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P3b",
@@ -775,7 +1203,8 @@
       "contrast": "Gestern против morgen меняет временную привязку",
       "context": "Один известный факт, ещё не Perfekt",
       "id": "P3b-02",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P3b",
@@ -793,7 +1222,14 @@
       "contrast": "Einladung angenommen против abgelehnt меняет решение",
       "context": "Выбор и отказ оба осмысленны",
       "id": "P3b-03",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 18,
+          "expression": "treffen",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P3b",
@@ -811,7 +1247,14 @@
       "contrast": "Doch vs nein после отрицательного вопроса меняет подтверждение",
       "context": "Простая реакция, известная ситуация",
       "id": "P3b-04",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 16,
+          "expression": "nicht müssen",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P3c",
@@ -829,7 +1272,19 @@
       "contrast": "Меняется желаемый знакомый объект",
       "context": "Знакомый объект и отдельное желание",
       "id": "P3c-01",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 17,
+          "expression": "möchten",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 17,
+          "expression": "oder",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P3c",
@@ -845,7 +1300,24 @@
       "contrast": "Lieber ... меняет выбранный вариант",
       "context": "Два знакомых занятия или предмета, предпочтение неизвестно адресату",
       "id": "P3c-02",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 17,
+          "expression": "gern",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 17,
+          "expression": "lieber",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 19,
+          "expression": "teuer",
+          "obligation": "contextual_optional"
+        }
+      ]
     },
     {
       "stage": "P3c",
@@ -863,7 +1335,8 @@
       "contrast": "Hätte gern и könnte ich выражают просьбу, не требуя продуктивной формы",
       "context": "Только рецепция коротких сообщений",
       "id": "P3c-03",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P3c",
@@ -877,7 +1350,8 @@
       "contrast": "Сегодня/завтра меняет нужный ответ",
       "context": "Короткий текст с отправителем и просьбой",
       "id": "P3c-04",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P3c",
@@ -891,7 +1365,19 @@
       "contrast": "Lesen vs spielen меняет предпочитаемое занятие",
       "context": "Абстрактная информация о предпочтении",
       "id": "P3c-05",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 20,
+          "expression": "spielen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 20,
+          "expression": "Musik hören",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P3c",
@@ -905,7 +1391,8 @@
       "contrast": "Изменение второго пункта меняет весь смысл сообщения",
       "context": "Два коротких знакомых факта",
       "id": "P3c-06",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P3c",
@@ -922,7 +1409,8 @@
       "contrast": "A gut aber B kaputt меняет отношения двух фактов",
       "context": "Знакомые свойства, разные значения",
       "id": "P3c-07",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P4a",
@@ -941,7 +1429,19 @@
       "contrast": "Aber и und по-разному связывают факты",
       "context": "Два факта, без нового жанра",
       "id": "P4a-01",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 27,
+          "expression": "und",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 27,
+          "expression": "aber",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P4a",
@@ -959,7 +1459,19 @@
       "contrast": "Größer против kleiner меняет сравнительный вывод",
       "context": "Два знакомых объекта",
       "id": "P4a-02",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 24,
+          "expression": "größer",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 24,
+          "expression": "besser",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P4a",
@@ -975,7 +1487,8 @@
       "contrast": "Seit против bis меняет начало или конец периода",
       "context": "Только рецепция одной временной границы",
       "id": "P4a-03",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P4a",
@@ -991,7 +1504,19 @@
       "contrast": "Rote против blaue меняет объект ссылки",
       "context": "Знакомая вещь, не тест склонения",
       "id": "P4a-04",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 24,
+          "expression": "rot",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 24,
+          "expression": "blau",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P4b",
@@ -1008,7 +1533,19 @@
       "contrast": "Смена времени/адресата меняет предписанное действие",
       "context": "Короткий служебный текст как жанр",
       "id": "P4b-01",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 23,
+          "expression": "die Nachricht",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 23,
+          "expression": "die Frage",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P4b",
@@ -1025,7 +1562,19 @@
       "contrast": "Bruder против Freund меняет связь людей A/B/C",
       "context": "Абстрактные отношения, никаких биографий NPC",
       "id": "P4b-02",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 13,
+          "expression": "der Freund",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 13,
+          "expression": "die Freundin",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P4b",
@@ -1044,7 +1593,24 @@
       "contrast": "Поля Name и Zeit не взаимозаменяемы",
       "context": "Только знакомые значения, без автоподстановки",
       "id": "P4b-03",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 22,
+          "expression": "der Vorname",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 22,
+          "expression": "der Nachname",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 22,
+          "expression": "die Adresse",
+          "obligation": "contextual_optional"
+        }
+      ]
     },
     {
       "stage": "P4c",
@@ -1061,7 +1627,8 @@
       "contrast": "Чтение против прогулки меняет предложение",
       "context": "Собеседник не знает предпочтение, свободный ответ",
       "id": "P4c-01",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P4c",
@@ -1078,7 +1645,24 @@
       "contrast": "Zu kalt против zu warm меняет отказ",
       "context": "Привычный объект, ясная причина",
       "id": "P4c-02",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 25,
+          "expression": "das Wetter",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 25,
+          "expression": "der Regen",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 25,
+          "expression": "der Schnee",
+          "obligation": "contextual_optional"
+        }
+      ]
     },
     {
       "stage": "P4c",
@@ -1096,7 +1680,24 @@
       "contrast": "Смена времени при прежнем предмете меняет план",
       "context": "Собеседник не видел один из фактов",
       "id": "P4c-03",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 23,
+          "expression": "die Antwort",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 26,
+          "expression": "die Sprache",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 26,
+          "expression": "Deutsch",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P5",
@@ -1115,7 +1716,19 @@
       "contrast": "War против ist меняет временную отнесённость",
       "context": "Один знакомый объект и время",
       "id": "P5-01",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 28,
+          "expression": "war",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 28,
+          "expression": "hatte",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P5",
@@ -1136,7 +1749,14 @@
       "contrast": "Habe gesucht против suche меняет завершённость",
       "context": "Известное действие, новый временной смысл",
       "id": "P5-02",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 28,
+          "expression": "habe gemacht",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P5",
@@ -1153,7 +1773,14 @@
       "contrast": "Ist gekommen против kommt меняет время события",
       "context": "Простое перемещение, только рецепция формы",
       "id": "P5-03",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 28,
+          "expression": "ist gekommen",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P5",
@@ -1170,7 +1797,19 @@
       "contrast": "Morgen против gestern меняет намерение",
       "context": "Привычное действие и новое время",
       "id": "P5-04",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 29,
+          "expression": "nächste Woche",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 29,
+          "expression": "planen",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P5",
@@ -1186,7 +1825,19 @@
       "contrast": "Смена родства или интереса меняет вывод",
       "context": "Знакомые отношения в новой функции",
       "id": "P5-05",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 13,
+          "expression": "der Bruder",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 13,
+          "expression": "die Schwester",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P5",
@@ -1201,7 +1852,14 @@
       "contrast": "Смена агента меняет правильный пересказ",
       "context": "Отложенный вопрос с адресатом",
       "id": "P5-06",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 29,
+          "expression": "wieder",
+          "obligation": "functional_candidate"
+        }
+      ]
     },
     {
       "stage": "P6",
@@ -1217,7 +1875,8 @@
       "contrast": "Изменение адресата меняет нужный ответ",
       "context": "Знакомые короткие формулы",
       "id": "P6-01",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P6",
@@ -1234,7 +1893,8 @@
       "contrast": "Смена nicht dürfen на nicht müssen меняет выбор",
       "context": "Знакомая цель, новый контраст контекста",
       "id": "P6-02",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P6",
@@ -1251,7 +1911,8 @@
       "contrast": "Смена родства меняет получателя ответа",
       "context": "Знакомая лексика, новый адресат",
       "id": "P6-03",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P6",
@@ -1270,7 +1931,8 @@
       "contrast": "Смена времени меняет сообщение",
       "context": "Два знакомых события, разные времена",
       "id": "P6-04",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     },
     {
       "stage": "P6",
@@ -1293,7 +1955,8 @@
       "contrast": "Если один из трёх фактов меняется, ответ также меняется",
       "context": "Свободное сообщение, без готового ответа",
       "id": "P6-05",
-      "mode": "independent_abstract_language_practice"
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": []
     }
   ]
 }
