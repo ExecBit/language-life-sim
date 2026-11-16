@@ -96,8 +96,8 @@ def build() -> dict:
                 selected=attempt(stage,units,lex["entries"],cap,length)
                 if selected is not None:break
             if selected is None:raise ValueError(f"Cannot pack {name}:{stage}")
-            for day in selected:
-                day["day"]=len(days)+1
+            for number, day in enumerate(selected, start=len(days)+1):
+                day["day"]=number
                 day["needs_contract"]=not any(day[k] for k in
                    ("unit_start","first_g","first_p","revisit_m","assess_lo"))
             days.extend(selected)
