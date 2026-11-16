@@ -1,0 +1,195 @@
+{
+  "version": "0.1",
+  "status": "static_language_only_dictionary_contract_not_UI_test",
+  "notes": [
+    "These cases check candidate dictionary data and reverse lookup mappings, not runtime F1 UI, morphology engine, parser, or real learner comprehension.",
+    "All cases are independent of game setting, story, characters and quests.",
+    "Failure must be expressed as a missing or misleading candidate meaning, never automatic failure of the learner.",
+    "A candidate alternative may be suggested as RELATED but not presented as the exact meaning of a Russian query."
+  ],
+  "gloss_cases": [
+    {
+      "id": "F1S-01",
+      "entry": "zu",
+      "required_ru_fragments": [
+        "закрыто",
+        "слишком",
+        "к ("
+      ],
+      "note_ru": "Die Tür ist zu: закрыто, а не к/слишком."
+    },
+    {
+      "id": "F1S-02",
+      "entry": "offen",
+      "required_ru_fragments": [
+        "открыт"
+      ],
+      "note_ru": "Die Tür ist offen: дверь открыта."
+    },
+    {
+      "id": "F1S-03",
+      "entry": "bringen",
+      "required_ru_fragments": [
+        "принести",
+        "отнести"
+      ],
+      "note_ru": "Bring das Buch ins Zimmer требует значение отнести/принести к назначению."
+    },
+    {
+      "id": "F1S-04",
+      "entry": "oft",
+      "required_ru_fragments": [
+        "часто"
+      ],
+      "note_ru": "Oft не является сравнительной степенью чаще."
+    },
+    {
+      "id": "F1S-05",
+      "entry": "mehr",
+      "required_ru_fragments": [
+        "больше"
+      ],
+      "note_ru": "Mehr означает больше, но не автоматически чаще."
+    },
+    {
+      "id": "F1S-06",
+      "entry": "helfen",
+      "required_ru_fragments": [
+        "помогать"
+      ],
+      "note_ru": "Форма hilf — императив от helfen, не die Hilfe."
+    }
+  ],
+  "reverse_cases": [
+    {
+      "id": "F1R-01",
+      "query_ru": "где",
+      "required_candidates": [
+        "wo"
+      ]
+    },
+    {
+      "id": "F1R-02",
+      "query_ru": "нельзя",
+      "required_candidates": [
+        "nicht dürfen"
+      ]
+    },
+    {
+      "id": "F1R-03",
+      "query_ru": "не обязан",
+      "required_candidates": [
+        "nicht müssen"
+      ]
+    },
+    {
+      "id": "F1R-04",
+      "query_ru": "закрыто",
+      "required_candidates": [
+        "zu",
+        "geschlossen"
+      ]
+    },
+    {
+      "id": "F1R-05",
+      "query_ru": "часто",
+      "required_candidates": [
+        "oft"
+      ],
+      "forbidden_candidates": [
+        "mehr"
+      ]
+    },
+    {
+      "id": "F1R-06",
+      "query_ru": "больше",
+      "required_candidates": [
+        "mehr"
+      ],
+      "forbidden_candidates": [
+        "oft"
+      ]
+    },
+    {
+      "id": "F1R-07",
+      "query_ru": "помоги",
+      "required_candidates": [
+        "helfen"
+      ],
+      "forbidden_candidates": [
+        "die Hilfe"
+      ]
+    },
+    {
+      "id": "F1R-08",
+      "query_ru": "помощь",
+      "required_candidates": [
+        "die Hilfe"
+      ]
+    },
+    {
+      "id": "F1R-09",
+      "query_ru": "отнести",
+      "required_candidates": [
+        "bringen"
+      ]
+    }
+  ],
+  "alias_cases": [
+    {
+      "id": "F1A-01",
+      "surface": "hilf",
+      "lemma": "helfen"
+    },
+    {
+      "id": "F1A-02",
+      "surface": "nimm",
+      "lemma": "nehmen"
+    },
+    {
+      "id": "F1A-03",
+      "surface": "gib",
+      "lemma": "geben"
+    },
+    {
+      "id": "F1A-04",
+      "surface": "hat gefunden",
+      "lemma": "finden"
+    },
+    {
+      "id": "F1A-05",
+      "surface": "ist gegangen",
+      "lemma": "gehen"
+    }
+  ],
+  "negative_reverse_cases": [
+    {
+      "id": "F1N-01",
+      "query_ru": "чаще",
+      "forbidden_exact_candidates": [
+        "oft",
+        "mehr"
+      ],
+      "reason_ru": "öfter/häufiger отсутствуют в кандидатном каталоге; нельзя подменить сравнительную частоту обычной частотой или количеством."
+    }
+  ],
+  "ambiguity_cases": [
+    {
+      "id": "F1M-01",
+      "group_id": "zu_multisense",
+      "required_distinction_fragments": [
+        "закрыто",
+        "слишком"
+      ]
+    },
+    {
+      "id": "F1M-02",
+      "group_id": "negative_modals",
+      "required_distinction_fragments": [
+        "запрещено",
+        "не обязан"
+      ]
+    }
+  ],
+  "review_status": "static_contract_ready_for_execution_not_ran"
+}
