@@ -1,5 +1,5 @@
 {
-  "version": "0.8",
+  "version": "0.9",
   "status": "balanced_language_only_draft_partially_concrete_probe_specified_not_playtested",
   "purpose": "Candidate language-practice sequence for smoothing new meaningful R/P/grammar loads, independent of any storyline.",
   "provenance": [
@@ -145,7 +145,10 @@
     "independent_catalogue_unique_strings": 463,
     "independent_catalogue_occurrences": 469,
     "concrete_probes": 53,
-    "probes_missing": []
+    "probes_missing": [],
+    "grammar_P_semantic_probes": 27,
+    "grammar_R_only_or_P_sense_probes": 7,
+    "grammar_P_without_M_output": []
   },
   "units": [
     {
@@ -204,7 +207,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G01",
+          "semantic_M": "M01",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU01",
+          "first_independent_P_unit": "LU01",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU02",
@@ -262,7 +275,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G06",
+          "semantic_M": "M07",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU07",
+          "first_independent_P_unit": "LU07",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU03",
@@ -320,7 +343,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G08",
+          "semantic_M": "M09",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU03",
+          "first_independent_P_unit": "LU03",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU04",
@@ -372,7 +405,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU05",
@@ -432,7 +466,25 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G02",
+          "semantic_M": "M03",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU05",
+          "first_independent_P_unit": "LU13",
+          "validation": "candidate_association_not_grammar_mastery"
+        },
+        {
+          "grammar": "G03",
+          "semantic_M": "M11",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU09",
+          "first_independent_P_unit": "LU09",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU06",
@@ -488,7 +540,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G09",
+          "semantic_M": "M09",
+          "minimum": "R",
+          "first_semantic_R_unit": "LU03",
+          "first_independent_P_unit": "LU03",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU07",
@@ -546,7 +608,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G07",
+          "semantic_M": "M07",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU07",
+          "first_independent_P_unit": "LU07",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU08",
@@ -603,7 +675,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G13",
+          "semantic_M": "M15",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU11",
+          "first_independent_P_unit": "LU08",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU09",
@@ -660,7 +742,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G12",
+          "semantic_M": "M11",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU09",
+          "first_independent_P_unit": "LU09",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU10",
@@ -715,7 +807,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU11",
@@ -773,7 +866,25 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G05",
+          "semantic_M": "M12",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU06",
+          "first_independent_P_unit": "LU11",
+          "validation": "candidate_association_not_grammar_mastery"
+        },
+        {
+          "grammar": "G11",
+          "semantic_M": "M12",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU06",
+          "first_independent_P_unit": "LU11",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU12",
@@ -829,7 +940,25 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G10",
+          "semantic_M": "M17",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU12",
+          "first_independent_P_unit": "LU17",
+          "validation": "candidate_association_not_grammar_mastery"
+        },
+        {
+          "grammar": "G32",
+          "semantic_M": "M11",
+          "minimum": "R-form",
+          "first_semantic_R_unit": "LU09",
+          "first_independent_P_unit": "LU09",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU13",
@@ -886,7 +1015,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G04",
+          "semantic_M": "M06",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU02",
+          "first_independent_P_unit": "LU09",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU14",
@@ -956,7 +1095,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G25",
+          "semantic_M": "M10",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU08",
+          "first_independent_P_unit": "LU08",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU15",
@@ -1026,7 +1175,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G14",
+          "semantic_M": "M13",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU15",
+          "first_independent_P_unit": "LU15",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU16",
@@ -1089,7 +1248,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU17",
@@ -1141,7 +1301,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G15",
+          "semantic_M": "M14",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU18",
+          "first_independent_P_unit": "LU18",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU18",
@@ -1210,7 +1380,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G16",
+          "semantic_M": "M14",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU18",
+          "first_independent_P_unit": "LU18",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU19",
@@ -1290,7 +1470,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G18",
+          "semantic_M": "M21",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU19",
+          "first_independent_P_unit": "LU19",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU20",
@@ -1346,7 +1536,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G17",
+          "semantic_M": "M19",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU13",
+          "first_independent_P_unit": "LU18",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU21",
@@ -1420,7 +1620,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU22",
@@ -1478,7 +1679,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G21",
+          "semantic_M": "M24",
+          "minimum": "R-sense",
+          "first_semantic_R_unit": "LU25",
+          "first_independent_P_unit": "LU25",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU23",
@@ -1531,7 +1742,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU24",
@@ -1583,7 +1795,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU25",
@@ -1663,7 +1876,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G19",
+          "semantic_M": "M23",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU22",
+          "first_independent_P_unit": "LU26",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU26",
@@ -1732,7 +1955,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G20",
+          "semantic_M": "M23",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU22",
+          "first_independent_P_unit": "LU26",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU27",
@@ -1788,7 +2021,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G27",
+          "semantic_M": "M26",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU27",
+          "first_independent_P_unit": "LU27",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU28",
@@ -1855,7 +2098,25 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G22",
+          "semantic_M": "M18",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU21",
+          "first_independent_P_unit": "LU28",
+          "validation": "candidate_association_not_grammar_mastery"
+        },
+        {
+          "grammar": "G24",
+          "semantic_M": "M54",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU21",
+          "first_independent_P_unit": "LU28",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU29",
@@ -1907,7 +2168,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU30",
@@ -1986,7 +2248,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G23",
+          "semantic_M": "M31",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU30",
+          "first_independent_P_unit": "LU30",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU31",
@@ -2072,7 +2344,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU32",
@@ -2138,7 +2411,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G33",
+          "semantic_M": "M55",
+          "minimum": "R-form",
+          "first_semantic_R_unit": "LU32",
+          "first_independent_P_unit": null,
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU33",
@@ -2190,7 +2473,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU34",
@@ -2244,7 +2528,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU35",
@@ -2312,7 +2597,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G26",
+          "semantic_M": "M28",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU29",
+          "first_independent_P_unit": "LU36",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU36",
@@ -2385,7 +2680,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G31",
+          "semantic_M": "M10",
+          "minimum": "R-form",
+          "first_semantic_R_unit": "LU08",
+          "first_independent_P_unit": "LU08",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU37",
@@ -2455,7 +2760,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU38",
@@ -2537,7 +2843,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU39",
@@ -2639,7 +2946,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU40",
@@ -2723,7 +3031,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU41",
@@ -2797,7 +3106,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G34",
+          "semantic_M": "M46",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU34",
+          "first_independent_P_unit": "LU41",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU42",
@@ -2875,7 +3194,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU43",
@@ -2941,7 +3261,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G28",
+          "semantic_M": "M50",
+          "minimum": "R-sense",
+          "first_semantic_R_unit": "LU43",
+          "first_independent_P_unit": null,
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU44",
@@ -2997,7 +3327,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G29",
+          "semantic_M": "M51",
+          "minimum": "P",
+          "first_semantic_R_unit": "LU44",
+          "first_independent_P_unit": "LU44",
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU45",
@@ -3057,7 +3397,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU46",
@@ -3145,7 +3486,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU47",
@@ -3227,7 +3569,17 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": [
+        {
+          "grammar": "G30",
+          "semantic_M": "M50",
+          "minimum": "R-sense",
+          "first_semantic_R_unit": "LU43",
+          "first_independent_P_unit": null,
+          "validation": "candidate_association_not_grammar_mastery"
+        }
+      ]
     },
     {
       "id": "LU48",
@@ -3295,7 +3647,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU49",
@@ -3357,7 +3710,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU50",
@@ -3429,7 +3783,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU51",
@@ -3469,7 +3824,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU52",
@@ -3509,7 +3865,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     },
     {
       "id": "LU53",
@@ -3549,7 +3906,8 @@
           "F1 may be consulted outside independent final assessment",
           "A0 prerequisites are available before required action"
         ]
-      }
+      },
+      "grammar_application": []
     }
   ],
   "methodology": {
