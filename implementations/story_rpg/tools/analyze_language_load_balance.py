@@ -783,6 +783,16 @@ def lexical_catalogue_audit(doc: dict) -> list[str]:
                         "active_core", "productive_choice"
                     }:
                     errors.append(f"Lexical productive support not producible: {gate.get('id')}: {term}")
+    all_outcomes = {
+        case["id"] for case in doc.get("independent_outcome_assessments", {}).get("cases", [])
+    }
+    lexical_outcomes = {
+        target for gate in contracts
+        for target in gate.get("learning_outcome_refs", [])
+    }
+    if (lexical_outcomes != all_outcomes
+        or summary.get("independent_outcomes_lexically_traced") != len(all_outcomes)):
+        errors.append("Lexical semantic contracts do not cover 13 outcome IDs")
     themes = data.get("goethe_a1_theme_coverage", [])
     if (len(themes) != 10
         or summary.get("official_a1_topics") != len(themes)
