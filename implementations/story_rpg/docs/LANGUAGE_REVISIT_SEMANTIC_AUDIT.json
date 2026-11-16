@@ -1,0 +1,697 @@
+{
+  "version": "0.1",
+  "status": "independent_semantic_audit_of_revisit_candidates_not_player_test",
+  "source": "LANGUAGE_PRACTICE_UNITS.json / revisit_m",
+  "rules": [
+    "Count of M references is not evidence of meaningful repetition or retention.",
+    "A valid revisit requires a meaningful second encounter that actually needs the target communication function, not merely shared vocabulary or another grammatical form.",
+    "A new candidate language-only contrast may support a weak return, but it is not a new mandatory story event or user-visible lesson by default.",
+    "Do not require a player to fake misunderstanding (M05) merely to tick a repetition counter.",
+    "This audit does not remove any M, G, LO or older proposal. Weak links remain visible for revision."
+  ],
+  "entries": [
+    {
+      "M": "M39",
+      "unit": "P1-03",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Die Tasse ist groß.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M39",
+      "unit": "P1-07",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Ich bin müde.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M39",
+      "unit": "P1-09",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Hier gibt es Wasser.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M39",
+      "unit": "P1-12",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Hast du das Buch?",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M09",
+      "unit": "P2a-01",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Das ist mein Buch.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M39",
+      "unit": "P2a-02",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Er ist hier.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M03",
+      "unit": "P2a-03",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Komm bitte morgen.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M01",
+      "unit": "P2a-03",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Komm bitte morgen.",
+      "risk_note_ru": "Основной пример сравнивает формы обращения, но не содержит приветствия или прощания M01.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M12",
+      "unit": "P2b-01",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Gib mir das Buch.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M04",
+      "unit": "P2b-01",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Gib mir das Buch.",
+      "risk_note_ru": "Передача предмета с разными получателями не показывает осмысленного согласия/отказа.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M09",
+      "unit": "P2b-04",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Das Buch ist im Zimmer.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M40",
+      "unit": "P2b-04",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Das Buch ist im Zimmer.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M10",
+      "unit": "P2b-05",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Ich habe zwei Bücher.",
+      "risk_note_ru": "Основная пара меняет количество, а M10 требует отличать признак/свойство.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M05",
+      "unit": "P2c-01",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Die Tasse ist leer.",
+      "risk_note_ru": "Передача известного факта не демонстрирует реальное непонимание и свободную просьбу повторить.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M03",
+      "unit": "P2c-02",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Ich komme heute.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M39",
+      "unit": "P2c-03",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Du darfst nicht gehen.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M09",
+      "unit": "P2c-05",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Ich möchte Tee.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M41",
+      "unit": "P3a-02",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Am Montag bin ich frei.",
+      "risk_note_ru": "Табличные данные не показывают различия предупреждения/таблички M41.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M07",
+      "unit": "P3a-04",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Komm morgen um zehn.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M17",
+      "unit": "P3a-04",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Komm morgen um zehn.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M11",
+      "unit": "P3b-01",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Du musst nicht kommen.",
+      "risk_note_ru": "Modal nicht müssen относится к обязанности, а не наличию предмета.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M20",
+      "unit": "P3b-02",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Morgen komme ich.",
+      "risk_note_ru": "Morgen komme ich показывает время, но не текущее место предмета/человека.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M19",
+      "unit": "P3b-03",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Kommst du morgen nicht? — Doch, ich komme.",
+      "risk_note_ru": "Приглашение не содержит предложения помощи или отказа помочь.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M04",
+      "unit": "P3b-03",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Kommst du morgen nicht? — Doch, ich komme.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M06",
+      "unit": "P3b-04",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Ich komme zu spät.",
+      "risk_note_ru": "Ich komme zu spät — сообщение, но контраст вопрос/сообщение не проверяется.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M29",
+      "unit": "P3c-01",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Ich möchte Wasser.",
+      "risk_note_ru": "Желание воды не доказывает способность сообщать физическое состояние.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M32",
+      "unit": "P3c-01",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Ich möchte Wasser.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M09",
+      "unit": "P3c-03",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Ich hätte gern Tee.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M21",
+      "unit": "P3c-07",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Die Tasse ist groß, aber das Buch ist klein.",
+      "risk_note_ru": "Контраст свойств предметов не содержит направления перемещения.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M10",
+      "unit": "P4a-01",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Die Tasse ist leer und das Buch ist hier.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M15",
+      "unit": "P4a-01",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Die Tasse ist leer und das Buch ist hier.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M13",
+      "unit": "P4a-02",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Die rote Tasse ist größer.",
+      "risk_note_ru": "Две чашки сравниваются по размеру, но не различаются владельцы.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M18",
+      "unit": "P4a-03",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Ich bin seit Montag hier.",
+      "risk_note_ru": "Seit/bis — длительность, не разрешение/обязанность.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M22",
+      "unit": "P4a-04",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Die rote Tasse ist hier.",
+      "risk_note_ru": "Распознавание цвета и местонахождения не отличает где от куда.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M42",
+      "unit": "P4b-01",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Ich bin morgen nicht da.",
+      "risk_note_ru": "Короткая заметка не является таблицей/расписанием, сама по себе не показывает извлечение значения из столбцов.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M43",
+      "unit": "P4b-01",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Ich bin morgen nicht da.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M05",
+      "unit": "P4b-02",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Tom ist mein Bruder.",
+      "risk_note_ru": "Личная связь не обязательно требует переспрашивания; не навязывать ложное непонимание.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M02",
+      "unit": "P4b-02",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Tom ist mein Bruder.",
+      "risk_note_ru": "Tom ist mein Bruder/Freund — личная связь, не представление себя.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M41",
+      "unit": "P4b-03",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Name: Mia. Tag: Montag.",
+      "risk_note_ru": "Поля анкеты не эквивалентны пониманию предупреждений/объявлений.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M20",
+      "unit": "P4b-03",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Name: Mia. Tag: Montag.",
+      "risk_note_ru": "Name/Tag не сообщают текущее местонахождение.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M30",
+      "unit": "P4c-01",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Willst du zusammen lesen?",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M31",
+      "unit": "P4c-01",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Willst du zusammen lesen?",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M25",
+      "unit": "P4c-02",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Die Tasse ist zu groß.",
+      "risk_note_ru": "Слишком большой/холодный предмет не сообщает частоту действия.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M29",
+      "unit": "P4c-02",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Die Tasse ist zu groß.",
+      "risk_note_ru": "Свойство чашки не равно состоянию говорящего.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M48",
+      "unit": "P4c-03",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Ich bin krank. Komm morgen.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M37",
+      "unit": "P4c-03",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Ich bin krank. Komm morgen.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M33",
+      "unit": "P4c-03",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Ich bin krank. Komm morgen.",
+      "risk_note_ru": "Ich bin krank/gesund сообщает состояние, а не профессию/занятие.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M49",
+      "unit": "P5-01",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Gestern war die Tür offen.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M26",
+      "unit": "P5-02",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Ich habe das Buch gefunden.",
+      "risk_note_ru": "Я нашёл книгу — результат, но нет последовательности действий.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M11",
+      "unit": "P5-02",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Ich habe das Buch gefunden.",
+      "risk_note_ru": "Habe gefunden — вспомогательный haben, не владение/отсутствие.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M16",
+      "unit": "P5-03",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Mia ist gekommen.",
+      "risk_note_ru": "Mia ist gekommen/kommt сравнивает время одного события, не два независимых факта.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M15",
+      "unit": "P5-03",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Mia ist gekommen.",
+      "risk_note_ru": "Perfekt движения не проверяет описание физического состояния.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M28",
+      "unit": "P5-04",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Morgen gehe ich.",
+      "risk_note_ru": "Morgen/Heute gehe ich меняет время, но не сравнение объектов.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M25",
+      "unit": "P5-04",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Morgen gehe ich.",
+      "risk_note_ru": "План на сегодня/завтра не является частотой привычки.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M34",
+      "unit": "P5-05",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Mia liest gern.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M36",
+      "unit": "P5-05",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Mia liest gern.",
+      "risk_note_ru": "Mia liest gern/spielt gern — интерес, не родственные или личные связи.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M38",
+      "unit": "P5-05",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Mia liest gern.",
+      "risk_note_ru": "Чтение/игра не содержат слишком/не подходит.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M14",
+      "unit": "P5-06",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Mia hat das Buch gefunden.",
+      "risk_note_ru": "Mia/Tom как исполнитель находки — не получатель передачи.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M53",
+      "unit": "P5-06",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Mia hat das Buch gefunden.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M03",
+      "unit": "P5-06",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Mia hat das Buch gefunden.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M39",
+      "unit": "P6-01",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Komm am Montag. Ich bin frei.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M42",
+      "unit": "P6-01",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Komm am Montag. Ich bin frei.",
+      "risk_note_ru": "Краткое приглашение не показывает поиск строки/столбца расписания.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M55",
+      "unit": "P6-01",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Komm am Montag. Ich bin frei.",
+      "risk_note_ru": "Komm am Montag — простая просьба, но не вежливая формула G33/M55.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M08",
+      "unit": "P6-01",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Komm am Montag. Ich bin frei.",
+      "risk_note_ru": "Нет явного du/Sie-контраста в основных A/B-парах единицы.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M44",
+      "unit": "P6-01",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Komm am Montag. Ich bin frei.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M18",
+      "unit": "P6-02",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Du darfst morgen nicht kommen.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M54",
+      "unit": "P6-02",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Du darfst morgen nicht kommen.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M24",
+      "unit": "P6-02",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Du darfst morgen nicht kommen.",
+      "risk_note_ru": "Запрет завтра — правило, а не самостоятельное согласование времени.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M23",
+      "unit": "P6-02",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Du darfst morgen nicht kommen.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M27",
+      "unit": "P6-02",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Du darfst morgen nicht kommen.",
+      "risk_note_ru": "Morgen не различает начало/конец периода seit/bis.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M36",
+      "unit": "P6-03",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Das ist meine Schwester. Sie mag Tee.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M35",
+      "unit": "P6-03",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Das ist meine Schwester. Sie mag Tee.",
+      "risk_note_ru": "Sie mag Tee — предпочтение, но не эмоциональная оценка froh/traurig.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M31",
+      "unit": "P6-03",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Das ist meine Schwester. Sie mag Tee.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M47",
+      "unit": "P6-03",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Das ist meine Schwester. Sie mag Tee.",
+      "risk_note_ru": "Личные сведения не являются самостоятельным письменным вопросом.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M50",
+      "unit": "P6-04",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Gestern habe ich das Buch gefunden. Morgen bringe ich es.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M51",
+      "unit": "P6-04",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Gestern habe ich das Buch gefunden. Morgen bringe ich es.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M52",
+      "unit": "P6-04",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Gestern habe ich das Buch gefunden. Morgen bringe ich es.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    },
+    {
+      "M": "M46",
+      "unit": "P6-05",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Name: Tom. Zeit: zehn Uhr.",
+      "risk_note_ru": "Основная пара Name/Zeit не показывает передачу нескольких связанных пунктов своим текстом; независимый LO-W07 делает это отдельно.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M48",
+      "unit": "P6-05",
+      "status": "not_demonstrated_by_current_main_AB",
+      "primary_example_de": "Name: Tom. Zeit: zehn Uhr.",
+      "risk_note_ru": "Анкетные поля сами по себе не являются передачей факта другому адресату; LO-W07 требует дополнительной проверки.",
+      "evidence_rule_ru": "Не считать реализованным ↻ без самостоятельного смыслового употребления; допустима дополнительная языковая проверка в той же единице или перенос кандидата к более подходящему языковому шагу."
+    },
+    {
+      "M": "M45",
+      "unit": "P6-05",
+      "status": "plausible_in_main_AB_candidate_not_user_test",
+      "primary_example_de": "Name: Tom. Zeit: zehn Uhr.",
+      "risk_note_ru": null,
+      "evidence_rule_ru": "Пример потенциально показывает знакомую функцию; требуется проверить её реальную необходимость, независимость от UI и перенос в другой контекст."
+    }
+  ],
+  "summary": {
+    "all_candidates": 80,
+    "illustrated_candidates": 40,
+    "not_demonstrated_by_main_AB": 40,
+    "coverage_measures": "semantic_evidence_not_acquisition"
+  },
+  "revision_history": [
+    {
+      "M": "M40",
+      "from": "P2b-03",
+      "to": "P2b-04",
+      "why": "Чтение инструкции возвращается при противопоставлении местонахождения и просьбы Bring; простое Das Buch ist im Zimmer не является инструкцией.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    },
+    {
+      "M": "M32",
+      "from": "P3a-03",
+      "to": "P3c-01",
+      "why": "Еда/напиток и потребность возвращаются в выражении желания Ich möchte Wasser/Tee; частота Ich arbeite oft — не потребность.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    },
+    {
+      "M": "M17",
+      "from": "P3a-01",
+      "to": "P3a-04",
+      "why": "Числа в P3a-04 используются как часы 10/12, тогда как P3a-01 меняет только названия дней.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    },
+    {
+      "M": "M04",
+      "from": "P3a-05",
+      "to": "P3b-03",
+      "why": "Ответ doch/nein на приглашение возвращает положительное/отрицательное решение; порядок предметов Zuerst/dann не проверяет согласие.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    },
+    {
+      "M": "M03",
+      "from": "P5-01",
+      "to": "P5-06",
+      "why": "Выбор Mia/Tom реально меняет субъект чужого прошлого факта; время war/ist двери не проверяет человеческого участника.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    }
+  ]
+}
