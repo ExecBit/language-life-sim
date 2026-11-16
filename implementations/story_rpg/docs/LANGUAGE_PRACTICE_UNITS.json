@@ -1,5 +1,5 @@
 {
-  "version": "1.4",
+  "version": "1.5",
   "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
   "sources": [
     "LANGUAGE_MAP.md",
@@ -1846,7 +1846,8 @@
           "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
         }
       ],
-      "independent_production_checks": []
+      "independent_production_checks": [],
+      "scaffolding_note": "Первое R M18/M54 — распознавание целых знакомых формул nicht dürfen / nicht müssen при доступном F1. Продуктивное обобщение модальной грамматики G22 и первое P остаются P3b-01; нельзя требовать в P2c построить новые формы произвольно."
     },
     {
       "stage": "P2c",
@@ -1873,15 +1874,26 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Der Kurs fängt um acht an.",
-          "example_B_de": "Der Kurs hört um acht auf.",
-          "critical_meaning_ru": "Начало в восемь против окончания в восемь; требуется распознать отделяемый глагол",
+          "example_A_de": "Komm um acht.",
+          "example_B_de": "Komm um zehn.",
+          "critical_meaning_ru": "Час действия меняется при знакомой просьбе",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "No Russian UI / visual leakage; ensure critical lexical forms available",
+          "probe_kind": "time_reading"
+        },
+        {
+          "example_A_de": "Die Arbeit fängt jetzt an.",
+          "example_B_de": "Die Arbeit hört jetzt auf.",
+          "critical_meaning_ru": "Различить начало и завершение знакомого занятия по отделяемым глаголам",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "No Russian UI / visual leakage; ensure critical lexical forms available",
+          "probe_kind": "separable_verb_reception"
         }
       ],
-      "independent_production_checks": []
+      "independent_production_checks": [],
+      "scaffolding_note": "Два отдельных рецептивных контакта в порядке: время на знакомом действии, затем начало/окончание через отделяемый глагол; НЕ предъявлять обе новые смысловые задачи одновременно."
     },
     {
       "stage": "P2c",
@@ -3458,15 +3470,17 @@
       "outcome_candidates": [],
       "language_example_checks": [
         {
-          "example_A_de": "Der Zug ist angekommen.",
-          "example_B_de": "Der Zug kommt jetzt an.",
-          "critical_meaning_ru": "Прибыл в прошлом против прибывает сейчас: Perfekt с sein",
+          "example_A_de": "Mia ist gekommen.",
+          "example_B_de": "Mia kommt.",
+          "critical_meaning_ru": "Завершённое событие с sein-Perfekt против ещё не завершённого действия в настоящем",
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
-          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+          "prerequisites_to_verify": "No Russian UI / visual leakage; ensure critical lexical forms available",
+          "probe_kind": "perfekt_sein_reception"
         }
       ],
-      "independent_production_checks": []
+      "independent_production_checks": [],
+      "scaffolding_note": "Для обязательного Perfekt-контраста не нужна отдельная лексика транспорта: все исходные имена и простое kommen доступны ранее."
     },
     {
       "stage": "P5",
@@ -3786,7 +3800,7 @@
       "independent_production_checks": []
     }
   ],
-  "example_checks_count": 75,
+  "example_checks_count": 76,
   "independent_outcome_assessments": {
     "version": "0.1",
     "status": "candidate_independent_language_assessment_not_real_exam_or_game_scene",
@@ -3878,8 +3892,8 @@
         "goal_ru": "Извлечь время, доступность и цену из короткой записи",
         "stimulus": {
           "format": "short_German_input",
-          "variant_A_de": "Montag: zehn Uhr, frei. Dienstag: zwölf Uhr, besetzt. Preis: zwei Euro.",
-          "variant_B_de": "Montag: zehn Uhr, frei. Dienstag: zwölf Uhr, besetzt. Preis: fünf Euro."
+          "variant_A_de": "Montag: zehn Uhr, frei. Dienstag: zwölf Uhr, nicht frei. Preis: zwei Euro.",
+          "variant_B_de": "Montag: zehn Uhr, frei. Dienstag: zwölf Uhr, nicht frei. Preis: fünf Euro."
         },
         "required_semantic_slots": [
           "free_slot_day",
