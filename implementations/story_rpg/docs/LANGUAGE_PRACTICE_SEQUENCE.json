@@ -1,6 +1,6 @@
 {
-  "version": "0.1",
-  "status": "draft_language_only_not_plot_not_game_days",
+  "version": "0.2",
+  "status": "provisional_load_smoothed_language_only_requires_lexical_and_semantic_validation",
   "purpose": "Candidate language-practice sequence for smoothing new meaningful R/P/grammar loads, independent of any storyline.",
   "provenance": [
     "LANGUAGE_MAP.md:M01-M55 first_R/first_P/revisit",
@@ -33,27 +33,8 @@
       "G": 34,
       "revisits": 55
     },
-    "max_simultaneous_candidate_intro": 7,
-    "peaks": [
-      {
-        "id": "LU07",
-        "stage": "P1",
-        "R": 2,
-        "P": 3,
-        "G": 2,
-        "revisits": 0,
-        "composite": 7
-      },
-      {
-        "id": "LU25",
-        "stage": "P3a",
-        "R": 2,
-        "P": 3,
-        "G": 1,
-        "revisits": 1,
-        "composite": 6
-      }
-    ],
+    "max_simultaneous_candidate_intro": 5,
+    "peaks": [],
     "empty_intro": [
       "LU42",
       "LU46",
@@ -64,6 +45,11 @@
       "LU51",
       "LU52",
       "LU53"
+    ],
+    "balancing_moves": [
+      "P1: first_P M02 LU07→LU13 (представление при знакомстве/помощи)",
+      "P1: first_P M47 LU07→LU14 (уточнение по объявлению)",
+      "P3: first_P M23 LU25→LU26 (время + обычная частота)"
     ]
   },
   "units": [
@@ -285,9 +271,7 @@
         "M47"
       ],
       "first_P": [
-        "M02",
-        "M07",
-        "M47"
+        "M07"
       ],
       "new_grammar_R": [
         "G04",
@@ -304,7 +288,7 @@
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 2,
       "independent_R_facts": 1,
-      "independent_P_intents": 3,
+      "independent_P_intents": 1,
       "revisits_in_new_context": 0,
       "new_MR_names": [
         "Спросить **кто/что/где/когда/как**",
@@ -493,18 +477,20 @@
       "id": "LU13",
       "horizon": "P1",
       "microstep": "P1",
-      "focus": "Предложение помощи",
+      "focus": "Попросить помощь и уточнить имя собеседника",
       "first_R": [
         "M19"
       ],
-      "first_P": [],
+      "first_P": [
+        "M02"
+      ],
       "new_grammar_R": [
         "G13"
       ],
       "revisit": [],
       "semantic_contrast": "помощь нужна/не нужна",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
-      "productive_contract": null,
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
       "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
       "status": "candidate_language_unit_not_lesson_or_plot",
       "existing_support": [],
@@ -512,7 +498,7 @@
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
-      "independent_P_intents": 0,
+      "independent_P_intents": 1,
       "revisits_in_new_context": 0,
       "new_MR_names": [
         "Предложить помощь, согласиться помочь, отказаться"
@@ -525,19 +511,21 @@
       "id": "LU14",
       "horizon": "P1",
       "microstep": "P1",
-      "focus": "Место и короткое объявление",
+      "focus": "Прочитать объявление и самостоятельно запросить сведения",
       "first_R": [
         "M20",
         "M41"
       ],
-      "first_P": [],
+      "first_P": [
+        "M47"
+      ],
       "new_grammar_R": [
         "G25"
       ],
       "revisit": [],
       "semantic_contrast": "здесь/там и запрет",
       "semantic_need": "Немецкий смысл меняет допустимую интерпретацию или следующий ответ; подсказка не раскрывает различие",
-      "productive_contract": null,
+      "productive_contract": "Самостоятельно передать неизвестный адресату смысл без заранее заготовленной полной немецкой фразы",
       "assistance": "В обычной практике F1 и уточнение доступны; одна орфографическая неточность не блокирует понятное сообщение",
       "status": "candidate_language_unit_not_lesson_or_plot",
       "existing_support": [],
@@ -545,7 +533,7 @@
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
-      "independent_P_intents": 0,
+      "independent_P_intents": 1,
       "revisits_in_new_context": 0,
       "new_MR_names": [
         "Определить местоположение",
@@ -904,7 +892,6 @@
         "M37"
       ],
       "first_P": [
-        "M23",
         "M24",
         "M37"
       ],
@@ -924,7 +911,7 @@
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
-      "independent_P_intents": 3,
+      "independent_P_intents": 2,
       "revisits_in_new_context": 1,
       "new_MR_names": [
         "Договориться о встрече/доступности",
@@ -938,12 +925,13 @@
       "id": "LU26",
       "horizon": "P3",
       "microstep": "P3a",
-      "focus": "Частота",
+      "focus": "Частота привычного действия и уточнение времени",
       "first_R": [
         "M25"
       ],
       "first_P": [
-        "M25"
+        "M25",
+        "M23"
       ],
       "new_grammar_R": [
         "G20"
@@ -962,7 +950,7 @@
       "new_required_lexemes": "needs_independent_lexical_breakdown",
       "new_grammar_contrasts": 1,
       "independent_R_facts": 1,
-      "independent_P_intents": 1,
+      "independent_P_intents": 2,
       "revisits_in_new_context": 2,
       "new_MR_names": [
         "Выразить частоту/обычное действие"
