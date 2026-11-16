@@ -15,6 +15,7 @@ Only Python's standard library is needed; no LLM, browser or network.
 from __future__ import annotations
 
 import argparse
+import html as html_stdlib
 import json
 import re
 import sys
@@ -25,6 +26,7 @@ from analyze_lexical_recurrence import recurrence_data
 from analyze_semantic_contacts import semantic_data
 from analyze_a0_readiness import a0_readiness_data
 from analyze_language_traceability import traceability_data
+from calculate_language_days import calculate as calculate_language_days, render as render_language_days
 
 DOCS = Path(__file__).resolve().parents[1] / "docs"
 DAY_MAP = DOCS / "ACT_DAY_PROGRESSION_MAP.md"
@@ -38,6 +40,10 @@ LANGUAGE_CATALOG = DOCS / "LANGUAGE_LEXICAL_CATALOG.json"
 WORD_PATTERN = re.compile(r"[^\W_]+", re.UNICODE)
 
 DATA_SCRIPT = re.compile(r'(<script id="progression-data">const DATA=)(.*?)(;</script>)', re.DOTALL)
+LANGUAGE_DURATION_HTML = re.compile(
+    r'(<!-- LANGUAGE_DURATION_HTML_START -->)(.*?)(<!-- LANGUAGE_DURATION_HTML_END -->)',
+    re.DOTALL,
+)
 GROUPS = {
     "P0": "Контакт и понимание", "P1": "Предметы и состояния",
     "P2": "Люди, место, передача", "P3": "Время, выбор, правила",
@@ -408,7 +414,58 @@ def language_program_data() -> dict:
     }
 
 
+def independent_duration_html() -> str:
+    """Независимый от сюжетных дней HTML из двух языковых JSON."""
+    counts, days = calculate_language_days()
+    md = render_language_days(counts, days).splitlines()
+    if not md or len(md) < 3:
+        raise ValueError("Missing independent language duration table")
+
+    def tr(line: str, heading: bool = False) -> str:
+        tag = "th" if heading else "td"
+        values = cells(line)
+        return "<tr>" + "".join(
+            f"<{tag}>" + html_stdlib.escape(v.replace("**", "")) + f"</{tag}>"
+            for v in values
+        ) + "</tr>"
+
+    table = ("<div class=\"heatwrap\"><table class=\"load-table\">"
+             "<thead>" + tr(md[0], True) + "</thead><tbody>"
+             + "".join(tr(line) for line in md[2:])
+             + "</tbody></table></div>")
+    totals = {
+        name: sum(days[s][name] for s in days)
+        for name in ("compact", "baseline", "gentle")
+    }
+    return (
+        "<h2>13. Независимый расчёт продолжительности языковой программы</h2>\n"
+        "<p class=\"small\">Число игровых дней выводится из "
+        "<b>языковой нагрузки</b>, а не из 22 сюжетных слотов выше. "
+        "Это три предварительные модели вместимости, а не готовый календарь "
+        "сцен или доказательство усвоения A1.</p>\n"
+        f"<div class=\"stats\">"
+        f"<div class=\"stat\"><strong>{totals['compact']}</strong><span>компактный: гипотеза</span></div>"
+        f"<div class=\"stat\"><strong>{totals['baseline']}</strong><span>базовый: гипотеза</span></div>"
+        f"<div class=\"stat\"><strong>{totals['gentle']}</strong><span>бережный: гипотеза</span></div>"
+        f"<div class=\"stat\"><strong>{sum(counts[s]['U'] for s in counts)}</strong><span>абстрактных языковых единиц</span></div>"
+        "</div>\n" + table + "\n"
+        "<p class=\"small\">U — языковые единицы; M/G/P — первые требования, "
+        "A/R — кандидатные функциональные фокусы, не количество выученных слов. "
+        "Ограничения дневной новизны заданы как <b>не проверенные на A0 гипотезы</b>. "
+        "Понадобится подневное распределение R/P/возвратов, проверка поздней "
+        "практики до экзамена и калибровка по прохождениям. "
+        "<a href=\"LANGUAGE_PROGRAM.md\">Методика</a> · "
+        "<a href=\"LANGUAGE_PROGRAM_ROADMAP.md\">Актуальный порядок работ</a>."
+        "</p>"
+    )
+
+
 def build(html: str, source: str, matrix: str, language: str) -> str:
+    section = LANGUAGE_DURATION_HTML.search(html)
+    if section is None:
+        raise ValueError("Existing dashboard language-duration section missing")
+    html = (html[:section.start(2)] + "\n" + independent_duration_html()
+            + "\n" + html[section.end(2):])
     embedded = DATA_SCRIPT.search(html)
     if embedded is None:
         raise ValueError("Dashboard DATA script missing")
