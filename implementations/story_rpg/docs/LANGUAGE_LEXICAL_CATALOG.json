@@ -1,11 +1,11 @@
 {
-  "version": "0.7",
+  "version": "0.9",
   "status": "independent_lexical_inventory_not_approved_f1",
   "source": "LANGUAGE_LEXICON.md section 2, 29 topic groups; NOT ACT authored dialogue corpus",
   "validation": {
     "groups": 29,
-    "occurrences": 469,
-    "unique_strings": 463,
+    "occurrences": 483,
+    "unique_strings": 477,
     "duplicate_strings": [
       {
         "word": "zu",
@@ -43,7 +43,8 @@
     "In 73 independent language A/B examples, 36 additional surface tokens were reviewed: 27 form aliases, 2 placeholder names, 7 extra lexical candidates. None came from story content.",
     "After qualitative goal-alignment fixes, the A/B examples were re-tokenized. Observed form counts always derive from the current 73-unit canonical examples; extra candidates are tracked separately, never counted as observed.",
     "After removing duplicated language examples, re-evaluated 80 pairs and added candidate normalization for hast, willst, liest, spielt, gezeigt.",
-    "Every 463 independent catalogue expression now has at least one candidate Russian meaning; polysemy, word sense granularity, flexion, and reverse lookup remain editorial work and not proven F1."
+    "Every 463 independent catalogue expression now has at least one candidate Russian meaning; polysemy, word sense granularity, flexion, and reverse lookup remain editorial work and not proven F1.",
+    "Synchronized new independent lexical entries (including wohin, sehen, 0–12 numerals, location, emotion, and polite Herr) to LANGUAGE_LEXICON.md; no mandatory practice load assigned by simple catalogue inclusion."
   ],
   "groups": [
     {
@@ -246,7 +247,9 @@
         "das Fieber",
         "die Medizin",
         "der Termin",
-        "das Krankenhaus"
+        "das Krankenhaus",
+        "froh",
+        "traurig"
       ]
     },
     {
@@ -346,7 +349,9 @@
         "die Treppe",
         "die Möbel",
         "im",
-        "ins"
+        "ins",
+        "da",
+        "dort"
       ]
     },
     {
@@ -368,7 +373,8 @@
         "von",
         "der Weg",
         "der Eingang",
-        "der Ausgang"
+        "der Ausgang",
+        "wohin"
       ],
       "receptive": [
         "die Straße",
@@ -406,7 +412,14 @@
         "die Zahl",
         "das Stück",
         "das Kilo",
-        "die Hälfte"
+        "die Hälfte",
+        "null",
+        "sechs",
+        "sieben",
+        "acht",
+        "neun",
+        "elf",
+        "zwölf"
       ]
     },
     {
@@ -437,7 +450,8 @@
         "verheiratet",
         "ledig",
         "der Nachbar",
-        "die Nachbarin"
+        "die Nachbarin",
+        "der Herr"
       ]
     },
     {
@@ -913,7 +927,8 @@
         "letzte Woche",
         "schon",
         "noch nicht",
-        "das Ergebnis"
+        "das Ergebnis",
+        "sehen"
       ]
     },
     {
@@ -3065,6 +3080,44 @@
       "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
+      "text": "froh",
+      "draft_ru_meanings": [
+        "радостный / довольный"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 7,
+          "horizon": "P1",
+          "role": "receptive",
+          "functions": [
+            "M29",
+            "M35"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "traurig",
+      "draft_ru_meanings": [
+        "грустный / печальный"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 7,
+          "horizon": "P1",
+          "role": "receptive",
+          "functions": [
+            "M29",
+            "M35"
+          ]
+        }
+      ]
+    },
+    {
       "text": "essen",
       "occurrences": [
         {
@@ -4241,6 +4294,48 @@
       "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
+      "text": "da",
+      "draft_ru_meanings": [
+        "там / тут (по контексту)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 10,
+          "horizon": "P2",
+          "role": "receptive",
+          "functions": [
+            "M09",
+            "M20",
+            "M21",
+            "M22"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "dort",
+      "draft_ru_meanings": [
+        "там, в указанном месте"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 10,
+          "horizon": "P2",
+          "role": "receptive",
+          "functions": [
+            "M09",
+            "M20",
+            "M21",
+            "M22"
+          ]
+        }
+      ]
+    },
+    {
       "text": "links",
       "occurrences": [
         {
@@ -4432,6 +4527,26 @@
       ],
       "draft_gloss_status": "unreviewed_translation_candidate",
       "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
+    },
+    {
+      "text": "wohin",
+      "draft_ru_meanings": [
+        "куда"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 11,
+          "horizon": "P2",
+          "role": "productive",
+          "functions": [
+            "M20",
+            "M21",
+            "M22"
+          ]
+        }
+      ]
     },
     {
       "text": "die Straße",
@@ -4877,6 +4992,139 @@
       "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
+      "text": "null",
+      "draft_ru_meanings": [
+        "ноль"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 12,
+          "horizon": "P2",
+          "role": "receptive",
+          "functions": [
+            "M17",
+            "M42"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "sechs",
+      "draft_ru_meanings": [
+        "шесть"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 12,
+          "horizon": "P2",
+          "role": "receptive",
+          "functions": [
+            "M17",
+            "M42"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "sieben",
+      "draft_ru_meanings": [
+        "семь"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 12,
+          "horizon": "P2",
+          "role": "receptive",
+          "functions": [
+            "M17",
+            "M42"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "acht",
+      "draft_ru_meanings": [
+        "восемь"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 12,
+          "horizon": "P2",
+          "role": "receptive",
+          "functions": [
+            "M17",
+            "M42"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "neun",
+      "draft_ru_meanings": [
+        "девять"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 12,
+          "horizon": "P2",
+          "role": "receptive",
+          "functions": [
+            "M17",
+            "M42"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "elf",
+      "draft_ru_meanings": [
+        "одиннадцать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 12,
+          "horizon": "P2",
+          "role": "receptive",
+          "functions": [
+            "M17",
+            "M42"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "zwölf",
+      "draft_ru_meanings": [
+        "двенадцать"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 12,
+          "horizon": "P2",
+          "role": "receptive",
+          "functions": [
+            "M17",
+            "M42"
+          ]
+        }
+      ]
+    },
+    {
       "text": "die Familie",
       "occurrences": [
         {
@@ -5215,6 +5463,26 @@
       ],
       "draft_gloss_status": "unreviewed_translation_candidate",
       "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
+    },
+    {
+      "text": "der Herr",
+      "draft_ru_meanings": [
+        "господин (обращение) / мужчина"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 13,
+          "horizon": "P2",
+          "role": "receptive",
+          "functions": [
+            "M02",
+            "M35",
+            "M36"
+          ]
+        }
+      ]
     },
     {
       "text": "die Arbeit",
@@ -10424,6 +10692,26 @@
       "translation_source": "language_catalogue_P3_P5_or_minimal_anchor"
     },
     {
+      "text": "sehen",
+      "draft_ru_meanings": [
+        "видеть"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 28,
+          "horizon": "P5",
+          "role": "receptive",
+          "functions": [
+            "M49",
+            "M50",
+            "M51"
+          ]
+        }
+      ]
+    },
+    {
       "text": "nächste Woche",
       "occurrences": [
         {
@@ -10605,14 +10893,14 @@
     }
   ],
   "program_german_form_audit": {
-    "source": "LANGUAGE_PRACTICE_UNITS.json current 80 A/B German pairs",
+    "source": "LANGUAGE_PRACTICE_UNITS.json 80 independent language A/B pairs",
     "unique_example_wordforms": 146,
-    "exact_surface_token_matches": 107,
-    "needs_normalization": 39,
+    "exact_surface_token_matches": 113,
+    "needs_normalization": 33,
     "inflected_or_plural": 31,
     "proper_names_not_lexicon": 2,
-    "supplemental_candidates": 6,
-    "form_coverage_status": "static candidate mapping, not F1 implementation"
+    "supplemental_candidates": 0,
+    "form_coverage_status": "candidate_only_not_real_F1_test"
   },
   "program_form_alias_candidates": [
     {
@@ -10727,26 +11015,6 @@
       "status": "candidate_normalization_not_verified_UI"
     },
     {
-      "observed_form": "froh",
-      "unit_ids": [
-        "P2a-05"
-      ],
-      "kind": "new_language_candidate",
-      "target_entry": "froh",
-      "ru_meaning": "радостный / довольный",
-      "status": "candidate_normalization_not_verified_UI"
-    },
-    {
-      "observed_form": "traurig",
-      "unit_ids": [
-        "P2a-05"
-      ],
-      "kind": "new_language_candidate",
-      "target_entry": "traurig",
-      "ru_meaning": "грустный",
-      "status": "candidate_normalization_not_verified_UI"
-    },
-    {
       "observed_form": "bring",
       "unit_ids": [
         "P2b-02",
@@ -10815,16 +11083,6 @@
       "status": "candidate_normalization_not_verified_UI"
     },
     {
-      "observed_form": "acht",
-      "unit_ids": [
-        "P2c-04"
-      ],
-      "kind": "new_language_candidate",
-      "target_entry": "acht",
-      "ru_meaning": "восемь",
-      "status": "candidate_normalization_not_verified_UI"
-    },
-    {
       "observed_form": "fängt",
       "unit_ids": [
         "P2c-04"
@@ -10863,16 +11121,6 @@
       "kind": "inflection",
       "target_entry": "arbeiten",
       "ru_meaning": null,
-      "status": "candidate_normalization_not_verified_UI"
-    },
-    {
-      "observed_form": "zwölf",
-      "unit_ids": [
-        "P3a-04"
-      ],
-      "kind": "new_language_candidate",
-      "target_entry": "zwölf",
-      "ru_meaning": "двенадцать",
       "status": "candidate_normalization_not_verified_UI"
     },
     {
@@ -10935,16 +11183,6 @@
       "kind": "adjective_inflection",
       "target_entry": "blau",
       "ru_meaning": null,
-      "status": "candidate_normalization_not_verified_UI"
-    },
-    {
-      "observed_form": "da",
-      "unit_ids": [
-        "P4b-01"
-      ],
-      "kind": "new_language_candidate",
-      "target_entry": "da",
-      "ru_meaning": "тут / там (по контексту)",
       "status": "candidate_normalization_not_verified_UI"
     },
     {
@@ -11027,16 +11265,6 @@
       "target_entry": "bringen",
       "ru_meaning": null,
       "status": "candidate_normalization_not_verified_UI"
-    },
-    {
-      "observed_form": "elf",
-      "unit_ids": [
-        "P6-05"
-      ],
-      "kind": "new_language_candidate",
-      "target_entry": "elf",
-      "ru_meaning": "одиннадцать",
-      "status": "candidate_normalization_not_verified_UI"
     }
   ],
   "additional_review_outside_current_pairs": [
@@ -11054,10 +11282,10 @@
     }
   ],
   "independent_assessment_receptive_forms": {
-    "source": "LANGUAGE_PRACTICE_UNITS.json independent_outcome_assessments (6 R cases)",
+    "source": "LANGUAGE_PRACTICE_UNITS.json 6 independent R cases",
     "forms": 47,
-    "exact_matches": 39,
-    "unmatched": 8,
+    "exact_matches": 40,
+    "unmatched": 7,
     "unmatched_forms": [
       {
         "form": "mia",
@@ -11075,15 +11303,6 @@
         ],
         "classification": "placeholder_proper_name",
         "lemma_candidate": null
-      },
-      {
-        "form": "zwölf",
-        "case_ids": [
-          "LO-R01",
-          "LO-R04"
-        ],
-        "classification": "new_language_candidate",
-        "lemma_candidate": "zwölf"
       },
       {
         "form": "darfst",
@@ -11126,14 +11345,14 @@
         "lemma_candidate": null
       }
     ],
-    "meaning": "Do not confuse name placeholders with missing German lexemes; forms are candidates, not evidence of comprehension."
+    "meaning": "Names are placeholders, not missing dictionary meanings. Remaining verb forms require alias mapping."
   },
   "lexical_gloss_progress": {
-    "version": "0.2",
+    "version": "0.3",
     "groups_reviewed": "01-29",
-    "group_expressions": 463,
-    "drafted_unique_entries": 463,
-    "total_unique_entries": 463,
+    "group_expressions": 477,
+    "drafted_unique_entries": 477,
+    "total_unique_entries": 477,
     "status": "full_candidate_RU_gloss_draft_not_native_speaker_reviewed_not_normalized_F1"
   }
 }
