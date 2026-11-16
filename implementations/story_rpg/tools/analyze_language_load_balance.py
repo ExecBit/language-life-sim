@@ -606,6 +606,36 @@ def revisit_evidence_report(doc: dict) -> tuple[str, list[str]]:
     if any(not entry.get("primary_example_de") or
            not entry.get("evidence_rule_ru") for entry in audit["entries"]):
         errors.append("LP07 evidence missing example or review rule")
+    repairs = [entry.get("repair_candidate") for entry in audit["entries"]
+               if entry["status"] == "not_demonstrated_by_current_main_AB"]
+    if any(not r or not r.get("status") or r.get("obligatory_contact") is not False
+           for r in repairs):
+        errors.append("LP07 weak revisits must keep non-mandatory repair plan")
+    repair_pairs = sum(bool(r and r.get("example_A_de") and r.get("example_B_de"))
+                       for r in repairs)
+    if (audit["summary"].get("repair_candidates") != len(repairs)
+        or audit["summary"].get("repair_pairs") != repair_pairs
+        or audit["summary"].get("conditional_or_linked")
+            != len(repairs) - repair_pairs):
+        errors.append("LP07 candidate repair counts stale")
+    catalogue = json.loads(LEXICAL_CATALOGUE.read_text(encoding="utf-8"))
+    def tokenize_repair(s: str) -> set[str]:
+        return set(re.findall(r"[a-zäöüß]+", s.lower()))
+    lemma_forms = {w for entry in catalogue["entries"]
+                   for w in tokenize_repair(entry["text"])}
+    known_aliases = {a["surface"].lower()
+                     for a in catalogue.get("f1_candidate_search", {}).get("aliases", [])}
+    used_repair_forms = {w for plan in repairs if plan
+                         for key in ("example_A_de", "example_B_de")
+                         for w in tokenize_repair(plan.get(key, ""))}
+    unresolved_repair_forms = (
+        used_repair_forms - lemma_forms - known_aliases
+        - {"mia", "tom", "lea", "a", "b"})
+    if (audit["summary"].get("repair_proposal_unique_forms")
+            != len(used_repair_forms)
+        or set(audit["summary"].get("repair_proposal_unlinked_f1_forms", []))
+            != unresolved_repair_forms):
+        errors.append("LP07 optional repair candidate F1 forms audit stale")
     summary = audit["summary"]
     if (summary.get("all_candidates") != len(actual)
         or summary.get("illustrated_candidates")
@@ -632,6 +662,13 @@ def revisit_evidence_report(doc: dict) -> tuple[str, list[str]]:
         "переносов сохранена. Оставшиеся случаи требуют самостоятельных "
         "смысловых контрастов, корректного переназначения или "
         "явной пометки факультативного возврата — без выдумывания сюжета.",
+        "",
+        f"**Для 40 слабых связей** заданы {repair_pairs} необязательных "
+        f"языковых A/B-кандидатов и {len(repairs) - repair_pairs} "
+        "условных варианта (включая право не переспрашивать при понимании). "
+        f"Из {len(used_repair_forms)} форм таких вариантов "
+        f"{len(unresolved_repair_forms)} пока без прямой формы/алиаса в F1; "
+        "их нельзя объявлять готовыми или прибавлять к обязательной нагрузке.",
         "",
         "**Граница проверки:** статические метки — экспертная гипотеза "
         "по языковым парам, не эксперимент с игроками и не измерение "
