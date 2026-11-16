@@ -1,11 +1,11 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "status": "independent_lexical_inventory_not_approved_f1",
   "source": "LANGUAGE_LEXICON.md section 2, 29 topic groups; NOT ACT authored dialogue corpus",
   "validation": {
     "groups": 29,
-    "occurrences": 483,
-    "unique_strings": 477,
+    "occurrences": 490,
+    "unique_strings": 484,
     "duplicate_strings": [
       {
         "word": "zu",
@@ -44,7 +44,8 @@
     "After qualitative goal-alignment fixes, the A/B examples were re-tokenized. Observed form counts always derive from the current 73-unit canonical examples; extra candidates are tracked separately, never counted as observed.",
     "After removing duplicated language examples, re-evaluated 80 pairs and added candidate normalization for hast, willst, liest, spielt, gezeigt.",
     "Every 463 independent catalogue expression now has at least one candidate Russian meaning; polysemy, word sense granularity, flexion, and reverse lookup remain editorial work and not proven F1.",
-    "Synchronized new independent lexical entries (including wohin, sehen, 0–12 numerals, location, emotion, and polite Herr) to LANGUAGE_LEXICON.md; no mandatory practice load assigned by simple catalogue inclusion."
+    "Synchronized new independent lexical entries (including wohin, sehen, 0–12 numerals, location, emotion, and polite Herr) to LANGUAGE_LEXICON.md; no mandatory practice load assigned by simple catalogue inclusion.",
+    "All 34 grammar-example contrasts now checked for lexical bases: ein/der/die/ohne/bei/liegen/als plus candidate morphologies for forms such as dich/ihn/den/liegt."
   ],
   "groups": [
     {
@@ -126,7 +127,10 @@
         "ihr",
         "es",
         "die Person",
-        "das Alter"
+        "das Alter",
+        "ein",
+        "der",
+        "die"
       ]
     },
     {
@@ -301,7 +305,8 @@
         "dir",
         "mit",
         "zusammen",
-        "allein"
+        "allein",
+        "ohne"
       ],
       "receptive": [
         "unser",
@@ -311,7 +316,8 @@
         "diese",
         "dieses",
         "der Besitzer",
-        "Sie (вежливо)"
+        "Sie (вежливо)",
+        "bei"
       ]
     },
     {
@@ -351,7 +357,8 @@
         "im",
         "ins",
         "da",
-        "dort"
+        "dort",
+        "liegen"
       ]
     },
     {
@@ -797,7 +804,8 @@
         "kleiner",
         "besser",
         "schlechter",
-        "passen"
+        "passen",
+        "als"
       ],
       "receptive": [
         "die Jacke",
@@ -1749,6 +1757,66 @@
       ],
       "draft_gloss_status": "unreviewed_translation_candidate",
       "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
+    },
+    {
+      "text": "ein",
+      "draft_ru_meanings": [
+        "неопределённый артикль: один / какой-то"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_grammar_gap_2026_11_16",
+      "occurrences": [
+        {
+          "group": 3,
+          "horizon": "P1",
+          "role": "receptive",
+          "functions": [
+            "M02",
+            "M03",
+            "M08"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "der",
+      "draft_ru_meanings": [
+        "определённый артикль мужского рода (Nominativ)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_grammar_gap_2026_11_16",
+      "occurrences": [
+        {
+          "group": 3,
+          "horizon": "P1",
+          "role": "receptive",
+          "functions": [
+            "M02",
+            "M03",
+            "M08"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "die",
+      "draft_ru_meanings": [
+        "определённый артикль женского рода или множественного числа"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_grammar_gap_2026_11_16",
+      "occurrences": [
+        {
+          "group": 3,
+          "horizon": "P1",
+          "role": "receptive",
+          "functions": [
+            "M02",
+            "M03",
+            "M08"
+          ]
+        }
+      ]
     },
     {
       "text": "was",
@@ -3630,6 +3698,27 @@
       "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
     },
     {
+      "text": "ohne",
+      "draft_ru_meanings": [
+        "без (с Akkusativ)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_grammar_gap_2026_11_16",
+      "occurrences": [
+        {
+          "group": 9,
+          "horizon": "P2",
+          "role": "productive",
+          "functions": [
+            "M03",
+            "M13",
+            "M14",
+            "M53"
+          ]
+        }
+      ]
+    },
+    {
       "text": "unser",
       "occurrences": [
         {
@@ -3796,6 +3885,27 @@
       ],
       "draft_gloss_status": "unreviewed_translation_candidate",
       "translation_source": "language_catalogue_P0_P3_first15_or_minimal_anchor"
+    },
+    {
+      "text": "bei",
+      "draft_ru_meanings": [
+        "у / при / рядом с (с Dativ)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_grammar_gap_2026_11_16",
+      "occurrences": [
+        {
+          "group": 9,
+          "horizon": "P2",
+          "role": "receptive",
+          "functions": [
+            "M03",
+            "M13",
+            "M14",
+            "M53"
+          ]
+        }
+      ]
     },
     {
       "text": "das Zimmer",
@@ -4321,6 +4431,27 @@
       ],
       "draft_gloss_status": "unreviewed_translation_candidate",
       "translation_source": "language_catalogue_gap_repair",
+      "occurrences": [
+        {
+          "group": 10,
+          "horizon": "P2",
+          "role": "receptive",
+          "functions": [
+            "M09",
+            "M20",
+            "M21",
+            "M22"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "liegen",
+      "draft_ru_meanings": [
+        "лежать / находиться (расположение)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_grammar_gap_2026_11_16",
       "occurrences": [
         {
           "group": 10,
@@ -9262,6 +9393,27 @@
       "translation_source": "language_catalogue_P3_P5_or_minimal_anchor"
     },
     {
+      "text": "als",
+      "draft_ru_meanings": [
+        "чем (при сравнении) / как (в качестве)"
+      ],
+      "draft_gloss_status": "unreviewed_translation_candidate",
+      "translation_source": "language_grammar_gap_2026_11_16",
+      "occurrences": [
+        {
+          "group": 24,
+          "horizon": "P4",
+          "role": "productive",
+          "functions": [
+            "M10",
+            "M16",
+            "M28",
+            "M38"
+          ]
+        }
+      ]
+    },
+    {
       "text": "die Jacke",
       "occurrences": [
         {
@@ -10893,7 +11045,7 @@
     }
   ],
   "program_german_form_audit": {
-    "source": "LANGUAGE_PRACTICE_UNITS.json 80 independent language A/B pairs",
+    "source": "LANGUAGE_PRACTICE_UNITS.json 80 independent German A/B pairs",
     "unique_example_wordforms": 146,
     "exact_surface_token_matches": 113,
     "needs_normalization": 33,
@@ -11348,15 +11500,15 @@
     "meaning": "Names are placeholders, not missing dictionary meanings. Remaining verb forms require alias mapping."
   },
   "lexical_gloss_progress": {
-    "version": "0.3",
+    "version": "0.4",
     "groups_reviewed": "01-29",
-    "group_expressions": 477,
-    "drafted_unique_entries": 477,
-    "total_unique_entries": 477,
+    "group_expressions": 484,
+    "drafted_unique_entries": 484,
+    "total_unique_entries": 484,
     "status": "full_candidate_RU_gloss_draft_not_native_speaker_reviewed_not_normalized_F1"
   },
   "f1_candidate_search": {
-    "version": "0.1",
+    "version": "0.2",
     "status": "static_candidate_lookup_not_implemented_or_linguistically_verified",
     "aliases": [
       {
@@ -11658,6 +11810,78 @@
         "lemma": "in",
         "relation": "contraction_direction",
         "source": "G_and_F1_functional_contract"
+      },
+      {
+        "surface": "brauchst",
+        "lemma": "brauchen",
+        "relation": "finite_2sg",
+        "source": "G_contrast_or_core_A1_morphology"
+      },
+      {
+        "surface": "den",
+        "lemma": "der",
+        "relation": "article_acc_masc",
+        "source": "G_contrast_or_core_A1_morphology"
+      },
+      {
+        "surface": "sind",
+        "lemma": "sein",
+        "relation": "finite_plural",
+        "source": "G_contrast_or_core_A1_morphology"
+      },
+      {
+        "surface": "arbeitest",
+        "lemma": "arbeiten",
+        "relation": "finite_2sg",
+        "source": "G_contrast_or_core_A1_morphology"
+      },
+      {
+        "surface": "welches",
+        "lemma": "welcher",
+        "relation": "interrogative_neuter",
+        "source": "G_contrast_or_core_A1_morphology"
+      },
+      {
+        "surface": "sehe",
+        "lemma": "sehen",
+        "relation": "finite_1sg",
+        "source": "G_contrast_or_core_A1_morphology"
+      },
+      {
+        "surface": "dich",
+        "lemma": "du",
+        "relation": "pronoun_acc",
+        "source": "G_contrast_or_core_A1_morphology"
+      },
+      {
+        "surface": "ihn",
+        "lemma": "er",
+        "relation": "pronoun_acc",
+        "source": "G_contrast_or_core_A1_morphology"
+      },
+      {
+        "surface": "mich",
+        "lemma": "ich",
+        "relation": "pronoun_acc",
+        "source": "G_contrast_or_core_A1_morphology"
+      },
+      {
+        "surface": "liegt",
+        "lemma": "liegen",
+        "relation": "finite_3sg",
+        "source": "G_contrast_or_core_A1_morphology"
+      },
+      {
+        "surface": "uns",
+        "lemma": "wir",
+        "relation": "pronoun_acc_dat",
+        "source": "G_contrast_or_core_A1_morphology"
+      },
+      {
+        "surface": "finde",
+        "lemma": "finden",
+        "relation": "finite_1sg",
+        "source": "G_contrast_or_core_A1_morphology"
       }
     ],
     "reverse_ru_queries": [
@@ -12076,6 +12300,57 @@
         ],
         "contrast": "свободный по времени; не трактовать как бесплатно",
         "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "без",
+        "candidate_de": [
+          "ohne"
+        ],
+        "contrast": "предлог без (с Akkusativ)",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "у / при",
+        "candidate_de": [
+          "bei"
+        ],
+        "contrast": "предлог bei с Dativ",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "чем (сравнение)",
+        "candidate_de": [
+          "als"
+        ],
+        "contrast": "сравнительная степень, не временной als",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "неопределённый артикль",
+        "candidate_de": [
+          "ein"
+        ],
+        "contrast": "ein не означает автоматически числительное eins",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "артикль",
+        "candidate_de": [
+          "der",
+          "die",
+          "das",
+          "ein"
+        ],
+        "contrast": "род и падеж определяют форму",
+        "status": "draft_query_not_executed"
+      },
+      {
+        "query_ru": "лежать",
+        "candidate_de": [
+          "liegen"
+        ],
+        "contrast": "место или состояние предмета, не направление",
+        "status": "draft_query_not_executed"
       }
     ],
     "ambiguity_groups": [
@@ -12209,6 +12484,17 @@
         ],
         "distinction": "свободно/доступно против дёшево (или бесплатно — не одно и то же)",
         "status": "draft_context_sensitive_rule"
+      },
+      {
+        "id": "article_lexical_role",
+        "forms": [
+          "der",
+          "die",
+          "das",
+          "ein"
+        ],
+        "distinction": "артикль отличается от числительного eins; род, число и падеж важны для интерпретации",
+        "status": "draft_context_sensitive_rule"
       }
     ],
     "rules": [
@@ -12220,10 +12506,20 @@
       "The complete approved act vocabulary will be available on F1 from beginning, irrespective of language horizon."
     ],
     "validation": {
-      "alias_links": 50,
-      "reverse_queries": 49,
-      "ambiguity_groups": 15,
-      "unknown_query": "explain_uncertainty_and_offer_candidates_not_a_fabricated_single_translation"
+      "alias_links": 62,
+      "reverse_queries": 55,
+      "ambiguity_groups": 16,
+      "unknown_query": "return uncertainty and candidates rather than invented single translation"
     }
+  },
+  "grammar_form_audit": {
+    "version": "0.1",
+    "source": "LANGUAGE_GRAMMAR_CONTRASTS.json G01–G34",
+    "unique_example_wordforms": 100,
+    "exact_surface_token_matches": 71,
+    "alias_or_placeholder_forms": 29,
+    "placeholders": 1,
+    "unresolved_forms": 0,
+    "status": "candidate_only_not_F1_ui_test"
   }
 }
