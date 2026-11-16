@@ -1,16 +1,17 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "status": "independent_grammar_contrast_bank_not_player_verified",
   "sources": [
     "LANGUAGE_DESIGN.md",
     "LANGUAGE_PROGRESSION.md",
-    "LANGUAGE_PRACTICE_SEQUENCE.json"
+    "LANGUAGE_PRACTICE_UNITS.json"
   ],
   "rules": [
     "A grammar item is counted only when it changes recoverable meaning or permits understanding it, not because a sentence contains that structure.",
     "Some early examples necessarily vary more than one feature: confounds and vocabulary support must be checked before claiming a controlled experimental contrast.",
     "27 grammar items linked to semantic productive M; seven are R-form or R-sense. P morphological exactness is not required unless independently specified.",
-    "These are replaceable language-test examples, not lessons, scenes, characters, or approved game dialogue."
+    "These are replaceable language-test examples, not lessons, scenes, characters, or approved game dialogue.",
+    "Grammar unit links are checked against the canonical 73-unit language sequence, not against a second practice schedule."
   ],
   "validation": {
     "grammar_count": 34,
@@ -21,7 +22,7 @@
   "items": [
     {
       "id": "G01",
-      "unit": "LU01",
+      "unit": "P0-01",
       "horizon": "P0",
       "semantic_M": "M01",
       "minimum": "P",
@@ -37,7 +38,7 @@
     },
     {
       "id": "G06",
-      "unit": "LU02",
+      "unit": "P0-02",
       "horizon": "P0",
       "semantic_M": "M07",
       "minimum": "P",
@@ -53,7 +54,7 @@
     },
     {
       "id": "G08",
-      "unit": "LU03",
+      "unit": "P0-05",
       "horizon": "P0",
       "semantic_M": "M09",
       "minimum": "P",
@@ -69,7 +70,7 @@
     },
     {
       "id": "G02",
-      "unit": "LU05",
+      "unit": "P0-06",
       "horizon": "P0",
       "semantic_M": "M03",
       "minimum": "P",
@@ -85,7 +86,7 @@
     },
     {
       "id": "G03",
-      "unit": "LU05",
+      "unit": "P0-07",
       "horizon": "P0",
       "semantic_M": "M11",
       "minimum": "P",
@@ -101,7 +102,7 @@
     },
     {
       "id": "G09",
-      "unit": "LU06",
+      "unit": "P0-04",
       "horizon": "P0",
       "semantic_M": "M09",
       "minimum": "R",
@@ -117,7 +118,7 @@
     },
     {
       "id": "G07",
-      "unit": "LU07",
+      "unit": "P1-02",
       "horizon": "P1",
       "semantic_M": "M07",
       "minimum": "P",
@@ -133,7 +134,7 @@
     },
     {
       "id": "G13",
-      "unit": "LU08",
+      "unit": "P1-03",
       "horizon": "P1",
       "semantic_M": "M15",
       "minimum": "P",
@@ -149,7 +150,7 @@
     },
     {
       "id": "G12",
-      "unit": "LU09",
+      "unit": "P1-04",
       "horizon": "P1",
       "semantic_M": "M11",
       "minimum": "P",
@@ -165,7 +166,7 @@
     },
     {
       "id": "G05",
-      "unit": "LU11",
+      "unit": "P1-08",
       "horizon": "P1",
       "semantic_M": "M12",
       "minimum": "P",
@@ -181,7 +182,7 @@
     },
     {
       "id": "G11",
-      "unit": "LU11",
+      "unit": "P1-05",
       "horizon": "P1",
       "semantic_M": "M12",
       "minimum": "P",
@@ -197,7 +198,7 @@
     },
     {
       "id": "G10",
-      "unit": "LU12",
+      "unit": "P1-10",
       "horizon": "P1",
       "semantic_M": "M17",
       "minimum": "P",
@@ -213,7 +214,7 @@
     },
     {
       "id": "G32",
-      "unit": "LU12",
+      "unit": "P1-09",
       "horizon": "P1",
       "semantic_M": "M11",
       "minimum": "R-form",
@@ -229,7 +230,7 @@
     },
     {
       "id": "G04",
-      "unit": "LU13",
+      "unit": "P1-06",
       "horizon": "P1",
       "semantic_M": "M06",
       "minimum": "P",
@@ -245,7 +246,7 @@
     },
     {
       "id": "G25",
-      "unit": "LU14",
+      "unit": "P1-11",
       "horizon": "P1",
       "semantic_M": "M10",
       "minimum": "P",
@@ -261,8 +262,8 @@
     },
     {
       "id": "G14",
-      "unit": "LU15",
-      "horizon": "P2",
+      "unit": "P2a-01",
+      "horizon": "P2a",
       "semantic_M": "M13",
       "minimum": "P",
       "example_A": "Mein Buch ist hier.",
@@ -277,8 +278,8 @@
     },
     {
       "id": "G15",
-      "unit": "LU21",
-      "horizon": "P2",
+      "unit": "P2a-02",
+      "horizon": "P2a",
       "semantic_M": "M14",
       "minimum": "P",
       "example_A": "Ich sehe dich.",
@@ -293,8 +294,8 @@
     },
     {
       "id": "G16",
-      "unit": "LU18",
-      "horizon": "P2",
+      "unit": "P2b-01",
+      "horizon": "P2b",
       "semantic_M": "M14",
       "minimum": "P",
       "example_A": "Gib mir das Buch.",
@@ -309,8 +310,8 @@
     },
     {
       "id": "G18",
-      "unit": "LU19",
-      "horizon": "P2",
+      "unit": "P2b-02",
+      "horizon": "P2b",
       "semantic_M": "M21",
       "minimum": "P",
       "example_A": "Das Buch liegt im Zimmer.",
@@ -325,8 +326,8 @@
     },
     {
       "id": "G17",
-      "unit": "LU20",
-      "horizon": "P2",
+      "unit": "P2b-06",
+      "horizon": "P2b",
       "semantic_M": "M19",
       "minimum": "P",
       "example_A": "Ich komme mit dir.",
@@ -341,8 +342,8 @@
     },
     {
       "id": "G21",
-      "unit": "LU22",
-      "horizon": "P2",
+      "unit": "P2c-04",
+      "horizon": "P2c",
       "semantic_M": "M24",
       "minimum": "R-sense",
       "example_A": "Der Kurs fängt um acht an.",
@@ -357,8 +358,8 @@
     },
     {
       "id": "G19",
-      "unit": "LU25",
-      "horizon": "P3",
+      "unit": "P3a-01",
+      "horizon": "P3a",
       "semantic_M": "M23",
       "minimum": "P",
       "example_A": "Komm um acht.",
@@ -373,8 +374,8 @@
     },
     {
       "id": "G20",
-      "unit": "LU26",
-      "horizon": "P3",
+      "unit": "P3a-01",
+      "horizon": "P3a",
       "semantic_M": "M23",
       "minimum": "P",
       "example_A": "Wir treffen uns am Montag.",
@@ -389,8 +390,8 @@
     },
     {
       "id": "G27",
-      "unit": "LU27",
-      "horizon": "P3",
+      "unit": "P3a-03",
+      "horizon": "P3a",
       "semantic_M": "M26",
       "minimum": "P",
       "example_A": "Zuerst das Buch, dann die Tasse.",
@@ -405,8 +406,8 @@
     },
     {
       "id": "G22",
-      "unit": "LU28",
-      "horizon": "P3",
+      "unit": "P3b-01",
+      "horizon": "P3b",
       "semantic_M": "M18",
       "minimum": "P",
       "example_A": "Du musst gehen.",
@@ -421,8 +422,8 @@
     },
     {
       "id": "G24",
-      "unit": "LU28",
-      "horizon": "P3",
+      "unit": "P3b-03",
+      "horizon": "P3b",
       "semantic_M": "M54",
       "minimum": "P",
       "example_A": "Du kommst nicht? — Doch!",
@@ -437,8 +438,8 @@
     },
     {
       "id": "G23",
-      "unit": "LU30",
-      "horizon": "P3",
+      "unit": "P3c-01",
+      "horizon": "P3c",
       "semantic_M": "M31",
       "minimum": "P",
       "example_A": "Ich mag Tee.",
@@ -453,8 +454,8 @@
     },
     {
       "id": "G33",
-      "unit": "LU32",
-      "horizon": "P3",
+      "unit": "P3c-03",
+      "horizon": "P3c",
       "semantic_M": "M55",
       "minimum": "R-form",
       "example_A": "Ich hätte gern Tee.",
@@ -469,8 +470,8 @@
     },
     {
       "id": "G26",
-      "unit": "LU35",
-      "horizon": "P4",
+      "unit": "P4a-02",
+      "horizon": "P4a",
       "semantic_M": "M28",
       "minimum": "P",
       "example_A": "Die rote Tasse ist größer als die blaue.",
@@ -485,8 +486,8 @@
     },
     {
       "id": "G31",
-      "unit": "LU36",
-      "horizon": "P4",
+      "unit": "P4a-04",
+      "horizon": "P4a",
       "semantic_M": "M10",
       "minimum": "R-form",
       "example_A": "Die rote Tasse ist hier.",
@@ -501,8 +502,8 @@
     },
     {
       "id": "G34",
-      "unit": "LU41",
-      "horizon": "P4",
+      "unit": "P4a-01",
+      "horizon": "P4a",
       "semantic_M": "M46",
       "minimum": "P",
       "example_A": "Die Tasse ist leer und das Buch ist hier.",
@@ -517,7 +518,7 @@
     },
     {
       "id": "G28",
-      "unit": "LU43",
+      "unit": "P5-01",
       "horizon": "P5",
       "semantic_M": "M50",
       "minimum": "R-sense",
@@ -533,7 +534,7 @@
     },
     {
       "id": "G29",
-      "unit": "LU44",
+      "unit": "P5-02",
       "horizon": "P5",
       "semantic_M": "M51",
       "minimum": "P",
@@ -549,7 +550,7 @@
     },
     {
       "id": "G30",
-      "unit": "LU47",
+      "unit": "P5-03",
       "horizon": "P5",
       "semantic_M": "M50",
       "minimum": "R-sense",
