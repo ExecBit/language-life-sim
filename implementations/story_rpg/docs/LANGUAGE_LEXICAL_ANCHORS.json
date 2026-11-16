@@ -1,5 +1,5 @@
 {
-  "version": "0.5",
+  "version": "0.6",
   "status": "plot_independent_lexical_anchor_candidates_not_required_word_quotas",
   "notes": [
     "The 29 source groups are imported from LANGUAGE_LEXICON.md only; nothing from ACT_*, dialogue transcripts or world lore.",
@@ -11,7 +11,8 @@
     "A selected functional anchor is only a candidate; unused productive words such as directional nach remain present in LANGUAGE_LEXICON.md rather than being erased.",
     "Critical R/grammar prerequisites received their own anchors: Sie, im/ins, polite phrases, doch, seit/bis, welcher, es gibt; the catalogue retains all prior words.",
     "All 116 existing candidate lexical anchor slots now have manually drafted Russian glosses; these do not constitute the complete 463-string catalogue or approved F1 articles.",
-    "Group 19: three minimal price-related anchors are required receptively by LO-R04; purchasing and store-specific lexicon remain optional candidates in LANGUAGE_LEXICON.md. No scene or shop narrative is implied."
+    "Group 19: three minimal price-related anchors are required receptively by LO-R04; purchasing and store-specific lexicon remain optional candidates in LANGUAGE_LEXICON.md. No scene or shop narrative is implied.",
+    "Source lexical groups 7/10/12/13 augmented with setting-neutral emotion, place, complete 0–12 number reading, and Herr for formal address; no new obligatory anchor quotas and no earlier P targets."
   ],
   "groups": [
     {
@@ -438,7 +439,9 @@
         "das Fieber",
         "die Medizin",
         "der Termin",
-        "das Krankenhaus"
+        "das Krankenhaus",
+        "froh",
+        "traurig"
       ],
       "planned_first_practice": "P1",
       "role": "functional_anchor_candidate",
@@ -636,7 +639,9 @@
         "die Treppe",
         "die Möbel",
         "im",
-        "ins"
+        "ins",
+        "da",
+        "dort"
       ],
       "planned_first_practice": "P2b",
       "role": "functional_anchor_candidate",
@@ -773,7 +778,14 @@
         "die Zahl",
         "das Stück",
         "das Kilo",
-        "die Hälfte"
+        "die Hälfte",
+        "null",
+        "sechs",
+        "sieben",
+        "acht",
+        "neun",
+        "elf",
+        "zwölf"
       ],
       "planned_first_practice": "P2b",
       "role": "functional_anchor_candidate",
@@ -839,7 +851,8 @@
         "verheiratet",
         "ledig",
         "der Nachbar",
-        "die Nachbarin"
+        "die Nachbarin",
+        "der Herr"
       ],
       "planned_first_practice": "P4b",
       "role": "functional_anchor_candidate",
