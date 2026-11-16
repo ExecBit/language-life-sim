@@ -288,6 +288,18 @@ def grammar_probe_appendix(doc: dict) -> tuple[str, list[str]]:
         if any(not isinstance(plan.get(k), str) or not plan[k].strip()
                for k in required):
             errors.append(f"Grammar {gid} lacks explicit first R / prerequisite plan")
+        delayed = plan.get("deferred_r_reuse")
+        if delayed:
+            target = unit_by_id.get(delayed.get("unit"))
+            if (target is None or not any(
+                q["example_A_de"] == delayed.get("example_A")
+                and q["example_B_de"] == delayed.get("example_B")
+                for q in target.get("language_example_checks", [])
+            )):
+                errors.append(f"Grammar {gid} deferred R not anchored to a main pair")
+        for extra in probe.get("variant_examples", []):
+            if not extra.get("example_A") or not extra.get("example_B") or not extra.get("role"):
+                errors.append(f"Grammar {gid} has incomplete retained variant")
         if gid in seen:
             errors.append(f"Grammar probe repeated: {gid}")
         seen.add(gid)
