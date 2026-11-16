@@ -466,11 +466,12 @@ def independent_duration_html() -> str:
             tr((f'{d["day"]:02}', d["stage"], join(d["unit_start"]),
                 join(d["first_m"]), join(d["first_g"]), join(d["first_p"]),
                 join(d["revisit_m"]), f'{len(d["lex_A"])}/{len(d["lex_R"])}',
-                join(outcomes), "НЕТ КОНТРАКТА" if d["needs_contract"] else "—"))
+                join(outcomes), join(d["semantic_probes"]),
+                "НЕТ КОНТРАКТА" if d["needs_contract"] else "—"))
         )
     daily_table = (
         '<div class="heatwrap"><table class="load-table"><thead>'
-        + tr(("День", "P", "Единицы", "M", "G", "Первое P", "↻", "A/R", "LO", "Пробел"), True)
+        + tr(("День", "P", "Единицы", "M", "G", "Первое P", "↻", "A/R", "LO", "R-контракт", "Пробел"), True)
         + "</thead><tbody>" + "".join(daily_rows)
         + "</tbody></table></div>"
     )
@@ -481,7 +482,8 @@ def independent_duration_html() -> str:
         + (" · нужен смысловой контракт" if d["needs_contract"] else "")
         + "</summary><p><b>Активные:</b> " + esc(join(d["lex_A"]))
         + "</p><p><b>Рецептивные:</b> " + esc(join(d["lex_R"]))
-        + "</p></details>"
+        + "</p><p><b>Смысловой R-контраст:</b> "
+        + esc(join(d["semantic_probes"])) + "</p></details>"
         for d in daily
     )
     empty = [str(d["day"]) for d in daily if d["needs_contract"]]
@@ -510,6 +512,7 @@ def independent_duration_html() -> str:
         'письменный ответ; ↻ — кандидат осмысленного возврата; A/R — '
         'новые функциональные лексические фокусы, не выученные слова. '
         'LO на P6 — предложенные итоговые контракты. '
+        'Дополнительные R-контракты — предложенные независимые смысловые контрасты. '
         '<b>Нет контракта</b> — это реальный пробел, а не готовый день.</p>'
         + daily_table
         + '<details class="vocab-more"><summary>Лексический фокус '
