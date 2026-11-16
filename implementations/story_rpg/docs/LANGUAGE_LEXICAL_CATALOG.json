@@ -1,5 +1,5 @@
 {
-  "version": "1.5",
+  "version": "1.6",
   "status": "independent_expanded_A1_functional_lexical_program_not_verified_F1",
   "source": "LANGUAGE_LEXICON.md section 2, 29 topic groups; NOT ACT authored dialogue corpus",
   "validation": {
@@ -22559,7 +22559,11 @@
         "noch einmal"
       ],
       "semantic_acceptance_rule_ru": "Новичок различает приветствие/прощание и вправе запросить повтор без притворного непонимания.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R01",
+        "LO-W01"
+      ]
     },
     {
       "id": "L02",
@@ -22581,7 +22585,11 @@
         "hier"
       ],
       "semantic_acceptance_rule_ru": "Предмет и действие меняют требуемый смысл; названия предметов — открытая заменяемая группа.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R01",
+        "LO-W01"
+      ]
     },
     {
       "id": "L03",
@@ -22603,7 +22611,11 @@
         "was"
       ],
       "semantic_acceptance_rule_ru": "Самостоятельное представление и вопрос о неизвестном факте.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R01",
+        "LO-W01"
+      ]
     },
     {
       "id": "L04",
@@ -22625,7 +22637,11 @@
         "offen"
       ],
       "semantic_acceptance_rule_ru": "Наличие противопоставлено отсутствию; состояние не угадывается без немецкого.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R02",
+        "LO-W02"
+      ]
     },
     {
       "id": "L05",
@@ -22647,7 +22663,10 @@
         "trinken"
       ],
       "semantic_acceptance_rule_ru": "Самостоятельная потребность/просьба при доступном бытовом словаре.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-W04"
+      ]
     },
     {
       "id": "L06",
@@ -22670,7 +22689,11 @@
         "rechts"
       ],
       "semantic_acceptance_rule_ru": "Различить где находится предмет и куда его нужно перенести.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R03",
+        "LO-W02"
+      ]
     },
     {
       "id": "L07",
@@ -22692,7 +22715,11 @@
         "dir"
       ],
       "semantic_acceptance_rule_ru": "Кто кому родственник и кому адресовано действие; личные связи прежде всего R.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R02",
+        "LO-R05"
+      ]
     },
     {
       "id": "L08",
@@ -22714,7 +22741,11 @@
         "wie viel"
       ],
       "semantic_acceptance_rule_ru": "Числа 13–19, десятки и сложные числа осознаются как группы и правила, а не десятки независимых обязательных уроков.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R04",
+        "LO-W06"
+      ]
     },
     {
       "id": "L09",
@@ -22735,7 +22766,11 @@
         "heißen"
       ],
       "semantic_acceptance_rule_ru": "Вопрос о себе/другом не должен требовать неизвестных фактов о героях.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R05",
+        "LO-W06"
+      ]
     },
     {
       "id": "L10",
@@ -22758,7 +22793,11 @@
         "das Wochenende"
       ],
       "semantic_acceptance_rule_ru": "Отличить время, дату, день недели и порядок; все месяцы доступны в F1, не требуют немедленного активного воспроизведения.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R04",
+        "LO-W03"
+      ]
     },
     {
       "id": "L11",
@@ -22779,7 +22818,11 @@
         "können"
       ],
       "semantic_acceptance_rule_ru": "Nicht müssen и nicht dürfen не считаются синонимами.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R02",
+        "LO-W03"
+      ]
     },
     {
       "id": "L12",
@@ -22801,7 +22844,10 @@
         "lieber"
       ],
       "semantic_acceptance_rule_ru": "Функции выбора требуют самостоятельного предпочтения, не набора конкретных хобби.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-W04"
+      ]
     },
     {
       "id": "L13",
@@ -22823,7 +22869,11 @@
         "wie viel"
       ],
       "semantic_acceptance_rule_ru": "Смысл цен и количества доступен даже без торгового сюжета; не считать покупку обязательной сценой.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R04",
+        "LO-W01"
+      ]
     },
     {
       "id": "L14",
@@ -22845,7 +22895,11 @@
         "abfahren"
       ],
       "semantic_acceptance_rule_ru": "Понять расписание, время и направление, не вводя обязательный транспортный квест.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R04",
+        "LO-W03"
+      ]
     },
     {
       "id": "L15",
@@ -22867,7 +22921,10 @@
         "oft"
       ],
       "semantic_acceptance_rule_ru": "Тематические слова — свободный выбор, но частота и предпочтение — переносимые смыслы.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-W04"
+      ]
     },
     {
       "id": "L16",
@@ -22889,7 +22946,10 @@
         "das Datum"
       ],
       "semantic_acceptance_rule_ru": "Подсказка поля не подставляет готовое содержимое ответа; незнакомые формулировки можно найти в F1.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-W06"
+      ]
     },
     {
       "id": "L17",
@@ -22914,7 +22974,11 @@
         "die Antwort"
       ],
       "semantic_acceptance_rule_ru": "Прочитать отправителя, просьбу, время и намерение; причинность не выдумывается из контекста.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R05",
+        "LO-W07"
+      ]
     },
     {
       "id": "L18",
@@ -22938,7 +23002,12 @@
         "aber"
       ],
       "semantic_acceptance_rule_ru": "Сравнение меняет результат; оттенки и одежда не становятся 12 обязательными новыми словами.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R06",
+        "LO-W02",
+        "LO-W05"
+      ]
     },
     {
       "id": "L19",
@@ -22959,7 +23028,11 @@
         "kalt"
       ],
       "semantic_acceptance_rule_ru": "Короткое сообщение должно давать сведения, которых нет в русской метке.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R04",
+        "LO-R06"
+      ]
     },
     {
       "id": "L20",
@@ -22980,7 +23053,10 @@
         "der Text"
       ],
       "semantic_acceptance_rule_ru": "Распознавать задания, указания и короткие тексты, не превращая игру в школьный тренажёр.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R05"
+      ]
     },
     {
       "id": "L21",
@@ -23002,7 +23078,11 @@
         "habe gefunden"
       ],
       "semantic_acceptance_rule_ru": "Сообщить простой завершённый факт; точность всей парадигмы Perfekt не обязательна.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-R05",
+        "LO-W05"
+      ]
     },
     {
       "id": "L22",
@@ -23025,7 +23105,12 @@
         "dann"
       ],
       "semantic_acceptance_rule_ru": "Составить несколько собственных пунктов в свободном вводе, не копируя готовый образец.",
-      "status": "normative_semantic_scope_not_executable_assessment"
+      "status": "normative_semantic_scope_not_executable_assessment",
+      "learning_outcome_refs": [
+        "LO-W03",
+        "LO-W05",
+        "LO-W07"
+      ]
     }
   ],
   "goethe_a1_theme_coverage": [
@@ -23178,6 +23263,8 @@
         "receptive_core": 11
       }
     },
-    "scope_interpretation": "Core indicates which meanings need active use or receptive understanding across the curriculum; not rote recall of every entry on first use. focus_band is a planned practice window, not a lock; P6 has no new mandatory vocabulary, and approved F1 is accessible from start."
+    "scope_interpretation": "Core indicates which meanings need active use or receptive understanding across the curriculum; not rote recall of every entry on first use. focus_band is a planned practice window, not a lock; P6 has no new mandatory vocabulary, and approved F1 is accessible from start.",
+    "independent_outcomes_lexically_traced": 13,
+    "lexical_coverage_method": "22 language-only semantic contracts mapped to all 13 outcome IDs, Goethe A1 thematic coverage by domain; not word-by-word Goethe list matching or player testing."
   }
 }
