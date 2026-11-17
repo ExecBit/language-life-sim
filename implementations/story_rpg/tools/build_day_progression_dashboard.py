@@ -468,7 +468,7 @@ def independent_duration_html() -> str:
             '<line x1="20" y1="130" x2="940" y2="130" stroke="#778"/>'
             '<polyline fill="none" stroke="#dc914b" stroke-width="2" points="'+points(False)+'"/>'
             '<polyline fill="none" stroke="#5faeae" stroke-width="2" points="'+points(True)+'"/></svg>')
-    return ('<h2>13. Независимая накопительная языковая программа</h2>'
+    return ('<h2>Накопительный языковой календарь</h2>'
         '<p>Новый и прежний материал делят вместимость дня. Первые появления, возвращения лексики R/P, G и M учитываются отдельно. '
         'Прежние 48/65/83 — историческая неполная модель. Новый расчёт также не доказывает длительность обучения.</p>'
         + totals + '<h3>Распределение по горизонтам</h3>' + stages
@@ -481,6 +481,37 @@ def independent_duration_html() -> str:
         'всего репертуара до независимых LO. Бюджеты, паузы, время F1 и перенос не проверены на A0.</p>'
         '<p><a href="LANGUAGE_DAY_SCHEDULE.md">Подневный отчёт</a> · <a href="LANGUAGE_DAY_SCHEDULE.json">Траектории каждой цели</a> · '
         '<a href="LANGUAGE_CUMULATIVE_POLICY.json">Гипотезы нагрузки</a></p>')
+
+
+def curriculum_first(html: str) -> str:
+    """Present current language data first, retaining the whole old story in an archive."""
+    plan = json.loads((DOCS / "LANGUAGE_DAY_SCHEDULE.json").read_text(encoding="utf-8"))
+    overview = ('<header><div><div class="eyebrow">Language Life Sim · Языковая программа</div>'
+                '<h1>Накопление языка и нагрузка по дням</h1>'
+                '<p>Независимый план лексики, грамматики и коммуникативных R/P. '
+                'Ни один срок пока не подтверждён на учащихся. Старый сюжет доступен отдельно в свёрнутом архиве внизу.</p>'
+                '</div></header><div class="stats">')
+    for name, label in (("compact", "Компактный"), ("baseline", "Базовый"), ("gentle", "Бережный")):
+        overview += '<div class="stat"><strong>'+str(plan['profiles'][name]['total_days'])+'</strong><span>'+label+' · проектные языковые слоты</span></div>'
+    count = sum(it['kind']=='lex' for it in plan['learning_items'].values())
+    overview += '<div class="stat"><strong>'+str(count)+'</strong><span>выбранных выражений/форм · не выученных слов</span></div></div>'
+    start, end = '<!-- CURRICULUM_OVERVIEW_START -->', '<!-- CURRICULUM_OVERVIEW_END -->'
+    if start in html:
+        return re.sub(re.escape(start)+'.*?'+re.escape(end), lambda _: start+overview+end, html, flags=re.DOTALL)
+    main = re.search(r'(<main class="wrap">)(.*?)(</main>)', html, re.DOTALL)
+    if not main:
+        raise ValueError('Dashboard main element missing')
+    body = main.group(2)
+    sections = []
+    for sid in ('language-duration', 'independent-language-program'):
+        match = re.search(r'<section class="panel" id="'+sid+r'">.*?</section>', body, re.DOTALL)
+        if not match:
+            raise ValueError('Missing independent section: '+sid)
+        sections.append(match.group())
+        body = body[:match.start()]+body[match.end():]
+    archive = ('<details class="panel" id="story-archive"><summary><b>Архив: прежний сюжет на 22 дня и его графики</b></summary>'
+               '<p>Историческая сюжетная проекция. Её дни и графики не задают текущую языковую программу.</p>'+body+'</details>')
+    return html[:main.start(2)]+start+overview+end+''.join(sections)+archive+html[main.end(2):]
 
 
 def build(html: str, source: str, matrix: str, language: str) -> str:
@@ -519,7 +550,7 @@ def build(html: str, source: str, matrix: str, language: str) -> str:
         "language_program": language_program_data(),
     }
     encoded = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("<", r"\u003c")
-    return html[:embedded.start(2)] + encoded + html[embedded.end(2):]
+    return curriculum_first(html[:embedded.start(2)] + encoded + html[embedded.end(2):])
 
 def main() -> int:
     parser = argparse.ArgumentParser()
