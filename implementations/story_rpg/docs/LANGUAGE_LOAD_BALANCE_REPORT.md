@@ -155,12 +155,12 @@
 
 Источник: [LANGUAGE_OUTCOME_FOCUSED_PROBES.json](LANGUAGE_OUTCOME_FOCUSED_PROBES.json) и [LANGUAGE_PRACTICE_UNITS.json](LANGUAGE_PRACTICE_UNITS.json). Проектные варианты языка без использования сюжетных материалов.
 
-**13 исходных LO и 21 дополнительных сфокусированных A/B-контрастов** (11 R, 10 W). Они дополняют, а не заменяют исходные варианты; это не количество обязательных экзаменационных задач.
+**13 исходных LO и 22 дополнительных сфокусированных A/B-контрастов** (12 R, 10 W). Они дополняют, а не заменяют исходные варианты; это не количество обязательных экзаменационных задач.
 
 | LO | Дополнительные пары | Проверяемые изменяемые слоты |
 |---|---:|---|
 | LO-R01 | 2 | du_or_Sie_register, requested_action |
-| LO-R02 | 1 | day |
+| LO-R02 | 2 | day, recipient_role |
 | LO-R03 | 1 | object |
 | LO-R04 | 2 | free_slot_day, free_slot_time |
 | LO-R05 | 4 | sender, recipient, requested_time_and_action, person_state |

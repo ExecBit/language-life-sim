@@ -3656,7 +3656,10 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
-          "content_review": "M34_transfer"
+          "content_review": "M34_transfer",
+          "reused_m": [
+            "M34"
+          ]
         },
         {
           "example_A_de": "Mia: Mein Bruder kommt morgen.",
@@ -3665,7 +3668,10 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
-          "content_review": "M36_transfer"
+          "content_review": "M36_transfer",
+          "reused_m": [
+            "M36"
+          ]
         },
         {
           "example_A_de": "Es ist zu spät.",
@@ -3674,7 +3680,10 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
-          "content_review": "M38_transfer"
+          "content_review": "M38_transfer",
+          "reused_m": [
+            "M38"
+          ]
         }
       ],
       "independent_production_checks": [],
@@ -3711,7 +3720,10 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
-          "content_review": "past_third_person"
+          "content_review": "past_third_person",
+          "reused_m": [
+            "M03"
+          ]
         },
         {
           "example_A_de": "Mia hat mir das Buch gezeigt.",
@@ -3720,7 +3732,10 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
-          "content_review": "M14_transfer"
+          "content_review": "M14_transfer",
+          "reused_m": [
+            "M14"
+          ]
         },
         {
           "example_A_de": "Mia hat das Buch gefunden. Sie hat es gezeigt.",
@@ -3729,7 +3744,10 @@
           "transferable_example": true,
           "status": "design_counterfactual_not_executable_test",
           "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
-          "content_review": "M53_transfer"
+          "content_review": "M53_transfer",
+          "reused_m": [
+            "M53"
+          ]
         }
       ],
       "independent_production_checks": [],
@@ -3971,14 +3989,15 @@
         "required_semantic_slots": [
           "prohibition_vs_absence_of_obligation",
           "negation_scope",
-          "day"
+          "day",
+          "recipient_role"
         ],
         "incorrect_interpretation_examples": [
           "Воспринять нельзя как необязательно",
           "Объявить обязанность, которой нет"
         ],
         "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
-        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input. Исполнитель и получатель отдельно проверяются LOP-22; вся LO не засчитывается по одному модальному контрасту.",
         "design_status": "independent_candidate_not_player_test"
       },
       {
@@ -4364,7 +4383,7 @@
       }
     ],
     "focused_probes_source": "LANGUAGE_OUTCOME_FOCUSED_PROBES.json",
-    "focused_probes_count": 21,
+    "focused_probes_count": 22,
     "focused_probes_purpose": "Изолировать ранее смешанные смысловые переменные LO без новых обязательных языковых единиц. 11 R + 10 W.",
     "validation_status": "structured_candidate_not_executable_test"
   },

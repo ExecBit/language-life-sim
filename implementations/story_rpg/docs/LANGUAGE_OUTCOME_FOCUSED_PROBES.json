@@ -357,10 +357,22 @@
       "meaning_B_ru": "Книга в комнате, попросить принести книгу завтра в 10.",
       "integrity": "one_critical_intent_changed_other_facts_held_fixed",
       "status": "candidate_not_parser_test"
+    },
+    {
+      "id": "LOP-22",
+      "lo": "LO-R02",
+      "kind": "reading",
+      "focus_slot": "recipient_role",
+      "variant_A_de": "Tom gibt Mia das Buch.",
+      "variant_B_de": "Mia gibt Tom das Buch.",
+      "meaning_A_ru": "Том отдаёт книгу Мие.",
+      "meaning_B_ru": "Мия отдаёт книгу Тому.",
+      "integrity": "actor_and_recipient_roles_reverse_with_same_people_and_object",
+      "status": "candidate_not_executed"
     }
   ],
   "coverage": {
-    "reading": 11,
+    "reading": 12,
     "free_writing": 10,
     "outcomes": 13
   },

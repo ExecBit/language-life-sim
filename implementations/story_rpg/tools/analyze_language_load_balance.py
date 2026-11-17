@@ -533,7 +533,7 @@ def outcome_focused_probe_report(doc: dict) -> tuple[str, list[str]]:
             errors.append(f"LO focused probe identical/empty A/B: {pid}")
         focus[cid].append(probe["focus_slot"])
         counts[probe["kind"]] += 1
-    if (len(rows) != 21 or counts != Counter({"reading": 11, "free_writing": 10})
+    if (len(rows) != 22 or counts != Counter({"reading": 12, "free_writing": 10})
         or doc["independent_outcome_assessments"].get("focused_probes_count") != len(rows)
         or set(focus) != set(cases_by_id)):
         errors.append("Independent LO focused probe total, type or coverage stale")

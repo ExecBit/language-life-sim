@@ -415,124 +415,72 @@ def language_program_data() -> dict:
 
 
 def independent_duration_html() -> str:
-    """Render language-only duration and daily contacts without ACT inputs."""
-    counts, lower_days = calculate_language_days()
-    lines = render_language_days(counts, lower_days).splitlines()
-    if len(lines) < 3:
-        raise ValueError("Language duration table unavailable")
-
-    def esc(value) -> str:
-        return html_stdlib.escape(str(value), quote=True)
-
-    def tr(values, heading=False):
-        tag = "th" if heading else "td"
-        return "<tr>" + "".join(
-            f"<{tag}>{esc(value)}</{tag}>" for value in values
-        ) + "</tr>"
-
-    def join(values):
-        return ", ".join(values) if values else "—"
-
-    # Old aggregate estimate is retained for transparent comparison.
-    lower_rows = []
-    for line in lines[2:]:
-        lower_rows.append(tr([cell.replace("**", "") for cell in cells(line)]))
-    lower_table = (
-        '<div class="heatwrap"><table class="load-table"><thead>'
-        + tr(cells(lines[0]), True)
-        + "</thead><tbody>" + "".join(lower_rows)
-        + "</tbody></table></div>"
-    )
+    """Only this section reads the cumulative curriculum; story DATA is unchanged."""
     plan = json.loads((DOCS / "LANGUAGE_DAY_SCHEDULE.json").read_text(encoding="utf-8"))
-    prof = plan["profiles"]
-    totals = {name: prof[name]["total_days"] for name in ("compact", "baseline", "gentle")}
-    stages = [row for row in plan["profiles"]["baseline"]["stages"]]
-    stage_table = (
-        '<div class="heatwrap"><table class="load-table"><thead>'
-        + tr(("Языковой этап", "Компактный", "Базовый", "Бережный"), True)
-        + "</thead><tbody>"
-        + "".join(tr((stage, prof["compact"]["stages"][stage]["proposed_days"],
-                         prof["baseline"]["stages"][stage]["proposed_days"],
-                         prof["gentle"]["stages"][stage]["proposed_days"]))
-                  for stage in stages)
-        + tr(("ВСЕГО", totals["compact"], totals["baseline"], totals["gentle"]))
-        + "</tbody></table></div>"
-    )
-    daily = prof["baseline"]["days"]
-    daily_rows = []
+    items = plan["learning_items"]
+    esc = lambda v: html_stdlib.escape(str(v), quote=True)
+    def row(vals, header=False):
+        tag = "th" if header else "td"
+        return "<tr>" + "".join(f"<{tag}>{esc(v)}</{tag}>" for v in vals) + "</tr>"
+    def table(headers, rows):
+        return '<div class="heatwrap"><table class="load-table"><thead>' + row(headers, True) + '</thead><tbody>' + ''.join(row(r) for r in rows) + '</tbody></table></div>'
+    profiles = plan["profiles"]
+    daily = profiles["baseline"]["days"]
+    totals = table(("Профиль", "Дни", "Контактов/день", "Новых максимум", "Новая лексика", "Лексика в возврате"),
+        [(name, p["total_days"], plan["policy"]["profiles"][name]["contacts"],
+          plan["policy"]["profiles"][name]["new_contacts"], plan["policy"]["profiles"][name]["new_lex"],
+          plan["policy"]["profiles"][name]["reuse_lex"]) for name,p in profiles.items()])
+    stages = table(("Этап", "compact", "baseline", "gentle"),
+        [(stage, *(profiles[n]["stages"][stage]["proposed_days"] for n in ("compact", "baseline", "gentle"))) for stage in profiles["baseline"]["stages"]])
+    rows, details = [], []
     for d in daily:
-        outcomes = d["assess_lo"] if d["stage"] == "P6" else d["early_lo"]
-        daily_rows.append(
-            tr((f'{d["day"]:02}', d["stage"], join(d["unit_start"]),
-                join(d["first_m"]), join(d["first_g"]), join(d["first_p"]),
-                join(d["revisit_m"]), f'{len(d["lex_A"])}/{len(d["lex_R"])}',
-                join(outcomes), join(d["semantic_probes"]),
-                "НЕТ КОНТРАКТА" if d["needs_contract"] else "—"))
-        )
-    daily_table = (
-        '<div class="heatwrap"><table class="load-table"><thead>'
-        + tr(("День", "P", "Единицы", "M", "G", "Первое P", "↻", "A/R", "LO", "R-контракт", "Пробел"), True)
-        + "</thead><tbody>" + "".join(daily_rows)
-        + "</tbody></table></div>"
-    )
-    lexical_details = "".join(
-        '<details class="vocab-more"><summary>День '
-        + esc(f'{d["day"]:02}') + " · " + esc(d["stage"]) + " · "
-        + esc(f'{len(d["lex_A"])} A / {len(d["lex_R"])} R')
-        + (" · нужен смысловой контракт" if d["needs_contract"] else "")
-        + "</summary><p><b>Активные:</b> " + esc(join(d["lex_A"]))
-        + "</p><p><b>Рецептивные:</b> " + esc(join(d["lex_R"]))
-        + "</p><p><b>Смысловой R-контраст:</b> "
-        + esc(join(d["semantic_probes"])) + "</p></details>"
-        for d in daily
-    )
-    empty = [str(d["day"]) for d in daily if d["needs_contract"]]
-    return (
-        "<h2>13. Независимый расчёт и подневная языковая программа</h2>\n"
-        '<p class="small">Расчёт не использует 22 старых сюжетных дня, '
-        'их NPC и сцены. Это <b>распределение возможностей обучения</b>, '
-        'не доказательство освоения и не окончательная длина истории.</p>\n'
-        '<div class="stats">'
-        f'<div class="stat"><strong>{totals["compact"]}</strong>'
-        '<span>компактный: проектные слоты</span></div>'
-        f'<div class="stat"><strong>{totals["baseline"]}</strong>'
-        '<span>базовый: проектные слоты</span></div>'
-        f'<div class="stat"><strong>{totals["gentle"]}</strong>'
-        '<span>бережный: проектные слоты</span></div>'
-        f'<div class="stat"><strong>{len(daily)}</strong>'
-        '<span>подробно расписано в базовом профиле</span></div>'
-        '</div>\n'
-        '<h3>Длительность по языковым горизонтам</h3>'
-        + stage_table
-        + '<p class="small">В каждом варианте сохранены 73 единицы, '
-        'первые M/G/P, 80 кандидатных возвратов и фокусы лексики. '
-        'Дневные лимиты — некалиброванные проектные гипотезы.</p>'
-        + '<h3>Распределение языковых действий — базовый профиль</h3>'
-        + '<p class="small">M/G — первое понимание; P — первый самостоятельный '
-        'письменный ответ; ↻ — кандидат осмысленного возврата; A/R — '
-        'новые функциональные лексические фокусы, не выученные слова. '
-        'LO на P6 — предложенные итоговые контракты. '
-        'Дополнительные R-контракты — предложенные независимые смысловые контрасты. '
-        '<b>Нет контракта</b> — это реальный пробел, а не готовый день.</p>'
-        + daily_table
-        + '<details class="vocab-more"><summary>Лексический фокус '
-        'каждого дня (все записи)</summary>'
-        + lexical_details
-        + '</details>'
-        + '<details class="vocab-more"><summary>Сравнить с прежней '
-        'грубой оценкой вместимости</summary>'
-        + '<p class="small">Ранее суммарная вместимость по горизонтам '
-        'давала 45/58/80 слотов. Она не учитывала сложность фактической '
-        'последовательной упаковки и отдельных внутриединичных '
-        'контрастов; не использовать её вместо подневного календаря.</p>'
-        + lower_table + '</details>'
-        + '<p class="small">В базовом варианте '
-        + str(len(empty)) + ' дней без самостоятельного смыслового контракта'
-        + (' (номера: ' + ", ".join(empty) + ')' if empty else '')
-        + '. Не утверждать их до языковой проверки. '
-        '<a href="LANGUAGE_DAY_SCHEDULE.md">Полный отчёт</a> · '
-        '<a href="LANGUAGE_PROGRAM_ROADMAP.md">Оставшиеся действия</a>.</p>'
-    )
+        c = d["cumulative"]; acc = c["introduced"]
+        rows.append((d["day"], d["stage"], ','.join(d["first_m"]) or '—', ','.join(d["first_g"]) or '—',
+          ','.join(d["first_p"]) or '—', f'{len(d["lex_A"])}/{len(d["lex_R"])}/{len(d["lex_choice"])}',
+          f'{len(d["reuse_lex_R"])}/{len(d["reuse_lex_P"])}', ','.join(d["revisit_g"]) or '—', ','.join(d["revisit_m"]) or '—',
+          f'{acc.get("lex",0)}/{acc.get("G",0)}/{acc.get("M",0)}/{c["first_independent_P"]}',
+          c["longest_unpractised_slots"], ','.join(d["early_lo"]+d["assess_lo"]) or '—'))
+        contacts = []
+        for contact in d["contacts"]:
+            activity = plan["activities"].get(contact.get("activity"))
+            target = ', '.join(items[k].get("expression",k) for k in contact["targets"])
+            if activity:
+                text = contact["phase"] + ' ' + contact["mode"] + ': ' + target + ' — ' + activity["purpose"]
+            else:
+                modes = ', '.join(items[k].get("expression",k)+':'+v for k,v in contact["modes"].items())
+                meanings = '; '.join(str(items[k]["meaning"]) for k in contact["targets"])
+                text = contact["phase"]+' · '+contact["family"]+' · вариант '+str(contact["context_variant"])+': '+modes+' — '+meanings
+            contacts.append('<li>'+esc(text)+'</li>')
+        details.append('<details class="vocab-more"><summary>День '+str(d["day"])+' · '+esc(d["stage"])+
+            '</summary><ul>'+''.join(contacts)+'</ul></details>')
+    grid = table(("День","Этап","Новое M","Новая G","Первое P","Новая лексика A/R/выбор","Возврат лексики R/P","Возврат G","Возврат M","Накоплено лекс/G/M/P","Макс. пауза","LO"),rows)
+    charts = []
+    for kind, title in (("lex","Лексические записи"),("G","Грамматические цели"),("M","Коммуникативные цели")):
+        def amount(d, old):
+            if kind == "lex":
+                return len(d["reuse_lex_R"]+d["reuse_lex_P"]) if old else len(d["lex_A"]+d["lex_R"]+d["lex_choice"])
+            return len(d["revisit_g" if kind=="G" else "revisit_m"]) if old else len(d["first_g" if kind=="G" else "first_m"])
+        peak = max(1,*(amount(d,False) for d in daily),*(amount(d,True) for d in daily))
+        points = lambda old: ' '.join(f'{20+i*920/max(1,len(daily)-1):.1f},{130-amount(d,old)*110/peak:.1f}' for i,d in enumerate(daily))
+        charts.append('<h4>'+title+'</h4><svg class="graph" viewBox="0 0 960 150" role="img" aria-label="Новые и возвращающиеся цели по дням">'
+            '<text x="2" y="16" font-size="12">'+str(peak)+'</text><text x="20" y="148" font-size="12">1</text>'
+            '<text x="915" y="148" font-size="12">'+str(len(daily))+'</text>'
+            '<line x1="20" y1="130" x2="940" y2="130" stroke="#778"/>'
+            '<polyline fill="none" stroke="#dc914b" stroke-width="2" points="'+points(False)+'"/>'
+            '<polyline fill="none" stroke="#5faeae" stroke-width="2" points="'+points(True)+'"/></svg>')
+    return ('<h2>13. Независимая накопительная языковая программа</h2>'
+        '<p>Новый и прежний материал делят вместимость дня. Первые появления, возвращения лексики R/P, G и M учитываются отдельно. '
+        'Прежние 48/65/83 — историческая неполная модель. Новый расчёт также не доказывает длительность обучения.</p>'
+        + totals + '<h3>Распределение по горизонтам</h3>' + stages
+        + '<h3>Продолжающаяся практика по дням</h3><p>Оранжевый — новые цели; бирюзовый — возвращающиеся. '
+        'По горизонтали игровые слоты, по вертикали количество целей в контактах; не выученные слова и не единая шкала трудности.</p>'
+        + ''.join(charts) + '<h3>Подневный состав и накопленные введения</h3>'+grid
+        + '<details><summary>Все контакты базового профиля</summary>'+''.join(details)+'</details>'
+        '<p>Цели не выводятся из очереди после N встреч. Варианты требуют новых фактов, адресата или жанра; '
+        'семантическую необходимость каждого значения нужно выполнить в прототипе. На P6 есть поддержанная интеграция '
+        'всего репертуара до независимых LO. Бюджеты, паузы, время F1 и перенос не проверены на A0.</p>'
+        '<p><a href="LANGUAGE_DAY_SCHEDULE.md">Подневный отчёт</a> · <a href="LANGUAGE_DAY_SCHEDULE.json">Траектории каждой цели</a> · '
+        '<a href="LANGUAGE_CUMULATIVE_POLICY.json">Гипотезы нагрузки</a></p>')
 
 
 def build(html: str, source: str, matrix: str, language: str) -> str:

@@ -21,7 +21,9 @@ jobs:
         run: python implementations/story_rpg/tools/calculate_language_days.py --check
       - name: Validate language-only daily schedule
         if: ${{ hashFiles('implementations/story_rpg/tools/plan_language_days.py') != '' }}
-        run: python implementations/story_rpg/tools/plan_language_days.py --check
+        run: |
+          python implementations/story_rpg/tools/plan_language_days.py --check
+          python -B implementations/story_rpg/tools/test_cumulative_language.py
       - name: Validate existing Story RPG HTML dashboard
         if: ${{ hashFiles('implementations/story_rpg/tools/build_day_progression_dashboard.py') != '' }}
         run: python implementations/story_rpg/tools/build_day_progression_dashboard.py --check
