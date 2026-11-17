@@ -8,6 +8,7 @@ import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
+from language_report_analytics import render_analytics, script as analytics_script, source_fingerprint
 DOCS = Path(__file__).resolve().parents[1] / "docs"
 DASHBOARD = DOCS / "ACT_DAY_PROGRESSION_DASHBOARD.html"
 
@@ -50,7 +51,19 @@ def independent_duration_html() -> str:
                 modes = ', '.join(items[k].get("expression",k)+' ('+modes_ru[v]+')' for k,v in contact["modes"].items())
                 meanings = '; '.join(' / '.join(items[k]["meaning"]) if isinstance(items[k]["meaning"],list) else items[k]["meaning"] for k in contact["targets"])
                 text = phases[contact["phase"]]+' · вариант '+str(contact["context_variant"])+': '+modes+' — '+meanings
-            contacts.append('<li>'+esc(text)+'</li>')
+            extra = ''
+            if activity:
+                stimulus = activity.get('stimulus', {})
+                for letter in ('A','B'):
+                    example = stimulus.get('example_'+letter+'_de',stimulus.get('example_'+letter))
+                    if example:
+                        extra += '<blockquote>'+esc(example)+'</blockquote>'
+                production = activity.get('production_contract')
+                if production:
+                    extra += '<p>'+esc(production['recipient_knowledge'])+'</p>'
+                if stimulus.get('support'):
+                    extra += '<p>Доступная помощь: '+esc(stimulus['support'])+'</p>'
+            contacts.append('<li>'+esc(text)+extra+'</li>')
         details.append('<details class="vocab-more" id="day-'+str(d["day"])+'"><summary>День '+str(d["day"])+' · '+esc(d["stage"])+
             '</summary><ul>'+''.join(contacts)+'</ul></details>')
     grid = table(("День","Этап","Новое M","Новая G","Первое P","Новая лексика A/R/выбор","Возврат лексики R/P","Возврат G","Возврат M","Накоплено лекс/G/M/P","Макс. пауза","LO"),rows)
@@ -130,6 +143,8 @@ def build(html: str) -> str:
     head = re.sub(r'<title>.*?</title>', '<title>Language Life Sim — накопительная языковая программа</title>', head, flags=re.DOTALL)
     if 'id="report-styles"' not in head:
         head += '<style id="report-styles">html{scroll-behavior:smooth}section,div[id]{scroll-margin-top:16px}.report-nav{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 22px}.report-nav a{padding:9px 14px;border:1px solid #b9cddd;border-radius:8px;background:#eef5fb;text-decoration:none}.report-controls{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0}.report-controls label{display:flex;gap:8px;align-items:center}.report-controls input,.report-controls select{font:inherit;padding:8px;border:1px solid #b9cddd;border-radius:6px}.trajectory-table{min-width:900px}.trajectory-table td{text-align:left!important;vertical-align:top}.trajectory-table td:nth-child(3){min-width:220px}.trajectory-table td:nth-child(5){min-width:300px}[hidden]{display:none!important}</style>'
+    if 'id="analytics-styles"' not in head:
+        head += '<style id="analytics-styles">.curriculum-matrix{display:grid;gap:2px;font-size:9px;align-items:stretch}.curriculum-matrix>span{min-height:13px}.curriculum-matrix>b{font-size:11px}.panel h3{margin-top:22px}.panel details{padding:8px;border-bottom:1px solid #d9e3ed}.panel summary{cursor:pointer}.legend{margin-bottom:20px}.panel blockquote{padding:8px 14px;background:#f1f6fa;border-left:3px solid #258375}.load-table td{vertical-align:top}</style>'
     script = '''<script>
     function filterTrajectories(){
       const profile=document.getElementById('trajectory-profile').value;
@@ -147,7 +162,7 @@ def build(html: str) -> str:
     document.getElementById('trajectory-profile').addEventListener('change',filterTrajectories);
     document.getElementById('trajectory-search').addEventListener('input',filterTrajectories);
     </script>'''
-    return head + '</head><body><main class="wrap">' + overview + independent_duration_html() + '</main>'+script+'</body></html>\n'
+    return head + '</head><body><main class="wrap">' + overview + render_analytics() + independent_duration_html() + source_fingerprint() + '</main>'+script+analytics_script()+'</body></html>\n'
 
 
 def validate_report(html):
@@ -166,11 +181,18 @@ def validate_report(html):
     nav.feed(html)
     if len(nav.ids) != len(set(nav.ids)):
         raise ValueError('Duplicate report section/control ID')
-    required = {'daily-report', 'goal-trajectories', 'workload-profiles', 'trajectory-search', 'trajectory-profile'}
+    manifest = json.loads((DOCS/'LANGUAGE_REPORT_SECTIONS.json').read_text(encoding='utf8'))
+    required = set(manifest['sections'])
+    required |= {'trajectory-search','trajectory-profile','catalog-search','catalog-role','catalog-band','catalog-group','recent-window'}
     if not required <= set(nav.ids):
         raise ValueError('Rendered report section/control missing')
     if not nav.links or any(not href.startswith('#') or href[1:] not in nav.ids for href in nav.links):
         raise ValueError('Report navigation must stay within rendered HTML')
+    for title in manifest['charts']:
+        if html_stdlib.escape(title) not in html:
+            raise ValueError('Preserved analytical graph missing: '+title)
+    if html.count('data-role=') != len(json.loads((DOCS/'LANGUAGE_LEXICAL_CATALOG.json').read_text(encoding='utf8'))['entries']):
+        raise ValueError('Full lexical catalogue missing from reader report')
 
 
 def main():
