@@ -3,6 +3,7 @@ import hashlib
 import html
 import json
 import re
+import math
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -20,22 +21,38 @@ def section(sid,title,body):
 def chart(title, series, stacked=False):
     """Independent series share a count axis only when they count the same unit."""
     count=len(series[0][1]); peak=max(1,max(sum(v[i] for _,v in series) if stacked else max(v[i] for _,v in series) for i in range(count)))
-    w,h=960,180
-    parts=['<h3>'+esc(title)+'</h3><svg class="graph" viewBox="0 0 960 180" role="img" aria-label="'+esc(title)+'">',
-           '<line x1="30" y1="155" x2="945" y2="155" stroke="#adbecb"/>']
+    # Integer counts: readable 1/2/5/10-based ticks, never fractional targets.
+    raw=max(1,peak/5);base=10**math.floor(math.log10(raw))
+    step=next(v*base for v in (1,2,5,10) if v*base>=raw)
+    ymax=math.ceil(peak/step)*step
+    x=lambda i:55+i*885/max(1,count-1)
+    y=lambda value:215-value*190/ymax
+    parts=['<h3>'+esc(title)+'</h3><svg class="graph" data-days="'+str(count)+'" viewBox="0 0 960 260" role="img" aria-label="'+esc(title)+'">']
+    for value in range(0,int(ymax)+1,int(step)):
+        parts.append(f'<line x1="55" y1="{y(value):.2f}" x2="940" y2="{y(value):.2f}" stroke="#d9e3ed"/><text x="45" y="{y(value)+4:.2f}" text-anchor="end" font-size="12">{value}</text>')
+    day_step=1 if count<=10 else 5 if count<=50 else 10 if count<=120 else 20
+    ticks=sorted({1,count,*range(day_step,count,day_step)})
+    for day in ticks:
+        parts.append(f'<line x1="{x(day-1):.2f}" y1="25" x2="{x(day-1):.2f}" y2="215" stroke="#e6edf4"/><text x="{x(day-1):.2f}" y="238" text-anchor="middle" font-size="12">{day}</text>')
+    parts.append('<text x="500" y="257" text-anchor="middle" font-size="12">Игровой день</text>')
     if stacked:
         for i in range(count):
-            y=155
+            top=215
             for j,(name,values) in enumerate(series):
-                height=values[i]*130/peak
+                height=values[i]*190/ymax
                 if height:
-                    parts.append(f'<rect x="{30+i*915/count:.2f}" y="{y-height:.2f}" width="{max(1,915/count):.2f}" height="{height:.2f}" fill="{COLORS[j%len(COLORS)]}"><title>{esc(name)} · день {i+1}: {values[i]}</title></rect>')
-                y-=height
+                    parts.append(f'<rect x="{55+i*885/count:.2f}" y="{top-height:.2f}" width="{max(1,885/count):.2f}" height="{height:.2f}" fill="{COLORS[j%len(COLORS)]}"><title>{esc(name)} · день {i+1}: {values[i]}</title></rect>')
+                top-=height
     else:
         for j,(name,values) in enumerate(series):
-            points=' '.join(f'{30+i*915/max(1,count-1):.2f},{155-v*130/peak:.2f}' for i,v in enumerate(values))
+            points=' '.join(f'{x(i):.2f},{y(v):.2f}' for i,v in enumerate(values))
             parts.append('<polyline fill="none" stroke="'+COLORS[j%len(COLORS)]+'" stroke-width="2" points="'+points+'"><title>'+esc(name)+'</title></polyline>')
-    parts.append(f'<text x="3" y="22" font-size="12">{peak}</text><text x="30" y="175" font-size="12">День 1</text><text x="890" y="175" font-size="12">{count}</text></svg>')
+    if not stacked:
+        for i in range(count):
+            tooltip='День '+str(i+1)+'; '+'; '.join(name+': '+str(values[i]) for name,values in series)
+            width=885/max(1,count-1)
+            parts.append(f'<rect class="chart-day-hit" x="{max(55,x(i)-width/2):.2f}" y="25" width="{width:.2f}" height="190" fill="transparent"><title>{esc(tooltip)}</title></rect>')
+    parts.append('</svg>')
     parts.append('<div class="legend">'+''.join('<span><i style="display:inline-block;width:12px;height:12px;background:'+COLORS[j%len(COLORS)]+'"></i> '+esc(name)+'</span>' for j,(name,_) in enumerate(series))+'</div>')
     return ''.join(parts)
 def matrix(kind,items,days):
@@ -66,9 +83,23 @@ def render_analytics():
     newlex=[len(d['lex_A']+d['lex_R']+d['lex_choice']) for d in days]
     oldlex=[len(d['reuse_lex_R']+d['reuse_lex_P']) for d in days]
     def cumulative(kind):return [d['cumulative']['introduced'].get(kind,0) for d in days]
+    selected={it['expression'] for it in items.values() if it['kind']=='lex'}
+    selected_roles=Counter(e['learning_scope']['track'] for e in lex['entries'] if e['text'] in selected)
+    all_roles=Counter(e['learning_scope']['track'] for e in lex['entries'])
+    breakdown=table(('Роль','В полном каталоге','В текущем плане практики','Вне выбранного плана'),
+        [(ROLES[role],all_roles[role],selected_roles[role],all_roles[role]-selected_roles[role]) for role in ROLES]+
+        [('Всего',len(lex['entries']),len(selected),len(lex['entries'])-len(selected))])
     parts.append(section('curriculum-growth','Накопление программы',
         '<p>Введённый репертуар и продолжение его практики — разные показатели. Кривые показывают план, а не знания учащегося.</p>'+
+        '<p><b>Почему '+str(len(selected))+', а не '+str(len(lex['entries']))+'?</b> '+str(len(lex['entries']))+' — полный каталог выражений/форм. '
+        'На графике — '+str(len(selected))+' записей, выбранных для распределённой практики: 200 активного ядра + 254 рецептивного ядра + 13 конкретных опор свободного выбора. '
+        'Оставшиеся 110 вариантов выбора и 135 контекстных выражений сохранены в каталоге, но им не назначена обязательная подневная траектория. '
+        'Это граница текущего плана, а не утверждение, что остальные выражения изучены или не нужны. Все записи можно посмотреть в <a href="#lexical-catalogue">полном каталоге ниже</a>.</p>'+breakdown+
+        '<p>Зелёная линия — сколько разных выбранных записей введено к этому дню; синяя — сколько из них уже получили хотя бы одно последующее применение. '
+        'Наведите на график для точных значений дня. Разность зелёной линии между соседними днями — число новых фокусов.</p>'+
         chart('Накопленный выбранный словарь',[('Введено выражений/форм',cumulative('lex')),('Хотя бы раз возвращались',[d['cumulative']['reused'].get('lex',0) for d in days])])+
+        '<details><summary>Точные значения роста словаря по каждому дню</summary>'+table(('День','Новых выражений/форм','Всего введено к дню','Хотя бы раз возвращались'),
+        [(d['day'],newlex[i],cumulative('lex')[i],d['cumulative']['reused'].get('lex',0)) for i,d in enumerate(days)])+'</details>'+
         chart('Накопленные грамматические и коммуникативные возможности',[('Грамматика G',cumulative('G')),('Общение M',cumulative('M')),('Первое самостоятельное P',[d['cumulative']['first_independent_P'] for d in days])])))
     parts.append(section('novelty-load','Новизна и совместная нагрузка',
         '<p>Количество целей не является шкалой когнитивной трудности. Новая лексика, грамматика, общение и контакты показаны раздельно; прежняя экспертная сложность сюжетных дней сюда не переносится.</p>'+
@@ -187,12 +218,18 @@ def script():
     function drawRecent(){
       const windowSize=Number(document.getElementById('recent-window').value);
       const visits=JSON.parse(document.getElementById('recent-data').textContent);
-      const total=Number(document.querySelector('#recent-chart svg text:last-of-type').textContent)||212;
+      const total=Number(document.querySelector('#recent-chart svg').dataset.days);
       const values=Array.from({length:total},(_,i)=>visits.filter(days=>days.some(d=>d>=Math.max(1,i+2-windowSize)&&d<=i+1)).length);
       const peak=Math.max(1,...values),ns='http://www.w3.org/2000/svg';
-      const svg=document.createElementNS(ns,'svg');svg.setAttribute('class','graph');svg.setAttribute('viewBox','0 0 960 180');svg.setAttribute('role','img');svg.setAttribute('aria-label','Репертуар в окне последних '+windowSize+' слотов');
-      const line=document.createElementNS(ns,'polyline');line.setAttribute('fill','none');line.setAttribute('stroke','#258375');line.setAttribute('stroke-width','2');line.setAttribute('points',values.map((v,i)=>(30+i*915/Math.max(1,total-1))+','+(155-v*130/peak)).join(' '));svg.appendChild(line);
-      [[3,22,String(peak)],[30,175,'День 1'],[890,175,String(total)]].forEach(([x,y,value])=>{const t=document.createElementNS(ns,'text');t.setAttribute('x',x);t.setAttribute('y',y);t.setAttribute('font-size','12');t.textContent=value;svg.appendChild(t)});
+      const raw=Math.max(1,peak/5),base=10**Math.floor(Math.log10(raw)),step=[1,2,5,10].map(v=>v*base).find(v=>v>=raw),ymax=Math.ceil(peak/step)*step;
+      const x=i=>55+i*885/Math.max(1,total-1),y=v=>215-v*190/ymax;
+      const svg=document.createElementNS(ns,'svg');svg.setAttribute('class','graph');svg.dataset.days=total;svg.setAttribute('viewBox','0 0 960 260');svg.setAttribute('role','img');svg.setAttribute('aria-label','Репертуар в окне последних '+windowSize+' слотов');
+      let grid='';
+      for(let v=0;v<=ymax;v+=step)grid+=`<line x1="55" x2="940" y1="${y(v)}" y2="${y(v)}" stroke="#d9e3ed"/><text x="45" y="${y(v)+4}" text-anchor="end" font-size="12">${v}</text>`;
+      const ticks=new Set([1,total]);for(let day=20;day<total;day+=20)ticks.add(day);
+      [...ticks].sort((a,b)=>a-b).forEach(day=>{grid+=`<line x1="${x(day-1)}" x2="${x(day-1)}" y1="25" y2="215" stroke="#e6edf4"/><text x="${x(day-1)}" y="238" text-anchor="middle" font-size="12">${day}</text>`});
+      svg.innerHTML=grid+'<text x="500" y="257" text-anchor="middle" font-size="12">Игровой день</text>';
+      const line=document.createElementNS(ns,'polyline');line.setAttribute('fill','none');line.setAttribute('stroke','#258375');line.setAttribute('stroke-width','2');line.setAttribute('points',values.map((v,i)=>x(i)+','+y(v)).join(' '));svg.appendChild(line);
       document.getElementById('recent-chart').replaceChildren(svg);
     }
     document.getElementById('recent-window').addEventListener('change',drawRecent);

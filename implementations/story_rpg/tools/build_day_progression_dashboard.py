@@ -8,7 +8,7 @@ import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
-from language_report_analytics import render_analytics, script as analytics_script, source_fingerprint
+from language_report_analytics import render_analytics, script as analytics_script, source_fingerprint, chart
 DOCS = Path(__file__).resolve().parents[1] / "docs"
 DASHBOARD = DOCS / "ACT_DAY_PROGRESSION_DASHBOARD.html"
 
@@ -73,14 +73,7 @@ def independent_duration_html() -> str:
             if kind == "lex":
                 return len(d["reuse_lex_R"]+d["reuse_lex_P"]) if old else len(d["lex_A"]+d["lex_R"]+d["lex_choice"])
             return len(d["revisit_g" if kind=="G" else "revisit_m"]) if old else len(d["first_g" if kind=="G" else "first_m"])
-        peak = max(1,*(amount(d,False) for d in daily),*(amount(d,True) for d in daily))
-        points = lambda old: ' '.join(f'{20+i*920/max(1,len(daily)-1):.1f},{130-amount(d,old)*110/peak:.1f}' for i,d in enumerate(daily))
-        charts.append('<h4>'+title+'</h4><svg class="graph" viewBox="0 0 960 150" role="img" aria-label="Новые и возвращающиеся цели по дням">'
-            '<text x="2" y="16" font-size="12">'+str(peak)+'</text><text x="20" y="148" font-size="12">1</text>'
-            '<text x="915" y="148" font-size="12">'+str(len(daily))+'</text>'
-            '<line x1="20" y1="130" x2="940" y2="130" stroke="#778"/>'
-            '<polyline fill="none" stroke="#dc914b" stroke-width="2" points="'+points(False)+'"/>'
-            '<polyline fill="none" stroke="#5faeae" stroke-width="2" points="'+points(True)+'"/></svg>')
+        charts.append(chart(title, [('Новые цели',[amount(d,False) for d in daily]), ('Возвращающиеся цели',[amount(d,True) for d in daily])]))
     trajectory_panels = []
     for name, profile in profiles.items():
         trows = []
