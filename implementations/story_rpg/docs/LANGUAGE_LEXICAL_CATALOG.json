@@ -23266,5 +23266,11 @@
     "scope_interpretation": "Core indicates which meanings need active use or receptive understanding across the curriculum; not rote recall of every entry on first use. focus_band is a planned practice window, not a lock; P6 has no new mandatory vocabulary, and approved F1 is accessible from start.",
     "independent_outcomes_lexically_traced": 13,
     "lexical_coverage_method": "22 language-only semantic contracts mapped to all 13 outcome IDs, Goethe A1 thematic coverage by domain; not word-by-word Goethe list matching or player testing."
+  },
+  "cumulative_practice_scope": {
+    "coverage": "all_catalogue_entries",
+    "role_is_not_exclusion": true,
+    "status": "preliminary_ready_not_learner_mastery",
+    "rule_ru": "Все записи получают знакомство и последующее применение. Продукция смысла ограничена минимумом M/G; контекстные записи имеют рецептивную практику. Наличие в программе не доказывает запоминания."
   }
 }

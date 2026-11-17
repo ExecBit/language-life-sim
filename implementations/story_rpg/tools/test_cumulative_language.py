@@ -22,6 +22,16 @@ class CumulativeCurriculumTests(unittest.TestCase):
                 if kind["kind"] == "lex" and kind["mode"] == "P" and kind["expression"] not in ("ich verstehe nicht", "noch einmal", "Wie bitte?"):
                     self.assertTrue(any(x["mode"] == "P" for x in late), key)
 
+    def test_entire_catalogue_has_practice_regardless_of_legacy_role(self):
+        entries=curriculum.read('LANGUAGE_LEXICAL_CATALOG.json')['entries']
+        targets={it['expression']:key for key,it in self.plan['learning_items'].items() if it['kind']=='lex'}
+        self.assertEqual(set(targets),{e['text'] for e in entries})
+        for e in entries:
+            for profile in self.plan['profiles'].values():
+                visits=profile['trajectories'][targets[e['text']]]
+                self.assertEqual(visits[0]['phase'],'introduction')
+                self.assertTrue(any(v['phase'] in ('reuse','late_integration') for v in visits[1:]),e['text'])
+
     def test_known_repertoire_is_not_dropped_while_new_material_continues(self):
         for profile in self.plan["profiles"].values():
             for d in profile["days"][1:]:

@@ -125,13 +125,15 @@ def build(html: str) -> str:
     plan = json.loads((DOCS / "LANGUAGE_DAY_SCHEDULE.json").read_text(encoding="utf-8"))
     overview = ('<header><div><div class="eyebrow">Language Life Sim · Языковая программа</div>'
                 '<h1>Накопление языка и нагрузка по дням</h1>'
+                '<p><b>Языковая практика предварительно готова как полный накопительный план.</b> '
+                'Все выражения каталога имеют знакомство и дальнейшее применение. Это не подтверждение запоминания или достижения A1.</p>'
                 '<p>Независимый план лексики, грамматики и коммуникативных R/P. '
                 'Ни один срок пока не подтверждён на учащихся. Все разделы отчёта открываются прямо на этой странице.</p>'
                 '</div></header><div class="stats">')
     for name, label in (("compact", "Компактный"), ("baseline", "Базовый"), ("gentle", "Бережный")):
         overview += '<div class="stat"><strong>'+str(plan['profiles'][name]['total_days'])+'</strong><span>'+label+' · проектные языковые слоты</span></div>'
     count = sum(it['kind']=='lex' for it in plan['learning_items'].values())
-    overview += '<div class="stat"><strong>'+str(count)+'</strong><span>выбранных выражений/форм · не выученных слов</span></div></div>'
+    overview += '<div class="stat"><strong>'+str(count)+'</strong><span>весь каталог в практике · выражения/формы, не выученные слова</span></div></div>'
     head = html.split('</head>', 1)[0]
     head = re.sub(r'<title>.*?</title>', '<title>Language Life Sim — накопительная языковая программа</title>', head, flags=re.DOTALL)
     if 'id="report-styles"' not in head:

@@ -37,17 +37,14 @@ def source_model():
     for g in grammar["items"]:
         items[g["id"]] = dict(kind="G", mode="R", family=family(g["semantic_M"]), source_unit=g["unit"],
                                meaning=g["meaning_difference"], productive_M=g["semantic_M"] if g["minimum"]=="P" else None)
-    chosen = {a["expression"] for u in program["items"] for a in u["lexical_anchors"] if a["obligation"]=="functional_candidate"}
     for i,e in enumerate(lex["entries"], 1):
         track = e["learning_scope"]["track"]
-        if track not in ("active_core", "receptive_core") and e["text"] not in chosen:
-            continue
         items[f"LX{i:03}"] = dict(kind="lex", expression=e["text"], track=track,
-            mode="R" if track=="receptive_core" else "P", meaning=e["draft_ru_meanings"],
+            mode="R" if track in ("receptive_core","contextual") or PRODUCTIVE_AFTER[e["occurrences"][0]["group"]] not in productive else "P", meaning=e["draft_ru_meanings"],
             family=f'L{GROUP_CONTRACT[e["occurrences"][0]["group"]]:02}',
             productive_after=PRODUCTIVE_AFTER[e["occurrences"][0]["group"]],
             production_policy="meaning_not_mandatory_surface_or_tense_paradigm",
-            focus_band=e["learning_scope"]["focus_band"], selected_choice=track not in ("active_core", "receptive_core"))
+            focus_band=e["learning_scope"]["focus_band"], selected_choice=track=="productive_choice")
     lexical = {it["expression"]: k for k,it in items.items() if it["kind"]=="lex"}
     aliases = defaultdict(set)
     for a in lex["program_form_alias_candidates"]:
@@ -218,13 +215,16 @@ def pack(profile,items,activities,sequence,policy):
 def build():
     items,activities,sequence,contracts=source_model()
     policy=read("LANGUAGE_CUMULATIVE_POLICY.json")
-    return dict(version="2.0",status="cumulative_opportunity_design_not_learner_mastery",baseline_profile="baseline",
+    return dict(version="2.1",status="preliminary_complete_catalogue_practice_not_learner_mastery",baseline_profile="baseline",
         policy=policy,learning_items=items,activities=activities,semantic_contracts=contracts,
         profiles={p:pack(p,items,activities,sequence,policy) for p in PROFILES})
 
 def validate(plan):
     items,activities,sequence,_=source_model()
     if plan["learning_items"]!=items or plan["activities"]!=activities: raise ValueError("Source model changed")
+    catalogue={e['text'] for e in read('LANGUAGE_LEXICAL_CATALOG.json')['entries']}
+    if {it['expression'] for it in items.values() if it['kind']=='lex'} != catalogue:
+        raise ValueError('A catalogue expression was excluded from cumulative practice')
     expected=[a for s in STAGES for a in sequence[s]]
     for profile,p in plan["profiles"].items():
         first,late,order,p_seen={},set(),[],set()
@@ -235,7 +235,9 @@ def validate(plan):
             b=plan["policy"]["profiles"][profile];caps=caps_for(profile,d["stage"])
             if not d["contacts"] or len(d["contacts"])>b["contacts"]: raise ValueError("Contact budget")
             if len(d["lex_A"]+d["lex_R"]+d["lex_choice"])>b["new_lex"]: raise ValueError("Joint lexical budget")
-            if len(d["lex_A"]+d["lex_choice"])>caps["A"] or len(d["lex_R"])>caps["R"]: raise ValueError("Lexical axis budget")
+            introduced=[k for c in d['contacts'] if c['phase']=='introduction' for k in c['targets']]
+            if sum(items[k]['mode']=='P' for k in introduced)>caps['A'] or sum(items[k]['mode']=='R' for k in introduced)>caps['R']:
+                raise ValueError("Lexical axis budget")
             if len(d["first_m"])>caps["M"] or len(d["first_p"])>caps["P"]: raise ValueError("M/P budget")
             gc=0
             for c in d["contacts"]:
@@ -267,7 +269,7 @@ def render(plan):
     lines=["# Накопительная языковая программа по дням","",
         "**Проект возможностей практики, не измерение усвоения.** Входы полностью независимы от сюжета. Прежние 48/65/83 учитывали неполный объём; новая длительность включает продолжающуюся практику.","",
         "## Состав и метод","",
-        f"В репертуаре {sum(x['kind']=='lex' for x in items.values())} выбранных выражений/форм, 55 M и 34 G. Это не леммы и не выученные слова. Включены 454 записи функционального ядра и выбранные функциональные опоры; остальной каталог остаётся справочником и открытым выбором.","",
+        f"В репертуаре весь каталог: {sum(x['kind']=='lex' for x in items.values())} выражений/форм, 55 M и 34 G. Каждой записи назначены знакомство и дальнейшее применение. Активные роли практикуются через собственный смысловой ответ с учётом продуктивного минимума M/G; рецептивные и контекстные — через понимание. Например, личные отношения M36 сохраняют R-минимум. Роль не исключает запись из практики. Это не леммы и не выученные слова; точное воспроизведение каждой формы по памяти не требуется.","",
         "Первая необходимая лексика готовится до использующего её контакта. Совместная G-пара не разрывается; отдельный G-контраст и самостоятельный P идут последовательно. Ранний LO привязан к завершению единицы.","",
         "Прежний репертуар остаётся в очереди: дольше не использованные цели получают приоритет. Контакты нового и прежнего делят общую вместимость дня. На P6 весь репертуар участвует в поддержанной интеграции до независимых LO. Это критерий охвата, не число повторений для запоминания и не экзамен по каждому слову.","",
         "Каждый возврат связан с конкретным смысловым семейством и R/P. Вариант 1 требует изменить факты, 2 — адресата, 3 — жанр. Значение каждой отмеченной цели должно менять понимание/сообщение. Фоновое упоминание не засчитывается. Это требования к ситуациям: их семантическая реализация ещё не проверена.","",

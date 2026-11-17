@@ -9,7 +9,7 @@ from pathlib import Path
 
 DOCS = Path(__file__).resolve().parents[1] / 'docs'
 COLORS = ('#258375','#3c69ab','#bc7f36','#9761ad','#c15d76','#627f8a','#79a936','#b47e57','#675bb4','#df9549','#388dba','#a36685','#46705c')
-ROLES = {'active_core':'Активное ядро','receptive_core':'Понимание','productive_choice':'Свободный выбор','contextual':'Контекст и справочник'}
+ROLES = {'active_core':'Активное ядро','receptive_core':'Рецептивное ядро','productive_choice':'Расширение активной лексики','contextual':'Контекстная лексика (чтение)'}
 def read(name):
     return json.loads((DOCS/name).read_text(encoding='utf8'))
 def esc(value):
@@ -91,10 +91,10 @@ def render_analytics():
         [('Всего',len(lex['entries']),len(selected),len(lex['entries'])-len(selected))])
     parts.append(section('curriculum-growth','Накопление программы',
         '<p>Введённый репертуар и продолжение его практики — разные показатели. Кривые показывают план, а не знания учащегося.</p>'+
-        '<p><b>Почему '+str(len(selected))+', а не '+str(len(lex['entries']))+'?</b> '+str(len(lex['entries']))+' — полный каталог выражений/форм. '
-        'На графике — '+str(len(selected))+' записей, выбранных для распределённой практики: 200 активного ядра + 254 рецептивного ядра + 13 конкретных опор свободного выбора. '
-        'Оставшиеся 110 вариантов выбора и 135 контекстных выражений сохранены в каталоге, но им не назначена обязательная подневная траектория. '
-        'Это граница текущего плана, а не утверждение, что остальные выражения изучены или не нужны. Все записи можно посмотреть в <a href="#lexical-catalogue">полном каталоге ниже</a>.</p>'+breakdown+
+        '<p><b>В практике — весь каталог: '+str(len(selected))+' из '+str(len(lex['entries']))+' выражений/форм.</b> '
+        'Каждой записи назначены знакомство и последующее применение. Активные роли получают собственный смысловой ответ в пределах продуктивного минимума M/G; '
+        'рецептивные и контекстные выражения — чтение и понимание. Ограничение M36 рецепцией сохраняется. Эти роли больше не исключают выражения из расписания. '
+        'Требование практики не означает обязательного воспроизведения всех форм по памяти.</p>'+breakdown+
         '<p>Зелёная линия — сколько разных выбранных записей введено к этому дню; синяя — сколько из них уже получили хотя бы одно последующее применение. '
         'Наведите на график для точных значений дня. Разность зелёной линии между соседними днями — число новых фокусов.</p>'+
         chart('Накопленный выбранный словарь',[('Введено выражений/форм',cumulative('lex')),('Хотя бы раз возвращались',[d['cumulative']['reused'].get('lex',0) for d in days])])+
@@ -186,7 +186,7 @@ def render_analytics():
         catrows.append('<tr data-role="'+scope['track']+'" data-band="'+scope['focus_band']+'" data-groups="'+','.join(map(str,groups))+'">'+''.join('<td>'+esc(v)+'</td>' for v in (e['text'],' / '.join(e['draft_ru_meanings']),ROLES[scope['track']],scope['focus_band'],', '.join(map(str,groups)),'В плане' if selected else 'Доступный выбор/справочник'))+'</tr>')
     roles=Counter(e['learning_scope']['track'] for e in lex['entries'])
     parts.append(section('lexical-catalogue','Полный лексический каталог',
-        '<p>'+str(len(lex['entries']))+' выражений/форм, '+str(sum(len(e['occurrences']) for e in lex['entries']))+' тематических вхождений. Каталог шире выбранного репертуара практики; доступность не означает обязательного запоминания. Русские значения — редакционные кандидаты.</p>'+
+        '<p>'+str(len(lex['entries']))+' выражений/форм, '+str(sum(len(e['occurrences']) for e in lex['entries']))+' тематических вхождений. Весь каталог включён в накопительную практику; участие в плане не означает подтверждённого запоминания. Русские значения — редакционные кандидаты.</p>'+
         table(('Роль','Записей'),[(ROLES[k],v) for k,v in roles.items()])+controls+'<p>Показано: <strong id="catalog-count">'+str(len(catrows))+'</strong></p>'+
         '<div class="heatwrap"><table class="load-table trajectory-table" id="catalog-table"><thead><tr>'+''.join('<th>'+h+'</th>' for h in ('Выражение','Значение','Роль','Этап','Группы','Применение'))+'</tr></thead><tbody>'+''.join(catrows)+'</tbody></table></div>'))
     parts.append(section('input-output','Объём Input / Output: что известно и чего ещё нет',
