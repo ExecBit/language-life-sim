@@ -6,12 +6,13 @@ import html as html_stdlib
 import json
 import re
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
 DOCS = Path(__file__).resolve().parents[1] / "docs"
 DASHBOARD = DOCS / "ACT_DAY_PROGRESSION_DASHBOARD.html"
 
 def independent_duration_html() -> str:
-    """Only this section reads the cumulative curriculum; story DATA is unchanged."""
+    """Render a self-contained report, including every former source-file link."""
     plan = json.loads((DOCS / "LANGUAGE_DAY_SCHEDULE.json").read_text(encoding="utf-8"))
     items = plan["learning_items"]
     esc = lambda v: html_stdlib.escape(str(v), quote=True)
@@ -21,12 +22,15 @@ def independent_duration_html() -> str:
     def table(headers, rows):
         return '<div class="heatwrap"><table class="load-table"><thead>' + row(headers, True) + '</thead><tbody>' + ''.join(row(r) for r in rows) + '</tbody></table></div>'
     profiles = plan["profiles"]
+    labels = {"compact":"Компактный", "baseline":"Базовый", "gentle":"Бережный"}
+    phases = {"introduction":"Знакомство со значением", "reception":"Понимание текста", "grammar":"Грамматическое различие", "production":"Самостоятельное сообщение", "extension":"Числа и время", "assessment":"Независимая проверка", "reuse":"Повторное применение", "late_integration":"Позднее применение"}
+    modes_ru = {"R":"чтение", "P":"собственный ответ", "P-meaning":"собственный ответ по смыслу"}
     daily = profiles["baseline"]["days"]
     totals = table(("Профиль", "Дни", "Контактов/день", "Новых максимум", "Новая лексика", "Лексика в возврате"),
-        [(name, p["total_days"], plan["policy"]["profiles"][name]["contacts"],
+        [(labels[name], p["total_days"], plan["policy"]["profiles"][name]["contacts"],
           plan["policy"]["profiles"][name]["new_contacts"], plan["policy"]["profiles"][name]["new_lex"],
           plan["policy"]["profiles"][name]["reuse_lex"]) for name,p in profiles.items()])
-    stages = table(("Этап", "compact", "baseline", "gentle"),
+    stages = table(("Этап", "Компактный", "Базовый", "Бережный"),
         [(stage, *(profiles[n]["stages"][stage]["proposed_days"] for n in ("compact", "baseline", "gentle"))) for stage in profiles["baseline"]["stages"]])
     rows, details = [], []
     for d in daily:
@@ -41,13 +45,13 @@ def independent_duration_html() -> str:
             activity = plan["activities"].get(contact.get("activity"))
             target = ', '.join(items[k].get("expression",k) for k in contact["targets"])
             if activity:
-                text = contact["phase"] + ' ' + contact["mode"] + ': ' + target + ' — ' + activity["purpose"]
+                text = phases[contact["phase"]] + ' (' + modes_ru[contact["mode"]] + '): ' + target + ' — ' + activity["purpose"]
             else:
-                modes = ', '.join(items[k].get("expression",k)+':'+v for k,v in contact["modes"].items())
-                meanings = '; '.join(str(items[k]["meaning"]) for k in contact["targets"])
-                text = contact["phase"]+' · '+contact["family"]+' · вариант '+str(contact["context_variant"])+': '+modes+' — '+meanings
+                modes = ', '.join(items[k].get("expression",k)+' ('+modes_ru[v]+')' for k,v in contact["modes"].items())
+                meanings = '; '.join(' / '.join(items[k]["meaning"]) if isinstance(items[k]["meaning"],list) else items[k]["meaning"] for k in contact["targets"])
+                text = phases[contact["phase"]]+' · вариант '+str(contact["context_variant"])+': '+modes+' — '+meanings
             contacts.append('<li>'+esc(text)+'</li>')
-        details.append('<details class="vocab-more"><summary>День '+str(d["day"])+' · '+esc(d["stage"])+
+        details.append('<details class="vocab-more" id="day-'+str(d["day"])+'"><summary>День '+str(d["day"])+' · '+esc(d["stage"])+
             '</summary><ul>'+''.join(contacts)+'</ul></details>')
     grid = table(("День","Этап","Новое M","Новая G","Первое P","Новая лексика A/R/выбор","Возврат лексики R/P","Возврат G","Возврат M","Накоплено лекс/G/M/P","Макс. пауза","LO"),rows)
     charts = []
@@ -64,19 +68,51 @@ def independent_duration_html() -> str:
             '<line x1="20" y1="130" x2="940" y2="130" stroke="#778"/>'
             '<polyline fill="none" stroke="#dc914b" stroke-width="2" points="'+points(False)+'"/>'
             '<polyline fill="none" stroke="#5faeae" stroke-width="2" points="'+points(True)+'"/></svg>')
-    return ('<h2>Накопительный языковой календарь</h2>'
+    trajectory_panels = []
+    for name, profile in profiles.items():
+        trows = []
+        for key, visits in profile['trajectories'].items():
+            item = items[key]
+            title = item.get('expression',key)
+            meaning = ' / '.join(item['meaning']) if isinstance(item['meaning'],list) else item['meaning']
+            kind = {'lex':'Лексика','G':'Грамматика','M':'Общение'}[item['kind']]
+            first = visits[0]['day']
+            later = visits[1:]
+            gap = max((b['day']-a['day'] for a,b in zip(visits,visits[1:])),default=0)
+            timeline = ', '.join(str(v['day'])+' ('+modes_ru[v['mode']]+')' for v in later) or '—'
+            trows.append(row((title,kind,meaning,first,timeline,gap)))
+        trajectory_panels.append('<div class="trajectory-profile" data-profile="'+name+'"'+(' hidden' if name!='baseline' else '')+'>'
+            '<p>'+labels[name]+': '+str(profile['total_days'])+' дней. Найдено целей: <strong class="match-count">'+str(len(trows))+'</strong>.</p>'
+            '<div class="heatwrap"><table class="load-table trajectory-table"><thead>'+row(('Цель','Тип','Проверяемый смысл','Первый день','Последующие дни и режим','Наибольшая пауза'),True)
+            +'</thead><tbody>'+''.join(trows)+'</tbody></table></div></div>')
+    trajectories = ('<section class="panel" id="goal-trajectories"><h2>Траектории каждой цели</h2>'
+        '<p>Найдите слово, грамматическую или коммуникативную цель. Здесь показаны дни знакомства и дальнейшего применения. '
+        'Это план практики, а не измерение памяти.</p><div class="report-controls">'
+        '<label>Профиль <select id="trajectory-profile"><option value="baseline">Базовый</option><option value="compact">Компактный</option><option value="gentle">Бережный</option></select></label> '
+        '<label>Поиск <input id="trajectory-search" type="search" placeholder="Например: Buch, отрицание, M14" /></label></div>'
+        +''.join(trajectory_panels)+'</section>')
+    rules = ''.join('<li>'+esc(rule)+'</li>' for rule in plan['policy']['rules'])
+    workload = ('<section class="panel" id="workload-profiles"><h2>Гипотезы нагрузки</h2>'
+        '<p>«Контакт» — возможность понять или передать нужный смысл. Новые и возвращающиеся контакты делят общую вместимость дня. '
+        'Лексические фокусы — выражения и формы, а не число выученных слов.</p>'+totals+
+        '<ul>'+rules+'</ul><p>Число дней зависит от этих предположений. Допустимую нагрузку и реальные интервалы предстоит проверить на начинающих; '
+        '138/212/404 не являются доказанными сроками достижения A1.</p></section>')
+    navigation = ('<nav class="report-nav" aria-label="Разделы отчёта"><a href="#daily-report">Подневный отчёт</a>'
+        '<a href="#goal-trajectories">Траектории каждой цели</a><a href="#workload-profiles">Гипотезы нагрузки</a></nav>')
+    return ('<section class="panel" id="language-duration">'+navigation+'<h2>Накопительный языковой календарь</h2>'
         '<p>Новый и прежний материал делят вместимость дня. Первые появления, возвращения лексики R/P, G и M учитываются отдельно. '
         'Прежние 48/65/83 — историческая неполная модель. Новый расчёт также не доказывает длительность обучения.</p>'
         + totals + '<h3>Распределение по горизонтам</h3>' + stages
         + '<h3>Продолжающаяся практика по дням</h3><p>Оранжевый — новые цели; бирюзовый — возвращающиеся. '
         'По горизонтали игровые слоты, по вертикали количество целей в контактах; не выученные слова и не единая шкала трудности.</p>'
-        + ''.join(charts) + '<h3>Подневный состав и накопленные введения</h3>'+grid
-        + '<details><summary>Все контакты базового профиля</summary>'+''.join(details)+'</details>'
+        + ''.join(charts) + '<div id="daily-report"><h3>Подневный отчёт — базовый профиль</h3>'
+        '<p>R — понимание текста, P — собственный письменный ответ; G — грамматика, M — коммуникативная функция. '
+        'Ниже можно раскрыть содержание каждого дня.</p>'+grid
+        + '<details id="daily-contacts" open><summary>Содержание всех дней базового профиля</summary>'+''.join(details)+'</details></div>'
         '<p>Цели не выводятся из очереди после N встреч. Варианты требуют новых фактов, адресата или жанра; '
         'семантическую необходимость каждого значения нужно выполнить в прототипе. На P6 есть поддержанная интеграция '
         'всего репертуара до независимых LO. Бюджеты, паузы, время F1 и перенос не проверены на A0.</p>'
-        '<p><a href="LANGUAGE_DAY_SCHEDULE.md">Подневный отчёт</a> · <a href="LANGUAGE_DAY_SCHEDULE.json">Траектории каждой цели</a> · '
-        '<a href="LANGUAGE_CUMULATIVE_POLICY.json">Гипотезы нагрузки</a></p>')
+        +navigation+'</section>'+trajectories+workload)
 
 
 def build(html: str) -> str:
@@ -84,7 +120,7 @@ def build(html: str) -> str:
     overview = ('<header><div><div class="eyebrow">Language Life Sim · Языковая программа</div>'
                 '<h1>Накопление языка и нагрузка по дням</h1>'
                 '<p>Независимый план лексики, грамматики и коммуникативных R/P. '
-                'Ни один срок пока не подтверждён на учащихся. Старый сюжет доступен отдельно в свёрнутом архиве внизу.</p>'
+                'Ни один срок пока не подтверждён на учащихся. Все разделы отчёта открываются прямо на этой странице.</p>'
                 '</div></header><div class="stats">')
     for name, label in (("compact", "Компактный"), ("baseline", "Базовый"), ("gentle", "Бережный")):
         overview += '<div class="stat"><strong>'+str(plan['profiles'][name]['total_days'])+'</strong><span>'+label+' · проектные языковые слоты</span></div>'
@@ -92,7 +128,49 @@ def build(html: str) -> str:
     overview += '<div class="stat"><strong>'+str(count)+'</strong><span>выбранных выражений/форм · не выученных слов</span></div></div>'
     head = html.split('</head>', 1)[0]
     head = re.sub(r'<title>.*?</title>', '<title>Language Life Sim — накопительная языковая программа</title>', head, flags=re.DOTALL)
-    return head + '</head><body><main class="wrap">' + overview + '<section class="panel" id="language-duration">' + independent_duration_html() + '</section></main></body></html>\n'
+    if 'id="report-styles"' not in head:
+        head += '<style id="report-styles">html{scroll-behavior:smooth}section,div[id]{scroll-margin-top:16px}.report-nav{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 22px}.report-nav a{padding:9px 14px;border:1px solid #b9cddd;border-radius:8px;background:#eef5fb;text-decoration:none}.report-controls{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0}.report-controls label{display:flex;gap:8px;align-items:center}.report-controls input,.report-controls select{font:inherit;padding:8px;border:1px solid #b9cddd;border-radius:6px}.trajectory-table{min-width:900px}.trajectory-table td{text-align:left!important;vertical-align:top}.trajectory-table td:nth-child(3){min-width:220px}.trajectory-table td:nth-child(5){min-width:300px}[hidden]{display:none!important}</style>'
+    script = '''<script>
+    function filterTrajectories(){
+      const profile=document.getElementById('trajectory-profile').value;
+      const query=document.getElementById('trajectory-search').value.trim().toLocaleLowerCase();
+      document.querySelectorAll('.trajectory-profile').forEach(panel=>{
+        panel.hidden=panel.dataset.profile!==profile;
+        let matches=0;
+        panel.querySelectorAll('tbody tr').forEach(row=>{
+          row.hidden=!row.textContent.toLocaleLowerCase().includes(query);
+          if(!row.hidden)matches++;
+        });
+        panel.querySelector('.match-count').textContent=matches;
+      });
+    }
+    document.getElementById('trajectory-profile').addEventListener('change',filterTrajectories);
+    document.getElementById('trajectory-search').addEventListener('input',filterTrajectories);
+    </script>'''
+    return head + '</head><body><main class="wrap">' + overview + independent_duration_html() + '</main>'+script+'</body></html>\n'
+
+
+def validate_report(html):
+    """Reader navigation must resolve to rendered content, never raw source files."""
+    class Navigation(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.ids, self.links = [], []
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if 'id' in attrs:
+                self.ids.append(attrs['id'])
+            if tag == 'a':
+                self.links.append(attrs.get('href', ''))
+    nav = Navigation()
+    nav.feed(html)
+    if len(nav.ids) != len(set(nav.ids)):
+        raise ValueError('Duplicate report section/control ID')
+    required = {'daily-report', 'goal-trajectories', 'workload-profiles', 'trajectory-search', 'trajectory-profile'}
+    if not required <= set(nav.ids):
+        raise ValueError('Rendered report section/control missing')
+    if not nav.links or any(not href.startswith('#') or href[1:] not in nav.ids for href in nav.links):
+        raise ValueError('Report navigation must stay within rendered HTML')
 
 
 def main():
@@ -101,6 +179,7 @@ def main():
     args = parser.parse_args()
     old = DASHBOARD.read_text(encoding='utf-8')
     fresh = build(old)
+    validate_report(fresh)
     if args.check:
         if old != fresh:
             print('Dashboard stale; run build_day_progression_dashboard.py', file=sys.stderr)
