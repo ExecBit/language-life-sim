@@ -1,0 +1,380 @@
+{
+  "version": "0.2",
+  "status": "setting_independent_semantic_test_design_not_executable_exam",
+  "source": "LANGUAGE_PRACTICE_UNITS.json / independent_outcome_assessments",
+  "rules": [
+    "Each focused contrast changes a named critical semantic slot; non-focus facts are maintained, except explicit coupled register/addressee or role constraints.",
+    "Reading input is German only; Russian meaning descriptions are private scoring expectations, not visible in player interface.",
+    "Free writing facts are player-known abstractions, not suggested German answer strings; words and morphemes can be imperfect when meaning is clear.",
+    "Multiple contrast variants per LO are alternative probes, not mandatory distinct quests, exam items or learning units.",
+    "Do not count success on one probe as vocabulary retention or verified language acquisition."
+  ],
+  "items": [
+    {
+      "id": "LOP-01",
+      "lo": "LO-R01",
+      "kind": "reading",
+      "focus_slot": "du_or_Sie_register",
+      "variant_A_de": "Komm bitte morgen.",
+      "variant_B_de": "Kommen Sie bitte morgen.",
+      "meaning_A_ru": "Неофициальное du-обращение.",
+      "meaning_B_ru": "Вежливое Sie-обращение.",
+      "integrity": "single_primary_meaning_change_or_identified_derived_slot",
+      "status": "candidate_not_executed"
+    },
+    {
+      "id": "LOP-02",
+      "lo": "LO-R01",
+      "kind": "reading",
+      "focus_slot": "requested_action",
+      "variant_A_de": "Nimm das Buch.",
+      "variant_B_de": "Gib das Buch.",
+      "meaning_A_ru": "Взять книгу.",
+      "meaning_B_ru": "Отдать книгу.",
+      "integrity": "single_primary_meaning_change_or_identified_derived_slot",
+      "status": "candidate_not_executed"
+    },
+    {
+      "id": "LOP-03",
+      "lo": "LO-R02",
+      "kind": "reading",
+      "focus_slot": "day",
+      "variant_A_de": "Du darfst heute nicht arbeiten.",
+      "variant_B_de": "Du darfst morgen nicht arbeiten.",
+      "meaning_A_ru": "Запрет сегодня.",
+      "meaning_B_ru": "Запрет завтра.",
+      "integrity": "single_primary_meaning_change_or_identified_derived_slot",
+      "status": "candidate_not_executed"
+    },
+    {
+      "id": "LOP-04",
+      "lo": "LO-R03",
+      "kind": "reading",
+      "focus_slot": "object",
+      "variant_A_de": "Das Buch ist im Zimmer. Bring das Buch in die Küche.",
+      "variant_B_de": "Die Tasse ist im Zimmer. Bring die Tasse in die Küche.",
+      "meaning_A_ru": "Книга из комнаты на кухню.",
+      "meaning_B_ru": "Чашка из комнаты на кухню.",
+      "integrity": "single_primary_meaning_change_or_identified_derived_slot",
+      "status": "candidate_not_executed"
+    },
+    {
+      "id": "LOP-05",
+      "lo": "LO-R04",
+      "kind": "reading",
+      "focus_slot": "free_slot_day",
+      "variant_A_de": "Montag: zehn Uhr, frei. Dienstag: zwölf Uhr, nicht frei. Preis: zwei Euro.",
+      "variant_B_de": "Montag: zehn Uhr, nicht frei. Dienstag: zwölf Uhr, frei. Preis: zwei Euro.",
+      "meaning_A_ru": "Свободен понедельник.",
+      "meaning_B_ru": "Свободен вторник.",
+      "integrity": "single_primary_meaning_change_or_identified_derived_slot",
+      "status": "candidate_not_executed"
+    },
+    {
+      "id": "LOP-06",
+      "lo": "LO-R04",
+      "kind": "reading",
+      "focus_slot": "free_slot_time",
+      "variant_A_de": "Montag: zehn Uhr, frei. Dienstag: zwölf Uhr, nicht frei. Preis: zwei Euro.",
+      "variant_B_de": "Montag: zwölf Uhr, frei. Dienstag: zehn Uhr, nicht frei. Preis: zwei Euro.",
+      "meaning_A_ru": "Свободное время 10.",
+      "meaning_B_ru": "Свободное время 12.",
+      "integrity": "single_primary_meaning_change_or_identified_derived_slot",
+      "status": "candidate_not_executed"
+    },
+    {
+      "id": "LOP-07",
+      "lo": "LO-R05",
+      "kind": "reading",
+      "focus_slot": "sender",
+      "variant_A_de": "Hallo Mia! Mein Bruder Tom ist krank. Komm bitte morgen um zehn. Lea.",
+      "variant_B_de": "Hallo Mia! Mein Bruder Tom ist krank. Komm bitte morgen um zehn. Anna.",
+      "meaning_A_ru": "Пишет Lea.",
+      "meaning_B_ru": "Пишет Anna.",
+      "integrity": "single_primary_meaning_change_or_identified_derived_slot",
+      "status": "candidate_not_executed"
+    },
+    {
+      "id": "LOP-08",
+      "lo": "LO-R05",
+      "kind": "reading",
+      "focus_slot": "recipient",
+      "variant_A_de": "Hallo Mia! Mein Bruder Tom ist krank. Komm bitte morgen um zehn. Lea.",
+      "variant_B_de": "Hallo Anna! Mein Bruder Tom ist krank. Komm bitte morgen um zehn. Lea.",
+      "meaning_A_ru": "Адресат Mia.",
+      "meaning_B_ru": "Адресат Anna.",
+      "integrity": "single_primary_meaning_change_or_identified_derived_slot",
+      "status": "candidate_not_executed"
+    },
+    {
+      "id": "LOP-09",
+      "lo": "LO-R05",
+      "kind": "reading",
+      "focus_slot": "requested_time_and_action",
+      "variant_A_de": "Hallo Mia! Mein Bruder Tom ist krank. Komm bitte morgen um zehn. Lea.",
+      "variant_B_de": "Hallo Mia! Mein Bruder Tom ist krank. Komm bitte heute um zehn. Lea.",
+      "meaning_A_ru": "Прийти завтра в 10.",
+      "meaning_B_ru": "Прийти сегодня в 10.",
+      "integrity": "single_primary_meaning_change_or_identified_derived_slot",
+      "status": "candidate_not_executed"
+    },
+    {
+      "id": "LOP-10",
+      "lo": "LO-R05",
+      "kind": "reading",
+      "focus_slot": "person_state",
+      "variant_A_de": "Hallo Mia! Mein Bruder Tom ist krank. Komm bitte morgen um zehn. Lea.",
+      "variant_B_de": "Hallo Mia! Mein Bruder Tom ist müde. Komm bitte morgen um zehn. Lea.",
+      "meaning_A_ru": "В тексте сказано, что Том болен; причина просьбы прямо не установлена.",
+      "meaning_B_ru": "В тексте сказано, что Том устал; причина просьбы прямо не установлена.",
+      "integrity": "single_primary_meaning_change_or_identified_derived_slot",
+      "status": "candidate_not_executed"
+    },
+    {
+      "id": "LOP-11",
+      "lo": "LO-R06",
+      "kind": "reading",
+      "focus_slot": "object",
+      "variant_A_de": "Montag: Die Tasse A ist leer. Dienstag: Die Tasse A ist voll.",
+      "variant_B_de": "Montag: Die Tasse B ist leer. Dienstag: Die Tasse B ist voll.",
+      "meaning_A_ru": "Состояние чашки A.",
+      "meaning_B_ru": "Состояние чашки B.",
+      "integrity": "single_primary_meaning_change_or_identified_derived_slot",
+      "status": "candidate_not_executed"
+    },
+    {
+      "id": "LOP-12",
+      "lo": "LO-W01",
+      "kind": "free_writing",
+      "focus_slot": "question_intent",
+      "variant_A_facts": {
+        "object": "Buch",
+        "unknown_information": "location",
+        "listener_knows_answer": true
+      },
+      "variant_B_facts": {
+        "object": "Buch",
+        "unknown_information": "holder",
+        "listener_knows_answer": true
+      },
+      "meaning_A_ru": "Спросить, где книга.",
+      "meaning_B_ru": "Спросить, у кого книга.",
+      "integrity": "one_critical_intent_changed_other_facts_held_fixed",
+      "status": "candidate_not_parser_test"
+    },
+    {
+      "id": "LOP-13",
+      "lo": "LO-W02",
+      "kind": "free_writing",
+      "focus_slot": "negation_scope",
+      "variant_A_facts": {
+        "object": "Buch",
+        "present_here": true,
+        "listener_cannot_see": true
+      },
+      "variant_B_facts": {
+        "object": "Buch",
+        "present_here": false,
+        "listener_cannot_see": true
+      },
+      "meaning_A_ru": "Сообщить, что книга здесь.",
+      "meaning_B_ru": "Сообщить, что книги здесь нет.",
+      "integrity": "one_critical_intent_changed_other_facts_held_fixed",
+      "status": "candidate_not_parser_test"
+    },
+    {
+      "id": "LOP-14",
+      "lo": "LO-W02",
+      "kind": "free_writing",
+      "focus_slot": "current_location",
+      "variant_A_facts": {
+        "object": "Buch",
+        "location": "Zimmer",
+        "listener_cannot_see": true
+      },
+      "variant_B_facts": {
+        "object": "Buch",
+        "location": "Küche",
+        "listener_cannot_see": true
+      },
+      "meaning_A_ru": "Сообщить, что книга в комнате.",
+      "meaning_B_ru": "Сообщить, что книга на кухне.",
+      "integrity": "one_critical_intent_changed_other_facts_held_fixed",
+      "status": "candidate_not_parser_test"
+    },
+    {
+      "id": "LOP-15",
+      "lo": "LO-W03",
+      "kind": "free_writing",
+      "focus_slot": "time",
+      "variant_A_facts": {
+        "rule": "no_obligation_to_come",
+        "time": "Montag 10:00"
+      },
+      "variant_B_facts": {
+        "rule": "no_obligation_to_come",
+        "time": "Montag 12:00"
+      },
+      "meaning_A_ru": "Сообщить отсутствие обязанности приходить в понедельник в десять.",
+      "meaning_B_ru": "Сообщить отсутствие обязанности приходить в понедельник в двенадцать.",
+      "integrity": "one_critical_intent_changed_other_facts_held_fixed",
+      "status": "candidate_not_parser_test"
+    },
+    {
+      "id": "LOP-16",
+      "lo": "LO-W04",
+      "kind": "free_writing",
+      "focus_slot": "preference_intent",
+      "variant_A_facts": {
+        "item": "Tee",
+        "intention": "likes_in_general",
+        "listener_does_not_know": true
+      },
+      "variant_B_facts": {
+        "item": "Tee",
+        "intention": "wants_it_now",
+        "listener_does_not_know": true
+      },
+      "meaning_A_ru": "Чай нравится вообще.",
+      "meaning_B_ru": "Хочет чай сейчас.",
+      "integrity": "one_critical_intent_changed_other_facts_held_fixed",
+      "status": "candidate_not_parser_test"
+    },
+    {
+      "id": "LOP-17",
+      "lo": "LO-W05",
+      "kind": "free_writing",
+      "focus_slot": "actor",
+      "variant_A_facts": {
+        "actor": "speaker",
+        "when": "gestern",
+        "event": "found_book"
+      },
+      "variant_B_facts": {
+        "actor": "person_B",
+        "when": "gestern",
+        "event": "found_book"
+      },
+      "meaning_A_ru": "Вчера книгу нашёл говорящий.",
+      "meaning_B_ru": "Вчера книгу нашёл другой человек.",
+      "integrity": "one_critical_intent_changed_other_facts_held_fixed",
+      "status": "candidate_not_parser_test"
+    },
+    {
+      "id": "LOP-18",
+      "lo": "LO-W05",
+      "kind": "free_writing",
+      "focus_slot": "past_time",
+      "variant_A_facts": {
+        "actor": "speaker",
+        "when": "gestern",
+        "event": "found_book"
+      },
+      "variant_B_facts": {
+        "actor": "speaker",
+        "when": "heute",
+        "event": "found_book"
+      },
+      "meaning_A_ru": "Книга уже найдена вчера.",
+      "meaning_B_ru": "Книга уже найдена сегодня.",
+      "integrity": "one_critical_intent_changed_other_facts_held_fixed",
+      "status": "candidate_not_parser_test"
+    },
+    {
+      "id": "LOP-19",
+      "lo": "LO-W06",
+      "kind": "free_writing",
+      "focus_slot": "field_time",
+      "variant_A_facts": {
+        "fields_de": [
+          "Name",
+          "Tag",
+          "Zeit"
+        ],
+        "private_data": {
+          "person_name": "Mia",
+          "weekday_iso": 1,
+          "clock_24h": "10:00"
+        }
+      },
+      "variant_B_facts": {
+        "fields_de": [
+          "Name",
+          "Tag",
+          "Zeit"
+        ],
+        "private_data": {
+          "person_name": "Mia",
+          "weekday_iso": 1,
+          "clock_24h": "12:00"
+        }
+      },
+      "meaning_A_ru": "Самостоятельно вписать Zeit 10:00.",
+      "meaning_B_ru": "Самостоятельно вписать Zeit 12:00.",
+      "integrity": "one_critical_intent_changed_other_facts_held_fixed",
+      "status": "candidate_not_parser_test"
+    },
+    {
+      "id": "LOP-20",
+      "lo": "LO-W07",
+      "kind": "free_writing",
+      "focus_slot": "current_location",
+      "variant_A_facts": {
+        "object": "Buch",
+        "location": "Zimmer",
+        "request": "come",
+        "time": "morgen 10:00"
+      },
+      "variant_B_facts": {
+        "object": "Buch",
+        "location": "Küche",
+        "request": "come",
+        "time": "morgen 10:00"
+      },
+      "meaning_A_ru": "Книга в комнате, приходи завтра в 10.",
+      "meaning_B_ru": "Книга на кухне, приходи завтра в 10.",
+      "integrity": "one_critical_intent_changed_other_facts_held_fixed",
+      "status": "candidate_not_parser_test"
+    },
+    {
+      "id": "LOP-21",
+      "lo": "LO-W07",
+      "kind": "free_writing",
+      "focus_slot": "requested_action",
+      "variant_A_facts": {
+        "object": "Buch",
+        "location": "Zimmer",
+        "request": "come",
+        "time": "morgen 10:00"
+      },
+      "variant_B_facts": {
+        "object": "Buch",
+        "location": "Zimmer",
+        "request": "bring_book",
+        "time": "morgen 10:00"
+      },
+      "meaning_A_ru": "Книга в комнате, попросить прийти завтра в 10.",
+      "meaning_B_ru": "Книга в комнате, попросить принести книгу завтра в 10.",
+      "integrity": "one_critical_intent_changed_other_facts_held_fixed",
+      "status": "candidate_not_parser_test"
+    },
+    {
+      "id": "LOP-22",
+      "lo": "LO-R02",
+      "kind": "reading",
+      "focus_slot": "recipient_role",
+      "variant_A_de": "Tom gibt Mia das Buch.",
+      "variant_B_de": "Mia gibt Tom das Buch.",
+      "meaning_A_ru": "Том отдаёт книгу Мие.",
+      "meaning_B_ru": "Мия отдаёт книгу Тому.",
+      "integrity": "actor_and_recipient_roles_reverse_with_same_people_and_object",
+      "status": "candidate_not_executed"
+    }
+  ],
+  "coverage": {
+    "reading": 12,
+    "free_writing": 10,
+    "outcomes": 13
+  },
+  "validation_status": "structural_design_candidate_not_playtested"
+}

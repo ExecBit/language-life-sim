@@ -1,0 +1,2062 @@
+{
+  "version": "0.2",
+  "status": "preliminary_Russian_reverse_lookup_glosses_for_current_authored_act_not_complete_458_unit_F1",
+  "notes": [
+    "221 distinct normalized entries used in current authored mandatory/optional R/P; thematic 458 phrases are additional candidates, not guaranteed scene vocabulary.",
+    "The glossary is a manually drafted sense hint requiring German-language and contextual review; meanings may vary by part of speech.",
+    "Homographs sie/Sie, sein, zu, morgen, articles, dürfen/darf and normalized Zeit/zeit require sense-level entries before production.",
+    "Only a gloss, no verb paradigms, noun gender, full phrase translations, reverse search index or German spelling disambiguation.",
+    "Never treat an author P example as the only accepted player utterance."
+  ],
+  "entry_count": 221,
+  "entries": [
+    {
+      "lemma": "aber",
+      "gloss_ru": "но",
+      "forms": [
+        "aber"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "acht",
+      "gloss_ru": "восемь",
+      "forms": [
+        "acht"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "all",
+      "gloss_ru": "все; весь",
+      "forms": [
+        "alle",
+        "alles"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "alt",
+      "gloss_ru": "старый",
+      "forms": [
+        "alt",
+        "alte",
+        "alten"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "am",
+      "gloss_ru": "в; на (день или время)",
+      "forms": [
+        "am"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "an",
+      "gloss_ru": "на; у; к",
+      "forms": [
+        "an"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ander",
+      "gloss_ru": "другой",
+      "forms": [
+        "andere",
+        "anderen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "anders",
+      "gloss_ru": "иначе; по-другому",
+      "forms": [
+        "anders"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "antwort",
+      "gloss_ru": "ответ",
+      "forms": [
+        "antwort"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "arbeit",
+      "gloss_ru": "работа",
+      "forms": [
+        "arbeit"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "arbeiten",
+      "gloss_ru": "работать",
+      "forms": [
+        "arbeite",
+        "arbeiten",
+        "arbeitet",
+        "gearbeitet"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Arzt",
+      "gloss_ru": "врач",
+      "forms": [
+        "arzt"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "auch",
+      "gloss_ru": "тоже; также",
+      "forms": [
+        "auch"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "auf",
+      "gloss_ru": "на",
+      "forms": [
+        "auf"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "aus",
+      "gloss_ru": "из",
+      "forms": [
+        "aus"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ausfüllen",
+      "gloss_ru": "заполнять (форму)",
+      "forms": [
+        "füll"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ausgang",
+      "gloss_ru": "выход",
+      "forms": [
+        "ausgang"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "beginnen",
+      "gloss_ru": "начинать; начинаться",
+      "forms": [
+        "beginnt"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "bei",
+      "gloss_ru": "у; при",
+      "forms": [
+        "bei"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "bericht",
+      "gloss_ru": "отчёт",
+      "forms": [
+        "bericht"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "beschäftigt",
+      "gloss_ru": "занят",
+      "forms": [
+        "beschäftigt"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "besser",
+      "gloss_ru": "лучше",
+      "forms": [
+        "besser"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "bis",
+      "gloss_ru": "до",
+      "forms": [
+        "bis"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "bitte",
+      "gloss_ru": "пожалуйста; прошу",
+      "forms": [
+        "bitte"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "blau",
+      "gloss_ru": "синий",
+      "forms": [
+        "blauen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "brauchen",
+      "gloss_ru": "нуждаться; требоваться",
+      "forms": [
+        "brauche",
+        "brauchen",
+        "brauchst",
+        "braucht"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "bringen",
+      "gloss_ru": "принести; отнести",
+      "forms": [
+        "bring"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Brot",
+      "gloss_ru": "хлеб",
+      "forms": [
+        "brot"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "da",
+      "gloss_ru": "там; здесь",
+      "forms": [
+        "da"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "danach",
+      "gloss_ru": "после этого",
+      "forms": [
+        "danach"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "danke",
+      "gloss_ru": "спасибо",
+      "forms": [
+        "danke"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "dann",
+      "gloss_ru": "затем; тогда",
+      "forms": [
+        "dann"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "dein",
+      "gloss_ru": "твой",
+      "forms": [
+        "dein",
+        "deine",
+        "deinen"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "der",
+      "gloss_ru": "определённый артикль; тот",
+      "forms": [
+        "das",
+        "dem",
+        "den",
+        "der",
+        "des",
+        "die"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "dienst",
+      "gloss_ru": "смена; дежурство",
+      "forms": [
+        "dienst"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Dienstag",
+      "gloss_ru": "вторник",
+      "forms": [
+        "dienstag"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "dort",
+      "gloss_ru": "там",
+      "forms": [
+        "dort"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "drei",
+      "gloss_ru": "три",
+      "forms": [
+        "drei"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "du",
+      "gloss_ru": "ты",
+      "forms": [
+        "dich",
+        "dir",
+        "du"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "dürfen",
+      "gloss_ru": "мочь по разрешению; иметь право",
+      "forms": [
+        "darfst"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ein",
+      "gloss_ru": "неопределённый артикль; один",
+      "forms": [
+        "ein",
+        "eine",
+        "einen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "einmal",
+      "gloss_ru": "один раз; ещё раз (в выражении)",
+      "forms": [
+        "einmal"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "elf",
+      "gloss_ru": "одиннадцать",
+      "forms": [
+        "elf"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "endlich",
+      "gloss_ru": "наконец",
+      "forms": [
+        "endlich"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "energie",
+      "gloss_ru": "энергия",
+      "forms": [
+        "energie"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "entscheiden",
+      "gloss_ru": "решать",
+      "forms": [
+        "entscheidet"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "er",
+      "gloss_ru": "он",
+      "forms": [
+        "er",
+        "ihn"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "erde",
+      "gloss_ru": "Земля",
+      "forms": [
+        "erde"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ergebnis",
+      "gloss_ru": "результат",
+      "forms": [
+        "ergebnis",
+        "ergebnisse"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "erst",
+      "gloss_ru": "только; не раньше",
+      "forms": [
+        "erst"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "es",
+      "gloss_ru": "оно; это",
+      "forms": [
+        "es"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "essen",
+      "gloss_ru": "есть; кушать",
+      "forms": [
+        "essen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "farbe",
+      "gloss_ru": "цвет",
+      "forms": [
+        "farbe"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "feld",
+      "gloss_ru": "поле (в форме)",
+      "forms": [
+        "felder"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "fertig",
+      "gloss_ru": "готовый; закончено",
+      "forms": [
+        "fertig"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "finden",
+      "gloss_ru": "находить",
+      "forms": [
+        "gefunden"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "fragen",
+      "gloss_ru": "спрашивать",
+      "forms": [
+        "frag"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "frei",
+      "gloss_ru": "свободный; доступный",
+      "forms": [
+        "frei"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "für",
+      "gloss_ru": "для",
+      "forms": [
+        "für"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "geben",
+      "gloss_ru": "давать",
+      "forms": [
+        "gibt"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "gehen",
+      "gloss_ru": "идти; получаться",
+      "forms": [
+        "geht"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "genug",
+      "gloss_ru": "достаточно",
+      "forms": [
+        "genug"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "gerät",
+      "gloss_ru": "прибор; устройство",
+      "forms": [
+        "gerät"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "geschlossen",
+      "gloss_ru": "закрытый",
+      "forms": [
+        "geschlossen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "gestern",
+      "gloss_ru": "вчера",
+      "forms": [
+        "gestern"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "grün",
+      "gloss_ru": "зелёный",
+      "forms": [
+        "grün"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "gut",
+      "gloss_ru": "хороший; хорошо",
+      "forms": [
+        "gut",
+        "gute"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "haben",
+      "gloss_ru": "иметь",
+      "forms": [
+        "habe",
+        "haben",
+        "hast",
+        "hat"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "hallo",
+      "gloss_ru": "привет",
+      "forms": [
+        "hallo"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "heißen",
+      "gloss_ru": "зваться; называться",
+      "forms": [
+        "heißt"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "heute",
+      "gloss_ru": "сегодня",
+      "forms": [
+        "heute"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "hier",
+      "gloss_ru": "здесь",
+      "forms": [
+        "hier"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "hilfe",
+      "gloss_ru": "помощь",
+      "forms": [
+        "hilfe"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "hören",
+      "gloss_ru": "слышать; слушать",
+      "forms": [
+        "hörst"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ich",
+      "gloss_ru": "я",
+      "forms": [
+        "ich",
+        "mich",
+        "mir"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "im",
+      "gloss_ru": "в (in dem, где)",
+      "forms": [
+        "im"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "in",
+      "gloss_ru": "в",
+      "forms": [
+        "in"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "informationen",
+      "gloss_ru": "сведения; информация",
+      "forms": [
+        "informationen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ins",
+      "gloss_ru": "внутрь; в (in das, куда)",
+      "forms": [
+        "ins"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ja",
+      "gloss_ru": "да",
+      "forms": [
+        "ja"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "jetzt",
+      "gloss_ru": "сейчас",
+      "forms": [
+        "jetzt"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "kapitän",
+      "gloss_ru": "капитан",
+      "forms": [
+        "kapitän"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "kaputt",
+      "gloss_ru": "сломанный; неисправный",
+      "forms": [
+        "kaputt"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "kein",
+      "gloss_ru": "нет; никакой",
+      "forms": [
+        "kein"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "kommen",
+      "gloss_ru": "приходить; приезжать",
+      "forms": [
+        "komm",
+        "komme",
+        "kommen",
+        "kommt"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "können",
+      "gloss_ru": "мочь; уметь",
+      "forms": [
+        "kann",
+        "kannst",
+        "können"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "küche",
+      "gloss_ru": "кухня",
+      "forms": [
+        "küche"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "lager",
+      "gloss_ru": "склад",
+      "forms": [
+        "lager"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "lagerverwalter",
+      "gloss_ru": "заведующий складом; снабженец",
+      "forms": [
+        "lagerverwalter"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Lampe",
+      "gloss_ru": "лампа",
+      "forms": [
+        "lampe",
+        "lampen"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "lang",
+      "gloss_ru": "длинный; долго",
+      "forms": [
+        "lange"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "leitung",
+      "gloss_ru": "линия; провод",
+      "forms": [
+        "leitung"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "letzt",
+      "gloss_ru": "последний",
+      "forms": [
+        "letzte"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "licht",
+      "gloss_ru": "свет",
+      "forms": [
+        "licht"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "lieber",
+      "gloss_ru": "лучше; предпочтительнее",
+      "forms": [
+        "lieber"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "links",
+      "gloss_ru": "слева; налево",
+      "forms": [
+        "links"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "liste",
+      "gloss_ru": "список",
+      "forms": [
+        "liste"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "machen",
+      "gloss_ru": "делать",
+      "forms": [
+        "gemacht"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "mehr",
+      "gloss_ru": "больше",
+      "forms": [
+        "mehr"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "mein",
+      "gloss_ru": "мой",
+      "forms": [
+        "mein"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "mensch",
+      "gloss_ru": "человек",
+      "forms": [
+        "menschen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "möchten",
+      "gloss_ru": "хотел бы",
+      "forms": [
+        "möchtest"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Montag",
+      "gloss_ru": "понедельник",
+      "forms": [
+        "montag"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "morgen",
+      "gloss_ru": "завтра; утро (при другом употреблении)",
+      "forms": [
+        "morgen"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "müde",
+      "gloss_ru": "уставший",
+      "forms": [
+        "müde"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "müssen",
+      "gloss_ru": "быть должным; нужно",
+      "forms": [
+        "muss",
+        "musst",
+        "müssen"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "nachricht",
+      "gloss_ru": "сообщение",
+      "forms": [
+        "nachricht"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "nächst",
+      "gloss_ru": "следующий",
+      "forms": [
+        "nächste"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "nacht",
+      "gloss_ru": "ночь",
+      "forms": [
+        "nacht"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "name",
+      "gloss_ru": "имя",
+      "forms": [
+        "namen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "nehmen",
+      "gloss_ru": "брать",
+      "forms": [
+        "nehmen",
+        "nimm"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "nein",
+      "gloss_ru": "нет",
+      "forms": [
+        "nein"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "neu",
+      "gloss_ru": "новый",
+      "forms": [
+        "neu",
+        "neue",
+        "neuen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "neun",
+      "gloss_ru": "девять",
+      "forms": [
+        "neun"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "nicht",
+      "gloss_ru": "не",
+      "forms": [
+        "nicht"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "nichts",
+      "gloss_ru": "ничего",
+      "forms": [
+        "nichts"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "noch",
+      "gloss_ru": "ещё",
+      "forms": [
+        "noch"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "nur",
+      "gloss_ru": "только",
+      "forms": [
+        "nur"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "oder",
+      "gloss_ru": "или",
+      "forms": [
+        "oder"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "offen",
+      "gloss_ru": "открытый",
+      "forms": [
+        "offen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "passen",
+      "gloss_ru": "подходить",
+      "forms": [
+        "passt"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Pflanze",
+      "gloss_ru": "растение",
+      "forms": [
+        "pflanzen"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "plan",
+      "gloss_ru": "план",
+      "forms": [
+        "plan"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "problems",
+      "gloss_ru": "проблема (форма Problems; нормализовать в Problem)",
+      "forms": [
+        "problems"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "prüfen",
+      "gloss_ru": "проверять",
+      "forms": [
+        "geprüft",
+        "prüfe",
+        "prüfen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "prüfung",
+      "gloss_ru": "проверка",
+      "forms": [
+        "prüfung"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "pult",
+      "gloss_ru": "пульт",
+      "forms": [
+        "pult"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "raum",
+      "gloss_ru": "комната; помещение",
+      "forms": [
+        "raum"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "rechts",
+      "gloss_ru": "справа; направо",
+      "forms": [
+        "rechts"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "richtig",
+      "gloss_ru": "правильный; верно",
+      "forms": [
+        "richtig",
+        "richtigen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "rot",
+      "gloss_ru": "красный",
+      "forms": [
+        "rot",
+        "rote"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ruhe",
+      "gloss_ru": "покой; отдых",
+      "forms": [
+        "ruhe"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "sagen",
+      "gloss_ru": "сказать; говорить",
+      "forms": [
+        "sag",
+        "sagen",
+        "sagt"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "schiff",
+      "gloss_ru": "корабль",
+      "forms": [
+        "schiff"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "schlafen",
+      "gloss_ru": "спать",
+      "forms": [
+        "schlafen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "schlecht",
+      "gloss_ru": "плохой; плохо",
+      "forms": [
+        "schlecht"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Schlüssel",
+      "gloss_ru": "ключ",
+      "forms": [
+        "schlüssel"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "schmerzen",
+      "gloss_ru": "боль",
+      "forms": [
+        "schmerzen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "schreiben",
+      "gloss_ru": "писать",
+      "forms": [
+        "schreib"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "schwer",
+      "gloss_ru": "тяжёлый; тяжело",
+      "forms": [
+        "schwer"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "sehen",
+      "gloss_ru": "видеть",
+      "forms": [
+        "sehen",
+        "siehst"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "sehr",
+      "gloss_ru": "очень",
+      "forms": [
+        "sehr"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "sein",
+      "gloss_ru": "быть; его (притяжательное)",
+      "forms": [
+        "bin",
+        "bist",
+        "ist",
+        "sind",
+        "war",
+        "warst"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "senden",
+      "gloss_ru": "отправлять",
+      "forms": [
+        "senden"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Sensor",
+      "gloss_ru": "датчик",
+      "forms": [
+        "sensor"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "sicher",
+      "gloss_ru": "безопасный; надёжный",
+      "forms": [
+        "sicher",
+        "sicheren"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "sie",
+      "gloss_ru": "она; они; Вы (формальное Sie — отдельный смысл)",
+      "forms": [
+        "sie"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "signal",
+      "gloss_ru": "сигнал",
+      "forms": [
+        "signal"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "so",
+      "gloss_ru": "так",
+      "forms": [
+        "so"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "später",
+      "gloss_ru": "позже",
+      "forms": [
+        "später"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "stabil",
+      "gloss_ru": "стабильный",
+      "forms": [
+        "stabil"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "starten",
+      "gloss_ru": "запускать; начинать",
+      "forms": [
+        "starte"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Status",
+      "gloss_ru": "состояние; статус",
+      "forms": [
+        "status"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "stehen",
+      "gloss_ru": "стоять; быть написанным",
+      "forms": [
+        "steht"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "strom",
+      "gloss_ru": "электрический ток; питание",
+      "forms": [
+        "strom"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "suppe",
+      "gloss_ru": "суп",
+      "forms": [
+        "suppe"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "system",
+      "gloss_ru": "система",
+      "forms": [
+        "systeme"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "tasse",
+      "gloss_ru": "чашка",
+      "forms": [
+        "tasse"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Tee",
+      "gloss_ru": "чай",
+      "forms": [
+        "tee"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "test",
+      "gloss_ru": "тест; проверка",
+      "forms": [
+        "test"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Tisch",
+      "gloss_ru": "стол",
+      "forms": [
+        "tisch"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "trennen",
+      "gloss_ru": "разделять; различать",
+      "forms": [
+        "trennen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "trinken",
+      "gloss_ru": "пить",
+      "forms": [
+        "trinken"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Tür",
+      "gloss_ru": "дверь",
+      "forms": [
+        "tür"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Uhr",
+      "gloss_ru": "час; часов (обозначение времени)",
+      "forms": [
+        "uhr"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "um",
+      "gloss_ru": "в (обозначение времени)",
+      "forms": [
+        "um"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "und",
+      "gloss_ru": "и",
+      "forms": [
+        "und"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "unterschied",
+      "gloss_ru": "различие; разница",
+      "forms": [
+        "unterschied"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ursache",
+      "gloss_ru": "причина",
+      "forms": [
+        "ursache"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "verbindung",
+      "gloss_ru": "связь; соединение",
+      "forms": [
+        "verbindung"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "verstehen",
+      "gloss_ru": "понимать",
+      "forms": [
+        "verstanden",
+        "verstehe",
+        "verstehst"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "viel",
+      "gloss_ru": "много",
+      "forms": [
+        "viele"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "von",
+      "gloss_ru": "от; из",
+      "forms": [
+        "von"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wann",
+      "gloss_ru": "когда",
+      "forms": [
+        "wann"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "warten",
+      "gloss_ru": "ждать",
+      "forms": [
+        "warten"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "was",
+      "gloss_ru": "что",
+      "forms": [
+        "was"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Wasser",
+      "gloss_ru": "вода",
+      "forms": [
+        "wasser"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "weg",
+      "gloss_ru": "путь; дорога",
+      "forms": [
+        "weg"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "weiterfliegen",
+      "gloss_ru": "продолжать полёт",
+      "forms": [
+        "weiterfliegen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "welch",
+      "gloss_ru": "какой; который",
+      "forms": [
+        "welcher",
+        "welches"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wer",
+      "gloss_ru": "кто",
+      "forms": [
+        "wer"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wert",
+      "gloss_ru": "значение; показание",
+      "forms": [
+        "wert",
+        "werte"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wichtig",
+      "gloss_ru": "важный",
+      "forms": [
+        "wichtig",
+        "wichtigen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wie",
+      "gloss_ru": "как",
+      "forms": [
+        "wie"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wieder",
+      "gloss_ru": "снова",
+      "forms": [
+        "wieder"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wir",
+      "gloss_ru": "мы",
+      "forms": [
+        "uns",
+        "wir"
+      ],
+      "role": "candidate_core",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Woche",
+      "gloss_ru": "неделя",
+      "forms": [
+        "woche"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wofür",
+      "gloss_ru": "для чего",
+      "forms": [
+        "wofür"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wohnbereich",
+      "gloss_ru": "жилой сектор",
+      "forms": [
+        "wohnbereich"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wollen",
+      "gloss_ru": "хотеть",
+      "forms": [
+        "wollten"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "zehn",
+      "gloss_ru": "десять",
+      "forms": [
+        "zehn"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "zeigen",
+      "gloss_ru": "показывать",
+      "forms": [
+        "zeigt"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "zeit",
+      "gloss_ru": "время",
+      "forms": [
+        "zeiten"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Zeit",
+      "gloss_ru": "время",
+      "forms": [
+        "zeit"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "Zimmer",
+      "gloss_ru": "комната",
+      "forms": [
+        "zimmer"
+      ],
+      "role": "candidate_situational",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "zu",
+      "gloss_ru": "закрытый; к; слишком",
+      "forms": [
+        "zu"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "zusammen",
+      "gloss_ru": "вместе",
+      "forms": [
+        "zusammen"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "zwei",
+      "gloss_ru": "два",
+      "forms": [
+        "zwei"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "zwölf",
+      "gloss_ru": "двенадцать",
+      "forms": [
+        "zwölf"
+      ],
+      "role": "unclassified",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "darf",
+      "gloss_ru": "можно; разрешено (форма dürfen)",
+      "forms": [
+        "darf"
+      ],
+      "role": "P_example_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "flasche",
+      "gloss_ru": "бутылка",
+      "forms": [
+        "flaschen"
+      ],
+      "role": "P_example_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "gleich",
+      "gloss_ru": "одинаковый; сразу",
+      "forms": [
+        "gleich"
+      ],
+      "role": "P_example_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "helfen",
+      "gloss_ru": "помогать",
+      "forms": [
+        "helfen"
+      ],
+      "role": "P_example_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "nach",
+      "gloss_ru": "после; к; в направлении",
+      "forms": [
+        "nach"
+      ],
+      "role": "P_example_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "navigator",
+      "gloss_ru": "навигатор",
+      "forms": [
+        "navigator"
+      ],
+      "role": "P_example_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wo",
+      "gloss_ru": "где",
+      "forms": [
+        "wo"
+      ],
+      "role": "P_example_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "zuerst",
+      "gloss_ru": "сначала",
+      "forms": [
+        "zuerst"
+      ],
+      "role": "P_example_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ankommen",
+      "gloss_ru": "прибывать; приходить",
+      "forms": [
+        "angekommen"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "beide",
+      "gloss_ru": "оба; обе",
+      "forms": [
+        "beiden"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "bekommen",
+      "gloss_ru": "получать",
+      "forms": [
+        "bekommen"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "freuen",
+      "gloss_ru": "радоваться",
+      "forms": [
+        "freue"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "froh",
+      "gloss_ru": "радостный; довольный",
+      "forms": [
+        "froh"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "gern",
+      "gloss_ru": "с удовольствием; охотно",
+      "forms": [
+        "gern"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "ihr",
+      "gloss_ru": "вы (мн.); её (притяж.); ей (падеж)",
+      "forms": [
+        "euch"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "kurz",
+      "gloss_ru": "короткий; недолго",
+      "forms": [
+        "kurz"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "lesen",
+      "gloss_ru": "читать",
+      "forms": [
+        "lesen"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "mit",
+      "gloss_ru": "с; вместе с",
+      "forms": [
+        "mit"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "unsicher",
+      "gloss_ru": "неуверенный; ненадёжный",
+      "forms": [
+        "unsicher"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "versuchen",
+      "gloss_ru": "пытаться; пробовать",
+      "forms": [
+        "versuche"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wenig",
+      "gloss_ru": "мало; немного",
+      "forms": [
+        "wenig"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    },
+    {
+      "lemma": "wort",
+      "gloss_ru": "слово",
+      "forms": [
+        "worten"
+      ],
+      "role": "optional_authored_only",
+      "review": "candidate_unverified"
+    }
+  ]
+}

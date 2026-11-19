@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "status": "language_only_R_counterfactual_candidates_not_game_scenes",
+  "notes": [
+    "Only semantic contrasts tied to actual lexical focus, not required new M/G units or claimed mastery.",
+    "Same probe is portable across capacity profiles: attached to the day when the trigger expression first becomes a functional receptive focus.",
+    "A change in German weekday must change the required interpretation; no plot, NPC, or scene data are used."
+  ],
+  "probes": [
+    {
+      "id": "LX-DATE-01",
+      "horizon": "P3a",
+      "mode": "R",
+      "target_m": "M23",
+      "trigger_expression": "Donnerstag",
+      "earlier_expression": "Mittwoch",
+      "example_A_de": "Termin: Mittwoch, 15 Uhr.",
+      "example_B_de": "Termin: Donnerstag, 15 Uhr.",
+      "critical_meaning_ru": "Указан разный день встречи, поэтому время прихода определяется немецким текстом.",
+      "required_independent_result_ru": "Определить день встречи без русского готового ответа и без подсказки нужного варианта.",
+      "status": "candidate_not_playtested"
+    },
+    {
+      "id": "LX-DATE-02",
+      "horizon": "P3a",
+      "mode": "R",
+      "target_m": "M23",
+      "trigger_expression": "Sonntag",
+      "earlier_expression": "Samstag",
+      "example_A_de": "Abfahrt: Samstag, 9 Uhr.",
+      "example_B_de": "Abfahrt: Sonntag, 9 Uhr.",
+      "critical_meaning_ru": "День отправления отличается, поэтому меняется планируемая дата.",
+      "required_independent_result_ru": "Извлечь дату отправления из короткой надписи, а не угадать по окружающим объектам.",
+      "status": "candidate_not_playtested"
+    }
+  ]
+}

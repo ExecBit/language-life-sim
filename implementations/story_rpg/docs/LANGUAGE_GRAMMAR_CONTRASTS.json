@@ -1,0 +1,878 @@
+{
+  "version": "0.5",
+  "status": "independent_grammar_contrast_bank_not_player_verified",
+  "sources": [
+    "LANGUAGE_DESIGN.md",
+    "LANGUAGE_PROGRESSION.md",
+    "LANGUAGE_PRACTICE_UNITS.json"
+  ],
+  "rules": [
+    "A grammar item is counted only when it changes recoverable meaning or permits understanding it, not because a sentence contains that structure.",
+    "Some early examples necessarily vary more than one feature: confounds and vocabulary support must be checked before claiming a controlled experimental contrast.",
+    "27 grammar items linked to semantic productive M; seven are R-form or R-sense. P morphological exactness is not required unless independently specified.",
+    "These are replaceable language-test examples, not lessons, scenes, characters, or approved game dialogue.",
+    "Grammar unit links are checked against the canonical 73-unit language sequence, not against a second practice schedule."
+  ],
+  "validation": {
+    "grammar_count": 34,
+    "linked_to_practice_count": 34,
+    "p_semantic": 27,
+    "receptive_or_semantic": 7
+  },
+  "items": [
+    {
+      "id": "G01",
+      "unit": "P0-01",
+      "horizon": "P0",
+      "semantic_M": "M01",
+      "minimum": "P",
+      "example_A": "Hallo!",
+      "example_B": "Tschüss!",
+      "meaning_difference": "На P0 впервые прочитать знакомое слово с видимой границей и пунктуацией; смысл Hallo/Tschüss различают слова, а не знак !. Позднее Heute? / Heute. показывает вопросительную пунктуацию.",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "В коротких знакомых текстах отличать написанные слова и знаки, не приписывая грамматике отдельный смысл приветствия/прощания.",
+        "ordered_after": "P0-01 — приветствие и прощание; Heute?/Heute. рассматривается только позже, когда известно heute.",
+        "independent_contact": "Совпадает с P0-01 только как доступность письменной формы; отдельный грамматический контрфакт на A0 пока невалиден. Пунктуация вопроса появляется на P0-07 через G06.",
+        "productive_followup": "Не оценивать орфографические ошибки как непонимание, когда смысл ясен.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      },
+      "variant_examples": [
+        {
+          "example_A": "Heute?",
+          "example_B": "Heute.",
+          "role": "optional_later_question_punctuation_after_heute_P2c"
+        }
+      ]
+    },
+    {
+      "id": "G06",
+      "unit": "P0-07",
+      "horizon": "P0",
+      "semantic_M": "M06",
+      "minimum": "P",
+      "example_A": "Das ist die Tasse.",
+      "example_B": "Ist das die Tasse?",
+      "meaning_difference": "Утверждение об одном знакомом предмете против вопроса о том же предмете; порядок слов сообщает тип высказывания.",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Отличить утверждение Das ist … от вопроса Ist das …? о том же ранее названном предмете; показать контраст немецким текстом, не русской UI-меткой.",
+        "ordered_after": "P0-04 (die Tasse), P0-06 (sein); P0-02 остаётся только Ja/Nein",
+        "independent_contact": "Совпадает с основной A/B-парой P0-07; отдельная обязательная встреча не нужна.",
+        "productive_followup": "Первые самостоятельные вопросы M06 в P1-12; при A0 не требовать самостоятельной инверсии и идеальной формы.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G08",
+      "unit": "P0-08",
+      "horizon": "P0",
+      "semantic_M": "M09",
+      "minimum": "P",
+      "example_A": "Nimm das Buch.",
+      "example_B": "Du nimmst das Buch.",
+      "meaning_difference": "Побуждение против утверждения о действии",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Nimm das Buch. — инструкция, Du nimmst das Buch. — сообщение о действии.",
+        "ordered_after": "P0-05 нативный Imperativ nimm/gib, P0-06 du, P0-08 прежний знакомый объект.",
+        "independent_contact": "Отдельная R-пара внутри P0-08 после основной просьбы M12; не вводить одновременно новые глаголы.",
+        "productive_followup": "Императивное окончание само по себе не обязательная форма P.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G02",
+      "unit": "P0-06",
+      "horizon": "P0",
+      "semantic_M": "M03",
+      "minimum": "P",
+      "example_A": "Ich bin Mia.",
+      "example_B": "Du bist Mia.",
+      "meaning_difference": "В одной и той же конструкции представления меняется участник: ich — говорящий, du — адресат. Вода и потребности в этих примерах отсутствуют.",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Понять, кто обозначен ich (говорящий) и du (адресат), без нового глагола и без искусственной потребности в воде.",
+        "ordered_after": "P0-06 первая пара Ich bin Mia. / Du bist Mia.; brauche/brauchst только после P1-05.",
+        "independent_contact": "Совпадает с основным P0-06: Ich bin Mia. / Du bist Mia.; brauche/brauchst отложены как необязательный перенос после P1-05.",
+        "productive_followup": "Самостоятельная роль закрепляется P1-01; точное спряжение не требовать.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      },
+      "variant_examples": [
+        {
+          "example_A": "Ich brauche Wasser.",
+          "example_B": "Du brauchst Wasser.",
+          "role": "optional_later_person_inflection_brauchen_after_P1-05"
+        }
+      ]
+    },
+    {
+      "id": "G03",
+      "unit": "P0-06",
+      "horizon": "P0",
+      "semantic_M": "M11",
+      "minimum": "P",
+      "example_A": "Ich bin Mia.",
+      "example_B": "Du bist Mia.",
+      "meaning_difference": "В P0-06 знакомство только с bin/bist (формы sein), а не с различием sein/haben; его самостоятельный смысловой контраст уже присутствует в P1-07: Ich bin müde. / Ich habe Durst.",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Узнать bin/bist как формы sein в знакомой конструкции представления. На этом шаге различие с haben ещё НЕ предъявляется.",
+        "extension": "Обязательное R-различие sein/haben достигается после появления habe: существующая P1-07 Ich bin müde. / Ich habe Durst.; не вводить его впервые на P0-06.",
+        "ordered_after": "P0-04 (названные предметы), P0-06 (ich/du)",
+        "grammatical_scope": "R: первые формы sein; P-смысл проверяется позже, точность спряжения не нужна",
+        "status": "semantic_staging_candidate_not_A0_validated",
+        "independent_contact": "На P0-06 bin/bist входят в основную пару как первая узнаваемая форма sein, без требования знания haben. Полная пара Ich bin müde. / Ich habe Durst. уже включена в основную P1-07 без добавления отдельного задания.",
+        "productive_followup": "Понятное сообщение о состоянии или обладании; не требовать идеального спряжения.",
+        "deferred_r_reuse": {
+          "unit": "P1-07",
+          "example_A": "Ich bin müde.",
+          "example_B": "Ich habe Durst.",
+          "source": "main_language_example_pair",
+          "purpose": "sein_vs_haben_after_prior_baselines"
+        }
+      },
+      "variant_examples": [
+        {
+          "example_A": "Ich habe Wasser.",
+          "example_B": "Ich bin müde.",
+          "role": "semantic_extension_already_in_primary_pair_P1-07"
+        }
+      ]
+    },
+    {
+      "id": "G09",
+      "unit": "P0-04",
+      "horizon": "P0",
+      "semantic_M": "M09",
+      "minimum": "R",
+      "example_A": "Das Buch.",
+      "example_B": "Ein Buch.",
+      "meaning_difference": "Знакомый конкретный предмет (das Buch) против неопределённого экземпляра (ein Buch); знакомое существительное остаётся тем же.",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "variant_examples": [
+        {
+          "example_A": "Der Mann kommt.",
+          "example_B": "Ein Mann kommt.",
+          "role": "optional_later_extension_only_after_kommen"
+        }
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Das Buch обозначает определённый известный экземпляр, Ein Buch — неопределённый.",
+        "ordered_after": "P0-04 после первого называния das Buch; введение одного нового ein через F1.",
+        "independent_contact": "Отдельный короткий R-контраст с тем же Buch; сохранённый Der Mann kommt/Ein Mann kommt лишь необязательное позднее расширение.",
+        "productive_followup": "Точное употребление артикля по роду не блокирует P.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G07",
+      "unit": "P1-02",
+      "horizon": "P1",
+      "semantic_M": "M07",
+      "minimum": "P",
+      "example_A": "Wo ist das Buch?",
+      "example_B": "Wer hat das Buch?",
+      "meaning_difference": "Место предмета против его владельца/носителя",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Wo? запрашивает место, Wer? — человека, при одном знакомом Buch.",
+        "ordered_after": "P1-02 после первого предмета P0-04 и различения вопроса P0-07.",
+        "independent_contact": "Совпадает с основной смысловой парой P1-02; отдельный грамматический квест не нужен.",
+        "productive_followup": "Самостоятельный M07: тип пробела в знаниях важнее правильной синтаксической формы.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G13",
+      "unit": "P1-03",
+      "horizon": "P1",
+      "semantic_M": "M15",
+      "minimum": "P",
+      "example_A": "Das Wasser ist kalt.",
+      "example_B": "Das Wasser ist zu kalt.",
+      "meaning_difference": "Свойство против препятствующей чрезмерной степени",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Первое R свойства: groß/klein после ist; усиление zu kalt — отдельное позднее препятствие.",
+        "ordered_after": "P1-03 после имен предметов и sein; zu + adjective раскрывается позже при M38 в P4c.",
+        "independent_contact": "На P1 достаточно основной пары свойства; сохранённая G-пара с zu — расширение, а не одновременный ранний минимум.",
+        "productive_followup": "Понимать отличие признака и чрезмерности; не требовать форм склонения.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G12",
+      "unit": "P1-04",
+      "horizon": "P1",
+      "semantic_M": "M11",
+      "minimum": "P",
+      "example_A": "Ich habe ein Buch.",
+      "example_B": "Ich habe kein Buch.",
+      "meaning_difference": "Отрицание наличия против наличия",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Ich habe ein Buch. против Ich habe kein Buch. меняет наличие на отсутствие.",
+        "ordered_after": "P1-04 после простой Ich habe и называния Buch.",
+        "independent_contact": "То же функциональное различие, что и в основной P1-04; не нужна обязательная дополнительная контактная точка.",
+        "productive_followup": "Смысл отрицания обязателен, морфология kein принимается гибко.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G05",
+      "unit": "P1-08",
+      "horizon": "P1",
+      "semantic_M": "M12",
+      "minimum": "P",
+      "example_A": "Nimm die Tasse.",
+      "example_B": "Gib die Tasse.",
+      "meaning_difference": "Разные действия за частотными нерегулярными формами",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Узнать смысл частотных форм nimm/gib как разных действий, независимо от регулярности спряжения.",
+        "ordered_after": "P0-05 уже есть Nimm/Gib; в P1-08 это узнавание знакомых нерегулярных форм, не новое отдельное правило.",
+        "independent_contact": "Повторное R из знакомых коротких действий; нельзя считать его новым навыком только из-за маркировки G05.",
+        "productive_followup": "Не требовать парадигм lesen/nehmen/geben.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G11",
+      "unit": "P1-05",
+      "horizon": "P1",
+      "semantic_M": "M12",
+      "minimum": "P",
+      "example_A": "Ich brauche den Schlüssel.",
+      "example_B": "Der Schlüssel ist hier.",
+      "meaning_difference": "Объект необходимости против предмета сообщения; понимать Akkusativ без требования идеальных окончаний",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Определить, какой предмет нужен говорящему (Akkusativ den Schlüssel), а не чьё положение сообщается.",
+        "ordered_after": "P0-04 предметы, P1-05 знакомая просьба Ich brauche …; den есть в F1.",
+        "independent_contact": "Дополнительная R-пара про смысл роли объекта; не принимать один лишь артикль за самостоятельное доказательство Akkusativ.",
+        "productive_followup": "Различие объекта критично, артикль с ошибкой допустим.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G10",
+      "unit": "P1-10",
+      "horizon": "P1",
+      "semantic_M": "M17",
+      "minimum": "P",
+      "example_A": "Ein Buch ist hier.",
+      "example_B": "Zwei Bücher sind hier.",
+      "meaning_difference": "Один предмет против двух; форму множественного числа можно понимать без точного самостоятельного написания",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Сопоставить один объект и несколько объектов, включая Bücher.",
+        "ordered_after": "P0-04 знакомый Buch; P1-10 знакомые kleine Zahlen и Tassen.",
+        "independent_contact": "Отдельная рецепция число+множественное только после основной пары Zwei/Drei Tassen.",
+        "productive_followup": "Число и предмет важнее правильного множественного окончания.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G32",
+      "unit": "P1-09",
+      "horizon": "P1",
+      "semantic_M": "M11",
+      "minimum": "R-form",
+      "example_A": "Es gibt Wasser.",
+      "example_B": "Ich habe Wasser.",
+      "meaning_difference": "Общее наличие против владения говорящего",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Es gibt Wasser (общее наличие) против Ich habe Wasser (принадлежность говорящему).",
+        "ordered_after": "P1-09 после Ich habe/kein из P1-04, короткое сообщение о наличии.",
+        "independent_contact": "Отдельная R-пара, поскольку основная меняет отсутствие/наличие именно через es gibt.",
+        "productive_followup": "Форма es gibt — узнавание, продукция необязательна.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G04",
+      "unit": "P1-06",
+      "horizon": "P1",
+      "semantic_M": "M06",
+      "minimum": "P",
+      "example_A": "Ich arbeite.",
+      "example_B": "Du arbeitest.",
+      "meaning_difference": "Роли говорящего и адресата отражаются в знакомой форме глагола",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "При неизменном знакомом действии Ich arbeite / Du arbeitest различаются действующие лица.",
+        "ordered_after": "P0-06 знакомства с ich/du; P1-06 отдельно от состояния Tür offen/zu.",
+        "independent_contact": "Отдельная короткая R-пара с одним действием без новой бытовой информации.",
+        "productive_followup": "В P передавать субъект действия даже с неточной формой окончания.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G25",
+      "unit": "P1-11",
+      "horizon": "P1",
+      "semantic_M": "M10",
+      "minimum": "P",
+      "example_A": "Dieses Buch, bitte.",
+      "example_B": "Welches Buch?",
+      "meaning_difference": "Указание на конкретный предмет против уточняющего вопроса",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Dieses Buch, bitte. указывает определённый знакомый предмет; Welches Buch? спрашивает, какой именно.",
+        "ordered_after": "P0-04 (Buch), P1-02 (W-вопрос), P1-03 (свойства/выбор известного предмета)",
+        "independent_contact": "Отдельное R-различие после контактов о месте предмета и помощи внутри P1-11; не считать две существующие пары проверкой G25.",
+        "productive_followup": "Предмет можно уточнять коротким welches Buch? / das Buch; не требовать безошибочных окончаний dieses/welches.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G14",
+      "unit": "P2a-01",
+      "horizon": "P2a",
+      "semantic_M": "M13",
+      "minimum": "P",
+      "example_A": "Das ist mein Buch.",
+      "example_B": "Das ist dein Buch.",
+      "meaning_difference": "Меняется известный владелец одной вещи: mein против dein.",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "variant_examples": [
+        {
+          "example_A": "Mein Buch ist hier.",
+          "example_B": "Dein Buch ist hier.",
+          "role": "optional_context_variant_not_additional_required_first_R"
+        }
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Mein/dein меняют владельца одной знакомой вещи.",
+        "ordered_after": "P2a-01 после ich/du, Besitz с haben и Buch.",
+        "independent_contact": "Одна общая R-пара для M13/G14; другой порядок слов оставлен необязательной альтернативой.",
+        "productive_followup": "Важен владелец, не безошибочная форма притяжательного слова.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G15",
+      "unit": "P2a-02",
+      "horizon": "P2a",
+      "semantic_M": "M14",
+      "minimum": "P",
+      "example_A": "Ich sehe dich.",
+      "example_B": "Ich sehe ihn.",
+      "meaning_difference": "Разный объект действия: тебя против его",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Ich sehe dich. / Ich sehe ihn. — один говорящий и одно действие, но другой объект/получатель взгляда.",
+        "ordered_after": "P0-06 (ich/du), P2a-02 первая R-пара er/sie как указание на референта; видеть/sehen доступно в F1.",
+        "independent_contact": "Отдельная R-пара внутри P2a-02 после распознавания er/sie; два явно известные референта, не угадывать по русскому интерфейсу.",
+        "productive_followup": "Не требовать точного Akkusativ-окончания; различие получателя действия продуктивно становится критично при M14 в P2b-01.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G16",
+      "unit": "P2b-01",
+      "horizon": "P2b",
+      "semantic_M": "M14",
+      "minimum": "P",
+      "example_A": "Gib mir das Buch.",
+      "example_B": "Gib ihm das Buch.",
+      "meaning_difference": "Разные получатели",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Gib mir / Gib ihm меняет получателя без изменения объекта.",
+        "ordered_after": "P2b-01 после знакомых G08, M12 и личных ролей.",
+        "independent_contact": "Совпадает с основной M14 парой передачи.",
+        "productive_followup": "Неверный получатель — смысловая ошибка, падежное окончание само по себе — нет.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G18",
+      "unit": "P2b-02",
+      "horizon": "P2b",
+      "semantic_M": "M21",
+      "minimum": "P",
+      "example_A": "Das Buch liegt im Zimmer.",
+      "example_B": "Bring das Buch ins Zimmer.",
+      "meaning_difference": "Статичное место против назначения",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "im Zimmer задаёт текущее место, ins Zimmer — направление.",
+        "ordered_after": "P2b-02 после Wo? и первого узнавания местоположения.",
+        "independent_contact": "Отдельная R-пара по месту/назначению, основная пара места назначения другого типа не заменяет её.",
+        "productive_followup": "Точное окончание падежа не нужно, но перепутать где/куда нельзя.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G17",
+      "unit": "P2b-06",
+      "horizon": "P2b",
+      "semantic_M": "M19",
+      "minimum": "P",
+      "example_A": "Ich komme mit dir.",
+      "example_B": "Ich komme ohne dich.",
+      "meaning_difference": "Совместное действие против действия без другого; предлоги несут важный смысл",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "mit dir и ohne dich меняют участие другого человека.",
+        "ordered_after": "P2b-06 после основных местоимений, M19 помощь, G16 получатель.",
+        "independent_contact": "Отдельная R-пара только после первичного Ich helfe dir./ihm.; нельзя складывать два разных значения в одно предъявление.",
+        "productive_followup": "Самостоятельная грамматика предлогов не оценивается выше ясности участия.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G21",
+      "unit": "P2c-04",
+      "horizon": "P2c",
+      "semantic_M": "M24",
+      "minimum": "R-sense",
+      "example_A": "Die Arbeit fängt jetzt an.",
+      "example_B": "Die Arbeit hört jetzt auf.",
+      "meaning_difference": "Распознать начало или окончание знакомого действия по отделяемому глаголу (P2c-04), отдельно от первого временного контраста.",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "fängt an против hört auf меняет начало и окончание известного действия.",
+        "ordered_after": "P2c-04 после отдельного контакта времени um acht.",
+        "independent_contact": "Отдельно от первого R времени, совпадает со второй основной парой P2c-04.",
+        "productive_followup": "Отделяемость не проверяется сама по себе в продуктивной форме.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G19",
+      "unit": "P3a-01",
+      "horizon": "P3a",
+      "semantic_M": "M23",
+      "minimum": "P",
+      "example_A": "Komm um acht.",
+      "example_B": "Komm nach acht.",
+      "meaning_difference": "В восемь против после восьми",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "um acht vs nach acht меняет точное время на «после».",
+        "ordered_after": "P2c-04 уже было um acht, P3a-01 знакомые числительные.",
+        "independent_contact": "Отдельный R-контраст временного предлога; основной меняет день недели.",
+        "productive_followup": "При сообщении доступного времени важнее точность смысла чем форма.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G20",
+      "unit": "P3a-01",
+      "horizon": "P3a",
+      "semantic_M": "M23",
+      "minimum": "P",
+      "example_A": "Am Montag bin ich frei.",
+      "example_B": "Am Dienstag bin ich frei.",
+      "meaning_difference": "Меняется только день действия; используется известная конструкция bin frei, без нового treffen.",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "variant_examples": [
+        {
+          "example_A": "Wir treffen uns am Montag.",
+          "example_B": "Wir treffen uns am Dienstag.",
+          "role": "optional_context_variant_not_additional_required_first_R"
+        }
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "am Montag vs am Dienstag меняет день события без изменения времени.",
+        "ordered_after": "P3a-01 после времени/счисления дней; конструкция bin frei известна.",
+        "independent_contact": "Совпадает с основной парой P3a-01, без нового глагола treffen.",
+        "productive_followup": "День и время должны быть переданы, ошибка окончания допустима.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G27",
+      "unit": "P3a-05",
+      "horizon": "P3a",
+      "semantic_M": "M26",
+      "minimum": "P",
+      "example_A": "Zuerst nimmst du das Buch, dann die Tasse.",
+      "example_B": "Zuerst nimmst du die Tasse, dann das Buch.",
+      "meaning_difference": "Меняется порядок двух известных действий; zuerst/dann определяют последовательность.",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "variant_examples": [
+        {
+          "example_A": "Zuerst das Buch, dann die Tasse.",
+          "example_B": "Zuerst die Tasse, dann das Buch.",
+          "role": "optional_context_variant_not_additional_required_first_R"
+        }
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "zuerst/dann определяют порядок двух уже знакомых действий.",
+        "ordered_after": "P3a-05 после M25 частота и первых инструкций P0.",
+        "independent_contact": "Совпадает с основной парой порядка действий, старый краткий вариант сохранён.",
+        "productive_followup": "Передать порядок можно краткими предложениями без идеальной грамматики.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G22",
+      "unit": "P3b-01",
+      "horizon": "P3b",
+      "semantic_M": "M18",
+      "minimum": "P",
+      "example_A": "Du musst gehen.",
+      "example_B": "Du darfst gehen.",
+      "meaning_difference": "Обязанность против разрешения",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Du musst gehen против Du darfst gehen меняет обязанность на разрешение.",
+        "ordered_after": "P2c-03 фиксированные рецептивные nicht dürfen/müssen; P3b-01 сначала положительные модальности, затем отрицание.",
+        "independent_contact": "Две раздельные R-пары внутри этапа, без одновременного нового времени и объекта.",
+        "productive_followup": "Сохранять точный смысл обязательности/запрета при ошибочной форме.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G24",
+      "unit": "P3b-03",
+      "horizon": "P3b",
+      "semantic_M": "M54",
+      "minimum": "P",
+      "example_A": "Kommst du morgen nicht? — Doch, ich komme.",
+      "example_B": "Kommst du morgen nicht? — Nein, ich komme nicht.",
+      "meaning_difference": "Doch подтверждает противоположность отрицательному вопросу, Nein подтверждает отрицание; полный короткий ответ исключает двусмысленность.",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "variant_examples": [
+        {
+          "example_A": "Du kommst nicht? — Doch!",
+          "example_B": "Du kommst nicht? — Nein.",
+          "role": "optional_context_variant_not_additional_required_first_R"
+        }
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Doch против Nein после отрицательного вопроса меняет ответ на противоположный.",
+        "ordered_after": "P3b-03 после Ja/Nein и предыдущих отрицаний.",
+        "independent_contact": "Основная пара с полноценными ответами также служит G24, старый краткий вариант сохранён как альтернативный.",
+        "productive_followup": "Не засчитывать один звук Doch без понимания, какая ситуация отрицается.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G23",
+      "unit": "P3c-02",
+      "horizon": "P3c",
+      "semantic_M": "M31",
+      "minimum": "P",
+      "example_A": "Ich mag Tee.",
+      "example_B": "Ich möchte Tee.",
+      "meaning_difference": "Предпочтение как факт против просьбы/желания",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Ich mag Tee. — нравится как устойчивый факт; Ich möchte Tee. — хочется сейчас / просьба.",
+        "ordered_after": "P2c-05 первое R желания, P3c-01 самостоятельное möchte, P3c-02 первое R/P предпочтения mögen",
+        "independent_contact": "В P3c-02 после первой основной пары mag Wasser/Tee; один знакомый предмет и одна изменяемая семантика, а не новая тема еды.",
+        "productive_followup": "Принимается понятная краткая форма; не путать общую симпатию с конкретной текущей просьбой.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G33",
+      "unit": "P3c-03",
+      "horizon": "P3c",
+      "semantic_M": "M55",
+      "minimum": "R-form",
+      "example_A": "Ich hätte gern Tee.",
+      "example_B": "Ich habe Tee.",
+      "meaning_difference": "Вежливая просьба против сообщения о владении; только рецепция формулы Konjunktiv II",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Ich hätte gern Tee против Ich habe Tee различает просьбу и сообщение об обладании.",
+        "ordered_after": "P3c-03 после желания möchte и конкретного предмета.",
+        "independent_contact": "Совпадает с основной R-парой.",
+        "productive_followup": "Konjunktiv II необязателен для свободного P.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G26",
+      "unit": "P4a-02",
+      "horizon": "P4a",
+      "semantic_M": "M28",
+      "minimum": "P",
+      "example_A": "Die rote Tasse ist größer als die blaue.",
+      "example_B": "Die rote Tasse ist kleiner als die blaue.",
+      "meaning_difference": "Больший против меньшего при одном объекте сравнения",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "größer als / kleiner als меняет сравнение двух объектов.",
+        "ordered_after": "P4a-02 после описания признаков P1 и первых сравнений M28.",
+        "independent_contact": "Отдельная рецепция с явным вторым объектом нужна, потому что основная пара сравнивает без него.",
+        "productive_followup": "Критична направленность сравнения, не точность окончания.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G31",
+      "unit": "P4a-04",
+      "horizon": "P4a",
+      "semantic_M": "M10",
+      "minimum": "R-form",
+      "example_A": "Die rote Tasse ist hier.",
+      "example_B": "Die blaue Tasse ist hier.",
+      "meaning_difference": "Определённый по цвету предмет меняется; точное склонение в P не обязательно",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "rote Tasse / blaue Tasse меняет выделенный предмет по цвету.",
+        "ordered_after": "P4a-04 после узнавания объекта и свойств.",
+        "independent_contact": "Совпадает с основной рецептивной парой: прилагательное в атрибутивной форме.",
+        "productive_followup": "Точные окончания склонения не обязательны в P.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G34",
+      "unit": "P4a-01",
+      "horizon": "P4a",
+      "semantic_M": "M46",
+      "minimum": "P",
+      "example_A": "Die Tasse ist leer und das Buch ist hier.",
+      "example_B": "Die Tasse ist leer oder das Buch ist hier.",
+      "meaning_difference": "Соединение двух истинных пунктов против альтернативы",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "und связывает два факта, oder выражает альтернативу; aber — ожидаемый контраст.",
+        "ordered_after": "P4a-01 после M16 R на P3c и уже знакомых фактов.",
+        "independent_contact": "Совпадает с основной парой und/oder; aber требует отдельного прагматического переноса без новой обязательной формы.",
+        "productive_followup": "В P принимается понятная связь двух фактов без идеального союза.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G28",
+      "unit": "P5-01",
+      "horizon": "P5",
+      "semantic_M": "M50",
+      "minimum": "R-sense",
+      "example_A": "Gestern war die Tür offen.",
+      "example_B": "Heute ist die Tür offen.",
+      "meaning_difference": "Прошлое состояние war против текущего ist при неизменном предмете и признаке.",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "variant_examples": [
+        {
+          "example_A": "Gestern war ich müde.",
+          "example_B": "Heute bin ich müde.",
+          "role": "optional_context_variant_not_additional_required_first_R"
+        }
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Gestern war … vs Heute ist … меняет прошлое состояние на настоящее.",
+        "ordered_after": "P5-01 после вчера/сегодня и знакомого состояния предмета.",
+        "independent_contact": "Совпадает с основной парой P5-01; отдельное Ich war müde — необязательный перенос.",
+        "productive_followup": "Не требовать самостоятельного Präteritum, если понятный прошлый смысл выражен иначе.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G29",
+      "unit": "P5-02",
+      "horizon": "P5",
+      "semantic_M": "M51",
+      "minimum": "P",
+      "example_A": "Ich habe das Buch gefunden.",
+      "example_B": "Ich finde das Buch.",
+      "meaning_difference": "Завершённая находка против нахождения в настоящем",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Ich habe das Buch gefunden. сообщает о завершённом событии; Ich finde das Buch. — действие в настоящем.",
+        "ordered_after": "P5-01 различение прошлого/настоящего с war/ist, P5-02 отдельный R-контраст G29 перед самостоятельным P результата",
+        "independent_contact": "Основная пара P5-02 различает объект завершённого действия; отдельный G29 R проверяет временную завершённость на одном объекте.",
+        "productive_followup": "Свободное P M51: фактический результат и объект; допускается ясная неполная грамматика, не считать точный Partizip II обязательным.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    },
+    {
+      "id": "G30",
+      "unit": "P5-03",
+      "horizon": "P5",
+      "semantic_M": "M50",
+      "minimum": "R-sense",
+      "example_A": "Mia ist gekommen.",
+      "example_B": "Mia kommt.",
+      "meaning_difference": "Завершённое перемещение (Perfekt с sein и нерегулярным Partizip II) против текущего действия; без обязательной транспортной лексики.",
+      "status": "draft_meaning_contrast_not_grammar_drill_or_player_test",
+      "constraints": [
+        "No hidden story, NPC identity or game day",
+        "F1 or normal context supports words not yet necessary as independent vocabulary",
+        "Grammar accuracy in production is never stronger than its source M semantic minimum"
+      ],
+      "first_r_plan": {
+        "minimal_recognition": "Mia ist gekommen. против Mia kommt. различает завершённое движение и настоящее.",
+        "ordered_after": "P5-03 после общего прошлого G28 и Perfekt haben G29.",
+        "independent_contact": "Совпадает с основной R-парой без дополнительного сложного события.",
+        "productive_followup": "Продуктивный Perfekt sein необязателен.",
+        "status": "semantic_staging_candidate_not_A0_validated"
+      }
+    }
+  ]
+}

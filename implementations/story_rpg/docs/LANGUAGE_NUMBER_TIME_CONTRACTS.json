@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "status": "language_requirements_not_player_validated",
+  "contracts": [
+    {"id":"NUM-COMPOSE","unit":"P2b-05","family":"L08","mode":"R","purpose":"Прочитать новое составное число, а не угадать только знакомую строку 21.","example_A":"Bücher: einundzwanzig.","example_B":"Bücher: dreiundzwanzig.","expected_A":"21 книг","expected_B":"23 книги","support":"F1 объясняет единицы + und + десятки; формы dreiundzwanzig и аналогичные выводятся по модели, доступны поиску; самостоятельный ответ цифрами допустим."},
+    {"id":"DATE-FORMAT","unit":"P3a-01","family":"L10","mode":"R","purpose":"Различить календарную дату, день недели и время. Изменение месяца меняет дату встречи.","example_A":"Termin: 21. Mai, 14:30 Uhr.","example_B":"Termin: 21. Juni, 14:30 Uhr.","expected_A":"21 мая, 14:30","expected_B":"21 июня, 14:30","support":"Обязательное R: DD.MM., DD. + название месяца, дата отдельно от часов. P допускает цифры DD.MM. и HH:MM; образование всех порядковых окончаний не требуется."},
+    {"id":"CLOCK-HALF","unit":"P3a-01","family":"L10","mode":"R","purpose":"В halb обозначен следующий час: половина третьего — 02:30 либо 14:30 при явном контексте дня.","example_A":"Termin am Nachmittag: halb drei.","example_B":"Termin am Nachmittag: halb vier.","expected_A":"14:30","expected_B":"15:30","support":"F1 содержит правило halb + следующий час и примеры, не ответ текущей задачи. Для четвертей: Viertel nach zwei = 14:15, Viertel vor drei = 14:45; региональные dreiviertel не обязательны. Без контекста суток обе интерпретации часа допустимы."},
+    {"id":"PRICE-DECIMAL","unit":"P3a-02","family":"L13","mode":"R","purpose":"Отличить цену в евро и центах; чтение запятой не заменяется знакомым целым числом.","example_A":"Preis: 2,50 Euro.","example_B":"Preis: 2,05 Euro.","expected_A":"2 евро 50 центов","expected_B":"2 евро 5 центов","support":"F1 объясняет десятичную запятую и запись евро/центов. Для P допустимы цифры с единицей; покупка не является обязательным сценарием."}
+  ]
+}

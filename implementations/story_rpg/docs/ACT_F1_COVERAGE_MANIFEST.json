@@ -1,0 +1,3843 @@
+{
+  "version": "0.4",
+  "status": "derived_R_vocabulary_inventory_not_translated_or_reviewed_F1_dictionary",
+  "source": "ACT_DIALOGUE_SITUATIONS.json (mandatory R only) + ACT_VOCAB_NORMALIZATION.json; ACT_LEXICAL_ROLE_CANDIDATES.json",
+  "rules": [
+    "Only mandatory R input counted: optional scenes and P examples are not evidence of R exposure.",
+    "Role categories are previous proposals, not proof of lexical importance.",
+    "Lemma normalization is provisional and cannot disambiguate identical spellings with different meanings; F1 needs separate senses.",
+    "No translation, gender, inflection, or Russian reverse search is supplied by this manifest.",
+    "Mandatory P-only example lemmas are included separately as F1 candidate lookups; these example strings are not mandatory player word choices.",
+    "29 thematic catalogue groups extend beyond the currently authored mandatory scenes; each backticked unit is a F1 candidate entry, not a learner requirement.",
+    "Optional scenes and optional P replies are not mandatory learning evidence but must be available in the full F1 of the authored act."
+  ],
+  "summary": {
+    "distinct_r_lemmas": 199,
+    "required_r_tokens": 966,
+    "core_candidates_present": 26,
+    "core_candidates_missing": [
+      "wo"
+    ],
+    "situational_present": 18,
+    "situational_missing": [],
+    "unclassified": 155,
+    "unmapped_required_r_forms": [],
+    "productive_example_forms_not_in_r_normalization": [],
+    "mandatory_p_only_lemmas": [
+      "darf",
+      "flasche",
+      "gleich",
+      "helfen",
+      "nach",
+      "navigator",
+      "wo",
+      "zuerst"
+    ],
+    "distinct_required_r_or_p_example_lemmas": 207,
+    "p_examples_lexemes": 102,
+    "catalogue_distinct_phrase_strings": 458,
+    "catalogue_phrase_occurrences": 464,
+    "catalogue_groups": 29,
+    "optional_only_lemmas": 14,
+    "current_authored_corpus_R_P_lexemes": 221
+  },
+  "lemmas": [
+    {
+      "lemma": "aber",
+      "mandatory_r_days": [
+        11,
+        17,
+        20
+      ],
+      "r_forms": [
+        "aber"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D11-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "acht",
+      "mandatory_r_days": [
+        10
+      ],
+      "r_forms": [
+        "acht"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D10-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "all",
+      "mandatory_r_days": [
+        6,
+        20,
+        21
+      ],
+      "r_forms": [
+        "alle",
+        "alles"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D06-S2-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "alt",
+      "mandatory_r_days": [
+        9,
+        14,
+        15,
+        21
+      ],
+      "r_forms": [
+        "alt",
+        "alte",
+        "alten"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D09-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "am",
+      "mandatory_r_days": [
+        8
+      ],
+      "r_forms": [
+        "am"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D08-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "an",
+      "mandatory_r_days": [
+        15
+      ],
+      "r_forms": [
+        "an"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D15-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "ander",
+      "mandatory_r_days": [
+        6,
+        11,
+        15
+      ],
+      "r_forms": [
+        "andere",
+        "anderen"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D06-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "anders",
+      "mandatory_r_days": [
+        14
+      ],
+      "r_forms": [
+        "anders"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D14-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "antwort",
+      "mandatory_r_days": [
+        15,
+        17
+      ],
+      "r_forms": [
+        "antwort"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D15-S2-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "arbeit",
+      "mandatory_r_days": [
+        4,
+        5,
+        20
+      ],
+      "r_forms": [
+        "arbeit"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D04-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "arbeiten",
+      "mandatory_r_days": [
+        4,
+        7,
+        11,
+        12,
+        13,
+        18,
+        20
+      ],
+      "r_forms": [
+        "arbeite",
+        "arbeiten",
+        "arbeitet",
+        "gearbeitet"
+      ],
+      "r_occurrences": 7,
+      "first_r_event": "D04-S2-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "Arzt",
+      "mandatory_r_days": [
+        1,
+        2,
+        7,
+        9,
+        11,
+        20
+      ],
+      "r_forms": [
+        "arzt"
+      ],
+      "r_occurrences": 7,
+      "first_r_event": "D01-S2-R3",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "auch",
+      "mandatory_r_days": [
+        2,
+        8,
+        9,
+        10,
+        17,
+        18
+      ],
+      "r_forms": [
+        "auch"
+      ],
+      "r_occurrences": 6,
+      "first_r_event": "D02-S2-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "auf",
+      "mandatory_r_days": [
+        6
+      ],
+      "r_forms": [
+        "auf"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D06-S2-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "aus",
+      "mandatory_r_days": [
+        16
+      ],
+      "r_forms": [
+        "aus"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D16-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "ausfüllen",
+      "mandatory_r_days": [
+        16
+      ],
+      "r_forms": [
+        "füll"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D16-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "ausgang",
+      "mandatory_r_days": [
+        6
+      ],
+      "r_forms": [
+        "ausgang"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D06-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "beginnen",
+      "mandatory_r_days": [
+        10
+      ],
+      "r_forms": [
+        "beginnt"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D10-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "bei",
+      "mandatory_r_days": [
+        8
+      ],
+      "r_forms": [
+        "bei"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D08-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "bericht",
+      "mandatory_r_days": [
+        15,
+        19,
+        20
+      ],
+      "r_forms": [
+        "bericht"
+      ],
+      "r_occurrences": 5,
+      "first_r_event": "D15-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "beschäftigt",
+      "mandatory_r_days": [
+        10,
+        13
+      ],
+      "r_forms": [
+        "beschäftigt"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D10-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "besser",
+      "mandatory_r_days": [
+        18
+      ],
+      "r_forms": [
+        "besser"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D18-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "bis",
+      "mandatory_r_days": [
+        2,
+        3,
+        10,
+        13,
+        20
+      ],
+      "r_forms": [
+        "bis"
+      ],
+      "r_occurrences": 5,
+      "first_r_event": "D02-S2-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "bitte",
+      "mandatory_r_days": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        8,
+        16
+      ],
+      "r_forms": [
+        "bitte"
+      ],
+      "r_occurrences": 8,
+      "first_r_event": "D01-S1-R2",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "blau",
+      "mandatory_r_days": [
+        11
+      ],
+      "r_forms": [
+        "blauen"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D11-S2-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "brauchen",
+      "mandatory_r_days": [
+        1,
+        2,
+        3,
+        5,
+        7,
+        9,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        19,
+        20,
+        21
+      ],
+      "r_forms": [
+        "brauche",
+        "brauchen",
+        "brauchst",
+        "braucht"
+      ],
+      "r_occurrences": 23,
+      "first_r_event": "D01-S2-R4",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "bringen",
+      "mandatory_r_days": [
+        6
+      ],
+      "r_forms": [
+        "bring"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D06-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "Brot",
+      "mandatory_r_days": [
+        3
+      ],
+      "r_forms": [
+        "brot"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D03-S1-R3",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "da",
+      "mandatory_r_days": [
+        4
+      ],
+      "r_forms": [
+        "da"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D04-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "danach",
+      "mandatory_r_days": [
+        20,
+        21
+      ],
+      "r_forms": [
+        "danach"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D20-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "danke",
+      "mandatory_r_days": [
+        3,
+        5,
+        6,
+        17,
+        19,
+        21
+      ],
+      "r_forms": [
+        "danke"
+      ],
+      "r_occurrences": 7,
+      "first_r_event": "D03-S1-R6",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "dann",
+      "mandatory_r_days": [
+        10,
+        16,
+        20
+      ],
+      "r_forms": [
+        "dann"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D10-S2-R5",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "dein",
+      "mandatory_r_days": [
+        2,
+        5,
+        7,
+        8,
+        19,
+        20,
+        21
+      ],
+      "r_forms": [
+        "dein",
+        "deine",
+        "deinen"
+      ],
+      "r_occurrences": 9,
+      "first_r_event": "D02-S2-R1",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "der",
+      "mandatory_r_days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "r_forms": [
+        "das",
+        "dem",
+        "den",
+        "der",
+        "des",
+        "die"
+      ],
+      "r_occurrences": 99,
+      "first_r_event": "D01-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "dienst",
+      "mandatory_r_days": [
+        10
+      ],
+      "r_forms": [
+        "dienst"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D10-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "Dienstag",
+      "mandatory_r_days": [
+        15
+      ],
+      "r_forms": [
+        "dienstag"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D15-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "dort",
+      "mandatory_r_days": [
+        1,
+        2,
+        3
+      ],
+      "r_forms": [
+        "dort"
+      ],
+      "r_occurrences": 5,
+      "first_r_event": "D01-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "drei",
+      "mandatory_r_days": [
+        9,
+        10
+      ],
+      "r_forms": [
+        "drei"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D09-S1-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "du",
+      "mandatory_r_days": [
+        1,
+        2,
+        3,
+        4,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        16,
+        18,
+        19,
+        20,
+        21
+      ],
+      "r_forms": [
+        "dich",
+        "dir",
+        "du"
+      ],
+      "r_occurrences": 42,
+      "first_r_event": "D01-S1-R5",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "dürfen",
+      "mandatory_r_days": [
+        11,
+        12
+      ],
+      "r_forms": [
+        "darfst"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D11-S1-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "ein",
+      "mandatory_r_days": [
+        3,
+        7,
+        8,
+        9,
+        13,
+        14
+      ],
+      "r_forms": [
+        "ein",
+        "eine",
+        "einen"
+      ],
+      "r_occurrences": 6,
+      "first_r_event": "D03-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "einmal",
+      "mandatory_r_days": [
+        1,
+        2,
+        14
+      ],
+      "r_forms": [
+        "einmal"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D01-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "elf",
+      "mandatory_r_days": [
+        10,
+        13,
+        20
+      ],
+      "r_forms": [
+        "elf"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D10-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "endlich",
+      "mandatory_r_days": [
+        18
+      ],
+      "r_forms": [
+        "endlich"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D18-S2-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "energie",
+      "mandatory_r_days": [
+        13,
+        20,
+        21
+      ],
+      "r_forms": [
+        "energie"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D13-S1-R1",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "entscheiden",
+      "mandatory_r_days": [
+        17
+      ],
+      "r_forms": [
+        "entscheidet"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D17-S2-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "er",
+      "mandatory_r_days": [
+        7
+      ],
+      "r_forms": [
+        "er",
+        "ihn"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D07-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "erde",
+      "mandatory_r_days": [
+        15
+      ],
+      "r_forms": [
+        "erde"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D15-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "ergebnis",
+      "mandatory_r_days": [
+        14,
+        16,
+        21
+      ],
+      "r_forms": [
+        "ergebnis",
+        "ergebnisse"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D14-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "erst",
+      "mandatory_r_days": [
+        15
+      ],
+      "r_forms": [
+        "erst"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D15-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "es",
+      "mandatory_r_days": [
+        4,
+        10,
+        13,
+        18,
+        21
+      ],
+      "r_forms": [
+        "es"
+      ],
+      "r_occurrences": 5,
+      "first_r_event": "D04-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "essen",
+      "mandatory_r_days": [
+        13,
+        21
+      ],
+      "r_forms": [
+        "essen"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D13-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "farbe",
+      "mandatory_r_days": [
+        8
+      ],
+      "r_forms": [
+        "farbe"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D08-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "feld",
+      "mandatory_r_days": [
+        16
+      ],
+      "r_forms": [
+        "felder"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D16-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "fertig",
+      "mandatory_r_days": [
+        4,
+        13,
+        16
+      ],
+      "r_forms": [
+        "fertig"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D04-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "finden",
+      "mandatory_r_days": [
+        18
+      ],
+      "r_forms": [
+        "gefunden"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D18-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "fragen",
+      "mandatory_r_days": [
+        7
+      ],
+      "r_forms": [
+        "frag"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D07-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "frei",
+      "mandatory_r_days": [
+        21
+      ],
+      "r_forms": [
+        "frei"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D21-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "für",
+      "mandatory_r_days": [
+        5,
+        11,
+        17,
+        21
+      ],
+      "r_forms": [
+        "für"
+      ],
+      "r_occurrences": 11,
+      "first_r_event": "D05-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "geben",
+      "mandatory_r_days": [
+        13,
+        21
+      ],
+      "r_forms": [
+        "gibt"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D13-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "gehen",
+      "mandatory_r_days": [
+        10,
+        18
+      ],
+      "r_forms": [
+        "geht"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D10-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "genug",
+      "mandatory_r_days": [
+        17
+      ],
+      "r_forms": [
+        "genug"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D17-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "gerät",
+      "mandatory_r_days": [
+        8
+      ],
+      "r_forms": [
+        "gerät"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D08-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "geschlossen",
+      "mandatory_r_days": [
+        18
+      ],
+      "r_forms": [
+        "geschlossen"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D18-S1-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "gestern",
+      "mandatory_r_days": [
+        18,
+        19
+      ],
+      "r_forms": [
+        "gestern"
+      ],
+      "r_occurrences": 5,
+      "first_r_event": "D18-S1-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "grün",
+      "mandatory_r_days": [
+        8
+      ],
+      "r_forms": [
+        "grün"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D08-S2-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "gut",
+      "mandatory_r_days": [
+        1,
+        2,
+        6,
+        9,
+        16,
+        17,
+        21
+      ],
+      "r_forms": [
+        "gut",
+        "gute"
+      ],
+      "r_occurrences": 7,
+      "first_r_event": "D01-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "haben",
+      "mandatory_r_days": [
+        2,
+        9,
+        10,
+        13,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "r_forms": [
+        "habe",
+        "haben",
+        "hast",
+        "hat"
+      ],
+      "r_occurrences": 23,
+      "first_r_event": "D02-S1-R4",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "hallo",
+      "mandatory_r_days": [
+        1,
+        2,
+        3,
+        6,
+        8
+      ],
+      "r_forms": [
+        "hallo"
+      ],
+      "r_occurrences": 5,
+      "first_r_event": "D01-S1-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "heißen",
+      "mandatory_r_days": [
+        2
+      ],
+      "r_forms": [
+        "heißt"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D02-S1-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "heute",
+      "mandatory_r_days": [
+        7,
+        10,
+        11,
+        12,
+        13,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "r_forms": [
+        "heute"
+      ],
+      "r_occurrences": 16,
+      "first_r_event": "D07-S1-R3",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "hier",
+      "mandatory_r_days": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        10,
+        11,
+        15
+      ],
+      "r_forms": [
+        "hier"
+      ],
+      "r_occurrences": 17,
+      "first_r_event": "D01-S1-R2",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "hilfe",
+      "mandatory_r_days": [
+        1,
+        5,
+        21
+      ],
+      "r_forms": [
+        "hilfe"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D01-S2-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "hören",
+      "mandatory_r_days": [
+        8
+      ],
+      "r_forms": [
+        "hörst"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D08-S1-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "ich",
+      "mandatory_r_days": [
+        1,
+        2,
+        7,
+        8,
+        10,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "r_forms": [
+        "ich",
+        "mich",
+        "mir"
+      ],
+      "r_occurrences": 37,
+      "first_r_event": "D01-S1-R1",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "im",
+      "mandatory_r_days": [
+        5,
+        7
+      ],
+      "r_forms": [
+        "im"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D05-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "in",
+      "mandatory_r_days": [
+        6
+      ],
+      "r_forms": [
+        "in"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D06-S2-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "informationen",
+      "mandatory_r_days": [
+        16
+      ],
+      "r_forms": [
+        "informationen"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D16-S2-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "ins",
+      "mandatory_r_days": [
+        6
+      ],
+      "r_forms": [
+        "ins"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D06-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "ja",
+      "mandatory_r_days": [
+        1,
+        11
+      ],
+      "r_forms": [
+        "ja"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D01-S2-R5",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "jetzt",
+      "mandatory_r_days": [
+        8,
+        12,
+        18,
+        19,
+        21
+      ],
+      "r_forms": [
+        "jetzt"
+      ],
+      "r_occurrences": 5,
+      "first_r_event": "D08-S2-R4",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "kapitän",
+      "mandatory_r_days": [
+        7
+      ],
+      "r_forms": [
+        "kapitän"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D07-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "kaputt",
+      "mandatory_r_days": [
+        4,
+        9
+      ],
+      "r_forms": [
+        "kaputt"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D04-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "kein",
+      "mandatory_r_days": [
+        8
+      ],
+      "r_forms": [
+        "kein"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D08-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "kommen",
+      "mandatory_r_days": [
+        1,
+        2,
+        10,
+        11,
+        12,
+        13,
+        15,
+        20
+      ],
+      "r_forms": [
+        "komm",
+        "komme",
+        "kommen",
+        "kommt"
+      ],
+      "r_occurrences": 14,
+      "first_r_event": "D01-S1-R2",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "können",
+      "mandatory_r_days": [
+        2,
+        5,
+        7,
+        8,
+        10,
+        11,
+        13,
+        15,
+        16,
+        17,
+        20,
+        21
+      ],
+      "r_forms": [
+        "kann",
+        "kannst",
+        "können"
+      ],
+      "r_occurrences": 15,
+      "first_r_event": "D02-S2-R4",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "küche",
+      "mandatory_r_days": [
+        6
+      ],
+      "r_forms": [
+        "küche"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D06-S2-R1",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "lager",
+      "mandatory_r_days": [
+        7
+      ],
+      "r_forms": [
+        "lager"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D07-S1-R6",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "lagerverwalter",
+      "mandatory_r_days": [
+        7,
+        17
+      ],
+      "r_forms": [
+        "lagerverwalter"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D07-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "Lampe",
+      "mandatory_r_days": [
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "r_forms": [
+        "lampe",
+        "lampen"
+      ],
+      "r_occurrences": 11,
+      "first_r_event": "D03-S1-R4",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "lang",
+      "mandatory_r_days": [
+        4,
+        18
+      ],
+      "r_forms": [
+        "lange"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D04-S2-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "leitung",
+      "mandatory_r_days": [
+        19
+      ],
+      "r_forms": [
+        "leitung"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D19-S1-R4",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "letzt",
+      "mandatory_r_days": [
+        21
+      ],
+      "r_forms": [
+        "letzte"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D21-S2-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "licht",
+      "mandatory_r_days": [
+        5,
+        8,
+        9
+      ],
+      "r_forms": [
+        "licht"
+      ],
+      "r_occurrences": 5,
+      "first_r_event": "D05-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "lieber",
+      "mandatory_r_days": [
+        20
+      ],
+      "r_forms": [
+        "lieber"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D20-S2-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "links",
+      "mandatory_r_days": [
+        6
+      ],
+      "r_forms": [
+        "links"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D06-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "liste",
+      "mandatory_r_days": [
+        4,
+        6,
+        7,
+        9,
+        16,
+        17
+      ],
+      "r_forms": [
+        "liste"
+      ],
+      "r_occurrences": 6,
+      "first_r_event": "D04-S1-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "machen",
+      "mandatory_r_days": [
+        21
+      ],
+      "r_forms": [
+        "gemacht"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D21-S2-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "mehr",
+      "mandatory_r_days": [
+        10,
+        17
+      ],
+      "r_forms": [
+        "mehr"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D10-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "mein",
+      "mandatory_r_days": [
+        2,
+        7,
+        8,
+        10
+      ],
+      "r_forms": [
+        "mein"
+      ],
+      "r_occurrences": 6,
+      "first_r_event": "D02-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "mensch",
+      "mandatory_r_days": [
+        17
+      ],
+      "r_forms": [
+        "menschen"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D17-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "möchten",
+      "mandatory_r_days": [
+        12
+      ],
+      "r_forms": [
+        "möchtest"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D12-S1-R2",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "Montag",
+      "mandatory_r_days": [
+        15
+      ],
+      "r_forms": [
+        "montag"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D15-S1-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "morgen",
+      "mandatory_r_days": [
+        2,
+        3,
+        4,
+        10,
+        11,
+        15,
+        17,
+        20,
+        21
+      ],
+      "r_forms": [
+        "morgen"
+      ],
+      "r_occurrences": 18,
+      "first_r_event": "D02-S1-R6",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "müde",
+      "mandatory_r_days": [
+        2,
+        4,
+        12,
+        18
+      ],
+      "r_forms": [
+        "müde"
+      ],
+      "r_occurrences": 6,
+      "first_r_event": "D02-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "müssen",
+      "mandatory_r_days": [
+        11,
+        13,
+        18
+      ],
+      "r_forms": [
+        "muss",
+        "musst",
+        "müssen"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D11-S1-R3",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "nachricht",
+      "mandatory_r_days": [
+        8,
+        15,
+        16
+      ],
+      "r_forms": [
+        "nachricht"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D08-S2-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "nächst",
+      "mandatory_r_days": [
+        20
+      ],
+      "r_forms": [
+        "nächste"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D20-S2-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "nacht",
+      "mandatory_r_days": [
+        2
+      ],
+      "r_forms": [
+        "nacht"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D02-S2-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "name",
+      "mandatory_r_days": [
+        7
+      ],
+      "r_forms": [
+        "namen"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D07-S2-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "nehmen",
+      "mandatory_r_days": [
+        1,
+        7,
+        11,
+        17
+      ],
+      "r_forms": [
+        "nehmen",
+        "nimm"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D01-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "nein",
+      "mandatory_r_days": [
+        1,
+        11
+      ],
+      "r_forms": [
+        "nein"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D01-S2-R2",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "neu",
+      "mandatory_r_days": [
+        13,
+        14,
+        15,
+        19
+      ],
+      "r_forms": [
+        "neu",
+        "neue",
+        "neuen"
+      ],
+      "r_occurrences": 5,
+      "first_r_event": "D13-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "neun",
+      "mandatory_r_days": [
+        10,
+        13,
+        20
+      ],
+      "r_forms": [
+        "neun"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D10-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "nicht",
+      "mandatory_r_days": [
+        1,
+        3,
+        4,
+        7,
+        10,
+        11,
+        12,
+        13,
+        17,
+        18,
+        19,
+        21
+      ],
+      "r_forms": [
+        "nicht"
+      ],
+      "r_occurrences": 16,
+      "first_r_event": "D01-S1-R5",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "nichts",
+      "mandatory_r_days": [
+        15
+      ],
+      "r_forms": [
+        "nichts"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D15-S2-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "noch",
+      "mandatory_r_days": [
+        1,
+        2,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        21
+      ],
+      "r_forms": [
+        "noch"
+      ],
+      "r_occurrences": 10,
+      "first_r_event": "D01-S1-R5",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "nur",
+      "mandatory_r_days": [
+        15,
+        16,
+        21
+      ],
+      "r_forms": [
+        "nur"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D15-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "oder",
+      "mandatory_r_days": [
+        6,
+        12,
+        20
+      ],
+      "r_forms": [
+        "oder"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D06-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "offen",
+      "mandatory_r_days": [
+        1,
+        6,
+        18,
+        21
+      ],
+      "r_forms": [
+        "offen"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D01-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "passen",
+      "mandatory_r_days": [
+        10
+      ],
+      "r_forms": [
+        "passt"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D10-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "Pflanze",
+      "mandatory_r_days": [
+        17
+      ],
+      "r_forms": [
+        "pflanzen"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D17-S1-R1",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "plan",
+      "mandatory_r_days": [
+        13
+      ],
+      "r_forms": [
+        "plan"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D13-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "problems",
+      "mandatory_r_days": [
+        21
+      ],
+      "r_forms": [
+        "problems"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D21-S1-R7",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "prüfen",
+      "mandatory_r_days": [
+        4,
+        8,
+        10,
+        14,
+        16,
+        17,
+        19,
+        20,
+        21
+      ],
+      "r_forms": [
+        "geprüft",
+        "prüfe",
+        "prüfen"
+      ],
+      "r_occurrences": 11,
+      "first_r_event": "D04-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "prüfung",
+      "mandatory_r_days": [
+        16
+      ],
+      "r_forms": [
+        "prüfung"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D16-S2-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "pult",
+      "mandatory_r_days": [
+        8
+      ],
+      "r_forms": [
+        "pult"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D08-S1-R2",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "raum",
+      "mandatory_r_days": [
+        11
+      ],
+      "r_forms": [
+        "raum"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D11-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "rechts",
+      "mandatory_r_days": [
+        6
+      ],
+      "r_forms": [
+        "rechts"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D06-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "richtig",
+      "mandatory_r_days": [
+        14
+      ],
+      "r_forms": [
+        "richtig",
+        "richtigen"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D14-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "rot",
+      "mandatory_r_days": [
+        8,
+        11
+      ],
+      "r_forms": [
+        "rot",
+        "rote"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D08-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "ruhe",
+      "mandatory_r_days": [
+        2
+      ],
+      "r_forms": [
+        "ruhe"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D02-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "sagen",
+      "mandatory_r_days": [
+        7,
+        8,
+        12,
+        15
+      ],
+      "r_forms": [
+        "sag",
+        "sagen",
+        "sagt"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D07-S2-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "schiff",
+      "mandatory_r_days": [
+        21
+      ],
+      "r_forms": [
+        "schiff"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D21-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "schlafen",
+      "mandatory_r_days": [
+        2,
+        12
+      ],
+      "r_forms": [
+        "schlafen"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D02-S2-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "schlecht",
+      "mandatory_r_days": [
+        1
+      ],
+      "r_forms": [
+        "schlecht"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D01-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "Schlüssel",
+      "mandatory_r_days": [
+        1,
+        3,
+        7,
+        11,
+        18
+      ],
+      "r_forms": [
+        "schlüssel"
+      ],
+      "r_occurrences": 10,
+      "first_r_event": "D01-S1-R4",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "schmerzen",
+      "mandatory_r_days": [
+        2
+      ],
+      "r_forms": [
+        "schmerzen"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D02-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "schreiben",
+      "mandatory_r_days": [
+        16
+      ],
+      "r_forms": [
+        "schreib"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D16-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "schwer",
+      "mandatory_r_days": [
+        12,
+        21
+      ],
+      "r_forms": [
+        "schwer"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D12-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "sehen",
+      "mandatory_r_days": [
+        4,
+        10
+      ],
+      "r_forms": [
+        "sehen",
+        "siehst"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D04-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "sehr",
+      "mandatory_r_days": [
+        18
+      ],
+      "r_forms": [
+        "sehr"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D18-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "sein",
+      "mandatory_r_days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "r_forms": [
+        "bin",
+        "bist",
+        "ist",
+        "sind",
+        "war",
+        "warst"
+      ],
+      "r_occurrences": 75,
+      "first_r_event": "D01-S1-R1",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "senden",
+      "mandatory_r_days": [
+        8,
+        16
+      ],
+      "r_forms": [
+        "senden"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D08-S2-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "Sensor",
+      "mandatory_r_days": [
+        10,
+        14,
+        15,
+        16,
+        19,
+        21
+      ],
+      "r_forms": [
+        "sensor"
+      ],
+      "r_occurrences": 10,
+      "first_r_event": "D10-S2-R5",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "sicher",
+      "mandatory_r_days": [
+        11,
+        13,
+        19
+      ],
+      "r_forms": [
+        "sicher",
+        "sicheren"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D11-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "sie",
+      "mandatory_r_days": [
+        15
+      ],
+      "r_forms": [
+        "sie"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D15-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "signal",
+      "mandatory_r_days": [
+        8
+      ],
+      "r_forms": [
+        "signal"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D08-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "so",
+      "mandatory_r_days": [
+        4
+      ],
+      "r_forms": [
+        "so"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D04-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "später",
+      "mandatory_r_days": [
+        12,
+        13,
+        15
+      ],
+      "r_forms": [
+        "später"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D12-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "stabil",
+      "mandatory_r_days": [
+        13
+      ],
+      "r_forms": [
+        "stabil"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D13-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "starten",
+      "mandatory_r_days": [
+        8
+      ],
+      "r_forms": [
+        "starte"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D08-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "Status",
+      "mandatory_r_days": [
+        16,
+        21
+      ],
+      "r_forms": [
+        "status"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D16-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "stehen",
+      "mandatory_r_days": [
+        4,
+        15
+      ],
+      "r_forms": [
+        "steht"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D04-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "strom",
+      "mandatory_r_days": [
+        11
+      ],
+      "r_forms": [
+        "strom"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D11-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "suppe",
+      "mandatory_r_days": [
+        13,
+        17
+      ],
+      "r_forms": [
+        "suppe"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D13-S2-R2",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "system",
+      "mandatory_r_days": [
+        20
+      ],
+      "r_forms": [
+        "systeme"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D20-S1-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "tasse",
+      "mandatory_r_days": [
+        6
+      ],
+      "r_forms": [
+        "tasse"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D06-S2-R3",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "Tee",
+      "mandatory_r_days": [
+        12,
+        20,
+        21
+      ],
+      "r_forms": [
+        "tee"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D12-S1-R5",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "test",
+      "mandatory_r_days": [
+        8
+      ],
+      "r_forms": [
+        "test"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D08-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "Tisch",
+      "mandatory_r_days": [
+        6
+      ],
+      "r_forms": [
+        "tisch"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D06-S2-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "trennen",
+      "mandatory_r_days": [
+        18
+      ],
+      "r_forms": [
+        "trennen"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D18-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "trinken",
+      "mandatory_r_days": [
+        20
+      ],
+      "r_forms": [
+        "trinken"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D20-S2-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "Tür",
+      "mandatory_r_days": [
+        1,
+        4,
+        5,
+        6,
+        18
+      ],
+      "r_forms": [
+        "tür"
+      ],
+      "r_occurrences": 7,
+      "first_r_event": "D01-S1-R3",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "Uhr",
+      "mandatory_r_days": [
+        15
+      ],
+      "r_forms": [
+        "uhr"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D15-S1-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "um",
+      "mandatory_r_days": [
+        10,
+        13,
+        20
+      ],
+      "r_forms": [
+        "um"
+      ],
+      "r_occurrences": 13,
+      "first_r_event": "D10-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "und",
+      "mandatory_r_days": [
+        4,
+        18
+      ],
+      "r_forms": [
+        "und"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D04-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "unterschied",
+      "mandatory_r_days": [
+        11,
+        14
+      ],
+      "r_forms": [
+        "unterschied"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D11-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "ursache",
+      "mandatory_r_days": [
+        21
+      ],
+      "r_forms": [
+        "ursache"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D21-S1-R7",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "verbindung",
+      "mandatory_r_days": [
+        8,
+        13,
+        20,
+        21
+      ],
+      "r_forms": [
+        "verbindung"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D08-S2-R3",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "verstehen",
+      "mandatory_r_days": [
+        1,
+        11,
+        17,
+        19
+      ],
+      "r_forms": [
+        "verstanden",
+        "verstehe",
+        "verstehst"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D01-S1-R5",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "viel",
+      "mandatory_r_days": [
+        9
+      ],
+      "r_forms": [
+        "viele"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D09-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "von",
+      "mandatory_r_days": [
+        15
+      ],
+      "r_forms": [
+        "von"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D15-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "wann",
+      "mandatory_r_days": [
+        13,
+        16
+      ],
+      "r_forms": [
+        "wann"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D13-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "warten",
+      "mandatory_r_days": [
+        5,
+        11
+      ],
+      "r_forms": [
+        "warten"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D05-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "was",
+      "mandatory_r_days": [
+        3,
+        4,
+        8,
+        12,
+        16,
+        19,
+        21
+      ],
+      "r_forms": [
+        "was"
+      ],
+      "r_occurrences": 7,
+      "first_r_event": "D03-S1-R1",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "Wasser",
+      "mandatory_r_days": [
+        3,
+        12,
+        17
+      ],
+      "r_forms": [
+        "wasser"
+      ],
+      "r_occurrences": 7,
+      "first_r_event": "D03-S1-R2",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "weg",
+      "mandatory_r_days": [
+        6
+      ],
+      "r_forms": [
+        "weg"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D06-S1-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "weiterfliegen",
+      "mandatory_r_days": [
+        20,
+        21
+      ],
+      "r_forms": [
+        "weiterfliegen"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D20-S1-R7",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "welch",
+      "mandatory_r_days": [
+        14,
+        15,
+        16,
+        21
+      ],
+      "r_forms": [
+        "welcher",
+        "welches"
+      ],
+      "r_occurrences": 5,
+      "first_r_event": "D14-S1-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "wer",
+      "mandatory_r_days": [
+        18
+      ],
+      "r_forms": [
+        "wer"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D18-S1-R3",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "wert",
+      "mandatory_r_days": [
+        14,
+        19
+      ],
+      "r_forms": [
+        "wert",
+        "werte"
+      ],
+      "r_occurrences": 7,
+      "first_r_event": "D14-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "wichtig",
+      "mandatory_r_days": [
+        16,
+        20
+      ],
+      "r_forms": [
+        "wichtig",
+        "wichtigen"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D16-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "wie",
+      "mandatory_r_days": [
+        2,
+        9
+      ],
+      "r_forms": [
+        "wie"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D02-S1-R1",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "wieder",
+      "mandatory_r_days": [
+        4
+      ],
+      "r_forms": [
+        "wieder"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D04-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "wir",
+      "mandatory_r_days": [
+        4,
+        5,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "r_forms": [
+        "uns",
+        "wir"
+      ],
+      "r_occurrences": 27,
+      "first_r_event": "D04-S2-R5",
+      "role": "candidate_core"
+    },
+    {
+      "lemma": "Woche",
+      "mandatory_r_days": [
+        20,
+        21
+      ],
+      "r_forms": [
+        "woche"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D20-S2-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "wofür",
+      "mandatory_r_days": [
+        11
+      ],
+      "r_forms": [
+        "wofür"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D11-S2-R1",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "wohnbereich",
+      "mandatory_r_days": [
+        6
+      ],
+      "r_forms": [
+        "wohnbereich"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D06-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "wollen",
+      "mandatory_r_days": [
+        20
+      ],
+      "r_forms": [
+        "wollten"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D20-S2-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "zehn",
+      "mandatory_r_days": [
+        10,
+        13,
+        14,
+        15,
+        20
+      ],
+      "r_forms": [
+        "zehn"
+      ],
+      "r_occurrences": 7,
+      "first_r_event": "D10-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "zeigen",
+      "mandatory_r_days": [
+        8,
+        14
+      ],
+      "r_forms": [
+        "zeigt"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D08-S1-R5",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "zeit",
+      "mandatory_r_days": [
+        18
+      ],
+      "r_forms": [
+        "zeiten"
+      ],
+      "r_occurrences": 1,
+      "first_r_event": "D18-S1-R6",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "Zeit",
+      "mandatory_r_days": [
+        10,
+        13,
+        15,
+        16,
+        18,
+        20,
+        21
+      ],
+      "r_forms": [
+        "zeit"
+      ],
+      "r_occurrences": 11,
+      "first_r_event": "D10-S1-R2",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "Zimmer",
+      "mandatory_r_days": [
+        2,
+        5,
+        6,
+        7
+      ],
+      "r_forms": [
+        "zimmer"
+      ],
+      "r_occurrences": 5,
+      "first_r_event": "D02-S2-R1",
+      "role": "candidate_situational"
+    },
+    {
+      "lemma": "zu",
+      "mandatory_r_days": [
+        4,
+        5,
+        6
+      ],
+      "r_forms": [
+        "zu"
+      ],
+      "r_occurrences": 3,
+      "first_r_event": "D04-S2-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "zusammen",
+      "mandatory_r_days": [
+        13,
+        21
+      ],
+      "r_forms": [
+        "zusammen"
+      ],
+      "r_occurrences": 2,
+      "first_r_event": "D13-S2-R4",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "zwei",
+      "mandatory_r_days": [
+        9,
+        14,
+        16,
+        21
+      ],
+      "r_forms": [
+        "zwei"
+      ],
+      "r_occurrences": 4,
+      "first_r_event": "D09-S1-R3",
+      "role": "unclassified"
+    },
+    {
+      "lemma": "zwölf",
+      "mandatory_r_days": [
+        10,
+        13,
+        14,
+        15,
+        20
+      ],
+      "r_forms": [
+        "zwölf"
+      ],
+      "r_occurrences": 7,
+      "first_r_event": "D10-S2-R3",
+      "role": "unclassified"
+    }
+  ],
+  "mandatory_p_only": [
+    {
+      "lemma": "darf",
+      "forms": [
+        "darf"
+      ],
+      "events": [
+        "D11-S1-P1"
+      ]
+    },
+    {
+      "lemma": "flasche",
+      "forms": [
+        "flaschen"
+      ],
+      "events": [
+        "D17-S2-P1"
+      ]
+    },
+    {
+      "lemma": "gleich",
+      "forms": [
+        "gleich"
+      ],
+      "events": [
+        "D14-S1-P2"
+      ]
+    },
+    {
+      "lemma": "helfen",
+      "forms": [
+        "helfen"
+      ],
+      "events": [
+        "D11-S1-P2"
+      ]
+    },
+    {
+      "lemma": "nach",
+      "forms": [
+        "nach"
+      ],
+      "events": [
+        "D20-S2-P1"
+      ]
+    },
+    {
+      "lemma": "navigator",
+      "forms": [
+        "navigator"
+      ],
+      "events": [
+        "D16-S2-P2"
+      ]
+    },
+    {
+      "lemma": "wo",
+      "forms": [
+        "wo"
+      ],
+      "events": [
+        "D01-S2-P2",
+        "D05-S1-P1",
+        "D06-S1-P1",
+        "D07-S1-P2",
+        "D15-S1-P2"
+      ]
+    },
+    {
+      "lemma": "zuerst",
+      "forms": [
+        "zuerst"
+      ],
+      "events": [
+        "D13-S1-P1",
+        "D20-S1-P2"
+      ]
+    }
+  ],
+  "catalogue": [
+    {
+      "group": "01",
+      "horizon": "P0",
+      "domain": "Начало общения",
+      "functions": "M01, M04, M05, M06, M39",
+      "productive": [
+        "Hallo",
+        "Tschüss",
+        "ja",
+        "nein",
+        "bitte",
+        "danke",
+        "Entschuldigung",
+        "noch einmal",
+        "ich verstehe nicht"
+      ],
+      "receptive": [
+        "Guten Tag",
+        "Auf Wiedersehen",
+        "Guten Morgen",
+        "Gute Nacht"
+      ]
+    },
+    {
+      "group": "02",
+      "horizon": "P0",
+      "domain": "Предмет и короткое действие",
+      "functions": "M09, M40",
+      "productive": [
+        "das Buch",
+        "die Tasse",
+        "der Schlüssel",
+        "hier",
+        "nehmen",
+        "geben",
+        "kommen",
+        "zeigen"
+      ],
+      "receptive": [
+        "nimm",
+        "gib",
+        "komm",
+        "das"
+      ]
+    },
+    {
+      "group": "03",
+      "horizon": "P1",
+      "domain": "Человек и знакомство",
+      "functions": "M02, M03, M08",
+      "productive": [
+        "ich",
+        "du",
+        "er",
+        "sie",
+        "wir",
+        "sein",
+        "haben",
+        "heißen",
+        "der Name",
+        "wer"
+      ],
+      "receptive": [
+        "ihr",
+        "es",
+        "die Person",
+        "das Alter"
+      ]
+    },
+    {
+      "group": "04",
+      "horizon": "P1",
+      "domain": "Вопросы и смысл",
+      "functions": "M05, M07, M47",
+      "productive": [
+        "was",
+        "wo",
+        "wie",
+        "welcher",
+        "fragen",
+        "antworten",
+        "wissen",
+        "nicht wissen"
+      ],
+      "receptive": [
+        "wann",
+        "woher",
+        "warum",
+        "was bedeutet …?"
+      ]
+    },
+    {
+      "group": "05",
+      "horizon": "P1",
+      "domain": "Базовые действия",
+      "functions": "M06, M12, M15",
+      "productive": [
+        "machen",
+        "gehen",
+        "bringen",
+        "brauchen",
+        "helfen",
+        "finden",
+        "suchen",
+        "öffnen",
+        "schließen",
+        "lesen",
+        "schreiben",
+        "arbeiten"
+      ],
+      "receptive": [
+        "warten",
+        "holen",
+        "bleiben",
+        "anrufen",
+        "sprechen"
+      ]
+    },
+    {
+      "group": "06",
+      "horizon": "P1",
+      "domain": "Состояние и отрицание",
+      "functions": "M10, M11, M15, M54",
+      "productive": [
+        "ist",
+        "hat",
+        "kein",
+        "nicht",
+        "gut",
+        "schlecht",
+        "neu",
+        "alt",
+        "groß",
+        "klein",
+        "offen",
+        "zu",
+        "fertig",
+        "kaputt"
+      ],
+      "receptive": [
+        "leer",
+        "voll",
+        "sauber",
+        "schmutzig",
+        "falsch",
+        "leicht",
+        "schwer"
+      ]
+    },
+    {
+      "group": "07",
+      "horizon": "P1",
+      "domain": "Самочувствие",
+      "functions": "M29, M35",
+      "productive": [
+        "müde",
+        "krank",
+        "gesund",
+        "Hunger haben",
+        "Durst haben",
+        "weh tun",
+        "die Hilfe",
+        "der Arzt",
+        "die Ärztin"
+      ],
+      "receptive": [
+        "die Schmerzen",
+        "das Fieber",
+        "die Medizin",
+        "der Termin",
+        "das Krankenhaus"
+      ]
+    },
+    {
+      "group": "08",
+      "horizon": "P1",
+      "domain": "Еда и потребности",
+      "functions": "M30, M32",
+      "productive": [
+        "essen",
+        "trinken",
+        "das Wasser",
+        "das Brot",
+        "der Tee",
+        "der Kaffee",
+        "der Apfel",
+        "die Milch",
+        "das Essen",
+        "hungrig",
+        "durstig"
+      ],
+      "receptive": [
+        "das Gemüse",
+        "das Fleisch",
+        "die Suppe",
+        "das Frühstück",
+        "das Mittagessen",
+        "das Abendessen"
+      ]
+    },
+    {
+      "group": "09",
+      "horizon": "P2",
+      "domain": "Люди, принадлежность и адресат",
+      "functions": "M03, M13, M14, M53",
+      "productive": [
+        "mein",
+        "dein",
+        "sein (притяж.)",
+        "ihr (притяж.)",
+        "mir",
+        "dir",
+        "mit",
+        "zusammen",
+        "allein"
+      ],
+      "receptive": [
+        "unser",
+        "ihm",
+        "ihnen",
+        "dieser",
+        "diese",
+        "dieses",
+        "der Besitzer",
+        "Sie (вежливо)"
+      ]
+    },
+    {
+      "group": "10",
+      "horizon": "P2",
+      "domain": "Место, дом и предметы",
+      "functions": "M09, M20, M21, M22",
+      "productive": [
+        "das Zimmer",
+        "die Küche",
+        "das Bad",
+        "der Tisch",
+        "die Tür",
+        "das Fenster",
+        "die Wohnung",
+        "in",
+        "auf",
+        "unter",
+        "neben",
+        "vor",
+        "hinter",
+        "drinnen"
+      ],
+      "receptive": [
+        "draußen",
+        "zwischen",
+        "an",
+        "über",
+        "der Flur",
+        "die Treppe",
+        "die Möbel"
+      ]
+    },
+    {
+      "group": "11",
+      "horizon": "P2",
+      "domain": "Направление и движение",
+      "functions": "M20, M21, M22",
+      "productive": [
+        "links",
+        "rechts",
+        "geradeaus",
+        "zu",
+        "nach",
+        "aus",
+        "von",
+        "der Weg",
+        "der Eingang",
+        "der Ausgang"
+      ],
+      "receptive": [
+        "die Straße",
+        "die Kreuzung",
+        "die Ecke",
+        "in der Nähe",
+        "gegenüber",
+        "entlang"
+      ]
+    },
+    {
+      "group": "12",
+      "horizon": "P2",
+      "domain": "Количество и идентификаторы",
+      "functions": "M17, M42",
+      "productive": [
+        "eins",
+        "zwei",
+        "drei",
+        "vier",
+        "fünf",
+        "zehn",
+        "zwanzig",
+        "hundert",
+        "viel",
+        "wenig",
+        "wie viel"
+      ],
+      "receptive": [
+        "wie viele",
+        "die Nummer",
+        "die Zahl",
+        "das Stück",
+        "das Kilo",
+        "die Hälfte"
+      ]
+    },
+    {
+      "group": "13",
+      "horizon": "P2",
+      "domain": "Люди и семья",
+      "functions": "M02, M35, M36",
+      "productive": [
+        "die Familie",
+        "der Freund",
+        "die Freundin",
+        "der Mann",
+        "die Frau",
+        "das Kind",
+        "die Mutter",
+        "der Vater",
+        "der Bruder",
+        "die Schwester"
+      ],
+      "receptive": [
+        "die Eltern",
+        "der Sohn",
+        "die Tochter",
+        "verheiratet",
+        "ledig",
+        "der Nachbar",
+        "die Nachbarin"
+      ]
+    },
+    {
+      "group": "14",
+      "horizon": "P2",
+      "domain": "Работа и роли",
+      "functions": "M19, M33, M48",
+      "productive": [
+        "die Arbeit",
+        "der Beruf",
+        "der Kollege",
+        "die Kollegin",
+        "der Chef",
+        "die Chefin",
+        "die Aufgabe",
+        "frei",
+        "beschäftigt"
+      ],
+      "receptive": [
+        "der Arbeitsplatz",
+        "der Mitarbeiter",
+        "die Mitarbeiterin",
+        "der Lehrer",
+        "die Lehrerin",
+        "die Pause"
+      ]
+    },
+    {
+      "group": "15",
+      "horizon": "P3",
+      "domain": "Время, дата, расписание",
+      "functions": "M17, M23, M24, M25, M42, M49",
+      "productive": [
+        "jetzt",
+        "heute",
+        "morgen",
+        "gestern",
+        "später",
+        "früh",
+        "spät",
+        "der Tag",
+        "die Woche",
+        "der Monat",
+        "das Jahr",
+        "die Uhr",
+        "um",
+        "am",
+        "vor",
+        "nach"
+      ],
+      "receptive": [
+        "Montag",
+        "Dienstag",
+        "Mittwoch",
+        "Donnerstag",
+        "Freitag",
+        "Samstag",
+        "Sonntag",
+        "der Kalender",
+        "der Morgen",
+        "der Abend"
+      ]
+    },
+    {
+      "group": "16",
+      "horizon": "P3",
+      "domain": "Возможность, необходимость и запрет",
+      "functions": "M18, M54",
+      "productive": [
+        "können",
+        "müssen",
+        "dürfen",
+        "wollen",
+        "sollen",
+        "nicht dürfen",
+        "nicht müssen",
+        "notwendig",
+        "möglich"
+      ],
+      "receptive": [
+        "erlaubt",
+        "verboten",
+        "die Regel",
+        "das Verbot",
+        "die Pflicht"
+      ]
+    },
+    {
+      "group": "17",
+      "horizon": "P3",
+      "domain": "Желания и выбор",
+      "functions": "M30, M31, M32, M38, M55",
+      "productive": [
+        "möchten",
+        "mögen",
+        "gern",
+        "lieber",
+        "oder",
+        "auch",
+        "nur",
+        "mehr",
+        "weniger",
+        "wählen",
+        "bestellen"
+      ],
+      "receptive": [
+        "ich hätte gern …",
+        "könnte ich …?",
+        "das Menü",
+        "der Wunsch",
+        "die Auswahl"
+      ]
+    },
+    {
+      "group": "18",
+      "horizon": "P3",
+      "domain": "Встречи и планы",
+      "functions": "M24, M25, M37, M52",
+      "productive": [
+        "der Termin",
+        "die Zeit",
+        "treffen",
+        "besuchen",
+        "mitkommen",
+        "Zeit haben",
+        "keine Zeit haben",
+        "anfangen",
+        "aufhören"
+      ],
+      "receptive": [
+        "verschieben",
+        "die Einladung",
+        "der Besuch",
+        "die Verabredung",
+        "absagen"
+      ]
+    },
+    {
+      "group": "19",
+      "horizon": "P3",
+      "domain": "Покупки и стоимость",
+      "functions": "M17, M30, M31, M32",
+      "productive": [
+        "kaufen",
+        "bezahlen",
+        "kosten",
+        "der Preis",
+        "das Geld",
+        "der Euro",
+        "billig",
+        "teuer",
+        "das Geschäft"
+      ],
+      "receptive": [
+        "die Kasse",
+        "das Angebot",
+        "die Rechnung",
+        "das Wechselgeld",
+        "der Kunde",
+        "die Kundin",
+        "geöffnet",
+        "geschlossen"
+      ]
+    },
+    {
+      "group": "20",
+      "horizon": "P3",
+      "domain": "Интересы и досуг",
+      "functions": "M25, M33, M34, M35",
+      "productive": [
+        "spielen",
+        "lernen",
+        "Musik hören",
+        "Sport machen",
+        "spazieren gehen",
+        "immer",
+        "oft",
+        "manchmal",
+        "nie",
+        "das Hobby"
+      ],
+      "receptive": [
+        "der Film",
+        "das Spiel",
+        "die Musik",
+        "der Sport",
+        "das Buch lesen",
+        "der Urlaub"
+      ]
+    },
+    {
+      "group": "21",
+      "horizon": "P3",
+      "domain": "Транспорт и поездка",
+      "functions": "M21, M23, M24, M42",
+      "productive": [
+        "fahren",
+        "der Bus",
+        "der Zug",
+        "der Bahnhof",
+        "die Haltestelle",
+        "die Fahrkarte",
+        "ankommen",
+        "abfahren"
+      ],
+      "receptive": [
+        "das Gleis",
+        "die Abfahrt",
+        "die Ankunft",
+        "die Reise",
+        "der Fahrplan",
+        "das Ticket",
+        "das Gepäck",
+        "die Unterkunft"
+      ]
+    },
+    {
+      "group": "22",
+      "horizon": "P4",
+      "domain": "Формы и персональные данные",
+      "functions": "M02, M17, M42, M45",
+      "productive": [
+        "der Vorname",
+        "der Nachname",
+        "die Adresse",
+        "die Telefonnummer",
+        "das Datum",
+        "das Geburtsdatum",
+        "ausfüllen",
+        "unterschreiben"
+      ],
+      "receptive": [
+        "die Postleitzahl",
+        "der Geburtsort",
+        "die Staatsangehörigkeit",
+        "die Unterschrift",
+        "das Formular",
+        "die E-Mail-Adresse"
+      ]
+    },
+    {
+      "group": "23",
+      "horizon": "P4",
+      "domain": "Сообщения и услуги",
+      "functions": "M41, M43, M44, M45, M46, M47",
+      "productive": [
+        "die Nachricht",
+        "der Brief",
+        "die E-Mail",
+        "der Zettel",
+        "die Information",
+        "der Hinweis",
+        "die Frage",
+        "die Antwort",
+        "senden",
+        "bekommen"
+      ],
+      "receptive": [
+        "die Bank",
+        "die Post",
+        "die Polizei",
+        "das Amt",
+        "geöffnet",
+        "geschlossen",
+        "der Schalter",
+        "die Öffnungszeit",
+        "die Anmeldung",
+        "der Ausweis"
+      ]
+    },
+    {
+      "group": "24",
+      "horizon": "P4",
+      "domain": "Признаки, одежда и сравнение",
+      "functions": "M10, M16, M28, M38",
+      "productive": [
+        "rot",
+        "blau",
+        "grün",
+        "schwarz",
+        "weiß",
+        "kalt",
+        "warm",
+        "größer",
+        "kleiner",
+        "besser",
+        "schlechter",
+        "passen"
+      ],
+      "receptive": [
+        "die Jacke",
+        "die Hose",
+        "das Hemd",
+        "die Schuhe",
+        "die Größe",
+        "die Farbe",
+        "das Kleid",
+        "die Kleidung"
+      ]
+    },
+    {
+      "group": "25",
+      "horizon": "P4",
+      "domain": "Погода и окружение",
+      "functions": "M10, M15, M41",
+      "productive": [
+        "das Wetter",
+        "die Sonne",
+        "der Regen",
+        "regnen",
+        "der Schnee",
+        "der Winter",
+        "der Sommer",
+        "der Frühling",
+        "der Herbst"
+      ],
+      "receptive": [
+        "die Wolke",
+        "windig",
+        "sonnig",
+        "der Baum",
+        "die Pflanze",
+        "das Tier",
+        "der Park"
+      ]
+    },
+    {
+      "group": "26",
+      "horizon": "P4",
+      "domain": "Учёба и информация",
+      "functions": "M41, M43, M45, M47",
+      "productive": [
+        "die Schule",
+        "der Kurs",
+        "die Sprache",
+        "Deutsch",
+        "verstehen",
+        "erklären",
+        "das Wort",
+        "der Text"
+      ],
+      "receptive": [
+        "die Universität",
+        "die Stunde",
+        "die Prüfung",
+        "die Hausaufgabe",
+        "die Lektion",
+        "die Bibliothek"
+      ]
+    },
+    {
+      "group": "27",
+      "horizon": "P4",
+      "domain": "Сопоставление и временные отношения",
+      "functions": "M16, M26, M27, M28, M38, M53",
+      "productive": [
+        "und",
+        "aber",
+        "dann",
+        "danach",
+        "zuerst",
+        "gleich",
+        "anders",
+        "richtig"
+      ],
+      "receptive": [
+        "ähnlich",
+        "der Unterschied",
+        "der Vergleich",
+        "zuerst … dann …",
+        "wie lange",
+        "seit",
+        "bis wann"
+      ]
+    },
+    {
+      "group": "28",
+      "horizon": "P5",
+      "domain": "Простой прошлый опыт",
+      "functions": "M49, M50, M51",
+      "productive": [
+        "war",
+        "hatte",
+        "habe gemacht",
+        "habe gefunden",
+        "habe gesehen",
+        "habe gelernt",
+        "ist gekommen",
+        "ist gegangen"
+      ],
+      "receptive": [
+        "die Vergangenheit",
+        "früher",
+        "letzte Woche",
+        "schon",
+        "noch nicht",
+        "das Ergebnis"
+      ]
+    },
+    {
+      "group": "29",
+      "horizon": "P5",
+      "domain": "Будущее и изменение планов",
+      "functions": "M24, M26, M52",
+      "productive": [
+        "nächste Woche",
+        "wieder",
+        "planen",
+        "hoffen",
+        "warten auf"
+      ],
+      "receptive": [
+        "der Plan",
+        "der nächste Termin",
+        "später am Tag",
+        "in zwei Tagen"
+      ]
+    }
+  ],
+  "optional_only": [
+    {
+      "lemma": "ankommen",
+      "forms": [
+        "angekommen"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "beide",
+      "forms": [
+        "beiden"
+      ],
+      "optional_R": false,
+      "optional_P": true
+    },
+    {
+      "lemma": "bekommen",
+      "forms": [
+        "bekommen"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "freuen",
+      "forms": [
+        "freue"
+      ],
+      "optional_R": false,
+      "optional_P": true
+    },
+    {
+      "lemma": "froh",
+      "forms": [
+        "froh"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "gern",
+      "forms": [
+        "gern"
+      ],
+      "optional_R": false,
+      "optional_P": true
+    },
+    {
+      "lemma": "ihr",
+      "forms": [
+        "euch"
+      ],
+      "optional_R": false,
+      "optional_P": true
+    },
+    {
+      "lemma": "kurz",
+      "forms": [
+        "kurz"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "lesen",
+      "forms": [
+        "lesen"
+      ],
+      "optional_R": true,
+      "optional_P": true
+    },
+    {
+      "lemma": "mit",
+      "forms": [
+        "mit"
+      ],
+      "optional_R": true,
+      "optional_P": true
+    },
+    {
+      "lemma": "unsicher",
+      "forms": [
+        "unsicher"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "versuchen",
+      "forms": [
+        "versuche"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "wenig",
+      "forms": [
+        "wenig"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    },
+    {
+      "lemma": "wort",
+      "forms": [
+        "worten"
+      ],
+      "optional_R": true,
+      "optional_P": false
+    }
+  ]
+}

@@ -1,0 +1,4453 @@
+{
+  "version": "1.14",
+  "status": "language_only_semantic_opportunities_unvalidated_not_game_scenes",
+  "sources": [
+    "LANGUAGE_MAP.md",
+    "LANGUAGE_PROGRESSION.md",
+    "LANGUAGE_DESIGN.md",
+    "LANGUAGE_PROGRAM.md"
+  ],
+  "notes": [
+    "Each row is a distinct abstract language-contact unit, not a day, lesson, quest, scene or NPC interaction.",
+    "introduce_m lists first R according to LANGUAGE_MAP; introduce_g lists first meaningful R of G according to LANGUAGE_PROGRESSION; first_p lists first independent productive intent for 42 M, never for receptive-only M.",
+    "revisit_m is a proposed opportunity to reuse an earlier M with a changed context; not evidence of mastery or a performed test.",
+    "The short contrasts are semantic-design tests, not language-parser whitelists; examples may use familiar lexical placeholders.",
+    "Load must be judged as a vector of independent dimensions; counts of M/G IDs are planning proxies, NOT calibrated difficulty.",
+    "A second independent-P opportunity was added at P2b for location and P3c for preferences, to avoid packing multiple first productive intentions into the same unit.",
+    "lexical_anchors are selected expression *candidates* from the 29-group independent language catalogue, NOT a hard number of new words in a day; context_optional is never a requirement.",
+    "A few elementary expressions are placed earlier than their catalogue group horizon because the independent M/G map uses them earlier (e.g. ich/du, verstehen, heute/morgen); this is deliberate and must not be confused with teaching entire theme early.",
+    "Contemporary lesson/domain examples inside one unit are alternative variants, not simultaneous mandatory unknown vocabulary; background R/E grammar does not create forced productive form.",
+    "P6 has distributed integration rather than a single nine-target mega-test: a P6 unit contains at most five planned revisits and never new required M/G.",
+    "outcome_candidates provide earlier practice and P6 transfer candidates for each 6 R + 7 W LO; they are not an exam, passing score or proof of mastery.",
+    "Independent first-R prerequisites for M08/M22/M27/M30/M55 and G24/G25/G32 are explicitly covered by the lexical anchor schedule.",
+    "P1 load smoothed: bringen is first semantically needed with a recipient, krank is introduced in a short personal-message genre; early A0 still has brauchen/Wasser and müde.",
+    "53 neutral German contrast pairs from the temporary 53-unit draft were merged into this canonical 73-unit plan; no other language plan is authoritative.",
+    "language_example_checks are proposed German A/B substitutions and do not demonstrate empirical understanding or engine/parser support.",
+    "Every one of the 73 units now has at least one independent German A/B example; examples are candidate stimuli and not empirically validated difficulty.",
+    "A qualitative goal-alignment review replaced mismatched German contrast pairs in 12 units; semantic plausibility is not empirical A0 validation.",
+    "Repeated identical German A/B stimuli were separated across neighboring abilities: naming vs command, quality vs state, question target, destination vs location, interest R vs P, and late transfer of M34/M36/M38 and M14/M53."
+  ],
+  "horizon_units": {
+    "P0": 8,
+    "P1": 12,
+    "P2a": 5,
+    "P2b": 6,
+    "P2c": 5,
+    "P3a": 5,
+    "P3b": 4,
+    "P3c": 7,
+    "P4a": 4,
+    "P4b": 3,
+    "P4c": 3,
+    "P5": 6,
+    "P6": 5
+  },
+  "items": [
+    {
+      "stage": "P0",
+      "goal": "Контакт и приветствие",
+      "introduce_m": [
+        "M01"
+      ],
+      "introduce_g": [
+        "G01"
+      ],
+      "first_p": [
+        "M01"
+      ],
+      "revisit_m": [],
+      "contrast": "Приветствие и прощание требуют разной реакции",
+      "context": "Краткий текст, знакомая социальная цель",
+      "id": "P0-01",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 1,
+          "expression": "Hallo",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Hallo!",
+          "example_B_de": "Tschüss!",
+          "critical_meaning_ru": "Контакт начинается или завершается",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M01",
+          "semantic_goal_ru": "Начать или завершить контакт",
+          "variant_A_facts": {
+            "contact": "arriving",
+            "addressee": "person B"
+          },
+          "variant_B_facts": {
+            "contact": "departing",
+            "addressee": "person B"
+          },
+          "critical_slots": [
+            "greeting_vs_farewell"
+          ],
+          "recipient_knowledge": "Цель — начать или завершить контакт; неизвестный факт не требуется, различается социальное намерение.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P0",
+      "goal": "Положительный и отрицательный ответ",
+      "introduce_m": [
+        "M04"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M04"
+      ],
+      "revisit_m": [],
+      "contrast": "Ja против Nein меняет согласие, не расположение кнопки",
+      "context": "Ясный вопрос без скрытой лексики",
+      "id": "P0-02",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 1,
+          "expression": "ja",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 1,
+          "expression": "nein",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ja.",
+          "example_B_de": "Nein.",
+          "critical_meaning_ru": "Самостоятельное согласие или отказ в ответ на ясный вопрос",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M04",
+          "semantic_goal_ru": "Ответить в соответствии со своим решением",
+          "variant_A_facts": {
+            "question": "Want water?",
+            "player_decision": "yes"
+          },
+          "variant_B_facts": {
+            "question": "Want water?",
+            "player_decision": "no"
+          },
+          "critical_slots": [
+            "agreement_vs_refusal"
+          ],
+          "recipient_knowledge": "Адресат ожидает решение игрока и ещё не знает, согласится он или откажется.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "scaffolding_note": "Это только самостоятельный краткий ответ Ja/Nein; G06 не вводится и не проверяется здесь. Первый R G06 перенесён в P0-07 после называния предмета и знакомства с sein."
+    },
+    {
+      "stage": "P0",
+      "goal": "Право на непонимание",
+      "introduce_m": [
+        "M05"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M05"
+      ],
+      "revisit_m": [],
+      "contrast": "Просьба повторить полезна только при неизвестном; понимающий не обязан говорить её",
+      "context": "Один короткий непонятный фрагмент",
+      "id": "P0-03",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 1,
+          "expression": "noch einmal",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 26,
+          "expression": "verstehen",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich verstehe nicht.",
+          "example_B_de": "Ich verstehe.",
+          "critical_meaning_ru": "Выражено непонимание или понимание; первая формулировка никогда не навязывается",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M05",
+          "semantic_goal_ru": "Если реально не понял — запросить повторение; если понял — не заставлять произносить непонимание",
+          "variant_A_facts": {
+            "input_comprehension": "unknown meaning",
+            "help_needed": true
+          },
+          "variant_B_facts": {
+            "input_comprehension": "fully understood",
+            "help_needed": false
+          },
+          "critical_slots": [
+            "whether_clarification_is_needed"
+          ],
+          "recipient_knowledge": "Адресат не знает, понятна ли игроку реплика; при реальном непонимании доступен запрос повтора, при понимании не нужен ложный запрос.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P0",
+      "goal": "Узнать и назвать предмет",
+      "introduce_m": [
+        "M09"
+      ],
+      "introduce_g": [
+        "G09"
+      ],
+      "first_p": [
+        "M09"
+      ],
+      "revisit_m": [],
+      "contrast": "Смена Buch на Tasse меняет нужную вещь",
+      "context": "Два равно доступных знакомых предмета",
+      "id": "P0-04",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 2,
+          "expression": "das Buch",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 2,
+          "expression": "die Tasse",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tasse.",
+          "example_B_de": "Das Buch.",
+          "critical_meaning_ru": "Самостоятельно узнать и назвать одну из двух знакомых вещей",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "separate_naming_from_imperative"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M09",
+          "semantic_goal_ru": "Самостоятельно назвать знакомый предмет",
+          "variant_A_facts": {
+            "pointed_object": "Buch",
+            "other_visible_object": "Tasse"
+          },
+          "variant_B_facts": {
+            "pointed_object": "Tasse",
+            "other_visible_object": "Buch"
+          },
+          "critical_slots": [
+            "object_identity"
+          ],
+          "recipient_knowledge": "Адресат не знает, какой из двух указанных предметов назван; критично различить объект.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "a0_readiness_review": {
+        "risk": "5 первых немецких словоформ в A/B-примере, одновременно новый Imperativ и предметы",
+        "mitigation": "Сначала один знакомый предмет и значение 'nimm', затем второй предмет как различие; разрешён F1, нельзя выдавать русскую подсветку правильного объекта.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      },
+      "revisit_support_note": null
+    },
+    {
+      "stage": "P0",
+      "goal": "Разобрать краткое действие",
+      "introduce_m": [
+        "M40"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Nimm против Gib различает взять и отдать",
+      "context": "Знакомый предмет, действие без русского дубляжа",
+      "id": "P0-05",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 2,
+          "expression": "nehmen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 2,
+          "expression": "geben",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Nimm die Tasse.",
+          "example_B_de": "Gib die Tasse.",
+          "critical_meaning_ru": "Понять действие «возьми» или «дай», а не просто узнать объект",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [],
+      "scaffolding_note": "Только распознавание знакомого побуждения и значения nimm/gib. Не добавлять утверждение Du nimmst до знакомства с du в P0-06; первое G08 отложено на P0-08."
+    },
+    {
+      "stage": "P0",
+      "goal": "Кто говорит и как обратиться",
+      "introduce_m": [
+        "M02",
+        "M03"
+      ],
+      "introduce_g": [
+        "G02",
+        "G03"
+      ],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Ich/du и имя меняют говорящего и адресата",
+      "context": "Два человека без обязательной биографии",
+      "id": "P0-06",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 3,
+          "expression": "ich",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 3,
+          "expression": "du",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin Mia.",
+          "example_B_de": "Du bist Mia.",
+          "critical_meaning_ru": "Меняется лицо, к которому относится имя; имена произвольны",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [],
+      "a0_readiness_review": {
+        "risk": "ich bin / du bist — две личные формы при первом знакомстве с ролями",
+        "mitigation": "Рецептивно опираться на ясное различие говорящего и адресата; собственного полного предложения ещё не требовать до P1-01.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      },
+      "scaffolding_note": "На абсолютном A0 основная пара Ich bin Mia. / Du bist Mia. одновременно вводит роли ich/du (G02) и первые формы sein (G03), без дополнительных brauche/habe/модальных слов. G02 с brauchen — необязательный перенос после P1; различение sein/haben уже есть в P1-07."
+    },
+    {
+      "stage": "P0",
+      "goal": "Вопрос, факт и собственная мысль",
+      "introduce_m": [
+        "M06",
+        "M39"
+      ],
+      "introduce_g": [
+        "G06"
+      ],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Ist das ...? против Das ist ... меняет тип высказывания",
+      "context": "Один известный объект, короткий синтаксис",
+      "id": "P0-07",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Das ist die Tasse.",
+          "example_B_de": "Ist das die Tasse?",
+          "critical_meaning_ru": "Утверждение об известном предмете против вопроса о нём; знакомая форма ist, без нового глагола действия.",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [],
+      "a0_readiness_review": {
+        "risk": "Впервые нужно отличить вопрос от утверждения по порядку знакомых слов, без опоры на русскую кнопку или знак вопроса как единственный сигнал.",
+        "mitigation": "Использовать ранее введённый предмет и знакомое sein (Das ist … / Ist das …?); сначала R, не требовать самостоятельно построить вопрос.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      },
+      "scaffolding_note": "Первая G06 и M06/M39 проверяются общей парой Das ist die Tasse / Ist das die Tasse; G03 здесь уже опорная конструкция. Никакой отдельной обязательной G06-пары или нового глагола действия."
+    },
+    {
+      "stage": "P0",
+      "goal": "Понять просьбу об объекте",
+      "introduce_m": [
+        "M12"
+      ],
+      "introduce_g": [
+        "G08"
+      ],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Другой предмет в просьбе требует другого понимания",
+      "context": "Объект известен, просьба не подсказывает ответ",
+      "id": "P0-08",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Nimm die Tasse.",
+          "example_B_de": "Nimm das Buch.",
+          "critical_meaning_ru": "Конкретная вещь в короткой просьбе меняется",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [],
+      "scaffolding_note": "Сначала просьба с известным объектом M12, после — первое R G08 на Nimm das Buch. / Du nimmst das Buch. после введения du (P0-06). Рецептивная форма nimmst через F1; нельзя требовать её самостоятельного письма."
+    },
+    {
+      "stage": "P1",
+      "goal": "Назвать себя и действующее лицо",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M02",
+        "M03"
+      ],
+      "revisit_m": [],
+      "contrast": "Смена ich/du меняет того, чьё имя/действие названо",
+      "context": "Свободное короткое представление",
+      "id": "P1-01",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 3,
+          "expression": "heißen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 3,
+          "expression": "der Name",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich heiße Mia.",
+          "example_B_de": "Ich heiße Tom.",
+          "critical_meaning_ru": "Говорящий сообщает другое имя, его нельзя подставить заранее",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M02",
+          "semantic_goal_ru": "Представиться неизвестному собеседнику",
+          "variant_A_facts": {
+            "speaker_name": "Mia",
+            "listener_does_not_know": true
+          },
+          "variant_B_facts": {
+            "speaker_name": "Tom",
+            "listener_does_not_know": true
+          },
+          "critical_slots": [
+            "speaker_identity"
+          ],
+          "recipient_knowledge": "Собеседник не знает имени говорящего.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        },
+        {
+          "M": "M03",
+          "semantic_goal_ru": "Сообщить, кто совершает знакомое действие",
+          "variant_A_facts": {
+            "actor": "speaker",
+            "action": "holding_book"
+          },
+          "variant_B_facts": {
+            "actor": "other_person",
+            "action": "holding_book"
+          },
+          "critical_slots": [
+            "actor_role"
+          ],
+          "recipient_knowledge": "Адресат не знает, кто совершает указанное действие.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P1",
+      "goal": "Самому задать нужный вопрос",
+      "introduce_m": [
+        "M07"
+      ],
+      "introduce_g": [
+        "G07"
+      ],
+      "first_p": [
+        "M07"
+      ],
+      "revisit_m": [],
+      "contrast": "Was? и Wo? приводят к разным недостающим сведениям",
+      "context": "Понятный пробел в информации",
+      "id": "P1-02",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 4,
+          "expression": "was",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 4,
+          "expression": "wo",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 4,
+          "expression": "wie",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Wo ist das Buch?",
+          "example_B_de": "Wer hat das Buch?",
+          "critical_meaning_ru": "Вопрос о месте против вопроса о человеке",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M07",
+          "semantic_goal_ru": "Задать вопрос об отсутствующем сведении",
+          "variant_A_facts": {
+            "information_gap": "location of book",
+            "listener_knows": true
+          },
+          "variant_B_facts": {
+            "information_gap": "person holding book",
+            "listener_knows": true
+          },
+          "critical_slots": [
+            "question_target"
+          ],
+          "recipient_knowledge": "Игрок не знает ответа, адресат знает; проверяется нужный тип вопроса, а не сообщение игроком уже известного факта.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "a0_readiness_review": {
+        "risk": "wo/wer одновременно меняют семантическую цель вопроса",
+        "mitigation": "Два последовательных коротких контакта — сначала где, потом кто; свободный P разрешает недостающую грамматику, если цель вопроса понятна.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      }
+    },
+    {
+      "stage": "P1",
+      "goal": "Различить и назвать свойство",
+      "introduce_m": [
+        "M10"
+      ],
+      "introduce_g": [
+        "G13"
+      ],
+      "first_p": [
+        "M10"
+      ],
+      "revisit_m": [
+        "M39"
+      ],
+      "contrast": "Качественный признак одного из двух объектов меняется",
+      "context": "Один знакомый предмет и одно свойство",
+      "id": "P1-03",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 6,
+          "expression": "gut",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tasse ist groß.",
+          "example_B_de": "Die Tasse ist klein.",
+          "critical_meaning_ru": "Признак размера, отличный от состояния открыто/закрыто в последующей практике",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "separate_M10_property_from_M15_state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M10",
+          "semantic_goal_ru": "Передать отличие по простому признаку",
+          "variant_A_facts": {
+            "object": "Tasse",
+            "property": "rot"
+          },
+          "variant_B_facts": {
+            "object": "Tasse",
+            "property": "blau"
+          },
+          "critical_slots": [
+            "object_property"
+          ],
+          "recipient_knowledge": "Адресат не знает наблюдаемого свойства выбранного предмета.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "revisit_support_note": null
+    },
+    {
+      "stage": "P1",
+      "goal": "Сообщить наличие и отсутствие",
+      "introduce_m": [
+        "M11"
+      ],
+      "introduce_g": [
+        "G12"
+      ],
+      "first_p": [
+        "M11"
+      ],
+      "revisit_m": [],
+      "contrast": "Kein против Nicht меняет отрицание объекта/действия",
+      "context": "Предмет уже известен",
+      "id": "P1-04",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 6,
+          "expression": "kein",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 6,
+          "expression": "nicht",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich habe das Buch.",
+          "example_B_de": "Ich habe kein Buch.",
+          "critical_meaning_ru": "Наличие предмета против отсутствия",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M11",
+          "semantic_goal_ru": "Сообщить о наличии или отсутствии",
+          "variant_A_facts": {
+            "object": "Buch",
+            "has_item": true
+          },
+          "variant_B_facts": {
+            "object": "Buch",
+            "has_item": false
+          },
+          "critical_slots": [
+            "possession_and_negation"
+          ],
+          "recipient_knowledge": "Адресат не знает, есть ли предмет у говорящего.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P1",
+      "goal": "Попросить нужную вещь своими словами",
+      "introduce_m": [],
+      "introduce_g": [
+        "G11"
+      ],
+      "first_p": [
+        "M12"
+      ],
+      "revisit_m": [],
+      "contrast": "Только название/действие нужного объекта должно меняться",
+      "context": "Короткая самостоятельная просьба",
+      "id": "P1-05",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 5,
+          "expression": "brauchen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 8,
+          "expression": "das Wasser",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich brauche die Tasse.",
+          "example_B_de": "Ich brauche das Buch.",
+          "critical_meaning_ru": "Нужно запросить конкретный предмет без готовой строки",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M12",
+          "semantic_goal_ru": "Попросить нужную вещь",
+          "variant_A_facts": {
+            "needed_item": "Buch",
+            "listener_has_item": true
+          },
+          "variant_B_facts": {
+            "needed_item": "Tasse",
+            "listener_has_item": true
+          },
+          "critical_slots": [
+            "requested_object"
+          ],
+          "recipient_knowledge": "Адресат может передать вещь, но не знает, какая нужна игроку.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P1",
+      "goal": "Сообщить наблюдаемое состояние",
+      "introduce_m": [
+        "M15"
+      ],
+      "introduce_g": [
+        "G04"
+      ],
+      "first_p": [
+        "M15"
+      ],
+      "revisit_m": [],
+      "contrast": "Ist gut против Ist kaputt меняет решение",
+      "context": "Знакомое устройство или бытовой предмет",
+      "id": "P1-06",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 5,
+          "expression": "machen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 6,
+          "expression": "kaputt",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [
+        "LO-W02"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tür ist offen.",
+          "example_B_de": "Die Tür ist zu.",
+          "critical_meaning_ru": "Состояние меняется на противоположное",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M15",
+          "semantic_goal_ru": "Сообщить состояние, которого адресат не видит",
+          "variant_A_facts": {
+            "object": "Tür",
+            "state": "offen"
+          },
+          "variant_B_facts": {
+            "object": "Tür",
+            "state": "zu"
+          },
+          "critical_slots": [
+            "observed_state"
+          ],
+          "recipient_knowledge": "Адресат не видит состояния предмета; именно игрок сообщает его.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P1",
+      "goal": "Рассказать о самочувствии",
+      "introduce_m": [
+        "M29"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M29"
+      ],
+      "revisit_m": [
+        "M39"
+      ],
+      "contrast": "Müde против nicht müde не являются равным самоотчётом",
+      "context": "Состояние задано условиями, не угадывается",
+      "id": "P1-07",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 7,
+          "expression": "müde",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin müde.",
+          "example_B_de": "Ich habe Durst.",
+          "critical_meaning_ru": "Состояние усталости против потребности в питье",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M29",
+          "semantic_goal_ru": "Сообщить о самочувствии",
+          "variant_A_facts": {
+            "player_state": "müde"
+          },
+          "variant_B_facts": {
+            "player_state": "krank"
+          },
+          "critical_slots": [
+            "own_state"
+          ],
+          "recipient_knowledge": "Адресат не знает самочувствия говорящего.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "scaffolding_note": "Помимо M29 самочувствия эта уже существующая пара Ich bin müde. / Ich habe Durst. служит отсроченным обязательным R для полной разницы sein/haben (G03), после знакомства с bin/bist и habe. Не добавлять отдельный тест G03."
+    },
+    {
+      "stage": "P1",
+      "goal": "Потребность в напитке или еде",
+      "introduce_m": [
+        "M32"
+      ],
+      "introduce_g": [
+        "G05"
+      ],
+      "first_p": [
+        "M32"
+      ],
+      "revisit_m": [],
+      "contrast": "Wasser против Tee меняет нужный предмет",
+      "context": "Знакомое употребление, свободный ввод",
+      "id": "P1-08",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 8,
+          "expression": "trinken",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 8,
+          "expression": "der Tee",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich habe Durst.",
+          "example_B_de": "Ich habe Hunger.",
+          "critical_meaning_ru": "Нужен напиток или еда",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M32",
+          "semantic_goal_ru": "Сообщить бытовую потребность",
+          "variant_A_facts": {
+            "need_type": "Wasser"
+          },
+          "variant_B_facts": {
+            "need_type": "Brot"
+          },
+          "critical_slots": [
+            "needed_food_or_drink"
+          ],
+          "recipient_knowledge": "Адресат не знает, какой еды или напитка требует потребность игрока.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P1",
+      "goal": "Прочитать короткое сообщение о наличии",
+      "introduce_m": [
+        "M41"
+      ],
+      "introduce_g": [
+        "G32"
+      ],
+      "first_p": [],
+      "revisit_m": [
+        "M39"
+      ],
+      "contrast": "Es gibt ... против Es gibt kein ... меняет наличие знакомого предмета",
+      "context": "Одно короткое немецкое сообщение без подсветки предмета; форма man пока необязательна",
+      "id": "P1-09",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 6,
+          "expression": "es gibt",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Hier gibt es Wasser.",
+          "example_B_de": "Hier gibt es kein Wasser.",
+          "critical_meaning_ru": "Сообщение о наличии воды или её отсутствии",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [],
+      "a0_readiness_review": {
+        "risk": "es gibt / kein могут быть прочтены как одна неизвестная фраза при G32",
+        "mitigation": "Показать значение общего наличия отдельно от отрицания, не требуя писать G32 самостоятельно; поиск F1 по обеим устойчивым формам.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      }
+    },
+    {
+      "stage": "P1",
+      "goal": "Распознать простое количество",
+      "introduce_m": [
+        "M17"
+      ],
+      "introduce_g": [
+        "G10"
+      ],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Ein против zwei меняет число предметов",
+      "context": "Короткий список или описание",
+      "id": "P1-10",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 12,
+          "expression": "eins",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 12,
+          "expression": "zwei",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Zwei Tassen.",
+          "example_B_de": "Drei Tassen.",
+          "critical_meaning_ru": "Разное необходимое количество одинакового предмета",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P1",
+      "goal": "Найти предмет и предложить помощь",
+      "introduce_m": [
+        "M19",
+        "M20"
+      ],
+      "introduce_g": [
+        "G25"
+      ],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Wo? и welches? требуют разной информации",
+      "context": "Один объект, ограниченное пространство",
+      "id": "P1-11",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 5,
+          "expression": "helfen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 7,
+          "expression": "die Hilfe",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 4,
+          "expression": "welcher",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tür ist hier.",
+          "example_B_de": "Das Fenster ist hier.",
+          "critical_meaning_ru": "Изменяется искомый объект",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
+        },
+        {
+          "example_A_de": "Hilfe, bitte.",
+          "example_B_de": "Nein, danke.",
+          "critical_meaning_ru": "Просьба о помощи против отказа от предложенной помощи; не навязывать продукцию сложных форм",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
+        }
+      ],
+      "independent_production_checks": [],
+      "a0_readiness_review": {
+        "risk": "помощь и местоположение предмета — две разные коммуникативные цели в одной LU",
+        "mitigation": "Разделить первые R-контакты по намерению внутри единицы; помощь не должна угадываться по картинке или автоматически выбираться.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      },
+      "scaffolding_note": "Три семантики строго последовательно и отдельно: местоположение предмета (M20), предложение/отказ помощи (M19), потом G25 Dieses Buch / Welches Buch с тем же знакомым предметом. Не совмещать всё в одном обязательном вводе."
+    },
+    {
+      "stage": "P1",
+      "goal": "Самостоятельно запросить конкретные сведения",
+      "introduce_m": [
+        "M47"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M47",
+        "M06"
+      ],
+      "revisit_m": [
+        "M39"
+      ],
+      "contrast": "Вопрос о месте и вопрос о наличии ведут к разным ответам",
+      "context": "Новое намерение, прежние W-слова",
+      "id": "P1-12",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 4,
+          "expression": "fragen",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [
+        "LO-W01"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Hast du das Buch?",
+          "example_B_de": "Hast du die Tasse?",
+          "critical_meaning_ru": "Запросить сведения о другом предмете у адресата вместо повторения wo/wer",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "new_information_request"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M47",
+          "semantic_goal_ru": "Запросить конкретное недостающее сведение",
+          "variant_A_facts": {
+            "missing_information": "where is the book"
+          },
+          "variant_B_facts": {
+            "missing_information": "when person B arrives"
+          },
+          "critical_slots": [
+            "requested_information_type"
+          ],
+          "recipient_knowledge": "Игрок не знает запрашиваемых сведений; адресат может ответить. Проверяется вид вопроса, а не передача адресату факта.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        },
+        {
+          "M": "M06",
+          "semantic_goal_ru": "Сформулировать вопрос или утверждение",
+          "variant_A_facts": {
+            "intent": "ask whether person B comes"
+          },
+          "variant_B_facts": {
+            "intent": "state person B comes"
+          },
+          "critical_slots": [
+            "question_vs_statement"
+          ],
+          "recipient_knowledge": "При вопросе ответ может знать адресат, а не игрок; при утверждении игрок сообщает известное ему. Различается коммуникативная цель.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "revisit_support_note": null
+    },
+    {
+      "stage": "P2a",
+      "goal": "Владение знакомой вещью",
+      "introduce_m": [
+        "M13"
+      ],
+      "introduce_g": [
+        "G14"
+      ],
+      "first_p": [
+        "M13"
+      ],
+      "revisit_m": [
+        "M09"
+      ],
+      "contrast": "Mein против dein меняет владельца",
+      "context": "Два человека, знакомые предметы",
+      "id": "P2a-01",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 9,
+          "expression": "mein",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 9,
+          "expression": "dein",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Das ist mein Buch.",
+          "example_B_de": "Das ist dein Buch.",
+          "critical_meaning_ru": "Принадлежность игроку против собеседника",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M13",
+          "semantic_goal_ru": "Сообщить, кому принадлежит вещь",
+          "variant_A_facts": {
+            "book_owner": "player"
+          },
+          "variant_B_facts": {
+            "book_owner": "listener"
+          },
+          "critical_slots": [
+            "owner"
+          ],
+          "recipient_knowledge": "Адресат не знает, кому принадлежит известная вещь.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P2a",
+      "goal": "Ссылки он, она, оно",
+      "introduce_m": [
+        "M53"
+      ],
+      "introduce_g": [
+        "G15"
+      ],
+      "first_p": [],
+      "revisit_m": [
+        "M39"
+      ],
+      "contrast": "Смена местоимения меняет референта при двух кандидатах",
+      "context": "Один упомянутый контекст",
+      "id": "P2a-02",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Er ist hier.",
+          "example_B_de": "Sie ist hier.",
+          "critical_meaning_ru": "Отсылка к мужчине или женщине меняет адресата; в контексте должны быть два возможных человека",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [],
+      "scaffolding_note": "Два рецептивных шага: сначала референт er/sie (M53), затем объектные dich/ihn (G15) с известным действием sehen. F1 обеспечивает морфологию, P пока не требуется."
+    },
+    {
+      "stage": "P2a",
+      "goal": "Формальное и неформальное обращение",
+      "introduce_m": [
+        "M08"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M03",
+        "M01"
+      ],
+      "contrast": "Du против Sie меняет регистр, не обязательно реплику игрока",
+      "context": "Короткие адресованные обращения",
+      "id": "P2a-03",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 9,
+          "expression": "Sie (вежливо)",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [
+        "LO-R01"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Komm bitte morgen.",
+          "example_B_de": "Kommen Sie bitte morgen.",
+          "critical_meaning_ru": "Знакомая просьба различается по регистру обращения; Sie стоит внутри предложения и не совпадает с автоматической заглавной буквой в его начале.",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "The German contrast in the form of address is essential; Russian UI must not reveal register.",
+          "content_review": "corrected_sentence_initial_Sie_ambiguity"
+        }
+      ],
+      "independent_production_checks": [],
+      "scaffolding_note": "Не использовать начальное 'Sie kommen' без контекста как единственное доказательство формального Sie: в начале предложения заглавная буква может обозначать также третье лицо множественного числа. Контраст показывается в 'Kommen Sie bitte ...' внутри просьбы."
+    },
+    {
+      "stage": "P2a",
+      "goal": "Роль человека и действие",
+      "introduce_m": [
+        "M33"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M33"
+      ],
+      "revisit_m": [],
+      "contrast": "Wer? против was macht? меняет требуемый факт",
+      "context": "Две знакомые деятельности",
+      "id": "P2a-04",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 14,
+          "expression": "die Arbeit",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 14,
+          "expression": "der Beruf",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin Arzt.",
+          "example_B_de": "Ich bin Lehrer.",
+          "critical_meaning_ru": "Собеседник сообщает разную профессию; два имени профессий — заменяемые данные",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M33",
+          "semantic_goal_ru": "Сообщить знакомую профессию или роль",
+          "variant_A_facts": {
+            "own_role": "doctor"
+          },
+          "variant_B_facts": {
+            "own_role": "teacher"
+          },
+          "critical_slots": [
+            "known_role"
+          ],
+          "recipient_knowledge": "Адресат не знает профессию или роль говорящего.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P2a",
+      "goal": "Выразить эмоциональную оценку",
+      "introduce_m": [
+        "M35"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M35"
+      ],
+      "revisit_m": [],
+      "contrast": "Gut против schlecht меняет реакцию",
+      "context": "Понятный предмет отношения, без длинной причины",
+      "id": "P2a-05",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin froh.",
+          "example_B_de": "Ich bin traurig.",
+          "critical_meaning_ru": "Меняется переданное эмоциональное состояние",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M35",
+          "semantic_goal_ru": "Выразить простое отношение",
+          "variant_A_facts": {
+            "opinion_emotion": "froh",
+            "referent": "known outcome"
+          },
+          "variant_B_facts": {
+            "opinion_emotion": "traurig",
+            "referent": "known outcome"
+          },
+          "critical_slots": [
+            "emotional_evaluation"
+          ],
+          "recipient_knowledge": "Адресат не знает эмоциональную оценку говорящего.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P2b",
+      "goal": "Получатель и участники передачи",
+      "introduce_m": [
+        "M14"
+      ],
+      "introduce_g": [
+        "G16"
+      ],
+      "first_p": [
+        "M14"
+      ],
+      "revisit_m": [
+        "M12",
+        "M04"
+      ],
+      "contrast": "Gib mir против Gib dir меняет получателя",
+      "context": "Два участника, свободная просьба",
+      "id": "P2b-01",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 9,
+          "expression": "mir",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 9,
+          "expression": "dir",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 5,
+          "expression": "bringen",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Gib mir das Buch.",
+          "example_B_de": "Gib ihm das Buch.",
+          "critical_meaning_ru": "Получатель действия меняется; смысл определяется немецкими словами",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M14",
+          "semantic_goal_ru": "Попросить передать предмет определённому получателю",
+          "variant_A_facts": {
+            "recipient": "speaker",
+            "object": "Buch"
+          },
+          "variant_B_facts": {
+            "recipient": "person B",
+            "object": "Buch"
+          },
+          "critical_slots": [
+            "receiver_of_transfer"
+          ],
+          "recipient_knowledge": "Адресат может выполнить передачу, но не знает, кому должен достаться предмет.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P2b",
+      "goal": "Разобраться, куда направлено действие",
+      "introduce_m": [
+        "M21"
+      ],
+      "introduce_g": [
+        "G18"
+      ],
+      "first_p": [
+        "M21"
+      ],
+      "revisit_m": [],
+      "contrast": "Wo? против Wohin? меняет требуемую информацию",
+      "context": "Два правдоподобных места, без стрелок",
+      "id": "P2b-02",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 10,
+          "expression": "das Zimmer",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 11,
+          "expression": "links",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 11,
+          "expression": "rechts",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Bring das Buch in die Küche.",
+          "example_B_de": "Bring das Buch ins Zimmer.",
+          "critical_meaning_ru": "Пункт назначения сменился при том же предмете: отдельный смысл направления",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "separate_direction_from_position"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M21",
+          "semantic_goal_ru": "Сообщить, куда нужно переместить предмет",
+          "variant_A_facts": {
+            "destination": "Zimmer",
+            "object": "Buch"
+          },
+          "variant_B_facts": {
+            "destination": "Küche",
+            "object": "Buch"
+          },
+          "critical_slots": [
+            "destination_not_current_location"
+          ],
+          "recipient_knowledge": "Адресату неизвестен пункт назначения предмета; не подменять его текущим местоположением.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "a0_readiness_review": {
+        "risk": "im/ins и новые место/назначение могут дать одновременную морфологическую и пространственную новизну",
+        "mitigation": "Сначала знакомые Buch/Zimmer и один контраст wo/wohin; форму Akkusativ требовать только рецептивно, P с понятным направлением принять без идеального окончания.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      },
+      "revisit_support_note": null
+    },
+    {
+      "stage": "P2b",
+      "goal": "Самостоятельно объяснить местонахождение",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M20"
+      ],
+      "revisit_m": [],
+      "contrast": "Здесь против там меняет положение знакомого предмета",
+      "context": "Адресату неизвестно место объекта, а направление не нужно",
+      "id": "P2b-03",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 10,
+          "expression": "die Küche",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 10,
+          "expression": "auf",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Das Buch ist im Zimmer.",
+          "example_B_de": "Das Buch ist in der Küche.",
+          "critical_meaning_ru": "Самостоятельно сообщаемое место предмета меняется",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M20",
+          "semantic_goal_ru": "Объяснить, где находится предмет",
+          "variant_A_facts": {
+            "observed_location": "Zimmer",
+            "object": "Buch"
+          },
+          "variant_B_facts": {
+            "observed_location": "Küche",
+            "object": "Buch"
+          },
+          "critical_slots": [
+            "current_location_not_destination"
+          ],
+          "recipient_knowledge": "Адресату неизвестно наблюдаемое игроком текущее место предмета.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P2b",
+      "goal": "Понять где и куда",
+      "introduce_m": [
+        "M22"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M09",
+        "M40"
+      ],
+      "contrast": "Im против ins меняет тип пространственного отношения",
+      "context": "Одинаковый предмет, видимый текст",
+      "id": "P2b-04",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 10,
+          "expression": "in",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 10,
+          "expression": "im",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 10,
+          "expression": "ins",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [
+        "LO-R03"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Das Buch ist im Zimmer.",
+          "example_B_de": "Bring das Buch ins Zimmer.",
+          "critical_meaning_ru": "Отличить место предмета от цели его переноса",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P2b",
+      "goal": "Передать число самостоятельно",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M17"
+      ],
+      "revisit_m": [
+        "M10"
+      ],
+      "contrast": "Ein против zwei меняет количество",
+      "context": "Короткий факт о вещах",
+      "id": "P2b-05",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 12,
+          "expression": "drei",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 12,
+          "expression": "wie viel",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich habe zwei Bücher.",
+          "example_B_de": "Ich habe drei Bücher.",
+          "critical_meaning_ru": "Разное количество при неизменном объекте",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M17",
+          "semantic_goal_ru": "Сообщить количество",
+          "variant_A_facts": {
+            "object": "Tasse",
+            "quantity": 2
+          },
+          "variant_B_facts": {
+            "object": "Tasse",
+            "quantity": 3
+          },
+          "critical_slots": [
+            "count"
+          ],
+          "recipient_knowledge": "Адресат не знает количество предметов.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P2b",
+      "goal": "Попросить и предложить помощь",
+      "introduce_m": [],
+      "introduce_g": [
+        "G17"
+      ],
+      "first_p": [
+        "M19"
+      ],
+      "revisit_m": [],
+      "contrast": "Mir против dir меняет адресата помощи",
+      "context": "Знакомое действие helfen",
+      "id": "P2b-06",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 11,
+          "expression": "zu",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich helfe dir.",
+          "example_B_de": "Ich helfe ihm.",
+          "critical_meaning_ru": "Меняется получатель помощи",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M19",
+          "semantic_goal_ru": "Предложить помощь или самостоятельно отказаться",
+          "variant_A_facts": {
+            "intention": "offer help to person B",
+            "can_help": true
+          },
+          "variant_B_facts": {
+            "intention": "decline help request",
+            "can_help": false
+          },
+          "critical_slots": [
+            "help_offer_vs_refusal"
+          ],
+          "recipient_knowledge": "При предложении помощи адресат не знает готовность игрока; при отказе игрок отвечает на просьбу адресата.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P2c",
+      "goal": "Сообщить другому известный факт",
+      "introduce_m": [
+        "M48"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M48"
+      ],
+      "revisit_m": [
+        "M05"
+      ],
+      "contrast": "Изменение факта меняет сообщение второму собеседнику",
+      "context": "У второго нет исходной информации",
+      "id": "P2c-01",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 14,
+          "expression": "die Aufgabe",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tasse ist leer.",
+          "example_B_de": "Die Tasse ist voll.",
+          "critical_meaning_ru": "Собеседник не знает, каково состояние предмета",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M48",
+          "semantic_goal_ru": "Передать незнакомый адресату факт своими словами",
+          "variant_A_facts": {
+            "known_private_fact": "the cup is empty",
+            "recipient_knows": false
+          },
+          "variant_B_facts": {
+            "known_private_fact": "the cup is full",
+            "recipient_knows": false
+          },
+          "critical_slots": [
+            "transferred_fact"
+          ],
+          "recipient_knowledge": "Получатель не знает исходного факта и должен узнать его из самостоятельной формулировки игрока.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P2c",
+      "goal": "Распознать время по отношению к сейчас",
+      "introduce_m": [
+        "M49"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M03"
+      ],
+      "contrast": "Heute против morgen меняет время факта",
+      "context": "Знакомое действие и временное слово",
+      "id": "P2c-02",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 15,
+          "expression": "heute",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 15,
+          "expression": "morgen",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich komme heute.",
+          "example_B_de": "Ich komme morgen.",
+          "critical_meaning_ru": "Разное время действия относительно текущего момента",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P2c",
+      "goal": "Возможность, разрешение, отрицание",
+      "introduce_m": [
+        "M18",
+        "M54"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M39"
+      ],
+      "contrast": "Не могу, нельзя и не нужно имеют разные последствия",
+      "context": "Одно знакомое действие, отдельные контрасты",
+      "id": "P2c-03",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 16,
+          "expression": "können",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 16,
+          "expression": "müssen",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Du darfst nicht gehen.",
+          "example_B_de": "Du musst nicht gehen.",
+          "critical_meaning_ru": "Запрет идти против отсутствия обязанности идти",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [],
+      "scaffolding_note": "Первое R M18/M54 — распознавание целых знакомых формул nicht dürfen / nicht müssen при доступном F1. Продуктивное обобщение модальной грамматики G22 и первое P остаются P3b-01; нельзя требовать в P2c построить новые формы произвольно.",
+      "a0_readiness_review": {
+        "risk": "обязательные R-значения modals M18/M54 появляются до полного введения G22",
+        "mitigation": "Только рецепция фиксированных пар nicht dürfen / nicht müssen с F1; продуктивная модальность и свободное комбинирование вводятся позднее P3b-01.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      }
+    },
+    {
+      "stage": "P2c",
+      "goal": "Начало действия и простой момент",
+      "introduce_m": [
+        "M23"
+      ],
+      "introduce_g": [
+        "G21"
+      ],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Die Arbeit fängt um acht an против um neun an меняет время начала",
+      "context": "Один знакомый процесс, время и отделяемое an нужны для понимания",
+      "id": "P2c-04",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 18,
+          "expression": "anfangen",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Komm um acht.",
+          "example_B_de": "Komm um zehn.",
+          "critical_meaning_ru": "Час действия меняется при знакомой просьбе",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "No Russian UI / visual leakage; ensure critical lexical forms available",
+          "probe_kind": "time_reading"
+        },
+        {
+          "example_A_de": "Die Arbeit fängt jetzt an.",
+          "example_B_de": "Die Arbeit hört jetzt auf.",
+          "critical_meaning_ru": "Различить начало и завершение знакомого занятия по отделяемым глаголам",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "No Russian UI / visual leakage; ensure critical lexical forms available",
+          "probe_kind": "separable_verb_reception"
+        }
+      ],
+      "independent_production_checks": [],
+      "scaffolding_note": "Два отдельных рецептивных контакта в порядке: время на знакомом действии, затем начало/окончание через отделяемый глагол; НЕ предъявлять обе новые смысловые задачи одновременно.",
+      "a0_readiness_review": {
+        "risk": "одновременно время и отделяемые глаголы",
+        "mitigation": "Уже разнесено на две A/B-пары: короткое время на знакомом действии, затем начало/окончание через отделяемую форму. Не проводить как один комбинированный тест.",
+        "blocking": false,
+        "status": "methodical_candidate_not_user_test"
+      }
+    },
+    {
+      "stage": "P2c",
+      "goal": "Распознать желание",
+      "introduce_m": [
+        "M30"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M09"
+      ],
+      "contrast": "Möchte против не хочу меняет намерение",
+      "context": "Знакомый выбор двух вещей",
+      "id": "P2c-05",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 17,
+          "expression": "möchten",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich möchte Tee.",
+          "example_B_de": "Ich habe Tee.",
+          "critical_meaning_ru": "Желание предмета или сообщение об обладании им",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P3a",
+      "goal": "Назвать время и дату",
+      "introduce_m": [],
+      "introduce_g": [
+        "G19",
+        "G20"
+      ],
+      "first_p": [
+        "M23"
+      ],
+      "revisit_m": [],
+      "contrast": "Um zehn против um zwölf меняет назначенное время",
+      "context": "Знакомые малые числа, один шаг расписания",
+      "id": "P3a-01",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 15,
+          "expression": "um",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 18,
+          "expression": "die Zeit",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Am Montag bin ich frei.",
+          "example_B_de": "Am Dienstag bin ich frei.",
+          "critical_meaning_ru": "Изменяется день доступности",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M23",
+          "semantic_goal_ru": "Сообщить время",
+          "variant_A_facts": {
+            "appointment_hour": "10:00",
+            "day": "Montag"
+          },
+          "variant_B_facts": {
+            "appointment_hour": "12:00",
+            "day": "Montag"
+          },
+          "critical_slots": [
+            "clock_time"
+          ],
+          "recipient_knowledge": "Адресат не знает нужного часа; в вариантах сохраняется известный день.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P3a",
+      "goal": "Читать табличные данные",
+      "introduce_m": [
+        "M42"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M41"
+      ],
+      "contrast": "Montag против Dienstag меняет строку данных",
+      "context": "Короткая таблица с знакомыми заголовками",
+      "id": "P3a-02",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 19,
+          "expression": "der Preis",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 19,
+          "expression": "der Euro",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 19,
+          "expression": "kosten",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 21,
+          "expression": "fahren",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 21,
+          "expression": "der Bus",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 21,
+          "expression": "der Zug",
+          "obligation": "contextual_optional"
+        }
+      ],
+      "outcome_candidates": [
+        "LO-R04"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Am Montag bin ich frei.",
+          "example_B_de": "Am Montag bin ich beschäftigt.",
+          "critical_meaning_ru": "Доступность меняется при неизменном дне",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P3a",
+      "goal": "Обычное действие и частота",
+      "introduce_m": [
+        "M25"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M25"
+      ],
+      "revisit_m": [],
+      "contrast": "Oft против nie меняет утверждение о привычке",
+      "context": "Небольшой распорядок, не новый персонаж",
+      "id": "P3a-03",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 20,
+          "expression": "oft",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 20,
+          "expression": "manchmal",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich arbeite oft.",
+          "example_B_de": "Ich arbeite nie.",
+          "critical_meaning_ru": "Привычное действие часто или никогда",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M25",
+          "semantic_goal_ru": "Описать частоту знакомого действия",
+          "variant_A_facts": {
+            "habit_frequency": "oft",
+            "action": "read"
+          },
+          "variant_B_facts": {
+            "habit_frequency": "nie",
+            "action": "read"
+          },
+          "critical_slots": [
+            "frequency"
+          ],
+          "recipient_knowledge": "Адресат не знает частоты знакомого действия.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "scaffolding_note": "Это первый контакт частоты M25 (oft/nie), на известном действии. G27 (порядок zuerst/dann) перенесён в P3a-05 во избежание наложения нового порядка на новую частоту."
+    },
+    {
+      "stage": "P3a",
+      "goal": "Самостоятельно согласовать время",
+      "introduce_m": [
+        "M24"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M24"
+      ],
+      "revisit_m": [
+        "M07",
+        "M17"
+      ],
+      "contrast": "Heute gegen morgen меняет доступность",
+      "context": "Два допустимых варианта времени",
+      "id": "P3a-04",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 15,
+          "expression": "am",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 18,
+          "expression": "der Termin",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Komm morgen um zehn.",
+          "example_B_de": "Komm morgen um zwölf.",
+          "critical_meaning_ru": "Меняется критический час",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M24",
+          "semantic_goal_ru": "Согласовать доступное время",
+          "variant_A_facts": {
+            "own_availability": "Monday 10:00",
+            "other_knows": false
+          },
+          "variant_B_facts": {
+            "own_availability": "Monday 12:00",
+            "other_knows": false
+          },
+          "critical_slots": [
+            "availability_time"
+          ],
+          "recipient_knowledge": "Адресат ещё не знает, когда игрок доступен; игрок сообщает доступное время.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P3a",
+      "goal": "Установить порядок действий",
+      "introduce_m": [
+        "M26"
+      ],
+      "introduce_g": [
+        "G27"
+      ],
+      "first_p": [
+        "M26"
+      ],
+      "revisit_m": [],
+      "contrast": "Zuerst против danach меняет порядок",
+      "context": "Два знакомых действия",
+      "id": "P3a-05",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 27,
+          "expression": "zuerst",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 27,
+          "expression": "dann",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Zuerst nimmst du das Buch, dann die Tasse.",
+          "example_B_de": "Zuerst nimmst du die Tasse, dann das Buch.",
+          "critical_meaning_ru": "Порядок двух действий меняется",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M26",
+          "semantic_goal_ru": "Передать порядок знакомых действий",
+          "variant_A_facts": {
+            "steps": [
+              "take book",
+              "take cup"
+            ]
+          },
+          "variant_B_facts": {
+            "steps": [
+              "take cup",
+              "take book"
+            ]
+          },
+          "critical_slots": [
+            "action_order"
+          ],
+          "recipient_knowledge": "Адресат не знает последовательность двух знакомых действий.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "scaffolding_note": "Один смысл — порядок уже знакомых действий, общая R-пара для M26 и G27; сначала рецепция zuerst/dann, после самостоятельная передача порядка."
+    },
+    {
+      "stage": "P3b",
+      "goal": "Запрет, обязанность и возможность",
+      "introduce_m": [],
+      "introduce_g": [
+        "G22"
+      ],
+      "first_p": [
+        "M18",
+        "M54"
+      ],
+      "revisit_m": [
+        "M11"
+      ],
+      "contrast": "Nicht dürfen против nicht müssen не синонимы",
+      "context": "Известное действие, по одному контрасту",
+      "id": "P3b-01",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 16,
+          "expression": "dürfen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 16,
+          "expression": "nicht dürfen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 16,
+          "expression": "nicht müssen",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [
+        "LO-R02",
+        "LO-W03"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Du musst nicht kommen.",
+          "example_B_de": "Du darfst nicht kommen.",
+          "critical_meaning_ru": "Отсутствие обязанности против прямого запрета",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M18",
+          "semantic_goal_ru": "Передать возможность/обязанность без смены модальности",
+          "variant_A_facts": {
+            "action": "come",
+            "rule": "permitted"
+          },
+          "variant_B_facts": {
+            "action": "come",
+            "rule": "obligatory"
+          },
+          "critical_slots": [
+            "permission_vs_obligation"
+          ],
+          "recipient_knowledge": "Адресату неизвестно, разрешено действие или оно обязательно.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        },
+        {
+          "M": "M54",
+          "semantic_goal_ru": "Различить «не нужно» и «нельзя» в собственном сообщении",
+          "variant_A_facts": {
+            "action": "come",
+            "rule": "not required"
+          },
+          "variant_B_facts": {
+            "action": "come",
+            "rule": "prohibited"
+          },
+          "critical_slots": [
+            "negation_scope_of_modality"
+          ],
+          "recipient_knowledge": "Адресат не знает, действие запрещено или просто не обязательно; неправильная область отрицания меняет смысл.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P3b",
+      "goal": "Время события и сообщение о будущем",
+      "introduce_m": [
+        "M52"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M49"
+      ],
+      "revisit_m": [
+        "M20"
+      ],
+      "contrast": "Gestern против morgen меняет временную привязку",
+      "context": "Один известный факт, ещё не Perfekt",
+      "id": "P3b-02",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Morgen komme ich.",
+          "example_B_de": "Heute komme ich.",
+          "critical_meaning_ru": "День плана меняется, адресату нужно сообщить",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M49",
+          "semantic_goal_ru": "Сообщить когда событие относится к настоящему или прошлому",
+          "variant_A_facts": {
+            "event_time": "today"
+          },
+          "variant_B_facts": {
+            "event_time": "yesterday"
+          },
+          "critical_slots": [
+            "relative_time"
+          ],
+          "recipient_knowledge": "Адресат не знает относительного времени события.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P3b",
+      "goal": "Приглашение и координация",
+      "introduce_m": [
+        "M37"
+      ],
+      "introduce_g": [
+        "G24"
+      ],
+      "first_p": [
+        "M37"
+      ],
+      "revisit_m": [
+        "M19",
+        "M04"
+      ],
+      "contrast": "Einladung angenommen против abgelehnt меняет решение",
+      "context": "Два безопасных решения о приглашении; отрицательный вопрос допускает самостоятельный Doch",
+      "id": "P3b-03",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 18,
+          "expression": "treffen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 16,
+          "expression": "doch",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Kommst du morgen nicht? — Doch, ich komme.",
+          "example_B_de": "Kommst du morgen nicht? — Nein, ich komme nicht.",
+          "critical_meaning_ru": "Ответ на отрицательное приглашение: подтверждение вопреки ожиданию или отказ",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "introduce_G24_and_invitation_response"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M37",
+          "semantic_goal_ru": "Согласиться или отказаться от приглашения",
+          "variant_A_facts": {
+            "invitation": "tomorrow at 10",
+            "response": "accept"
+          },
+          "variant_B_facts": {
+            "invitation": "tomorrow at 10",
+            "response": "decline"
+          },
+          "critical_slots": [
+            "invitation_response"
+          ],
+          "recipient_knowledge": "Собеседник предложил приглашение и ещё не знает, согласен ли игрок.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "revisit_support_note": null
+    },
+    {
+      "stage": "P3b",
+      "goal": "Слишком поздно, слишком много",
+      "introduce_m": [
+        "M38"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M06"
+      ],
+      "contrast": "Zu spät против nicht zu spät меняет оценку пригодности",
+      "context": "Один знакомый вариант; отличие слишком поздно от подходящего не маскируется интерфейсом",
+      "id": "P3b-04",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich komme zu spät.",
+          "example_B_de": "Ich komme früh.",
+          "critical_meaning_ru": "Время прихода подходит или оказывается слишком поздним",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P3c",
+      "goal": "Самостоятельно выразить желание",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M30"
+      ],
+      "revisit_m": [
+        "M29",
+        "M32"
+      ],
+      "contrast": "Меняется желаемый знакомый объект",
+      "context": "Знакомый объект и отдельное желание",
+      "id": "P3c-01",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 17,
+          "expression": "oder",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich möchte Wasser.",
+          "example_B_de": "Ich möchte Tee.",
+          "critical_meaning_ru": "Из двух известных вариантов предпочтителен другой",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M30",
+          "semantic_goal_ru": "Сообщить желание",
+          "variant_A_facts": {
+            "wanted_item": "Wasser"
+          },
+          "variant_B_facts": {
+            "wanted_item": "Tee"
+          },
+          "critical_slots": [
+            "desired_object"
+          ],
+          "recipient_knowledge": "Адресат не знает, какой предмет хочет игрок.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "scaffolding_note": "Только самостоятельный смысл желания с möchte, знакомыми предметами; G23 mag vs möchte вводится в P3c-02 после первого контакта с предпочтением."
+    },
+    {
+      "stage": "P3c",
+      "goal": "Самостоятельно выразить предпочтение",
+      "introduce_m": [
+        "M31"
+      ],
+      "introduce_g": [
+        "G23"
+      ],
+      "first_p": [
+        "M31"
+      ],
+      "revisit_m": [],
+      "contrast": "Lieber ... меняет выбранный вариант",
+      "context": "Два знакомых занятия или предмета, предпочтение неизвестно адресату",
+      "id": "P3c-02",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 17,
+          "expression": "gern",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 17,
+          "expression": "lieber",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [
+        "LO-W04"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich mag Tee.",
+          "example_B_de": "Ich mag Kaffee.",
+          "critical_meaning_ru": "Самостоятельно выраженное предпочтение меняет вариант",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M31",
+          "semantic_goal_ru": "Выразить предпочтение в отсутствии готового ответа",
+          "variant_A_facts": {
+            "offered": [
+              "Wasser",
+              "Tee"
+            ],
+            "preference": "Wasser"
+          },
+          "variant_B_facts": {
+            "offered": [
+              "Wasser",
+              "Tee"
+            ],
+            "preference": "Tee"
+          },
+          "critical_slots": [
+            "preferred_option"
+          ],
+          "recipient_knowledge": "Адресат предложил варианты и ещё не знает предпочтение игрока.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "scaffolding_note": "Сначала знакомое предпочтение mag с двумя уже известными объектами, затем G23: mag как общая симпатия против möchte как текущая просьба. Одно R-различие на известном Tee."
+    },
+    {
+      "stage": "P3c",
+      "goal": "Распознать вежливые формулы",
+      "introduce_m": [
+        "M55"
+      ],
+      "introduce_g": [
+        "G33"
+      ],
+      "first_p": [],
+      "revisit_m": [
+        "M09"
+      ],
+      "contrast": "Вежливый вопрос о книге и о воде требует разного ответа, хотя просьба сформулирована одинаково",
+      "context": "Узнавание готовых формул ich hätte gern / könnte ich; без требования самому писать Konjunktiv II",
+      "id": "P3c-03",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 17,
+          "expression": "ich hätte gern …",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 17,
+          "expression": "könnte ich …?",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich hätte gern Tee.",
+          "example_B_de": "Ich habe Tee.",
+          "critical_meaning_ru": "Вежливая просьба о чае против утверждения обладания",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P3c",
+      "goal": "Понять личное сообщение",
+      "introduce_m": [
+        "M43"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Сегодня/завтра меняет нужный ответ",
+      "context": "Короткий текст с отправителем и просьбой",
+      "id": "P3c-04",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 7,
+          "expression": "krank",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [
+        "LO-R05"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin krank. Komm bitte morgen.",
+          "example_B_de": "Ich bin krank. Komm bitte heute.",
+          "critical_meaning_ru": "Состояние не меняется, но срок просьбы различается",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P3c",
+      "goal": "Знакомство с интересами и досугом",
+      "introduce_m": [
+        "M34"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Lesen vs spielen меняет предпочитаемое занятие",
+      "context": "Абстрактная информация о предпочтении",
+      "id": "P3c-05",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 20,
+          "expression": "spielen",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 20,
+          "expression": "Musik hören",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich lese gern.",
+          "example_B_de": "Ich spiele gern.",
+          "critical_meaning_ru": "Значимая информация об интересе изменена",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P3c",
+      "goal": "Связать два смысловых пункта",
+      "introduce_m": [
+        "M46"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [],
+      "contrast": "Изменение второго пункта меняет весь смысл сообщения",
+      "context": "Два коротких знакомых факта",
+      "id": "P3c-06",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich habe das Buch. Ich brauche Wasser.",
+          "example_B_de": "Ich habe das Buch. Ich brauche Tee.",
+          "critical_meaning_ru": "В двух связанных мыслях изменена только потребность",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P3c",
+      "goal": "Увидеть противопоставление и сравнение",
+      "introduce_m": [
+        "M16",
+        "M28"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M21"
+      ],
+      "contrast": "A gut aber B kaputt меняет отношения двух фактов",
+      "context": "Знакомые свойства, разные значения",
+      "id": "P3c-07",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [
+        "LO-R06"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tasse ist groß, aber das Buch ist klein.",
+          "example_B_de": "Die Tasse ist klein, aber das Buch ist groß.",
+          "critical_meaning_ru": "Свойства двух объектов меняются местами",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P4a",
+      "goal": "Самому противопоставить два факта",
+      "introduce_m": [],
+      "introduce_g": [
+        "G34"
+      ],
+      "first_p": [
+        "M16"
+      ],
+      "revisit_m": [
+        "M10",
+        "M15"
+      ],
+      "contrast": "Aber и und по-разному связывают факты",
+      "context": "Два факта, без нового жанра",
+      "id": "P4a-01",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 27,
+          "expression": "und",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 27,
+          "expression": "aber",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tasse ist leer und das Buch ist hier.",
+          "example_B_de": "Die Tasse ist leer oder das Buch ist hier.",
+          "critical_meaning_ru": "Два одновременно истинных пункта против выбора хотя бы одного; смысл связки критичен",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M16",
+          "semantic_goal_ru": "Сопоставить два независимых факта",
+          "variant_A_facts": {
+            "objectA": "Tasse",
+            "stateA": "leer",
+            "objectB": "Buch",
+            "stateB": "neu"
+          },
+          "variant_B_facts": {
+            "objectA": "Tasse",
+            "stateA": "voll",
+            "objectB": "Buch",
+            "stateB": "neu"
+          },
+          "critical_slots": [
+            "contrasting_two_facts"
+          ],
+          "recipient_knowledge": "Адресату неизвестны оба факта и их связь; проверять оба смысловых пункта, а не только изменённый.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P4a",
+      "goal": "Сравнить понятные варианты",
+      "introduce_m": [],
+      "introduce_g": [
+        "G26"
+      ],
+      "first_p": [
+        "M28"
+      ],
+      "revisit_m": [
+        "M13"
+      ],
+      "contrast": "Größer против kleiner меняет сравнительный вывод",
+      "context": "Два знакомых объекта",
+      "id": "P4a-02",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 24,
+          "expression": "größer",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 24,
+          "expression": "besser",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die rote Tasse ist größer.",
+          "example_B_de": "Die rote Tasse ist kleiner.",
+          "critical_meaning_ru": "Сравнение размеров даёт противоположный результат",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M28",
+          "semantic_goal_ru": "Самостоятельно сравнить две вещи",
+          "variant_A_facts": {
+            "objects": [
+              "Tasse A",
+              "Tasse B"
+            ],
+            "larger": "A"
+          },
+          "variant_B_facts": {
+            "objects": [
+              "Tasse A",
+              "Tasse B"
+            ],
+            "larger": "B"
+          },
+          "critical_slots": [
+            "comparison_direction"
+          ],
+          "recipient_knowledge": "Адресат не знает, какой из двух объектов больше; направление сравнения критично.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P4a",
+      "goal": "Прочитать границы длительности",
+      "introduce_m": [
+        "M27"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M18"
+      ],
+      "contrast": "Seit против bis меняет начало или конец периода",
+      "context": "Только рецепция одной временной границы",
+      "id": "P4a-03",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 27,
+          "expression": "seit",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 27,
+          "expression": "bis",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin seit Montag hier.",
+          "example_B_de": "Ich bin bis Montag hier.",
+          "critical_meaning_ru": "Продолжительность с указанного дня против пребывания до него",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P4a",
+      "goal": "Распознать признак в короткой группе",
+      "introduce_m": [],
+      "introduce_g": [
+        "G31"
+      ],
+      "first_p": [],
+      "revisit_m": [
+        "M22"
+      ],
+      "contrast": "Rote против blaue меняет объект ссылки",
+      "context": "G31 только рецептивно-фоновая форма: важен выбор свойства, а не правильное склонение в P",
+      "id": "P4a-04",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 24,
+          "expression": "rot",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 24,
+          "expression": "blau",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die rote Tasse ist hier.",
+          "example_B_de": "Die blaue Tasse ist hier.",
+          "critical_meaning_ru": "Прочитанный признак выбирает другой предмет, не требуя идеального склонения P",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P4b",
+      "goal": "Понять рабочую заметку",
+      "introduce_m": [
+        "M44"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M42",
+        "M43"
+      ],
+      "contrast": "Смена времени/адресата меняет предписанное действие",
+      "context": "Короткий служебный текст как жанр",
+      "id": "P4b-01",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 23,
+          "expression": "die Nachricht",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 23,
+          "expression": "die Frage",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 26,
+          "expression": "Deutsch",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin morgen nicht da.",
+          "example_B_de": "Ich bin heute nicht da.",
+          "critical_meaning_ru": "Нельзя спутать день недоступности",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P4b",
+      "goal": "Разобраться в личных связях",
+      "introduce_m": [
+        "M36"
+      ],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M05",
+        "M02"
+      ],
+      "contrast": "Bruder против Freund меняет связь людей A/B/C",
+      "context": "Абстрактные отношения, никаких биографий NPC",
+      "id": "P4b-02",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 13,
+          "expression": "der Freund",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 13,
+          "expression": "die Freundin",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Tom ist mein Bruder.",
+          "example_B_de": "Tom ist mein Freund.",
+          "critical_meaning_ru": "Человек назван братом либо другом; имена только заменяемые тестовые данные",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [],
+      "scaffolding_note": "Первое лицо mein/dein в рецептивной связи относится к автору данного высказывания. В языковом контракте A/B/C — произвольные участники, без игрового канона/биографии."
+    },
+    {
+      "stage": "P4b",
+      "goal": "Заполнить простую форму",
+      "introduce_m": [
+        "M45"
+      ],
+      "introduce_g": [],
+      "first_p": [
+        "M45"
+      ],
+      "revisit_m": [
+        "M41",
+        "M20"
+      ],
+      "contrast": "Поля Name и Zeit не взаимозаменяемы",
+      "context": "Только знакомые значения, без автоподстановки",
+      "id": "P4b-03",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 22,
+          "expression": "der Vorname",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 22,
+          "expression": "der Nachname",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 22,
+          "expression": "die Adresse",
+          "obligation": "contextual_optional"
+        }
+      ],
+      "outcome_candidates": [
+        "LO-W06"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Name: Mia. Tag: Montag.",
+          "example_B_de": "Name: Mia. Tag: Dienstag.",
+          "critical_meaning_ru": "Меняется только одно значение в известной форме",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M45",
+          "semantic_goal_ru": "Заполнить известными данными самостоятельную форму",
+          "variant_A_facts": {
+            "field_labels_de": [
+              "Name",
+              "Tag"
+            ],
+            "known_data": {
+              "Name": "Mia",
+              "Tag": "Montag"
+            }
+          },
+          "variant_B_facts": {
+            "field_labels_de": [
+              "Name",
+              "Tag"
+            ],
+            "known_data": {
+              "Name": "Mia",
+              "Tag": "Dienstag"
+            }
+          },
+          "critical_slots": [
+            "correct_field_assignment"
+          ],
+          "recipient_knowledge": "Заполнение формы не требует неизвестного адресату факта: проверяется соответствие собственных известных данных немецким названиям полей.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P4c",
+      "goal": "Спросить об интересе и предложить занятие",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M34"
+      ],
+      "revisit_m": [
+        "M30",
+        "M31"
+      ],
+      "contrast": "Чтение против прогулки меняет предложение",
+      "context": "Собеседник не знает предпочтение, свободный ответ",
+      "id": "P4c-01",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Willst du zusammen lesen?",
+          "example_B_de": "Willst du zusammen spielen?",
+          "critical_meaning_ru": "Предложение совместного занятия использует ранее воспринятый смысл досуга, а не воспроизводит описание своего хобби",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "M34_R_to_P_transfer"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M34",
+          "semantic_goal_ru": "Спросить об интересе либо предложить соответствующее совместное занятие",
+          "variant_A_facts": {
+            "private_interest": "lesen",
+            "activity_offered": [
+              "lesen",
+              "spielen"
+            ],
+            "listener_does_not_know": true
+          },
+          "variant_B_facts": {
+            "private_interest": "spielen",
+            "activity_offered": [
+              "lesen",
+              "spielen"
+            ],
+            "listener_does_not_know": true
+          },
+          "critical_slots": [
+            "preferred_activity",
+            "offer_of_shared_activity"
+          ],
+          "recipient_knowledge": "Собеседнику неизвестен интерес игрока; предложение занятия передаёт его, вопрос может уточнить интерес адресата.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "revisit_support_note": null
+    },
+    {
+      "stage": "P4c",
+      "goal": "Сообщить причину неприменимости варианта",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M38"
+      ],
+      "revisit_m": [
+        "M25",
+        "M29"
+      ],
+      "contrast": "Zu kalt против zu warm меняет отказ",
+      "context": "Привычный объект, ясная причина",
+      "id": "P4c-02",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 25,
+          "expression": "das Wetter",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 25,
+          "expression": "der Regen",
+          "obligation": "contextual_optional"
+        },
+        {
+          "group": 25,
+          "expression": "der Schnee",
+          "obligation": "contextual_optional"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Die Tasse ist zu groß.",
+          "example_B_de": "Die Tasse ist klein.",
+          "critical_meaning_ru": "Размер становится препятствием, а не обычным описанием",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M38",
+          "semantic_goal_ru": "Объяснить, почему вариант не подходит",
+          "variant_A_facts": {
+            "candidate": "Tasse",
+            "issue": "too large"
+          },
+          "variant_B_facts": {
+            "candidate": "Tasse",
+            "issue": "too cold"
+          },
+          "critical_slots": [
+            "specific_obstacle"
+          ],
+          "recipient_knowledge": "Адресат не знает конкретную причину, по которой вариант не подходит игроку.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P4c",
+      "goal": "Передать два пункта своими словами",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M46"
+      ],
+      "revisit_m": [
+        "M48",
+        "M37",
+        "M33"
+      ],
+      "contrast": "Смена времени при прежнем предмете меняет план",
+      "context": "Собеседник не видел один из фактов",
+      "id": "P4c-03",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 23,
+          "expression": "die Antwort",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 26,
+          "expression": "die Sprache",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [
+        "LO-W07"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich bin krank. Komm morgen.",
+          "example_B_de": "Ich bin gesund. Komm morgen.",
+          "critical_meaning_ru": "Первый из двух связанных пунктов изменён, второй сохранён",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M46",
+          "semantic_goal_ru": "Передать два пункта адресату своими словами",
+          "variant_A_facts": {
+            "fact1": "player ill today",
+            "fact2": "asks B to come tomorrow"
+          },
+          "variant_B_facts": {
+            "fact1": "player well today",
+            "fact2": "asks B to come tomorrow"
+          },
+          "critical_slots": [
+            "two_independent_meanings"
+          ],
+          "recipient_knowledge": "Адресат не знает двух смысловых пунктов; оба должны присутствовать без подсказанной немецкой формулировки.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P5",
+      "goal": "Распознать прошлое состояния",
+      "introduce_m": [
+        "M50"
+      ],
+      "introduce_g": [
+        "G28"
+      ],
+      "first_p": [],
+      "revisit_m": [
+        "M49"
+      ],
+      "contrast": "War против ist меняет временную отнесённость",
+      "context": "Один знакомый объект и время",
+      "id": "P5-01",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 28,
+          "expression": "war",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 28,
+          "expression": "hatte",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Gestern war die Tür offen.",
+          "example_B_de": "Heute ist die Tür offen.",
+          "critical_meaning_ru": "Прошлый факт нельзя считать текущим",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P5",
+      "goal": "Сообщить о завершённом действии",
+      "introduce_m": [
+        "M51"
+      ],
+      "introduce_g": [
+        "G29"
+      ],
+      "first_p": [
+        "M51"
+      ],
+      "revisit_m": [
+        "M26",
+        "M11"
+      ],
+      "contrast": "Habe gesucht против suche меняет завершённость",
+      "context": "Известное действие, новый временной смысл",
+      "id": "P5-02",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 28,
+          "expression": "habe gemacht",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [
+        "LO-W05"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Ich habe das Buch gefunden.",
+          "example_B_de": "Ich habe die Tasse gefunden.",
+          "critical_meaning_ru": "Меняется объект законченного действия",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M51",
+          "semantic_goal_ru": "Сообщить завершённое действие",
+          "variant_A_facts": {
+            "actor": "player",
+            "event": "found book",
+            "time": "yesterday"
+          },
+          "variant_B_facts": {
+            "actor": "player",
+            "event": "found key",
+            "time": "yesterday"
+          },
+          "critical_slots": [
+            "past_completed_event",
+            "object"
+          ],
+          "recipient_knowledge": "Адресату неизвестны результат завершённого действия и/или его объект.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ],
+      "scaffolding_note": "Основная A/B-пара различает объект завершённого действия (M51); отдельная G29 R-пара сравнивает результат и настоящее на одном известном Buch. Первое P о результате — самостоятельное, без подсказанного ответа."
+    },
+    {
+      "stage": "P5",
+      "goal": "Понять Perfekt с sein",
+      "introduce_m": [],
+      "introduce_g": [
+        "G30"
+      ],
+      "first_p": [],
+      "revisit_m": [
+        "M16",
+        "M15"
+      ],
+      "contrast": "Ist gekommen против kommt меняет время события",
+      "context": "Простое перемещение, только рецепция формы",
+      "id": "P5-03",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 28,
+          "expression": "ist gekommen",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Mia ist gekommen.",
+          "example_B_de": "Mia kommt.",
+          "critical_meaning_ru": "Завершённое событие с sein-Perfekt против ещё не завершённого действия в настоящем",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "No Russian UI / visual leakage; ensure critical lexical forms available",
+          "probe_kind": "perfekt_sein_reception"
+        }
+      ],
+      "independent_production_checks": [],
+      "scaffolding_note": "Для обязательного Perfekt-контраста не нужна отдельная лексика транспорта: все исходные имена и простое kommen доступны ранее."
+    },
+    {
+      "stage": "P5",
+      "goal": "Сообщить ближайший план",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [
+        "M52"
+      ],
+      "revisit_m": [
+        "M28",
+        "M25"
+      ],
+      "contrast": "Morgen против gestern меняет намерение",
+      "context": "Привычное действие и новое время",
+      "id": "P5-04",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 29,
+          "expression": "nächste Woche",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 29,
+          "expression": "planen",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Morgen gehe ich.",
+          "example_B_de": "Heute gehe ich.",
+          "critical_meaning_ru": "День будущего плана изменён",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": [
+        {
+          "M": "M52",
+          "semantic_goal_ru": "Передать ближайший план",
+          "variant_A_facts": {
+            "actor": "player",
+            "action": "come",
+            "time": "tomorrow"
+          },
+          "variant_B_facts": {
+            "actor": "player",
+            "action": "come",
+            "time": "today"
+          },
+          "critical_slots": [
+            "future_or_present_plan_time"
+          ],
+          "recipient_knowledge": "Адресат не знает ближайший план игрока и время этого плана.",
+          "answer_visibility": "Ни один вариант не содержит готовой немецкой реплики; данные задаются наблюдениями и намерением",
+          "status": "language_only_semantic_probe_not_playtested"
+        }
+      ]
+    },
+    {
+      "stage": "P5",
+      "goal": "Повторить личную информацию в другом жанре",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M34",
+        "M36",
+        "M38"
+      ],
+      "contrast": "Смена родства или интереса меняет вывод",
+      "context": "Знакомые отношения в новой функции",
+      "id": "P5-05",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 13,
+          "expression": "der Bruder",
+          "obligation": "functional_candidate"
+        },
+        {
+          "group": 13,
+          "expression": "die Schwester",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Mia liest gern.",
+          "example_B_de": "Mia spielt gern.",
+          "critical_meaning_ru": "Перенести интерес в сообщение о третьем лице",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "M34_transfer",
+          "reused_m": [
+            "M34"
+          ]
+        },
+        {
+          "example_A_de": "Mia: Mein Bruder kommt morgen.",
+          "example_B_de": "Mia: Mein Freund kommt morgen.",
+          "critical_meaning_ru": "Различить личную связь в короткой подписанной заметке",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "M36_transfer",
+          "reused_m": [
+            "M36"
+          ]
+        },
+        {
+          "example_A_de": "Es ist zu spät.",
+          "example_B_de": "Es ist zu kalt.",
+          "critical_meaning_ru": "Различить бытовое препятствие в ином сообщении",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "M38_transfer",
+          "reused_m": [
+            "M38"
+          ]
+        }
+      ],
+      "independent_production_checks": [],
+      "revisit_support_note": "Каждая A/B-пара — отдельная короткая языковая ситуация, не предъявлять несколько новых контрастов одновременно."
+    },
+    {
+      "stage": "P5",
+      "goal": "Передать чужой прошлый факт",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M14",
+        "M53",
+        "M03"
+      ],
+      "contrast": "Смена агента меняет правильный пересказ",
+      "context": "Отложенный вопрос с адресатом",
+      "id": "P5-06",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [
+        {
+          "group": 29,
+          "expression": "wieder",
+          "obligation": "functional_candidate"
+        }
+      ],
+      "outcome_candidates": [],
+      "language_example_checks": [
+        {
+          "example_A_de": "Mia hat das Buch gefunden.",
+          "example_B_de": "Tom hat das Buch gefunden.",
+          "critical_meaning_ru": "Различить агента завершённого действия другого человека",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "past_third_person",
+          "reused_m": [
+            "M03"
+          ]
+        },
+        {
+          "example_A_de": "Mia hat mir das Buch gezeigt.",
+          "example_B_de": "Mia hat dir das Buch gezeigt.",
+          "critical_meaning_ru": "Изменился получатель действия, выраженный формой mir/dir",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "M14_transfer",
+          "reused_m": [
+            "M14"
+          ]
+        },
+        {
+          "example_A_de": "Mia hat das Buch gefunden. Sie hat es gezeigt.",
+          "example_B_de": "Tom hat das Buch gefunden. Er hat es gezeigt.",
+          "critical_meaning_ru": "Разрешить местоимения в сообщении о завершённом действии",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Do not leak target meaning via Russian UI or visual answer; check A0 prerequisites.",
+          "content_review": "M53_transfer",
+          "reused_m": [
+            "M53"
+          ]
+        }
+      ],
+      "independent_production_checks": [],
+      "revisit_support_note": "Каждая A/B-пара — отдельная короткая языковая ситуация, не предъявлять несколько новых контрастов одновременно."
+    },
+    {
+      "stage": "P6",
+      "goal": "Адресат, жанр и сведения коротких текстов",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M39",
+        "M42",
+        "M55",
+        "M08",
+        "M44"
+      ],
+      "contrast": "Два разных письменных обращения требуют разного адресата или извлечённого времени",
+      "context": "Знакомые формы: инструкция, таблица и обращение; не все жанры в одной обязательной реплике",
+      "id": "P6-01",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [
+        "LO-R01",
+        "LO-R03",
+        "LO-R04"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Komm am Montag. Ich bin frei.",
+          "example_B_de": "Komm am Dienstag. Ich bin frei.",
+          "critical_meaning_ru": "В новом коротком сообщении меняется один критический факт",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "Meaning depends on German, not Russian UI or obvious visual state"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P6",
+      "goal": "Ограничение, расписание и согласование действий",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M18",
+        "M54",
+        "M24",
+        "M23",
+        "M27"
+      ],
+      "contrast": "Замена запрета на необязательность меняет план действий",
+      "context": "Одна известная деятельность, два варианта времени, без новых слов",
+      "id": "P6-02",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [
+        "LO-R02",
+        "LO-W03"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Du darfst morgen nicht kommen.",
+          "example_B_de": "Du musst morgen nicht kommen.",
+          "critical_meaning_ru": "Запрет прийти завтра против отсутствия обязанности прийти",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P6",
+      "goal": "Личные связи, предпочтение и вопрос",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M36",
+        "M35",
+        "M31",
+        "M47"
+      ],
+      "contrast": "Смена отношения между людьми меняет кому адресовать ответ",
+      "context": "Знакомые социальные значения, связь и вопрос, без биографий",
+      "id": "P6-03",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [
+        "LO-R05",
+        "LO-W04"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Das ist meine Schwester. Sie mag Tee.",
+          "example_B_de": "Das ist meine Freundin. Sie mag Tee.",
+          "critical_meaning_ru": "Другая личная связь при том же предпочтении; нужно правильно разрешить местоимение",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P6",
+      "goal": "Краткий рассказ о прошлом и ближайшем плане",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M50",
+        "M51",
+        "M52"
+      ],
+      "contrast": "Вчера и завтра различают завершённое действие и новый план",
+      "context": "Два знакомых факта, один прошлый и один будущий; все глаголы ранее встречались",
+      "id": "P6-04",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [
+        "LO-R06",
+        "LO-W05"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Gestern habe ich das Buch gefunden. Morgen bringe ich es.",
+          "example_B_de": "Gestern habe ich das Buch gefunden. Heute bringe ich es.",
+          "critical_meaning_ru": "Прошлый факт не меняется, ближайший план относится к другому дню",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German contains the difference; no Russian UI or visual answer leak"
+        }
+      ],
+      "independent_production_checks": []
+    },
+    {
+      "stage": "P6",
+      "goal": "Передача нескольких фактов и заполнение простой формы",
+      "introduce_m": [],
+      "introduce_g": [],
+      "first_p": [],
+      "revisit_m": [
+        "M46",
+        "M48",
+        "M45"
+      ],
+      "contrast": "Замена одного поля или получателя меняет запись и сообщение",
+      "context": "Знакомые поля, короткий свободный ввод и отдельный информационный разрыв",
+      "id": "P6-05",
+      "mode": "independent_abstract_language_practice",
+      "lexical_anchors": [],
+      "outcome_candidates": [
+        "LO-W01",
+        "LO-W02",
+        "LO-W06",
+        "LO-W07"
+      ],
+      "language_example_checks": [
+        {
+          "example_A_de": "Name: Tom. Zeit: zehn Uhr.",
+          "example_B_de": "Name: Tom. Zeit: elf Uhr.",
+          "critical_meaning_ru": "При заполнении знакомой формы изменено только время",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
+        },
+        {
+          "example_A_de": "Ich brauche das Buch am Dienstag.",
+          "example_B_de": "Ich brauche das Buch am Montag.",
+          "critical_meaning_ru": "В сообщении новому адресату поменялся один календарный факт",
+          "transferable_example": true,
+          "status": "design_counterfactual_not_executable_test",
+          "prerequisites_to_verify": "German, not Russian UI or visual state, must determine meaning",
+          "content_review": "aligned_with_unit_goal_2026-11-16"
+        }
+      ],
+      "independent_production_checks": []
+    }
+  ],
+  "example_checks_count": 80,
+  "independent_outcome_assessments": {
+    "version": "0.2",
+    "status": "candidate_independent_language_assessment_not_real_exam_or_game_scene",
+    "rules": [
+      "All cases are language-only contexts with interchangeable names/objects; they neither define NPC biographies nor the game narrative.",
+      "For R, German input carries critical facts that are not exposed in Russian instruction/visual highlights.",
+      "For W, abstract context facts are the player's observations, not German phrases to copy; receiver lacks these facts.",
+      "A/B must differ meaningfully; when multiple slots are relevant, grading evaluates all slots, not merely the changed one.",
+      "Parser uncertainty triggers clarification or neutral reformulation, never an automatic 'wrong German' verdict.",
+      "The exam remains resittable and separated from the main-path F1 help. Cutoffs and actual exam format remain unapproved.",
+      "These are 13 outcome case blueprints, not 13 mandated separate quests or a limit of one test per outcome.",
+      "Разделять смысловые слоты независимыми контрастами, а не считать одну смешанную A/B-пару доказательством понимания каждой её части.",
+      "Дополнительные смысловые пары — проектные варианты, а не число обязательных экзаменационных задач, дней или игровых сцен."
+    ],
+    "cases": [
+      {
+        "lo": "LO-R01",
+        "kind": "reading",
+        "transfer_unit": "P6-01",
+        "goal_ru": "Кому и какое действие адресовано, включая du/Sie",
+        "stimulus": {
+          "format": "short_German_input",
+          "variant_A_de": "An Mia: Komm bitte um zehn. An Frau Weber: Kommen Sie bitte um zwölf.",
+          "variant_B_de": "An Mia: Komm bitte um zwölf. An Frau Weber: Kommen Sie bitte um zehn."
+        },
+        "required_semantic_slots": [
+          "addressee",
+          "du_or_Sie_register",
+          "requested_action",
+          "time_by_addressee"
+        ],
+        "incorrect_interpretation_examples": [
+          "Перепутать адресатов",
+          "Принять вежливое Sie за sie (она)",
+          "Поменять часы местами"
+        ],
+        "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input.",
+        "design_status": "independent_candidate_not_player_test",
+        "readiness_note": "Формальное обращение Sie сопоставляется с известным Frau; фамилия Weber и имя Mia — взаимозаменяемые маркеры, не обязательные слова."
+      },
+      {
+        "lo": "LO-R02",
+        "kind": "reading",
+        "transfer_unit": "P6-02",
+        "goal_ru": "Различить обязанность, запрет и отрицание",
+        "stimulus": {
+          "format": "short_German_input",
+          "variant_A_de": "Du darfst heute nicht arbeiten.",
+          "variant_B_de": "Du musst heute nicht arbeiten."
+        },
+        "required_semantic_slots": [
+          "prohibition_vs_absence_of_obligation",
+          "negation_scope",
+          "day",
+          "recipient_role"
+        ],
+        "incorrect_interpretation_examples": [
+          "Воспринять нельзя как необязательно",
+          "Объявить обязанность, которой нет"
+        ],
+        "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input. Исполнитель и получатель отдельно проверяются LOP-22; вся LO не засчитывается по одному модальному контрасту.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-R03",
+        "kind": "reading",
+        "transfer_unit": "P6-01",
+        "goal_ru": "Отличить место предмета от пункта назначения",
+        "stimulus": {
+          "format": "short_German_input",
+          "variant_A_de": "Das Buch ist im Zimmer. Bring das Buch in die Küche.",
+          "variant_B_de": "Das Buch ist in der Küche. Bring das Buch ins Zimmer."
+        },
+        "required_semantic_slots": [
+          "current_location",
+          "requested_destination",
+          "object"
+        ],
+        "incorrect_interpretation_examples": [
+          "Указать пункт назначения как текущее место",
+          "Игнорировать разницу wo/wohin"
+        ],
+        "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-R04",
+        "kind": "reading",
+        "transfer_unit": "P6-01",
+        "goal_ru": "Извлечь время, доступность и цену из короткой записи",
+        "stimulus": {
+          "format": "short_German_input",
+          "variant_A_de": "Montag: zehn Uhr, frei. Dienstag: zwölf Uhr, nicht frei. Preis: zwei Euro.",
+          "variant_B_de": "Montag: zehn Uhr, frei. Dienstag: zwölf Uhr, nicht frei. Preis: fünf Euro."
+        },
+        "required_semantic_slots": [
+          "free_slot_day",
+          "free_slot_time",
+          "price"
+        ],
+        "incorrect_interpretation_examples": [
+          "Перепутать занятый и свободный день",
+          "Назвать цену из другого варианта"
+        ],
+        "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input.",
+        "design_status": "independent_candidate_not_player_test",
+        "readiness_note": "Понимание простого ценника, евро и значения стоимости обязательно рецептивно по LO-R04. Покупка и прочая магазинная лексика необязательны."
+      },
+      {
+        "lo": "LO-R05",
+        "kind": "reading",
+        "transfer_unit": "P6-03",
+        "goal_ru": "Прочитать адресата, личную связь, состояние упомянутого человека и просьбу",
+        "stimulus": {
+          "format": "short_German_input",
+          "variant_A_de": "Hallo Mia! Mein Bruder Tom ist krank. Komm bitte morgen um zehn. Lea.",
+          "variant_B_de": "Hallo Mia! Mein Freund Tom ist krank. Komm bitte morgen um zehn. Lea."
+        },
+        "required_semantic_slots": [
+          "sender",
+          "recipient",
+          "relationship",
+          "person_state",
+          "requested_time_and_action"
+        ],
+        "incorrect_interpretation_examples": [
+          "Назвать Тома отправителем",
+          "Подменить брат на друг",
+          "Перепутать сегодня и завтра",
+          "Приписать письму неуказанную прямую причину просьбы"
+        ],
+        "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input. Не следует автоматически считать соседнее высказывание о состоянии доказанной причинной связью с просьбой.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-R06",
+        "kind": "reading",
+        "transfer_unit": "P6-04",
+        "goal_ru": "По двум записям узнать изменение состояния",
+        "stimulus": {
+          "format": "short_German_input",
+          "variant_A_de": "Montag: Die Tasse ist leer. Dienstag: Die Tasse ist voll.",
+          "variant_B_de": "Montag: Die Tasse ist voll. Dienstag: Die Tasse ist leer."
+        },
+        "required_semantic_slots": [
+          "object",
+          "earlier_state",
+          "later_state",
+          "difference"
+        ],
+        "incorrect_interpretation_examples": [
+          "Воспринять прошлую запись как актуальную",
+          "Перепутать исходное и новое состояния"
+        ],
+        "expected_player_action": "Содержательно извлечь необходимые факты из немецкого текста; готовое значение не показано в русском интерфейсе.",
+        "scoring_note": "Проверка смысла, а не немецкого ответа: решающий факт должен извлекаться из German Input.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-W01",
+        "kind": "free_writing",
+        "transfer_unit": "P6-05",
+        "goal_ru": "Уточнить, где находится нужная вещь",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "unknown_item": "Buch",
+            "listener_knows_location": true
+          },
+          "variant_B_facts": {
+            "unknown_item": "Schlüssel",
+            "listener_knows_location": true
+          }
+        },
+        "required_semantic_slots": [
+          "question_intent",
+          "required_object"
+        ],
+        "incorrect_interpretation_examples": [
+          "Вместо вопроса написать утверждение о другом предмете",
+          "Попросить не нужную вещь"
+        ],
+        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-W02",
+        "kind": "free_writing",
+        "transfer_unit": "P6-05",
+        "goal_ru": "Сообщить невидимое адресату состояние и отрицание",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "object": "Tasse",
+            "observed_state": "leer",
+            "listener_cannot_see": true
+          },
+          "variant_B_facts": {
+            "object": "Tasse",
+            "observed_state": "voll",
+            "listener_cannot_see": true
+          }
+        },
+        "required_semantic_slots": [
+          "object",
+          "observed_state",
+          "negation_scope",
+          "current_location"
+        ],
+        "incorrect_interpretation_examples": [
+          "Сообщить противоположное состояние",
+          "Назвать только предмет без состояния"
+        ],
+        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует. Дополнительно требуется отличать отрицание и текущее место; эти значения проверяются отдельными контрастами.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-W03",
+        "kind": "free_writing",
+        "transfer_unit": "P6-02",
+        "goal_ru": "Указать время, к которому относится правило, и отличить запрет от отсутствия обязанности; назначенную встречу ситуация не предполагает.",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "rule": "no_obligation_to_come",
+            "listener_needs_both_facts": true,
+            "time_reference": "Montag 10:00"
+          },
+          "variant_B_facts": {
+            "rule": "prohibited_from_coming",
+            "listener_needs_both_facts": true,
+            "time_reference": "Montag 10:00"
+          }
+        },
+        "required_semantic_slots": [
+          "time",
+          "modality",
+          "negation_scope"
+        ],
+        "incorrect_interpretation_examples": [
+          "Смешать nicht müssen и nicht dürfen",
+          "Сообщить неверное время"
+        ],
+        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует. Основная A/B-пара изолирует запрещено/не обязательно при фиксированном времени. Отдельная пара проверяет время.",
+        "design_status": "independent_candidate_not_player_test",
+        "retained_earlier_variant": {
+          "variant_A_facts": {
+            "rule": "no_obligation_to_come",
+            "listener_needs_both_facts": true,
+            "time_reference": "Montag 10:00"
+          },
+          "variant_B_facts": {
+            "rule": "prohibited_from_coming",
+            "listener_needs_both_facts": true,
+            "time_reference": "Montag 12:00"
+          },
+          "reason": "Одновременно менялись модальность и время; поздняя составная проверка, а не изолированный смысл.",
+          "status": "optional_combined_transfer_variant"
+        }
+      },
+      {
+        "lo": "LO-W04",
+        "kind": "free_writing",
+        "transfer_unit": "P6-03",
+        "goal_ru": "Самостоятельно сообщить предпочтение",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "options": [
+              "Wasser",
+              "Tee"
+            ],
+            "private_preference": "Wasser"
+          },
+          "variant_B_facts": {
+            "options": [
+              "Wasser",
+              "Tee"
+            ],
+            "private_preference": "Tee"
+          }
+        },
+        "required_semantic_slots": [
+          "chosen_item",
+          "preference_intent"
+        ],
+        "incorrect_interpretation_examples": [
+          "Назвать другой напиток",
+          "Не передать предпочтение"
+        ],
+        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует. Предпочтение как факт не следует автоматически смешивать с просьбой получить предмет сейчас.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-W05",
+        "kind": "free_writing",
+        "transfer_unit": "P6-04",
+        "goal_ru": "Передать незнакомому с событием адресату прошлый результат",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "actor": "player",
+            "when": "gestern",
+            "completed_action": "finden",
+            "object": "Buch"
+          },
+          "variant_B_facts": {
+            "actor": "player",
+            "when": "gestern",
+            "completed_action": "finden",
+            "object": "Schlüssel"
+          }
+        },
+        "required_semantic_slots": [
+          "actor",
+          "completed_action",
+          "object",
+          "past_time"
+        ],
+        "incorrect_interpretation_examples": [
+          "Назвать чужого исполнителя",
+          "Сказать, что находка случится завтра",
+          "Неверный объект"
+        ],
+        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
+        "design_status": "independent_candidate_not_player_test"
+      },
+      {
+        "lo": "LO-W06",
+        "kind": "free_writing",
+        "transfer_unit": "P6-05",
+        "goal_ru": "Заполнить простую форму по независимым известным данным",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "fields_de": [
+              "Name",
+              "Tag",
+              "Zeit"
+            ],
+            "private_data": {
+              "person_name": "Mia",
+              "weekday_iso": 1,
+              "clock_24h": "10:00"
+            }
+          },
+          "variant_B_facts": {
+            "fields_de": [
+              "Name",
+              "Tag",
+              "Zeit"
+            ],
+            "private_data": {
+              "person_name": "Mia",
+              "weekday_iso": 2,
+              "clock_24h": "10:00"
+            }
+          }
+        },
+        "required_semantic_slots": [
+          "field_name",
+          "field_day",
+          "field_time"
+        ],
+        "incorrect_interpretation_examples": [
+          "Поставить дату в поле имени",
+          "Скопировать день из другого варианта",
+          "Автоподставить готовые значения"
+        ],
+        "expected_player_action": "По немецким подписям формы самостоятельно заполнить соответствующие поля независимыми данными. Сведения не должны автоматически подаваться уже с немецкими именами полей.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует. 1/2 в weekday_iso — абстрактные значения понедельника/вторника, а не готовое немецкое поле с ответом.",
+        "design_status": "independent_candidate_not_player_test",
+        "retained_earlier_variant": {
+          "variant_A_facts": {
+            "fields_de": [
+              "Name",
+              "Tag",
+              "Zeit"
+            ],
+            "facts": {
+              "Name": "Mia",
+              "Tag": "Montag",
+              "Zeit": "10:00"
+            }
+          },
+          "variant_B_facts": {
+            "fields_de": [
+              "Name",
+              "Tag",
+              "Zeit"
+            ],
+            "facts": {
+              "Name": "Mia",
+              "Tag": "Dienstag",
+              "Zeit": "10:00"
+            }
+          },
+          "reason": "Старые факты уже разложены по немецким полям Name/Tag/Zeit; нет независимой проверки соответствия.",
+          "status": "retained_historical_design_not_exam_default"
+        }
+      },
+      {
+        "lo": "LO-W07",
+        "kind": "free_writing",
+        "transfer_unit": "P6-05",
+        "goal_ru": "Самостоятельно связать несколько неизвестных адресату сведений",
+        "stimulus": {
+          "format": "independent_context_facts_NOT_a_German_model_answer",
+          "variant_A_facts": {
+            "object": "Buch",
+            "current_location": "Zimmer",
+            "request": "come",
+            "requested_time": "morgen 10:00"
+          },
+          "variant_B_facts": {
+            "object": "Buch",
+            "current_location": "Zimmer",
+            "request": "come",
+            "requested_time": "morgen 12:00"
+          }
+        },
+        "required_semantic_slots": [
+          "object",
+          "current_location",
+          "requested_action",
+          "requested_time"
+        ],
+        "incorrect_interpretation_examples": [
+          "Упустить временную просьбу",
+          "Перенести предмет в другое место",
+          "Сообщить другое время"
+        ],
+        "expected_player_action": "Самостоятельно написать понятный немецкий текст для адресата, который не видит исходные факты. Допустимы короткие неполные фразы и неодинаковая грамматика, если смысл однозначен.",
+        "scoring_note": "Точное образцовое немецкое предложение не показывается; критические семантические слоты обязательны, несущественная морфология не блокирует.",
+        "design_status": "independent_candidate_not_player_test"
+      }
+    ],
+    "focused_probes_source": "LANGUAGE_OUTCOME_FOCUSED_PROBES.json",
+    "focused_probes_count": 22,
+    "focused_probes_purpose": "Изолировать ранее смешанные смысловые переменные LO без новых обязательных языковых единиц. 11 R + 10 W.",
+    "validation_status": "structured_candidate_not_executable_test"
+  },
+  "production_assessment_audit": {
+    "version": "0.2",
+    "first_p_total": 42,
+    "probes": 42,
+    "coverage": "one_semantic_A_B_facts_pair_per_first_productive_M",
+    "status": "candidate_not_parser_test",
+    "note": "Каждая из 42 продуктивных проверок задаёт корректную информированность адресата для вопроса, просьбы, реакции, передачи факта или заполнения формы; неопределённость/незнание адресата не навязывается для всех речевых актов. M05 остаётся правом попросить повторение только при реальном непонимании."
+  },
+  "a0_early_review": {
+    "version": "0.1",
+    "scope": "P0 through P2c",
+    "reviewed_risk_units": [
+      "P0-04",
+      "P0-06",
+      "P0-07",
+      "P1-02",
+      "P1-09",
+      "P1-11",
+      "P2b-02",
+      "P2c-03",
+      "P2c-04"
+    ],
+    "risk_count": 9,
+    "conclusion": "No hard blocker from storyline; all nine require F1/interaction validation before asserting true A0 readiness. Neither time nor comprehension were measured.",
+    "status": "design_review_not_implemented"
+  },
+  "revisit_move_history": [
+    {
+      "M": "M40",
+      "from": "P2b-03",
+      "to": "P2b-04",
+      "why": "Чтение инструкции возвращается при противопоставлении местонахождения и просьбы Bring; простое Das Buch ist im Zimmer не является инструкцией.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    },
+    {
+      "M": "M32",
+      "from": "P3a-03",
+      "to": "P3c-01",
+      "why": "Еда/напиток и потребность возвращаются в выражении желания Ich möchte Wasser/Tee; частота Ich arbeite oft — не потребность.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    },
+    {
+      "M": "M17",
+      "from": "P3a-01",
+      "to": "P3a-04",
+      "why": "Числа в P3a-04 используются как часы 10/12, тогда как P3a-01 меняет только названия дней.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    },
+    {
+      "M": "M04",
+      "from": "P3a-05",
+      "to": "P3b-03",
+      "why": "Ответ doch/nein на приглашение возвращает положительное/отрицательное решение; порядок предметов Zuerst/dann не проверяет согласие.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    },
+    {
+      "M": "M03",
+      "from": "P5-01",
+      "to": "P5-06",
+      "why": "Выбор Mia/Tom реально меняет субъект чужого прошлого факта; время war/ist двери не проверяет человеческого участника.",
+      "status": "reassigned_to_semantically_supported_language_unit_2026_11_16"
+    }
+  ]
+}

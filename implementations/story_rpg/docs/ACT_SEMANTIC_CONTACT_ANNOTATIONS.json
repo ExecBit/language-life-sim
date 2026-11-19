@@ -1,0 +1,1500 @@
+{
+  "version": "0.1",
+  "status": "authored_semantic_contact_intentions_not_player_comprehension",
+  "counting": "Unannotated R remains unassessed, not incidental. P = intended meaning; the anchored author example lexemes are not required exact wording. Dates are provisional story slots, not elapsed time.",
+  "modes": {
+    "needed_R": "Candidate German meaning required to make a choice; alternate nonverbal cues not exhaustively tested.",
+    "context_R": "Text conveys background character/story context but is not a guaranteed language-dependent action.",
+    "needed_P": "Intended self-formulated meaning in the scene; semantic success may use other words."
+  },
+  "assessments": {
+    "supported": "Existing scene contract gives plausible distinct information need; not a playtest.",
+    "needs_validation": "Potential bypass or unverified information gap.",
+    "needs_revision": "Current authored scene may force copying/offer only one option/redundant information; do not count as robust production."
+  },
+  "concepts": {
+    "contact": "Контакт и благодарность",
+    "clarification": "Повтор и уточнение",
+    "request": "Просьба и получение предмета",
+    "location": "Местоположение и направление",
+    "health": "Самочувствие и отдых",
+    "status": "Состояние предмета/работы",
+    "ownership": "Принадлежность и полномочия",
+    "permission": "Разрешение, запрет и обязанность",
+    "remote": "Разделённые локальные показания",
+    "quantity": "Количество и остатки",
+    "schedule": "Время и доступность",
+    "choice": "Предпочтения и собственный выбор",
+    "sequence": "Порядок действий",
+    "comparison": "Сопоставление данных и источников",
+    "document": "Документы, поля и запись",
+    "relay": "Передача независимых фактов",
+    "allocation": "Потребности и решения о ресурсах",
+    "past": "Сообщение о прошлом",
+    "social": "Личное общение",
+    "future": "Планы и будущие встречи"
+  },
+  "annotations": [
+    {
+      "event_id": "D01-S1-R4",
+      "mode": "needed_R",
+      "concept": "request",
+      "anchors": [
+        "Schlüssel",
+        "nehmen"
+      ],
+      "assessment": "supported",
+      "reason": "Видны дверь и два разных предмета. Немецкая инструкция различает, что брать. Контекст: Герой приходит в себя; Лена пытается вывести его из опасной зоны."
+    },
+    {
+      "event_id": "D01-S1-R5",
+      "mode": "context_R",
+      "concept": "clarification",
+      "anchors": [
+        "verstehen",
+        "einmal"
+      ],
+      "assessment": "supported",
+      "reason": "Видны дверь и два разных предмета. Немецкая инструкция различает, что брать. Контекст: Герой приходит в себя; Лена пытается вывести его из опасной зоны."
+    },
+    {
+      "event_id": "D01-S2-R2",
+      "mode": "needed_R",
+      "concept": "location",
+      "anchors": [
+        "nicht",
+        "dort",
+        "hier"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Невыходящий переводчик: F1, жест, мимика и видимые объекты, без подсветки единственно верного действия. Контекст: Безопасный коридор и табличка с указателем."
+    },
+    {
+      "event_id": "D02-S1-R3",
+      "mode": "needed_R",
+      "concept": "health",
+      "anchors": [
+        "müde"
+      ],
+      "assessment": "supported",
+      "reason": "Осмотр и состояние видимы; выбор ответа по немецкому, а не по русской подсказке. Контекст: Медик проверяет последствия пробуждения и ограничивает нагрузку."
+    },
+    {
+      "event_id": "D02-S1-R4",
+      "mode": "needed_R",
+      "concept": "health",
+      "anchors": [
+        "schmerzen"
+      ],
+      "assessment": "supported",
+      "reason": "Осмотр и состояние видимы; выбор ответа по немецкому, а не по русской подсказке. Контекст: Медик проверяет последствия пробуждения и ограничивает нагрузку."
+    },
+    {
+      "event_id": "D02-S2-R1",
+      "mode": "needed_R",
+      "concept": "location",
+      "anchors": [
+        "dein",
+        "Zimmer"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Лена не превращается в учителя, разговор может закончиться сном. Контекст: Лена показывает личное место и делится собственным состоянием."
+    },
+    {
+      "event_id": "D03-S1-R2",
+      "mode": "needed_R",
+      "concept": "request",
+      "anchors": [
+        "Wasser"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Предметы лежат на разных полках; ярлыки не показывают готовую фразу. Контекст: Герою необходимы питьё и рабочая лампа; снабженец управляет остатками."
+    },
+    {
+      "event_id": "D04-S1-R3",
+      "mode": "needed_R",
+      "concept": "status",
+      "anchors": [
+        "Lampe",
+        "kaputt"
+      ],
+      "assessment": "supported",
+      "reason": "Игрок видит светящуюся лампу, советник её не видит; панель ошибочна или причина неочевидна. Контекст: После аварии панель и физическое состояние узла дают разные свидетельства."
+    },
+    {
+      "event_id": "D04-S2-R2",
+      "mode": "needed_R",
+      "concept": "status",
+      "anchors": [
+        "arbeit",
+        "fertig"
+      ],
+      "assessment": "supported",
+      "reason": "Отчёт короткий: не требуется объяснять на немецком сложный технический вывод. Контекст: После работы медик оценивает признаки усталости."
+    },
+    {
+      "event_id": "D05-S1-R3",
+      "mode": "needed_R",
+      "concept": "request",
+      "anchors": [
+        "brauchen",
+        "Lampe"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Советник обозначает нужную лампу, но намеренно не сообщает её местоположение. Герою требуется понять предмет, чтобы уточнить, где он находится; без F1 проверить A0 доступность невозможно."
+    },
+    {
+      "event_id": "D06-S1-R2",
+      "mode": "context_R",
+      "concept": "location",
+      "anchors": [
+        "links",
+        "rechts"
+      ],
+      "assessment": "supported",
+      "reason": "До вопроса игрока этот обмен перечисляет направления, но не указывает безопасный выход; сам по себе не является решением."
+    },
+    {
+      "event_id": "D06-S1-R4",
+      "mode": "needed_R",
+      "concept": "location",
+      "anchors": [
+        "ausgang",
+        "links",
+        "rechts",
+        "zu"
+      ],
+      "assessment": "supported",
+      "reason": "Ответ на вопрос игрока P1 впервые уточняет, что выход слева, а дверь справа закрыта; это определяет безопасный обход."
+    },
+    {
+      "event_id": "D06-S2-R4",
+      "mode": "needed_R",
+      "concept": "request",
+      "anchors": [
+        "tasse",
+        "bringen"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Игрок видит несколько столов; положение предмета задаётся действием, а не меню. Контекст: Необходимо найти место для общего предмета."
+    },
+    {
+      "event_id": "D07-S1-R5",
+      "mode": "needed_R",
+      "concept": "ownership",
+      "anchors": [
+        "lagerverwalter",
+        "fragen"
+      ],
+      "assessment": "supported",
+      "reason": "Лена называет нужного ответственного, но не его местоположение; R6 ответит на вопрос игрока только после P2."
+    },
+    {
+      "event_id": "D07-S2-R4",
+      "mode": "needed_R",
+      "concept": "permission",
+      "anchors": [
+        "nicht",
+        "nehmen"
+      ],
+      "assessment": "supported",
+      "reason": "Отрицание принадлежности меняет запись, а не требует идеального падежа. Контекст: В журнале ключ подписан не тем человеком."
+    },
+    {
+      "event_id": "D08-S1-R4",
+      "mode": "needed_R",
+      "concept": "remote",
+      "anchors": [
+        "licht",
+        "rot"
+      ],
+      "assessment": "supported",
+      "reason": "Индикатор у героя зелёный, у Лены красный; видимость разделена. Контекст: Лена видит показания пульта; герой видит местный блок питания."
+    },
+    {
+      "event_id": "D08-S2-R2",
+      "mode": "needed_R",
+      "concept": "remote",
+      "anchors": [
+        "signal",
+        "kein"
+      ],
+      "assessment": "supported",
+      "reason": "Дальняя связь тестируется не мгновенной беседой с Землёй; ответы приходят через несколько дней. Контекст: Два человека должны согласовать проверку питания дальнего передатчика."
+    },
+    {
+      "event_id": "D09-S1-R2",
+      "mode": "needed_R",
+      "concept": "quantity",
+      "anchors": [
+        "Lampe",
+        "kaputt"
+      ],
+      "assessment": "supported",
+      "reason": "В списке устаревшая цифра; физически видимые экземпляры отличаются. Контекст: Нужно узнать доступные и зарезервированные ресурсы."
+    },
+    {
+      "event_id": "D10-S1-R2",
+      "mode": "needed_R",
+      "concept": "schedule",
+      "anchors": [
+        "morgen",
+        "Zeit",
+        "neun"
+      ],
+      "assessment": "supported",
+      "reason": "Первое доступное окно врача — завтра в девять; R3 предъявляет второе окно на одиннадцать, выбор не единственный."
+    },
+    {
+      "event_id": "D10-S2-R3",
+      "mode": "needed_R",
+      "concept": "schedule",
+      "anchors": [
+        "zwölf",
+        "Zeit"
+      ],
+      "assessment": "supported",
+      "reason": "Принятие просьбы не назначает время за Лену. Контекст: Для технической проверки нужен навигатор, но у него уже назначена смена."
+    },
+    {
+      "event_id": "D11-S1-R1",
+      "mode": "needed_R",
+      "concept": "permission",
+      "anchors": [
+        "dürfen",
+        "nicht",
+        "arbeiten"
+      ],
+      "assessment": "supported",
+      "reason": "Запрет и отсутствие обязанности ведут к разным игровым последствиям. Контекст: Запрет опасной операции и необязательная смена должны быть различены."
+    },
+    {
+      "event_id": "D11-S1-R4",
+      "mode": "needed_R",
+      "concept": "permission",
+      "anchors": [
+        "müssen",
+        "nicht",
+        "kommen"
+      ],
+      "assessment": "supported",
+      "reason": "Запрет и отсутствие обязанности ведут к разным игровым последствиям. Контекст: Запрет опасной операции и необязательная смена должны быть различены."
+    },
+    {
+      "event_id": "D11-S2-R5",
+      "mode": "needed_R",
+      "concept": "permission",
+      "anchors": [
+        "blau",
+        "Schlüssel",
+        "nehmen"
+      ],
+      "assessment": "supported",
+      "reason": "Два ключа отличаются по цвету и разрешению. Контекст: Герой просит оборудование для допустимой работы."
+    },
+    {
+      "event_id": "D12-S1-R3",
+      "mode": "needed_R",
+      "concept": "choice",
+      "anchors": [
+        "später",
+        "kommen"
+      ],
+      "assessment": "supported",
+      "reason": "Выбор меняет график медицинского визита, но не отменяет запрет тяжёлой работы. Контекст: Игрок выбирает восстановительный режим в медицинских пределах."
+    },
+    {
+      "event_id": "D13-S1-R1",
+      "mode": "needed_R",
+      "concept": "sequence",
+      "anchors": [
+        "energie",
+        "nicht",
+        "sicher"
+      ],
+      "assessment": "supported",
+      "reason": "Недостаточная безопасность питания — исходное наблюдение, на основании которого нужно предложить порядок проверки; последовательность не произнесена."
+    },
+    {
+      "event_id": "D13-S2-R5",
+      "mode": "needed_R",
+      "concept": "schedule",
+      "anchors": [
+        "später",
+        "kommen"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Бытовая сцена обязательна лишь как вторая сфера переноса времени; возможность предпочесть другой момент необязательна. Контекст: Обед планируется после технической смены."
+    },
+    {
+      "event_id": "D14-S1-R2",
+      "mode": "needed_R",
+      "concept": "comparison",
+      "anchors": [
+        "Sensor",
+        "zeigen",
+        "zwölf"
+      ],
+      "assessment": "supported",
+      "reason": "На панели доступны независимые результаты; ответ не подсвечен. Контекст: Показания датчика A и B различаются; нужен независимый факт."
+    },
+    {
+      "event_id": "D14-S2-R2",
+      "mode": "needed_R",
+      "concept": "comparison",
+      "anchors": [
+        "neu",
+        "wert",
+        "zwölf"
+      ],
+      "assessment": "supported",
+      "reason": "Навигатор решает, как использовать данные; герой не меняет траекторию сам. Контекст: Результаты нужны для безопасного графика, а не для поиска виновного."
+    },
+    {
+      "event_id": "D15-S1-R2",
+      "mode": "needed_R",
+      "concept": "document",
+      "anchors": [
+        "Dienstag",
+        "Sensor",
+        "zwölf"
+      ],
+      "assessment": "supported",
+      "reason": "Архивная индексная строка показывает источник B, день и время; игрок должен сопоставить её со старой записью для удалённого навигатора."
+    },
+    {
+      "event_id": "D15-S2-R2",
+      "mode": "needed_R",
+      "concept": "schedule",
+      "anchors": [
+        "morgen",
+        "kommen"
+      ],
+      "assessment": "supported",
+      "reason": "Нет мгновенного ответа с Земли после ремонта дальнего передатчика. Контекст: Для ответа с Земли требуется прочитать короткую служебную записку."
+    },
+    {
+      "event_id": "D16-S1-R5",
+      "mode": "needed_R",
+      "concept": "document",
+      "anchors": [
+        "schreiben",
+        "nur",
+        "prüfen"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Ввести в форму можно только данные из наблюдений, не случайные дефолты. Контекст: Нужно оформить проверенное состояние, а не скопировать старое."
+    },
+    {
+      "event_id": "D16-S2-R2",
+      "mode": "needed_R",
+      "concept": "relay",
+      "anchors": [
+        "welch",
+        "Sensor",
+        "gut"
+      ],
+      "assessment": "supported",
+      "reason": "Игрок не управляет связью вместо Лены; просит специалиста. Контекст: Лена не видела измерений и спрашивает о том, что изменилось."
+    },
+    {
+      "event_id": "D17-S1-R2",
+      "mode": "context_R",
+      "concept": "allocation",
+      "anchors": [
+        "Wasser",
+        "mensch"
+      ],
+      "assessment": "supported",
+      "reason": "Герой наблюдатель: понимание позиции важно для истории, но не требуется для решения о выдаче."
+    },
+    {
+      "event_id": "D17-S2-R4",
+      "mode": "needed_R",
+      "concept": "quantity",
+      "anchors": [
+        "Wasser",
+        "suppe",
+        "nehmen"
+      ],
+      "assessment": "supported",
+      "reason": "Сотрудник прямо спрашивает у игрока разрешение забрать воду для супа; герой не имеет полномочий и должен перенаправить вопрос снабженцу."
+    },
+    {
+      "event_id": "D18-S1-R1",
+      "mode": "needed_R",
+      "concept": "past",
+      "anchors": [
+        "gestern",
+        "Tür",
+        "geschlossen"
+      ],
+      "assessment": "supported",
+      "reason": "Архив сообщает состояние двери вчера; текущее состояние герой видит непосредственно, а навигатор по связи не видит его."
+    },
+    {
+      "event_id": "D18-S2-R2",
+      "mode": "needed_R",
+      "concept": "health",
+      "anchors": [
+        "heute",
+        "besser"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Реплики персональны; прошлое впервые полезно и вне архива. Контекст: Лена узнаёт, смог ли герой отдохнуть после болезни."
+    },
+    {
+      "event_id": "D19-S1-R1",
+      "mode": "needed_R",
+      "concept": "past",
+      "anchors": [
+        "was",
+        "haben",
+        "du",
+        "heute",
+        "prüfen"
+      ],
+      "assessment": "supported",
+      "reason": "Советник не знает фактический результат до ответа инженера. Контекст: Герой проверил конкретный узел, которого советник не видел."
+    },
+    {
+      "event_id": "D20-S1-R5",
+      "mode": "needed_R",
+      "concept": "schedule",
+      "anchors": [
+        "morgen",
+        "elf",
+        "kommen"
+      ],
+      "assessment": "supported",
+      "reason": "Капитан спрашивает, доступен ли герой завтра в одиннадцать; P1 уточняет собственное время, не заменяет план других специалистов."
+    },
+    {
+      "event_id": "D20-S2-R5",
+      "mode": "needed_R",
+      "concept": "future",
+      "anchors": [
+        "morgen",
+        "Zeit"
+      ],
+      "assessment": "supported",
+      "reason": "Личный план нужен не для прохода инженерного задания, но перенос навыка обеспечивается обязательным разговором. Контекст: Общая проверка перенесла личную встречу с Леной."
+    },
+    {
+      "event_id": "D21-S1-R4",
+      "mode": "needed_R",
+      "concept": "past",
+      "anchors": [
+        "was",
+        "haben",
+        "du",
+        "prüfen"
+      ],
+      "assessment": "supported",
+      "reason": "Итог рейса — безопасность текущего режима, а не раскрытие причины аварии. Контекст: Ключевые специалисты знают разные части текущих проверок."
+    },
+    {
+      "event_id": "D21-S1-R2",
+      "mode": "needed_R",
+      "concept": "status",
+      "anchors": [
+        "Sensor",
+        "welch",
+        "Status"
+      ],
+      "assessment": "supported",
+      "reason": "Советник запрашивает неизвестный ему статус Sensor A вместо готового утверждения. Игрок видит отдельное локальное показание."
+    },
+    {
+      "event_id": "D21-S1-R3",
+      "mode": "needed_R",
+      "concept": "status",
+      "anchors": [
+        "verbindung",
+        "gut"
+      ],
+      "assessment": "supported",
+      "reason": "Навигатор спрашивает о состоянии связи, а не сообщает ответ. Локальное показание находится у игрока."
+    },
+    {
+      "event_id": "D21-S2-R5",
+      "mode": "needed_R",
+      "concept": "future",
+      "anchors": [
+        "morgen",
+        "Zeit"
+      ],
+      "assessment": "supported",
+      "reason": "Никакого обязательного группового экзамена за ужином. D22, если сохранится, остаётся отдельной проверкой. Контекст: Люди возвращаются к повседневности, пока корабль продолжает путь."
+    },
+    {
+      "event_id": "D01-S1-P1",
+      "mode": "needed_P",
+      "concept": "contact",
+      "anchors": [
+        "hallo"
+      ],
+      "assessment": "supported",
+      "reason": "Ответ на первое приветствие после R1 — социальный контакт. Его можно свободно сформулировать, а не копировать текст из подсказки. Это не проверка поздней грамматики."
+    },
+    {
+      "event_id": "D01-S1-P2",
+      "mode": "needed_P",
+      "concept": "request",
+      "anchors": [
+        "Schlüssel",
+        "bitte"
+      ],
+      "assessment": "supported",
+      "reason": "Попросить нужный предмет перед выходом. Контраст: Ключ вместо лампы или другой вещи."
+    },
+    {
+      "event_id": "D01-S2-P1",
+      "mode": "needed_P",
+      "concept": "request",
+      "anchors": [
+        "brauchen",
+        "hilfe"
+      ],
+      "assessment": "supported",
+      "reason": "Сказать Лене, что нужна помощь. Контраст: Потребность в помощи нельзя заменить согласием."
+    },
+    {
+      "event_id": "D01-S2-P2",
+      "mode": "needed_P",
+      "concept": "location",
+      "anchors": [
+        "wo",
+        "Arzt"
+      ],
+      "assessment": "needs_validation",
+      "reason": "В R3 висит табличка «Arzt» без направления; P2 задаёт действительно неизвестный вопрос о местонахождении, ответ впервые появляется в R5. Ещё проверить наличие непредсказуемого маршрута и работоспособность F1."
+    },
+    {
+      "event_id": "D02-S1-P1",
+      "mode": "needed_P",
+      "concept": "health",
+      "anchors": [
+        "ich",
+        "sein",
+        "müde"
+      ],
+      "assessment": "supported",
+      "reason": "Назвать собственное состояние. Контраст: Усталость не равна боли."
+    },
+    {
+      "event_id": "D02-S1-P2",
+      "mode": "needed_P",
+      "concept": "health",
+      "anchors": [
+        "kein",
+        "schmerzen"
+      ],
+      "assessment": "supported",
+      "reason": "Отрицать болезненный симптом. Контраст: Нет боли не значит нет усталости."
+    },
+    {
+      "event_id": "D02-S2-P1",
+      "mode": "needed_P",
+      "concept": "contact",
+      "anchors": [
+        "danke"
+      ],
+      "assessment": "supported",
+      "reason": "Поблагодарить за помощь. Контраст: Благодарность отличается от просьбы."
+    },
+    {
+      "event_id": "D03-S1-P1",
+      "mode": "needed_P",
+      "concept": "request",
+      "anchors": [
+        "Wasser",
+        "bitte"
+      ],
+      "assessment": "supported",
+      "reason": "Попросить питьевую воду. Контраст: Вода не равна хлебу."
+    },
+    {
+      "event_id": "D03-S1-P2",
+      "mode": "needed_P",
+      "concept": "request",
+      "anchors": [
+        "brauchen",
+        "Lampe"
+      ],
+      "assessment": "supported",
+      "reason": "Запросить нужный для работы светильник. Контраст: Запрос ресурса без приказа."
+    },
+    {
+      "event_id": "D04-S1-P2",
+      "mode": "needed_P",
+      "concept": "status",
+      "anchors": [
+        "Lampe",
+        "nicht",
+        "kaputt"
+      ],
+      "assessment": "supported",
+      "reason": "Сообщить физическое наблюдение, которое отличается от панели. Контраст: Герой сообщает собственный факт, не угадывает мнение советника."
+    },
+    {
+      "event_id": "D04-S2-P1",
+      "mode": "needed_P",
+      "concept": "status",
+      "anchors": [
+        "arbeit",
+        "sein",
+        "fertig"
+      ],
+      "assessment": "supported",
+      "reason": "Передать простой результат работы. Контраст: Завершено ≠ всё исправно."
+    },
+    {
+      "event_id": "D05-S1-P1",
+      "mode": "needed_P",
+      "concept": "location",
+      "anchors": [
+        "wo",
+        "Lampe"
+      ],
+      "assessment": "supported",
+      "reason": "Уточнить местоположение недостающего света. Контраст: Предмет запроса должен быть назван."
+    },
+    {
+      "event_id": "D05-S1-P2",
+      "mode": "needed_P",
+      "concept": "request",
+      "anchors": [
+        "brauchen",
+        "Schlüssel"
+      ],
+      "assessment": "supported",
+      "reason": "Самостоятельно попросить доступ. Контраст: Это просьба, а не приказ снабженцу."
+    },
+    {
+      "event_id": "D06-S1-P1",
+      "mode": "needed_P",
+      "concept": "location",
+      "anchors": [
+        "wo",
+        "ausgang"
+      ],
+      "assessment": "supported",
+      "reason": "Две двери и табличка жилой зоны не дают маршрута безопасного выхода. Вопрос P1 произносится до R4, где Лена впервые отвечает «Der Ausgang ist links»."
+    },
+    {
+      "event_id": "D06-S1-P2",
+      "mode": "needed_P",
+      "concept": "location",
+      "anchors": [
+        "liste",
+        "sein",
+        "im",
+        "Zimmer"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Передать местоположение документа человеку в другом отсеке. Контраст: В комнате ≠ в комнату."
+    },
+    {
+      "event_id": "D06-S2-P1",
+      "mode": "needed_P",
+      "concept": "location",
+      "anchors": [
+        "tasse",
+        "sein",
+        "dort"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Сообщить местоположение чашки после переноса. Контраст: Где находится ≠ куда нести."
+    },
+    {
+      "event_id": "D07-S1-P1",
+      "mode": "needed_P",
+      "concept": "ownership",
+      "anchors": [
+        "dein",
+        "Schlüssel"
+      ],
+      "assessment": "supported",
+      "reason": "Уточнить принадлежность другого ключа. Контраст: Мой ≠ твой."
+    },
+    {
+      "event_id": "D07-S2-P2",
+      "mode": "needed_P",
+      "concept": "ownership",
+      "anchors": [
+        "nicht",
+        "mein",
+        "Schlüssel"
+      ],
+      "assessment": "supported",
+      "reason": "Отрицать свою принадлежность. Контраст: Нет ≠ мой."
+    },
+    {
+      "event_id": "D08-S1-P1",
+      "mode": "needed_P",
+      "concept": "remote",
+      "anchors": [
+        "Lampe",
+        "grün"
+      ],
+      "assessment": "supported",
+      "reason": "Сообщить наблюдение с локального устройства. Контраст: Лена не видит цвет местной лампы."
+    },
+    {
+      "event_id": "D08-S2-P1",
+      "mode": "needed_P",
+      "concept": "remote",
+      "anchors": [
+        "verbindung",
+        "jetzt",
+        "gut"
+      ],
+      "assessment": "supported",
+      "reason": "Сообщить после локальной проверки состояние. Контраст: Удалённый пульт не знает локальный результат."
+    },
+    {
+      "event_id": "D09-S1-P1",
+      "mode": "needed_P",
+      "concept": "quantity",
+      "anchors": [
+        "brauchen",
+        "zwei",
+        "Lampe"
+      ],
+      "assessment": "supported",
+      "reason": "Запросить точное количество. Контраст: Две ≠ три, наличие ≠ потребность."
+    },
+    {
+      "event_id": "D10-S1-P1",
+      "mode": "needed_P",
+      "concept": "schedule",
+      "anchors": [
+        "morgen",
+        "neun"
+      ],
+      "assessment": "supported",
+      "reason": "В R2 и R3 представлены два реальных окна врача (девять или одиннадцать). Игрок вправе выбрать любое, это определяет запись; P — один пример, не whitelist."
+    },
+    {
+      "event_id": "D10-S2-P1",
+      "mode": "needed_P",
+      "concept": "schedule",
+      "anchors": [
+        "kommen",
+        "zwölf"
+      ],
+      "assessment": "supported",
+      "reason": "Согласиться на доступное время. Контраст: Десять ≠ двенадцать."
+    },
+    {
+      "event_id": "D11-S1-P1",
+      "mode": "needed_P",
+      "concept": "permission",
+      "anchors": [
+        "darf",
+        "dort",
+        "nicht",
+        "arbeiten"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Передать запрет другому участнику. Контраст: Нельзя ≠ не требуется."
+    },
+    {
+      "event_id": "D11-S2-P1",
+      "mode": "needed_P",
+      "concept": "permission",
+      "anchors": [
+        "brauchen",
+        "blau",
+        "Schlüssel"
+      ],
+      "assessment": "supported",
+      "reason": "Запросить разрешённый ключ. Контраст: Синий ≠ красный."
+    },
+    {
+      "event_id": "D12-S1-P1",
+      "mode": "needed_P",
+      "concept": "choice",
+      "anchors": [
+        "möchten",
+        "lieber",
+        "später"
+      ],
+      "assessment": "supported",
+      "reason": "Самостоятельно выбрать допустимый вариант. Контраст: Сейчас ≠ позже."
+    },
+    {
+      "event_id": "D12-S1-P2",
+      "mode": "needed_P",
+      "concept": "choice",
+      "anchors": [
+        "möchten",
+        "Wasser"
+      ],
+      "assessment": "supported",
+      "reason": "Назвать потребность, отличную от сна. Контраст: Вода ≠ чай."
+    },
+    {
+      "event_id": "D13-S1-P1",
+      "mode": "needed_P",
+      "concept": "sequence",
+      "anchors": [
+        "zuerst",
+        "energie",
+        "dann",
+        "verbindung"
+      ],
+      "assessment": "supported",
+      "reason": "Никто не произносит готовый порядок: R1 сообщает, что питание небезопасно, R2 — что связь стабильна. Герой предлагает осмысленную последовательность, окончательное решение за специалистами."
+    },
+    {
+      "event_id": "D13-S2-P1",
+      "mode": "needed_P",
+      "concept": "schedule",
+      "anchors": [
+        "kommen",
+        "zwölf"
+      ],
+      "assessment": "supported",
+      "reason": "Согласовать время без нового ремонта. Контраст: Одиннадцать ≠ двенадцать."
+    },
+    {
+      "event_id": "D14-S1-P1",
+      "mode": "needed_P",
+      "concept": "comparison",
+      "anchors": [
+        "Sensor",
+        "zeigen",
+        "zehn",
+        "zwölf"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Передать обе пары источник—значение. Контраст: Нельзя поменять местами A и B."
+    },
+    {
+      "event_id": "D14-S2-P1",
+      "mode": "needed_P",
+      "concept": "comparison",
+      "anchors": [
+        "neu",
+        "wert",
+        "zwölf"
+      ],
+      "assessment": "supported",
+      "reason": "Передать новое значение с источником времени. Контраст: Старый ≠ новый."
+    },
+    {
+      "event_id": "D15-S1-P1",
+      "mode": "needed_P",
+      "concept": "document",
+      "anchors": [
+        "Sensor",
+        "Dienstag",
+        "zwölf",
+        "Uhr"
+      ],
+      "assessment": "supported",
+      "reason": "Игрок читает две краткие индексные записи, а навигатор видит только старый полный документ и задаёт вопрос. Ответ связывает источник, день, время и статус «новый»; полного готового высказывания в Input нет."
+    },
+    {
+      "event_id": "D15-S2-P1",
+      "mode": "needed_P",
+      "concept": "schedule",
+      "anchors": [
+        "antwort",
+        "kommen",
+        "später"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Передать срок ожидания, не обещая ответ сейчас. Контраст: Сейчас ≠ позже."
+    },
+    {
+      "event_id": "D16-S1-P1",
+      "mode": "needed_P",
+      "concept": "document",
+      "anchors": [
+        "Sensor",
+        "Zeit",
+        "Status"
+      ],
+      "assessment": "supported",
+      "reason": "Заполнить три независимых поля по свежим наблюдениям. Контраст: Нельзя механически переписать A, десять, kaputt."
+    },
+    {
+      "event_id": "D16-S2-P1",
+      "mode": "needed_P",
+      "concept": "relay",
+      "anchors": [
+        "Sensor",
+        "gut",
+        "prüfung",
+        "zwölf"
+      ],
+      "assessment": "supported",
+      "reason": "Передать объект, состояние и время самостоятельно. Контраст: Не достаточно сказать только gut."
+    },
+    {
+      "event_id": "D17-S2-P1",
+      "mode": "needed_P",
+      "concept": "quantity",
+      "anchors": [
+        "zwei",
+        "flasche",
+        "Wasser"
+      ],
+      "assessment": "supported",
+      "reason": "Сообщить фактический остаток из списка. Контраст: Две бутылки ≠ всё количество воды."
+    },
+    {
+      "event_id": "D18-S1-P1",
+      "mode": "needed_P",
+      "concept": "past",
+      "anchors": [
+        "haben",
+        "Schlüssel",
+        "finden"
+      ],
+      "assessment": "supported",
+      "reason": "В архиве лишь фрагмент «Schlüssel gefunden: Lena», навигатор по связи спрашивает, кто нашёл ключ. Игрок сообщает факт связным сообщением; дословного немецкого P-предложения в Input больше нет."
+    },
+    {
+      "event_id": "D18-S2-P1",
+      "mode": "needed_P",
+      "concept": "past",
+      "anchors": [
+        "gestern",
+        "sein",
+        "müde",
+        "heute",
+        "besser"
+      ],
+      "assessment": "supported",
+      "reason": "Самостоятельно сопоставить свой вчерашний и сегодняшний опыт. Контраст: Вчера ≠ сегодня, улучшение ≠ ухудшение."
+    },
+    {
+      "event_id": "D19-S1-P1",
+      "mode": "needed_P",
+      "concept": "past",
+      "anchors": [
+        "haben",
+        "leitung",
+        "prüfen"
+      ],
+      "assessment": "supported",
+      "reason": "Отчитаться о собственном совершённом действии. Контраст: Проверил ≠ отремонтировал."
+    },
+    {
+      "event_id": "D20-S1-P1",
+      "mode": "needed_P",
+      "concept": "future",
+      "anchors": [
+        "kommen",
+        "morgen",
+        "elf"
+      ],
+      "assessment": "supported",
+      "reason": "Согласовать собственное участие. Контраст: Девять врача ≠ одиннадцать инженера."
+    },
+    {
+      "event_id": "D20-S1-P2",
+      "mode": "needed_P",
+      "concept": "sequence",
+      "anchors": [
+        "zuerst",
+        "energie",
+        "dann",
+        "verbindung"
+      ],
+      "assessment": "supported",
+      "reason": "Навигатор сообщает техническую зависимость связи от энергии в R2, не называет последовательность. Герой сам предлагает порядок, капитан принимает окончательное решение."
+    },
+    {
+      "event_id": "D20-S2-P1",
+      "mode": "needed_P",
+      "concept": "future",
+      "anchors": [
+        "morgen",
+        "nach",
+        "zwölf",
+        "Zeit"
+      ],
+      "assessment": "supported",
+      "reason": "Предложить личную встречу с новым временем. Контраст: Завтра после двенадцати ≠ сегодня."
+    },
+    {
+      "event_id": "D21-S1-P1",
+      "mode": "needed_P",
+      "concept": "past",
+      "anchors": [
+        "haben",
+        "leitung",
+        "prüfen",
+        "gut"
+      ],
+      "assessment": "supported",
+      "reason": "Связать завершённое действие и нынешний результат. Контраст: Недостаточно одного gut без указания работы."
+    },
+    {
+      "event_id": "D21-S1-P2",
+      "mode": "needed_P",
+      "concept": "relay",
+      "anchors": [
+        "Sensor",
+        "stabil",
+        "verbindung",
+        "gut"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Результаты Sensor A и связи доступны игроку на локальном пульте, R2/R3 их только запрашивают. P1 — отдельное сообщение советнику; P2 — сводка капитану по другому каналу. Необходимо проверить изоляцию каналов при будущей постановке, иначе повтор остаётся возможен."
+    },
+    {
+      "event_id": "D21-S2-P1",
+      "mode": "needed_P",
+      "concept": "social",
+      "anchors": [
+        "morgen",
+        "Zeit",
+        "Tee",
+        "trinken"
+      ],
+      "assessment": "supported",
+      "reason": "Договориться о личной встрече на завтра. Контраст: Завтра ≠ сейчас."
+    },
+    {
+      "event_id": "D04-S1-P1",
+      "mode": "needed_P",
+      "concept": "status",
+      "anchors": [
+        "Lampe",
+        "sein",
+        "hier"
+      ],
+      "assessment": "supported",
+      "reason": "Сообщить, какой предмет обнаружен при осмотре. Контраст: Отсутствие предмета не равно неисправности."
+    },
+    {
+      "event_id": "D04-S2-P2",
+      "mode": "needed_P",
+      "concept": "health",
+      "anchors": [
+        "ich",
+        "sein",
+        "müde"
+      ],
+      "assessment": "supported",
+      "reason": "Назвать состояние и уйти на отдых. Контраст: Действие не выдаётся за язык."
+    },
+    {
+      "event_id": "D07-S1-P2",
+      "mode": "needed_P",
+      "concept": "location",
+      "anchors": [
+        "wo",
+        "lagerverwalter"
+      ],
+      "assessment": "supported",
+      "reason": "Аудит порядка событий: P2 выполняется после R5, но ДО R6. В R5 местоположение снабженца неизвестно; Лена отвечает «Er ist im Lager» только в R6. Исходная находка была ложным срабатыванием."
+    },
+    {
+      "event_id": "D07-S2-P1",
+      "mode": "needed_P",
+      "concept": "ownership",
+      "anchors": [
+        "Schlüssel",
+        "von"
+      ],
+      "assessment": "supported",
+      "reason": "Сообщить владельца, которого игрок знает. Контраст: Владелец не совпадает с получателем."
+    },
+    {
+      "event_id": "D08-S1-P2",
+      "mode": "needed_P",
+      "concept": "remote",
+      "anchors": [
+        "ich",
+        "sein",
+        "am",
+        "gerät"
+      ],
+      "assessment": "supported",
+      "reason": "Подтвердить своё место независимо от видимости. Контраст: Пульт ≠ устройство."
+    },
+    {
+      "event_id": "D08-S2-P2",
+      "mode": "needed_P",
+      "concept": "remote",
+      "anchors": [
+        "mein",
+        "Lampe",
+        "grün"
+      ],
+      "assessment": "supported",
+      "reason": "Сообщить существенный признак, а не случайное да. Контраст: Зелёный ≠ красный."
+    },
+    {
+      "event_id": "D09-S1-P2",
+      "mode": "needed_P",
+      "concept": "status",
+      "anchors": [
+        "Lampe",
+        "kaputt"
+      ],
+      "assessment": "supported",
+      "reason": "Передать факт о состоянии конкретного остатка. Контраст: Один неисправный ≠ два исправных."
+    },
+    {
+      "event_id": "D10-S1-P2",
+      "mode": "needed_P",
+      "concept": "schedule",
+      "anchors": [
+        "haben",
+        "morgen",
+        "Zeit"
+      ],
+      "assessment": "supported",
+      "reason": "Подтвердить собственную доступность. Контраст: Завтра ≠ сегодня."
+    },
+    {
+      "event_id": "D10-S2-P2",
+      "mode": "needed_P",
+      "concept": "schedule",
+      "anchors": [
+        "können",
+        "auch",
+        "kommen"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Герой вправе уточнить участие Лены, но её действительное согласие должно оставаться за NPC."
+    },
+    {
+      "event_id": "D11-S1-P2",
+      "mode": "needed_P",
+      "concept": "permission",
+      "anchors": [
+        "ich",
+        "können",
+        "heute",
+        "helfen"
+      ],
+      "assessment": "supported",
+      "reason": "Сказать о доступности в безопасном месте. Контраст: Могу ≠ обязан."
+    },
+    {
+      "event_id": "D11-S2-P2",
+      "mode": "needed_P",
+      "concept": "permission",
+      "anchors": [
+        "rot",
+        "Schlüssel",
+        "für",
+        "Arzt"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Врач может уже знать своё правило доступа; нужен неосведомлённый адресат или новая цель передачи."
+    },
+    {
+      "event_id": "D13-S1-P2",
+      "mode": "needed_P",
+      "concept": "schedule",
+      "anchors": [
+        "können",
+        "morgen",
+        "zehn"
+      ],
+      "assessment": "supported",
+      "reason": "Согласовать собственное участие. Контраст: Могу ≠ обязательно."
+    },
+    {
+      "event_id": "D14-S1-P2",
+      "mode": "needed_P",
+      "concept": "comparison",
+      "anchors": [
+        "wert",
+        "nicht",
+        "gleich"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Равенство показаний может быть очевидно обоим участникам по панели; подтвердить информационный пробел."
+    },
+    {
+      "event_id": "D14-S2-P2",
+      "mode": "needed_P",
+      "concept": "status",
+      "anchors": [
+        "wir",
+        "müssen",
+        "noch",
+        "prüfen"
+      ],
+      "assessment": "supported",
+      "reason": "Сообщить, что проверка нужна дальше. Контраст: Нельзя объявить исправность без доказательства."
+    },
+    {
+      "event_id": "D15-S1-P2",
+      "mode": "needed_P",
+      "concept": "location",
+      "anchors": [
+        "wo",
+        "ander",
+        "bericht"
+      ],
+      "assessment": "supported",
+      "reason": "Попросить вторую запись для сравнения. Контраст: Вторая запись не лежит автоматически рядом."
+    },
+    {
+      "event_id": "D15-S2-P2",
+      "mode": "needed_P",
+      "concept": "clarification",
+      "anchors": [
+        "verstehen",
+        "nicht",
+        "noch",
+        "einmal"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Просьба о повторе должна быть доступна при реальном непонимании, а не требоваться сценарием в любом случае."
+    },
+    {
+      "event_id": "D16-S1-P2",
+      "mode": "needed_P",
+      "concept": "status",
+      "anchors": [
+        "Sensor",
+        "jetzt",
+        "gut"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Если результат уже виден адресату после заполнения формы, произнесение может стать дублированием."
+    },
+    {
+      "event_id": "D16-S2-P2",
+      "mode": "needed_P",
+      "concept": "relay",
+      "anchors": [
+        "bitte",
+        "senden",
+        "nachricht",
+        "navigator"
+      ],
+      "assessment": "supported",
+      "reason": "Попросить передать сведения нужному адресату. Контраст: Навигатор ≠ снабженец."
+    },
+    {
+      "event_id": "D17-S2-P2",
+      "mode": "needed_P",
+      "concept": "allocation",
+      "anchors": [
+        "bitte",
+        "fragen",
+        "lagerverwalter"
+      ],
+      "assessment": "supported",
+      "reason": "После P1 о фактическом количестве сотрудник в R4 прямо спрашивает, может ли забрать воду. У героя нет полномочий: ответ направляет его к снабженцу, вместо необязательного условного вопроса."
+    },
+    {
+      "event_id": "D18-S1-P2",
+      "mode": "needed_P",
+      "concept": "past",
+      "anchors": [
+        "heute",
+        "Tür",
+        "offen"
+      ],
+      "assessment": "supported",
+      "reason": "Навигатор не видит сегодняшнюю дверь; в R5 он спрашивает о состоянии, но не говорит, открыта ли она. Игрок сопоставляет реальное наблюдение с вчерашней архивной записью."
+    },
+    {
+      "event_id": "D19-S1-P2",
+      "mode": "needed_P",
+      "concept": "status",
+      "anchors": [
+        "Sensor",
+        "jetzt",
+        "gut"
+      ],
+      "assessment": "supported",
+      "reason": "Отдельно сообщить состояние после проверки. Контраст: Результат ≠ факт выполнения работы."
+    },
+    {
+      "event_id": "D21-S2-P2",
+      "mode": "needed_P",
+      "concept": "past",
+      "anchors": [
+        "gestern",
+        "müde",
+        "heute",
+        "besser"
+      ],
+      "assessment": "supported",
+      "reason": "Связать прошлое и настоящее в бытовой беседе. Контраст: Личное переживание не равно техническому статусу."
+    },
+    {
+      "event_id": "D10-S1-R3",
+      "mode": "needed_R",
+      "concept": "schedule",
+      "anchors": [
+        "elf",
+        "Zeit"
+      ],
+      "assessment": "supported",
+      "reason": "В немецкой R3 появляется второе доступное окно в одиннадцать (приём Лены в десять не равен доступности врача). Нужно понять обе альтернативы для выбора P1."
+    },
+    {
+      "event_id": "D13-S1-R2",
+      "mode": "needed_R",
+      "concept": "sequence",
+      "anchors": [
+        "verbindung",
+        "stabil"
+      ],
+      "assessment": "supported",
+      "reason": "Советник сообщает независимое состояние связи. Игрок сопоставляет его с небезопасным питанием и предлагает порядок, а не повторяет инструкцию."
+    },
+    {
+      "event_id": "D18-S1-R3",
+      "mode": "needed_R",
+      "concept": "past",
+      "anchors": [
+        "wer",
+        "Schlüssel",
+        "finden"
+      ],
+      "assessment": "supported",
+      "reason": "Навигатор не видит фрагмент архива и просит назвать нашедшего ключ; игрок извлекает агента из заметки и сообщает его."
+    },
+    {
+      "event_id": "D18-S1-R5",
+      "mode": "needed_R",
+      "concept": "status",
+      "anchors": [
+        "heute",
+        "Tür",
+        "offen"
+      ],
+      "assessment": "supported",
+      "reason": "Удалённый собеседник спрашивает о нынешнем состоянии двери без сообщённого ответа; требуется наблюдение игрока."
+    },
+    {
+      "event_id": "D20-S1-R2",
+      "mode": "needed_R",
+      "concept": "sequence",
+      "anchors": [
+        "verbindung",
+        "brauchen",
+        "energie"
+      ],
+      "assessment": "supported",
+      "reason": "Техническая зависимость связи от питания читается на немецком; из неё игрок предлагает безопасную последовательность, а не копирует готовую фразу."
+    },
+    {
+      "event_id": "D01-S1-R1",
+      "mode": "context_R",
+      "concept": "contact",
+      "anchors": [
+        "hallo"
+      ],
+      "assessment": "supported",
+      "reason": "Лена приветствует впервые. Приветствие можно узнать по жесту, но само по себе оно не определяет выбор предмета; P1 — свободный ответ на контакт."
+    },
+    {
+      "event_id": "D01-S1-R2",
+      "mode": "context_R",
+      "concept": "clarification",
+      "anchors": [
+        "kommen",
+        "bitte",
+        "hier"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Жест Лены может дать направление без знания немецкого. Значение «Komm» и просьба повторить доступны через F1; намеренно требовать непонимания нельзя."
+    },
+    {
+      "event_id": "D01-S2-R3",
+      "mode": "needed_R",
+      "concept": "location",
+      "anchors": [
+        "Arzt"
+      ],
+      "assessment": "needs_validation",
+      "reason": "На указателе только роль врача без направления. Для осмысленного вопроса P2 новичку надо извлечь, кого он ищет; проверить наличие слова Arzt в F1 и отсутствие подсветки русского решения."
+    },
+    {
+      "event_id": "D01-S2-R5",
+      "mode": "needed_R",
+      "concept": "location",
+      "anchors": [
+        "Arzt",
+        "dort"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Лена сообщает направление к врачу лишь после вопроса игрока. Нужно выбрать маршрут по немецкому указанию и жесту; не сделать единственный коридор или выделенную дверь подсказкой."
+    },
+    {
+      "event_id": "D03-S1-R1",
+      "mode": "needed_R",
+      "concept": "request",
+      "anchors": [
+        "was",
+        "brauchen",
+        "du"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Снабженец спрашивает, что нужно игроку. Для запроса воды/лампы необходимо распознать приглашение назвать предмет, но предмет можно выбрать и без грамматического анализа."
+    },
+    {
+      "event_id": "D05-S1-R4",
+      "mode": "needed_R",
+      "concept": "location",
+      "anchors": [
+        "Lampe",
+        "Zimmer"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Советник впервые отвечает на вопрос P1 о местоположении лампы. Обязательное понимание включает именно комнату; проверить, что игроку доступен выбор мест, а не одна дверь."
+    },
+    {
+      "event_id": "D06-S1-R3",
+      "mode": "context_R",
+      "concept": "location",
+      "anchors": [
+        "rechts"
+      ],
+      "assessment": "supported",
+      "reason": "Табличка Wohnbereich: rechts даёт направление в жилую зону, но ещё не безопасный выход. Оно не должно заменять неизвестный ответ на вопрос игрока в P1."
+    },
+    {
+      "event_id": "D07-S1-R6",
+      "mode": "needed_R",
+      "concept": "location",
+      "anchors": [
+        "lager"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Лена впервые отвечает на P2, что снабженец на складе. Нужно понять место и найти путь; визуальная метка единственной открытой двери не должна обходить этот смысл."
+    },
+    {
+      "event_id": "D08-S2-R3",
+      "mode": "needed_R",
+      "concept": "request",
+      "anchors": [
+        "prüfen",
+        "verbindung"
+      ],
+      "assessment": "needs_validation",
+      "reason": "После отсутствия сигнала Лена просит проверить местную связь. Можно соотнести инструкцию с устройством, но сама успешная кнопка без альтернатив не доказывает понимание немецкого."
+    },
+    {
+      "event_id": "D09-S1-R3",
+      "mode": "needed_R",
+      "concept": "quantity",
+      "anchors": [
+        "zwei",
+        "Lampe",
+        "gut"
+      ],
+      "assessment": "needs_validation",
+      "reason": "Из списка доступности отличить две исправные лампы от трёх записанных; нужно проверить реальный физический контраст и что ответ игрока не подсказывается русским UI."
+    }
+  ]
+}

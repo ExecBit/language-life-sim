@@ -13,6 +13,20 @@ jobs:
           python-version: '3.x'
       - name: Check migrated structure
         run: python implementations/dormitory/tools/check_repository.py
+      - name: Validate setting-independent language program
+        if: ${{ hashFiles('implementations/story_rpg/tools/analyze_language_load_balance.py') != '' }}
+        run: python implementations/story_rpg/tools/analyze_language_load_balance.py --check
+      - name: Validate independent language day-capacity estimate
+        if: ${{ hashFiles('implementations/story_rpg/tools/calculate_language_days.py') != '' }}
+        run: python implementations/story_rpg/tools/calculate_language_days.py --check
+      - name: Validate language-only daily schedule
+        if: ${{ hashFiles('implementations/story_rpg/tools/plan_language_days.py') != '' }}
+        run: |
+          python implementations/story_rpg/tools/plan_language_days.py --check
+          python -B implementations/story_rpg/tools/test_cumulative_language.py
+      - name: Validate existing Story RPG HTML dashboard
+        if: ${{ hashFiles('implementations/story_rpg/tools/build_day_progression_dashboard.py') != '' }}
+        run: python implementations/story_rpg/tools/build_day_progression_dashboard.py --check
       - name: Install Godot 4.7.1
         run: |
           curl --fail --location --retry 3 -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.7.1-stable/Godot_v4.7.1-stable_linux.x86_64.zip

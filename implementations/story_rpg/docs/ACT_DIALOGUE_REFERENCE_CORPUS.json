@@ -1,0 +1,1379 @@
+{
+  "version": "0.1",
+  "status": "pilot_author_examples_not_final_dialogue",
+  "scenario_days": 22,
+  "exam_day": 22,
+  "group_catalog": "LANGUAGE_LEXICON.md",
+  "note": "Only a minimal authored reference set for testing load measurement; no finished scenes or comprehension validation; D22 exam excluded from teaching workload.",
+  "days": [
+    {
+      "day": 1,
+      "phase": "P0",
+      "goal": "Выйти из аварийной зоны, не оставшись без нужного инструмента",
+      "r": [
+        {
+          "de": "Hallo. Komm, bitte.",
+          "tags": [
+            {
+              "group": "01",
+              "form": "Hallo"
+            },
+            {
+              "group": "02",
+              "form": "Komm"
+            }
+          ],
+          "context": "emergency-contact",
+          "need": "Понять, что Лена зовёт героя к себе",
+          "contrast": "Входящая просьба не называет предмет",
+          "id": "D01-R1"
+        },
+        {
+          "de": "Nimm den Schlüssel, bitte.",
+          "tags": [
+            {
+              "group": "02",
+              "form": "Schlüssel"
+            },
+            {
+              "group": "01",
+              "form": "bitte"
+            }
+          ],
+          "context": "emergency-tool",
+          "need": "Выбрать ключ, а не другой предмет",
+          "contrast": "Предмет различается по немецкому слову",
+          "id": "D01-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Die Lampe, bitte.",
+          "slots": [
+            {
+              "group": "02",
+              "meaning": "попросить лампу"
+            }
+          ],
+          "context": "emergency-tool-choice",
+          "goal": "Попросить источник света, который Лена не предложила в инструкции",
+          "contrast": "Ключ не заменяет лампу",
+          "kind": "dialog",
+          "required": true,
+          "id": "D01-P1"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "phase": "P1",
+      "goal": "Передать медику своё состояние",
+      "r": [
+        {
+          "de": "Bist du müde?",
+          "tags": [
+            {
+              "group": "07",
+              "form": "müde"
+            }
+          ],
+          "context": "medical-exam",
+          "need": "Узнать вопрос об усталости",
+          "contrast": "Усталость не означает болезнь",
+          "id": "D02-R1"
+        },
+        {
+          "de": "Hier ist der Arzt.",
+          "tags": [
+            {
+              "group": "07",
+              "form": "Arzt"
+            },
+            {
+              "group": "02",
+              "form": "Hier"
+            }
+          ],
+          "context": "medical-introduction",
+          "need": "Определить, к кому обращаться",
+          "contrast": "Врач не равен Лене",
+          "id": "D02-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Ich bin müde.",
+          "slots": [
+            {
+              "group": "07",
+              "meaning": "назвать усталость"
+            }
+          ],
+          "context": "medical-exam",
+          "goal": "Самостоятельно описать фактическое состояние",
+          "contrast": "Ответ да/нет не сообщает, что именно чувствует герой",
+          "kind": "dialog",
+          "required": true,
+          "id": "D02-P1"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "phase": "P1",
+      "goal": "Получить воду по собственной потребности",
+      "r": [
+        {
+          "de": "Hier ist Wasser.",
+          "tags": [
+            {
+              "group": "08",
+              "form": "Wasser"
+            },
+            {
+              "group": "02",
+              "form": "Hier"
+            }
+          ],
+          "context": "provisions-counter",
+          "need": "Узнать, что здесь есть вода",
+          "contrast": "Напиток не равен рабочей детали",
+          "id": "D03-R1"
+        },
+        {
+          "de": "Das Brot ist dort.",
+          "tags": [
+            {
+              "group": "08",
+              "form": "Brot"
+            }
+          ],
+          "context": "provisions-counter",
+          "need": "Найти хлеб в другой части стойки",
+          "contrast": "Здесь и там — разные места",
+          "id": "D03-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Ich brauche Wasser, bitte.",
+          "slots": [
+            {
+              "group": "05",
+              "meaning": "назвать потребность"
+            },
+            {
+              "group": "08",
+              "meaning": "запросить воду"
+            }
+          ],
+          "context": "provisions-counter",
+          "goal": "Попросить питьё для себя, а не выбрать хлеб",
+          "contrast": "Просьба должна определять предмет",
+          "kind": "dialog",
+          "required": true,
+          "id": "D03-P1"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "phase": "P1",
+      "goal": "Доложить о существенном отсутствии при осмотре",
+      "r": [
+        {
+          "de": "Die Tür ist offen.",
+          "tags": [
+            {
+              "group": "06",
+              "form": "offen"
+            },
+            {
+              "group": "10",
+              "form": "Tür"
+            }
+          ],
+          "context": "access-inspection",
+          "need": "Прочитать состояние двери",
+          "contrast": "Открыта ≠ закрыта",
+          "id": "D04-R1"
+        },
+        {
+          "de": "Die Lampe ist kaputt.",
+          "tags": [
+            {
+              "group": "06",
+              "form": "kaputt"
+            },
+            {
+              "group": "02",
+              "form": "Lampe"
+            }
+          ],
+          "context": "light-inspection",
+          "need": "Установить неисправность источника света",
+          "contrast": "Неисправна ≠ исправна",
+          "id": "D04-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Der Schlüssel ist nicht hier.",
+          "slots": [
+            {
+              "group": "06",
+              "meaning": "отрицать наличие в данном месте"
+            },
+            {
+              "group": "02",
+              "meaning": "указать ключ"
+            }
+          ],
+          "context": "access-inspection",
+          "goal": "Сообщить об отсутствующем ключе на осмотренном участке",
+          "contrast": "Здесь нет ≠ здесь есть",
+          "kind": "dialog",
+          "required": true,
+          "id": "D04-P1"
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "phase": "P1",
+      "goal": "Получить необходимое сведение, чтобы закончить работу",
+      "r": [
+        {
+          "de": "Der Schlüssel ist hier.",
+          "tags": [
+            {
+              "group": "02",
+              "form": "Schlüssel"
+            },
+            {
+              "group": "02",
+              "form": "hier"
+            }
+          ],
+          "context": "storage-check",
+          "need": "Узнать, где лежит ключ",
+          "contrast": "Ключ не отвечает на вопрос о лампе",
+          "id": "D05-R1"
+        },
+        {
+          "de": "Die Tür ist zu.",
+          "tags": [
+            {
+              "group": "06",
+              "form": "zu"
+            },
+            {
+              "group": "10",
+              "form": "Tür"
+            }
+          ],
+          "context": "access-check",
+          "need": "Узнать, почему проход закрыт",
+          "contrast": "Закрытая дверь ≠ сломанная дверь",
+          "id": "D05-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Wo ist die Lampe?",
+          "slots": [
+            {
+              "group": "04",
+              "meaning": "запросить местонахождение"
+            },
+            {
+              "group": "02",
+              "meaning": "указать лампу"
+            }
+          ],
+          "context": "repair-request",
+          "goal": "Спросить о недостающей лампе для ремонта",
+          "contrast": "NPC не может угадать нужный предмет",
+          "kind": "dialog",
+          "required": true,
+          "id": "D05-P1"
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "phase": "P2",
+      "goal": "Передать человеку, которого нет у рабочего места, положение вещи",
+      "r": [
+        {
+          "de": "Die Lampe ist im Zimmer.",
+          "tags": [
+            {
+              "group": "10",
+              "form": "im Zimmer"
+            },
+            {
+              "group": "02",
+              "form": "Lampe"
+            }
+          ],
+          "context": "room-instruction",
+          "need": "Извлечь расположение лампы",
+          "contrast": "В комнате ≠ в коридоре",
+          "id": "D06-R1"
+        },
+        {
+          "de": "Bring den Schlüssel ins Zimmer.",
+          "tags": [
+            {
+              "group": "10",
+              "form": "ins Zimmer"
+            },
+            {
+              "group": "02",
+              "form": "Schlüssel"
+            }
+          ],
+          "context": "room-transfer",
+          "need": "Отличить направление переноса от местоположения",
+          "contrast": "В комнату ≠ в комнате",
+          "id": "D06-R2"
+        },
+        {
+          "id": "D06-R3",
+          "de": "Geh nach links.",
+          "tags": [
+            {
+              "group": "11",
+              "form": "links"
+            }
+          ],
+          "context": "route-instruction",
+          "need": "Прочитать направление к нужному проходу",
+          "contrast": "Налево ≠ направо"
+        }
+      ],
+      "p": [
+        {
+          "example": "Der Schlüssel ist auf dem Tisch.",
+          "slots": [
+            {
+              "group": "10",
+              "meaning": "на столе"
+            },
+            {
+              "group": "02",
+              "meaning": "указать ключ"
+            }
+          ],
+          "context": "room-report",
+          "goal": "Сообщить коллеге новый факт о расположении после осмотра",
+          "contrast": "Коллега не знает расположения заранее",
+          "kind": "dialog",
+          "required": true,
+          "id": "D06-P1"
+        }
+      ]
+    },
+    {
+      "day": 7,
+      "phase": "P2",
+      "goal": "Различить личный предмет и доступ другого члена экипажа",
+      "r": [
+        {
+          "de": "Das ist dein Zimmer.",
+          "tags": [
+            {
+              "group": "09",
+              "form": "dein"
+            },
+            {
+              "group": "10",
+              "form": "Zimmer"
+            }
+          ],
+          "context": "quarters-access",
+          "need": "Узнать, какое помещение выделено игроку",
+          "contrast": "Твоя каюта ≠ общая каюта",
+          "id": "D07-R1"
+        },
+        {
+          "de": "Lena arbeitet hier.",
+          "tags": [
+            {
+              "group": "14",
+              "form": "arbeitet"
+            },
+            {
+              "group": "02",
+              "form": "hier"
+            }
+          ],
+          "context": "crew-roles",
+          "need": "Узнать рабочее место Лены",
+          "contrast": "Место работы не определяет владельца вещи",
+          "id": "D07-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Das ist mein Schlüssel.",
+          "slots": [
+            {
+              "group": "09",
+              "meaning": "назвать себя владельцем"
+            },
+            {
+              "group": "02",
+              "meaning": "назвать ключ"
+            }
+          ],
+          "context": "quarters-property",
+          "goal": "Уточнить снабженцу принадлежность найденного ключа",
+          "contrast": "Владелец ≠ получатель",
+          "kind": "dialog",
+          "required": true,
+          "id": "D07-P1"
+        }
+      ]
+    },
+    {
+      "day": 8,
+      "phase": "P2",
+      "goal": "Передать сведения между рабочими местами",
+      "r": [
+        {
+          "de": "Lena braucht den Zettel.",
+          "tags": [
+            {
+              "group": "05",
+              "form": "braucht"
+            },
+            {
+              "group": "23",
+              "form": "Zettel"
+            }
+          ],
+          "context": "shift-coordination",
+          "need": "Понять, что Лене нужен список",
+          "contrast": "Лена, а не медик, ждёт этот документ",
+          "id": "D08-R1"
+        },
+        {
+          "de": "Der Arzt ist im Zimmer.",
+          "tags": [
+            {
+              "group": "07",
+              "form": "Arzt"
+            },
+            {
+              "group": "10",
+              "form": "im Zimmer"
+            }
+          ],
+          "context": "shift-coordination",
+          "need": "Понять, где находится врач",
+          "contrast": "Врач не может наблюдать датчик из каюты",
+          "id": "D08-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Lena braucht den Schlüssel.",
+          "slots": [
+            {
+              "group": "03",
+              "meaning": "назвать адресата Лена"
+            },
+            {
+              "group": "05",
+              "meaning": "передать факт о потребности"
+            },
+            {
+              "group": "02",
+              "meaning": "назвать предмет"
+            }
+          ],
+          "context": "worksite-transfer",
+          "goal": "Сообщить снабженцу ранее неизвестную просьбу Лены",
+          "contrast": "Нельзя подменить факт просьбой героя",
+          "kind": "dialog",
+          "required": true,
+          "id": "D08-P1"
+        }
+      ]
+    },
+    {
+      "day": 9,
+      "phase": "P2",
+      "goal": "Сообщить снабженцу реальную потребность для распределения ресурсов",
+      "r": [
+        {
+          "de": "Wir haben drei Lampen.",
+          "tags": [
+            {
+              "group": "12",
+              "form": "drei"
+            },
+            {
+              "group": "02",
+              "form": "Lampen"
+            }
+          ],
+          "context": "stock-count",
+          "need": "Прочитать запас ламп",
+          "contrast": "Три ≠ две",
+          "id": "D09-R1"
+        },
+        {
+          "de": "Lena ist müde.",
+          "tags": [
+            {
+              "group": "07",
+              "form": "müde"
+            }
+          ],
+          "context": "crew-status",
+          "need": "Узнать состояние Лены",
+          "contrast": "Усталость не означает отсутствие в списке",
+          "id": "D09-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Wir brauchen zwei Lampen.",
+          "slots": [
+            {
+              "group": "12",
+              "meaning": "запросить две единицы"
+            },
+            {
+              "group": "05",
+              "meaning": "потребность"
+            },
+            {
+              "group": "02",
+              "meaning": "лампы"
+            }
+          ],
+          "context": "worksite-request",
+          "goal": "Указать объём потребности другого участка",
+          "contrast": "Две нужные лампы ≠ три имеющиеся",
+          "kind": "dialog",
+          "required": true,
+          "id": "D09-P1"
+        }
+      ]
+    },
+    {
+      "day": 10,
+      "phase": "P3",
+      "goal": "Согласовать доступный час осмотра",
+      "r": [
+        {
+          "de": "Der Arzt kommt morgen um drei.",
+          "tags": [
+            {
+              "group": "15",
+              "form": "morgen"
+            },
+            {
+              "group": "15",
+              "form": "drei"
+            },
+            {
+              "group": "07",
+              "form": "Arzt"
+            }
+          ],
+          "context": "medical-schedule",
+          "need": "Понять время визита медика",
+          "contrast": "Завтра ≠ сегодня",
+          "id": "D10-R1"
+        },
+        {
+          "de": "Lena arbeitet heute.",
+          "tags": [
+            {
+              "group": "14",
+              "form": "arbeitet"
+            },
+            {
+              "group": "15",
+              "form": "heute"
+            }
+          ],
+          "context": "crew-schedule",
+          "need": "Понять занятость Лены",
+          "contrast": "Занята сегодня ≠ доступна завтра",
+          "id": "D10-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Ich komme morgen um vier.",
+          "slots": [
+            {
+              "group": "15",
+              "meaning": "назначить завтра в четыре"
+            },
+            {
+              "group": "18",
+              "meaning": "подтвердить встречу"
+            }
+          ],
+          "context": "appointment-setup",
+          "goal": "Предложить подходящее время, отличное от приёма врача",
+          "contrast": "Три ≠ четыре",
+          "kind": "dialog",
+          "required": true,
+          "id": "D10-P1"
+        }
+      ]
+    },
+    {
+      "day": 11,
+      "phase": "P3",
+      "goal": "Различить запрет и отсутствие обязанности",
+      "r": [
+        {
+          "de": "Hier darfst du nicht arbeiten.",
+          "tags": [
+            {
+              "group": "16",
+              "form": "darfst"
+            },
+            {
+              "group": "16",
+              "form": "nicht"
+            }
+          ],
+          "context": "restricted-access",
+          "need": "Понять запрет входа в рабочий процесс",
+          "contrast": "Запрещено ≠ не обязательно",
+          "id": "D11-R1"
+        },
+        {
+          "de": "Du musst heute nicht kommen.",
+          "tags": [
+            {
+              "group": "16",
+              "form": "musst"
+            },
+            {
+              "group": "16",
+              "form": "nicht"
+            },
+            {
+              "group": "15",
+              "form": "heute"
+            }
+          ],
+          "context": "shift-obligation",
+          "need": "Понять отсутствие обязанности прийти",
+          "contrast": "Не должен ≠ не имеет права",
+          "id": "D11-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Ich kann morgen kommen.",
+          "slots": [
+            {
+              "group": "16",
+              "meaning": "выразить возможность"
+            },
+            {
+              "group": "15",
+              "meaning": "завтра"
+            }
+          ],
+          "context": "shift-negotiate",
+          "goal": "Сообщить собственную возможность прийти в другую смену",
+          "contrast": "Могу ≠ должен",
+          "kind": "dialog",
+          "required": true,
+          "id": "D11-P1"
+        }
+      ]
+    },
+    {
+      "day": 12,
+      "phase": "P3",
+      "goal": "Выразить собственное предпочтение в рамках рекомендаций медика",
+      "r": [
+        {
+          "de": "Möchtest du Wasser oder Tee?",
+          "tags": [
+            {
+              "group": "17",
+              "form": "Möchtest"
+            },
+            {
+              "group": "08",
+              "form": "Wasser"
+            },
+            {
+              "group": "08",
+              "form": "Tee"
+            }
+          ],
+          "context": "medical-choice",
+          "need": "Узнать варианты напитка",
+          "contrast": "Выбор не заменяется да/нет",
+          "id": "D12-R1"
+        },
+        {
+          "de": "Du kannst später kommen.",
+          "tags": [
+            {
+              "group": "16",
+              "form": "kannst"
+            },
+            {
+              "group": "15",
+              "form": "später"
+            }
+          ],
+          "context": "medical-followup",
+          "need": "Узнать допустимое время повторного визита",
+          "contrast": "Можно позже ≠ нужно немедленно",
+          "id": "D12-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Ich möchte lieber Tee.",
+          "slots": [
+            {
+              "group": "17",
+              "meaning": "выразить предпочтение"
+            },
+            {
+              "group": "08",
+              "meaning": "выбрать чай"
+            }
+          ],
+          "context": "medical-choice",
+          "goal": "Выбрать напиток исходя из собственной потребности",
+          "contrast": "Чай ≠ вода",
+          "kind": "dialog",
+          "required": true,
+          "id": "D12-P1"
+        }
+      ]
+    },
+    {
+      "day": 13,
+      "phase": "P3",
+      "goal": "Установить порядок общей проверки",
+      "r": [
+        {
+          "de": "Zuerst die Lampe, dann die Tür.",
+          "tags": [
+            {
+              "group": "27",
+              "form": "Zuerst"
+            },
+            {
+              "group": "27",
+              "form": "dann"
+            },
+            {
+              "group": "02",
+              "form": "Lampe"
+            },
+            {
+              "group": "10",
+              "form": "Tür"
+            }
+          ],
+          "context": "shift-sequence",
+          "need": "Понять предложенный порядок",
+          "contrast": "Сначала лампа ≠ сначала дверь",
+          "id": "D13-R1"
+        },
+        {
+          "de": "Wir treffen uns um drei.",
+          "tags": [
+            {
+              "group": "18",
+              "form": "treffen"
+            },
+            {
+              "group": "15",
+              "form": "drei"
+            }
+          ],
+          "context": "shift-briefing",
+          "need": "Узнать время согласования",
+          "contrast": "Время ≠ порядок проверки",
+          "id": "D13-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Zuerst der Sensor, dann die Tür.",
+          "slots": [
+            {
+              "group": "27",
+              "meaning": "назначить порядок"
+            },
+            {
+              "group": "10",
+              "meaning": "назвать конечный объект"
+            }
+          ],
+          "context": "inspection-sequence",
+          "goal": "Предложить иной обоснованный порядок, основанный на показаниях",
+          "contrast": "Поменять порядок не равно согласиться с исходным",
+          "kind": "dialog",
+          "required": true,
+          "id": "D13-P1"
+        }
+      ]
+    },
+    {
+      "day": 14,
+      "phase": "P4",
+      "goal": "Сопоставить два несовпадающих состояния",
+      "r": [
+        {
+          "de": "Sensor A ist gut.",
+          "tags": [
+            {
+              "group": "06",
+              "form": "gut"
+            }
+          ],
+          "context": "sensor-a-readout",
+          "need": "Прочитать состояние A",
+          "contrast": "A и B — разные источники",
+          "id": "D14-R1"
+        },
+        {
+          "de": "Sensor B ist kaputt.",
+          "tags": [
+            {
+              "group": "06",
+              "form": "kaputt"
+            }
+          ],
+          "context": "sensor-b-readout",
+          "need": "Прочитать состояние B",
+          "contrast": "Исправный A ≠ неисправный B",
+          "id": "D14-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Sensor A ist besser.",
+          "slots": [
+            {
+              "group": "24",
+              "meaning": "сравнить A и B"
+            }
+          ],
+          "context": "sensor-comparison",
+          "goal": "Самостоятельно указать предпочтительный источник по двум данным",
+          "contrast": "Нельзя сравнить, прочитав только один датчик",
+          "kind": "dialog",
+          "required": true,
+          "id": "D14-P1"
+        }
+      ]
+    },
+    {
+      "day": 15,
+      "phase": "P4",
+      "goal": "Уточнить недостающую информацию в архиве смен",
+      "r": [
+        {
+          "de": "Montag: Sensor A, acht Uhr.",
+          "tags": [
+            {
+              "group": "15",
+              "form": "Montag"
+            },
+            {
+              "group": "15",
+              "form": "acht"
+            }
+          ],
+          "context": "archive-record-a",
+          "need": "Найти время записи A",
+          "contrast": "Понедельник ≠ вторник",
+          "id": "D15-R1"
+        },
+        {
+          "de": "Dienstag: Sensor B, neun Uhr.",
+          "tags": [
+            {
+              "group": "15",
+              "form": "Dienstag"
+            },
+            {
+              "group": "15",
+              "form": "neun"
+            }
+          ],
+          "context": "archive-record-b",
+          "need": "Найти время записи B",
+          "contrast": "Данные разных датчиков не складываются в один факт",
+          "id": "D15-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Wann ist der Termin?",
+          "slots": [
+            {
+              "group": "04",
+              "meaning": "запросить отсутствующее время"
+            },
+            {
+              "group": "18",
+              "meaning": "уточнить встречу"
+            }
+          ],
+          "context": "archive-followup",
+          "goal": "Уточнить час личной сверки, которого нет в архиве",
+          "contrast": "Время записи ≠ время встречи",
+          "kind": "dialog",
+          "required": true,
+          "id": "D15-P1"
+        }
+      ]
+    },
+    {
+      "day": 16,
+      "phase": "P4",
+      "goal": "Оформить достоверное состояние для следующей смены",
+      "r": [
+        {
+          "de": "Sensor: A. Zeit: acht Uhr.",
+          "tags": [
+            {
+              "group": "15",
+              "form": "Zeit"
+            },
+            {
+              "group": "15",
+              "form": "acht"
+            }
+          ],
+          "context": "worklog-fields",
+          "need": "Узнать поле времени в форме",
+          "contrast": "Время ≠ идентификатор датчика",
+          "id": "D16-R1"
+        },
+        {
+          "de": "Status: gut.",
+          "tags": [
+            {
+              "group": "06",
+              "form": "gut"
+            }
+          ],
+          "context": "worklog-status",
+          "need": "Узнать подпись состояния",
+          "contrast": "Исправен ≠ неисправен",
+          "id": "D16-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Sensor: B; Zeit: neun Uhr; Status: kaputt.",
+          "slots": [
+            {
+              "group": "12",
+              "meaning": "выбрать датчик B в поле формы"
+            },
+            {
+              "group": "15",
+              "meaning": "ввести время девять"
+            },
+            {
+              "group": "06",
+              "meaning": "ввести состояние неисправен"
+            }
+          ],
+          "context": "worklog-fill",
+          "goal": "Заполнить фактические поля по другому наблюдению",
+          "contrast": "Значения A/8/gut нельзя механически скопировать",
+          "kind": "form",
+          "required": true,
+          "id": "D16-P1"
+        },
+        {
+          "example": "Sensor B ist kaputt. Sensor A ist gut.",
+          "slots": [
+            {
+              "group": "06",
+              "meaning": "передать два состояния"
+            },
+            {
+              "group": "27",
+              "meaning": "связать два независимых пункта"
+            }
+          ],
+          "context": "worklog-handoff",
+          "goal": "Дать другой смене два факта после заполнения журнала",
+          "contrast": "Одно состояние не заменяет второе",
+          "kind": "dialog",
+          "required": true,
+          "id": "D16-P2"
+        }
+      ]
+    },
+    {
+      "day": 17,
+      "phase": "P4",
+      "goal": "Увидеть конфликт правомерных интересов без командования снабженцем",
+      "r": [
+        {
+          "de": "Ich brauche Wasser für die Pflanzen.",
+          "tags": [
+            {
+              "group": "05",
+              "form": "brauche"
+            },
+            {
+              "group": "08",
+              "form": "Wasser"
+            },
+            {
+              "group": "25",
+              "form": "Pflanzen"
+            }
+          ],
+          "context": "resource-dispute",
+          "need": "Узнать, какой ресурс запрашивает биолог",
+          "contrast": "Потребность биолога ≠ решение о выдаче",
+          "id": "D17-R1"
+        },
+        {
+          "de": "Nein. Der Arzt braucht das Wasser.",
+          "tags": [
+            {
+              "group": "01",
+              "form": "Nein"
+            },
+            {
+              "group": "07",
+              "form": "Arzt"
+            },
+            {
+              "group": "05",
+              "form": "braucht"
+            },
+            {
+              "group": "08",
+              "form": "Wasser"
+            }
+          ],
+          "context": "resource-dispute",
+          "need": "Узнать, что снабженец отказывает из-за медицинской потребности",
+          "contrast": "Ресурс нужен медику ≠ идея биолога бессмысленна",
+          "id": "D17-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Ich finde das nicht gut.",
+          "slots": [
+            {
+              "group": "17",
+              "meaning": "собственное отношение"
+            },
+            {
+              "group": "06",
+              "meaning": "отрицание оценки"
+            }
+          ],
+          "context": "personal-reflection",
+          "goal": "При желании высказать Лене оценку, не вмешиваясь в полномочия снабженца",
+          "contrast": "Моё мнение ≠ приказ",
+          "kind": "dialog",
+          "required": false,
+          "id": "D17-P1"
+        }
+      ]
+    },
+    {
+      "day": 18,
+      "phase": "P5",
+      "goal": "Сопоставить короткую прошлую запись с текущим фактом",
+      "r": [
+        {
+          "de": "Gestern war die Tür zu.",
+          "tags": [
+            {
+              "group": "28",
+              "form": "war"
+            },
+            {
+              "group": "15",
+              "form": "Gestern"
+            },
+            {
+              "group": "06",
+              "form": "zu"
+            }
+          ],
+          "context": "archive-past-a",
+          "need": "Понять прошлое состояние прохода",
+          "contrast": "Вчера ≠ сегодня",
+          "id": "D18-R1"
+        },
+        {
+          "de": "Lena hat den Schlüssel gefunden.",
+          "tags": [
+            {
+              "group": "28",
+              "form": "hat"
+            },
+            {
+              "group": "28",
+              "form": "gefunden"
+            },
+            {
+              "group": "02",
+              "form": "Schlüssel"
+            }
+          ],
+          "context": "archive-past-b",
+          "need": "Понять, кто ранее нашёл ключ",
+          "contrast": "Лена ≠ герой",
+          "id": "D18-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Die Tür ist jetzt offen.",
+          "slots": [
+            {
+              "group": "06",
+              "meaning": "сообщить текущее состояние"
+            },
+            {
+              "group": "15",
+              "meaning": "указать сейчас"
+            }
+          ],
+          "context": "archive-compare",
+          "goal": "Сообщить актуальное наблюдение, не выдавая его за прошлое",
+          "contrast": "Текущее ≠ записанное прошлое",
+          "kind": "dialog",
+          "required": true,
+          "id": "D18-P1"
+        }
+      ]
+    },
+    {
+      "day": 19,
+      "phase": "P5",
+      "goal": "Передать собственный выполненный результат",
+      "r": [
+        {
+          "de": "Ich habe die Lampe gefunden.",
+          "tags": [
+            {
+              "group": "28",
+              "form": "habe"
+            },
+            {
+              "group": "28",
+              "form": "gefunden"
+            },
+            {
+              "group": "02",
+              "form": "Lampe"
+            }
+          ],
+          "context": "shift-past-report",
+          "need": "Узнать чужой выполненный результат",
+          "contrast": "Лена/другой работник и герой — разные исполнители",
+          "id": "D19-R1"
+        },
+        {
+          "de": "Der Sensor ist gut.",
+          "tags": [
+            {
+              "group": "06",
+              "form": "gut"
+            }
+          ],
+          "context": "status-now",
+          "need": "Сравнить состояние сейчас с результатом работ",
+          "contrast": "Хорошее состояние ≠ сообщение о выполненной проверке",
+          "id": "D19-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Ich habe den Sensor geprüft.",
+          "slots": [
+            {
+              "group": "28",
+              "meaning": "сообщить собственное завершённое действие"
+            }
+          ],
+          "context": "repair-result",
+          "goal": "После самостоятельной проверки сообщить о сделанном",
+          "contrast": "Нашёл лампу ≠ проверил датчик",
+          "kind": "dialog",
+          "required": true,
+          "id": "D19-P1"
+        }
+      ]
+    },
+    {
+      "day": 20,
+      "phase": "P5",
+      "goal": "Согласовать дальнейшую проверку без повторной аварии",
+      "r": [
+        {
+          "de": "Morgen prüfen wir die Tür wieder.",
+          "tags": [
+            {
+              "group": "15",
+              "form": "Morgen"
+            },
+            {
+              "group": "29",
+              "form": "wieder"
+            },
+            {
+              "group": "10",
+              "form": "Tür"
+            }
+          ],
+          "context": "future-test",
+          "need": "Понять повторную проверку на завтра",
+          "contrast": "Повторное наблюдение ≠ повторная поломка",
+          "id": "D20-R1"
+        },
+        {
+          "de": "Nächste Woche arbeitet Lena.",
+          "tags": [
+            {
+              "group": "29",
+              "form": "Nächste Woche"
+            },
+            {
+              "group": "14",
+              "form": "arbeitet"
+            }
+          ],
+          "context": "future-shift",
+          "need": "Понять более далёкий график другого человека",
+          "contrast": "Завтра ≠ на следующей неделе",
+          "id": "D20-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Morgen prüfen wir den Sensor wieder.",
+          "slots": [
+            {
+              "group": "15",
+              "meaning": "назначить завтра"
+            },
+            {
+              "group": "29",
+              "meaning": "назначить повторную проверку"
+            }
+          ],
+          "context": "future-test-planning",
+          "goal": "Согласовать повторную проверку другого узла по реальному риску",
+          "contrast": "Дверь ≠ датчик, план ≠ авария",
+          "kind": "dialog",
+          "required": true,
+          "id": "D20-P1"
+        }
+      ]
+    },
+    {
+      "day": 21,
+      "phase": "P6",
+      "goal": "Сообщить итог и отдельно договориться о времени после проверки",
+      "r": [
+        {
+          "de": "Die Tür ist offen. Der Sensor ist gut.",
+          "tags": [
+            {
+              "group": "06",
+              "form": "offen"
+            },
+            {
+              "group": "06",
+              "form": "gut"
+            },
+            {
+              "group": "10",
+              "form": "Tür"
+            }
+          ],
+          "context": "final-inspection",
+          "need": "Сверить два текущих состояния",
+          "contrast": "Общий положительный вывод требует оба факта",
+          "id": "D21-R1"
+        },
+        {
+          "de": "Lena kommt morgen um drei.",
+          "tags": [
+            {
+              "group": "15",
+              "form": "morgen"
+            },
+            {
+              "group": "15",
+              "form": "drei"
+            }
+          ],
+          "context": "final-social",
+          "need": "Узнать, когда коллега будет свободна для разговора",
+          "contrast": "Три ≠ четыре; рабочий итог ≠ личный план",
+          "id": "D21-R2"
+        }
+      ],
+      "p": [
+        {
+          "example": "Ich habe die Tür geprüft.",
+          "slots": [
+            {
+              "group": "28",
+              "meaning": "самостоятельно сообщить о другом завершённом действии"
+            }
+          ],
+          "context": "final-report",
+          "goal": "Передать капитану факт о проверенной двери",
+          "contrast": "Отчёт о двери ≠ отчёт о датчике",
+          "kind": "dialog",
+          "required": true,
+          "id": "D21-P1"
+        },
+        {
+          "example": "Nächste Woche habe ich frei.",
+          "slots": [
+            {
+              "group": "29",
+              "meaning": "самостоятельно сообщить личный план на следующую неделю"
+            },
+            {
+              "group": "14",
+              "meaning": "назвать свободное время"
+            }
+          ],
+          "context": "post-shift-personal",
+          "goal": "В разговоре с Леной выразить независимый личный план",
+          "contrast": "Личный план ≠ требование к капитану",
+          "kind": "dialog",
+          "required": true,
+          "id": "D21-P2"
+        }
+      ]
+    }
+  ]
+}
